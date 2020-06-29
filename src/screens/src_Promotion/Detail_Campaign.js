@@ -24,9 +24,7 @@ import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Detail_Campaign);
@@ -37,19 +35,10 @@ function Detail_Campaign(props) {
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dataService, setDataService] = useState(undefined);
-    var dataBody = {
-        id_category: '',
-        id_campaign: id_campaign,
-    };
+    var dataBody = { id_category: '', id_campaign: id_campaign, };
     var uri = `${finip}/campaign/campaign_detail`;
-    let getData = (value) => {
-        setActiveDataService(false);
-        setDataService(value);
-    };
-    let getSource = (value) => {
-        setActiveGetCurrentUser(false);
-        setCurrentUser(value.currentUser);
-    };
+    let getData = (value) => { setActiveDataService(false); setDataService(value); };
+    let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); };
     useEffect(() => {
         !activeGetCurrentUser && activeDataService && GetServices({ dataBody, uriPointer: uri, getDataSource: value => getData(value), });
     }, [!activeGetCurrentUser && activeDataService]);
@@ -73,13 +62,11 @@ export let Detail_Description = (props) => {
     const { activeDataService, dataService } = props;
     return dataService?.length > 0 ?
         <View style={stylesDeal.Head_BoxImageDetail}>
-            {dataService.map((value, index) => {
-                return <View key={index}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name} </Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{value.description}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>วันหมดอายุ : {value.end}</Text>
-                </View>;
-            })}
+            {dataService.map((value, index) => <View key={index}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name} </Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{value.description}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>วันหมดอายุ : {value.end}</Text>
+            </View>)}
         </View> :
         activeDataService && <View style={stylesDeal.Head_BoxImageDetail}>
             <View>
@@ -93,15 +80,15 @@ export let Detail_Description = (props) => {
 export let New_year_Campaign = (props) => {
     const { dataService } = props;
     // const dataService = []
-    let emptyBox = [0, 1, 2, 3, 4, 5, 6].map((_, index) => {
-        return <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#CCCCCC' }]}>
-            <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
-                <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                </View>
+    let emptyBox = GenArreyNumber(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
+    { borderColor: '#CCCCCC' }]}>
+        <View style={[stylesMain.ItemCenter,
+        { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
+            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
             </View>
-            <View style={{ height: 55, paddingHorizontal: 3 }} />
-        </View>;
-    });
+        </View>
+        <View style={{ height: 55, paddingHorizontal: 3 }} />
+    </View>);
     return <View style={stylesMain.FrameBackground}>
         <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ปีใหม่ช๊อปของใหม่</Text>
@@ -124,15 +111,15 @@ export let New_year_Campaign = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> New_year_NewB
 export let New_year_Product = (props) => {
     const { dataService } = props;
-    let emptyBox = [0, 1, 2, 3, 4, 5, 6].map((_, index) => {
-        return <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#CCCCCC' }]}>
-            <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
-                <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                </View>
+    let emptyBox = GenArreyNumber(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
+    { borderColor: '#CCCCCC' }]}>
+        <View style={[stylesMain.ItemCenter,
+        { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
+            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
             </View>
-            <View style={{ height: 55, paddingHorizontal: 3 }} />
-        </View>;
-    });
+        </View>
+        <View style={{ height: 55, paddingHorizontal: 3 }} />
+    </View>);
     return <View style={stylesMain.FrameBackground}>
         <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 180 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>  ปีใหม่แล้วไปลองของใหม่กัน</Text>
@@ -162,53 +149,41 @@ export let Store_Campaign = (props) => {
     let emptyBox = <View style={[stylesDeal.Store_Sale_BoxA_Carousel, { backgroundColor: '#ECECEC' }]}>
         <View style={stylesDeal.Store_Sale_Image} ></View>
     </View>;
-    let emptyBox2 = [0, 1].map((_, index) => {
-        return <View key={index} style={[stylesDeal.Store_Sale_BoxA_image, { backgroundColor: '#ECECEC' }]}>
-            <View style={stylesDeal.Store_Sale_Image}></View>
-        </View>;
-    });
-    let emptyBox3 = [0, 1].map((_, index) => {
-        return <View key={index} style={[stylesDeal.Store_Sale_BoxB_image, { backgroundColor: '#ECECEC' }]}>
-            <View style={stylesDeal.Store_Sale_Image}></View>
-        </View>;
-    });
-    dataService?.campaign_banner_1?.map((value) => {
-        return campaign_banner_1 = `${finip}/${value.image_path}/${value.image}`;
-    });
-    dataService?.campaign_banner_2?.map((value) => {
-        return campaign_banner_2.push(`${finip}/${value.image_path}/${value.image}`);
-    });
-    dataService?.campaign_banner_3?.map((value) => {
-        return campaign_banner_3.push(`${finip}/${value.image_path}/${value.image}`);
-    });
+    let emptyBox2 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxA_image,
+    { backgroundColor: '#ECECEC' }]}>
+        <View style={stylesDeal.Store_Sale_Image}></View>
+    </View>);
+    let emptyBox3 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxB_image,
+    { backgroundColor: '#ECECEC' }]}>
+        <View style={stylesDeal.Store_Sale_Image}></View>
+    </View>);
+    dataService?.campaign_banner_1?.map((value) => campaign_banner_1 = `${finip}/${value.image_path}/${value.image}`);
+    dataService?.campaign_banner_2?.map((value) => campaign_banner_2.push(`${finip}/${value.image_path}/${value.image}`));
+    dataService?.campaign_banner_3?.map((value) => campaign_banner_3.push(`${finip}/${value.image_path}/${value.image}`));
     let Store_Sale_Box = <View style={stylesDeal.Store_Sale}>
         <View style={stylesDeal.Store_Sale_Box}>
             {/* BoxA */}
             <View style={stylesDeal.Store_Sale_BoxA}>
                 {dataService?.campaign_banner_1 ?
                     <View style={stylesDeal.Store_Sale_BoxA_Carousel}>
-                        <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: campaign_banner_1, }} resizeMode={FastImage.resizeMode.stretch} />
-                    </View> :
-                    emptyBox}
+                        <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: campaign_banner_1, }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View> : emptyBox}
                 <View style={stylesDeal.Store_Sale_BoxA_Boximage}>
                     {campaign_banner_3?.length > 0 ?
-                        campaign_banner_3.map((value, index) => {
-                            return <View key={index} style={stylesDeal.Store_Sale_BoxA_image}>
-                                <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
-                            </View>;
-                        }) :
-                        emptyBox2}
+                        campaign_banner_3.map((value, index) => <View key={index} style={stylesDeal.Store_Sale_BoxA_image}>
+                            <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }}
+                                resizeMode={FastImage.resizeMode.stretch} />
+                        </View>) : emptyBox2}
                 </View>
             </View>
             {/* BoxB */}
             <View style={stylesDeal.Store_Sale_BoxB_Boximage}>
                 {campaign_banner_2?.length > 0 ?
-                    campaign_banner_2.map((value, index) => {
-                        return <View key={index} style={stylesDeal.Store_Sale_BoxB_image}>
-                            <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
-                        </View>;
-                    }) :
-                    emptyBox3}
+                    campaign_banner_2.map((value, index) => <View key={index} style={stylesDeal.Store_Sale_BoxB_image}>
+                        <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }}
+                            resizeMode={FastImage.resizeMode.stretch} />
+                    </View>) : emptyBox3}
             </View>
         </View>
     </View>;

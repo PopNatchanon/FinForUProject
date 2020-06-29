@@ -26,9 +26,7 @@ import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../../
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CoinScreen);
@@ -39,20 +37,14 @@ function CoinScreen(props) {
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dataService, setDataService] = useState(undefined);
     var uri = `${finip}/coupon/fin_coin_mobile`
-    let getData = (value) => {
-        setActiveDataService(false);
-        setDataService(value);
-    };
-    let getSource = (value) => {
-        setActiveGetCurrentUser(false);
-        setCokie(value.keycokie);
-        setCurrentUser(value.currentUser);
-    };
+    let getData = (value) => { setActiveDataService(false); setDataService(value); };
+    let getSource = (value) => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true, })
     }, [activeGetCurrentUser]);
     useEffect(() => {
-        !activeGetCurrentUser && activeDataService && cokie && GetServices({ uriPointer: uri, Authorization: cokie, getDataSource: value => getData(value), });
+        !activeGetCurrentUser && activeDataService && cokie &&
+            GetServices({ uriPointer: uri, Authorization: cokie, getDataSource: value => getData(value), });
     }, [!activeGetCurrentUser && activeDataService && cokie]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
@@ -88,19 +80,12 @@ export let CoinCollect = (props) => {
         device: "mobile_device",
         id_promotion_voucher: id_promotion ?? ''
     };
-    let getData = (value) => {
-        setActiveGetServices(false);
-        setDataService(value);
-    };
-    let getPathlist = (value) => {
-        setPathlist(value.selectedIndex);
-    };
-    let getVoucher = (value) => {
-        setActiveGetServices(true);
-        setId_promotion(value);
-    };
+    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+    let getPathlist = (value) => { setPathlist(value.selectedIndex); };
+    let getVoucher = (value) => { setActiveGetServices(true); setId_promotion(value); };
     useEffect(() => {
-        activeGetServices && currentUser && cokie && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) });
+        activeGetServices && currentUser && cokie &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) });
     }, [activeGetServices && currentUser && cokie]);
     return <View>
         <View style={stylesProfile.CoinCollect}>
@@ -120,9 +105,8 @@ export let CoinCollect = (props) => {
                 inactiveFontColor={mainColor} widthBox={98} fontSizeStyle={12} />
         </View>
         <View>
-            {dataService?.coupon?.map((value, index) => {
-                return <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={value => getVoucher(value)} dataService={value} key={index} />
-            })}
+            {dataService?.coupon?.map((value, index) => <CoinPageBody currentUser={currentUser} cokie={cokie} getVoucher={value =>
+                getVoucher(value)} dataService={value} key={index} />)}
         </View>
     </View>;
 };
@@ -139,31 +123,38 @@ export let CoinPageBody = (props) => {
     };
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`;
     var uri = `${finip}/coupon/show_voucher`;
-    let getData = (value) => {
-        setActiveGetServices(false);
-        setDataService2(value);
-    };
+    let getData = (value) => { setActiveGetServices(false); setDataService2(value); };
     useEffect(() => {
-        activeGetServices && currentUser && cokie && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) });
+        activeGetServices && currentUser && cokie &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) });
     }, [activeGetServices && currentUser && cokie]);
     let DetailCoin = () => {
         var dataMySQL2 = `${finip}/${dataService.image_path}/${dataService.image}`;
         return <View style={{ height: '100%' }}>
             <View style={{ width: '100%', height: 150, marginBottom: 8, }}>
-                <FastImage style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]} source={{ uri: dataMySQL2, }} resizeMode={FastImage.resizeMode.stretch} />
+                <FastImage style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]} source={{ uri: dataMySQL2, }}
+                    resizeMode={FastImage.resizeMode.stretch} />
             </View>
             <ScrollView>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataService.detail}</Text>
             </ScrollView>
             <View style={[stylesMain.FlexRow, { justifyContent: 'center', height: 40, paddingTop: 8, }]}>
-                <TouchableOpacity activeOpacity={1} onPress={() => { DetailCoinSheet.current.close() }}>
+                <TouchableOpacity activeOpacity={1} onPress={() => DetailCoinSheet.current.close()}>
                     <View style={{ paddingHorizontal: 25, borderColor: mainColor, borderWidth: 1, borderRadius: 5 }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>ยกเลิก</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { dataService.my_coupon == 'yes' ? null : dataService.my_coupon == 'no' ? getVoucher(dataService.id_promotion) : null }}>
-                    <View style={{ borderColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ? mainColor : '#DC3545', borderWidth: 1, marginLeft: 10, backgroundColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ? mainColor : '#ECECEC', borderRadius: 5, paddingHorizontal: 20 }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, { color: dataService.my_coupon == 'yes' ? '#111111' : dataService.my_coupon == 'no' ? '#FFFFFF' : '#DC3545', }]}>{dataService.my_coupon == 'yes' ? 'แลกแล้ว' : dataService.my_coupon == 'no' ? `แลก ${dataService.coin_exchange} coin` : `ใช้ ${dataService.coin_exchange} coin`}</Text>
+                <TouchableOpacity onPress={() =>
+                    dataService.my_coupon == 'yes' ? null : dataService.my_coupon == 'no' ? getVoucher(dataService.id_promotion) : null}>
+                    <View style={{
+                        borderColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ? mainColor : '#DC3545',
+                        borderWidth: 1, marginLeft: 10, backgroundColor: dataService.my_coupon == 'yes' ? '#ECECEC' :
+                            dataService.my_coupon == 'no' ? mainColor : '#ECECEC', borderRadius: 5, paddingHorizontal: 20
+                    }}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
+                            color: dataService.my_coupon == 'yes' ? '#111111' : dataService.my_coupon == 'no' ? '#FFFFFF' : '#DC3545',
+                        }]}>{dataService.my_coupon == 'yes' ? 'แลกแล้ว' : dataService.my_coupon == 'no' ?
+                            `แลก ${dataService.coin_exchange} coin` : `ใช้ ${dataService.coin_exchange} coin`}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -172,22 +163,32 @@ export let CoinPageBody = (props) => {
     return <View style={stylesMain.FrameBackground}>
         <View style={{ alignItems: 'center' }}>
             <View>
-                <BottomSheet ref={DetailCoinSheet} height={500} duration={250} customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
+                <BottomSheet ref={DetailCoinSheet} height={500} duration={250}
+                    customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
                     {DetailCoin()}
                 </BottomSheet>
                 <View style={ststylePromotionDeal.CampaignBody}>
-                    <TouchableOpacity activeOpacity={1} onPress={() => { DetailCoinSheet.current.open() }}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => DetailCoinSheet.current.open()}>
                         <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]}>
                             <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxProduct1Image} />
                         </View>
                         <View style={[ststylePromotionDeal.CampaignBody_Box]}>
                             <View style={[ststylePromotionDeal.CampaignBody_BoxText, { marginLeft: 4 }]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{dataService.detail}</Text>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                                    {dataService.detail}</Text>
                                 <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ {dataService.end_period}</Text>
                             </View>
                             <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
-                                <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter, { backgroundColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ? mainColor : '#ECECEC' }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, { color: dataService.my_coupon == 'yes' ? '#111111' : dataService.my_coupon == 'no' ? '#FFFFFF' : '#DC3545' }]}>{dataService.my_coupon == 'yes' ? 'แลกแล้ว' : dataService.my_coupon == 'no' ? `แลก ${dataService.coin_exchange} coin` : `ใช้ ${dataService.coin_exchange} coin`}</Text>
+                                <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter, {
+                                    backgroundColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ?
+                                        mainColor : '#ECECEC'
+                                }]}>
+                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize8, {
+                                        color: dataService.my_coupon == 'yes' ? '#111111' : dataService.my_coupon == 'no' ? '#FFFFFF' :
+                                            '#DC3545'
+                                    }]}>{dataService.my_coupon == 'yes' ? 'แลกแล้ว' :
+                                        dataService.my_coupon == 'no' ? `แลก ${dataService.coin_exchange} coin` :
+                                            `ใช้ ${dataService.coin_exchange} coin`}</Text>
                                 </View>
                             </View>
                         </View>

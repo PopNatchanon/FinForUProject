@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
+import { connect, } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -17,92 +19,53 @@ import { ProductBox, LoadingScreen, GetData, GetServices, NavigationNavigateScre
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Recommend_Brand extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeDataService: true,
-            activeGetCurrentUser: true,
-        };
-    }
-    getSource = (value) => {
-        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, });
-    }
-    getData = (dataService) => {
-        this.setState({ dataService, activeDataService: false })
-    }
-    render() {
-        const { navigation } = this.props
-        const { activeGetCurrentUser, activeDataService, currentUser, dataService, } = this.state
-        const uri = `${finip}/brand/all_brand`;
-        activeGetCurrentUser == false && activeDataService == true &&
-            GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this), })
-        activeGetCurrentUser == true &&
-            GetData({ getSource: this.getSource.bind(this), getUser: true, })
-        return (
-            <SafeAreaView style={stylesMain.SafeAreaView}>
-                {
-                    (activeGetCurrentUser == true || activeDataService == true) &&
-                    <LoadingScreen key='LoadingScreen' />
-                }
-                <AppBar1 {...this.props} titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar />
-                <ScrollView>
-                    {
-                        dataService && dataService.store.map((value, index) => {
-                            return (
-                                <Recommend_Brand_Store {...this.props} key={index} dataService={value} />
-                            )
-                        })
-                    }
-                </ScrollView>
-                <ExitAppModule {...this.props} />
-            </SafeAreaView>
-        );
-    }
+const mapStateToProps = (state) => ({
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Brand);
+function Recommend_Brand(props) {
+    const [activeDataService, setActiveDataService] = useState(true);
+    const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [dataService, setDataService] = useState(undefined);
+    var uri = `${finip}/brand/all_brand`;
+    let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); };
+    let getData = (value) => { setActiveDataService(false); setDataService(value); };
+    useEffect(() => {
+        activeDataService && !activeGetCurrentUser && GetServices({ uriPointer: uri, getDataSource: (value) => getData(value), });
+    }, [activeDataService && !activeGetCurrentUser]);
+    useEffect(() => {
+        activeGetCurrentUser && GetData({ getSource: (value) => getSource(value), getUser: true, });
+    }, [activeGetCurrentUser]);
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
+        {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
+        <AppBar1 {...props} titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar />
+        <ScrollView>
+            {dataService?.store?.map((value, index) => <Recommend_Brand_Store {...props} key={index} dataService={value} />)}
+        </ScrollView>
+        <ExitAppModule {...props} />
+    </SafeAreaView>;
 }
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Brand_Store
-export class Recommend_Brand_Store extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-        };
-    }
-    render() {
-        const { navigation, dataService } = this.props
-        const image_header = `${finip}/${dataService.image_head_path}/${dataService.image_head}`;
-        const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`;
-        return (
-            <View style={stylesMain.FrameBackground}>
-                <FastImage
-                    source={{
-                        uri: image_header,
-                    }}
-                    style={stylesTopic.Brand_ImageBackground}
-                    resizeMode={FastImage.resizeMode.stretch} />
-
-                <View style={stylesTopic.Recommend_Brand_StoreBoxPro}>
-                    <View style={stylesTopic.Recommend_Brand_Pro}>
-                        <FastImage
-                            style={stylesTopic.Recommend_Brand_Proimage}
-                            source={{
-                                uri: image_store,
-                            }}
-                            resizeMode={FastImage.resizeMode.contain} />
-                    </View>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
-                        goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation
-                    })}>
-                        <View style={[stylesTopic.Recommend_Brand_ProButton]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>
-                        </View>
-                    </TouchableOpacity>
-                </View>
-                {
-                    dataService && dataService.product &&
-                    <FlatProduct {...this.props} custumNavigation='Recommend_Brand_Store' dataService={dataService.product}
-                        mode='row3' nameFlatProduct='Recommend_Brand_Store' nameSize={14} priceSize={15} dispriceSize={15} />
-                }
+export let Recommend_Brand_Store = (props) => {
+    const { navigation, dataService } = props;
+    const image_header = `${finip}/${dataService.image_head_path}/${dataService.image_head}`;
+    const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`;
+    return <View style={stylesMain.FrameBackground}>
+        <FastImage source={{ uri: image_header, }} style={stylesTopic.Brand_ImageBackground} resizeMode={FastImage.resizeMode.stretch} />
+        <View style={stylesTopic.Recommend_Brand_StoreBoxPro}>
+            <View style={stylesTopic.Recommend_Brand_Pro}>
+                <FastImage style={stylesTopic.Recommend_Brand_Proimage} source={{ uri: image_store, }}
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
-        );
-    }
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation })}>
+                <View style={[stylesTopic.Recommend_Brand_ProButton]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>
+                </View>
+            </TouchableOpacity>
+        </View>
+        {dataService?.product && <FlatProduct {...props} custumNavigation='Recommend_Brand_Store' dataService={dataService.product}
+            mode='row3' nameFlatProduct='Recommend_Brand_Store' nameSize={14} priceSize={15} dispriceSize={15} />}
+    </View>;
 }

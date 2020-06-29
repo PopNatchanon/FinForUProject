@@ -1050,245 +1050,114 @@ export function ProductBox(props) {
     const {
         dataService, dispriceSize, mode, navigation, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath,
         prepath, priceSize, radiusBox, typeip, getDataService,
-    } = props
-    onShow && ([console.log('ProductBoxRender'), console.log(dataService)])
+    } = props;
+    onShow && ([console.log('ProductBoxRender'), console.log(dataService)]);
     return dataService.map((item, index) => {
-        onShow && ([console.log('ProductBoxRender|||map'), console.log(item)])
-        if (index < (numberOfItem ? numberOfItem : dataService.length)) {
-            var discount
-            item.discount && (
-                discount = item.discount.replace("%", "")
-            )
+        onShow && ([console.log('ProductBoxRender|||map'), console.log(item)]);
+        if (index < (numberOfItem ?? dataService.length)) {
+            var discount;
+            item.discount && (discount = item.discount.replace("%", ""));
             var dataMySQL = typeip == 'ip' ? `${ip}/${(prepath ? postpath ? `${prepath}/${item.image_path}/${postpath}` :
                 `${prepath}/${item.image_path}` : postpath ? `${item.image_path}/${postpath}` : `${item.image_path}`)}` :
-                `${finip}/${(item.path_image_product ? item.path_image_product :
-                    item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
-            return (
-                <TouchableOpacity
-                    activeOpacity={1}
-                    key={index}
-                    onPress={
-                        noNavigation ?
-                            () => getDataService({
-                                id_product: item.id_product, name: item.name_product ? item.name_product : item.name
-                            }) :
-                            () => NavigationNavigateScreen({
-                                goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation
-                            })}>
-                    <View style={[stylesMain.ItemCenter,
-                    mode == 'row4col1' ?
-                        stylesMain.BoxProduct5Box :
-                        mode == 'row3col2' ?
-                            stylesMain.BoxProduct1Box2 :
-                            mode == 'row3col2_2' ?
-                                stylesMain.BoxProduct4Box :
-                                mode == 'row3colall' ?
-                                    stylesMain.BoxProduct2Box :
-                                    mode == 'row2colall' ?
-                                        stylesMain.BoxProduct3Box :
-                                        mode == '5item' ?
-                                            stylesDeal.Deal_Exclusive_Box :
-                                            stylesMain.BoxProduct1Box,
-                    {
-                        marginBottom: mode == 'row3col2_2' ? 4 : null,
-                        borderRadius: radiusBox ? radiusBox : 0
-                    }
-                    ]}>
-                        <View style={[stylesMain.ItemCenter,
-                        mode == 'row4col1' ?
-                            stylesMain.BoxProduct5ImageofLines :
-                            mode == 'row3colall' ?
-                                stylesMain.BoxProduct2ImageofLines :
-                                mode == 'row2colall' ?
-                                    stylesMain.BoxProduct3ImageofLines :
-                                    mode == '5item' ?
-                                        stylesMain.BoxProduct1ImageofLines2 :
-                                        stylesMain.BoxProduct1ImageofLines
-                        ]}>
-                            <FastImage
-                                source={{
-                                    uri: dataMySQL,
-                                }}
-                                style={[stylesMain.BoxProduct2Image,
-                                {
-                                    borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                                    borderTopRightRadius: radiusBox ? radiusBox : 0,
-                                    marginVertical: height * 0.015
-                                }
-                                ]}
-                                resizeMode={FastImage.resizeMode.contain} />
+                `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
+            return <TouchableOpacity activeOpacity={1} key={index} onPress={noNavigation ?
+                () => getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
+                () => NavigationNavigateScreen({ goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation })}>
+                <View style={[stylesMain.ItemCenter, mode == 'row4col1' ?
+                    stylesMain.BoxProduct5Box : mode == 'row3col2' ?
+                        stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ?
+                            stylesMain.BoxProduct4Box : mode == 'row3colall' ?
+                                stylesMain.BoxProduct2Box : mode == 'row2colall' ?
+                                    stylesMain.BoxProduct3Box : mode == '5item' ?
+                                        stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
+                    marginBottom: mode == 'row3col2_2' ? 4 : null,
+                    borderRadius: radiusBox ?? 0
+                }]}>
+                    <View style={[stylesMain.ItemCenter, mode == 'row4col1' ?
+                        stylesMain.BoxProduct5ImageofLines : mode == 'row3colall' ?
+                            stylesMain.BoxProduct2ImageofLines : mode == 'row2colall' ?
+                                stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
+                                    stylesMain.BoxProduct1ImageofLines2 : stylesMain.BoxProduct1ImageofLines]}>
+                        <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
+                            borderTopLeftRadius: radiusBox ?? 0,
+                            borderTopRightRadius: radiusBox ?? 0,
+                            marginVertical: height * 0.015
+                        }]} resizeMode={FastImage.resizeMode.contain} />
+                    </View>
+                    <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3 }}>
+                        <View style={[stylesMain.BoxProduct1NameofLines]}>
+                            <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>{item.name_product ?? item.name}</Text>
                         </View>
-                        <View style={{
-                            height:
-                                mode == 'row4col1' ?
-                                    55 :
-                                    60,
-                            paddingHorizontal: 3
-                        }}>
-                            <View style={[
-                                stylesMain.BoxProduct1NameofLines
-                            ]}>
-                                <Text numberOfLines={1} style={[
-                                    stylesFont.FontFamilySemiBold,
-                                    {
-                                        fontSize: nameSize ? nameSize : 16,
-                                    }
-                                ]}>
-                                    {item.name_product ? item.name_product : item.name}</Text>
+                        <View style={[stylesMain.BoxProduct1PriceofLines,]}>
+                            <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
+                                <NumberFormat value={item.last_price ?? item.price_discount ?? item.full_price ?? item.price}
+                                    fixedDecimalScale decimalScale={0} displayType={'text'} thousandSeparator={true} prefix={'฿'}
+                                    renderText={value =>
+                                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>{value}</Text>} />
+                                {item.discount_tag ?
+                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{`-${item.discount_tag}`}</Text>
+                                    </View> :
+                                    discount > 0 && <NumberFormat value={item.discount && item.discount} displayType={'text'}
+                                        thousandSeparator={true} suffix={'%'} renderText={value =>
+                                            value && <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{`-${value}`}</Text>
+                                            </View>} />}
                             </View>
-                            <View style={[
-                                stylesMain.BoxProduct1PriceofLines,
-                            ]}>
-                                <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                                    <NumberFormat
-                                        value={
-                                            item.price_discount ?
-                                                item.price_discount :
-                                                item.full_price ?
-                                                    item.full_price :
-                                                    item.price
-                                        }
-                                        fixedDecimalScale
-                                        decimalScale={0}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePrice,
-                                                stylesFont.FontFamilyBoldBold, {
-                                                    fontSize: priceSize ? priceSize : 14,
-                                                }
-                                            ]}>
-                                                {value}</Text>
-                                        } />
-                                    {
-                                        discount > 0 &&
-                                        <NumberFormat
-                                            value={item.discount && item.discount}
-                                            displayType={'text'}
-                                            thousandSeparator={true}
-                                            suffix={'%'}
-                                            renderText={
-                                                value =>
-                                                    value &&
-                                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                            color: '#FFFFFF'
-                                                        }]}>
-                                                            {`-${value}`}</Text>
-                                                    </View>
-                                            } />
-                                    }
-                                </View>
-                                {
-                                    item.price_discount &&
-                                    <NumberFormat
-                                        value={item.price}
-                                        fixedDecimalScale
-                                        decimalScale={0}
-                                        displayType={'text'}
-                                        thousandSeparator={true}
-                                        prefix={'฿'}
-                                        renderText={value =>
-                                            <Text style={[
-                                                stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
-                                                    marginTop: -4,
-                                                    fontSize: dispriceSize ? dispriceSize : 14
-                                                }
-                                            ]}>
-                                                {value}</Text>
-                                        } />
-                                }
-                            </View>
+                            {item.price_discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
+                                thousandSeparator={true} prefix={'฿'} renderText={value =>
+                                    <Text style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>{value}</Text>} />}
                         </View>
                     </View>
-                </TouchableOpacity>
-            );
-        }
-    })
-}
+                </View>
+            </TouchableOpacity>;
+        };
+    });
+};
 ///----------------------------------------------------------------------------------------------->>>> FlatComponent
 export function FlatComponent(props) {
-    const { animatedView, component, componentPage, } = props
+    const { animatedView, component, componentPage, } = props;
     const AFlatList = Animatable.createAnimatableComponent(FlatList);
-    return (
-        component && (
-            animatedView ?
-                <Animated.FlatList
-                    // ref={c => this.FlatMainScreen = c}
-                    {...props}
-                    scrollEnabled={true}
-                    data={component}
-                    keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
-                    renderItem={(value) => value.item.renderComponent}
-                /> :
-                <FlatList
-                    // ref={c => this.FlatMainScreen = c}
-                    {...props}
-                    scrollEnabled={true}
-                    data={component}
-                    keyExtractor={(value, index) => `Component:${componentPage ? componentPage : index}_${value.nameComponent}`}
-                    renderItem={(value) => value.item.renderComponent}
-                />
-        )
-    )
-}
+    return component && animatedView ?
+        <Animated.FlatList {...props} scrollEnabled={true} data={component} keyExtractor={(value, index) => `Component:${componentPage ?? index}_${value.nameComponent}`}
+            renderItem={(value) => value.item.renderComponent} /> :
+        <FlatList {...props} scrollEnabled={true} data={component} keyExtractor={(value, index) => `Component:${componentPage ?? index}_${value.nameComponent}`}
+            renderItem={(value) => value.item.renderComponent} />;
+};
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct
 export function FlatProduct(props) {
-    const { dataService, nameFlatProduct, noMarginTop, numberOfColumn, } = props
-    var itemT = []
+    const { dataService, nameFlatProduct, noMarginTop, numberOfColumn, } = props;
+    var itemT = [];
     if (numberOfColumn == 2 && dataService && dataService.length > 0)
         for (var n = 0; n < dataService.length; n += 2) {
             itemT.push({
                 item: dataService[n],
                 item2: dataService[n + 1]
-            })
-        }
-    return (
-        <FlatList
-            horizontal
-            scrollEnabled={true}
-            initialNumToRender={10}
-            data={numberOfColumn == 2 ? itemT : dataService}
-            keyExtractor={(value, index) => (nameFlatProduct ? nameFlatProduct : 'Product') + index}
-            // ListHeaderComponent={this.renderHeader}
-            ListHeaderComponentStyle={{
-                flexDirection: 'column'
-            }}
-            renderItem={(value) =>
-                <View style={{
-                    height: 'auto',
-                    marginTop: noMarginTop != true && numberOfColumn == 2 ? 3 : undefined,
-                }}>
-                    {
-                        (numberOfColumn == 2 ? value.item.item : value.item) &&
-                        <RenderProduct {...props} item={numberOfColumn == 2 ? value.item.item : value.item} />
-                    }
-                    {
-                        numberOfColumn == 2 && value.item.item2 &&
-                        <RenderProduct {...props} item={value.item.item2} />
-                    }
-                </View>
-            }
-        />
-    )
-}
+            });
+        };
+    return <FlatList horizontal scrollEnabled={true} initialNumToRender={10} data={numberOfColumn == 2 ? itemT : dataService}
+        keyExtractor={(value, index) => (nameFlatProduct ?? 'Product') + index} ListHeaderComponentStyle={{ flexDirection: 'column' }}
+        renderItem={(value) =>
+            <View style={{ height: 'auto', marginTop: noMarginTop != true && numberOfColumn == 2 ? 3 : undefined, }}>
+                {(numberOfColumn == 2 ? value.item.item : value.item) && <RenderProduct {...props} item={numberOfColumn == 2 ? value.item.item : value.item} />}
+                {numberOfColumn == 2 && value.item.item2 && <RenderProduct {...props} item={value.item.item2} />}
+            </View>} />;
+};
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
 export function NavigationNavigateScreen(props) {
     const {
         goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
-    } = props
+    } = props;
     const navigationActions = CommonActions.reset({
         index: 0,
         actions: [StackActions.replace({ routeName: goScreen, params: setData })],
-    })
-    console.log(goScreen)
-    console.log(setData)
+    });
+    console.log(goScreen);
+    console.log(setData);
     setConsole && (
         console.log(setConsole.consolename),
         console.log(setConsole.consolelog)
-    )
+    );
     goScreen == 'goBack' ?
         goBack() :
         passHome ?
@@ -1298,180 +1167,81 @@ export function NavigationNavigateScreen(props) {
                 noPush ?
                     replace(goScreen, setData) :
                     push(goScreen, setData);
-
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
 export function RenderProduct(props) {
     const {
         custumNavigation, item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
-    } = props
+    } = props;
     onShow && ([
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
-    ])
-    var dataMySQL = `${finip}/${(item.path_image_product ? item.path_image_product :
-        item.image_path)}/${(item.image_product ? item.image_product : item.image_main ? item.image_main : item.image)}`;
-    var discount
-    item.discount && (
-        discount = item.discount.replace("%", "")
-    )
-    return (
-        <TouchableOpacity activeOpacity={1} onPress={() =>
-            noNavigation ?
-                getDataService({ id_product, name }) :
-                NavigationNavigateScreen({
-                    navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: {
-                        id_product: item.id_product
-                    }
-                })}>
-            <View style={[stylesMain.ItemCenter,
-            mode == 'row4' ?
-                stylesMain.BoxProduct5Box :
-                mode == 'row3' ?
-                    stylesMain.BoxProduct1Box2 :
-                    mode == 'row3_new' ?
-                        stylesMain.BoxProduct1Box2new :
-                        mode == 'row3_2' ?
-                            stylesMain.BoxProduct4Box :
-                            mode == 'row3_all' ?
-                                stylesMain.BoxProduct2Box :
-                                mode == 'row2_all' ?
-                                    stylesMain.BoxProduct3Box :
-                                    mode == '5item' ?
-                                        stylesDeal.Deal_Exclusive_Box :
-                                        stylesMain.BoxProduct1Box,
-            {
-                marginBottom: mode == 'row3_2' ? 4 : null,
-                borderRadius: radiusBox ? radiusBox : 0
-            }
+    ]);
+    var dataMySQL = `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
+    var discount;
+    item.discount && (discount = item.discount.replace("%", ""));
+    return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ?
+        getDataService({ id_product, name }) : NavigationNavigateScreen({ navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product } })}>
+        <View style={[stylesMain.ItemCenter, mode == 'row4' ?
+            stylesMain.BoxProduct5Box : mode == 'row3' ?
+                stylesMain.BoxProduct1Box2 : mode == 'row3_new' ?
+                    stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
+                        stylesMain.BoxProduct4Box : mode == 'row3_all' ?
+                            stylesMain.BoxProduct2Box : mode == 'row2_all' ?
+                                stylesMain.BoxProduct3Box : mode == '5item' ?
+                                    stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
+            marginBottom: mode == 'row3_2' ? 4 : null,
+            borderRadius: radiusBox ?? 0
+        }]}>
+            <View style={[stylesMain.ItemCenter, mode == 'row4' ?
+                stylesMain.BoxProduct5ImageofLines : mode == 'row3_all' ?
+                    stylesMain.BoxProduct2ImageofLines : mode == 'row2_all' ?
+                        stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
+                            stylesMain.BoxProduct1ImageofLines2 : stylesMain.BoxProduct1ImageofLines
             ]}>
-                <View style={[stylesMain.ItemCenter,
-                mode == 'row4' ?
-                    stylesMain.BoxProduct5ImageofLines :
-                    mode == 'row3_all' ?
-                        stylesMain.BoxProduct2ImageofLines :
-                        mode == 'row2_all' ?
-                            stylesMain.BoxProduct3ImageofLines :
-                            mode == '5item' ?
-                                stylesMain.BoxProduct1ImageofLines2 :
-                                stylesMain.BoxProduct1ImageofLines
-                ]}>
-                    <FastImage
-                        source={{
-                            uri: dataMySQL,
-                        }}
-                        style={[stylesMain.BoxProduct2Image,
-                        {
-                            borderTopLeftRadius: radiusBox ? radiusBox : 0,
-                            borderTopRightRadius: radiusBox ? radiusBox : 0,
-                            marginVertical: height * 0.015,
-                        }
-                        ]}
-                        resizeMode={FastImage.resizeMode.contain} />
+                <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
+                    borderTopLeftRadius: radiusBox ?? 0,
+                    borderTopRightRadius: radiusBox ?? 0,
+                    marginVertical: height * 0.015,
+                }]} resizeMode={FastImage.resizeMode.contain} />
+            </View>
+            <View style={{ height: 55, paddingHorizontal: 3 }}>
+                <View style={[stylesMain.BoxProduct1NameofLines]}>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>{item.name_product ?? item.name}</Text>
                 </View>
-                <View style={{
-                    height: 55,
-                    paddingHorizontal: 3
-                }}>
-                    <View style={[
-                        stylesMain.BoxProduct1NameofLines
-                    ]}>
-                        <Text numberOfLines={1} style={[
-                            stylesFont.FontFamilySemiBold,
-                            {
-                                fontSize: nameSize ? nameSize : 16,
-                            }
-                        ]}>
-                            {item.name_product ? item.name_product : item.name}</Text>
+                <View style={[stylesMain.BoxProduct1PriceofLines,]}>
+                    <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
+                        <NumberFormat value={item.last_price ?? item.price_discount ?? item.full_price ?? item.price}
+                            fixedDecimalScale decimalScale={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                                <Text numberOfLines={1} style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>{value}</Text>} />
+                        {item.discount_tag ?
+                            <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{`-${item.discount_tag}`}</Text>
+                            </View> :
+                            discount > 0 && <NumberFormat value={item.discount && item.discount} displayType={'text'} thousandSeparator={true}
+                                suffix={'%'} renderText={value => value &&
+                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
+                                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>{`-${value}`}</Text>
+                                    </View>} />}
                     </View>
-                    <View style={[
-                        stylesMain.BoxProduct1PriceofLines,
-                    ]}>
-                        <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                            <NumberFormat
-                                value={
-                                    item.price_discount ?
-                                        item.price_discount :
-                                        item.full_price ?
-                                            item.full_price :
-                                            item.price
-                                }
-                                fixedDecimalScale
-                                decimalScale={0}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                prefix={'฿'}
-                                renderText={value =>
-                                    <Text numberOfLines={1} style={[
-                                        stylesMain.BoxProduct1ImagePrice,
-                                        stylesFont.FontFamilyBoldBold, {
-                                            fontSize: priceSize ? priceSize : 14,
-                                        }
-                                    ]}>
-                                        {value}</Text>
-                                } />
-                            {
-                                discount > 0 &&
-                                <NumberFormat
-                                    value={item.discount && item.discount}
-                                    displayType={'text'}
-                                    thousandSeparator={true}
-                                    suffix={'%'}
-                                    renderText={
-                                        value =>
-                                            value &&
-                                            <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, {
-                                                    color: '#FFFFFF'
-                                                }]}>
-                                                    {`-${value}`}</Text>
-                                            </View>
-                                    } />
-                            }
-                        </View>
-                        {
-                            item.price_discount &&
-                            <NumberFormat
-                                value={item.price}
-                                fixedDecimalScale
-                                decimalScale={0}
-                                displayType={'text'}
-                                thousandSeparator={true}
-                                prefix={'฿'}
-                                renderText={value =>
-                                    <Text numberOfLines={1} style={[
-                                        stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, {
-                                            marginTop: -4,
-                                            fontSize: dispriceSize ? dispriceSize : 14
-                                        }
-                                    ]}>
-                                        {value}</Text>
-                                } />
-                        }
-                    </View>
+                    {item.price_discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
+                        thousandSeparator={true} prefix={'฿'} renderText={value =>
+                            <Text numberOfLines={1} style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText, { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>{value}</Text>} />}
                 </View>
             </View>
-        </TouchableOpacity>
-    );
-}
+        </View>
+    </TouchableOpacity>;
+};
 ///----------------------------------------------------------------------------------------------->>>> RenderSubStore
 export function RenderSubStore(props) {
     const { item } = props
     var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-    return (
-        <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
-            <View style={[stylesMain.CategoryProductStoreBox]}>
-                <Image
-                    source={{
-                        uri: dataMySQL,
-                    }}
-                    style={stylesMain.CategoryProductStoreImage}
-                    resizeMode='cover'
-                    resizeMethod='resize' />
-            </View>
-        </TouchableOpacity>
-    );
-}
+    return <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
+        <View style={[stylesMain.CategoryProductStoreBox]}>
+            <Image source={{ uri: dataMySQL, }} style={stylesMain.CategoryProductStoreImage} resizeMode='cover' resizeMethod='resize' />
+        </View>
+    </TouchableOpacity>;
+};
 ///----------------------------------------------------------------------------------------------->>>> FeedBox
 export class FeedBox extends React.Component {
     constructor(props) {
@@ -1580,7 +1350,7 @@ export class FeedBox extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </BottomSheet>
-                <View style={stylesMain.BoxProduct4Box}>
+                <View style={[stylesMain.BoxProduct4Box, { marginBottom: 3 }]}>
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>

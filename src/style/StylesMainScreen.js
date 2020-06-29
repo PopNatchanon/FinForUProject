@@ -151,7 +151,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   BoxProduct2Box: {
-    width: width * (1 / 3.08),
+    width: 155 * (width / 480),
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 0.5,
@@ -194,11 +194,12 @@ export default StyleSheet.create({
   },
   ///------------///
   BoxProduct3Box: {
-    width: width * (1 / 2.2),
+    width: 233 * (width / 480),
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
-    margin: 8,
+    marginTop: 3,
+    marginLeft: 3,
   },
   BoxProduct3Image: {
     padding: 4,
@@ -249,7 +250,7 @@ export default StyleSheet.create({
     borderWidth: 1,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    padding: 10,
+    padding: 4,
   },
   BoxProduct4PlusImage: {
     height: 50,
@@ -295,6 +296,15 @@ export default StyleSheet.create({
   ///------------///
   BoxStore1Box: {
     width: width * 0.48,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    marginTop: 2,
+    marginBottom: 4,
+    marginLeft: 3,
+  },
+  BoxStoreSecond: {
+    width: 234 * (width / 480),
+    height: 100,
     borderColor: '#ECECEC',
     borderWidth: 1,
     marginTop: 2,

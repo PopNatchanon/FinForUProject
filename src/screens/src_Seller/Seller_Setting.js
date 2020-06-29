@@ -23,9 +23,7 @@ import { NavigationNavigateScreen } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Setting);
@@ -47,9 +45,7 @@ export let Seller_Setting_Topic = (props) => {
             handle(false);
             await AsyncStorage.clear();
             RNRestart.Restart();
-        } catch (e) {
-            // clear error
-        };
+        } catch (e) { };
     };
     let _renderHeader = <IconMaterialIcons name='exit-to-app' size={50} color='white' />;
     return <View>
@@ -62,13 +58,15 @@ export let Seller_Setting_Topic = (props) => {
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 0 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 0 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการจดแจ้ง</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 9 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 9 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ที่อยู่ร้านค้าของฉัน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -77,19 +75,22 @@ export let Seller_Setting_Topic = (props) => {
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>การตั้งค่า</Text>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -98,7 +99,8 @@ export let Seller_Setting_Topic = (props) => {
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>ช่วยเหลือ</Text>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ศูนย์ช่วยเหลือ</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -122,11 +124,14 @@ export let Seller_Setting_Topic = (props) => {
         <View style={{ alignItems: 'center', marginTop: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
         </View>
-        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
-            subtitle="คุณต้องการออกจากระบบหรือไม่?" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ"
+            titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="คุณต้องการออกจากระบบหรือไม่?"
+            subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
     </View>;

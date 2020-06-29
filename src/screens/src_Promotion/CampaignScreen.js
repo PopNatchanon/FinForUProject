@@ -22,9 +22,7 @@ import { TabBar, GetData, GetServices, LoadingScreen, NavigationNavigateScreen, 
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CampaignScreen);
@@ -33,16 +31,10 @@ function CampaignScreen(props) {
   const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [dataService, setDataService] = useState(undefined);
-  var dataBody = { "id_category": "" };
+  var dataBody = { id_category: '' };
   var uri = `${finip}/campaign/campaign_data`;
-  let getSource = (value) => {
-    setActiveGetCurrentUser(false);
-    setCurrentUser(value.currentUser);
-  };
-  let getData = (value) => {
-    setActiveDataService(false);
-    setDataService(value);
-  };
+  let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); };
+  let getData = (value) => { setActiveDataService(false); setDataService(value); };
   useEffect(() => {
     activeGetCurrentUser && GetData({ getSource: value => getSource(value), getUser: true, });
   }, [activeGetCurrentUser]);
@@ -66,7 +58,7 @@ function CampaignScreen(props) {
 export let Campaign_tag = (props) => {
   const { dataService } = props;
   const item = [{ name: 'แคมเปญทั้งหมด' },];
-  dataService?.category?.map((value) => { return item.push({ name: value.name }) })
+  dataService?.category?.map((value) => item.push({ name: value.name }));
   return <View>
     <View style={{ backgroundColor: '#FFFFFF', padding: 5, marginTop: 5 }}>
       <ScrollView horizontal>
@@ -75,7 +67,7 @@ export let Campaign_tag = (props) => {
       </ScrollView>
     </View>
     <View>
-      {dataService?.campaign_data?.map((value, index) => { return <CampaignBody {...props} dataService={value} key={index} /> })}
+      {dataService?.campaign_data?.map((value, index) => <CampaignBody {...props} dataService={value} key={index} />)}
     </View>
   </View>;
 };
@@ -97,9 +89,12 @@ export let CampaignBody = (props) => {
         <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
           <IconEntypo name='share' size={20} color='#FFFFFF' />
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Detail_Campaign', setData: { selectedIndex: 0, id_campaign: dataService?.id_campaign }, navigation })}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+          goScreen: 'Detail_Campaign', setData: { selectedIndex: 0, id_campaign: dataService?.id_campaign }, navigation
+        })}>
           <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
-            <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>รายละเอียด</Text>
+            <Text style={[stylesFont.FontFamilyBold, ststylePromotionDeal.CampaignBody_ButtonText, stylesMain.ItemCenterVertical]}>
+              รายละเอียด</Text>
           </View>
         </TouchableOpacity>
       </View>

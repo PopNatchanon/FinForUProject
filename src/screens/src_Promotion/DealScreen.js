@@ -23,15 +23,13 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
 import {
-  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct,
+  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct, GenArreyNumber,
 } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(DealScreen);
@@ -42,17 +40,11 @@ function DealScreen(props) {
   const [currentUser, setCurrentUser] = useState(undefined);
   const [dataService, setDataService] = useState(undefined);
   var uri = `${finip}/coupon/coupon_findeal_mobile`;
-  let getData = (value) => {
-    setActiveGetServices(false);
-    setDataService(value);
-  };
-  let getSource = (value) => {
-    setActiveGetCurrentUser(false);
-    setCokie(value.keycokie);
-    setCurrentUser(value.currentUser);
-  };
+  let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+  let getSource = (value) => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
   useEffect(() => {
-    !activeGetCurrentUser && activeGetServices && cokie && GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: value => getData(value), });
+    !activeGetCurrentUser && activeGetServices && cokie &&
+      GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: value => getData(value), });
   }, [!activeGetCurrentUser && activeGetServices && cokie]);
   useEffect(() => {
     activeGetCurrentUser && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true, });
@@ -94,8 +86,7 @@ export let Slide = (props) => {
   };
   return <View>
     {dataService && dataService.length > 0 ?
-      <Carousel renderItem={_renderItem} data={dataService} loop autoplay autoplayInterval={3000} pagination={PaginationLight} /> :
-      emptyBox}
+      <Carousel renderItem={_renderItem} data={dataService} loop autoplay autoplayInterval={3000} pagination={PaginationLight} /> : emptyBox}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
@@ -132,23 +123,20 @@ export let Button_Bar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Deal_Calendar
 export let Deal_Calendar = (props) => {
   const { dataService } = props;
-  let emptyBox = [0, 1, 2, 3,].map((_, index) => {
-    return <View key={index} style={[stylesDeal.Deal_Calendar_BoxN, { backgroundColor: '#ECECEC', borderRadius: 0, }]}>
-      <View style={stylesMain.BoxProduct1Image} ></View>
-    </View>
-  });
+  let emptyBox = GenArreyNumber(8).map((_, index) => <View key={index} style={[stylesDeal.Deal_Calendar_BoxN,
+  { backgroundColor: '#ECECEC', borderRadius: 0, }]}>
+    <View style={stylesMain.BoxProduct1Image} ></View>
+  </View>);
   return <>
     <View style={[stylesMain.FrameBackground, /* { backgroundColor: '#B5F5D1', width: '100%' } */]}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดตามปฏิทิน</Text>
       <View style={stylesDeal.Deal_Calendar_Box}>
-        {dataService?.length > 0 ?
-          dataService?.map((value, index) => {
-            const image_carlendar = `${finip}/${value.image_path}/${value.image}`
-            return <View key={index} style={stylesDeal.Deal_Calendar_BoxN}>
-              <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: image_carlendar, }} resizeMode={FastImage.resizeMode.cover} />
-            </View>
-          }) :
-          emptyBox}
+        {dataService?.length > 0 ? dataService?.map((value, index) => {
+          const image_carlendar = `${finip}/${value.image_path}/${value.image}`
+          return <View key={index} style={stylesDeal.Deal_Calendar_BoxN}>
+            <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: image_carlendar, }} resizeMode={FastImage.resizeMode.cover} />
+          </View>
+        }) : emptyBox}
       </View>
     </View>
   </>;
@@ -174,61 +162,49 @@ export let Deal_Today = (props) => {
   var uri2 = `${finip}/coupon/save_coupon_shop`;
   let getCoupon = (value) => {
     value.list == 'fin' ?
-      activeServices.activeGetServices = true :
-      value.list == 'shop' ?
-        activeServices.activeGetServices2 = true :
-        null;
+      activeServices.activeGetServices = true : value.list == 'shop' ?
+        activeServices.activeGetServices2 = true : null;
     setActiveServices(activeServices);
     setId_promotion(value.id_promotion);
   };
-  let getData = (value) => {
-    activeServices.activeGetServices = false;
-    setActiveServices(activeServices);
-    setDataService(value);
-  };
-  let getData2 = (value) => {
-    activeServices.activeGetServices2 = false;
-    setActiveServices(activeServices);
-    setDataService2(value);
-  };
+  let getData = (value) => { activeServices.activeGetServices = false; setActiveServices(activeServices); setDataService(value); };
+  let getData2 = (value) => { activeServices.activeGetServices2 = false; setActiveServices(activeServices); setDataService2(value); };
   useEffect(() => {
-    activeServices.activeGetServices && currentUser && cokie && GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => getData(value) });
+    activeServices.activeGetServices && currentUser && cokie &&
+      GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => getData(value) });
   }, [activeServices.activeGetServices && currentUser && cokie]);
   useEffect(() => {
-    activeServices.activeGetServices2 && currentUser && cokie && GetServices({ Authorization: cokie, dataBody: dataBody2, uriPointer: uri2, getDataSource: value => getData2(value) });
+    activeServices.activeGetServices2 && currentUser && cokie &&
+      GetServices({ Authorization: cokie, dataBody: dataBody2, uriPointer: uri2, getDataSource: value => getData2(value) });
   }, [activeServices.activeGetServices2 && currentUser && cokie]);
-  let emptyBox = [0, 1].map((_, index) => {
-    return <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
-        <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
-          <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{' '}</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>{' '}</Text>
-        </View>
-        <TouchableOpacity>
-          <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#007bff', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{' '}</Text>
-          </View>
-        </TouchableOpacity>
+  let emptyBox = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
+    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
+      <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
+        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{' '}</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>{' '}</Text>
       </View>
-    </View>
-  });
-  let emptyBox2 = [0, 1].map((_, index) => {
-    return <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
-      <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
-        <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
-          <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{' '}</Text>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>{' '}</Text>
+      <TouchableOpacity>
+        <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#007bff', }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{' '}</Text>
         </View>
-        <TouchableOpacity>
-          <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#E43333', }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{' '}</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
+      </TouchableOpacity>
     </View>
-  });
+  </View>);
+  let emptyBox2 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
+    <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
+      <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
+        <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{' '}</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>{' '}</Text>
+      </View>
+      <TouchableOpacity>
+        <View style={[stylesDeal.Coupon_BOX_A, { backgroundColor: '#E43333', }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{' '}</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  </View>);
   return <View style={[stylesMain.FrameBackground,/*{ backgroundColor: '#AF5F92', }*/]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลเด็ดประจำวัน</Text>
@@ -243,10 +219,9 @@ export let Deal_Today = (props) => {
           {dataService?.coupon?.length > 0 ?
             dataService.coupon.map((value, index) => {
               return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
-                getCoupon={value => getCoupon(value)} key={index} saveCoupon setDataService={{ list: 'fin', id_promotion: value.id_promotion }}
-                textDetail={value.detail} timeOut={value.end_period} marginL={3} />
-            }) :
-            emptyBox}
+                getCoupon={value => getCoupon(value)} key={index} saveCoupon marginL={3} textDetail={value.detail}
+                timeOut={value.end_period} setDataService={{ list: 'fin', id_promotion: value.id_promotion }} />
+            }) : emptyBox}
         </View>
       </ScrollView>
     </View>
@@ -255,13 +230,11 @@ export let Deal_Today = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#00adb5' }]}> คูปองส่วนลดจากร้าน</Text>
         <ScrollView horizontal>
           <View style={stylesDeal.Deal_Today_BoxImage}>
-            {dataService2?.coupon?.length > 0 ?
-              dataService2.coupon.map((value, index) => {
-                return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={value.name}
-                  getCoupon={value => getCoupon(value)} key={index} saveCoupon setDataService={{ list: 'shop', id_promotion: value.id_promotion }}
-                  textDetail={value.detail} timeOut={value.end_period} marginL={3} />
-              }) :
-              emptyBox2}
+            {dataService2?.coupon?.length > 0 ? dataService2.coupon.map((value, index) => {
+              return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={value.name}
+                getCoupon={value => getCoupon(value)} key={index} saveCoupon marginL={3} textDetail={value.detail}
+                timeOut={value.end_period} setDataService={{ list: 'shop', id_promotion: value.id_promotion }} />
+            }) : emptyBox2}
           </View>
         </ScrollView>
       </View>
@@ -271,15 +244,14 @@ export let Deal_Today = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Deal_Exclusive
 export let Deal_Exclusive = (props) => {
   const { dataService, navigation } = props;
-  let emptyBox = [0, 1, 2,].map((_, index) => {
-    return <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2, { overflow: 'hidden' }]}>
-      <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
-        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-        </View>
+  let emptyBox = GenArreyNumber(3).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2,
+  { overflow: 'hidden' }]}>
+    <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
+      <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
       </View>
-      <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>
-  });
+    <View style={{ height: 55, paddingHorizontal: 3 }} />
+  </View>);
   return <View style={[stylesMain.FrameBackground, { backgroundColor: '#CABA5A', width: '100%' }]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลสุด Exclusive</Text>
@@ -288,8 +260,8 @@ export let Deal_Exclusive = (props) => {
       </TouchableOpacity>
     </View>
     {dataService?.length > 0 ?
-      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3' nameFlatProduct='Deal_Exclusive'
-        nameSize={14} priceSize={15} dispriceSize={15} /> :
+      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3'
+        nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} /> :
       <View>
         <View style={{ flexDirection: 'row' }}>
           {emptyBox}
@@ -312,12 +284,8 @@ export class Second_Store extends React.Component {
       activeSlide: 0,
     };
   };
-  getData(dataService) {
-    this.setState({ activeGetServices: false, dataService });
-  };
-  getData2(dataService2) {
-    this.setState({ activeGetServices2: false, dataService2 });
-  };
+  getData(dataService) { this.setState({ activeGetServices: false, dataService }); };
+  getData2(dataService2) { this.setState({ activeGetServices2: false, dataService2 }); };
   _renderItem = ({ item, index }) => {
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
     return <View key={index}>
@@ -330,24 +298,22 @@ export class Second_Store extends React.Component {
   get pagination() {
     const { dataService2, activeSlide } = this.state;
     return <View style={{ marginTop: -60 }}>
-      <Pagination dotsLength={dataService2.length} activeDotIndex={activeSlide} dotStyle={{ width: 15, height: 15, borderRadius: 30, backgroundColor: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(255, 255, 255, 0.92)', borderWidth: 2, }}
-        inactiveDotStyle={{ width: 15, height: 5, borderRadius: 5, backgroundColor: 'rgba(255, 255, 255, 0.92)', }} carouselRef={this.activeSlide}
-        tappableDots={!!this.activeSlide} inactiveDotScale={0.6} />
+      <Pagination dotsLength={dataService2.length} activeDotIndex={activeSlide} dotStyle={{
+        width: 15, height: 15, borderRadius: 30, backgroundColor: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(255, 255, 255, 0.92)',
+        borderWidth: 2,
+      }} inactiveDotStyle={{ width: 15, height: 5, borderRadius: 5, backgroundColor: 'rgba(255, 255, 255, 0.92)', }}
+        carouselRef={this.activeSlide} tappableDots={!!this.activeSlide} inactiveDotScale={0.6} />
     </View>;
   }
   render() {
-    const { navigation } = this.props
-    const { activeGetServices, activeGetServices2, dataService } = this.state
+    const { navigation } = this.props;
+    const { activeGetServices, activeGetServices2, dataService } = this.state;
     var uri = `${ip}/mysql/DataServiceMain.php`
-    var dataBody = {
-      type: 'sale'
-    };
+    var dataBody = { type: 'sale' };
     var uri2 = `${finip}/home/home_mobile`;
-    var dataBody2 = {
-      slide: 'banner'
-    };
-    activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) })
-    activeGetServices2 && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) })
+    var dataBody2 = { slide: 'banner' };
+    activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
+    activeGetServices2 && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) });
     return <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
       <View style={stylesDeal.BoxText_Row}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
@@ -362,31 +328,25 @@ export class Second_Store extends React.Component {
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
         </TouchableOpacity>
       </View>
-      {dataService && <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} mode='row3' nameFlatProduct='Second_Store'
-        nameSize={14} priceSize={15} dispriceSize={15} />}
+      {dataService && <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} mode='row3'
+        nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>;
   };
 };
 ///----------------------------------------------------------------------------------------------->>>> ProDed_Store
 export let ProDed_Store = (props) => {
   const { dataService, navigation } = props
-  let emptyBox = [0, 1, 2, 3].map((_, index) => {
+  let emptyBox = GenArreyNumber(4).map((_, index) => <View style={stylesDeal.ProDed_Store} key={index}>
+    <View style={{ height: 100, width: 100, }}></View>
+    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{' '}</Text>
+  </View>);
+  let dataNewStore = () => dataService?.length > 0 ? dataService?.map((item, index) => {
+    var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
     return <View style={stylesDeal.ProDed_Store} key={index}>
-      <View style={{ height: 100, width: 100, }}></View>
-      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{' '}</Text>
-    </View>
-  });
-  let dataNewStore = () => {
-    return dataService?.length > 0 ?
-      dataService?.map((item, index) => {
-        var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
-        return <View style={stylesDeal.ProDed_Store} key={index}>
-          <FastImage source={{ uri: dataMySQL, }} style={{ height: 100, width: 100, }} resizeMode={FastImage.resizeMode.stretch} />
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!</Text>
-        </View>;
-      }) :
-      emptyBox
-  };
+      <FastImage source={{ uri: dataMySQL, }} style={{ height: 100, width: 100, }} resizeMode={FastImage.resizeMode.stretch} />
+      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!</Text>
+    </View>;
+  }) : emptyBox;
   return <View style={[stylesMain.FrameBackground, { backgroundColor: '#9887E0', width: '100%' }]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านนี้มีดีล</Text>
@@ -402,34 +362,30 @@ export let ProDed_Store = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> ProDed_New_Store
 export let ProDed_New_Store = (props) => {
   const { dataService } = props;
-  let emptyBox = [0, 1, 2, 3, 4].map((_, index) => {
-    return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
-      <View style={{ width: 60, height: 60 }}>
-      </View>
-      <View style={stylesDeal.ProDed_New_Store_Button}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>{' '}</Text>
-      </View>
+  let emptyBox = GenArreyNumber(5).map((_, index) => <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+    <View style={{ width: 60, height: 60 }}>
     </View>
-  })
+    <View style={stylesDeal.ProDed_New_Store_Button}>
+      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>{' '}</Text>
+    </View>
+  </View>)
   return <View style={[stylesMain.FrameBackground, { backgroundColor: '#F9AFF5', width: '100%' }]}>
     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ดีลสุดฟินร้านใหม่</Text>
     <View style={{ paddingLeft: 10 }}>
       <ScrollView horizontal>
-        {dataService?.length > 0 ?
-          dataService.map((item, index) => {
-            var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
-            return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
-              <View style={{ width: 60, height: 60 }}>
-                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch} />
-              </View>
-              <TouchableOpacity>
-                <View style={stylesDeal.ProDed_New_Store_Button}>
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-                </View>
-              </TouchableOpacity>
+        {dataService?.length > 0 ? dataService.map((item, index) => {
+          var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
+          return <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+            <View style={{ width: 60, height: 60 }}>
+              <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch} />
             </View>
-          }) :
-          emptyBox}
+            <TouchableOpacity>
+              <View style={stylesDeal.ProDed_New_Store_Button}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        }) : emptyBox}
       </ScrollView>
     </View>
   </View>;

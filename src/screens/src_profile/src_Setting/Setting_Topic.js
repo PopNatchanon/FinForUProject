@@ -31,9 +31,7 @@ import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Setting_Topic);
@@ -43,11 +41,7 @@ function Setting_Topic(props) {
   const [activeGetSource, setActiveGetSource] = useState(true);
   const [cokie, setCokie] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
-  let getSource = (value) => {
-    setActiveGetSource(false);
-    setCokie(value.keycokie);
-    setCurrentUser(value.currentUser);
-  };
+  let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
   useEffect(() => {
     activeGetSource && GetServices({ getCokie: true, getUser: true, getSource: value => getSource(value), });
   }, [activeGetSource]);
@@ -89,12 +83,7 @@ export class Edit_Profile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      activeNow: 0,
-      checked: true,
-      currentUser: [],
-      date: "",
-      activeGetServices: true,
-      activeGetServices2: false,
+      activeGetServices: true, activeGetServices2: false, activeNow: 0, checked: true, currentUser: [], date: "",
       // date: new Date(),
       // DataDay: [],
       // DataMo: [],
@@ -132,19 +121,15 @@ export class Edit_Profile extends Component {
       this.setState({ DataDay: box });
     };
   };
-  DataYear() { return (this.state.DataYear.map((item) => { return <Picker.Item label={item} value={item} key={item} />; })); };
+  DataYear() { return this.state.DataYear.map((item) => <Picker.Item label={item} value={item} key={item} />); };
   DataMo() {
-    var months_thai = [
-      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน",
-      "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-    var months_eng = [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July',
-      'August', 'September', 'October', 'November', 'December'
-    ];
-    return (this.state.DataMo.map((item) => { return <Picker.Item label={months_thai[item]} value={item} key={item} />; }));
+    var months_thai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม",
+      "พฤศจิกายน", "ธันวาคม"];
+    var months_eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
+      'December'];
+    return this.state.DataMo.map((item) => <Picker.Item label={months_thai[item]} value={item} key={item} />);
   };
-  DataDay() { return (this.state.DataDay.map((item) => { return <Picker.Item label={item} value={item} key={item} />; })); };
+  DataDay() { return this.state.DataDay.map((item) => <Picker.Item label={item} value={item} key={item} />); };
   SaveProfile = async () => {
     const { currentUser } = this.props;
     const { Birth_day, Gender, Name, path, Phone } = this.state;
@@ -184,7 +169,8 @@ export class Edit_Profile extends Component {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อผู้ใช้</Text>
         <View style={stylesProfileTopic.Edit_Profile_Box}>
-          <TextInput fontSize={15} placeholder="ชื่อ" maxLength={30} value={InputName} onChangeText={(InputName) => this.setState({ InputName })} />
+          <TextInput fontSize={15} placeholder="ชื่อ" maxLength={30} value={InputName} onChangeText={(InputName) =>
+            this.setState({ InputName })} />
         </View>
       </View>
       <TouchableOpacity onPress={() => this.SaveName()}>
@@ -200,10 +186,12 @@ export class Edit_Profile extends Component {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
         <View style={stylesMain.FlexRow}>
-          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() => this.setState({ InputGender: true })} />
+          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() =>
+            this.setState({ InputGender: true })} />
           <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
-          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={!InputGender} onPress={() => this.setState({ InputGender: false })} />
+          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={!InputGender} onPress={() =>
+            this.setState({ InputGender: false })} />
           <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
         </View>
@@ -233,9 +221,10 @@ export class Edit_Profile extends Component {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
         <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-          <DatePicker style={{ width: 300 }} date={InputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY" minDate="01-12-1920"
-            maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel" customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
-            onDateChange={(InputBirth_day) => { this.setState({ InputBirth_day }) }} />
+          <DatePicker style={{ width: 300 }} date={InputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+            minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
+            customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
+            onDateChange={(InputBirth_day) => this.setState({ InputBirth_day })} />
           {/* <View style={stylesMain.FlexRow}>
               <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                 <Picker
@@ -285,7 +274,8 @@ export class Edit_Profile extends Component {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
         <View style={stylesProfileTopic.Edit_Profile_Box}>
-          <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={this.state.InputPhone} onChangeText={(InputPhone) => this.setState({ InputPhone })} />
+          <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={this.state.InputPhone} onChangeText={(InputPhone) =>
+            this.setState({ InputPhone })} />
         </View>
       </View>
       <TouchableOpacity onPress={() => this.SavePhone()}>
@@ -299,76 +289,72 @@ export class Edit_Profile extends Component {
     const { dataSevice } = this.state;
     dataSevice && dataSevice.list_profile.map((value) => {
       var checked;
-      if (value.gender == 'male') {
-        checked = true
-      } else {
-        checked = false
-      };
+      if (value.gender == 'male') { checked = true } else { checked = false };
       const bday = new Date(value.date_of_birth);
       var dob = `${bday.getDate()}-${(bday.getMonth() + 1)}-${bday.getFullYear()}`;
       this.setState({
-        Name: value.name, InputName: value.name,
-        Gender: checked, InputGender: checked,
-        Phone: value.telphone, InputPhone: value.telphone,
-        Birth_day: dob, Inputbirth_day: dob,
-        image_path: value.image_path, image: value.image
+       /*name*/Name: value.name, InputName: value.name,/*gender*/Gender: checked, InputGender: checked,/*telphone*/Phone: value.telphone,
+        InputPhone: value.telphone,/*birth_day*/Birth_day: dob, Inputbirth_day: dob,/*image*/ image_path: value.image_path,
+        image: value.image
       });
     });
   };
-  getData = (dataSevice) => {
-    this.setState({ activeGetServices: false, dataSevice });
-  };
+  getData = (dataSevice) => this.setState({ activeGetServices: false, dataSevice });;
   getData2 = (dataService2) => {
     const { navigation } = this.props;
     this.setState({ activeGetServices2: false, dataService2 })
     navigation.state.params.getDataSource(dataService2);
     navigation.goBack();
   };
-  sendImageProfile = (value) => {
-    this.setState({ path: value });
-  };
+  sendImageProfile = (value) => this.setState({ path: value });;
   render() {
     const { activeGetSource, cokie, currentUser, navigation } = this.props;
     const {
       activeGetServices, activeGetServices2, Birth_day, dataBody: dataBody2, Gender, image, image_path, Name, Phone,
     } = this.state;
     const uri = `${finip}/profile/profile_mobile`;
-    var dataBody = {
-      id_customer: currentUser ? currentUser.id_customer : '',
-    };
+    var dataBody = { id_customer: currentUser ? currentUser.id_customer : '', };
     const uri2 = `${finip}/profile/update_profile_mobile`;
     currentUser != null && Name == null && this.setCurrentUser();
-    !activeGetSource && activeGetServices && GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
-    activeGetServices2 && GetServicesBlob({ FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this), });
+    !activeGetSource && activeGetServices &&
+      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
+    activeGetServices2 && GetServicesBlob({
+      FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this),
+    });
     return <>
       {/* ชื่อ-นามสกุล */}
-      <BottomSheet ref={ref => { this.NameSheet = ref; }} height={150} duration={250} customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      <BottomSheet ref={ref => this.NameSheet = ref} height={150} duration={250}
+        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
         {this.NameSheetBody()}
       </BottomSheet>
       {/* เพศ */}
-      <BottomSheet ref={ref => { this.GenderSheet = ref; }} height={150} duration={250} customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      <BottomSheet ref={ref => this.GenderSheet = ref} height={150} duration={250}
+        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
         {this.GenderSheetBody()}
       </BottomSheet>
       {/* วันเกิด */}
-      <BottomSheet ref={ref => { this.BirthdaySheet = ref; }} height={150} duration={250} customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      <BottomSheet ref={ref => this.BirthdaySheet = ref} height={150} duration={250}
+        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
         {this.BirthdaySheetBody()}
       </BottomSheet>
       {/* เบอร์โทรศัพท์ */}
-      <BottomSheet ref={ref => { this.Phone_numberSheet = ref; }} height={150} duration={250} customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      <BottomSheet ref={ref => this.Phone_numberSheet = ref} height={150} duration={250}
+        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
         {this.Phone_numberSheetBody()}
       </BottomSheet>
       <AppBar1 {...this.props} backArrow titleHead='แก้ไขโปรไฟล์' />
       <ScrollView>
         <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
         <View style={{ marginTop: 20, height, }}>
-          <TouchableOpacity onPress={() => { (this.setState({ InputName: Name }), this.NameSheet.open()); }}>
+          <TouchableOpacity onPress={() => { this.setState({ InputName: Name }); this.NameSheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ชื่อ-นามสกุล</Text>
               </View>
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View></TouchableOpacity>
-          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
+          <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เปลี่ยนรหัสผ่าน</Text>
@@ -376,7 +362,7 @@ export class Edit_Profile extends Component {
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { (this.setState({ InputGender: Gender }), this.GenderSheet.open()); }}>
+          <TouchableOpacity onPress={() => { this.setState({ InputGender: Gender }); this.GenderSheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เพศ</Text>
@@ -384,7 +370,7 @@ export class Edit_Profile extends Component {
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { (this.setState({ InputBirth_day: Birth_day }), this.BirthdaySheet.open()); }}>
+          <TouchableOpacity onPress={() => { this.setState({ InputBirth_day: Birth_day }); this.BirthdaySheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>วันเกิด</Text>
@@ -392,7 +378,7 @@ export class Edit_Profile extends Component {
               <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => { (this.setState({ InputPhone: Phone }), this.Phone_numberSheet.open()); }}>
+          <TouchableOpacity onPress={() => { this.setState({ InputPhone: Phone }); this.Phone_numberSheet.open(); }}>
             <View style={stylesProfileTopic.BoxTopic}>
               <View style={stylesMain.FlexRow}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>โทรศัพท์</Text>
@@ -416,22 +402,11 @@ export class Edit_Profile extends Component {
 export class Edit_Pass extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeGetServices: false,
-      current_password: '',
-      new_password: '',
-      confirm_password: '',
-    };
+    this.state = { activeGetServices: false, current_password: '', new_password: '', confirm_password: '', };
   };
-  setStateCurrent_Password = (current_password) => {
-    this.setState({ current_password });
-  };
-  setStateNew_Password = (new_password) => {
-    this.setState({ new_password });
-  };
-  setStateConfirm_Password = (confirm_password) => {
-    this.setState({ confirm_password });
-  };
+  setStateCurrent_Password = (current_password) => this.setState({ current_password });
+  setStateNew_Password = (new_password) => this.setState({ new_password });
+  setStateConfirm_Password = (confirm_password) => this.setState({ confirm_password });
   getData = (dataSevice) => {
     const { navigation, } = this.props;
     dataSevice.status_cahnge == 'Incomplete' && alert(dataSevice.Massage);
@@ -443,12 +418,11 @@ export class Edit_Pass extends Component {
     const { activeGetServices, current_password, new_password, confirm_password, } = this.state;
     const uri = `${finip}/profile/change_customer_password`;
     var dataBody = {
-      id_customer: currentUser ? currentUser.id_customer : '',
-      current_password,
-      new_password,
-      confirm_password,
+      id_customer: currentUser ? currentUser.id_customer : '',/*current_password*/current_password, confirm_password,
+      /*new_password*/new_password,
     };
-    !activeGetSource && activeGetServices && GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
+    !activeGetSource && activeGetServices &&
+      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
     return <>
       <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
       <ScrollView>
@@ -479,8 +453,9 @@ export class Edit_Pass extends Component {
         </View>
       </ScrollView>
       <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => { this.setState({ activeGetServices: true }) }}>
-          <View style={[stylesProfileTopic.Edit_Profile_Button_Save, { backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ? mainColor : '#CECECE' }]}>
+        <TouchableOpacity onPress={() => this.setState({ activeGetServices: true })}>
+          <View style={[stylesProfileTopic.Edit_Profile_Button_Save,
+          { backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ? mainColor : '#CECECE' }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
           </View>
         </TouchableOpacity>
@@ -492,9 +467,7 @@ export class Edit_Pass extends Component {
 export class Edit_Address extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      activeReset: true,
-    };
+    this.state = { activeReset: true, };
   };
   componentDidMount() {
     CookieManager.get(`${finip}/auth/login_customer`).then((res) => {
@@ -502,12 +475,8 @@ export class Edit_Address extends Component {
       this.setState({ keycokie });
     });
   };
-  getData = (dataService) => {
-    this.setState({ dataService, activeReset: false });
-  };
-  getData2 = (dataService2) => {
-    this.setState({ dataService2, activeReset: true });
-  };
+  getData = (dataService) => this.setState({ dataService, activeReset: false });
+  getData2 = (dataService2) => this.setState({ dataService2, activeReset: true });
   render() {
     const { currentUser, navigation, route } = this.props;
     const { activeReset, dataService, keycokie } = this.state;
@@ -516,13 +485,9 @@ export class Edit_Address extends Component {
     const type_special = route.params?.type_special;
     var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
     var dataBody = type == 'select' ?
-      {
-        id_customer: currentUser && currentUser.id_customer,
-        no_invoice: no_invoice,
-      } : {
-        id_customer: currentUser && currentUser.id_customer,
-      };
-    currentUser && keycokie && currentUser.id_customer && activeReset && GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
+      { id_customer: currentUser?.id_customer, no_invoice: no_invoice, } : { id_customer: currentUser?.id_customer, };
+    currentUser && keycokie && currentUser.id_customer && activeReset &&
+      GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
     return <View style={{ flex: 1, height: '100%' }}>
       <AppBar1 {...this.props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
       <ScrollView style={{ height: 1000 }}>
@@ -532,7 +497,9 @@ export class Edit_Address extends Component {
         })}
       </ScrollView>
       <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Customer_account', setData: { type_special, updateData2: this.getData2.bind(this), }, navigation })}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+          goScreen: 'Customer_account', setData: { type_special, updateData2: this.getData2.bind(this), }, navigation
+        })}>
           <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
           </View>
@@ -544,23 +511,25 @@ export class Edit_Address extends Component {
 ///----------------------------------------------------------------------------------------------->>>> Address_Customar
 export let Address_Customar = (props) => {
   const { dataService, index, navigation, type, type_special, updateData2 } = props;
-  let returnValue = (value) => {
-    navigation.state.params.updateData(value);
-    navigation.goBack();
-  };
-  return <TouchableOpacity key={index} onPress={type == 'select' ?
-    () => returnValue(dataService.id_address) :
-    () => NavigationNavigateScreen({ goScreen: 'Customer_account', setData: { type: 'edit', type_special, id_address: dataService.id_address, updateData2: value => updateData2(value), }, navigation })}>
+  let returnValue = (value) => { navigation.state.params.updateData(value); navigation.goBack(); };
+  return <TouchableOpacity key={index} onPress={() => type == 'select' ?
+    returnValue(dataService.id_address) : NavigationNavigateScreen({
+      goScreen: 'Customer_account', setData: {
+        type: 'edit', type_special, id_address: dataService.id_address, updateData2: value => updateData2(value),
+      }, navigation
+    })}>
     <View style={stylesProfileTopic.Address_Customar}>
       <View style={stylesProfileTopic.Address_Customar_Box}>
         <View style={stylesMain.FlexRow}>
           <IconEvilIcons name='location' size={30} color={mainColor} />
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
         </View>
-        {dataService.main_address == 1 && <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>[ค่าเริ่มต้น]</Text>}
+        {dataService.main_address == 1 && <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>
+          [ค่าเริ่มต้น]</Text>}
       </View>
       <View style={{ marginLeft: 50, marginBottom: 10, }}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>{`${dataService.customer_name} | ${dataService.telephone_number}`}</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
+          {`${dataService.customer_name} | ${dataService.telephone_number}`}</Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '90%', }]}>{dataService.address}</Text>
       </View>
     </View>
@@ -574,7 +543,8 @@ export let Edit_Chat = (props) => {
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={{ margin: 10 }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}>เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#CECECE' }]}>
+          เปิดใช้งานเพื่ออนุญาตให้ผู้ใช้สามารถพูดคุยผ่านหน้าโปรไฟล์ได้</Text>
       </View>
       <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={settingChat.publicChat}
         onPress={() => setSettingChat({ ...settingChat, publicChat: !settingChat.publicChat })} />

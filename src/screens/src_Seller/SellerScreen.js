@@ -27,9 +27,7 @@ import { NavigationNavigateScreen } from '../../customComponents/Tools';
 import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SellerScreen);
@@ -60,7 +58,8 @@ export let Headbar = (props) => {
                         </View>
                         <View style={{ marginLeft: 15, marginTop: '10%' }}>
                             <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ppooo</Text>
-                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
+                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
+                                ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                         </View>
                     </View>
 
@@ -79,7 +78,8 @@ export let Menubar = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>การขายของฉัน</Text>
             </View>
             <View style={stylesMain.FlexRow}>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() =>
+                    NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ดูประวัติการขาย</Text>
                 </TouchableOpacity>
                 <IconEntypo name='chevron-right' size={25} color={mainColor} />
@@ -93,25 +93,30 @@ export let MenubarSub = (props) => {
     const { navigation } = props;
     return <View style={stylesProfile.MenubarSub}>
         <View style={stylesProfile.MenubarSubLine1}>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 1 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                     <FastImage source={require('../../../icon/truck-facing-right.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ที่ต้องจัดส่ง</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 3 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 3 }, navigation })}>
                 <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                     <FastImage source={require('../../../icon/box.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยกเลิก</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 0 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                     <FastImage source={require('../../../icon/repeat.png')} style={stylesProfile.MenubarSubLine1Image} />
-                    <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>คืนสินค้า/คืนเงิน</Text>
+                    <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                        คืนสินค้า/คืนเงิน</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={{ alignItems: 'center', width: width * (1 / 4) }}>
                     <IconFeather name='more-horizontal' size={50} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>คลัง</Text>
@@ -128,85 +133,108 @@ export let ListMenu = (props) => {
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Up_Product', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconAntDesign RightItem name="plussquareo" size={35} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>เพิ่มสินค้า</Text>
+                        <IconAntDesign RightItem name="plussquareo" size={35} color={mainColor}
+                            style={stylesProfile.ListMenuListSubIcon} />
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            เพิ่มสินค้า</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35} style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ออเดอร์ล่าสุด</Text>
+                        <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
+                            style={stylesProfile.ListMenuListSubIcon} />
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            ออเดอร์ล่าสุด</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 2 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>การจัดส่งของฉัน</Text>
+                        <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E'
+                            style={stylesProfile.ListMenuListSubIcon} />
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            การจัดส่งของฉัน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 8 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 8 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconsFontAwesome RightItem name="bank" size={30} color='#5CCFA8' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รายได้ของฉัน</Text>
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            รายได้ของฉัน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6' style={stylesProfile.ListMenuListSubIcon} />
+                        <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6'
+                            style={stylesProfile.ListMenuListSubIcon} />
                         <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ถอนเงิน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 0 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconEntypo RightItem name="megaphone" size={35} color='#FC6B00' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>จัดการโฆษณา</Text>
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            จัดการโฆษณา</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 1 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconEntypo RightItem name="bar-graph" size={30} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>สถิติร้านค้าของฉัน</Text>
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            สถิติร้านค้าของฉัน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 2 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialCommunityIcons RightItem name="star" size={35} color='#FFAC33' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>คะแนนของฉัน</Text>
+                        <IconMaterialCommunityIcons RightItem name="star" size={35} color='#FFAC33'
+                            style={stylesProfile.ListMenuListSubIcon} />
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            คะแนนของฉัน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Return', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>คลังสินค้าของฉัน</Text>
+                        <IconsFontAwesome5 RightItem name="store-alt" size={30} color='#06BBBB'
+                            style={stylesProfile.ListMenuListSubIcon} />
+                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                            คลังสินค้าของฉัน</Text>
                     </View>
                     <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+            <TouchableOpacity onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
@@ -219,40 +247,36 @@ export let ListMenu = (props) => {
     </View>;
 };
 ///--------------------------------------------------------------------------///
-export let Seller_Product = (props) => {
-    return <View style={stylesMain.FrameBackground}>
-        <View style={{ padding: 10 }}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายการสินค้าของฉัน</Text>
-        </View>
-        <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
-            <Seller_Product_Box />
-            <Seller_Product_Box />
-            <Seller_Product_Box />
-        </View>
-    </View >;
-};
+export let Seller_Product = (props) => <View style={stylesMain.FrameBackground}>
+    <View style={{ padding: 10 }}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายการสินค้าของฉัน</Text>
+    </View>
+    <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
+        <Seller_Product_Box />
+        <Seller_Product_Box />
+        <Seller_Product_Box />
+    </View>
+</View >;
 ///--------------------------------------------------------------------------///
-export let Seller_Product_Box = (props) => {
-    return <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
-        <View style={{ alignItems: 'center', marginHorizontal: 8 }}>
-            <FastImage style={stylesMain.BoxProduct2Image} source={{ uri: `${ip}/MySQL/uploads/products/2019-10-09-1570615168.png`, }} />
+export let Seller_Product_Box = (props) => <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
+    <View style={{ alignItems: 'center', marginHorizontal: 8 }}>
+        <FastImage style={stylesMain.BoxProduct2Image} source={{ uri: `${ip}/MySQL/uploads/products/2019-10-09-1570615168.png`, }} />
+    </View>
+    <View style={{ marginTop: 10 }}>
+        <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿10,000</Text>
+    </View>
+    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
+        <View style={stylesMain.FlexRow}>
+            <IconsFontAwesome5 name='heart' size={10} color='#949494' />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
+            <IconFeather name='eye' size={10} color='#949494' />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
         </View>
-        <View style={{ marginTop: 10 }}>
-            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ห้องพัก Deluxe Pool Villa</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>฿10,000</Text>
+        <View style={stylesMain.FlexRow}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>ขายแล้ว</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>0</Text>
         </View>
-        <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
-            <View style={stylesMain.FlexRow}>
-                <IconsFontAwesome5 name='heart' size={10} color='#949494' />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
-                <IconFeather name='eye' size={10} color='#949494' />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>300</Text>
-            </View>
-            <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>ขายแล้ว</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#949494' }]}>0</Text>
-            </View>
-        </View>
-    </TouchableOpacity>;
-};
+    </View>
+</TouchableOpacity>;
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions, ActivityIndicator,
 } from 'react-native';
-import { connect, useStore } from 'react-redux';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -21,9 +21,7 @@ import { GetServices, ProductBox, SlideTab2, LoadingScreen, NavigationNavigateSc
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
@@ -42,7 +40,11 @@ function CategoryScreen(props) {
         lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
     };
     var uri = `${finip}/category/category_mobile`;
-    useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); }, }); }, [activeGetServices]);
+    useEffect(() => {
+        activeGetServices && GetServices({
+            uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); },
+        });
+    }, [activeGetServices]);
     let setStatefilterValue = (value) => {
         filterValue.minvalue = value.minvalue ?? '';
         filterValue.maxvalue = value.maxvalue ?? '';
@@ -57,14 +59,11 @@ function CategoryScreen(props) {
         setFilterValue(filterValue);
     };
     const data = [{
-        title: 'หมวดหมู่', subtitle: [{ name: 'กระเป๋าสะพายข้าง' }, { name: 'กระเป๋าสะพายหลัง' }, { name: 'กระเป๋าสตางค์' }, { name: 'กระเป๋าใส่นามบัตร' },
-        { name: 'กระเป๋าใส่เหรียญ' }, { name: 'กระเป๋าถือ' }, { name: 'อื่นๆ' }]
-    }, {
-        title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }]
-    }];
-    return (<SafeAreaView style={[stylesMain.SafeAreaView]}>
-        {activeGetServices == true &&
-            <LoadingScreen key={'LoadingScreen'} />}
+        title: 'หมวดหมู่', subtitle: [{ name: 'กระเป๋าสะพายข้าง' }, { name: 'กระเป๋าสะพายหลัง' }, { name: 'กระเป๋าสตางค์' },
+        { name: 'กระเป๋าใส่นามบัตร' }, { name: 'กระเป๋าใส่เหรียญ' }, { name: 'กระเป๋าถือ' }, { name: 'อื่นๆ' }]
+    }, { title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }] }];
+    return <SafeAreaView style={[stylesMain.SafeAreaView]}>
+        {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
         <AppBar {...props} backArrow cartBar />
         <ScrollView stickyHeaderIndices={[5]}>
             <Slide {...props} banner={dataService?.banner} />
@@ -78,28 +77,25 @@ function CategoryScreen(props) {
         <ExitAppModule {...props} />
         <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
             setStateSliderVisible={value => setSliderVisible(value)} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
-    // const recommend = []; 
-    let boxEmpty = ([0, 1,].map((_, index) => {
-        return (<View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
-            <ActivityIndicator size={50} color={mainColor} />
-        </View>);
-    }));
-    let dataPromotionPopular = (recommend.length > 0 ?
+    let boxEmpty = [0, 1,].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box,
+    { backgroundColor: '#ECECEC' }]}>
+        <ActivityIndicator size={50} color={mainColor} />
+    </View>);
+    let dataPromotionPopular = recommend?.length > 0 ?
         recommend.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return (<TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
+            return <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
                 <View style={stylesMain.BoxStore1Box}>
                     <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
                 </View>
-            </TouchableOpacity>);
-        }) :
-        boxEmpty);
-    return (<View style={stylesMain.FrameBackground}>
+            </TouchableOpacity>;
+        }) : boxEmpty;
+    return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านค้าที่แนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
@@ -111,23 +107,22 @@ export let Recommend_Store = (props) => {
                 {dataPromotionPopular}
             </ScrollView>
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
 export let Product_Brand = (props) => {
     const { loadData, } = props;
-    // const loadData = [];
-    let boxEmpty = ([0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => {
-        return (<View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
-            <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC' }]}>
+    let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) =>
+        <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
+            <View style={[stylesMain.ItemCenter,
+            { backgroundColor: '#ECECEC', width: 119, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC' }]}>
                 <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                     <ActivityIndicator size={50} color={mainColor} />
                 </View>
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }} />
         </View>);
-    }));
-    return (<View style={stylesMain.FrameBackground}>
+    return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>สินค้าแบรนด์ดัง</Text>
         </View>
@@ -137,5 +132,5 @@ export let Product_Brand = (props) => {
             <ScrollView horizontal>
                 {boxEmpty}
             </ScrollView>}
-    </View>);
+    </View>;
 };

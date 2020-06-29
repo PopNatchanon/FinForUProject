@@ -40,20 +40,14 @@ export default class Deal_Topic extends Component {
             activeGetServices2: true,
         };
     }
-    getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService })
-    }
-    getData2 = (dataService2) => {
-        this.setState({ activeGetServices2: false, dataService2 })
-    }
-    getSource(value) {
-        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie })
-    }
+    getData = (dataService) => { this.setState({ activeGetServices: false, dataService }); };
+    getData2 = (dataService2) => { this.setState({ activeGetServices2: false, dataService2 }); };
+    getSource(value) { this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie }); };
     getUpdateIndex = (value) => {
-        const { dataService2, } = this.state
+        const { dataService2, } = this.state;
         var id_category = dataService2.category[value - 1] == undefined ? '' : dataService2.category[value - 1].id_type;
-        this.setState({ activeGetServices2: true, id_category })
-    }
+        this.setState({ activeGetServices2: true, id_category });
+    };
     PathList() {
         const { route } = this.props;
         const { activeGetCurrentUser, activeGetServices2, currentUser, dataService, dataService2, id_category, cokie, } = this.state;
@@ -63,7 +57,8 @@ export default class Deal_Topic extends Component {
             device: 'mobile_device',
             id_category: id_category ?? ''
         };
-        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 && GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' });
+        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 &&
+            GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' });
         switch (selectedIndex) {
             case 0:
                 return <View style={stylesMain.SafeAreaView}>
@@ -126,13 +121,13 @@ export default class Deal_Topic extends Component {
                 return <View style={[stylesMain.SafeAreaView, stylesMain.ItemCenter]}>
                     <Not_Internet {...this.props} />
                 </View>;
-        }
+        };
     };
     render() {
-        const { navigation } = this.props
-        const { activeGetCurrentUser, activeGetServices, activeGetServices2, cokie, } = this.state
-        const uri = `${finip}/coupon/coupon_day_mobile`
-        !activeGetCurrentUser && activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
+        const { activeGetCurrentUser, activeGetServices, activeGetServices2, cokie, } = this.state;
+        const uri = `${finip}/coupon/coupon_day_mobile`;
+        !activeGetCurrentUser && activeGetServices &&
+            GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
         activeGetCurrentUser && GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
         return <SafeAreaView style={stylesMain.SafeAreaView}>
             {(activeGetCurrentUser || activeGetServices || activeGetServices2) && <LoadingScreen key='LoadingScreen' />}
@@ -148,9 +143,7 @@ export let Deal_CuponToday = (props) => {
     const [dataService, setDataService] = useState(undefined);
     const [id_promotion, setId_Promotion] = useState('');
     var dataBody = {
-        id_customer: currentUser.id_customer,
-        device: 'mobile_device',
-        id_promotion,
+        id_customer: currentUser.id_customer, device: 'mobile_device', id_promotion,
     };
     var uri = `${finip}/coupon/save_coupon_fin`;
     let getCoupon = (value) => {
@@ -159,22 +152,21 @@ export let Deal_CuponToday = (props) => {
         setActiveGetServices(true);
         setId_Promotion(id_promo);
     };
-    let getData = (value) => {
-        setActiveGetServices(false);
-        setDataService(value);
-    };
+    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
     useEffect(() => {
-        activeGetServices && currentUser && cokie && GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => getData(value), })
-    }, [activeGetServices && currentUser && cokie])
+        activeGetServices && currentUser && cokie &&
+            GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => getData(value), });
+    }, [activeGetServices && currentUser && cokie]);
     return <View>
         <View style={{ padding: 10, }}>
             <View style={stylesPromotionDeal.Deal_Today_Box}>
                 <Text style={stylesFont.FontFamilyText}>คูปองส่วนลดจาก FIN</Text>
                 <ScrollView horizontal>
                     {dataService && dataService.coupon.map((value, index) => {
-                        return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
-                            getCoupon={value => getCoupon(value)} key={index} saveCoupon setDataService={{ list: 'fin', id_promotion: value.id_promotion }}
-                            textDetail={value.detail} timeOut={value.end_period} />
+                        return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF'
+                            couponText={value.name} getCoupon={value => getCoupon(value)} key={index} saveCoupon
+                            setDataService={{ list: 'fin', id_promotion: value.id_promotion }} textDetail={value.detail}
+                            timeOut={value.end_period} />
                     })}
                 </ScrollView>
             </View>
@@ -196,18 +188,19 @@ export let Deal_ProductToday = (props) => {
             <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
                 {dataService2 && dataService2.map((value, index) => {
                     const image_produxt = `${finip}/${value.path_image_product}/${value.image_product}`;
-                    if (index < 3) {
-                        return <View key={index} style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
-                            <View style={{ height: '80%', width: '100%' }}>
-                                <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: image_produxt }} resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                            <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
-                                {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}
-                            </View>
-                        </View>;
-                    }
+                    if (index < 3) return <View key={index} style={[stylesMain.ItemCenter,
+                    { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                        <View style={{ height: '80%', width: '100%' }}>
+                            <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: image_produxt }}
+                                resizeMode={FastImage.resizeMode.contain} />
+                        </View>
+                        <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
+                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}
+                        </View>
+                    </View>;
                 })}
-                <View style={[stylesMain.ItemCenter, { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: mainColor }]}>
+                <View style={[stylesMain.ItemCenter,
+                { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: mainColor }]}>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>50%</Text>
                         <TouchableOpacity>

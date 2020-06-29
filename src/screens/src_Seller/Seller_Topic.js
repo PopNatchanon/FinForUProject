@@ -35,9 +35,7 @@ import { TabBar, NavigationNavigateScreen, GetData, GetServices } from '../../cu
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Topic);
@@ -47,11 +45,7 @@ function Seller_Topic(props) {
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
-    let getSource = (value) => {
-        setActiveGetSource(false);
-        setCokie(value.keycokie);
-        setCurrentUser(value.currentUser);
-    };
+    let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
     }, [activeGetSource]);
@@ -169,10 +163,7 @@ export let PIN_Code = (props) => {
     const [checkFail, setCheckFail] = useState(0);
     const [code, setCode] = useState('');
     const pinInput = useRef(null);
-    let resetInput = (value, value2) => {
-        setActiveInput(value);
-        setCode(value2);
-    };
+    let resetInput = (value, value2) => { setActiveInput(value); setCode(value2); };
     let _checkCode = (code) => {
         var dataBody = {
             id_customer: currentUser?.id_customer,
@@ -188,7 +179,11 @@ export let PIN_Code = (props) => {
                     pinInput.current.shake().then(() => resetInput(true, ''));
                     // setTimeout(() => this.setState({ activeInput: true, }), 2000);
                 } else {
-                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17, }, navigation });
+                    NavigationNavigateScreen({
+                        goScreen: 'Seller_Topic', setData: {
+                            selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17,
+                        }, navigation
+                    });
                 };
             }
         });
@@ -200,10 +195,14 @@ export let PIN_Code = (props) => {
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ระบุ PIN</Text>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginBottom: 10 }]}>ใส่รหัส PIN 6 หลัก</Text>
-            <SmoothPinCodeInput placeholder={<View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#0A55A6', }}></View>}
-                ref={pinInput} password autoFocus restrictToNumbers={true} mask={<View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#EBB34D', }}></View>}
-                value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }} textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
-                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) => _checkCode(value)}
+            <SmoothPinCodeInput placeholder={
+                <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#0A55A6', }}></View>}
+                ref={pinInput} password autoFocus restrictToNumbers={true} mask={
+                    <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#EBB34D', }}></View>}
+                value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }}
+                textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
+                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) =>
+                    _checkCode(value)}
                 onBackspace={() => console.log('No more back.')} />
         </View>
     </ScrollView>;
@@ -245,11 +244,16 @@ export let PIN_Code_Mail = (props) => {
             <View style={{ padding: 10, width: width * 0.60, height: height * 0.30 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={require('../../../icon/security-Icon.png')} />
             </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10, color: '#D54000' }]}>กรุณายืนยันที่อีเมลอีกครั้งภายในเวลา 30 นาที</Text>
-            <SmoothPinCodeInput placeholder={<View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#0A55A6', }}></View>}
-                ref={pinInput} password autoFocus restrictToNumbers={true} mask={<View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#1ED37B', }}></View>}
-                value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }} textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
-                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) => _checkCode(value)}
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10, color: '#D54000' }]}>
+                กรุณายืนยันที่อีเมลอีกครั้งภายในเวลา 30 นาที</Text>
+            <SmoothPinCodeInput placeholder={
+                <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#0A55A6', }}></View>}
+                ref={pinInput} password autoFocus restrictToNumbers={true} mask={
+                    <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#1ED37B', }}></View>}
+                value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }}
+                textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
+                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) =>
+                    _checkCode(value)}
                 onBackspace={() => console.log('No more back.')} />
         </View>
     </ScrollView>;
@@ -294,19 +298,22 @@ export let PIN_Code_Mail = (props) => {
 export let Seller_Advertisement = (props) => {
     const { navigation } = props;
     return <View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 6 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 6 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 15 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 15 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>โค้ดส่วนลด</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -361,7 +368,8 @@ export let Seller_Score = (props) => {
         <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
             <View style={stylesMain.ItemCenter}>
-                <View style={[stylesMain.ItemCenter, { borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10 }]}>
+                <View style={[stylesMain.ItemCenter,
+                { borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>4.6 คะแนน</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <IconFontAwesome name='star' size={20} color='#FFAC33' />
@@ -384,7 +392,10 @@ export let Seller_Score = (props) => {
 export let Seller_Comment = (props) => {
     const { Comment_Reply, navigation } = props;
     return <View style={stylesMain.FrameBackground}>
-        <View style={{ height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10, borderColor: '#EAEAEA', borderBottomWidth: 1, }}>
+        <View style={{
+            height: 50, width: '100%', flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10,
+            borderColor: '#EAEAEA', borderBottomWidth: 1,
+        }}>
             <View style={stylesMain.FlexRow}>
                 <View style={{ height: 40, width: 40, backgroundColor: '#C4C4C4', borderRadius: 20, margin: 5, }}></View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10, }]}>PPoo</Text>
@@ -393,7 +404,8 @@ export let Seller_Comment = (props) => {
         <View style={[stylesMain.FlexRow, { borderColor: '#EAEAEA', borderBottomWidth: 1, padding: 5, }]}>
             <View style={stylesMain.FlexRow}>
                 <View style={{ height: 80, width: 80, }}>
-                    <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
+                    <FastImage style={stylesMain.BoxProduct1Image}
+                        source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
                 </View>
                 <View style={{ padding: 5, width: '55%' }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
@@ -402,7 +414,8 @@ export let Seller_Comment = (props) => {
                 </View>
             </View>
             {Comment_Reply ?
-                <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 5 }, navigation })}>
+                <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() =>
+                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 5 }, navigation })}>
                     <IconFeather name='edit' size={15} color='#20BDA1' />
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]}> เขียนตอบกลับ</Text>
                 </TouchableOpacity> : null}
@@ -423,13 +436,14 @@ export let Seller_Comment_Reply = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 5 }]}>เขียนการตอบกลับ</Text>
             <View style={stylesMain.ItemCenter}>
                 <View style={{ width: '80%', height: 120, padding: 5, backgroundColor: '#E3E3E3', margin: 5, }}>
-                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%' }]} placeholder="" multiline editable
-                        maxLength={5000} value={detail} onChangeText={(value) => serDetail(value)}></TextInput>
+                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%' }]} placeholder="" multiline
+                        editable maxLength={5000} value={detail} onChangeText={(value) => serDetail(value)}></TextInput>
                 </View>
             </View>
             <View style={{ alignItems: 'flex-end' }}>
                 <TouchableOpacity>
-                    <View style={[stylesMain.ItemCenter, { height: 30, width: 100, backgroundColor: mainColor, borderRadius: 5, margin: 10 }]}>
+                    <View style={[stylesMain.ItemCenter,
+                    { height: 30, width: 100, backgroundColor: mainColor, borderRadius: 5, margin: 10 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตอบกลับ</Text>
                     </View>
                 </TouchableOpacity>
@@ -454,7 +468,8 @@ export let Seller_Advertisement_Packet = (props) => {
             </View>
         </View>
         <View style={{ width: '100%', alignItems: 'flex-end' }}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 4 }, navigation })}>
+            <TouchableOpacity onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 4 }, navigation })}>
                 <View style={[stylesSeller.Seller_Return_Button, { margin: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ซื้อแพคเกจ</Text>
                 </View>
@@ -507,11 +522,15 @@ export let Seller_Advertisement_PacketBuy = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>เรื่องที่ติดต่อ</Text>
             <View style={stylesMain.FlexRow}>
                 <CheckBox checked={checked} onPress={() => setChecked(!checked)} />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>สนใจโฆษณาร้านกับ FIN (มีค่าใช้จ่าย)</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>
+                    สนใจโฆษณาร้านกับ FIN (มีค่าใช้จ่าย)</Text>
             </View>
             <View style={{ alignItems: 'flex-end' }}>
                 <TouchableOpacity>
-                    <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5,
+                        width: 100
+                    }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อแอดมิน</Text>
                     </View>
                 </TouchableOpacity>
@@ -532,11 +551,15 @@ export let Seller_Fin_Campaign = (props) => {
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/Campaign9999.png`, }} />
             </View>
             <View style={{ width: '60%', padding: 10 }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>มาเข้าร่วมแคมเปญกับเราสิ! สิทธิพิเศษสำหรับร้านค้าใน Fin เข้าร่วมแคมเปญ " 9 Baht คอลเลคชั่นราคาต่ำกว่า 199 บาท ! (วันที่่ 5 - 11 มี.ค.) " เลย</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    มาเข้าร่วมแคมเปญกับเราสิ! สิทธิพิเศษสำหรับร้านค้าใน Fin เข้าร่วมแคมเปญ " 9 Baht คอลเลคชั่นราคาต่ำกว่า 199 บาท !
+                    (วันที่่ 5 - 11 มี.ค.) " เลย</Text>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>การเข้าร่วมโปรโมชั่นจะสิ้นสุดภายใน3 วัน 1 ชั่วโมง</Text>
-                <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() =>
+                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <View style={[stylesMain.ItemCenter, { backgroundColor: '#7ED0E8', width: 130, borderRadius: 5, height: 30 }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
+                            เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
                     </View>
                 </TouchableOpacity>
             </View>
@@ -550,7 +573,8 @@ export let Seller_Product = (props) => {
         <View style={{ flexDirection: 'row', padding: 10, borderColor: '#EAEAEA', borderWidth: 1 }}>
             <CheckBox checked={checked} onPress={() => setChecked(!checked)} />
             <View style={{ height: 80, width: 80, borderColor: '#EAEAEA', borderWidth: 1, padding: 5 }}>
-                <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-10-29-1572320317.jpg`, }} />
+                <FastImage style={stylesMain.BoxProduct1Image}
+                    source={{ uri: `${ip}/mysql/uploads/products/2019-10-29-1572320317.jpg`, }} />
             </View>
             <View style={{ padding: 10 }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>กระเป๋าสะพายไหล่ Chanel</Text>
@@ -573,7 +597,9 @@ export let Seller_ProductSelect = (props) => {
             <View style={{ backgroundColor: '#FFFFFF' }}>
                 <View style={{ flexDirection: 'row', padding: 5, borderColor: '#EAEAEA', borderWidth: 1 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>เลือกสินค้า</Text>
-                    <View style={{ flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, }}>
+                    <View style={{
+                        flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1,
+                    }}>
                         <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]} placeholder='' value={text}
                             onChangeText={(value) => setText(value)}>
                         </TextInput>
@@ -593,12 +619,16 @@ export let Seller_ProductSelect = (props) => {
             </View>
             <View style={[stylesMain.FlexRow, { marginVertical: 10, marginRight: 10 }]}>
                 <TouchableOpacity>
-                    <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
+                    <View style={[stylesMain.ItemCenter,
+                    { borderColor: mainColor, borderWidth: 1, padding: 5, width: 100, borderRadius: 5 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>ยกเลิก</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity>
-                    <View style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5, width: 100 }]}>
+                    <View style={[stylesMain.ItemCenter, {
+                        borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5,
+                        width: 100
+                    }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ตกลง</Text>
                     </View>
                 </TouchableOpacity>
@@ -621,7 +651,8 @@ export let My_income = (props) => {
         </View>
         <ScrollView>
             <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', marginTop: 5, paddingTop: 10 }]}>
-                <View style={[stylesMain.ItemCenter, { height: 150, width: 150, borderColor: mainColor, borderWidth: 5, borderRadius: 75 }]}>
+                <View style={[stylesMain.ItemCenter,
+                { height: 150, width: 150, borderColor: mainColor, borderWidth: 5, borderRadius: 75 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: mainColor }]}>฿100,000</Text>
                 </View>
             </View>
@@ -641,7 +672,8 @@ export let Product_income = (props) => {
     return <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 10, borderColor: '#ECECEC', borderWidth: 1 }}>
         <View style={stylesMain.FlexRow}>
             <View style={stylesProfileTopic.Order_Product_Pro}>
-                <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
+                <FastImage style={stylesMain.BoxProduct1Image}
+                    source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
             </View>
             <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
@@ -663,15 +695,14 @@ export let Withdraw_money = (props) => {
     var dataBody = {
         id_customer: currentUser?.id_customer
     };
-    let getData = (value) => {
-        setActiveDataService(false);
-        setDataService(value);
-    };
+    let getData = (value) => { setActiveDataService(false); setDataService(value); };
     useEffect(() => {
-        activeDataService && currentUser && GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
+        activeDataService && currentUser &&
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
     }, [activeDataService && currentUser]);
     return <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'History' }, navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'History' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
@@ -679,7 +710,8 @@ export let Withdraw_money = (props) => {
                 <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
@@ -687,7 +719,8 @@ export let Withdraw_money = (props) => {
                 <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>บัญชีธนาคาร</Text>
@@ -705,7 +738,8 @@ export let Confirm_Bank = (props) => {
         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10, paddingBottom: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>ถอนเงินไปที่</Text>
             <View style={stylesMain.FlexRow}>
-                <FastImage style={{ height: 100, width: 100, borderWidth: 3 }} source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} />
+                <FastImage style={{ height: 100, width: 100, borderWidth: 3 }}
+                    source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} />
                 <View style={{ margin: 10 }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>ธนาคารกรุงเทพ</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>* *** *** *232</Text>
@@ -714,17 +748,22 @@ export let Confirm_Bank = (props) => {
         </View>
         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>จำนวนเงินที่ทำการถอน</Text>
-            <View style={{ width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50, flexDirection: 'row', alignItems: 'center' }}>
-                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '90%' }]} placeholder="" maxLength={50} value={money}
-                    onChangeText={(value) => setMoney(value)}>
+            <View style={{
+                width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50, flexDirection: 'row',
+                alignItems: 'center'
+            }}>
+                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '90%' }]} placeholder="" maxLength={50}
+                    value={money} onChangeText={(value) => setMoney(value)}>
                 </TextInput>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>THB</Text>
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
         </View>
         <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation })}
-                style={[stylesMain.ItemCenter, { width: '80%', height: 50, backgroundColor: mainColor, borderRadius: 5, marginVertical: 10 }]}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation })}
+                style={[stylesMain.ItemCenter,
+                { width: '80%', height: 50, backgroundColor: mainColor, borderRadius: 5, marginVertical: 10 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
             </TouchableOpacity>
         </View>
@@ -739,12 +778,10 @@ export let Withdrawal_history = (props) => {
         id_customer: currentUser?.id_customer
     };
     var uri = `${finip}/store_transfer/transfer_history`;
-    let getData = (value) => {
-        setActiveHistory(false);
-        setDataService(value);
-    };
+    let getData = (value) => { setActiveHistory(false); setDataService(value); };
     useEffect(() => {
-        activeHistory && currentUser && GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
+        activeHistory && currentUser &&
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
     }, [activeHistory && currentUser]);
     return <>
         {dataService?.length > 0 ?
@@ -763,14 +800,16 @@ export let Withdrawal_history_sub = (props) => {
                     </View>
                     <View>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2,]}>1,000,000 THB</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', color: '#B7B7B7' }]}>กรุงไทย<IconEntypo name={activeBox ? 'chevron-up' : 'chevron-down'} size={20} color={mainColor} /></Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right', color: '#B7B7B7' }]}>
+                            กรุงไทย<IconEntypo name={activeBox ? 'chevron-up' : 'chevron-down'} size={20} color={mainColor} /></Text>
                     </View>
                 </View>
             </View>
         </TouchableOpacity>
         {activeBox && <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', padding: 10 }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>20/02/2020</Text>
-            <FastImage style={{ height: 100, width: 100, borderWidth: 3 }} source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} />
+            <FastImage style={{ height: 100, width: 100, borderWidth: 3 }}
+                source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ธนาคารกรุงเทพ</Text>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>* *** *** *232</Text>
             <View style={[stylesMain.ItemCenter, { borderColor: '#C4C4C4', borderWidth: 2, borderRadius: 5, paddingHorizontal: 30 }]}>
@@ -828,7 +867,8 @@ export let Up_Product_Select = (props) => {
         </View>
     </View>;
     return <>
-        <BottomSheet ref={Edit_Body} height={250} duration={250} customStyles={{ container: { paddingTop: 20, alignItems: "center", borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
+        <BottomSheet ref={Edit_Body} height={250} duration={250}
+            customStyles={{ container: { paddingTop: 20, alignItems: "center", borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
             {Edit_all_Body()}
         </BottomSheet>
         <View style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
@@ -879,7 +919,8 @@ export let Up_Product_Select = (props) => {
                                 return <View key={`${index}:${index2}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                                     <View style={{ flexDirection: 'row', width: '30%' }}>
                                         <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
-                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{index2 == 0 && value.name}</Text>
+                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                                {index2 == 0 && value.name}</Text>
                                         </View>
                                         <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
                                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{value2.name}</Text>
@@ -896,7 +937,8 @@ export let Up_Product_Select = (props) => {
                                 return <View key={`${index}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                                     <View style={{ flexDirection: 'row', width: '30%' }}>
                                         <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{index2 == 0 && value.name}</Text>
+                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+                                                {index2 == 0 && value.name}</Text>
                                         </View>
                                     </View>
                                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
@@ -968,7 +1010,9 @@ export let Code_Sale = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>฿100</Text>
             </View>
         </View>
-        <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, borderTopWidth: 2, justifyContent: 'space-around', paddingVertical: 10, marginVertical: 10 }]}>
+        <View style={[stylesMain.FlexRow, {
+            borderBottomWidth: 2, borderTopWidth: 2, justifyContent: 'space-around', paddingVertical: 10, marginVertical: 10
+        }]}>
             <View style={{ width: '30%', }}>
                 <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 5, borderRadius: 5 }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>จำนวน </Text>
@@ -1004,8 +1048,8 @@ export let Code_Sale = (props) => {
         <ScrollView>
             {Code_BOX}
         </ScrollView>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation })}
-            style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 10 }]}>
+        <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 10 }]}
+            onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>สร้างโปรโมชันส่วนลด</Text>
         </TouchableOpacity>
     </>;
@@ -1022,15 +1066,12 @@ export let Form_Code_Sale = (props) => {
     const [MFG_Time, setMFG_Time] = useState(undefined);
     const [min_Price, setMin_Price] = useState(undefined);
     const [name, setName] = useState(undefined);
-    let setStateChecked = (value, value2) => {
-        setChecked(value);
-        setChecked2(value2);
-    };
+    let setStateChecked = (value, value2) => { setChecked(value); setChecked2(value2); };
     return <ScrollView>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ชื่อโค้ด</Text>
-            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]} placeholder="สูงสุด100ตัวอักษร"
-                maxLength={100} value={name} onChangeText={(name) => this.setState({ name })}></TextInput>
+            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                placeholder="สูงสุด100ตัวอักษร" maxLength={100} value={name} onChangeText={(name) => this.setState({ name })}></TextInput>
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>โค้ดส่วนลด</Text>
@@ -1042,9 +1083,10 @@ export let Form_Code_Sale = (props) => {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่เริ่มต้น</Text>
-            <DatePicker style={{ width: 300 }} date={MFG_Day} mode="date" placeholder="select date" format="DD-MM-YYYY" minDate="01-12-1920"
-                maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel" customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
-                onDateChange={(value) => setMFG_Day(value)} />
+            <DatePicker style={{ width: 300 }} date={MFG_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+                minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
+                customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }} onDateChange={(value) =>
+                    setMFG_Day(value)} />
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาเริ่มต้น</Text>
@@ -1053,9 +1095,10 @@ export let Form_Code_Sale = (props) => {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่สิ้นสุด</Text>
-            <DatePicker style={{ width: 300 }} date={EXP_Day} mode="date" placeholder="select date" format="DD-MM-YYYY" minDate="01-12-1920"
-                maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel" customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
-                onDateChange={(value) => setEXP_Day(value)} />
+            <DatePicker style={{ width: 300 }} date={EXP_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+                minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
+                customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }} onDateChange={(value) =>
+                    setEXP_Day(value)} />
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาสิ้นสุด</Text>
@@ -1073,10 +1116,12 @@ export let Form_Code_Sale = (props) => {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ราคาขั้นต่ำ</Text>
-            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]} placeholder="ระบุราคาขั้นต่ำในการใช้คูปอง"
-                maxLength={10} value={min_Price} onChangeText={(value) => setMin_Price(value)} />
+            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
+                placeholder="ระบุราคาขั้นต่ำในการใช้คูปอง" maxLength={10} value={min_Price} onChangeText={(value) =>
+                    setMin_Price(value)} />
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}
             style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>เลือกสินค้าที่ใช้ได้</Text>
             <IconEntypo name='chevron-right' size={40} color={mainColor} />
@@ -1086,8 +1131,12 @@ export let Form_Code_Sale = (props) => {
 ///--------------------------------------------------------------------------///
 export let Bank_Totel = (props) => {
     const { Bank_True, Bank_False, Bank_Default, Bank_Edit, navigation } = props;
-    return <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 18 }, navigation })}
-        style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', padding: 10, borderColor: '#C4C4C4', borderWidth: 1, borderRadius: 5, marginTop: 10, height: 'auto', aspectRatio: 3, justifyContent: 'space-between' }]}>
+    return <TouchableOpacity onPress={() =>
+        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 18 }, navigation })}
+        style={[stylesMain.FlexRow, {
+            backgroundColor: '#FFFFFF', width: '95%', padding: 10, borderColor: '#C4C4C4', borderWidth: 1, borderRadius: 5,
+            marginTop: 10, height: 'auto', aspectRatio: 3, justifyContent: 'space-between'
+        }]}>
         <View style={[stylesMain.FlexRow, { width: '70%' }]}>
             <View style={{ height: 80, width: 80 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/message/BBL-LOGO.jpg`, }} />
@@ -1096,21 +1145,27 @@ export let Bank_Totel = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กรุงไทย (KTB)</Text>
                 {Bank_True && <View style={stylesMain.FlexRow}>
                     <IconAntDesign name='checkcircle' size={15} color='#1BBE83' />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#1BBE83', marginLeft: 10, }]}>ตรวจสอบแล้ว</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#1BBE83', marginLeft: 10, }]}>
+                        ตรวจสอบแล้ว</Text>
                 </View>}
                 {Bank_False && <View style={stylesMain.FlexRow}>
                     <IconAntDesign name='closecircleo' size={15} color='#EC3535' />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#EC3535', marginLeft: 10, }]}>ไม่ผ่านการตรวจสอบ</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#EC3535', marginLeft: 10, }]}>
+                        ไม่ผ่านการตรวจสอบ</Text>
                 </View>}
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>*******345</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ยนะ ชนะ</Text>
             </View>
         </View>
         <View style={{ justifyContent: 'flex-end' }}>
-            {Bank_Default && <View style={{ borderColor: '#1BBE83', borderWidth: 1, backgroundColor: '#ABEAD3', paddingHorizontal: 10, borderRadius: 5 }}>
+            {Bank_Default && <View style={{
+                borderColor: '#1BBE83', borderWidth: 1, backgroundColor: '#ABEAD3', paddingHorizontal: 10, borderRadius: 5
+            }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#1BBE83' }]}>ค่าเริ่มต้น</Text>
             </View>}
-            {Bank_Edit && <View style={{ borderColor: '#BE1B68', borderWidth: 1, backgroundColor: '#EAABAD', paddingHorizontal: 10, borderRadius: 5 }}>
+            {Bank_Edit && <View style={{
+                borderColor: '#BE1B68', borderWidth: 1, backgroundColor: '#EAABAD', paddingHorizontal: 10, borderRadius: 5
+            }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#BE1B68' }]}>ค่าเริ่มต้น</Text>
             </View>}
         </View>
@@ -1123,7 +1178,8 @@ export let Bank_detall = (props) => {
             <View style={stylesMain.ItemCenter}>
                 <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }]}>
                     <IconAntDesign name='checkcircle' size={20} color='#1BBE83' />
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#1BBE83', marginLeft: 10, }]}>ตรวจสอบแล้ว</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#1BBE83', marginLeft: 10, }]}>
+                        ตรวจสอบแล้ว</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10 }]}>
                     <View>
@@ -1142,10 +1198,12 @@ export let Bank_detall = (props) => {
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>เลขที่บัญชี</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>*******345</Text>
                 </View>
-                <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10, justifyContent: 'space-between' }]}>
+                <View style={[stylesMain.FlexRow,
+                { backgroundColor: '#FFFFFF', width: '95%', marginTop: 10, padding: 10, justifyContent: 'space-between' }]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>หน้าบัญชีธนาคาร</Text>
                     <TouchableOpacity style={stylesMain.FlexRow}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor, marginRight: 10 }]}>ดูเอกสาร</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor, marginRight: 10 }]}>
+                            ดูเอกสาร</Text>
                         <IconEntypo name='eye' size={25} />
                     </TouchableOpacity>
                 </View>

@@ -27,9 +27,7 @@ import { ip } from '../../navigator/IpConfig';
 import { Value } from 'react-native-reanimated';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Return);
@@ -125,20 +123,24 @@ export let Seller_Return_Detail = (props) => {
           </View>
           <View style={stylesSeller.Seller_Return_DetailBoxB}>
             <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
-              <FastImage style={stylesSeller.Seller_Return_DetailB_Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
+              <FastImage style={stylesSeller.Seller_Return_DetailB_Image}
+                source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
             </View>
             <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
-              <FastImage style={stylesSeller.Seller_Return_DetailB_Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
+              <FastImage style={stylesSeller.Seller_Return_DetailB_Image}
+                source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
             </View>
             <View style={stylesSeller.Seller_Return_DetailBoxB_Image}>
-              <FastImage style={stylesSeller.Seller_Return_DetailB_Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
+              <FastImage style={stylesSeller.Seller_Return_DetailB_Image}
+                source={{ uri: `${ip}/mysql/uploads/products/2019-03-16-1552756517.jpg`, }} />
             </View>
           </View>
         </View>
       </View>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 10 }]}>
         <View style={stylesMain.FlexRow}>
-          <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={checked} onPress={() => setChecked(!checked)} />
+          <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={checked} onPress={() =>
+            setChecked(!checked)} />
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>ตรวจสอบแล้ว</Text>
         </View>
         <TouchableOpacity>
@@ -165,7 +167,8 @@ export let Treasury_store_Product = (props) => {
             <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Up_Product', navigation })} style={stylesMain.FlexRow}>
+          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Up_Product', navigation })}
+            style={stylesMain.FlexRow}>
             <IconFeather name='edit' size={20} color='#6B87CF' />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>
           </TouchableOpacity>
@@ -198,11 +201,14 @@ export let Treasury_store_Product = (props) => {
     </View>
     <View>
     </View>
-    <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="คุณต้องการลบสินค้าชิ้นนี้หรือไม่" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
-      subtitle="Name Product" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+    <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="คุณต้องการลบสินค้าชิ้นนี้หรือไม่"
+      titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="Name Product" subtitleStyle={stylesFont.FontFamilyText}
+      onRequestClose={() => null}>
       <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around', }]}>
-        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
   </View>;

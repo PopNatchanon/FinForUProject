@@ -22,9 +22,7 @@ import { GetServices, NavigationNavigateScreen } from '../../customComponents/To
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_Complete_Order);
@@ -42,24 +40,12 @@ function Customer_Complete_Order(props) {
     id_customer: currentUser && currentUser.id_customer,
     no_invoice,
   };
-  var dataBody2 = {
-    type: 'product',
-  };
+  var dataBody2 = { type: 'product', };
   var uri = `${finip}/purchase_data/thank_you_bill`;
   var uri2 = `${ip}/mysql/DataServiceMain.php`;
-  let getData = (value) => {
-    setActiveThank_you_bill(false);
-    setDataService(value);
-  };
-  let getData2 = (value) => {
-    setActiveProduct(false);
-    setDataService2(value);
-  };
-  let getSource = (value) => {
-    setActiveGetSource(false);
-    setCokie(value.keycokie);
-    setCurrentUser(value.currentUser);
-  };
+  let getData = (value) => { setActiveThank_you_bill(false); setDataService(value); };
+  let getData2 = (value) => { setActiveProduct(false); setDataService2(value); };
+  let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
   useEffect(() => {
     activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
   }, [activeGetSource]);

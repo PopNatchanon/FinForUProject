@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React, { Component, useEffect, useState } from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import SlidingView from 'rn-sliding-view';
@@ -24,134 +26,77 @@ import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { ip, finip } from '../navigator/IpConfig';
 import { Might_like_Store } from './src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class FinMallScreen extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderVisible: false,
-      dataService: [],
-    };
-  }
-  setSlider = (sliderVisible) => {
-    this.setState({ sliderVisible })
-  }
-  getData = (dataService) => {
-    this.setState({ dataService })
-  }
-  render() {
-    return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...this.props} backArrow titleHead='FIN Mall' />
-        <FIN_Mall {...this.props} />
-      </SafeAreaView>
-    );
-  }
+const mapStateToProps = (state) => ({
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(FinMallScreen)
+function FinMallScreen(props) {
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
+    <AppBar1 {...props} backArrow titleHead='FIN Mall' />
+    <FIN_Mall {...props} />
+  </SafeAreaView>;
 }
-
 ///----------------------------------------------------------------------------------------------->>>>
-export class FIN_Mall extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeArray: true,
-      activeGetServices: true,
-      activeGetCurrentUser: true,
-      data: [],
-      filterValue: { popular: 'popular' },
-      sliderVisible: false,
-    };
-  }
-  setSlider = (sliderVisible) => {
-    this.setState({ sliderVisible })
-  }
-  getData = (dataService) => {
-    this.setState({ activeGetServices: false, dataService })
-  }
-  getSource = (value) => {
-    this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie });
-  }
-  setStatefilterValue = (value) => {
-    const { dataServiceBU, filterValue, } = this.state;
+export let FIN_Mall = (props) => {
+  const [activeGetServices, setActiveGetServices] = useState(true);
+  const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
+  const [cokie, setCokie] = useState(undefined);
+  const [currentUser, setCurrentUser] = useState(undefined);
+  const [dataService, setDataService] = useState(undefined);
+  const [dataServiceBU, setDataServiceBU] = useState(undefined);
+  const [filterValue, setFilterValue] = useState({ popular: 'popular' });
+  const [sliderVisible, setSliderVisible] = useState(false);
+  var data = [{
+    title: 'หมวดหมู่', subtitle: [{ name: 'กระเป๋าสะพายข้าง' }, { name: 'กระเป๋าสะพายหลัง' }, { name: 'กระเป๋าสตางค์' },
+    { name: 'กระเป๋าใส่นามบัตร' }, { name: 'กระเป๋าใส่เหรียญ' }, { name: 'กระเป๋าถือ' }, { name: 'อื่นๆ' }]
+  }, { title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }] }];
+  var dataBody = {
+    popular: filterValue?.popular ?? '',
+    lastest: filterValue?.lastest ?? '',
+    best_sale: filterValue?.best_sale ?? '', // << ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+    sort_price: filterValue?.sort_price ?? '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+    min_price: filterValue?.minvalue ? Number(filterValue.minvalue) : '',
+    max_price: filterValue?.maxvalue ? Number(filterValue.maxvalue) : '',
+  };
+  var uri = `${finip}/finmall/finmall_mobile`;
+  let setSlider = (value) => setSliderVisible(value);
+  let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+  let getSource = (value) => { setActiveGetCurrentUser(false); cokie(value.keycokie); currentUser(value.currentUser); };
+  let setStatefilterValue = (value) => {
     filterValue.minvalue = (value && value.minvalue ? value.minvalue : '');
     filterValue.maxvalue = (value && value.maxvalue ? value.maxvalue : '');
     filterValue.id_type = value.selectedIndex != -1 && value.selectedIndex != '' && value.listIndex == 0 ?
-      dataServiceBU.category[value.selectedIndex].id_type : ''
-    this.setState({ activeGetServices: true, filterValue, sliderVisible: false });
-  }
-  setStateMainfilterValue = (value) => {
-    const { filterValue, } = this.state;
+      dataServiceBU.category[value.selectedIndex].id_type : '';
+    setActiveGetServices(true);
+    setFilterValue(filterValue);
+    setSliderVisible(false);
+  };
+  let setStateMainfilterValue = (value) => {
     filterValue.popular = value.selectedIndex == 0 ? 'popular' : '';
     filterValue.best_sale = value.selectedIndex == 1 ? 'best_sale' : '';
     filterValue.lastest = value.selectedIndex == 2 ? 'lastest' : '';
     filterValue.sort_price = value.selectedIndex == 3 ? value.actionReturn : '';
-    this.setState({ activeGetServices: true, filterValue });
-  }
-  render() {
-    const { activeGetCurrentUser, activeGetServices, dataService, filterValue, sliderVisible, } = this.state;
-    var uri = `${finip}/finmall/finmall_mobile`;
-    var dataBody = {
-      popular: filterValue && filterValue.popular ? filterValue.popular : '',
-      lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
-      best_sale: filterValue && filterValue.best_sale ? filterValue.best_sale : '', // << ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-      sort_price: filterValue && filterValue.sort_price ? filterValue.sort_price : '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
-      min_price: filterValue && filterValue.minvalue ? Number(filterValue.minvalue) : '',
-      max_price: filterValue && filterValue.maxvalue ? Number(filterValue.maxvalue) : '',
-    };
-    var data = [{
-      title: 'หมวดหมู่',
-      subtitle: [{
-        name: 'กระเป๋าสะพายข้าง'
-      }, {
-        name: 'กระเป๋าสะพายหลัง'
-      }, {
-        name: 'กระเป๋าสตางค์'
-      }, {
-        name: 'กระเป๋าใส่นามบัตร'
-      }, {
-        name: 'กระเป๋าใส่เหรียญ'
-      }, {
-        name: 'กระเป๋าถือ'
-      }, {
-        name: 'อื่นๆ'
-      }]
-    }, {
-      title: 'แบรนด์',
-      subtitle: [{
-        name: 'BP world'
-      }, {
-        name: 'Tokyo boy'
-      }, {
-        name: 'JJ'
-      }, {
-        name: 'ETONWEAG'
-      }]
-    }]
-    activeGetCurrentUser == false && activeGetServices == true &&
-      GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    activeGetCurrentUser == true &&
-      GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
-    return (
-      <View key='FINMall'>
-        {
-          (activeGetCurrentUser == true || activeGetServices == true) &&
-          <LoadingScreen key='LoadingScreen' />
-        }
-        <ScrollView stickyHeaderIndices={[2]}>
-          <Slide dataService={dataService && dataService.banner} />
-          <View style={{ marginBottom: 10 }}></View>
-          <Button_Bar filterValue={this.setStateMainfilterValue.bind(this)}
-            setSliderVisible={this.setSlider.bind(this)} getSliderVisible={{
-              getSlider: sliderVisible, count: 0
-            }} />
-          {
-            dataService && dataService.product &&
-            <TodayProduct {...this.props} noTitle loadData={dataService.product} />
-          }
-        </ScrollView>
-        <SlideTab2 data={data} filterValue={this.setStatefilterValue.bind(this)} sliderVisible={sliderVisible}
-          setStateSliderVisible={this.setSlider.bind(this)} />
-        <ExitAppModule {...this.props} />
-      </View>
-    );
-  }
-}
+    setActiveGetServices(true);
+    setFilterValue(filterValue);
+  };
+  useEffect(() => {
+    activeGetCurrentUser && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true, });
+  }, [activeGetCurrentUser]);
+  useEffect(() => {
+    !activeGetCurrentUser && activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), });
+  }, [!activeGetCurrentUser && activeGetServices]);
+  return <View key='FINMall'>
+    {(activeGetCurrentUser || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
+    <ScrollView stickyHeaderIndices={[2]}>
+      <Slide dataService={dataService && dataService.banner} />
+      <View style={{ marginBottom: 10 }}></View>
+      <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSlider(value)}
+        getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+      {dataService && dataService.product && <TodayProduct {...props} noTitle loadData={dataService.product} />}
+    </ScrollView>
+    <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible} setStateSliderVisible={value =>
+      setSlider(value)} />
+    <ExitAppModule {...props} />
+  </View>;
+};

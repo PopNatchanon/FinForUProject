@@ -21,9 +21,7 @@ import { TabBar, LoadingScreen, GetServices, starReview } from '../../customComp
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews_score);
@@ -40,11 +38,8 @@ function Reviews_score(props) {
         rating: filterValue && filterValue.rating ? filterValue.rating + '' : '',
         id_product: filterValue && filterValue.product ? id_product : '',
     };
-    let getData = (value) => {
-        setActiveGetServices(false);
-        setDataService(value);
-    };
-    let filterValue = (value) => {
+    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+    let boxFilterValue = (value) => {
         const filterValues = {};
         filterValues.rating = value == 'all' ? '' : value > 0 && value <= 5 ? value : '';
         filterValues.product = value == 'thisproduct' ? 'this' : '';
@@ -52,16 +47,16 @@ function Reviews_score(props) {
         setFilterValue(filterValues);
     };
     useEffect(() => {
-        activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), showConsole: 'store_review' });
+        activeGetServices &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), showConsole: 'store_review' });
     }, [activeGetServices]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
         <AppBar1 {...props} backArrow titleHead='คะแนน' />
-        <Reviews_Bar filterValue={this.filterValue.bind(this)} />
+        <Reviews_Bar filterValue={value => boxFilterValue(value)} />
         <ScrollView>
             {dataService && dataService.list_reviews.length > 0 ?
-                dataService.list_reviews.map((value, index) => { return <Reviews_Box dataService={value} key={index} /> }) :
-                null}
+                dataService.list_reviews.map((value, index) => <Reviews_Box dataService={value} key={index} />) : null}
         </ScrollView>
     </SafeAreaView>;
 };
@@ -138,8 +133,7 @@ export let Reviews_Bar = (props) => {
 export let Reviews_Box = (props) => {
     const { dataService } = props;
     const image_customer = dataService.user_type == 'fin' ?
-        `${finip}/${dataService.path_customer}/${dataService.img_customer}` :
-        dataService.img_customer;
+        `${finip}/${dataService.path_customer}/${dataService.img_customer}` : dataService.img_customer;
     var img_rate = dataService.img_rate.length > 0 && dataService.img_rate.split(';')
     return <View style={{ backgroundColor: '#FFFFFF' }}>
         <View style={stylesDetail.Comment_R}>
@@ -153,10 +147,12 @@ export let Reviews_Box = (props) => {
                 <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
                     {img_rate.map((value, index) => {
                         const image_product = `${finip}/${dataService.path_rate_thumb}/${value}`
-                        return <FastImage key={index} style={stylesDetail.Reviews_Image} source={{ uri: image_product }} resizeMode={FastImage.resizeMode.contain} />
+                        return <FastImage key={index} style={stylesDetail.Reviews_Image} source={{ uri: image_product }}
+                            resizeMode={FastImage.resizeMode.contain} />
                     })}
                 </View>
-                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>{dataService.date_review} | {dataService.product_name}</Text>
+                <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
+                    {dataService.date_review} | {dataService.product_name}</Text>
             </View>
         </View>
     </View>;

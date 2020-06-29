@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { connect, useStore } from 'react-redux';
+import { connect } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -21,9 +21,7 @@ import { GetData, GetServices, SlideTab2, NavigationNavigateScreen, } from '../c
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
@@ -63,6 +61,9 @@ function SearchScreen(props) {
     };
     var uri = `${finip}/search/search_product`;
     var uri2 = `${finip}/search/other_store`;
+    let getDataSource = (value) => { setActiveGetServices(false); setDataService(value); };
+    let getDataSource2 = (value) => { setActiveGetServices(false); setDataService(value); };
+    let getSource = (value) => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     let setStart = () => {
         filterValue.id_type = dataServiceBU.category[0].id_type;
         setActiveGetServices(true);
@@ -73,7 +74,8 @@ function SearchScreen(props) {
     let setStatefilterValue = (value) => {
         filterValue.minvalue = value?.minvalue ?? '';
         filterValue.maxvalue = value?.maxvalue ?? '';
-        filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ? dataServiceBU.category[value.selectedIndex].id_type : '';
+        filterValue.id_type = ((value.selectedIndex != -1 && value.selectedIndex != '') && value.listIndex == 0) ?
+            dataServiceBU.category[value.selectedIndex].id_type : '';
         setActiveGetServices(true);
         setActionStart(false);
         setFilterValue(filterValue);
@@ -88,10 +90,20 @@ function SearchScreen(props) {
         setActiveGetServices(true);
         setFilterValue(filterValue);
     };
-    useEffect(() => { if (actionFirstEnter) { setActionFirstEnter(false); setId_type(id_types); }; }, [actionFirstEnter]);
-    useEffect(() => { activeGetCurrentUser && GetData({ getCokie: true, getSource: value => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); }, getUser: true, }); }, [activeGetCurrentUser]);
-    useEffect(() => { modeStore && activeGetCurrentUser == false && activeGetServices && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: value => { setActiveGetServices(false); setDataService(value); }, }); }, [modeStore && activeGetCurrentUser == false && activeGetServices]);
-    useEffect(() => { SearchText && activeGetCurrentUser == false && activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); } }); }, [SearchText && activeGetCurrentUser == false && activeGetServices]);
+    useEffect(() => {
+        if (actionFirstEnter) { setActionFirstEnter(false); setId_type(id_types); };
+    }, [actionFirstEnter]);
+    useEffect(() => {
+        activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true, });
+    }, [activeGetCurrentUser]);
+    useEffect(() => {
+        modeStore && !activeGetCurrentUser && activeGetServices &&
+            GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: (value) => getDataSource(value), });
+    }, [modeStore && !activeGetCurrentUser && activeGetServices]);
+    useEffect(() => {
+        SearchText && !activeGetCurrentUser && activeGetServices &&
+            GetServices({ uriPointer: uri, dataBody, getDataSource: (value) => getDataSource2(value) });
+    }, [SearchText && !activeGetCurrentUser && activeGetServices]);
     if (modeStore == undefined && dataService && activeArray) {
         var title = 'หมวดหมู่';
         var subtitle = [];
@@ -102,48 +114,47 @@ function SearchScreen(props) {
         setDataServiceBU(dataService);
     };
     if (actionStart && dataService && dataServiceBU && filterValue?.id_type == undefined) { setStart(); };
-    return (<SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar {...props} searchBar={SearchText ? undefined : true} SearchText={SearchText} backArrow cartBar />
         {modeStore ?
-            (<ScrollView>
+            <ScrollView>
                 <HeadBox {...props} SearchText={SearchText} />
-                {dataService?.store && dataService.store.map((value, index) => {
-                    return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
-                })}
-            </ScrollView>) :
+                {dataService?.store && dataService.store.map((value, index) => <StoreCard {...props} cokie={cokie}
+                    currentUser={currentUser} dataService={value} key={index} />)}
+            </ScrollView> :
             SearchText ?
-                (<ScrollView>
+                <ScrollView>
                     <HeadBox {...props} id_type={id_type} SearchText={SearchText} otherOption />
-                    {dataService?.store && dataService.store.map((value, index) => {
-                        return <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />
-                    })}
+                    {dataService?.store && dataService.store.map((value, index) =>
+                        <StoreCard {...props} cokie={cokie} currentUser={currentUser} dataService={value} key={index} />)}
                     <BannerBar_THREE />
-                    <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)}
-                        getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
-                    {activeGetServices == false && actionStart == false && dataService?.product &&
-                        <TodayProduct {...props} noTitle loadData={dataService.product} />}
-                </ScrollView>) :
-                <View></View>}
-        <SlideTab2 data={data} filterValue={value => setStatefilterValue(value)} sliderVisible={sliderVisible}
-            setStateSliderVisible={value => setSliderVisible(value)} />
+                    <Button_Bar filterValue={(value) => setStateMainfilterValue(value)} setSliderVisible={(value) =>
+                        setSliderVisible(value)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
+                    {!activeGetServices && !actionStart && dataService?.product && <TodayProduct {...props} noTitle
+                        loadData={dataService.product} />}
+                </ScrollView> : <View></View>}
+        <SlideTab2 data={data} filterValue={(value) => setStatefilterValue(value)} sliderVisible={sliderVisible}
+            setStateSliderVisible={(value) => setSliderVisible(value)} />
         <ExitAppModule {...props} />
-    </SafeAreaView>);
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> HeadBox
 export let HeadBox = (props) => {
     const { id_type, navigation, otherOption, SearchText, } = props;
-    return (<View>
+    return <View>
         <View style={[stylesMain.FrameBackgroundTextBox]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
-            {otherOption &&
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
-                    <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
-                        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7, stylesMain.ItemCenterVertical, { marginRight: 0, }]}>ร้านค้าอื่นๆ</Text>
-                        <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
-                    </View>
-                </TouchableOpacity>}
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
+            {otherOption && <TouchableOpacity onPress={() =>
+                NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
+                <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
+                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                    stylesMain.ItemCenterVertical, { marginRight: 0, }]}>ร้านค้าอื่นๆ</Text>
+                    <IconEntypo name="chevron-right" size={18} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
+                </View>
+            </TouchableOpacity>}
         </View>
-    </View>);
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> StoreCard
 export let StoreCard = (props) => {
@@ -158,38 +169,41 @@ export let StoreCard = (props) => {
     };
     var dataMySQL = `${finip}/${dataService.store_path}/${dataService.image_store}`;
     var uri = `${finip}/brand/follow_data`;
-    let getData = value => {
-        setActiveFollow(true);
-        setActiveGetServices(true);
-        setDataService2(value);
-    };
-    let setStateFollow = () => {
-        setActiveFollow(true);
-        setActiveGetServices(true);
-    };
-    useEffect(() => { activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) }); }, [activeGetServices]);
-    return (<View style={stylesMain.BoxStore5Box}>
-        <TouchableOpacity style={stylesMain.FlexRow} onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
+    let getData = (value) => { setActiveFollow(true); setActiveGetServices(true); setDataService2(value); };
+    let setStateFollow = () => { setActiveFollow(true); setActiveGetServices(true); };
+    useEffect(() => {
+        activeGetServices && GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: (value) => getData(value) });
+    }, [activeGetServices]);
+    return <View style={stylesMain.BoxStore5Box}>
+        <TouchableOpacity style={stylesMain.FlexRow} onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
             <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore5Image]} />
             </View>
             <View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataService.store_name}</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ผู้ติดตาม : {dataService2 && dataService2.number_follow}</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>จำนวนสินค้า <Text style={{ color: mainColor }}> {dataService.amount_product}</Text> |  คะแนน <Text style={{ color: mainColor }}>{dataService.rating}</Text></Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                    ผู้ติดตาม : {dataService2 && dataService2.number_follow}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#AAAAAA' }]}>
+                    จำนวนสินค้า <Text style={{ color: mainColor }}> {dataService.amount_product}</Text> |  คะแนน <Text style={{
+                        color: mainColor
+                    }}>{dataService.rating}</Text></Text>
             </View>
             <View style={stylesMain.FlexRow}>
-                <View style={[stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
+                <View style={[
+                    stylesMain.ItemCenter, { width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
                     <TouchableOpacity onPress={() => setStateFollow()}>
-                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>{dataService2?.output}</Text>
+                        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>
+                            {dataService2?.output}</Text>
                     </TouchableOpacity>
                 </View>
                 <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
-                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation } })}>
+                    <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() =>
+                        NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1, navigation } })}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>พูดคุย</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </TouchableOpacity>
-    </View>);
+    </View>;
 };

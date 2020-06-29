@@ -145,7 +145,7 @@ export default StyleSheet.create({
         borderColor: '#ECECEC',
         borderWidth: 1,
         width,
-        marginTop: 10,
+        marginTop: 3,
         paddingVertical: 8,
     },
     Coupon_Text: {

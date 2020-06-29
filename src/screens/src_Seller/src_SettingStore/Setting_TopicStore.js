@@ -31,9 +31,7 @@ import { NavigationNavigateScreen, GetServices } from '../../../customComponents
 import { finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Setting_TopicStore);
@@ -118,7 +116,8 @@ export let Notification = (props) => {
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 1 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 1 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -127,37 +126,46 @@ export let Notification = (props) => {
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 2 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 2 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                    หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 3 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                    สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 4 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 4 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 5 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 5 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 6 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 6 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
+                    หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 7 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 7 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -178,50 +186,34 @@ export class Edit_Bank extends Component {
     };
     upload_Bookbank = async () => {
         try {
-            const res = await DocumentPicker.pick({
-                type: [DocumentPicker.types.images],
-            });
-            console.log(
-                res.uri,
-                res.type, // mime type
-                res.name,
-                res.size
-            );
+            const res = await DocumentPicker.pick({ type: [DocumentPicker.types.images], });
+            console.log(res.uri, res.type, res.name, res.size);
             this.setState({ filename: res.name });
         } catch (err) {
-            if (DocumentPicker.isCancel(err)) {
-                // User cancelled the picker, exit any dialogs or menus and move on
-            } else {
-                throw err;
-            };
+            if (DocumentPicker.isCancel(err)) { } else { throw err; };
         };
     };
-    getData = (dataService) => {
-        this.setState({ activeGetServices: false, dataService });
-    };
+    getData = (dataService) => { this.setState({ activeGetServices: false, dataService }); };
     getPickerItem = (itemValue) => {
         const { dataService } = this.state;
         if (itemValue != null) {
             this.setState({
                 NameBank: itemValue,
-                selectedItem: dataService.bank_data.map((value) => { return value }).filter((value2) => { return value2.name_bank == itemValue }),
+                selectedItem: dataService.bank_data.map((value) => value).filter((value2) => value2.name_bank == itemValue),
             });
         };
     };
     setStateText = (value) => {
         const { NumberBank } = this.state;
-        if (NumberBank.length < value.length && !Number.isInteger(value.slice(-1) * 1)) {
-            value = NumberBank;
-        } else {
-            this.setState({ NumberBank: value });
-        };
+        if (NumberBank.length < value.length && !Number.isInteger(value.slice(-1) * 1)) { value = NumberBank; }
+        else { this.setState({ NumberBank: value }); };
     };
     render() {
         const { activeGetServices, dataService, NameBank, selectedItem, filename, } = this.state;
         const uri = `${finip}/store_transfer/bank_data`;
         activeGetServices && GetServices({ uriPointer: uri, getDataSource: this.getData.bind(this) });
         let pickerItem = [];
-        if (dataService) { dataService.bank_data.map((value) => { return pickerItem.push(value.name_bank) }); };
+        if (dataService) { dataService.bank_data.map((value) => pickerItem.push(value.name_bank)); };
         var url_image;
         selectedItem && (url_image = `${finip}/${selectedItem[0].image_path}/${selectedItem[0].image}`);
         return <View>
@@ -229,11 +221,14 @@ export class Edit_Bank extends Component {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อธนาคาร</Text>
                 <View style={[stylesSeller.Edit_Box]}>
                     <ModalDropdown options={pickerItem} style={[stylesMain.ItemCenterVertical,]} textStyle={{ fontSize: normalize(20) }}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, { width: width * 0.933, textAlign: 'center', fontSize: normalize(20) }]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText,
+                        { width: width * 0.933, textAlign: 'center', fontSize: normalize(20) }]}
                         renderButtonText={this.getPickerItem.bind(this)}>
                         <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: width * 1 }]}>
-                            <View style={[stylesMain.ItemCenter, { flexDirection: 'row', width: width * 0.8, marginLeft: -10, marginRight: -10 }]}>
-                                {selectedItem && selectedItem[0].image && <Image source={{ uri: url_image }} style={{ width: 40, aspectRatio: 1, marginRight: 4 }} />}
+                            <View style={[stylesMain.ItemCenter,
+                            { flexDirection: 'row', width: width * 0.8, marginLeft: -10, marginRight: -10 }]}>
+                                {selectedItem && selectedItem[0].image && <Image source={{ uri: url_image }}
+                                    style={{ width: 40, aspectRatio: 1, marginRight: 4 }} />}
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { textAlign: 'center', }]}>{NameBank}</Text>
                             </View>
                             <IconAntDesign name='caretdown' style={[stylesMain.ItemCenterVertical]} />
@@ -242,28 +237,35 @@ export class Edit_Bank extends Component {
                 </View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หมายเลขบัญชีธนาคาร</Text>
                 <View style={stylesSeller.Edit_Box}>
-                    <TextInput style={stylesFont.FontFamilyText} keyboardType='number-pad' fontSize={15} placeholder="กรุณากรอกหมายเลขบัญชีธนาคาร"
-                        editable maxLength={10} value={this.state.NumberBank} onChangeText={this.setStateText.bind(this)}></TextInput>
+                    <TextInput style={stylesFont.FontFamilyText} keyboardType='number-pad' fontSize={15}
+                        placeholder="กรุณากรอกหมายเลขบัญชีธนาคาร" editable maxLength={10} value={this.state.NumberBank}
+                        onChangeText={this.setStateText.bind(this)}></TextInput>
                 </View>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>ชื่อบัญชีธนาคาร</Text>
                 <View style={stylesSeller.Edit_Box}>
                     <TextInput style={stylesFont.FontFamilyText} fontSize={15} placeholder="กรุณากรอกชื่อบัญชีธนาคาร" multiline editable
-                        maxLength={15} value={this.state.NameCusBank} onChangeText={(NameCusBank) => this.setState({ NameCusBank })}></TextInput>
+                        maxLength={15} value={this.state.NameCusBank} onChangeText={(NameCusBank) => this.setState({ NameCusBank })} />
                 </View>
                 <View>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>หน้าบัญชีธนาคาร</Text>
                     <View style={[stylesMain.FlexRow, { height: 50, justifyContent: 'space-around', marginBottom: 10 }]}>
                         <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
-                            <View style={[{ width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center' }]}>
-                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
+                            <View style={[{
+                                width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA',
+                                borderWidth: 1, borderRadius: 5, justifyContent: 'center'
+                            }]}>
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>
+                                    {filename}</Text>
                             </View>
-                            <TouchableOpacity onPress={() => this.upload_Bookbank()} style={[stylesMain.FlexRow, stylesMain.ItemCenter, { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
+                            <TouchableOpacity onPress={() => this.upload_Bookbank()} style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                            { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
                                 <IconEntypo name='upload' size={30} style={{ color: mainColor, marginLeft: 10 }} />
                             </TouchableOpacity>
                         </View>
                     </View>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG </Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>
+                        สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG </Text>
                 </View>
             </View>
         </View>;
@@ -355,12 +357,10 @@ export class Notification_From extends Component {
     };
     DataYear = () => { return (this.state.DataYear.map((item) => { return <Picker.Item label={item} value={item} key={item} />; })); };
     DataMo = () => {
-        var months_thai = [
-            "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-        ];
-        var months_eng = [
-            'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-        ];
+        var months_thai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม",
+            "พฤศจิกายน", "ธันวาคม"];
+        var months_eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
+            'December'];
         return (this.state.DataMo.map((item) => { return <Picker.Item label={months_thai[item]} value={item} key={item} /> }));
     };
     DataDay = () => { return (this.state.DataDay.map((item) => { return <Picker.Item label={item} value={item} key={item} />; })); };
@@ -378,53 +378,66 @@ export class Notification_From extends Component {
         var year = new Date(date).getFullYear();
         return <View>
             <View style={stylesMain.FrameBackground}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', marginTop: 10 }]}> {DetailHead ? DetailHead : 'หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า'} </Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', marginTop: 10 }]}>
+                    {DetailHead ? DetailHead : 'หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า'} </Text>
                 <View style={{ padding: 10 }}>
                     <ScrollView horizontal>
                         {avatarSource ? [
                             avatarSource.map((item, index) => {
                                 return <TouchableOpacity onPress={() => this.UploadImageSingle(index)} key={index}>
-                                    <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
-                                        <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]} />
+                                    <View style={[stylesMain.ItemCenter, {
+                                        marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1,
+                                    }]}>
+                                        <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical,
+                                        { height: '100%', width: '100%' }]} />
                                     </View>
                                 </TouchableOpacity>;
                             }),
                             avatarSource.length < 7 && <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                                <View style={[stylesMain.ItemCenter,
+                                { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                         <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
+                                            +เพิ่มรูปภาพ/วีดีโอ</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>] :
                             <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
-                                <View style={[stylesMain.ItemCenter, { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                                <View style={[stylesMain.ItemCenter,
+                                { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
                                         <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
+                                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
+                                            +เพิ่มรูปภาพ/วีดีโอ</Text>
                                     </View>
                                 </View>
                             </TouchableOpacity>}
                     </ScrollView>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: 250, marginTop: 10, color: '#B7B7B7' }]}>*กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: 250, marginTop: 10, color: '#B7B7B7' }]}>
+                        *กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10 }]}>โปรดระบุวันหมดอายุ</Text>
                     <View style={{ width: '100%', alignItems: 'center', }}>
                         <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
                             <View style={stylesMain.FlexRow}>
                                 <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
-                                    <Picker selectedValue={String(day)} style={stylesMain.BoxProduct1Image} itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
-                                        onValueChange={(itemValue, itemIndex) => this.setState({ date: new Date(date).setDate(itemValue) })}>
+                                    <Picker selectedValue={String(day)} style={stylesMain.BoxProduct1Image}
+                                        itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
+                                        onValueChange={(itemValue, itemIndex) =>
+                                            this.setState({ date: new Date(date).setDate(itemValue) })}>
                                         {DataDay}
                                     </Picker>
                                 </View>
                                 <View style={[stylesLogin.DateBoxBody, { width: 120, }]}>
-                                    <Picker selectedValue={String(month)} style={stylesMain.BoxProduct1Image} itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
+                                    <Picker selectedValue={String(month)} style={stylesMain.BoxProduct1Image}
+                                        itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
                                         onValueChange={(itemValue, itemIndex) => this.getDataDay(itemValue)}>
                                         {DataMo}
                                     </Picker>
                                 </View>
                                 <View style={stylesLogin.DateBoxBody}>
-                                    <Picker selectedValue={String(year)} style={stylesMain.BoxProduct1Image} itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
+                                    <Picker selectedValue={String(year)} style={stylesMain.BoxProduct1Image}
+                                        itemStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { backgroundColor: '#fff' }]}
                                         onValueChange={(itemValue, itemIndex) => this.getDataMo(itemValue)}>
                                         {DataYear}
                                     </Picker>
@@ -462,8 +475,8 @@ export let Up_Code_Number = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>กรอกเลขพัสดุ</Text>
         <View style={{ alignItems: 'center' }}>
             <View style={stylesSeller.Up_Code_Number_BoxTextInput}>
-                <TextInput style={stylesFont.FontFamilyText} fontSize={15} placeholder="" multiline editable maxLength={50} value={numberCode}
-                    onChangeText={(value) => setNumberCode(value)}>
+                <TextInput style={stylesFont.FontFamilyText} fontSize={15} placeholder="" multiline editable maxLength={50}
+                    value={numberCode} onChangeText={(value) => setNumberCode(value)}>
                 </TextInput>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FF0000' }]}>*กรุณาตรวจเลขพัสดุ</Text>
             </View>
@@ -480,11 +493,14 @@ export let Up_Code_Number = (props) => {
                 </TouchableOpacity>
             </View>
         </View>
-        <SCLAlert theme="success" headerIconComponent={_renderHeader} show={show} title="กรุณาตรวจสอบหมายเลขพัสดุ" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
+        <SCLAlert theme="success" headerIconComponent={_renderHeader} show={show} title="กรุณาตรวจสอบหมายเลขพัสดุ"
+            titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
             subtitle="tnt1237174823403268 " subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-                <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+                <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
             </View>
         </SCLAlert>
     </View>;

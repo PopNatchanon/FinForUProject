@@ -145,14 +145,11 @@ export default StyleSheet.create({
     ///--------------------------------Recommend_Store-----------------------------------------///
     Header: {
         height: 'auto',
-        width: '100%',
-        alignItems: 'center',
-        justifyContent: 'center',
+        width,
     },
     Header_ImageBackground: {
         height: 180,
         width: '100%',
-        marginBottom: -100,
     },
     Header_Text: {
         color: '#FFFFFF',
@@ -162,11 +159,11 @@ export default StyleSheet.create({
     Header_BoxDetail: {
         width: '100%',
         backgroundColor: '#FFFFFF',
-        padding: 10,
-        marginBottom: 5,
+        padding: 6,
+        marginBottom: 0,
     },
     Header_DetailText: {
-        marginTop: 5,
+        marginTop: 3,
     },
     Store_Image: {
         width: '100%',
@@ -175,10 +172,11 @@ export default StyleSheet.create({
         borderTopRightRadius: 8,
     },
     Store_Box: {
-        height: 100,
+        bottom: 30,
+        height: 'auto',
         width: '100%',
         flexDirection: 'row',
-        marginTop: -30,
+        // marginTop: -30,
         justifyContent: 'space-between',
     },
     Store_Pro: {
@@ -240,7 +238,7 @@ export default StyleSheet.create({
     Store_BoxText_Product: {
         backgroundColor: mainColor,
         width: 130,
-        margin: 10,
+        margin: 3,
     },
     Store_Text_Product: {
         color: '#FFFFFF',
@@ -249,7 +247,7 @@ export default StyleSheet.create({
     Store_Product: {
         width: '100%',
         flexDirection: 'row',
-        marginBottom: 10,
+        marginBottom: 3,
     },
     Store_ProductBox: {
         width: '30%',

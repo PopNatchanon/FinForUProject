@@ -613,7 +613,7 @@ export let AppBar1 = (props) => {
                                 textAlign: 'center'
                             }]}>
                             {
-                                ButtomDeleteAll == true ? 'เสร็จสิ้น' : 'ลบ'
+                                ButtomDeleteAll  ? 'เสร็จสิ้น' : 'ลบ'
                             }</Text>
                     </TouchableOpacity>
                 ]}
@@ -1017,7 +1017,7 @@ export let Recommend_Brand = (props) => {
     let recommendBrand = (
         dataService?.brand && item_1 ?
             item_1.map((item, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
@@ -1036,7 +1036,7 @@ export let Recommend_Brand = (props) => {
     let recommendBrand2 = (
         dataService?.brand && item_2 ?
             item_2.map((item, index) => {
-                var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+                var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
                 return (
                     <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({

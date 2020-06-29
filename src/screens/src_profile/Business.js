@@ -35,9 +35,7 @@ import { Product_income } from '../src_Seller/Seller_Topic';
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Business);
@@ -101,21 +99,30 @@ export let Register_Affiliate = (props) => {
   const { navigation } = props;
   return <View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
     <View style={[stylesMain.ItemCenter, { width: '95%', marginVertical: 10 }]}>
-      <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10, elevation: 1, paddingVertical: 5 }]}>
+      <View style={[stylesMain.ItemCenter, {
+        backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10,
+        elevation: 1, paddingVertical: 5
+      }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>สมาชิกAffiliate</Text>
       </View>
       <View style={{ borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }} >
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>FIN Affiliate Influencer Program ช่องทางใหม่หารายได้ผ่านโซเชียล</Text>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>
+          FIN Affiliate Influencer Program ช่องทางใหม่หารายได้ผ่านโซเชียล</Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>4 ขั้นตอนง่าย ๆ ในการเข้าร่วม  Affiliate Influencer Program</Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>1. Register: สมัครเข้าร่วมเป็น Partner  ผ่าน Accesstrade</Text>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>2. Share link: นำลิ้งก์โปรโมตสินค้า ที่คุณต้องการไปวางในช่องทาง Social media ของคุณ</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>
+          2. Share link: นำลิ้งก์โปรโมตสินค้า ที่คุณต้องการไปวางในช่องทาง Social media ของคุณ</Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>3. Purchase: ลูกค้าเข้ามาซื้อสินค้าผ่านลิ้งก์ที่คุณแชร์</Text>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>4. Earn Money: รับค่าคอมมิชชั่นในทุกเดือน (หลังผ่านการตรวจสอบ) Benefit ที่ Influencer ได้รับมากกว่าแค่ค่าคอมมิชั่น ช่องทางออนไลน์ไหนบ้างที่ Influencer สามารถใช้โปรโมตสินค้าได้ Facebook Instagram Twitter YouTube เพียงคุณมีช่องทางใดช่องทางหนึ่ง หรือเว็บไซต์และโซเชียลอื่น ๆ เป็นของตัวเองก็สามารกลายมาเป็น Influencer ได้ ที่สำคัญ เราไม่จำกัดยอด Follower หรือผู้ติดตามอีกด้วย</Text>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>4. Earn Money: รับค่าคอมมิชชั่นในทุกเดือน (หลังผ่านการตรวจสอบ)
+        Benefit ที่ Influencer ได้รับมากกว่าแค่ค่าคอมมิชั่น ช่องทางออนไลน์ไหนบ้างที่ Influencer สามารถใช้โปรโมตสินค้าได้ Facebook
+        Instagram Twitter YouTube เพียงคุณมีช่องทางใดช่องทางหนึ่ง หรือเว็บไซต์และโซเชียลอื่น ๆ เป็นของตัวเองก็สามารกลายมาเป็น Influencer
+        ได้ ที่สำคัญ เราไม่จำกัดยอด Follower หรือผู้ติดตามอีกด้วย</Text>
       </View>
       <View style={[stylesMain.ItemCenter, { marginTop: 10 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ร่วมสมัครเป็นนักขายออนไลน์เพื่อสร้างรายได้กับเรา</Text>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })} style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 2, margin: 10, padding: 10, borderRadius: 5 }]}>
+        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
+          style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 2, margin: 10, padding: 10, borderRadius: 5 }]}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>สมัครฟรี คลิกที่นี่!</Text>
         </TouchableOpacity>
       </View>
@@ -127,13 +134,17 @@ export let Menu_Affiliate = (props) => {
   const { navigation } = props;
   return <View style={[stylesMain.ItemCenter, stylesMain.FrameBackground]}>
     <View style={[stylesMain.ItemCenter, { width: '98%', marginVertical: 10 }]}>
-      <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10, elevation: 1, paddingVertical: 5 }]}>
+      <View style={[stylesMain.ItemCenter, {
+        backgroundColor: '#FFFFFF', borderColor: mainColor, borderWidth: 2, width: width * 0.40, borderRadius: 5, marginBottom: -10,
+        elevation: 1, paddingVertical: 5
+      }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center' }]}>สมาชิกAffiliate</Text>
       </View>
       <View style={{ borderColor: mainColor, borderWidth: 2, padding: 30, borderRadius: 5, }} >
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
           <View style={{ width: '48%', alignItems: 'flex-end' }}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 2 }, navigation })}>
+            <TouchableOpacity onPress={() =>
+              NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 2 }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/1458482.png' }} />
               </View>
@@ -141,7 +152,8 @@ export let Menu_Affiliate = (props) => {
             </TouchableOpacity>
           </View>
           <View style={{ width: '48%' }}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 5 }, navigation })}>
+            <TouchableOpacity onPress={() =>
+              NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 5 }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/bank2.png' }} />
               </View>
@@ -151,7 +163,8 @@ export let Menu_Affiliate = (props) => {
         </View>
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 20 }]}>
           <View style={{ width: '48%', alignItems: 'flex-end' }}>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() =>
+              NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/passbook-512.png' }} />
               </View>
@@ -176,16 +189,22 @@ export let Business_Profile = (props) => {
   const { navigation } = this.props;
   return <>
     <View style={[stylesMain.FrameBackground, { alignItems: 'center', }]}>
-      <View style={{ height: 100, width: 100, backgroundColor: '#128BCE', borderRadius: 50, marginTop: 20, padding: 10, borderWidth: 2, borderColor: mainColor }} >
-        <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }} resizeMode={FastImage.resizeMode.stretch} />
+      <View style={{
+        height: 100, width: 100, backgroundColor: '#128BCE', borderRadius: 50, marginTop: 20, padding: 10, borderWidth: 2,
+        borderColor: mainColor
+      }} >
+        <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }}
+          resizeMode={FastImage.resizeMode.stretch} />
       </View>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10 }]}>ชื่อ นาย ชนะชัย โอชานะ</Text>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', width: '80%', marginTop: 10, marginBottom: 10 }]}>
-        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 2, width: '49%', borderRadius: 5, height: 30 }]}>
+        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow,
+        { borderColor: mainColor, borderWidth: 2, width: '49%', borderRadius: 5, height: 30 }]}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginRight: 10 }]}>ยอดเงิน</Text>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>77,700</Text>
         </View>
-        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 2, width: '49%', borderRadius: 5, height: 30 }]}>
+        <View style={[stylesMain.ItemCenter, stylesMain.FlexRow,
+        { borderColor: mainColor, borderWidth: 2, width: '49%', borderRadius: 5, height: 30 }]}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginRight: 10 }]}>แชร์</Text>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>256</Text>
         </View>
@@ -196,8 +215,9 @@ export let Business_Profile = (props) => {
         <View style={stylesProfile.ListMenuListSub}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 10 }]}>ระยะเวลา</Text>
           <View style={{ borderColor: '#EAEAEA', borderWidth: 1, width: '60%', alignItems: 'center' }}>
-            <ModalDropdown options={['All', 'Today', 'Last 7 Days', 'This Month']} defaultValue={'All'} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-              dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]} dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: '43%' }}>
+            <ModalDropdown options={['All', 'Today', 'Last 7 Days', 'This Month']} defaultValue={'All'} textStyle={[
+              stylesFont.FontFamilyText, stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6,
+              { textAlign: 'center' }]} dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: '43%' }}>
             </ModalDropdown>
           </View>
         </View>
@@ -220,13 +240,15 @@ export let Business_Profile = (props) => {
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>0 THB</Text>
         </View>
       </View>
-      <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
+      <TouchableOpacity activeOpacity={1} onPress={() =>
+        NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
         <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>รายการสินค้า</Text>
           <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
+      <TouchableOpacity activeOpacity={1} onPress={() =>
+        NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
         <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>การเติบโต</Text>
           <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
@@ -239,11 +261,10 @@ export let Business_Profile = (props) => {
 export let Income = (props) => {
   const [selectedIndex, setSelectedIndex] = useState(0);
   const items1 = [{ name: 'ยังไม่สำเร็จ' }, { name: 'สำเร็จแล้ว' },];
-  let dataItem = (items1) => {
-    return <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
-      <TabBar sendData={(value) => setSelectedIndex(value.selectedIndex)} item={items1} numberBox radiusBox={4} />
-    </View>;
-  };
+  let dataItem = (items1) => <View style={[stylesMain.FlexRow,
+  { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
+    <TabBar sendData={(value) => setSelectedIndex(value.selectedIndex)} item={items1} numberBox radiusBox={4} />
+  </View>;
   return <View>
     <View style={{ backgroundColor: '#FFFFFF', padding: 10, marginTop: 10 }}>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>รายการสินค้า</Text>
@@ -269,19 +290,17 @@ export let Growth = (props) => {
   const min = Math.min(...data);
   const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
   const percen = [min, max,];
-  const barData = [
-    {
-      data: data1.map((value) => ({ value })),
-      svg: { fill: 'rgb(29, 70, 204)', },
-    },
-    { data: data2.map((value) => ({ value })), },
-  ]
+  const barData = [{
+    data: data1.map((value) => ({ value })), svg: { fill: 'rgb(29, 70, 204)', },
+  }, { data: data2.map((value) => ({ value })), },];
   return <>
     <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between', padding: 10 }]}>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>กราฟ</Text>
-      <View style={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, flexDirection: 'row', }]}>
-        <ModalDropdown options={['ทั้งหมด', 'สัปดาห์', 'เดือน', 'ปี']} defaultValue={'ทั้งหมด'} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-          dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]} dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100 }}>
+      <View style={[stylesMain.ItemCenter,
+      { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, flexDirection: 'row', }]}>
+        <ModalDropdown options={['ทั้งหมด', 'สัปดาห์', 'เดือน', 'ปี']} defaultValue={'ทั้งหมด'} textStyle={[stylesFont.FontFamilyText,
+        stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
+          dropdownStyle={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100 }}>
         </ModalDropdown>
         <IconAntDesign name='caretdown' size={15} style={{ marginLeft: 5 }} />
       </View>
@@ -290,11 +309,12 @@ export let Growth = (props) => {
       <YAxis data={percen} contentInset={{ top: 30, bottom: 30 }} svg={{ fill: 'grey', fontSize: 9, }} formatLabel={(value) => `${value}%`}
         numberOfTicks={10} />
       <View style={{ flex: 1, marginLeft: 5 }}>
-        <BarChart style={{ height: 160 }} data={barData} svg={{ fill }} yAccessor={({ item }) => item.value} showGrid={true} contentInset={{ top: 30, bottom: 30, left: 10, right: 10, }}>
+        <BarChart style={{ height: 160 }} data={barData} svg={{ fill }} yAccessor={({ item }) => item.value} showGrid={true}
+          contentInset={{ top: 30, bottom: 30, left: 10, right: 10, }}>
           <Grid />
         </BarChart>
-        <XAxis style={{ marginHorizontal: 8 }} data={data1} formatLabel={(value, index) => month[index]} contentInset={{ left: 10, right: 10, }}
-          svg={{ fontSize: 9, fill: 'grey' }} />
+        <XAxis style={{ marginHorizontal: 8 }} data={data1} formatLabel={(value, index) => month[index]}
+          contentInset={{ left: 10, right: 10, }} svg={{ fontSize: 9, fill: 'grey' }} />
       </View>
     </View>
     {/* <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 20, flexDirection: 'row', height: 150 }}>
@@ -389,22 +409,28 @@ export let Finance = (props) => {
   const { navigation } = props;
   return <View>
     <View style={{ flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 10 }}>
-      <View style={[stylesMain.ItemCenter, { width: '49%', backgroundColor: '#FFFFFF', marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5 }]}>
+      <View style={[stylesMain.ItemCenter, {
+        width: '49%', backgroundColor: '#FFFFFF', marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5
+      }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>0 THB </Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดเงินที่ถอนได้</Text>
       </View>
-      <View style={[stylesMain.ItemCenter, { width: '49%', backgroundColor: '#FFFFFF', marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5 }]}>
+      <View style={[stylesMain.ItemCenter, {
+        width: '49%', backgroundColor: '#FFFFFF', marginVertical: 10, padding: 10, borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5
+      }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>0 THB </Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยอดเงินที่ถอนแล้ว</Text>
       </View>
     </View>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation })}>
+    <TouchableOpacity activeOpacity={1} onPress={() =>
+      NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation })}>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
+    <TouchableOpacity activeOpacity={1} onPress={() =>
+      NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
@@ -424,30 +450,16 @@ export let Register_Affiliate_From = (props) => {
   const [name, setName] = useState(undefined);
   const [prefixName, setPrefixName] = useState({ Mr: false, Mrs: false, Miss: false });
   const [show, setShow] = useState(false);
-  let getLast_Name = (value) => {
-    setActiveData(true);
-    setLast_Name(value);
-  };
-  let getLine_ID = (value) => {
-    setActiveData(true);
-    setLine_ID(value);
-  };
-  let getName = (value) => {
-    setActiveData(true);
-    setName(value);
-  };
+  let getLast_Name = (value) => { setActiveData(true); setLast_Name(value); };
+  let getLine_ID = (value) => { setActiveData(true); setLine_ID(value); };
+  let getName = (value) => { setActiveData(true); setName(value); };
   let onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
     setShow(Platform.OS === 'ios');
     setDate(currentDate);
   };
-  let setPrefix = (value, value2, value3) => {
-    setPrefixName({ Mr: value, Mrs: value2, Miss: value3 });
-  };
-  let showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  let setPrefix = (value, value2, value3) => setPrefixName({ Mr: value, Mrs: value2, Miss: value3 });
+  let showMode = currentMode => { setShow(true); setMode(currentMode); };
   return <>
     <ScrollView>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการสมัครสมาชิก</Text>
@@ -455,15 +467,18 @@ export let Register_Affiliate_From = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>คำนำหน้า</Text>
         <View style={[stylesMain.FlexRow, { height: 25, justifyContent: 'space-around' }]}>
           <View style={[stylesMain.FlexRow]}>
-            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Mr} onPress={() => setPrefix(true, false, false)} />
+            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Mr} onPress={() =>
+              setPrefix(true, false, false)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นาย</Text>
           </View>
           <View style={[stylesMain.FlexRow]}>
-            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Mrs} onPress={() => setPrefix(false, true, false)} />
+            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Mrs} onPress={() =>
+              setPrefix(false, true, false)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นาง</Text>
           </View>
           <View style={[stylesMain.FlexRow]}>
-            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Miss} onPress={() => setPrefix(false, false, true)} />
+            <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={prefixName.Miss} onPress={() =>
+              setPrefix(false, false, true)} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 2 }]}>นางสาว</Text>
           </View>
         </View>
@@ -486,12 +501,15 @@ export let Register_Affiliate_From = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วัน/เดือน/ปีเกิด</Text>
         <View>
           <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
-            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+            { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
               <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
-              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
             </View>
           </TouchableOpacity>
-          {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={(event, selectedDate) => onChange(event, selectedDate)} />)}
+          {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+            onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
         </View>
       </View>
       <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 7 }, navigation })}>
@@ -499,7 +517,8 @@ export let Register_Affiliate_From = (props) => {
           <View style={{ width: '95%' }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สำเนาบัตรประชาชน</Text>
             <View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
             </View>
           </View>
           <View style={stylesMain.ItemCenter}>
@@ -513,7 +532,8 @@ export let Register_Affiliate_From = (props) => {
           <View style={{ width: '95%' }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>
             <View>
-              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                เอกสารต้องมีลายเซนต์กำกับ พร้อมยืนยันสำเนาถูกต้องโดย กรรมผู้มีอำนาจ หรือ เจ้าของร้าน</Text>
             </View>
           </View>
           <View style={stylesMain.ItemCenter}>
@@ -547,7 +567,8 @@ export let Register_Affiliate_From = (props) => {
         </View>
       </View>
     </ScrollView>
-    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })} style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}
+      style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
     </TouchableOpacity>
   </>;
@@ -565,45 +586,22 @@ export class ID_card extends React.Component {
   };
   onChange = (event, selectedDate) => {
     const currentDate = selectedDate || date;
-    // console.log(new Date(currentDate))
     this.setState({ show: Platform.OS === 'ios' });
     this.setState({ date: currentDate });
   };
-  showMode = currentMode => {
-    this.setState({ show: true });
-    this.setState({ mode: currentMode });
-  };
-  showDatepicker = () => {
-    this.showMode('date');
-  };
+  showMode = currentMode => { this.setState({ show: true }); this.setState({ mode: currentMode }); };
+  showDatepicker = () => this.showMode('date');
   upload_IDcode = async () => {
     try {
-      const res = await DocumentPicker.pick({
-        type: [DocumentPicker.types.pdf, DocumentPicker.types.images],
-      });
-      console.log(
-        res.uri,
-        res.type,
-        res.name,
-        res.size
-      );
+      const res = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf, DocumentPicker.types.images], });
+      console.log(res.uri, res.type, res.name, res.size);
       var patt = new RegExp(DocumentPicker.types.images);
       if (res.type !== DocumentPicker.types.pdf) {
         console.log(patt.exec(res.type));
-        if (patt.exec(res.type) === null) {
-          alert('ไฟล์ไม่ถูกต้อง');
-        } else {
-          this.setState({ filename: res.name });
-        };
-      } else {
-        this.setState({ filename: res.name });
-      };
-    } catch (err) {
-      if (DocumentPicker.isCancel(err)) {
-      } else {
-        throw err;
-      };
-    };
+        if (patt.exec(res.type) === null) { alert('ไฟล์ไม่ถูกต้อง'); }
+        else { this.setState({ filename: res.name }); };
+      } else { this.setState({ filename: res.name }); };
+    } catch (err) { if (DocumentPicker.isCancel(err)) { } else { throw err; }; };
   };
   render() {
     const { filename, show, date, mode } = this.state;
@@ -611,25 +609,35 @@ export class ID_card extends React.Component {
       <ScrollView>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
         <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
-          <View style={[{ width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, justifyContent: 'center' }]}>
+          <View style={[{
+            width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1,
+            borderRadius: 5, justifyContent: 'center'
+          }]}>
             <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
           </View>
-          <TouchableOpacity onPress={() => this.upload_IDcode()} style={[stylesMain.FlexRow, stylesMain.ItemCenter, { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
+          <TouchableOpacity onPress={() => this.upload_IDcode()} style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+          { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
             <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
           </TouchableOpacity>
         </View>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
-        <View style={{ backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10 }}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>
+          สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
+        <View style={{
+          backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10
+        }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
           <View>
             <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
-              <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+              <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+              { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
                 <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
               </View>
             </TouchableOpacity>
-            {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={this.onChange.bind(this)} />)}
+            {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+              onChange={this.onChange.bind(this)} />}
           </View>
         </View>
       </ScrollView>
@@ -641,8 +649,6 @@ export class ID_card extends React.Component {
 };
 
 ///----------------------------------------------------------------------------------------------->>>>
-export let Bank_book = (props) => {
-  return <View>
-    <Text> Bank_book </Text>
-  </View>;
-};
+export let Bank_book = (props) => <View>
+  <Text>Bank_book</Text>
+</View>;

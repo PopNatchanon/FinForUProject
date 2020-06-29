@@ -59,7 +59,7 @@ function FeedScreen(props) {
   return (
     <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
       {/* {
-          activeGetSource == true &&
+          activeGetSource  &&
           <LoadingScreen key='LoadingScreen' />
         } */}
       <AppBar1 {...props} titleHead='Feed' menuBar />

@@ -24,9 +24,7 @@ import { NavigationNavigateScreen } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
@@ -43,16 +41,15 @@ function SettingScreen(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Main
 export let ListMenu = (props) => {
-    const { navigation } = props
+    const { navigation } = props;
     const [show, setShow] = useState(false);
     let logoutPress = async () => {
         try {
-            this.handleClose();
+            setShow(false)
             await AsyncStorage.clear();
             RNRestart.Restart();
-        } catch (e) {
-            // clear error
-        };
+        }
+        catch (e) { };
     };
     let _renderHeader = <IconMaterialIcons name='exit-to-app' size={50} color='white' />;
     return <>
@@ -61,7 +58,8 @@ export let ListMenu = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>บัญชีของฉัน</Text>
             </View>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 0 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 0 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>หน้าของฉัน</Text>
@@ -69,7 +67,8 @@ export let ListMenu = (props) => {
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ที่อยู่ของฉัน</Text>
@@ -82,7 +81,8 @@ export let ListMenu = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การตั้งค่า</Text>
             </View>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแชท</Text>
@@ -90,7 +90,8 @@ export let ListMenu = (props) => {
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแจ้งเตือน</Text>
@@ -98,7 +99,8 @@ export let ListMenu = (props) => {
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ภาษา</Text>
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
@@ -109,7 +111,8 @@ export let ListMenu = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ช่วยเหลือ</Text>
             </View>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+        <TouchableOpacity onPress={() =>
+            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ศูนย์ช่วยเหลือ</Text>
@@ -143,11 +146,14 @@ export let ListMenu = (props) => {
         <View style={{ alignItems: 'center', marginTop: 10 }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginTop: 5 }]}>FIN Shopping V 1.0.01</Text>
         </View>
-        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ" titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}
-            subtitle="คุณต้องการออกจากระบบหรือไม่?" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+        <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ออกจากระบบ" titleStyle={[
+            stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="คุณต้องการออกจากระบบหรือไม่?" subtitleStyle={
+                stylesFont.FontFamilyText} onRequestClose={() => null}>
             <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
-                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
+                <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => setShow(false)}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ไม่</SCLAlertButton>
+                <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => logoutPress()}
+                    containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
     </>;

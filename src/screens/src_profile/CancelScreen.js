@@ -26,9 +26,7 @@ import { GetServices, LoadingScreen, GetData, } from '../../customComponents/Too
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CancelScreen);
@@ -39,11 +37,7 @@ function CancelScreen(props) {
   const [cokie, setCokie] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [isLoading, setIsLoading] = useState(true);
-  let getSource = (value) => {
-    setActiveDataCustomer(false);
-    setCokie(value.keycokie);
-    setCurrentUser(value.currentUser);
-  };
+  let getSource = (value) => { setActiveDataCustomer(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
   useEffect(() => {
     activeDataCustomer && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true });
   }, [activeDataCustomer]);
@@ -68,67 +62,60 @@ function CancelScreen(props) {
     </ScrollView>
     <ExitAppModule {...props} />
   </SafeAreaView>;
-}
+};
 ///----------------------------------------------------------------------------------------------->>>> CancelScreen_Product
 export let CancelScreen_Product = (props) => {
   const { currentUser, cokie, setLoading } = props;
   const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
   const [dataService, setDataService] = useState(undefined);
   var uri = `${finip}/purchase_data/view_purchase`;
-  var dataBody = {
-    id_customer: currentUser?.id_customer,
-    type_purchase: 'cancel',
-    device: "mobile_device",
-  };
-  let getData = (value) => {
-    setActiveSelectedIndex(false);
-    setDataService(value);
-    setLoading(false);
-  };
+  var dataBody = { id_customer: currentUser?.id_customer, type_purchase: 'cancel', device: "mobile_device", };
+  let getData = (value) => { setActiveSelectedIndex(false); setDataService(value); setLoading(false); };
   useEffect(() => {
-    activeSelectedIndex && currentUser && cokie && GetServices({ uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value), });
+    activeSelectedIndex && currentUser && cokie && GetServices({
+      uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+    });
   }, [activeSelectedIndex && currentUser && cokie]);
-  return <>{!activeSelectedIndex && ([
-    <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>รายการคำสั่งซื้อ</Text>,
-    dataService?.purchase?.length > 0 ?
-      dataService.purchase.map((value, index) => { return <From_Order_Box {...props} dataService={value} key={index} /> }) :
-      <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-        <IconFeather name='edit' size={50} color='#A2A2A2' />
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
-      </View>
-  ])}</>;
+  return <>{!activeSelectedIndex &&
+    <>
+      <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>
+        รายการคำสั่งซื้อ</Text>
+      {dataService?.purchase?.length > 0 ?
+        dataService.purchase.map((value, index) => { return <From_Order_Box {...props} dataService={value} key={index} /> }) :
+        <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
+          <IconFeather name='edit' size={50} color='#A2A2A2' />
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
+        </View>}
+    </>}
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CancelScreen_From
-export let CancelScreen_From = (props) => {
-  return <SafeAreaView>
-    <ScrollView>
-      <Cancel_Product />
-      <Cancel_Detail />
-    </ScrollView>
-  </SafeAreaView>;
-};
+export let CancelScreen_From = (props) => <SafeAreaView>
+  <ScrollView>
+    <Cancel_Product />
+    <Cancel_Detail />
+  </ScrollView>
+</SafeAreaView>;
 ///----------------------------------------------------------------------------------------------->>>> Cancel_Product
-export let Cancel_Product = (props) => {
-  return <View>
-    <View style={stylesMain.FrameBackground}>
-      <View style={stylesProfileTopic.Order_Product}>
-        <View style={stylesMain.FlexRow}>
-          <View style={stylesProfileTopic.Order_Product_Pro}>
-            <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
-          </View>
-          <View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
-            <Text>x 1</Text>
-          </View>
+export let Cancel_Product = (props) => <View>
+  <View style={stylesMain.FrameBackground}>
+    <View style={stylesProfileTopic.Order_Product}>
+      <View style={stylesMain.FlexRow}>
+        <View style={stylesProfileTopic.Order_Product_Pro}>
+          <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
         </View>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
+        <View>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>หมายเลขคำสั่งซื้อ : 2223994239012</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A2A2A2' }]}>ตัวเลือกสินค้า:สีแดง</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เหตุผลยกเลิกสินค้า :เนื่องจากเปลี่ยนใจ</Text>
+          <Text>x 1</Text>
+        </View>
       </View>
+      <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor }]}>฿10,000.00</Text>
     </View>
-  </View>;
-};
+  </View>
+</View>;
 ///----------------------------------------------------------------------------------------------->>>> Cancel_Detail
 export let Cancel_Detail = (props) => {
   const [language, setLanguage] = useState(undefined);
@@ -136,7 +123,8 @@ export let Cancel_Detail = (props) => {
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>สาเหตุการยกเลิกสินค้า</Text>
     <View style={stylesProfileTopic.Cancel_Detail}>
       <View style={stylesProfileTopic.Cancel_Detail_Box}>
-        <Picker selectedValue={language} style={{ height: 35, width: '100%' }} onValueChange={(itemValue, itemIndex) => setLanguage(itemValue)}>
+        <Picker selectedValue={language} style={{ height: 35, width: '100%' }} onValueChange={(itemValue, itemIndex) =>
+          setLanguage(itemValue)}>
           <Picker.Item label="เปลี่ยนใจ" value="java" />
           <Picker.Item label="ต้องการเปลี่ยนวิธิการจัดส่ง" value="js" />
           <Picker.Item label="เปลี่ยนที่อยู่การจัดส่ง" value="js1" />
@@ -150,8 +138,8 @@ export let Cancel_Detail = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> 
 export let Cancel_Alert = (props) => {
   const [show, setShow] = useState(false);
-  let handle = (value) => { setShow(value); };
-  let _renderHeader = <IconFontAwesome name='close' size={50} color='white' />
+  let handle = (value) => setShow(value);
+  let _renderHeader = <IconFontAwesome name='close' size={50} color='white' />;
   return <View>
     <View style={stylesProfileTopic.Cancel_Detail_ButtonBox}>
       <TouchableOpacity>
@@ -165,12 +153,13 @@ export let Cancel_Alert = (props) => {
         </View>
       </TouchableOpacity>
     </View>
-    <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ยกเลิกสินค้า"
-      titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitle="กรุณารอการตรวจสอบจากร้านค้า"
-      subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+    <SCLAlert theme="danger" headerIconComponent={_renderHeader} show={show} title="ยกเลิกสินค้า" titleStyle={[stylesFont.FontFamilyBold,
+    stylesFont.FontSize2]} subtitle="กรุณารอการตรวจสอบจากร้านค้า" subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
       <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)} containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
+        <SCLAlertButton theme="danger" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
+          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
   </View>;

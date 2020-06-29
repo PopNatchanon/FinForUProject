@@ -1,8 +1,10 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
+import { connect } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import SlidingView from 'rn-sliding-view';
@@ -24,134 +26,70 @@ import { Might_like_Store } from './src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class FINSupermarket extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      sliderVisible: false,
-      dataService: [],
-    };
-  }
-  setSlider = (sliderVisible) => {
-    this.setState({ sliderVisible })
-  }
-  getData = (dataService) => {
-    this.setState({ dataService })
-  }
-  render() {
-    return (
-      <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...this.props} backArrow titleHead='FIN Supermarket' />
-        <ScrollView>
-          <View style={{ width: '100%', height: 180, marginTop: 10 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/bannersupermarket5.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-          {/* <Slide /> */}
-          <FIN_Supermarket {...this.props} />
-          <Brand_Supermarket />
-          <Product_Today_Supermarket />
-          <View style={{ height: 55, width: '100%', marginTop: 10 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner06.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <Product_Shop />
-        </ScrollView>
-      </SafeAreaView>
-    );
-  }
+const mapStateToProps = (state) => ({
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(FINSupermarket);
+function FINSupermarket(props) {
+  return <SafeAreaView style={stylesMain.SafeAreaView}>
+    <AppBar1 {...props} backArrow titleHead='FIN Supermarket' />
+    <ScrollView>
+      <View style={{ width: '100%', height: 180, marginTop: 10 }}>
+        <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/bannersupermarket5.jpg`, }}
+          resizeMode={FastImage.resizeMode.stretch} />
+      </View>
+      {/* <Slide /> */}
+      <FIN_Supermarket {...props} />
+      <Brand_Supermarket />
+      <Product_Today_Supermarket />
+      <View style={{ height: 55, width: '100%', marginTop: 10 }}>
+        <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_banner06.jpg`, }}
+          resizeMode={FastImage.resizeMode.contain} />
+      </View>
+      <Product_Shop />
+    </ScrollView>
+  </SafeAreaView>;
 }
 
 ///----------------------------------------------------------------------------------------------->>>>
-export class FinMall_Product extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDataService: true,
-      dataService: [],
-    };
-  }
-  getData = (dataService) => {
-    this.setState({ activeDataService: false, dataService })
-  }
-  render() {
-    const { navigation } = this.props
-    const { activeDataService, dataService } = this.state
-    var uri = `${ip}/mysql/DataServiceMain.php`;
-    var dataBody = {
-      type: 'todayproduct'
-    };
-    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    return (
-      <View style={stylesMain.FrameBackground}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>
-            Fin Mall
-            </Text>
-          <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-            goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation
-          })}>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>
-              ดูทั้งหมด</Text>
-          </TouchableOpacity>
-        </View>
-        {
-          dataService &&
-          <FlatProduct {...this.props} custumNavigation='FinMall_Product' dataService={dataService}
-            mode='row3' nameFlatProduct='FinMall_Product' nameSize={14} priceSize={15} dispriceSize={15} />
-        }
-      </View>
-    );
-  }
-}
+export let FinMall_Product = (props) => {
+  const { navigation } = props;
+  const [activeDataService, setActiveDataService] = useState(true);
+  const [dataService, setDataService] = useState(undefined);
+  var dataBody = { type: 'todayproduct' };
+  var uri = `${ip}/mysql/DataServiceMain.php`;
+  let getData = (value) => { setActiveDataService(false); setDataService(value); };
+  useEffect(() => {
+    activeDataService && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), });
+  }, [activeDataService]);
+  return <View style={stylesMain.FrameBackground}>
+    <View style={stylesMain.FrameBackgroundTextBox}>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Fin Mall</Text>
+      <TouchableOpacity activeOpacity={1} onPress={() =>
+        NavigationNavigateScreen({ goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation })}>
+        <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
+      </TouchableOpacity>
+    </View>
+    {dataService && <FlatProduct {...props} custumNavigation='FinMall_Product' dataService={dataService} mode='row3'
+      nameFlatProduct='FinMall_Product' nameSize={14} priceSize={15} dispriceSize={15} />}
+  </View>;
+};
 ///----------------------------------------------------------------------------------------------->>>>
-export class FIN_Supermarket extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDataService: true,
-      dataService: [],
-    };
-  }
-  getData(dataService) {
-    this.setState({ activeDataService: false, dataService })
-  }
-  render() {
-    const { activeDataService, dataService } = this.state
-    const item = [{
-      name: 'Global Items'
-    }, {
-      name: 'ของใช้ประจำวัน'
-    }, {
-      name: 'Skincare'
-    }]
-    var uri = `${ip}/mysql/DataServiceMain.php`;
-    var dataBody = {
-      type: 'todayproduct'
-    };
-    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    return (
-      <View>
-        <View style={[stylesMain.FrameBackground2]}>
-          <TabBar
-            // sendData={this.getData.bind(this)}
-            item={item}
-            radiusBox={4}
-            widthBox={97}
-            inactiveColor={mainColor}
-            overScrollMode={'never'}
-            type='box' />
-          {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
+export let FIN_Supermarket = (props) => {
+  const [activeDataService, setActiveDataService] = useState(true);
+  const [dataService, setDataService] = useState(undefined);
+  const item = [{ name: 'Global Items' }, { name: 'ของใช้ประจำวัน' }, { name: 'Skincare' }];
+  var dataBody = { type: 'todayproduct' };
+  var uri = `${ip}/mysql/DataServiceMain.php`;
+  let getData = (value) => { setActiveDataService(false); setDataService(value); };
+  useEffect(() => {
+    activeDataService && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), });
+  }, [activeDataService]);
+  return <View>
+    <View style={[stylesMain.FrameBackground2]}>
+      <TabBar item={item} radiusBox={4} widthBox={97} inactiveColor={mainColor} overScrollMode={'never'} type='box' />
+      {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', padding: 5 }}>
                 <TouchableOpacity style={{ backgroundColor: '#9BB7D6', width: '32%', }}>
                   <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center', color: '#063B76' }]}>
                     Global Items</Text>
@@ -165,174 +103,84 @@ export class FIN_Supermarket extends React.Component {
                     Skincare</Text>
                 </TouchableOpacity>
               </View> */}
-          {
-            dataService &&
-            <FlatProduct {...this.props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen'
-              mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
-          }
-        </View>
-      </View>
-    );
-  }
+      {dataService && <FlatProduct {...props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen' mode='row3'
+        nameSize={14} priceSize={15} dispriceSize={15} />}
+    </View>
+  </View>;
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export class Brand_Supermarket extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-    };
-  }
-  render() {
-    return (
-      <>
-        <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
-          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`,
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-          <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`,
-              }}
-              resizeMode={FastImage.resizeMode.stretch}
-            />
-          </View>
-        </View>
-        <View style={{ height: 100, width: '100%', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap' }}>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-          <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
-            <FastImage
-              style={stylesMain.BoxProduct1Image}
-              source={{
-                uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`,
-              }}
-              resizeMode={FastImage.resizeMode.contain}
-            />
-          </View>
-        </View>
-      </>
-    );
-  }
-}
+export let Brand_Supermarket = (props) => <>
+  <View style={{ flexDirection: 'row', justifyContent: 'space-around', width: '100%', height: 100, marginTop: 10 }}>
+    <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/logo-foodland.png`, }}
+        resizeMode={FastImage.resizeMode.stretch} />
+    </View>
+    <View style={{ width: '48%', backgroundColor: '#FFFFFF' }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`, }}
+        resizeMode={FastImage.resizeMode.stretch} />
+    </View>
+  </View>
+  <View style={{ height: 100, width: '100%', justifyContent: 'space-around', flexDirection: 'row', flexWrap: 'wrap' }}>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', height: 50, width: '30%', borderColor: '#EAEAEA', borderWidth: 1, marginVertical: 5 }}>
+      <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, }}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>
+  </View>
+</>;
 ///----------------------------------------------------------------------------------------------->>>>
-export class Product_Today_Supermarket extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDataService: true,
-      dataService: [],
-    };
-  }
-  getData(dataService) {
-    this.setState({ activeDataService: false, dataService })
-  }
-  render() {
-    const { navigation } = this.props
-    const { activeDataService, dataService } = this.state
-    var uri = `${ip}/MySQL/DataServiceMain.php`;
-    var dataBody = {
-      type: 'todayproduct'
-    };
-    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    return (
-      <View>
-        <View style={[stylesMain.FrameBackground, { marginTop: 20 }]}>
-          <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าประจำวันที่ควรช้อป!!</Text>
-          {
-            dataService &&
-            <FlatProduct {...this.props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen'
-              mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />
-          }
-        </View>
-      </View>
-    );
-  }
+export let Product_Today_Supermarket = (props) => {
+  const [activeDataService, setActiveDataService] = useState(true);
+  const [dataService, setDataService] = useState(undefined);
+  var dataBody = { type: 'todayproduct' };
+  var uri = `${ip}/mysql/DataServiceMain.php`;
+  let getData = (value) => { setActiveDataService(false); setDataService(value); };
+  useEffect(() => {
+    activeDataService && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), });
+  }, [activeDataService]);
+  return <View>
+    <View style={[stylesMain.FrameBackground, { marginTop: 20 }]}>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>
+        สินค้าประจำวันที่ควรช้อป!!</Text>
+      {dataService && <FlatProduct {...props} dataService={dataService} numberOfColumn={2} nameFlatProduct='DetailScreen' mode='row3'
+        nameSize={14} priceSize={15} dispriceSize={15} />}
+    </View>
+  </View>;
 }
 
 ///----------------------------------------------------------------------------------------------->>>>
-export class Product_Shop extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeDataService: true,
-      sliderVisible: false,
-      dataService: [],
-    };
-  }
-  setSlider = (sliderVisible) => {
-    this.setState({ sliderVisible })
-  }
-  getData = (dataService) => {
-    this.setState({ activeDataService: false, dataService })
-  }
-  render() {
-    const { navigation } = this.props
-    const { activeDataService, dataService } = this.state
-    var uri = `${ip}/MySQL/DataServiceMain.php`;
-    var dataBody = {
-      type: 'todayproduct'
-    };
-    activeDataService == true && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this), })
-    return (
-      <View>
-        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าที่คุณควรช้อป!!!</Text>
-        {
-          dataService ?
-            <TodayProduct {...this.props} noTitle loadData={dataService} typeip prepath='mysql' /> :
-            null
-        }
-      </View>
-    );
-  }
-}
+export let Product_Shop = (props) => {
+  const [activeDataService, setActiveDataService] = useState(true);
+  const [dataService, setDataService] = useState(false);
+  const [sliderVisible, setSliderVisible] = useState(undefined);
+  var dataBody = { type: 'todayproduct' };
+  var uri = `${ip}/mysql/DataServiceMain.php`;
+  let setSlider = (value) => setSliderVisible(value);
+  let getData = (value) => { setActiveDataService(false); setDataService(value); };
+  useEffect(() => {
+    activeDataService && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData(value), });
+  }, [activeDataService]);
+  return <View>
+    <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>สินค้าที่คุณควรช้อป!!!</Text>
+    {dataService ? <TodayProduct {...props} noTitle loadData={dataService} typeip prepath='mysql' /> : null}
+  </View>;
+};

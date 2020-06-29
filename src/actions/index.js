@@ -59,14 +59,14 @@ export const checkCustomer = () => {
             console.log(error)
             if (error) {
                 console.log(error)
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie  && (value.keycokie = undefined)
+                getUser  && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             }
             if (dataCokie === undefined) {
                 console.log(`dataCokie`);
-                getCokie == true && (value.keycokie = undefined)
-                getUser == true && (value.currentUser = undefined);
+                getCokie  && (value.keycokie = undefined)
+                getUser  && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             };
         } else {

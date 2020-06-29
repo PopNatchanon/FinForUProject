@@ -195,7 +195,7 @@ export default class Post_Feed extends Component {
     }
     render() {
         const { activeGetCurrentUser } = this.state
-        activeGetCurrentUser == true &&
+        activeGetCurrentUser  &&
             GetData({ getCokie: true, getSource: this.getSource.bind(this), getUse: true, })
         return (
             <SafeAreaView style={{ height: '100%' }}>
@@ -435,11 +435,11 @@ export class Score_store extends React.Component {
             name: '1 ดาว',
             nameline2: `(${dataService?.rate_1 ?? '0'})`,
         }];
-        activeGetServices == true && id_store && cokie && dataBody?.id_store &&
+        activeGetServices  && id_store && cokie && dataBody?.id_store &&
             GetServices({
                 Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: this.getData.bind(this),
             });
-        activeGetServices2 == true && id_store && cokie &&
+        activeGetServices2  && id_store && cokie &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data_start', getDataSource: this.getData2.bind(this), });
         return (
             <>
@@ -464,7 +464,7 @@ export class Score_store extends React.Component {
                 <View style={{ height: 120, width: '100%', flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
                     <TabBar
                         sendData={this.updateIndex.bind(this)}
-                        // SetValue={activeTabBar == true ? selectedIndex != null ? selectedIndex : -1 : undefined}
+                        // SetValue={activeTabBar  ? selectedIndex != null ? selectedIndex : -1 : undefined}
                         setVertical={6}
                         // setHorizontal={6}
                         item={item}
@@ -691,7 +691,7 @@ export class Post_New extends React.Component {
                 act: 'view'
             } : {};
 
-        activePost == true && (
+        activePost  && (
             actionPost == 'edit' ?
                 GetServices({
                     uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_action_update',
@@ -702,7 +702,7 @@ export class Post_New extends React.Component {
                     getDataSource: this.getData.bind(this),
                 })
         ),
-            activePostView == true && actionPost == 'edit' && id_feed && id_store && cokie &&
+            activePostView  && actionPost == 'edit' && id_feed && id_store && cokie &&
             GetServices({
                 uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'feed_action_view',
                 getDataSource: this.getData2.bind(this),
@@ -839,7 +839,7 @@ export class Select_TagProduct extends React.Component {
             id_store,
             level: selectedIndex == 0 ? 'normal' : selectedIndex == 1 ? 'favorite' : 'normal'
         }
-        activeGetServices == true && cokie &&
+        activeGetServices  && cokie &&
             GetServices({
                 uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'feed_tag_product',
                 getDataSource: this.getData.bind(this),

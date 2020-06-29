@@ -23,9 +23,7 @@ import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Too
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(The_BestFinScreen);
@@ -33,11 +31,10 @@ function The_BestFinScreen(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);
   const [dataService, setDataService] = useState(undefined);
   var uri = `${finip}/coupon/superfin`;
-  let getData = (value) => {
-    setActiveGetServices(false);
-    setDataService(value);
-  };
-  useEffect(() => { activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value) }); }, [activeGetServices]);
+  let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+  useEffect(() => {
+    activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value) });
+  }, [activeGetServices]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar1 {...props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
     <ScrollView>
@@ -69,8 +66,8 @@ export let Fin_sale = (props) => {
       <View style={stylesDeal.Fin_sale_BoxHead}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
       </View>
-      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={1} mode='row3'
-        nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
+      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={1}
+        mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
 };
@@ -80,9 +77,9 @@ export let Store_Sale = (props) => {
   var discount_l = [];
   var discount_m = [];
   var discount_xl;
-  dataService?.discount_m?.map((value) => { return discount_m.push(`${finip}/${value.image_path}/${value.image}`); });
-  dataService?.discount_l?.map((value) => { return discount_l.push(`${finip}/${value.image_path}/${value.image}`); });
-  dataService?.discount_xl?.map((value) => { return discount_xl = `${finip}/${value.image_path}/${value.image}` });
+  dataService?.discount_m?.map((value) => discount_m.push(`${finip}/${value.image_path}/${value.image}`));
+  dataService?.discount_l?.map((value) => discount_l.push(`${finip}/${value.image_path}/${value.image}`));
+  dataService?.discount_xl?.map((value) => discount_xl = `${finip}/${value.image_path}/${value.image}`);
   let Store_Sale_Box = <View style={stylesDeal.Store_Sale}>
     <View style={stylesDeal.Store_Sale_Box}>
       {/* BoxA */}
@@ -91,20 +88,16 @@ export let Store_Sale = (props) => {
           <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: discount_xl, }} resizeMode={FastImage.resizeMode.stretch} />
         </View>
         <View style={stylesDeal.Store_Sale_BoxA_Boximage}>
-          {discount_m && discount_m.map((value, index) => {
-            return <View key={index} style={stylesDeal.Store_Sale_BoxA_image}>
-              <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
-            </View>;
-          })}
+          {discount_m && discount_m.map((value, index) => <View key={index} style={stylesDeal.Store_Sale_BoxA_image}>
+            <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
+          </View>)}
         </View>
       </View>
       {/* BoxB */}
       <View style={stylesDeal.Store_Sale_BoxB_Boximage}>
-        {discount_l && discount_l.map((value, index) => {
-          return <View key={index} style={stylesDeal.Store_Sale_BoxB_image}>
-            <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
-          </View>;
-        })}
+        {discount_l && discount_l.map((value, index) => <View key={index} style={stylesDeal.Store_Sale_BoxB_image}>
+          <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
+        </View>)}
       </View>
     </View>
   </View>;
@@ -131,8 +124,8 @@ export let Product_Cool = (props) => {
       <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
       </View>
-      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={2} mode='row3'
-        nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
+      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={2}
+        mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
 };
@@ -142,33 +135,23 @@ export let Second_Store = (props) => {
   var discount_sec_l = [];
   var discount_sec_m = [];
   var discount_sec_xl;
-  dataService?.discount_sec_l?.map((value) => {
-    return discount_sec_l.push(`${finip}/${value.image_path}/${value.image}`);
-  });
-  dataService?.discount_sec_m?.map((value) => {
-    return discount_sec_m.push(`${finip}/${value.image_path}/${value.image}`);
-  });
-  dataService?.discount_sec_xl?.map((value) => {
-    return discount_sec_xl = `${finip}/${value.image_path}/${value.image}`;
-  });
+  dataService?.discount_sec_l?.map((value) => discount_sec_l.push(`${finip}/${value.image_path}/${value.image}`));
+  dataService?.discount_sec_m?.map((value) => discount_sec_m.push(`${finip}/${value.image_path}/${value.image}`));
+  dataService?.discount_sec_xl?.map((value) => discount_sec_xl = `${finip}/${value.image_path}/${value.image}`);
   let Second_StoreBody = <View style={stylesDeal.Second_Store}>
     <View style={stylesDeal.Second_Store_SlideA}>
       <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: discount_sec_xl, }} resizeMode={FastImage.resizeMode.stretch} />
     </View>
     <View style={stylesDeal.Second_Store_SlideB}>
-      {discount_sec_m && discount_sec_m.map((value, index) => {
-        return <View key={index} style={stylesDeal.Second_Store_SlideB_Box}>
-          <FastImage style={stylesMain.BoxStore1Image} source={{ uri: value, }} />
-        </View>;
-      })}
+      {discount_sec_m && discount_sec_m.map((value, index) => <View key={index} style={stylesDeal.Second_Store_SlideB_Box}>
+        <FastImage style={stylesMain.BoxStore1Image} source={{ uri: value, }} />
+      </View>)}
     </View>
     <View style={{ marginVertical: 10, width: '90%', flexDirection: 'row', justifyContent: 'space-around' }}>
       <ScrollView horizontal>
-        {discount_sec_l && discount_sec_l.map((value, index) => {
-          return <View key={index} style={{ width: 160, height: 80, marginLeft: 5 }}>
-            <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
-          </View>;
-        })}
+        {discount_sec_l && discount_sec_l.map((value, index) => <View key={index} style={{ width: 160, height: 80, marginLeft: 5 }}>
+          <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
+        </View>)}
       </ScrollView>
     </View>
   </View>

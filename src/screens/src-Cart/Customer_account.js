@@ -24,9 +24,7 @@ import { GetServices, GetData } from '../../customComponents/Tools';
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_account);
@@ -66,51 +64,39 @@ function Customer_account(props) {
         value.main && (dataBody.main = value.main);
         setDataBody(dataBody);
     };
-    let getData2 = () => {
-        setActiveSave(true);
-    };
+    let getData2 = () => { setActiveSave(true); };
     let getData3 = (value) => {
-        if (dataBody.main == 'yes' && type != 'edit') {
-            setActiveSave(false);
-            setActiveSave2(true);
-            setDataService(value);
-        } else {
-            setActiveSave(false);
-            setDataService(value);
-            this.getData4('none');
-        };
+        if (dataBody.main == 'yes' && type != 'edit') { setActiveSave(false); setActiveSave2(true); setDataService(value); }
+        else { setActiveSave(false); setDataService(value); this.getData4('none'); };
     };
     let getData4 = (value) => {
-        setActiveSave2(false);
-        setDataService2(value);
-        navigation.state.params.updateData2(value);
-        navigation.goBack();
+        setActiveSave2(false); setDataService2(value); navigation.state.params.updateData2(value); navigation.goBack();
     };
-    let getData5 = (value) => {
-        setDataService3(value);
-    };
-    let getSource = (value) => {
-        setActiveGetSource(false);
-        setCokie(value.keycokie);
-        setCurrentUser(value.currentUser);
-    };
+    let getData5 = (value) => { setDataService3(value); };
+    let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
     }, [activeGetSource]);
     useEffect(() => {
-        activeGetServices && currentUser && currentUser.id_customer && cokie && id_address && type_special == undefined && GetServices({ uriPointer: uri3, dataBody3, getDataSource: value => getData5(value), Authorization: cokie, showConsole: 'edit_address' });
+        activeGetServices && currentUser && currentUser.id_customer && cokie && id_address && type_special == undefined && GetServices({
+            uriPointer: uri3, dataBody3, getDataSource: value => getData5(value), Authorization: cokie, showConsole: 'edit_address'
+        });
     }, [activeGetServices && currentUser && currentUser.id_customer && cokie && id_address && type_special == undefined]);
     useEffect(() => {
-        activeSave2 && cokie && type_special == undefined && type != 'edit' && GetServices({ uriPointer: uri2, dataBody: { address: "--" }, getDataSource: value => getData4(value), Authorization: cokie, });
+        activeSave2 && cokie && type_special == undefined && type != 'edit' && GetServices({
+            uriPointer: uri2, dataBody: { address: "--" }, getDataSource: value => getData4(value), Authorization: cokie,
+        });
     }, [activeSave2 && cokie && type_special == undefined && type != 'edit']);
     useEffect(() => {
-        activeSave && cokie && type_special == undefined && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getData3(value), Authorization: cokie, showConsole: 'address' });
+        activeSave && cokie && type_special == undefined && GetServices({
+            uriPointer: uri, dataBody, getDataSource: value => getData3(value), Authorization: cokie, showConsole: 'address'
+        });
     }, [activeSave && cokie && type_special == undefined]);
     return <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
         <Appbar {...props} type={type} />
         <ScrollView>
-            <Account currentUser={this.state.currentUser} dataService={dataService3?.list_address} getData={value => getData(value)} key='Accountlist_address'
-                type_special={type_special} />
+            <Account currentUser={this.state.currentUser} dataService={dataService3?.list_address} getData={value => getData(value)}
+                key='Accountlist_address' type_special={type_special} />
             <Account_main dataService={dataService3?.list_address} getData={value => getData(value)} key='Account_main' />
         </ScrollView>
         <Button_Bar dataBody={dataBody} getData={value => getData2(value)} />
@@ -125,7 +111,8 @@ export let Appbar = (props) => {
             <View style={[stylesMain.ItemCenter, { width: '100%', height: 50, flexDirection: 'row' }]}>
                 <View style={[stylesMain.ItemCenter, { flexDirection: 'row', marginLeft: '30%', marginRight: '30%' }]}>
                     <IconAntDesign name='mail' size={30} color='#FFFFFF' />
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>{type == 'edit' ? 'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>{type == 'edit' ?
+                        'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()} >
                     <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
@@ -257,66 +244,78 @@ export class Account extends Component {
             this.getDataAmphoe(value.province);
             this.getDataTumbol(value.amphur);
             this.setState({
-                address: value.address, name: value.firstname, lastname: value.lastname, phone: value.telephone_number, tumbol: value.tumbol,
-                zipcode: value.zip_code, activeServices: false, activeData: true,
+                address: value.address, name: value.firstname, lastname: value.lastname, phone: value.telephone_number,
+                tumbol: value.tumbol, zipcode: value.zip_code, activeServices: false, activeData: true,
             });
         });
         return <View>
             {[type_special == 'tax' && <View key={'ประเภทผู้ขอออกใบกำกับภาษี'} style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ประเภทผู้ขอออกใบกำกับภาษี</Text>
-                <ModalDropdown options={taxs} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]} renderButtonText={(index) => { this.setState({ tax: index }) }}>
+                <ModalDropdown options={taxs} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                    renderButtonText={(index) => { this.setState({ tax: index }) }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tax}</Text>
                 </ModalDropdown>
             </View>,
             tax !== 'โปรดระบุ' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>{tax == 'บุคคลธรรมดา' ? 'หมายเลขบัตรประชาชน' : tax == 'นิติบุคคล' ? 'หมายเลขประจำตัวผู้เสียภาษี' : tax == 'ชาวต่างชาติ' && 'หมายเลขพาสปอร์ต'}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>{tax == 'บุคคลธรรมดา' ?
+                    'หมายเลขบัตรประชาชน' : tax == 'นิติบุคคล' ? 'หมายเลขประจำตัวผู้เสียภาษี' : tax == 'ชาวต่างชาติ' &&
+                        'หมายเลขพาสปอร์ต'}</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(number) => this.setState({ activeData: true, number, })} />
+                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(number) =>
+                        this.setState({ activeData: true, number, })} />
             </View>,
             tax === 'นิติบุคคล' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>สาขา</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(office) => this.setState({ activeData: true, office, })} />
+                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(office) =>
+                        this.setState({ activeData: true, office, })} />
             </View>]}
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ชื่อ</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(name) => this.setState({ activeData: true, name, })} />
+                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(name) =>
+                        this.setState({ activeData: true, name, })} />
             </View>
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>นามสกุล</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={lastname} onChangeText={(lastname) => this.setState({ activeData: true, lastname })} />
+                    placeholder="โปรดระบุ" maxLength={28} value={lastname} onChangeText={(lastname) =>
+                        this.setState({ activeData: true, lastname })} />
             </View>
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" keyboardType='phone-pad' maxLength={10} value={phone} onChangeText={(phone) => this.setState({ activeData: true, phone })} />
+                    placeholder="โปรดระบุ" keyboardType='phone-pad' maxLength={10} value={phone} onChangeText={(phone) =>
+                        this.setState({ activeData: true, phone })} />
             </View>
             <View style={[styles.Account_Box, { height: 100 }]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ที่อยู่</Text>
                 <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { width: '60%', height: 90 }]} multiline editable
-                    placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น" value={address} onChangeText={(address) => this.setState({ activeData: true, address })} />
+                    placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น" value={address} onChangeText={(address) =>
+                        this.setState({ activeData: true, address })} />
             </View>
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>จังหวัด</Text>
-                <ModalDropdown options={provinces} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]} renderButtonText={(index) => { [this.setState({ province: index }), this.getDataAmphoe(index)] }}>
+                <ModalDropdown options={provinces} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                    renderButtonText={(index) => { [this.setState({ province: index }), this.getDataAmphoe(index)] }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{province}</Text>
                 </ModalDropdown>
             </View>
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เขต/อำเภอ</Text>
-                <ModalDropdown options={amphoes} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]} renderButtonText={(index) => this.getDataTumbol(index)}>
+                <ModalDropdown options={amphoes} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                    renderButtonText={(index) => this.getDataTumbol(index)}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{amphoe}</Text>
                 </ModalDropdown>
             </View>
             <View style={styles.Account_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>แขวง/ตำบล</Text>
-                <ModalDropdown options={tumbols} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]} renderButtonText={(index) => this.setState({ activeData: true, tumbol: index, })} >
+                <ModalDropdown options={tumbols} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                    renderButtonText={(index) => this.setState({ activeData: true, tumbol: index, })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tumbol}</Text>
                 </ModalDropdown>
             </View>
@@ -331,19 +330,12 @@ export class Account extends Component {
 ///----------------------------------------------------------------------------------------------->>>> Account_main
 export let Account_main = (props) => {
     const { dataService, getData } = props;
-    const { activeData, activeServices, item1, item2 } = this.state;
     const [activeData, setActiveData] = useState(true);
     const [activeServices, setActiveServices] = useState(true);
     const [item1, setItem1] = useState(true);
     const [item2, setItem2] = useState(true);
-    let setStateItem1 = (value) => {
-        setActiveData(true);
-        setItem1(value);
-    };
-    let setStateItem2 = (value) => {
-        setActiveData(true);
-        setItem2(value);
-    };
+    let setStateItem1 = (value) => { setActiveData(true); setItem1(value); };
+    let setStateItem2 = (value) => { setActiveData(true); setItem2(value); };
     let getDatas = (item2) => {
         var mc;
         item2 ? mc = 'yes' : mc = 'no';
@@ -352,8 +344,7 @@ export let Account_main = (props) => {
     };
     activeData && getDatas(item2);
     activeServices && dataService && dataService.map((value) => {
-        setStateItem2(value.main_address == 0 ? false : true);
-        setActiveServices(false);
+        setStateItem2(value.main_address == 0 ? false : true); setActiveServices(false);
     });
     return <View>
         {/* <View style={[styles.Account_Box]}>
@@ -369,21 +360,24 @@ export let Account_main = (props) => {
                 </View> */}
         <View style={styles.Account_Box}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เลือกเป็นที่อยู่หลัก</Text>
-            <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item2} onPress={() => setStateItem2(!item2)} />
+            <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item2} onPress={() =>
+                setStateItem2(!item2)} />
         </View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export let Button_Bar = (props) => {
     const { dataBody, getData } = props;
-    const [bool, setBool] = useState(false)
-    let activeSave = () => {
-        getData('AAA');
-    };
-    dataBody && dataBody.amphur !== 'เขต/อำเภอ' && dataBody.province !== 'จังหวัด' && dataBody.tumbol !== 'แขวง/ตำบล' && dataBody.firstname !== undefined && dataBody.lastname !== undefined && dataBody.telephone_number !== undefined ? setBool(true) : setBool(false);
+    const [bool, setBool] = useState(false);
+    let activeSave = () => { getData('AAA'); };
+    dataBody && dataBody.amphur !== 'เขต/อำเภอ' && dataBody.province !== 'จังหวัด' && dataBody.tumbol !== 'แขวง/ตำบล' &&
+        dataBody.firstname !== undefined && dataBody.lastname !== undefined && dataBody.telephone_number !== undefined ?
+        setBool(true) : setBool(false);
     return <View style={{ alignItems: 'center', justifyContent: 'flex-end', }}>
         <TouchableOpacity activeOpacity={bool ? 0.2 : 1} onPress={bool ? () => activeSave() : null}>
-            <View style={{ height: 40, backgroundColor: bool ? mainColor : '#ECECEC', width, alignItems: 'center', justifyContent: 'center', }}>
+            <View style={{
+                height: 40, backgroundColor: bool ? mainColor : '#ECECEC', width, alignItems: 'center', justifyContent: 'center',
+            }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: bool ? '#FFFFFF' : '#919191' }]}>บันทึก</Text>
             </View>
         </TouchableOpacity>

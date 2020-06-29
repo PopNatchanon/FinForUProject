@@ -58,10 +58,7 @@ function Customer_Order(props) {
     };
     var uri2 = `${finip}/bill/update_bill_address`;
     var uri = `${finip}/bill/bill_list`;
-    let getData = (value) => {
-        setActiveReset(false);
-        setDataService(value);
-    };
+    let getData = (value) => { setActiveReset(false); setDataService(value); };
     let getData2 = (id_address) => {
         setDataBody2({
             dataBody2: {
@@ -71,24 +68,20 @@ function Customer_Order(props) {
             }, activeIdAddress: true
         });
     };
-    let getData3 = (value) => {
-        setActiveIdAddress(false);
-        setActiveReset(true);
-        setDataService2(value);
-    };
-    let getSource = (value) => {
-        setActiveGetSource(false);
-        setCokie(value.keycokie);
-        setCurrentUser(value.currentUser);
-    };
+    let getData3 = (value) => { setActiveIdAddress(false); setActiveReset(true); setDataService2(value); };
+    let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true });
     }, [activeGetSource]);
     useEffect(() => {
-        activeIdAddress && cokie && GetServices({ uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'update_bill_address', getDataSource: value => getData3(value), });
+        activeIdAddress && cokie && GetServices({
+            uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'update_bill_address', getDataSource: value =>
+                getData3(value),
+        });
     }, [activeIdAddress]);
     useEffect(() => {
-        activeReset && currentUser && currentUser.id_customer && cokie && no_invoice && GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value), });
+        activeReset && currentUser && currentUser.id_customer && cokie && no_invoice &&
+            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value), });
     }, [activeReset && currentUser && currentUser.id_customer && cokie && no_invoice]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 {...props} backArrow titleHead='สั่งซื้อสินค้า' />
@@ -113,12 +106,19 @@ export let Account = (props) => {
                 <View style={{ marginLeft: 10, flex: 1, }}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในการจัดส่ง</Text>
                     {data && ([
-                        <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>{data.customer_name} | {data.telephone_number}</Text>,
-                        <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>{data.address}</Text>
+                        <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
+                            {data.customer_name} | {data.telephone_number}</Text>,
+                        <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5,
+                        { paddingLeft: 8, width: '100%', }]}>{data.address}</Text>
                     ])}
                 </View>
             </View>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1, type: 'select', updateData: value => getData(value), no_invoice: data.no_invoice }, navigation })}>
+            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                goScreen: 'Setting_Topic', setData: {
+                    selectedIndex: 1, type: 'select', updateData: value => getData(value),
+                    no_invoice: data.no_invoice
+                }, navigation
+            })}>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
             </TouchableOpacity>
         </View>
@@ -137,17 +137,21 @@ export let Order = (props) => {
                                 uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop1.jpg`,
                             }}
                         /> */}
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, { marginLeft: 10 }]}>{dataService.store_name}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical, { marginLeft: 10 }]}>
+                    {dataService.store_name}</Text>
             </View>
             <View style={[stylesCustomerOrder.Order_product]}>
                 <View style={stylesCustomerOrder.Order_product_Box}>
-                    <FastImage style={{ height: '100%', width: '100%', }} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
+                    <FastImage style={{ height: '100%', width: '100%', }} source={{ uri: dataMySQL, }}
+                        resizeMode={FastImage.resizeMode.contain} />
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 4, width: '70%' }]}>{dataService.product}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 4, width: '70%' }]}>
+                    {dataService.product}</Text>
                 <View style={[stylesCustomerOrder.Order_product_Boxprice, { marginLeft: -100 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right' }]}>x {dataService.quantity}</Text>
                     <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10, color: mainColor, textAlign: 'right', }]}>{value}</Text>} />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                        { marginLeft: 10, color: mainColor, textAlign: 'right', }]}>{value}</Text>} />
                     {/* <View style={{ flexDirection: 'row', textAlign: 'right', }}>
                             </View> */}
                 </View>
@@ -171,56 +175,53 @@ export let Option_payment = (props) => {
     const [modalVisible, setModalVisible] = useState(false);
     const [path1, setPath1] = useState(0);
     const [item1, setItem1] = useState(false);
-    const { item1, modalVisible } = this.state;
     var data;
     dataService.bill_data.map((value) => { return data = value });
-    let setModalVisibles = (value) => {
-        setModalVisible(value);
-    };
-    let setStateItem1 = () => {
-        setItem1(!item1);
-    };
-    let getData = () => {
-        getData = (dataSelect) => {
-            getData(dataSelect);
-        };
-    };
+    let setModalVisibles = (value) => { setModalVisible(value); };
+    let setStateItem1 = () => { setItem1(!item1); };
+    let getDatas = (value) => { getData(value); };
     let Path1 = () => {
         switch (path1) {
             case 0:
                 return null;
             case 1:
                 return <View style={{ width, borderColor: '#EAEAEA', borderWidth: 1, paddingLeft: 50, paddingTop: 10, }}>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                     </View>
                 </View>
             case 2:
                 return <View style={{ width, borderColor: '#EAEAEA', borderWidth: 1, paddingLeft: 50, paddingTop: 10, }}>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต</Text>
                     </View>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                     </View>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, marginTop: 10 }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                     </View>
                 </View>;
             case 3:
                 return <View style={{ width, borderColor: '#EAEAEA', borderWidth: 1, paddingLeft: 50, paddingTop: 10, }}>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                     </View>
                 </View>;
             case 4:
                 return <View style={{ width, borderColor: '#EAEAEA', borderWidth: 1, paddingLeft: 50, paddingTop: 10, }}>
-                    <View style={[stylesCustomerOrder.Payment_Box_Text, { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
+                    <View style={[stylesCustomerOrder.Payment_Box_Text,
+                    { width, height: 30, borderBottomColor: '#EAEAEA', borderBottomWidth: 1, }]}>
                         <IconAntDesign name='plussquareo' size={15} />
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>เพิ่มบัตรเครดิต </Text>
                     </View>
@@ -246,7 +247,8 @@ export let Option_payment = (props) => {
                         <View style={stylesCustomerOrder.Payment_Box}>
                             <View style={stylesCustomerOrder.Payment_Box_Text}>
                                 <IconEntypo name='credit-card' size={20} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>บัตรเครดิต / เดบิต </Text>
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10 }]}>
+                                บัตรเครดิต / เดบิต </Text>
                             </View>
                             <TouchableOpacity activeOpacity={0.9} onPress={() => {
                                 this.state.path1 != 1 ?
@@ -347,8 +349,9 @@ export let Option_payment = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ค่าจัดส่ง</Text>
             </View>
             <View>
-                <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>{value}</Text>} />
+                <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
+                    renderText={value => <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>
+                        {value}</Text>} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor, textAlign: 'right' }]}>Free</Text>
             </View>
         </View>
@@ -364,7 +367,8 @@ export let Option_payment = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ขอออกใบกำกับภาษี</Text>
             </View>
             <View style={{ marginTop: -4, marginRight: -8 }}>
-                <CheckBox size={30} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} onPress={() => setStateItem1()} />
+                <CheckBox size={30} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1}
+                    onPress={() => setStateItem1()} />
             </View>
         </View>
         {item1 && <View style={stylesCustomerOrder.Account}>
@@ -373,11 +377,18 @@ export let Option_payment = (props) => {
                     <IconEvilIcons name='location' size={30} />
                     <View style={{ marginLeft: 10, flex: 1, }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ที่อยู่ในใบกำกับภาษี</Text>
-                        {data && <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>{data.customer_name} | {data.telephone_number}</Text>}
-                        {data && <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8, width: '100%', }]}>{data.address}</Text>}
+                        {data && <Text key={'customer_name'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { paddingLeft: 8 }]}>
+                            {data.customer_name} | {data.telephone_number}</Text>}
+                        {data && <Text key={'address'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5,
+                        { paddingLeft: 8, width: '100%', }]}>{data.address}</Text>}
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1, type: 'select', type_special: 'tax', updateData: value => getData(value), no_invoice: data.no_invoice }, navigation })}>
+                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Setting_Topic', setData: {
+                        selectedIndex: 1, type: 'select', type_special: 'tax', updateData: value => getDatas(value),
+                        no_invoice: data.no_invoice
+                    }, navigation
+                })}>
                     <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
             </View>
@@ -387,17 +398,20 @@ export let Option_payment = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Bar_payment
 export let Bar_payment = (props) => {
     const { currentUser, dataService, navigation, no_invoice } = props;
-    const { modalVisible } = this.state;
     const [modalVisible, setModalVisible] = useState(false);
-    return <View style={{ width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between', borderTopColor: '#ECECEC', borderTopWidth: 1 }}>
+    return <View style={{
+        width: '100%', height: 50, backgroundColor: '#FFF', flexDirection: 'row', justifyContent: 'space-between',
+        borderTopColor: '#ECECEC', borderTopWidth: 1
+    }}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={value => setModalVisible(!modalVisible)}>
             <OmiseBox {...this.props} currentUser={currentUser} dataService={dataService} getData={value => setModalVisible(value)}
                 no_invoice={no_invoice} total={dataService.bill_data[0].total} />
         </Modal>
         <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
-            <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: mainColor, }]}>{value}</Text>} />
+            <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
+                renderText={value => <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: mainColor, }]}>
+                    {value}</Text>} />
         </View>
         <TouchableOpacity activeOpacity={1} onPress={() => setModalVisible(!modalVisible)}>
             <View style={{ width: 150, height: 50, backgroundColor: mainColor, justifyContent: 'center', alignItems: 'center', }}>
@@ -489,7 +503,7 @@ export class OmiseBox extends Component {
         });
     };
     render() {
-        const { total } = this.props
+        const { total } = this.props;
         const {
             number,
             name,
@@ -500,26 +514,31 @@ export class OmiseBox extends Component {
             activePayment,
             activeLoading,
         } = this.state;
-        var uri = `${finip}/e15de57976dca/pay976dca`
-        activePayment && GetServices({ uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson: true, getDataSource: this.getData.bind(this) })
+        var uri = `${finip}/e15de57976dca/pay976dca`;
+        activePayment && GetServices({
+            uriPointer: uri, dataBody, showConsole: 'pay976dca', nojson: true, getDataSource: this.getData.bind(this)
+        });
         return <View style={[stylesMain.ItemCenter, { height, width }]}>
             {activeLoading && <LoadingScreen />}
             <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
             <Content>
                 <Form style={stylesMain.ItemCenterVertical, { height }}>
-                    <View style={[stylesMain.ItemCenterVertical, { height: 'auto', width: width * 0.85, backgroundColor: '#ECECEC', borderRadius: 8, }]}>
+                    <View style={[stylesMain.ItemCenterVertical,
+                    { height: 'auto', width: width * 0.85, backgroundColor: '#ECECEC', borderRadius: 8, }]}>
                         <View>
                             <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <View style={{ width: 50, height: 50 }}>
-                                    <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]} source={require('../../../images/payment.png')}
-                                        resizeMode={FastImage.resizeMode.contain} />
+                                    <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
+                                        source={require('../../../images/payment.png')} resizeMode={FastImage.resizeMode.contain} />
                                 </View>
                                 <View style={{ marginLeft: 16 }}>
                                     <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>http://mmnie.live/</Label>
-                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#3C414D' }]}>Secured by Omise</Label>
+                                    <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#3C414D' }]}>
+                                        Secured by Omise</Label>
                                 </View>
                             </View>
-                            <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 14, marginTop: 0, marginBottom: 4 }]}>Credit / Debit</Label>
+                            <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3,
+                            { margin: 14, marginTop: 0, marginBottom: 4 }]}>Credit / Debit</Label>
                             <Item style={{ width: width * 0.83 }}>
                                 <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Card number</Label>
                                 <Input defaultValue={number} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
@@ -527,15 +546,20 @@ export class OmiseBox extends Component {
                             </Item>
                             <Item style={{ width: width * 0.83 }}>
                                 <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Name on card</Label>
-                                <Input defaultValue={name} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]} onChangeText={(name) => this.setState({ name })} />
+                                <Input defaultValue={name} style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
+                                    onChangeText={(name) => this.setState({ name })} />
                             </Item>
                             <Item style={{ width: width * 0.83 }}>
                                 <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Expiry date</Label>
-                                <Input placeholder="MM" maxLength={2} keyboardType='phone-pad' style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
-                                    defaultValue={expiration_month} onChangeText={(expiration_month) => this.setState({ expiration_month })} />
+                                <Input placeholder="MM" maxLength={2} keyboardType='phone-pad' style={[stylesFont.FontFamilyBold,
+                                stylesFont.FontSize5]}
+                                    defaultValue={expiration_month} onChangeText={(expiration_month) =>
+                                        this.setState({ expiration_month })} />
                                 <Text>/</Text>
-                                <Input placeholder="YY" maxLength={2} keyboardType='phone-pad' style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}
-                                    defaultValue={expiration_year} onChangeText={(expiration_year) => this.setState({ expiration_year })} />
+                                <Input placeholder="YY" maxLength={2} keyboardType='phone-pad' style={[stylesFont.FontFamilyBold,
+                                stylesFont.FontSize5]}
+                                    defaultValue={expiration_year} onChangeText={(expiration_year) =>
+                                        this.setState({ expiration_year })} />
                             </Item>
                             <Item last style={{ width: width * 0.83 }}>
                                 <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { width: 100 }]}>Security code</Label>
@@ -543,7 +567,8 @@ export class OmiseBox extends Component {
                                     defaultValue={security_code} onChangeText={(security_code) => this.setState({ security_code })} />
                             </Item>
                         </View>
-                        <Button full onPress={() => this._createToken()} style={{ borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: mainColor }}>
+                        <Button full onPress={() => this._createToken()}
+                            style={{ borderBottomLeftRadius: 8, borderBottomRightRadius: 8, backgroundColor: mainColor }}>
                             <NumberFormat value={total} displayType={'text'} thousandSeparator={true} prefix={''} renderText={value =>
                                 <Text>ตกลงชำระค่าสินค้า {value} บาท</Text>} />
                         </Button>

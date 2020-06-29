@@ -192,13 +192,13 @@ export function Highlights(props) {
       <View style={[stylesMain.FrameBackground, { marginTop: -5 }]}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>ร้านค้ายอดนิยม</Text>
         <ScrollView horizontal>
-          <View style={{ paddingLeft: 10, flexDirection: 'row', aspectRatio: 3, }}>
+          <View style={{ paddingLeft: 10, flexDirection: 'row', aspectRatio: 3, height: 'auto',marginBottom: 5 }}>
             {
               [0, 1, 2, 3, 4].map((_, index) => {
                 return (
                   <View key={index} style={{
                     width: '21%', marginRight: 10,
-                    borderColor: '#C4C4C4', borderWidth: 1.5, marginBottom: 10,
+                    borderColor: '#C4C4C4', borderWidth: 1.5, 
                   }}>
                     <View style={{ height: '30%' }}>
                       <FastImage
@@ -353,7 +353,7 @@ export function Feed_About(props) {
           selectedIndex: 12,
         }, navigation
       })}
-        style={[stylesMain.FlexRow, { marginTop: 2, padding: 10 }]}>
+        style={[stylesMain.FlexRow, { marginTop: 2, padding: 5 }]}>
         <View style={stylesMain.FlexRow}>
           <FastImage
             style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}
@@ -370,7 +370,7 @@ export function Feed_About(props) {
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 10 }}>
       <TouchableOpacity onPress={() => NavigationNavigateScreen({
         goScreen: 'Post_Feed', setData: {
-          selectedIndex: 21,
+          selectedIndex: 22,
         }, navigation
       })}
         style={[stylesMain.FlexRow, { backgroundColor: '#E0EFFF', padding: 10, borderRadius: 5 }]}>
@@ -447,7 +447,7 @@ export function Feed_About(props) {
           selectedIndex: 11,
         }, navigation
       })}>
-        <View style={[stylesMain.FlexRow, { padding: 10, borderRadius: 5 }]}>
+        <View style={[stylesMain.FlexRow, { padding: 5, borderRadius: 5, marginBottom: 15 }]}>
           <View style={[stylesMain.ItemCenter, { height: 50, width: 50, borderRadius: 25, borderWidth: 1 }]}>
             <IconAntDesign name='plus' size={30} />
           </View>
@@ -463,3 +463,4 @@ export function Feed_About(props) {
   </ScrollView>
   )
 }
+///----------------------------------------------------------------------------------------------->>>>

@@ -1299,6 +1299,13 @@ export class FeedBox extends React.Component {
         const { getDataSource } = this.props
         getDataSource(activeRef)
     }
+    Setting_Group() {
+        return (
+            <View>
+
+            </View>
+        )
+    }
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { like, } = this.state
@@ -1350,7 +1357,84 @@ export class FeedBox extends React.Component {
                         </TouchableOpacity>
                     </View>
                 </BottomSheet>
-                <View style={[stylesMain.BoxProduct4Box, { marginBottom: 3 }]}>
+                <BottomSheet
+                    ref={ref => {
+                        this.share_Feed = ref;
+                    }}
+                    height={280}
+                    duration={250}
+                    customStyles={{
+                        container: {
+                            paddingHorizontal: 25,
+                            borderTopLeftRadius: 10,
+                            borderTopRightRadius: 10,
+                            alignItems: 'center',
+                        }
+                    }}
+                >
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ตัวเลือกการแชร์</Text>
+                    <View style={{ width: '95%' }}>
+                        <View>
+                            <TouchableOpacity onPress={() => {
+                                NavigationNavigateScreen({
+                                    goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, navigation
+                                });
+                                this.share_Feed.close();
+                            }}
+                                style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <FastImage
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Icon_shareBox/iconlogo.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>FIN</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <FastImage
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Icon_shareBox/facebook.jpg`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                                <Text>Facebook</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <FastImage
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Icon_shareBox/line.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                                <Text>Line</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <FastImage
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Icon_shareBox/Ig.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                                <Text>instagram</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <FastImage
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
+                                    source={{
+                                        uri: `${ip}/MySQL/uploads/Icon_shareBox/Tw.png`,
+                                    }}
+                                    resizeMode={FastImage.resizeMode.cover} />
+                                <Text>twitter</Text>
+                            </TouchableOpacity>
+                            <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                                <IconEntypo name='link' size={25}
+                                    style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }} />
+                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>คัดลอกลิงค์</Text>
+                            </TouchableOpacity>
+                        </View>
+                    </View>
+                </BottomSheet>
+                <View style={stylesMain.BoxProduct4Box}>
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
@@ -1437,7 +1521,9 @@ export class FeedBox extends React.Component {
                                         แสดงความคิดเห็น</Text>
                                 </View>
                             </TouchableOpacity>
-                            <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={() => this.onShare()}>
+                            <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon}
+                                // onPress={() => this.onShare()}
+                                onPress={() => this.share_Feed.open()}>
                                 <IconEntypo name='share' size={20} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     แชร์</Text>

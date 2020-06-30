@@ -1,9 +1,9 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useReducer } from 'react';
 import {
     Animated, BackHandler, Dimensions, SafeAreaView,
     // ScrollView, 
-    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar
+    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid
 } from 'react-native';
 import {
     PanGestureHandler,
@@ -238,91 +238,82 @@ function MainScreen(props) {
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
-export class ExitAppModule extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            backClickCount: 0,
-        };
-        this.springValue = new Animated.Value(0);
-        this.transformValue = new Animated.Value(100)
-        this.handleBackButton = this._handleBackButton.bind(this)
+export let ExitAppModule = (props) => {
+    const { navigation, route } = props;
+    var routeProps = route.name;
+    const [backClickCount, setBackClickCount] = useState(0);
+    const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen'];
+    const springValue = useRef(new Animated.Value(0));
+    const transformValue = useRef(new Animated.Value(100));
+    YellowBox.ignoreWarnings(["Require cycle:", "*"]);
+    let handleBackButton = () => {
+        if (pathMain.indexOf(routeProps) != -1) {
+            if (backClickCount == 1) {
+                BackHandler.exitApp();
+            } else {
+                setBackClickCount(1);
+                Animated.sequence([
+                    Animated.timing(
+                        transformValue.current,
+                        {
+                            toValue: -.08 * height,
+                            friction: 5,
+                            duration: 200,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 1,
+                            duration: 300,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 1,
+                            duration: 500,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 0,
+                            duration: 300,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        transformValue.current,
+                        {
+                            toValue: 100,
+                            duration: 200,
+                            useNativeDriver: true,
+                        }
+                    ),
+                ]).start(() => {
+                    setBackClickCount(0);
+                });
+            }
+        } else {
+            navigation.pop();
+        }
+        return true;
     };
-    componentDidMount() {
-        YellowBox.ignoreWarnings(["Require cycle:", "*"]);
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    };
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    };
-    _spring = () => {
-        this.setState({ backClickCount: 1 }, () => {
-            Animated.sequence([
-                Animated.timing(
-                    this.transformValue,
-                    {
-                        toValue: -.08 * height,
-                        friction: 5,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 1,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 1,
-                        duration: 700,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 0,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.transformValue,
-                    {
-                        toValue: 100,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-            ]).start(() => {
-                this.setState({ backClickCount: 0 });
-            });
-        });
-    };
-    _handleBackButton = () => {
-        const { backClickCount } = this.state;
-        const { navigation, route } = this.props;
-        var routeProps = route.name;
-        const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen']
-        console.log(pathMain.indexOf(routeProps) != -1)
-        return pathMain.indexOf(routeProps) != -1 ?
-            (backClickCount == 1 ? BackHandler.exitApp() : this._spring(), true) :
-            (navigation.pop(), true);
-    };
-    render() {
-        return <Animatable.View style={[stylesMain.animatedView, {
-            opacity: this.springValue, transform: [{ translateY: this.transformValue }]
-        }]}>
-            <View style={stylesMain.animatedViewSub}>
-                <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
-            </View>
-        </Animatable.View>;
-    };
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+        return () => backHandler.remove();
+    });
+    return <Animatable.View style={[stylesMain.animatedView, {
+        opacity: springValue.current, transform: [{ translateY: transformValue.current }]
+    }]}>
+        <View style={stylesMain.animatedViewSub}>
+            <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
+        </View>
+    </Animatable.View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
 export let AppBar = (props) => {

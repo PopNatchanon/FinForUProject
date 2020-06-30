@@ -1766,73 +1766,57 @@ export let TodayProduct = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export class Botton_PopUp_FIN extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeShow: true,
-            activeSliding: false,
-            rotate: 0,
-        };
-        this._translateX = new Animated.Value(0);
-        this._translateY = new Animated.Value(0);
-        this._lastOffset = { x: 0, y: 0 };
-        this._onGestureEvent = Animated.event(
-            [{ nativeEvent: { translationX: this._translateX, translationY: this._translateY, }, },],
-            { useNativeDriver: false }
-        );
-    };
-    _onHandlerStateChange = event => {
+export let Botton_PopUp_FIN = (props) => {
+    const [activeShow, setActiveShow] = useState(true);
+    const [activeSliding, setActiveSliding] = useState(false);
+    const translationXRef = useRef(new Animated.Value(0));
+    const translationYRef = useRef(new Animated.Value(0));
+    const _lastOffset = { x: 0, y: 0 };
+    const _onGestureEvent = Animated.event(
+        [{ nativeEvent: { translationX: translationXRef.current, translationY: translationYRef.current, }, },],
+        { useNativeDriver: false }
+    );
+    let _onHandlerStateChange = event => {
         if (event.nativeEvent.oldState === State.ACTIVE) {
-            this._lastOffset.x += event.nativeEvent.translationX;
-            this._lastOffset.y += event.nativeEvent.translationY;
-            this._translateX.setOffset(this._lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
-            this._translateX.setValue(0);
-            this.setState({ rotate: this._lastOffset.x < -(width * 0.5) ? 1 : 0 })
-            this._translateY.setOffset(this._lastOffset.y > 0 ? 0 :
-                this._lastOffset.y < -(height - 185) ? -(height - 185) : this._lastOffset.y);
-            this._translateY.setValue(0);
+            _lastOffset.x += event.nativeEvent.translationX;
+            _lastOffset.y += event.nativeEvent.translationY;
+            translationXRef.current.setOffset(_lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
+            translationXRef.current.setValue(0);
+            translationYRef.current.setOffset(_lastOffset.y > 0 ? 0 : _lastOffset.y < -(height - 215) ? -(height - 215) : _lastOffset.y);
+            translationYRef.current.setValue(0);
         };
     };
-    render() {
-        const { activeSliding, activeShow } = this.state;
-        return <>
-            {
-                activeShow &&
-                <PanGestureHandler {...this.props} onGestureEvent={this._onGestureEvent}
-                    onHandlerStateChange={this._onHandlerStateChange}>
-                    <Animated.View style={{
-                        elevation: 1, height: 60, width: 60, left: width - 65, bottom: 20, marginTop: -60, transform:
-                            [{ translateX: this._translateX }, { translateY: this._translateY },]
-                    }}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setState({ activeSliding: !activeSliding })}>
-                            <FastImage style={[stylesMain.Botton_PopUp_Image,
-                            { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 }]} source={require('../../icon/PopUP.png')}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <TouchableOpacity onPress={() => this.setState({ activeShow: !activeShow })}
-                                style={{ width: 20, height: 20, left: 40, bottom: 40 }}>
-                                <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
-                            </TouchableOpacity>
-                        </TouchableOpacity>
-                    </Animated.View>
-                </PanGestureHandler>}
-            <SlidingView disableDrag componentVisible={activeSliding}
-                containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }} position="right">
-                <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
-                    <View style={stylesMain.Botton_PopUp_Box}>
-                        <FastImage style={stylesMain.BoxProduct1Image} source={require('../../images/0044-03.png')}
-                            resizeMode={FastImage.resizeMode.contain}>
-                            <View style={stylesMain.Botton_PopUp_Text}>
-                                <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
-                                <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
-                                    ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
-                            </View>
-                        </FastImage>
-                    </View>
+    return <>
+        {activeShow && <PanGestureHandler {...props} onGestureEvent={_onGestureEvent}
+            onHandlerStateChange={_onHandlerStateChange}>
+            <Animated.View style={{
+                elevation: 1, height: 60, width: 60, left: width - 65, bottom: 20, marginTop: -60, transform: [
+                    { translateX: translationXRef.current }, { translateY: translationYRef.current }]
+            }}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setActiveSliding(!activeSliding)}>
+                    <FastImage source={require('../../icon/PopUP.png')} resizeMode={FastImage.resizeMode.cover}
+                        style={[stylesMain.Botton_PopUp_Image, { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 }]} />
+                    <TouchableOpacity onPress={() => setActiveShow(!activeShow)} style={{ width: 20, height: 20, left: 30, bottom: 28 }}>
+                        <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
+                    </TouchableOpacity>
                 </TouchableOpacity>
-            </SlidingView>
-        </>;
-    };
+            </Animated.View>
+        </PanGestureHandler>}
+        <SlidingView disableDrag componentVisible={activeSliding} containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }}
+            position="right">
+            <TouchableOpacity onPress={() => setActiveSliding(!activeSliding)}>
+                <View style={stylesMain.Botton_PopUp_Box}>
+                    <FastImage style={stylesMain.BoxProduct1Image} source={require('../../images/0044-03.png')}
+                        resizeMode={FastImage.resizeMode.contain}>
+                        <View style={stylesMain.Botton_PopUp_Text}>
+                            <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
+                            <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
+                        </View>
+                    </FastImage>
+                </View>
+            </TouchableOpacity>
+        </SlidingView>
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Category_Image_Total = (props) => {

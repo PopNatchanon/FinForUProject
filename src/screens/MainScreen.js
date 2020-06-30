@@ -240,7 +240,7 @@ function MainScreen(props) {
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
 export let ExitAppModule = (props) => {
     const { navigation, route } = props;
-    var routeProps = route.name;
+    const routeProps = route.name;
     const [backClickCount, setBackClickCount] = useState(0);
     const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen'];
     const springValue = useRef(new Animated.Value(0));
@@ -307,9 +307,8 @@ export let ExitAppModule = (props) => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
         return () => backHandler.remove();
     });
-    return <Animatable.View style={[stylesMain.animatedView, {
-        opacity: springValue.current, transform: [{ translateY: transformValue.current }]
-    }]}>
+    return <Animatable.View style={[stylesMain.animatedView,
+    { opacity: springValue.current, transform: [{ translateY: transformValue.current }] }]}>
         <View style={stylesMain.animatedViewSub}>
             <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
         </View>

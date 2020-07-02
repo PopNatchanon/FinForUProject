@@ -62,8 +62,6 @@ function FlashSaleScreen(props) {
     }
     let getUpdate = (value) => { setActiveFlashStart(true); setDataService([]); setPkid(value); };
     let getUpdate2 = (value) => { setActiveFlashStart(true); setDataService([]); setId_Type(value); };
-    console.log(dataBody)
-    console.log(dataService)
     useEffect(() => {
         let intervalID = setInterval(() => {
             setCurTime(new Date());

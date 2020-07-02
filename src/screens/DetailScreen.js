@@ -65,8 +65,8 @@ function DetailScreen(props) {
     },
     {
       nameComponent: 'Detail_Data',
-      renderComponent: <Detail_Data {...props} currentUser={currentUser} dataService={dataService} getStarReview={getStarReview}
-        id_product={id_product} cokie={cokie} />
+      renderComponent: <Detail_Data {...props} cokie={cokie} currentUser={currentUser} dataService={dataService ?? undefined}
+        getStarReview={getStarReview} id_product={id_product} />
     },
     {
       nameComponent: 'Detail_Store',
@@ -166,7 +166,7 @@ export let Detail_Image = (props) => {
       </View>
     </TouchableOpacity>;
   };
-  let id_product = dataService.map((item, index) => {
+  let id_product = dataService?.map((item, index) => {
     let dataMySQL;
     item.gallery_image ?
       dataMySQL = imageGallery(item.image_full_path, item.gallery_image) : dataMySQL = dataService;
@@ -231,7 +231,7 @@ export let Detail_Data = (props) => {
       };
       setNewDataService(newData);
     };
-    return dataService?.product_data.map((item, index) => {
+    return dataService?.product_data?.map((item, index) => {
       return <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0, paddingBottom: 0, }]} key={index}>
         <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
           <View style={stylesDetail.Price_Text_Name_Box}>
@@ -298,13 +298,13 @@ export let Store = (props) => {
       <View style={stylesDetail.Store_Box1}>
         <View style={stylesDetail.Store_Box2}>
           <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
+            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
             <FastImage source={{ uri: dataMySQL, }} style={[stylesDetail.Store_Image,
             { marginLeft: 10, backgroundColor: 'transparent' }]} />
           </TouchableOpacity>
           <View style={stylesDetail.Store_Text_Box}>
             <TouchableOpacity onPress={() =>
-              NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
+              NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.store_name}</Text>
             </TouchableOpacity>
             <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
@@ -844,7 +844,7 @@ export let Buy_bar = (props) => {
     </View>
     <Text style={{ fontSize: 30 }}>|</Text>
     <TouchableOpacity onPress={() =>
-      NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
+      NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
       <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
         <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>

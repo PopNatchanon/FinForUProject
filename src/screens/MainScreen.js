@@ -964,12 +964,6 @@ export let FlashSale = (props) => {
             if (getFetchData['flash_timer']?.isFetching == false && getFetchData['flash_timer']?.data) {
                 var flash_end = getFetchData['flash_timer'].data.flash_end && getFetchData['flash_timer'].data.flash_end.split(':');
                 if (saveTime == undefined || (saveTime && flash_end && (saveTime[0] != flash_end[0]))) {
-                    console.log('saveTimeZXZZXZ')
-                    saveTime && console.log((saveTime[0] != flash_end[0]))
-                    saveTime && console.log('saveTime')
-                    saveTime && console.log(saveTime)
-                    flash_end && console.log('flash_end')
-                    flash_end && console.log(flash_end)
                     setSaveTime(flash_end)
                     setEndTime(new Date().setHours(
                         flash_end ? Number(flash_end[0]) : 0, flash_end ? Number(flash_end[1]) : 0, flash_end ? Number(flash_end[2]) : 0)
@@ -1255,8 +1249,6 @@ export function CategoryProduct_new(props) {
     }, [getFetchData[`category_product|${dataService.id_type}`] == undefined ||
         (getFetchData[`category_product|${dataService.id_type}`]?.isFetching)]);
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_menu}`;
-    console.log('CategoryProduct_new')
-    console.log(dataService)
     let dataCategory = <View style={[stylesMain.FrameBackground2, { backgroundColor: '#800c0a' }]}>
         <>
             {<TouchableOpacity onPress={() =>
@@ -1286,8 +1278,6 @@ export function CategoryProduct_new(props) {
 export function CategoryProduct(props) {
     const { dataService, navigation, NoStoreReCom, } = props;
     let dataCategory = dataService?.category?.map((item, index) => {
-        // console.log('CategoryProduct')
-        // console.log(item.id_type)
         let productItem = []
         let promo1Item = []
         let promo2Item = []
@@ -1299,12 +1289,9 @@ export function CategoryProduct(props) {
         dataService.cate_promotions_2.map((value) => value.map((value2) => value2.id_type == item.id_type ?
             promo2Item.push(value2) : null));
         dataService.cate_shop.map((value) => value.map((value2) => value2.id_type == item.id_type ? shopItem.push(value2) : null));
-        // console.log(productItem)
         var mix_color = color_up(item.bg_m);
         var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
         if (index < 2 /*getFetchData['category_mobile'].length*/) {
-            console.log('CategoryProduct')
-            console.log(item)
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
             var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
             return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>

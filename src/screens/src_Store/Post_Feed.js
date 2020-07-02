@@ -198,6 +198,11 @@ export default class Post_Feed extends Component {
                     <AppBar1 {...this.props} backArrow selectshare postBar />
                     <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
                 </>
+            case 25:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...this.props} backArrow titleHead='กลุ่มยอดนิยม' />
+                </>
         }
     }
     render() {
@@ -283,10 +288,7 @@ export function AppBar_Group(props) {
                     </TouchableOpacity>
                 </View>
             </BottomSheet>
-            <BottomSheet
-                ref={selectorSheet}
-                height={110}
-                duration={250}
+            <BottomSheet ref={selectorSheet} height={110} duration={250}
                 customStyles={{
                     container: {
                         borderTopLeftRadius: 10,
@@ -951,7 +953,7 @@ export class New_Group extends Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>> โปรไฟล์ กลุ่ม
-export function Profile_Group(props) {
+export let Profile_Group = (props) => {
     const { navigation } = props;
     var uri = `${finip}/${'brand/feed_highlight'}`;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
@@ -1058,7 +1060,7 @@ export function Profile_Group(props) {
 
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Group_About(props) {
+export let Group_About = (props) => {
     const Group_Member = [
         { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'สติ๊ก กี้ ', Following: '20', membar_Follow: '30', },
         { image: `${ip}/MySQL/uploads/Group_image/con7.jpg`, name: 'Chanun Nurainee', Following: '20', membar_Follow: '30', },
@@ -1162,7 +1164,7 @@ export function Group_About(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Group_Image(props) {
+export let Group_Image = (props) => {
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const itemT = [
@@ -1191,7 +1193,7 @@ export function Group_Image(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Group_Member(props) {
+export let Group_Member = (props) => {
     return (
         <View>
             <Text>สมาชิก</Text>
@@ -1199,7 +1201,7 @@ export function Group_Member(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Save_Activity(props) {
+export let Save_Activity = (props) => {
     const selectorSheet = useRef(null)
     const item = [
         { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee', Time: '1 ชั่วโมงที่แล้ว' },
@@ -1276,7 +1278,7 @@ export function Save_Activity(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Save_Post(props) {
+export let Save_Post = (props) => {
     const selectorSheet = useRef(null)
     const item = [
         { image: `${ip}/MySQL/uploads/Group_image/Walmart.png`, name: 'ผู้บริหาร Walmart เชื่อ ”ออฟฟิศ” ยังคงเป็นสิ่งสำคัญของธุรกิจ', status: 'อ่านแล้ว', },
@@ -1359,7 +1361,7 @@ export function Save_Post(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Group_Total(props) {
+export let Group_Total = (props) => {
     const Group_Categoryitem = [
         { image: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`, name: 'เครื่องประดับ' },
         { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690336.png`, name: 'พระและเครื่องราง' },
@@ -1388,31 +1390,26 @@ export function Group_Total(props) {
         },
     ]
     const Group_Totalitem = [
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
         { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
         { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
         { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
     ]
     let Group_Category = (
         Group_Categoryitem.map((value, index) => {
             return <View key={index} style={[stylesMain.ItemCenter,
-            {
-                borderColor: '#EAEAEA', borderWidth: 1,
-                width: 100, height: 120, marginHorizontal: 2.5
-            }]}>
+            { borderColor: '#EAEAEA', borderWidth: 1, width: 100, height: 120, marginHorizontal: 2.5 }]}>
                 <FastImage
                     style={{ height: 70, width: 70, marginBottom: 10 }}
-                    source={{
-                        uri: value.image,
-                    }}
+                    source={{ uri: value.image, }}
                     resizeMode={FastImage.resizeMode.contain} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
             </View>
@@ -1424,26 +1421,21 @@ export function Group_Total(props) {
                     borderColor: '#EAEAEA', borderWidth: 1,
                     width: width * 0.7, height: 70, margin: 2.5, padding: 5
                 }]}>
-                    <FastImage
-                        style={{ height: 55, width: 55, borderRadius: 30 }}
-                        source={{
-                            uri: value.image1,
-                        }}
+                    <FastImage style={{ height: 55, width: 55, borderRadius: 30 }}
+                        source={{ uri: value.image1, }}
                         resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ width: '70%', marginLeft: 10 }}>
                         <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
                     </View>
                 </View>
-                <View key={index} style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
+                <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
                     borderColor: '#EAEAEA', borderWidth: 1,
                     width: width * 0.7, height: 80, margin: 2.5, padding: 5
                 }]}>
                     <FastImage
                         style={{ height: 55, width: 55, borderRadius: 30 }}
-                        source={{
-                            uri: value.image2,
-                        }}
+                        source={{ uri: value.image2, }}
                         resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ width: '70%', marginLeft: 10 }}>
                         <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
@@ -1455,17 +1447,20 @@ export function Group_Total(props) {
     let Group_Total = (
         Group_Totalitem.map((value, index) => {
             return <View key={index} style={{
-                borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8, marginLeft: 7,
-                width: width * 0.33, alignItems: 'center', justifyContent: 'space-between'
+                borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8,
+                width: width * 0.30, alignItems: 'center',
             }}>
                 <FastImage
                     style={{ height: 55, width: '100%', marginBottom: 5 }}
-                    source={{
-                        uri: value.image,
-                    }}
+                    source={{ uri: value.image, }}
                     resizeMode={FastImage.resizeMode.stretch} />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
-                <TouchableOpacity style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 5 }}>
+                <View style={{ paddingHorizontal: 5 }}>
+                    <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                </View>
+                <TouchableOpacity style={{
+                    backgroundColor: mainColor, paddingHorizontal: 10,
+                    borderRadius: 5, paddingVertical: 3, marginVertical: 5
+                }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>เข้าร่วมกลุ่ม</Text>
                 </TouchableOpacity>
             </View>
@@ -1503,7 +1498,10 @@ export function Group_Total(props) {
                 <View style={{ marginLeft: 10, marginTop: 5 }}>
                     <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มทั้งหมด</Text>
                 </View>
-                <View style={[stylesMain.FlexRow, { flexWrap: 'wrap' }]}>
+                <View style={[stylesMain.FlexRow, {
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around', paddingHorizontal: 5, paddingBottom: 10
+                }]}>
                     {Group_Total}
                 </View>
             </View>
@@ -1511,9 +1509,8 @@ export function Group_Total(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Feed_Notification(props) {
+export let Feed_Notification = (props) => {
     const selectorSheet = useRef(null)
-
     return (
         <ScrollView>
             <View>
@@ -1597,14 +1594,13 @@ export function Feed_Notification(props) {
                                 </View>
                             </TouchableOpacity>
                         )
-                    })
-                }
+                    })}
             </View>
         </ScrollView>
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Group_Search(props) {
+export let Group_Search = (props) => {
     return (
         <View style={{ padding: 10 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>โพสต์ทั้งหมด</Text>
@@ -1613,9 +1609,7 @@ export function Group_Search(props) {
                 <View style={stylesMain.FlexRow}>
                     <FastImage
                         style={{ height: 50, width: 50, borderRadius: 25, }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-                        }}
+                        source={{ uri: `${ip}/MySQL/uploads/Group_image/1.jpg`, }}
                         resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ width: width * 0.55, marginLeft: 5 }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>Soulemate Soulemate</Text>
@@ -1628,9 +1622,7 @@ export function Group_Search(props) {
                 </View>
                 <FastImage
                     style={{ height: 100, width: 100, }}
-                    source={{
-                        uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
-                    }}
+                    source={{ uri: `${ip}/MySQL/uploads/Group_image/1.jpg`, }}
                     resizeMode={FastImage.resizeMode.cover} />
             </View>
             <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 10 }]}>
@@ -1653,7 +1645,7 @@ export function Group_Search(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Profile_FeedStore(props) {
+export let Profile_FeedStore = (props) => {
     const { navigation } = props;
     var uri = `${finip}/${'brand/feed_highlight'}`;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
@@ -1771,7 +1763,7 @@ export function Profile_FeedStore(props) {
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function Profile_FeedCustomer(props) {
+export let Profile_FeedCustomer = (props) => {
     const { navigation, Bottom, otherBar } = props;
     var uri = `${finip}/${'brand/feed_highlight'}`;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);

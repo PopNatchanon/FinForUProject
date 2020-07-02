@@ -237,7 +237,7 @@ export let StoreHeadDetails = (props) => {
     var dataMySQL;
     dataService && (dataMySQL = `${finip}/${dataService[0]?.image_path}/${dataService[0]?.image}`);
     let getDetailStore = <View style={{ height: 'auto', width, backgroundColor: '#fff' }}>
-        <View style={[stylesStore.StoreHead]}>
+        <View style={stylesStore.StoreHead}>
             <View style={stylesStore.StoreHeadBox}>
                 <View style={stylesMain.FlexRow}>
                     <View style={{ backgroundColor: '#222222', marginTop: 3, marginLeft: 6, paddingRight: 6, height: 60 }}>
@@ -268,16 +268,16 @@ export let StoreHeadDetails = (props) => {
                             }]} resizeMode={FastImage.resizeMode.cover} /> :
                             <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
                     </View>
-                    <View style={[stylesStore.HeadButtom, { marginLeft: 'auto', marginRight: 'auto' }]}>
-                        <TouchableOpacity onPress={() => undefined}>
-                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                    <View style={[stylesStore.HeadButtom, stylesMain.FlexRow, { marginLeft: 'auto', marginRight: 'auto' }]}>
+                        <TouchableOpacity /*onPress={() => undefined}*/>
+                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor, borderColor: '#f5df89', borderWidth: 2 }]}>
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
                                 { color: '#fff' }]}>ติดตาม</Text>
                             </View>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() =>
                             NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
-                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
+                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor, borderColor: '#f5df89', borderWidth: 2 }]}>
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
                                 { color: '#fff' }]}>แชท</Text>
                             </View>

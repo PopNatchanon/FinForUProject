@@ -424,7 +424,7 @@ export let AppBar = (props) => {
 export let AppBar1 = (props) => {
     const {
         ABDColor, ABDColor_All, ABGColor, backArrow, backArrowColor, backNavigation, ButtomDeleteAll, chatBar, colorBar, deleteBar,
-        getActivePost, goToTop, menuBar, navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead,
+        getActivePost, goToTop, menuBar, navigation, propsFunction, postBar, route, saveBar, searchBar, settingBar, storeBar, titleHead,
         UpBankBar,
     } = props;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
@@ -444,7 +444,7 @@ export let AppBar1 = (props) => {
                     activeOpacity={1} onPress={() => goToTop ?
                         NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
                         backNavigation ?
-                            [navigation.state.params.backNavigation('goBack'),
+                            [route.params.backNavigation('goBack'),
                             NavigationNavigateScreen({ goScreen: 'goBack', navigation })] :
                             NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
                     <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left"

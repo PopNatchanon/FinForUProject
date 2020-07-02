@@ -273,20 +273,22 @@ export let Deal_Exclusive = (props) => {
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Second_Store
-export class Second_Store extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeGetServices: true,
-      activeGetServices2: true,
-      dataService: [],
-      dataService2: [],
-      activeSlide: 0,
-    };
-  };
-  getData(dataService) { this.setState({ activeGetServices: false, dataService }); };
-  getData2(dataService2) { this.setState({ activeGetServices2: false, dataService2 }); };
-  _renderItem = ({ item, index }) => {
+export let Second_Store = (props) => {
+  const { navigation } = props;
+  const [activeGetServices, setActiveGetServices] = useState(true);
+  const [activeGetServices2, setActiveGetServices2] = useState(true);
+  const [activeSlide, setActiveSlide] = useState(0);
+  const [dataService, setDataService] = useState(undefined);
+  const [dataService2, setDataService2] = useState(undefined);
+  var uri = `${ip}/mysql/DataServiceMain.php`
+  var dataBody = { type: 'sale' };
+  var uri2 = `${finip}/home/home_mobile`;
+  var dataBody2 = { slide: 'banner' };
+  activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: (value) => getData(value) });
+  activeGetServices2 && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: (value) => getData2(value) });
+  let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+  let getData2 = (value) => { setActiveGetServices2(false); setDataService2(value); };
+  let _renderItem = ({ item, index }) => {
     var dataMySQL = `${finip}/${dataService.image_path}/${dataService.image}`
     return <View key={index}>
       <FastImage source={{ uri: dataMySQL, }} style={stylesDeal.Second_Store_Slide_image} />
@@ -295,43 +297,32 @@ export class Second_Store extends React.Component {
       </View>
     </View>;
   };
-  get pagination() {
-    const { dataService2, activeSlide } = this.state;
+  let pagination = () => {
     return <View style={{ marginTop: -60 }}>
       <Pagination dotsLength={dataService2.length} activeDotIndex={activeSlide} dotStyle={{
         width: 15, height: 15, borderRadius: 30, backgroundColor: 'rgba(0, 0, 0, 0)', borderColor: 'rgba(255, 255, 255, 0.92)',
         borderWidth: 2,
       }} inactiveDotStyle={{ width: 15, height: 5, borderRadius: 5, backgroundColor: 'rgba(255, 255, 255, 0.92)', }}
-        carouselRef={this.activeSlide} tappableDots={!!this.activeSlide} inactiveDotScale={0.6} />
+        carouselRef={activeSlide} tappableDots={!!activeSlide} inactiveDotScale={0.6} />
     </View>;
   }
-  render() {
-    const { navigation } = this.props;
-    const { activeGetServices, activeGetServices2, dataService } = this.state;
-    var uri = `${ip}/mysql/DataServiceMain.php`
-    var dataBody = { type: 'sale' };
-    var uri2 = `${finip}/home/home_mobile`;
-    var dataBody2 = { slide: 'banner' };
-    activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: this.getData.bind(this) });
-    activeGetServices2 && GetServices({ uriPointer: uri, dataBody: dataBody2, getDataSource: this.getData2.bind(this) });
-    return <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
-      <View style={stylesDeal.BoxText_Row}>
-        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 2 }, navigation })}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
-        </TouchableOpacity>
-      </View>
-      {this.sildeView()}
-      <View style={stylesDeal.BoxText_Row}>
-        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>มือสองลดราคา</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 3 }, navigation })}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
-        </TouchableOpacity>
-      </View>
-      {dataService && <FlatProduct {...this.props} custumNavigation='Second_Store' dataService={dataService} mode='row3'
-        nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />}
-    </View>;
-  };
+  return <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
+    <View style={stylesDeal.BoxText_Row}>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านมือสองลดราคา</Text>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 2 }, navigation })}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
+      </TouchableOpacity>
+    </View>
+    {sildeView()}
+    <View style={stylesDeal.BoxText_Row}>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>มือสองลดราคา</Text>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 3 }, navigation })}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
+      </TouchableOpacity>
+    </View>
+    {dataService && <FlatProduct {...props} custumNavigation='Second_Store' dataService={dataService} mode='row3'
+      nameFlatProduct='Second_Store' nameSize={14} priceSize={15} dispriceSize={15} />}
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> ProDed_Store
 export let ProDed_Store = (props) => {

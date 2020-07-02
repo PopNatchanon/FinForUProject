@@ -70,7 +70,7 @@ function Customer_account(props) {
         else { setActiveSave(false); setDataService(value); this.getData4('none'); };
     };
     let getData4 = (value) => {
-        setActiveSave2(false); setDataService2(value); navigation.state.params.updateData2(value); navigation.goBack();
+        setActiveSave2(false); setDataService2(value); route.params.updateData2(value); navigation.goBack();
     };
     let getData5 = (value) => { setDataService3(value); };
     let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
@@ -122,22 +122,26 @@ export let Appbar = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Account
-export class Account extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeData: true,
-            activeServices: true,
-            amphoe: 'เขต/อำเภอ',
-            DataProvinces: [],
-            DataAmphoes: [],
-            DataTumbols: [],
-            province: 'จังหวัด',
-            tax: 'โปรดระบุ',
-            tumbol: 'แขวง/ตำบล',
-        };
-    };
-    getDataProvince() {
+export let Account = (props) => {
+    const { currentUser, dataService, getData, type_special } = props;
+    const [activeData, setActiveData] = useState(true);
+    const [activeServices, setActiveServices] = useState(true);
+    const [address, setAddress] = useState(undefined);
+    const [amphoe, setAmphoe] = useState('เขต/อำเภอ');
+    const [dataAmphoes, setDataAmphoes] = useState([]);
+    const [dataProvinces, setDataProvinces] = useState([]);
+    const [dataTumbols, setDataTumbols] = useState([]);
+    const [lastName, setLastName] = useState(undefined);
+    const [name, setName] = useState(undefined);
+    const [number, setNumber] = useState(undefined);
+    const [office, setOffice] = useState(undefined);
+    const [phone, setPhone] = useState(undefined);
+    const [province, setProvince] = useState('จังหวัด');
+    const [tax, setTax] = useState('โปรดระบุ');
+    const [tumbol, setTumbol] = useState('แขวง/ตำบล');
+    const [zipcode, setZipCode] = useState(undefined);
+    var taxs = ['บุคคลธรรมดา', 'นิติบุคคล', 'ชาวต่างชาติ'];
+    let getDataProvince = () => {
         fetch(`${finip}/profile/province_mobile`, {
             method: 'POST',
             headers: {
@@ -145,17 +149,14 @@ export class Account extends Component {
                 'Content-Type': 'application/json',
             },
         }).then((response) => response.json()).then((responseJson) => {
-            this.setState({
-                DataProvinces: responseJson,
-            })
+            setDataProvinces(responseJson)
         }).catch((error) => {
             console.error(error);
         });
     };
-    getDataAmphoe(itemValue) {
+    let getDataAmphoe = (itemValue) => {
         if (itemValue != null) {
-            this.setState({ province: itemValue, DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null });
-            const { currentUser } = this.props;
+            setAmphoe('เขต/อำเภอ'); setDataTumbols([]); setProvince(itemValue); setTumbol('แขวง/ตำบล'); setZipCode(null);
             var dataBody = {
                 id_customer: currentUser.id_customer,
                 value_province: itemValue,
@@ -168,26 +169,21 @@ export class Account extends Component {
                 },
                 body: JSON.stringify(dataBody),
             }).then((response) => response.json()).then((responseJson) => {
-                this.setState({
-                    activeData: true,
-                    DataAmphoes: responseJson.amphur,
-                })
+                setActiveData(true); setDataAmphoes(responseJson.amphur);
             }).catch((error) => {
                 console.error(error);
             });
         } else {
-            this.getDataTumbol(null);
+            getDataTumbol(null);
         };
     };
-    myFunction(value) {
+    let myFunction = (value) => {
         return value != null;
     };
-    getDataTumbol(itemValue) {
-        const { DataAmphoes } = this.state;
+    let getDataTumbol = (itemValue) => {
         if (itemValue != null) {
-            var zipcode = DataAmphoes.map((item) => { if (item.amphoe == itemValue) { return (item.zipcode); } }).filter(this.myFunction);
-            this.setState({ amphoe: itemValue, tumbol: 'แขวง/ตำบล', zipcode: zipcode[0] });
-            const { currentUser } = this.props;
+            var zipcode = dataAmphoes.map((item) => { if (item.amphoe == itemValue) { return (item.zipcode); } }).filter(myFunction);
+            setAmphoe(itemValue); setTumbol('แขวง/ตำบล'); setZipCode(zipcode[0]);
             var dataBody = {
                 id_customer: currentUser.id_customer,
                 value_amphur: itemValue,
@@ -200,132 +196,108 @@ export class Account extends Component {
                 },
                 body: JSON.stringify(dataBody),
             }).then((response) => response.json()).then((responseJson) => {
-                this.setState({
-                    activeData: true,
-                    DataTumbols: responseJson.tumbol,
-                })
+                setActiveData(true); setDataTumbols(responseJson.tumbol);
             }).catch((error) => {
                 console.error(error);
             });
         } else {
-            this.setState({ DataTumbols: [], tumbol: 'แขวง/ตำบล', amphoe: 'เขต/อำเภอ', zipcode: null });
+            setAmphoe('เขต/อำเภอ'); setDataTumbols([]); setTumbol('แขวง/ตำบล'); setZipCode(null);
         };
     };
-    componentDidMount() {
-        this.getDataProvince();
-    };
-    DataProvince() { return (this.state.DataProvinces.map((item) => { return item.province; })); };
-    DataAmphoe() { return (this.state.DataAmphoes.map((item) => { return item.amphoe; })); };
-    DataTumbol() { return (this.state.DataTumbols.map((item) => { return item.district; })); };
+    // componentDidMount() {
+    //     this.getDataProvince();
+    // };
+    dataProvince = () => dataProvinces.map((item) => item.province);
+    dataAmphoe = () => dataAmphoes.map((item) => item.amphoe);
+    dataTumbol = () => dataTumbols.map((item) => item.district);
     getData = () => {
-        const { getData } = this.props;
-        const { address, amphoe, lastname, name, phone, province, tumbol, zipcode } = this.state;
-        this.setState({ activeData: false });
+        setActiveData(false)
         getData({
-            firstname: name,
-            lastname,
-            province,
-            amphur: amphoe,
-            tumbol,
-            zip_code: zipcode,
-            address,
-            telephone_number: phone,
+            firstname: name, lastname, province, amphur: amphoe, tumbol, zip_code: zipcode, address, telephone_number: phone,
         });
     };
-    render() {
-        const { dataService, type_special } = this.props;
-        const { activeServices, activeData, address, amphoe, lastname, name, phone, province, tax, tumbol, zipcode } = this.state;
-        let amphoes = this.DataAmphoe();
-        let provinces = this.DataProvince();
-        let tumbols = this.DataTumbol();
-        let taxs = ['บุคคลธรรมดา', 'นิติบุคคล', 'ชาวต่างชาติ'];
-        activeData && this.getData();
-        activeServices && dataService && dataService.map((value) => {
-            this.getDataAmphoe(value.province);
-            this.getDataTumbol(value.amphur);
-            this.setState({
-                address: value.address, name: value.firstname, lastname: value.lastname, phone: value.telephone_number,
-                tumbol: value.tumbol, zipcode: value.zip_code, activeServices: false, activeData: true,
-            });
-        });
-        return <View>
-            {[type_special == 'tax' && <View key={'ประเภทผู้ขอออกใบกำกับภาษี'} style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ประเภทผู้ขอออกใบกำกับภาษี</Text>
-                <ModalDropdown options={taxs} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
-                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
-                    renderButtonText={(index) => { this.setState({ tax: index }) }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tax}</Text>
-                </ModalDropdown>
-            </View>,
-            tax !== 'โปรดระบุ' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>{tax == 'บุคคลธรรมดา' ?
-                    'หมายเลขบัตรประชาชน' : tax == 'นิติบุคคล' ? 'หมายเลขประจำตัวผู้เสียภาษี' : tax == 'ชาวต่างชาติ' &&
-                        'หมายเลขพาสปอร์ต'}</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(number) =>
-                        this.setState({ activeData: true, number, })} />
-            </View>,
-            tax === 'นิติบุคคล' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>สาขา</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(office) =>
-                        this.setState({ activeData: true, office, })} />
-            </View>]}
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ชื่อ</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(name) =>
-                        this.setState({ activeData: true, name, })} />
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>นามสกุล</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" maxLength={28} value={lastname} onChangeText={(lastname) =>
-                        this.setState({ activeData: true, lastname })} />
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
-                    placeholder="โปรดระบุ" keyboardType='phone-pad' maxLength={10} value={phone} onChangeText={(phone) =>
-                        this.setState({ activeData: true, phone })} />
-            </View>
-            <View style={[styles.Account_Box, { height: 100 }]}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ที่อยู่</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { width: '60%', height: 90 }]} multiline editable
-                    placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น" value={address} onChangeText={(address) =>
-                        this.setState({ activeData: true, address })} />
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>จังหวัด</Text>
-                <ModalDropdown options={provinces} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
-                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
-                    renderButtonText={(index) => { [this.setState({ province: index }), this.getDataAmphoe(index)] }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{province}</Text>
-                </ModalDropdown>
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เขต/อำเภอ</Text>
-                <ModalDropdown options={amphoes} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
-                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
-                    renderButtonText={(index) => this.getDataTumbol(index)}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{amphoe}</Text>
-                </ModalDropdown>
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>แขวง/ตำบล</Text>
-                <ModalDropdown options={tumbols} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
-                stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
-                    renderButtonText={(index) => this.setState({ activeData: true, tumbol: index, })}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tumbol}</Text>
-                </ModalDropdown>
-            </View>
-            <View style={styles.Account_Box}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสไปรษณีย์</Text>
-                <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, textAlign: 'right' }]} editable={false}
-                    placeholder="รหัสไปรษณีย์" value={zipcode} />
-            </View>
-        </View>;
-    };
+    activeData && getData();
+    activeServices && dataService && dataService.map((value) => {
+        getDataAmphoe(value.province);
+        getDataTumbol(value.amphur);
+        setActiveData(true); setActiveServices(false); setAddress(value.address); setName(value.firstname); setLastName(value.lastname); setPhone(value.telephone_number); setTumbol(value.tumbol); setZipCode(value.zip_code);
+    });
+    let amphoes = dataAmphoe();
+    let provinces = dataProvince();
+    let tumbols = dataTumbol();
+    return <View>
+        {[type_special == 'tax' && <View key={'ประเภทผู้ขอออกใบกำกับภาษี'} style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ประเภทผู้ขอออกใบกำกับภาษี</Text>
+            <ModalDropdown options={taxs} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+            stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                renderButtonText={(value) => setTax(value)}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tax}</Text>
+            </ModalDropdown>
+        </View>,
+        tax !== 'โปรดระบุ' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>{tax == 'บุคคลธรรมดา' ?
+                'หมายเลขบัตรประชาชน' : tax == 'นิติบุคคล' ? 'หมายเลขประจำตัวผู้เสียภาษี' : tax == 'ชาวต่างชาติ' &&
+                    'หมายเลขพาสปอร์ต'}</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                placeholder="โปรดระบุ" maxLength={28} value={number} onChangeText={(value) => { setActiveData(true); setNumber(value) }} />
+        </View>,
+        tax === 'นิติบุคคล' && <View key={'หมายเลขบัตรประชาชน'} style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>สาขา</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                placeholder="โปรดระบุ" maxLength={28} value={office} onChangeText={(value) => { setActiveData(true); setOffice(value) }} />
+        </View>]}
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ชื่อ</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                placeholder="โปรดระบุ" maxLength={28} value={name} onChangeText={(value) => { setActiveData(true); setName(value) }} />
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>นามสกุล</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                placeholder="โปรดระบุ" maxLength={28} value={lastName} onChangeText={(value) => { setActiveData(true); setName(value) }} />
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>หมายเลขโทรศัพท์</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, width: 250, textAlign: 'right' }]}
+                placeholder="โปรดระบุ" keyboardType='phone-pad' maxLength={10} value={phone}
+                onChangeText={(value) => { setActiveData(true); setPhone(value) }} />
+        </View>
+        <View style={[styles.Account_Box, { height: 100 }]}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>ที่อยู่</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { width: '60%', height: 90 }]} multiline editable
+                placeholder="โปรดระบุรายละเอียดบ้านเลขที่, ตึก, ชื่อถนน และ อื่นๆที่จำเป็น" value={address}
+                onChangeText={(value) => { setActiveData(true); setAddress(value) }} />
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>จังหวัด</Text>
+            <ModalDropdown options={provinces} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+            stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                renderButtonText={(index) => { setProvince(index); getDataAmphoe(index); }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{province}</Text>
+            </ModalDropdown>
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>เขต/อำเภอ</Text>
+            <ModalDropdown options={amphoes} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+            stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                renderButtonText={(index) => getDataTumbol(index)}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{amphoe}</Text>
+            </ModalDropdown>
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>แขวง/ตำบล</Text>
+            <ModalDropdown options={tumbols} style={stylesMain.ItemCenterVertical} textStyle={[stylesFont.FontFamilyText,
+            stylesFont.FontSize6]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'right' }]}
+                renderButtonText={(index) => { setActiveData(true); setTumbol(index); }}>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{tumbol}</Text>
+            </ModalDropdown>
+        </View>
+        <View style={styles.Account_Box}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสไปรษณีย์</Text>
+            <TextInput style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { height: 40, textAlign: 'right' }]} editable={false}
+                placeholder="รหัสไปรษณีย์" value={zipcode} />
+        </View>
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Account_main
 export let Account_main = (props) => {

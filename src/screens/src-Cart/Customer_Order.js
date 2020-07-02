@@ -44,9 +44,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(Customer_Order);
 function Customer_Order(props) {
     const { route } = props;
     const no_invoice = route.params?.no_invoice;
-    const [activeGetSource, setActiveGetSource] = useState(false);
+    const [activeGetSource, setActiveGetSource] = useState(true);
     const [activeIdAddress, setActiveIdAddress] = useState(false);
     const [activeReset, setActiveReset] = useState(true);
+    const [activeAddressChange, setActiveAddressChange] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dataBody2, setDataBody2] = useState(undefined);
@@ -60,29 +61,26 @@ function Customer_Order(props) {
     var uri = `${finip}/bill/bill_list`;
     let getData = (value) => { setActiveReset(false); setDataService(value); };
     let getData2 = (id_address) => {
-        setDataBody2({
-            dataBody2: {
-                id_customer: currentUser && currentUser.id_customer,
-                id_address,
-                no_invoice,
-            }, activeIdAddress: true
-        });
+        setActiveIdAddress(true);
+        setDataBody2({ id_customer: currentUser && currentUser.id_customer, id_address, no_invoice, });
     };
     let getData3 = (value) => { setActiveIdAddress(false); setActiveReset(true); setDataService2(value); };
-    let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
+    let getSource = (value) => {
+        setActiveGetSource(false); setActiveIdAddress(true); setCokie(value.keycokie); setCurrentUser(value.currentUser);
+    };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true });
     }, [activeGetSource]);
     useEffect(() => {
         activeIdAddress && cokie && GetServices({
-            uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'update_bill_address', getDataSource: value =>
-                getData3(value),
+            uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'update_bill_address',
+            getDataSource: value => getData3(value)
         });
     }, [activeIdAddress]);
     useEffect(() => {
-        activeReset && currentUser && currentUser.id_customer && cokie && no_invoice &&
+        activeReset &&
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value), });
-    }, [activeReset && currentUser && currentUser.id_customer && cokie && no_invoice]);
+    }, [activeReset]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar1 {...props} backArrow titleHead='สั่งซื้อสินค้า' />
         <ScrollView>
@@ -404,7 +402,7 @@ export let Bar_payment = (props) => {
         borderTopColor: '#ECECEC', borderTopWidth: 1
     }}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={value => setModalVisible(!modalVisible)}>
-            <OmiseBox {...this.props} currentUser={currentUser} dataService={dataService} getData={value => setModalVisible(value)}
+            <OmiseBox {...props} currentUser={currentUser} dataService={dataService} getData={value => setModalVisible(value)}
                 no_invoice={no_invoice} total={dataService.bill_data[0].total} />
         </Modal>
         <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>

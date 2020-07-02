@@ -3,6 +3,8 @@ import React, { Component, useState, useEffect } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
 } from 'react-native';
+import { connect, useStore } from 'react-redux';
+import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -31,63 +33,76 @@ import { ProductBox } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-export default class Deal_Topic extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeGetCurrentUser: true,
-            activeGetServices: true,
-            activeGetServices2: true,
-        };
-    }
-    getData = (dataService) => { this.setState({ activeGetServices: false, dataService }); };
-    getData2 = (dataService2) => { this.setState({ activeGetServices2: false, dataService2 }); };
-    getSource(value) { this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser, cokie: value.keycokie }); };
-    getUpdateIndex = (value) => {
-        const { dataService2, } = this.state;
-        var id_category = dataService2.category[value - 1] == undefined ? '' : dataService2.category[value - 1].id_type;
-        this.setState({ activeGetServices2: true, id_category });
+const mapStateToProps = (state) => ({
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+});
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+export default connect(mapStateToProps, mapDispatchToProps)(Deal_Topic);
+function Deal_Topic(props) {
+    const { route } = props;
+    const selectedIndex = route.params?.selectedIndex;
+    const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
+    const [activeGetServices, setActiveGetServices] = useState(true);
+    const [activeGetServices2, setActiveGetServices2] = useState(true);
+    const [cokie, setCokie] = useState(undefined);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const [dataService, setDataService] = useState(undefined);
+    const [dataService2, setDataService2] = useState(undefined);
+    const [id_category, setId_Category] = useState(undefined);
+    var dataBody2 = {
+        device: 'mobile_device',
+        id_category: id_category ?? ''
     };
-    PathList() {
-        const { route } = this.props;
-        const { activeGetCurrentUser, activeGetServices2, currentUser, dataService, dataService2, id_category, cokie, } = this.state;
-        const selectedIndex = route.params?.selectedIndex;
-        const uri2 = `${finip}/highlight/exclusive_deal`;
-        var dataBody2 = {
-            device: 'mobile_device',
-            id_category: id_category ?? ''
-        };
-        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 &&
-            GetServices({ dataBody: dataBody2, uriPointer: uri2, getDataSource: this.getData2.bind(this), showConsole: 'exclusive_deal' });
+    var uri = `${finip}/coupon/coupon_day_mobile`;
+    var uri2 = `${finip}/highlight/exclusive_deal`;
+    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+    let getData2 = (value) => { setActiveGetServices2(false); setDataService2(value); };
+    let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); setCokie(value.keycokie); };
+    let getUpdateIndex = (value) => {
+        var id_category = dataService2.category[value - 1] == undefined ? '' : dataService2.category[value - 1].id_type;
+        setActiveGetServices2(true); setId_Category(id_category);
+    };
+    useEffect(() => {
+        activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true, })
+    }, [activeGetCurrentUser]);
+    useEffect(() => {
+        !activeGetCurrentUser && activeGetServices &&
+            GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: (value) => getData(value), });
+    }, [!activeGetCurrentUser && activeGetServices]);
+    useEffect(() => {
+        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 && GetServices({
+            dataBody: dataBody2, uriPointer: uri2, getDataSource: (value) => getData2(value), showConsole: 'exclusive_deal'
+        });
+    }, [selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2]);
+    let PathList = () => {
         switch (selectedIndex) {
             case 0:
                 return <View style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...this.props} backArrow titleHead='ดีลสุดคุ้ม' />
+                    <AppBar1 {...props} backArrow titleHead='ดีลสุดคุ้ม' />
                     <ScrollView>
-                        {[dataService && dataService.banner && <Slide banner={dataService.banner} />,
-                        currentUser && <Deal_CuponToday {...this.props} currentUser={currentUser} cokie={cokie} />,
-                        <Button_Bar {...this.props} />,
-                        dataService && dataService.store.map((value, index) => {
-                            const value2 = dataService.product_store.filter((value2) => { return value2.id_store == value.id_store; })
+                        {dataService && dataService.banner && <Slide banner={dataService.banner} />}
+                        {currentUser && <Deal_CuponToday {...props} currentUser={currentUser} cokie={cokie} />}
+                        {<Button_Bar {...props} />}
+                        {dataService && dataService.store.map((value, index) => {
+                            const value2 = dataService.product_store.filter((value2) => value2.id_store == value.id_store);
                             return <Deal_ProductToday dataService={value} dataService2={value2} key={index} />;
-                        })]}
+                        })}
                     </ScrollView>
                 </View>;
             case 1:
                 return <View>
-                    <AppBar1 {...this.props} backArrow titleHead='ดีลสุด Exclusive' />
+                    <AppBar1 {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         {dataService && dataService.banner && <Slide banner={dataService.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
-                        {[dataService2 && <Button_Bar {...this.props} category={dataService2.category} key='Button_Bar'
-                            getUpdateIndex={this.getUpdateIndex.bind(this)} />,
-                        dataService2 && <TodayProduct {...this.props} key='TodayProduct' noTitle loadData={dataService2.product} />
-                        ]}
+                        {dataService2 && <Button_Bar {...props} category={dataService2.category} key='Button_Bar'
+                            getUpdateIndex={(value) => getUpdateIndex(value)} />}
+                        {dataService2 && <TodayProduct {...props} key='TodayProduct' noTitle loadData={dataService2.product} />}
                     </ScrollView>
                 </View>;
             case 2:
                 return <View>
-                    <AppBar1 {...this.props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
+                    <AppBar1 {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>
@@ -97,19 +112,19 @@ export default class Deal_Topic extends Component {
                 </View>;
             case 3:
                 return <View>
-                    <AppBar1 {...this.props} backArrow titleHead='สินค้ามือสองลดราคา' />
+                    <AppBar1 {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>
-                        <Button_Bar {...this.props} />
+                        <Button_Bar {...props} />
                         {dataService ?
-                            <TodayProduct {...this.props} noTitle loadData={dataService} typeip prepath='mysql' /> :
+                            <TodayProduct {...props} noTitle loadData={dataService} typeip prepath='mysql' /> :
                             null}
                     </ScrollView>
                 </View>;
             case 4:
                 return <View>
-                    <AppBar1 {...this.props} backArrow titleHead='ร้านค้าที่มีดีล' />
+                    <AppBar1 {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>
@@ -119,22 +134,15 @@ export default class Deal_Topic extends Component {
                 </View>;
             case 5:
                 return <View style={[stylesMain.SafeAreaView, stylesMain.ItemCenter]}>
-                    <Not_Internet {...this.props} />
+                    <Not_Internet {...props} />
                 </View>;
         };
     };
-    render() {
-        const { activeGetCurrentUser, activeGetServices, activeGetServices2, cokie, } = this.state;
-        const uri = `${finip}/coupon/coupon_day_mobile`;
-        !activeGetCurrentUser && activeGetServices &&
-            GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: this.getData.bind(this), })
-        activeGetCurrentUser && GetData({ getCokie: true, getSource: this.getSource.bind(this), getUser: true, })
-        return <SafeAreaView style={stylesMain.SafeAreaView}>
-            {(activeGetCurrentUser || activeGetServices || activeGetServices2) && <LoadingScreen key='LoadingScreen' />}
-            {this.PathList()}
-            <ExitAppModule {...this.props} />
-        </SafeAreaView>;
-    };
+    return <SafeAreaView style={stylesMain.SafeAreaView}>
+        {(activeGetCurrentUser || activeGetServices || activeGetServices2) && <LoadingScreen key='LoadingScreen' />}
+        {PathList()}
+        <ExitAppModule {...props} />
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Main
 export let Deal_CuponToday = (props) => {

@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect } from 'react';
+import React, { Component, useState, useEffect, useRef } from 'react';
 import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
@@ -43,9 +43,9 @@ function Setting_Topic(props) {
   const [currentUser, setCurrentUser] = useState(undefined);
   let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
   useEffect(() => {
-    activeGetSource && GetServices({ getCokie: true, getUser: true, getSource: value => getSource(value), });
+    activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value), });
   }, [activeGetSource]);
-  let PathList = () => {
+  let pathList = () => {
     switch (selectedIndex) {
       case 0:
         return <Edit_Profile {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
@@ -74,146 +74,135 @@ function Setting_Topic(props) {
     };
   };
   return <SafeAreaView style={[stylesMain.SafeAreaView]}>
-    {PathList()}
+    {pathList()}
     <ExitAppModule {...props} />
   </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Profile
-export class Edit_Profile extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeGetServices: true, activeGetServices2: false, activeNow: 0, checked: true, currentUser: [], date: "",
-      // date: new Date(),
-      // DataDay: [],
-      // DataMo: [],
-      // DataYear: [],
-    };
-  };
-  componentDidMount() {
-    this.getDataYear();
-    this.getDataMo(new Date());
-    this.getDataDay(new Date());
-  };
-  getDataYear() {
+export let Edit_Profile = (props) => {
+  const { activeGetSource, cokie, currentUser, navigation, route } = props;
+  const [activeGetServices, setActiveGetServices] = useState(true);
+  const [activeGetServices2, setActiveGetServices2] = useState(false);
+  const [activeNow, setActiveNow] = useState(0);
+  const [checked, setChecked] = useState(true);
+  const [dataBody2, setDataBody2] = useState(undefined);
+  const [date, setDate] = useState(undefined);
+  const [dataDay, setDataDay] = useState(undefined);
+  const [dataMo, setDataMo] = useState(undefined);
+  const [dataYear, setDataYear] = useState(undefined);
+  const [dataSevice, setDataSevice] = useState(undefined);
+  const [dataSevice2, setDataSevice2] = useState(undefined);
+  const [name, setName] = useState(undefined);
+  const [inputName, setInputName] = useState(undefined);
+  const [gender, setGender] = useState(undefined);
+  const [inputGender, setInputGender] = useState(undefined);
+  const [birth_day, setBirth_day] = useState(undefined);
+  const [inputBirth_day, setInputBirth_day] = useState(undefined);
+  const [phone, setPhone] = useState(undefined);
+  const [inputPhone, setInputPhone] = useState(undefined);
+  const [image, setImage] = useState(undefined);
+  const [image_path, setImage_Path] = useState(undefined);
+  const [path, setPath] = useState(undefined);
+  const nameSheetRef = useRef(null);
+  const genderSheetRef = useRef(null);
+  const birthdaySheetRef = useRef(null);
+  const phone_numberSheetRef = useRef(null);
+  var dataBody = { id_customer: currentUser?.id_customer ?? '', };
+  var uri = `${finip}/profile/profile_mobile`;
+  var uri2 = `${finip}/profile/update_profile_mobile`;
+  let getDataYear = () => {
     var dates = new Date().getFullYear();
     var box = [];
     for (var min = 1950; min <= parseInt(dates); min = min + 1) { box.push(String(min)); };
-    this.setState({ DataYear: box, date: new Date() });
+    setDate(new Date()); setDataYear(box);
   };
-  getDataMo(itemValue) {
-    const { date } = this.state;
+  let getDataMo = (itemValue) => {
     if (itemValue != null) {
       const item = String(itemValue);
-      this.setState({ date: new Date(date).setFullYear(item) });
       var box = [];
       for (var min = 0; min <= 11; min = min + 1) { box.push(String(min)); };
-      this.setState({ DataMo: box });
+      setDate(new Date(date).setFullYear(item)); setDataMo(box);
     };
   };
-  getDataDay(itemValue) {
-    const { date } = this.state;
+  let getDataDay = (itemValue) => {
     if (itemValue != null) {
       const item = String(itemValue);
-      this.setState({ date: new Date(date).setMonth(item) });
       var box = [];
       for (var min = 1; min <= 31; min = min + 1) { box.push(String(min)); };
-      this.setState({ DataDay: box });
+      setDate(new Date(date).setMonth(item)); setDataDay(box);
     };
   };
-  DataYear() { return this.state.DataYear.map((item) => <Picker.Item label={item} value={item} key={item} />); };
-  DataMo() {
+  let dataYears = () => dataYear?.map((item) => <Picker.Item label={item} value={item} key={item} />);
+  let dataMos = () => {
     var months_thai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม",
       "พฤศจิกายน", "ธันวาคม"];
     var months_eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
       'December'];
-    return this.state.DataMo.map((item) => <Picker.Item label={months_thai[item]} value={item} key={item} />);
+    return dataMo.map((item) => <Picker.Item label={months_thai[item]} value={item} key={item} />);
   };
-  DataDay() { return this.state.DataDay.map((item) => <Picker.Item label={item} value={item} key={item} />); };
-  SaveProfile = async () => {
-    const { currentUser } = this.props;
-    const { Birth_day, Gender, Name, path, Phone } = this.state;
+  let dataDays = () => dataDay.map((item) => <Picker.Item label={item} value={item} key={item} />);
+  let saveProfile = async () => {
     var o = path && path.path.split('/');
-    var dataBody2 = [];
-    dataBody2.push({ name: 'id_customer', data: currentUser.id_customer });
-    dataBody2.push({ name: 'first_name', data: Name });
-    dataBody2.push({ name: 'gender', data: Gender ? 'male' : 'female' });
-    path && dataBody2.push({ name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) });
-    dataBody2.push({ name: 'birth_day', data: Birth_day });
-    dataBody2.push({ name: 'telephone', data: Phone });
-    this.setState({ activeGetServices2: true, dataBody2 });
+    var body2 = [];
+    body2.push({ name: 'id_customer', data: currentUser.id_customer });
+    body2.push({ name: 'first_name', data: name });
+    body2.push({ name: 'gender', data: gender ? 'male' : 'female' });
+    path && body2.push({ name: 'file', filename: o[o.length - 1], type: path.mime, data: RNFetchBlob.wrap(path.path) });
+    body2.push({ name: 'birth_day', data: birth_day });
+    body2.push({ name: 'telephone', data: phone });
+    setActiveGetServices2(true);
+    setDataBody2(body2);
   };
-  SaveName = async () => {
-    const { InputName } = this.state;
-    this.setState({ Name: InputName });
-    this.NameSheet.close();
-  };
-  SaveGender = async () => {
-    const { InputGender } = this.state;
-    this.setState({ Gender: InputGender });
-    this.GenderSheet.close();
-  };
-  SaveBirth_day = async () => {
-    const { InputBirth_day } = this.state;
-    this.setState({ Birth_day: InputBirth_day });
-    this.BirthdaySheet.close();
-  };
-  SavePhone = async () => {
-    const { InputPhone } = this.state;
-    this.setState({ Phone: InputPhone });
-    this.Phone_numberSheet.close();
-  };
-  NameSheetBody() {
-    const { InputName } = this.state;
-    return <>
-      <View style={stylesProfileTopic.Edit_Profile}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อผู้ใช้</Text>
-        <View style={stylesProfileTopic.Edit_Profile_Box}>
-          <TextInput fontSize={15} placeholder="ชื่อ" maxLength={30} value={InputName} onChangeText={(InputName) =>
-            this.setState({ InputName })} />
-        </View>
+  let saveName = async () => { setName(inputName); nameSheetRef.current.close(); };
+  let saveGender = async () => { setGender(inputGender); genderSheetRef.current.close(); };
+  let saveBirth_day = async () => { setBirth_day(inputBirth_day); birthdaySheetRef.current.close(); };
+  let savePhone = async () => { setPhone(inputPhone); phone_numberSheetRef.current.close(); };
+  dataYear == undefined && getDataYear()
+  dataMo == undefined && getDataMo(new Date())
+  dataDay == undefined && getDataDay(new Date())
+  let nameSheetBody = () => <>
+    <View style={stylesProfileTopic.Edit_Profile}>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ชื่อผู้ใช้</Text>
+      <View style={stylesProfileTopic.Edit_Profile_Box}>
+        <TextInput fontSize={15} placeholder="ชื่อ" maxLength={30} value={inputName} onChangeText={(value) => setInputName(value)} />
       </View>
-      <TouchableOpacity onPress={() => this.SaveName()}>
-        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-        </View>
-      </TouchableOpacity>
-    </>;
-  };
-  GenderSheetBody() {
-    const { InputGender } = this.state;
-    return <>
-      <View style={stylesProfileTopic.Edit_Profile}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
-        <View style={stylesMain.FlexRow}>
-          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() =>
-            this.setState({ InputGender: true })} />
-          <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
-          <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={!InputGender} onPress={() =>
-            this.setState({ InputGender: false })} />
-          <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
-        </View>
+    </View>
+    <TouchableOpacity onPress={() => saveName()}>
+      <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
       </View>
-      <TouchableOpacity onPress={() => this.SaveGender()}>
-        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
-        </View>
-      </TouchableOpacity>
-    </>;
-  };
-  BirthdaySheetBody() {
-    const { InputBirth_day } = this.state;
+    </TouchableOpacity>
+  </>;
+  let genderSheetBody = () => <>
+    <View style={stylesProfileTopic.Edit_Profile}>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
+      <View style={stylesMain.FlexRow}>
+        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={inputGender} onPress={() =>
+          setInputGender(true)} />
+        <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
+        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={!inputGender} onPress={() =>
+          setInputGender(false)} />
+        <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
+      </View>
+    </View>
+    <TouchableOpacity onPress={() => saveGender()}>
+      <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+      </View>
+    </TouchableOpacity>
+  </>;
+  let birthdaySheetBody = () => {
     // currentUser.map((item) => {
     //   activeNow < 2 ?
     //     this.setState({ activeNow: activeNow + 1, birth_day: item.date_of_birth }) :
     //     null
     // })
     // const { date, } = this.state;
-    // let DataDay = this.DataDay()
-    // let DataMo = this.DataMo()
-    // let DataYear = this.DataYear()
+    // let DataDay = dataDays()
+    // let DataMo = dataMos()
+    // let DataYear = dataYears()
     // var day = new Date(date).getDate()
     // var month = new Date(date).getMonth();
     // var year = new Date(date).getFullYear();
@@ -221,10 +210,10 @@ export class Edit_Profile extends Component {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
         <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-          <DatePicker style={{ width: 300 }} date={InputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+          <DatePicker style={{ width: 300 }} date={inputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
             minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
             customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
-            onDateChange={(InputBirth_day) => this.setState({ InputBirth_day })} />
+            onDateChange={(value) => setInputBirth_day(value)} />
           {/* <View style={stylesMain.FlexRow}>
               <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                 <Picker
@@ -262,256 +251,231 @@ export class Edit_Profile extends Component {
             </View> */}
         </View>
       </View>
-      <TouchableOpacity onPress={() => this.SaveBirth_day()}>
+      <TouchableOpacity onPress={() => saveBirth_day()}>
         <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
         </View>
       </TouchableOpacity>
     </>;
   }
-  Phone_numberSheetBody() {
-    return <>
-      <View style={stylesProfileTopic.Edit_Profile}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
-        <View style={stylesProfileTopic.Edit_Profile_Box}>
-          <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={this.state.InputPhone} onChangeText={(InputPhone) =>
-            this.setState({ InputPhone })} />
-        </View>
+  let phone_numberSheetBody = () => <>
+    <View style={stylesProfileTopic.Edit_Profile}>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
+      <View style={stylesProfileTopic.Edit_Profile_Box}>
+        <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={inputPhone} onChangeText={(value) =>
+          setInputPhone(value)} />
       </View>
-      <TouchableOpacity onPress={() => this.SavePhone()}>
+    </View>
+    <TouchableOpacity onPress={() => savePhone()}>
+      <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+      </View>
+    </TouchableOpacity>
+  </>;
+  let setCurrentUser = () => dataSevice && dataSevice.list_profile.map((value) => {
+    var checked;
+    if (value.gender == 'male') { checked = true } else { checked = false };
+    const bday = new Date(value.date_of_birth);
+    var dob = `${bday.getDate()}-${(bday.getMonth() + 1)}-${bday.getFullYear()}`;
+      /*name*/setName(value.name); setInputName(value.name);  /*gender*/setGender(checked); setInputGender(checked);
+      /*telphone*/setPhone(value.telphone); setInputPhone(value.telphone);  /*birth_day*/setBirth_day(dob); setInputBirth_day(dob);
+      /*image*/ setImage_Path(value.image_path); setImage(value.image);
+  });
+  let getData = (value) => { setActiveGetServices(false); setDataSevice(value); };
+  let getData2 = (value) => {
+    setActiveGetServices2(false); setDataSevice2(value); route.params.getDataSource(value); navigation.goBack();
+  };
+  let sendImageProfile = (value) => setPath(value);
+  useEffect(() => {
+    !activeGetSource && activeGetServices && cokie && currentUser && uri &&
+      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: (value) => getData(value) });
+  }, [!activeGetSource && activeGetServices && cokie && currentUser && uri]);
+  useEffect(() => {
+    activeGetServices2 && cokie && uri2 && GetServicesBlob({
+      FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: (value) => getData2(value),
+      showConsole: 'update_profile_mobile'
+    });
+  }, [activeGetServices2 && cokie && uri2]);
+  name == null && setCurrentUser();
+  return <>
+    {/* ชื่อ-นามสกุล */}
+    <BottomSheet ref={nameSheetRef} height={150} duration={250}
+      customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      {nameSheetBody()}
+    </BottomSheet>
+    {/* เพศ */}
+    <BottomSheet ref={genderSheetRef} height={150} duration={250}
+      customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      {genderSheetBody()}
+    </BottomSheet>
+    {/* วันเกิด */}
+    <BottomSheet ref={birthdaySheetRef} height={150} duration={250}
+      customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      {birthdaySheetBody()}
+    </BottomSheet>
+    {/* เบอร์โทรศัพท์ */}
+    <BottomSheet ref={phone_numberSheetRef} height={150} duration={250}
+      customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
+      {phone_numberSheetBody()}
+    </BottomSheet>
+    <AppBar1 {...props} backArrow titleHead='แก้ไขโปรไฟล์' />
+    <ScrollView>
+      <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={(value) => sendImageProfile(value)} />
+      <View style={{ marginTop: 20, height, }}>
+        <TouchableOpacity onPress={() => { setInputName(name); nameSheetRef.current.open(); }}>
+          <View style={stylesProfileTopic.BoxTopic}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ชื่อ-นามสกุล</Text>
+            </View>
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+          </View></TouchableOpacity>
+        <TouchableOpacity onPress={() =>
+          NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
+          <View style={stylesProfileTopic.BoxTopic}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เปลี่ยนรหัสผ่าน</Text>
+            </View>
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { setInputGender(gender); genderSheetRef.current.open(); }}>
+          <View style={stylesProfileTopic.BoxTopic}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เพศ</Text>
+            </View>
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { setInputBirth_day(birth_day); birthdaySheetRef.current.open(); }}>
+          <View style={stylesProfileTopic.BoxTopic}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>วันเกิด</Text>
+            </View>
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => { setInputPhone(phone); phone_numberSheetRef.current.open(); }}>
+          <View style={stylesProfileTopic.BoxTopic}>
+            <View style={stylesMain.FlexRow}>
+              <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>โทรศัพท์</Text>
+            </View>
+            <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
+          </View>
+        </TouchableOpacity>
+      </View>
+    </ScrollView>
+    <View style={{ alignItems: 'center', height: 40 }}>
+      <TouchableOpacity TouchableOpacity onPress={() => saveProfile()}>
         <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
         </View>
       </TouchableOpacity>
-    </>;
-  };
-  setCurrentUser = () => {
-    const { dataSevice } = this.state;
-    dataSevice && dataSevice.list_profile.map((value) => {
-      var checked;
-      if (value.gender == 'male') { checked = true } else { checked = false };
-      const bday = new Date(value.date_of_birth);
-      var dob = `${bday.getDate()}-${(bday.getMonth() + 1)}-${bday.getFullYear()}`;
-      this.setState({
-       /*name*/Name: value.name, InputName: value.name,/*gender*/Gender: checked, InputGender: checked,/*telphone*/Phone: value.telphone,
-        InputPhone: value.telphone,/*birth_day*/Birth_day: dob, Inputbirth_day: dob,/*image*/ image_path: value.image_path,
-        image: value.image
-      });
-    });
-  };
-  getData = (dataSevice) => this.setState({ activeGetServices: false, dataSevice });;
-  getData2 = (dataService2) => {
-    const { navigation } = this.props;
-    this.setState({ activeGetServices2: false, dataService2 })
-    navigation.state.params.getDataSource(dataService2);
-    navigation.goBack();
-  };
-  sendImageProfile = (value) => this.setState({ path: value });;
-  render() {
-    const { activeGetSource, cokie, currentUser, navigation } = this.props;
-    const {
-      activeGetServices, activeGetServices2, Birth_day, dataBody: dataBody2, Gender, image, image_path, Name, Phone,
-    } = this.state;
-    const uri = `${finip}/profile/profile_mobile`;
-    var dataBody = { id_customer: currentUser ? currentUser.id_customer : '', };
-    const uri2 = `${finip}/profile/update_profile_mobile`;
-    currentUser != null && Name == null && this.setCurrentUser();
-    !activeGetSource && activeGetServices &&
-      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
-    activeGetServices2 && GetServicesBlob({
-      FormData: true, uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, getDataSource: this.getData2.bind(this),
-    });
-    return <>
-      {/* ชื่อ-นามสกุล */}
-      <BottomSheet ref={ref => this.NameSheet = ref} height={150} duration={250}
-        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
-        {this.NameSheetBody()}
-      </BottomSheet>
-      {/* เพศ */}
-      <BottomSheet ref={ref => this.GenderSheet = ref} height={150} duration={250}
-        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
-        {this.GenderSheetBody()}
-      </BottomSheet>
-      {/* วันเกิด */}
-      <BottomSheet ref={ref => this.BirthdaySheet = ref} height={150} duration={250}
-        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
-        {this.BirthdaySheetBody()}
-      </BottomSheet>
-      {/* เบอร์โทรศัพท์ */}
-      <BottomSheet ref={ref => this.Phone_numberSheet = ref} height={150} duration={250}
-        customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
-        {this.Phone_numberSheetBody()}
-      </BottomSheet>
-      <AppBar1 {...this.props} backArrow titleHead='แก้ไขโปรไฟล์' />
-      <ScrollView>
-        <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={this.sendImageProfile.bind(this)} />
-        <View style={{ marginTop: 20, height, }}>
-          <TouchableOpacity onPress={() => { this.setState({ InputName: Name }); this.NameSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ชื่อ-นามสกุล</Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-            </View></TouchableOpacity>
-          <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เปลี่ยนรหัสผ่าน</Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.setState({ InputGender: Gender }); this.GenderSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เพศ</Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.setState({ InputBirth_day: Birth_day }); this.BirthdaySheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>วันเกิด</Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-            </View>
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => { this.setState({ InputPhone: Phone }); this.Phone_numberSheet.open(); }}>
-            <View style={stylesProfileTopic.BoxTopic}>
-              <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>โทรศัพท์</Text>
-              </View>
-              <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
-            </View>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-      <View style={{ alignItems: 'center', height: 40 }}>
-        <TouchableOpacity TouchableOpacity onPress={() => this.SaveProfile()}>
-          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </>;
-  };
+    </View>
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Pass
-export class Edit_Pass extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeGetServices: false, current_password: '', new_password: '', confirm_password: '', };
+export let Edit_Pass = (props) => {
+  const { activeGetSource, cokie, currentUser, navigation, } = props;
+  const [activeGetServices, setActiveGetServices] = useState(false);
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [currentPassword, setCurrentPassword] = useState('');
+  const [dataSevice, setDataSevice] = useState(undefined);
+  const [newPassword, setNewPassword] = useState('');
+  const uri = `${finip}/profile/change_customer_password`;
+  var dataBody = {
+    id_customer: currentUser ? currentUser.id_customer : '',/*current_password*/currentPassword, confirmPassword,
+    /*new_password*/newPassword,
   };
-  setStateCurrent_Password = (current_password) => this.setState({ current_password });
-  setStateNew_Password = (new_password) => this.setState({ new_password });
-  setStateConfirm_Password = (confirm_password) => this.setState({ confirm_password });
-  getData = (dataSevice) => {
-    const { navigation, } = this.props;
-    dataSevice.status_cahnge == 'Incomplete' && alert(dataSevice.Massage);
-    dataSevice.status_cahnge == 'Complete' && ([alert(dataSevice.Massage), navigation.goBack()]);
-    this.setState({ activeGetServices: false, dataSevice });
+  !activeGetSource && activeGetServices &&
+    GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: (value) => getData(value), });
+  let setStateConfirmPassword = (value) => setConfirmPassword(value);
+  let setStateCurrentPassword = (value) => setCurrentPassword(value);
+  let setStateNewPassword = (value) => setNewPassword(value);
+  let getData = (value) => {
+    value.status_cahnge == 'Incomplete' && alert(value.Massage);
+    value.status_cahnge == 'Complete' && [alert(value.Massage), navigation.goBack()];
+    setActiveGetServices(false); setDataSevice(value);
   };
-  render() {
-    const { activeGetSource, cokie, currentUser, navigation, } = this.props;
-    const { activeGetServices, current_password, new_password, confirm_password, } = this.state;
-    const uri = `${finip}/profile/change_customer_password`;
-    var dataBody = {
-      id_customer: currentUser ? currentUser.id_customer : '',/*current_password*/current_password, confirm_password,
-      /*new_password*/new_password,
-    };
-    !activeGetSource && activeGetServices &&
-      GetServices({ uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: this.getData.bind(this), });
-    return <>
-      <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
-      <ScrollView>
-        <View style={stylesProfileTopic.Edit_Pass}>
-          <View style={{ width: '80%' }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสผ่านปัจจุบัน</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
-                placeholder="" maxLength={50} value={current_password} onChangeText={this.setStateCurrent_Password.bind(this)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
-            </View>
-            {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
+  return <>
+    <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
+    <ScrollView>
+      <View style={stylesProfileTopic.Edit_Pass}>
+        <View style={{ width: '80%' }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5 }]}>รหัสผ่านปัจจุบัน</Text>
+          <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
+              placeholder="" maxLength={50} value={currentPassword} onChangeText={(value) => setStateCurrentPassword(value)} />
+            <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+          </View>
+          {/* <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 5 }]}>กรุณาระบุรหัสผ่านใหม่ด่านล่าง</Text>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BFBFBF', marginLeft: 10, }]}>
                 ประกอบไปด้วยตัวเลขและตัวอักษร อย่างน้อย 6 อักษร</Text> */}
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>รหัสผ่านใหม่</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
-                placeholder="" maxLength={50} value={new_password} onChangeText={this.setStateNew_Password.bind(this)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
-            </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
-            <View style={stylesProfileTopic.Edit_Pass_TextInput}>
-              <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
-                placeholder="" maxLength={50} value={confirm_password} onChangeText={this.setStateConfirm_Password.bind(this)} />
-              <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
-            </View>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>รหัสผ่านใหม่</Text>
+          <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
+              placeholder="" maxLength={50} value={newPassword} onChangeText={(value) => setStateNewPassword(value)} />
+            <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
+          </View>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginTop: 5, }]}>พิมพ์รหัสผ่านใหม่อีกครั้ง</Text>
+          <View style={stylesProfileTopic.Edit_Pass_TextInput}>
+            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '80%', height: 55 }]} secureTextEntry
+              placeholder="" maxLength={50} value={confirmPassword} onChangeText={(value) => setStateConfirmPassword(value)} />
+            <IconFeather RightItem name='eye-off' size={20} style={{ marginTop: 5, }} />
           </View>
         </View>
-      </ScrollView>
-      <View style={{ alignItems: 'center' }}>
-        <TouchableOpacity onPress={() => this.setState({ activeGetServices: true })}>
-          <View style={[stylesProfileTopic.Edit_Profile_Button_Save,
-          { backgroundColor: current_password != '' && new_password != '' && confirm_password != '' ? mainColor : '#CECECE' }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
-          </View>
-        </TouchableOpacity>
       </View>
-    </>;
-  };
+    </ScrollView>
+    <View style={{ alignItems: 'center' }}>
+      <TouchableOpacity onPress={() => setActiveGetServices(true)}>
+        <View style={[stylesProfileTopic.Edit_Profile_Button_Save,
+        { backgroundColor: currentPassword != '' && newPassword != '' && confirmPassword != '' ? mainColor : '#CECECE' }]}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เปลี่ยนรหัสผ่าน</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Address
-export class Edit_Address extends Component {
-  constructor(props) {
-    super(props);
-    this.state = { activeReset: true, };
-  };
-  componentDidMount() {
-    CookieManager.get(`${finip}/auth/login_customer`).then((res) => {
-      var keycokie = res.token;
-      this.setState({ keycokie });
-    });
-  };
-  getData = (dataService) => this.setState({ dataService, activeReset: false });
-  getData2 = (dataService2) => this.setState({ dataService2, activeReset: true });
-  render() {
-    const { currentUser, navigation, route } = this.props;
-    const { activeReset, dataService, keycokie } = this.state;
-    const no_invoice = route.params?.no_invoice;
-    const type = route.params?.type;
-    const type_special = route.params?.type_special;
-    var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
-    var dataBody = type == 'select' ?
-      { id_customer: currentUser?.id_customer, no_invoice: no_invoice, } : { id_customer: currentUser?.id_customer, };
-    currentUser && keycokie && currentUser.id_customer && activeReset &&
-      GetServices({ uriPointer: uri, dataBody, Authorization: keycokie, getDataSource: this.getData.bind(this) })
-    return <View style={{ flex: 1, height: '100%' }}>
-      <AppBar1 {...this.props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
-      <ScrollView style={{ height: 1000 }}>
-        {dataService && dataService.list_address && !activeReset && dataService.list_address.map((value, index) => {
-          return <Address_Customar {...this.props} dataService={value} index={index} key={index} type={type} type_special={type_special}
-            updateData2={this.getData2.bind(this)} />
-        })}
-      </ScrollView>
-      <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
-          goScreen: 'Customer_account', setData: { type_special, updateData2: this.getData2.bind(this), }, navigation
-        })}>
-          <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>;
-  };
+export let Edit_Address = (props) => {
+  const { cokie, currentUser, navigation, route } = props;
+  const no_invoice = route.params?.no_invoice;
+  const type = route.params?.type;
+  const type_special = route.params?.type_special;
+  const [activeReset, setActiveReset] = useState(true);
+  const [dataService, setDataService] = useState(undefined);
+  const [dataService2, setDataService2] = useState(undefined);
+  var dataBody = type == 'select' ?
+    { id_customer: currentUser?.id_customer, no_invoice: no_invoice, } : { id_customer: currentUser?.id_customer, };
+  var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
+  getData = (value) => { setActiveReset(false); setDataService(value); };
+  getData2 = (value) => { setActiveReset(true); setDataService2(value); };
+  useEffect(() => {
+    currentUser && cokie && currentUser.id_customer && activeReset &&
+      GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: (value) => getData(value) });
+  }, [currentUser && cokie && currentUser.id_customer && activeReset]);
+  return <View style={{ flex: 1, height: '100%' }}>
+    <AppBar1 {...props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
+    <ScrollView style={{ height: 1000 }}>
+      {dataService && dataService.list_address && !activeReset && dataService.list_address.map((value, index) => {
+        return <Address_Customar {...props} dataService={value} index={index} key={index} type={type} type_special={type_special}
+          updateData2={(value) => getData2(value)} />
+      })}
+    </ScrollView>
+    <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
+      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        goScreen: 'Customer_account', setData: { type_special, updateData2: (value) => getData2(value), }, navigation
+      })}>
+        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
+        </View>
+      </TouchableOpacity>
+    </View>
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Address_Customar
 export let Address_Customar = (props) => {
-  const { dataService, index, navigation, type, type_special, updateData2 } = props;
-  let returnValue = (value) => { navigation.state.params.updateData(value); navigation.goBack(); };
+  const { dataService, index, navigation, route, type, type_special, updateData2 } = props;
+  let returnValue = (value) => { route.params.updateData(value); navigation.goBack(); };
   return <TouchableOpacity key={index} onPress={() => type == 'select' ?
     returnValue(dataService.id_address) : NavigationNavigateScreen({
       goScreen: 'Customer_account', setData: {

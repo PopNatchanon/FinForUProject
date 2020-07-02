@@ -26,6 +26,7 @@ import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import SlidingView from 'rn-sliding-view';
 import WebView from 'react-native-webview';
+import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -435,7 +436,7 @@ export let AppBar1 = (props) => {
     const {
         ABDColor, ABDColor_All, ABGColor, backArrow, backArrowColor, backNavigation, ButtomDeleteAll, chatBar, colorBar, deleteBar,
         getActivePost, goToTop, menuBar, navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead,
-        UpBankBar,
+        UpBankBar, selectshare,
     } = props;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
@@ -462,6 +463,21 @@ export let AppBar1 = (props) => {
                 </TouchableOpacity>}
             <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
             stylesMain.ItemCenterVertical]}>{titleHead ?? ''}</Text>
+            {selectshare &&
+                <View style={{ marginVertical: 5 }}>
+                    <ModalDropdown
+                        options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']}
+                        defaultValue={
+                            <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                            stylesMain.ItemCenterVertical]}>แชร์ไปยัง
+                            <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>
+                        }
+                        textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                        stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        dropdownStyle={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
+                    </ModalDropdown>
+                </View>}
         </View>
         <View style={stylesMain.FlexRow}>
             {searchBar && <TouchableOpacity key={'searchBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>

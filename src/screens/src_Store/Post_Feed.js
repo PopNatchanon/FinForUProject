@@ -192,6 +192,12 @@ export default class Post_Feed extends Component {
                     <AppBar1 {...this.props} backArrow saveBar />
                     <Profile_Edit />
                 </>
+            case 24:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...this.props} backArrow selectshare postBar />
+                    <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
+                </>
         }
     }
     render() {
@@ -199,9 +205,7 @@ export default class Post_Feed extends Component {
         activeGetCurrentUser &&
             GetData({ getCokie: true, getSource: this.getSource.bind(this), getUse: true, })
         return (
-            // <SafeAreaView style={{ height: '100%' }}>
             this.PathList()
-            // </SafeAreaView>
         );
     }
 }
@@ -273,9 +277,7 @@ export function AppBar_Group(props) {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>โปรดเลือกปัญหาเพื่อดำเนินการต่อ</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>คุณสามารถรายงานโพสต์นี้ได้หลังจากเลือกปัญหาแล้ว โปรดทราบว่าขณะนี้เรามีผู้ตรวจสอบน้อยลง</Text>
                     </View>
-                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, }]}>
-                        {ReportBox}
-                    </View>
+                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, }]}>{ReportBox}</View>
                     <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, padding: 5, borderRadius: 5 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ส่ง</Text>
                     </TouchableOpacity>
@@ -395,26 +397,14 @@ export class Score_store extends React.Component {
         const dataBody = { id_store, score, };
         console.log('render|dataService2')
         console.log(dataService2)
-        const item = [{
-            name: 'ทั้งหมด',
-            nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
-                dataService.rate_5) : '0')})`,
-        }, {
-            name: '5 ดาว',
-            nameline2: `(${dataService?.rate_5 ?? '0'})`,
-        }, {
-            name: '4 ดาว',
-            nameline2: `(${dataService?.rate_4 ?? '0'})`,
-        }, {
-            name: '3 ดาว',
-            nameline2: `(${dataService?.rate_3 ?? '0'})`,
-        }, {
-            name: '2 ดาว',
-            nameline2: `(${dataService?.rate_2 ?? '0'})`,
-        }, {
-            name: '1 ดาว',
-            nameline2: `(${dataService?.rate_1 ?? '0'})`,
-        }];
+        const item = [
+            { name: 'ทั้งหมด', nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 + dataService.rate_5) : '0')})`, },
+            { name: '5 ดาว', nameline2: `(${dataService?.rate_5 ?? '0'})`, },
+            { name: '4 ดาว', nameline2: `(${dataService?.rate_4 ?? '0'})`, },
+            { name: '3 ดาว', nameline2: `(${dataService?.rate_3 ?? '0'})`, },
+            { name: '2 ดาว', nameline2: `(${dataService?.rate_2 ?? '0'})`, },
+            { name: '1 ดาว', nameline2: `(${dataService?.rate_1 ?? '0'})`, }
+        ]
         activeGetServices && id_store && cokie && dataBody?.id_store &&
             GetServices({
                 Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: this.getData.bind(this),
@@ -429,12 +419,10 @@ export class Score_store extends React.Component {
                         <View style={[stylesMain.ItemCenter, {
                             borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10
                         }]}>
-                            {
-                                dataService?.rating_store == 'ยังไม่มีการรีวิว' ?
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
-                                        {dataService?.rating_store} คะแนน</Text>
-                            }
+                            {dataService?.rating_store == 'ยังไม่มีการรีวิว' ?
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
+                                    {dataService?.rating_store} คะแนน</Text>}
                             <View style={stylesMain.FlexRow}>
                                 {this.starReview(dataService?.rating_store, 20)}
                             </View>
@@ -453,16 +441,14 @@ export class Score_store extends React.Component {
                         numberofBox={3}
                         radiusBox={4} />
                 </View>
-                {
-                    dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
-                        dataService2?.data_score?.length > 0 ? (
-                            dataService2.data_score.map((value, index) => {
-                                return <Box_Rating dataService={value} key={index} />
-                            })
-                        ) : <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
-                        </View>
-                }
+                {dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
+                    dataService2?.data_score?.length > 0 ? (
+                        dataService2.data_score.map((value, index) => {
+                            return <Box_Rating dataService={value} key={index} />
+                        })
+                    ) : <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
+                    </View>}
             </ScrollView>
         );
     };
@@ -478,13 +464,9 @@ export class Box_Rating extends React.Component {
         let starBox = [];
         for (var n = 0; n < 5; n++) {
             if (star > n) {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />
-                );
+                starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />);
             } else {
-                starBox.push(
-                    <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />
-                );
+                starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />);
             };
         };
         return starBox;
@@ -506,13 +488,11 @@ export class Box_Rating extends React.Component {
                     <View style={stylesMain.FlexRow}>
                         {this.starReview(dataService?.rating, 20)}
                     </View>
-                    {
-                        comment_box &&
+                    {comment_box &&
                         <View style={{ backgroundColor: mainColor, width: 110, margin: 10 }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>
                                 คุ้มค้าและจัดส่งเร็วดี</Text>
-                        </View>
-                    }
+                        </View>}
                     <View>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111', }]}>
                             {dataService?.comment}</Text>
@@ -629,7 +609,6 @@ export class Post_New extends React.Component {
                 detail: Detail,
                 id_product: tagProduct ? tagProductBody.join(';') : '',
                 act: 'update'
-
             } :
             avatarSource ?
                 [
@@ -797,11 +776,10 @@ export class Select_TagProduct extends React.Component {
         const { cokie, route } = this.props
         const { activeGetServices, dataService, selectedIndex } = this.state
         const id_store = route.params?.id_store
-        const item = [{
-            name: 'สินค้าของฉัน'
-        }, {
-            name: 'รายการโปรด'
-        },]
+        const item = [
+            { name: 'สินค้าของฉัน' },
+            { name: 'รายการโปรด' },
+        ]
         const uri = `${finip}/brand/feed_tag_product`
         var dataBody = {
             id_store,
@@ -1382,10 +1360,154 @@ export function Save_Post(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export function Group_Total(props) {
+    const Group_Categoryitem = [
+        { image: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`, name: 'เครื่องประดับ' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690336.png`, name: 'พระและเครื่องราง' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690829.png`, name: 'กระเป๋า' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-29-1572332375.png`, name: 'เข็มขัด' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-29-1572324184.png`, name: 'นาฬิกา' },
+    ]
+    const Group_Popularitem = [
+        {
+            image1: `${ip}/MySQL/uploads/products/P1230056ok_HIMI71t.jpg`,
+            image2: `${ip}/MySQL/uploads/products/pearl.jpg`,
+            name: `ชอบช้อปกรุ๊ป - เพื่อนรับหิ้วที่ปลอดภัย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย `,
+            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน `,
+        },
+        {
+            image1: `${ip}/MySQL/uploads/products/slide4.jpg`,
+            image2: `${ip}/MySQL/uploads/products/2019-04-01-1554136830.jpg`,
+            name: `การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย`,
+            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน`,
+        },
+        {
+            image1: `${ip}/MySQL/uploads/products/2019-03-20-1553064729.jpg`,
+            image2: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`,
+            name: `ชอบช้อปกรุ๊ป - เพื่อนรับหิ้วที่ปลอดภัย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย`,
+            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน `,
+        },
+    ]
+    const Group_Totalitem = [
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+    ]
+    let Group_Category = (
+        Group_Categoryitem.map((value, index) => {
+            return <View key={index} style={[stylesMain.ItemCenter,
+            {
+                borderColor: '#EAEAEA', borderWidth: 1,
+                width: 100, height: 120, marginHorizontal: 2.5
+            }]}>
+                <FastImage
+                    style={{ height: 70, width: 70, marginBottom: 10 }}
+                    source={{
+                        uri: value.image,
+                    }}
+                    resizeMode={FastImage.resizeMode.contain} />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+            </View>
+        }))
+    let Group_Popular = (
+        Group_Popularitem.map((value, index) => {
+            return <View>
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
+                    borderColor: '#EAEAEA', borderWidth: 1,
+                    width: width * 0.7, height: 70, margin: 2.5, padding: 5
+                }]}>
+                    <FastImage
+                        style={{ height: 55, width: 55, borderRadius: 30 }}
+                        source={{
+                            uri: value.image1,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                    <View style={{ width: '70%', marginLeft: 10 }}>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
+                    </View>
+                </View>
+                <View key={index} style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
+                    borderColor: '#EAEAEA', borderWidth: 1,
+                    width: width * 0.7, height: 80, margin: 2.5, padding: 5
+                }]}>
+                    <FastImage
+                        style={{ height: 55, width: 55, borderRadius: 30 }}
+                        source={{
+                            uri: value.image2,
+                        }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                    <View style={{ width: '70%', marginLeft: 10 }}>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
+                    </View>
+                </View>
+            </View>
+        }))
+    let Group_Total = (
+        Group_Totalitem.map((value, index) => {
+            return <View key={index} style={{
+                borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8, marginLeft: 7,
+                width: width * 0.33, alignItems: 'center', justifyContent: 'space-between'
+            }}>
+                <FastImage
+                    style={{ height: 55, width: '100%', marginBottom: 5 }}
+                    source={{
+                        uri: value.image,
+                    }}
+                    resizeMode={FastImage.resizeMode.stretch} />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                <TouchableOpacity style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 5 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>เข้าร่วมกลุ่ม</Text>
+                </TouchableOpacity>
+            </View>
+        }))
     return (
-        <View>
-            <Text>กลุ่มทั้งหมด</Text>
-        </View>
+        <ScrollView>
+            <View style={stylesMain.FrameBackground}>
+                <View style={{ marginLeft: 10, marginTop: 5 }}>
+                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>หมวดหมู่</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ค้นหากลุ่มโดยการเลือกดูหมวดหมู่ยอดนิยม</Text>
+                </View>
+                <View style={{ paddingHorizontal: 2.5, marginBottom: 5, marginTop: 5 }}>
+                    <ScrollView horizontal>
+                        {Group_Category}
+                    </ScrollView>
+                </View>
+            </View>
+            <View style={stylesMain.FrameBackground}>
+                <View style={[stylesMain.FlexRow, { marginTop: 5, justifyContent: 'space-between', marginHorizontal: 10 }]}>
+                    <View>
+                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มยอดนิยม</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กลุ่มที่คุณอาจสนใจ</Text>
+                    </View>
+                    <TouchableOpacity style={stylesMain.ItemCenter}>
+                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold]}>ทั้งหมด</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ paddingHorizontal: 2.5, marginBottom: 5, marginTop: 5 }}>
+                    <ScrollView horizontal>
+                        {Group_Popular}
+                    </ScrollView>
+                </View>
+            </View>
+            <View style={{ backgroundColor: '#FFFFFF' }}>
+                <View style={{ marginLeft: 10, marginTop: 5 }}>
+                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มทั้งหมด</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, { flexWrap: 'wrap' }]}>
+                    {Group_Total}
+                </View>
+            </View>
+        </ScrollView>
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
@@ -1436,39 +1558,35 @@ export function Feed_Notification(props) {
                                                     uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
                                                 }}
                                                 resizeMode={FastImage.resizeMode.cover} />
-                                            {
-                                                index % 2 == 0 ?
-                                                    <View style={{ alignItems: 'flex-end', top: -20 }}>
-                                                        <View style={[stylesMain.ItemCenter,
-                                                        { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
-                                                            <IconAntDesign name='like1' size={15} color='#FFFFFF' />
-                                                        </View>
-                                                    </View> : <View style={{ alignItems: 'flex-end', top: -20 }}>
-                                                        <View style={[stylesMain.ItemCenter,
-                                                        { width: 25, height: 25, backgroundColor: '#20BDA1', borderRadius: 15 }]}>
-                                                            <IconEntypo name='message' size={15} color='#FFFFFF' />
-                                                        </View>
+                                            {index % 2 == 0 ?
+                                                <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                                    <View style={[stylesMain.ItemCenter,
+                                                    { width: 25, height: 25, backgroundColor: '#0A55A6', borderRadius: 15 }]}>
+                                                        <IconAntDesign name='like1' size={15} color='#FFFFFF' />
                                                     </View>
-                                            }
+                                                </View> : <View style={{ alignItems: 'flex-end', top: -20 }}>
+                                                    <View style={[stylesMain.ItemCenter,
+                                                    { width: 25, height: 25, backgroundColor: '#20BDA1', borderRadius: 15 }]}>
+                                                        <IconEntypo name='message' size={15} color='#FFFFFF' />
+                                                    </View>
+                                                </View>}
                                         </View>
-                                        {
-                                            index % 2 == 0 ?
-                                                <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
-                                                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                                        สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                                        สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                        {index % 2 == 0 ?
+                                            <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
+                                                <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                    สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
                                                 </Text>
-                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                                        1 ชั่วโมงที่แล้ว</Text>
-                                                </View> : <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
-                                                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                                                        สติ๊ก กี้ คอมเมนท์โพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                                        สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    1 ชั่วโมงที่แล้ว</Text>
+                                            </View> : <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
+                                                <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                                    สติ๊ก กี้ คอมเมนท์โพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
+                                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
                                                 </Text>
-                                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
-                                                        1 ชั่วโมงที่แล้ว</Text>
-                                                </View>
-                                        }
+                                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
+                                                    1 ชั่วโมงที่แล้ว</Text>
+                                            </View>}
                                     </View>
                                     <TouchableOpacity onPress={() => { selectorSheet.current.open() }} >
                                         <View style={[stylesMain.ItemCenter,
@@ -1667,13 +1785,10 @@ export function Profile_FeedCustomer(props) {
                 },
             });
     }, [activeSelectedIndex]);
-    const TabBar_Profile = [{
-        name: <Text style={stylesFont.FontSize6}>
-            <IconFeather name='layout' size={20} />โพสต์</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>
-            <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
-    }];
+    const TabBar_Profile = [
+        { name: <Text style={stylesFont.FontSize6}><IconFeather name='layout' size={20} />โพสต์</Text> },
+        { name: <Text style={stylesFont.FontSize6}><IconAntDesign name='solution1' size={20} />ชุมชน</Text> }
+    ];
     return (
         <ScrollView {...props}>
             <View style={{ backgroundColor: '#FFFFFF' }}>

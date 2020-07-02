@@ -1299,13 +1299,6 @@ export class FeedBox extends React.Component {
         const { getDataSource } = this.props
         getDataSource(activeRef)
     }
-    Setting_Group() {
-        return (
-            <View>
-
-            </View>
-        )
-    }
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { like, } = this.state
@@ -1377,7 +1370,7 @@ export class FeedBox extends React.Component {
                         <View>
                             <TouchableOpacity onPress={() => {
                                 NavigationNavigateScreen({
-                                    goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, navigation
+                                    goScreen: 'Post_Feed', setData: { selectedIndex: 24, }, navigation
                                 });
                                 this.share_Feed.close();
                             }}

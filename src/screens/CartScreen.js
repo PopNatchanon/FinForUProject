@@ -100,252 +100,254 @@ function CartScreen(props) {
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
-export class Product_Cart extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activecart: true,
-            activeHeadArray: false,
-            activeRefresh: false,
-        };
-    };
-    setStateItemArrayChecked = (checked, id_cartdetail,) => {
-        const { ArrayItem, currentUser, dataService, getCheckedAll, } = this.props;
-        const { HeadArray, ItemArray } = this.state;
-        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
-        ItemArray[numindex].checked = checked;
-        var checkedMain = ItemArray.filter((item) => { return item.name_store == ItemArray[numindex].name_store })
-            .map((item2) => { return item2.checked }).every((item3) => { return item3 });
-        var numindex_h = HeadArray.map((item) => { return item.name; }).indexOf(ItemArray[numindex].name_store);
-        var id = [];
-        for (var n = 0; n < dataService.length; n++) {
-            if (ItemArray[n].checked) {
-                id.push(dataService[n].id_cartdetail);
-            };
-        };
-        HeadArray[numindex_h].checked = checkedMain;
-        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 });
-        getCheckedAll(checkedAll);
-        ArrayItem({
-            amount: ItemArray[numindex].itemCount,
-            list_order: id.join(','),
-            id_cartdetail: id_cartdetail,
-            id_customer: currentUser.id_customer
-        });
-        this.setState({ activecart: true, ItemArray, HeadArray, });
-    };
-    setStateItemArrayitemCount = (itemCount, id_cartdetail, max_remain,) => {
-        const { ArrayItem, currentUser, dataService, } = this.props;
-        const { ItemArray } = this.state;
-        var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
-        var id = [];
-        for (var n = 0; n < dataService.length; n++) {
-            if (ItemArray[n].checked) {
-                id.push(ItemArray[n].id_cartdetail);
-            };
-        };
-        itemCount > 0 && itemCount < max_remain && (
-            ItemArray[numindex].itemCount = itemCount,
-            ArrayItem({
-                amount: itemCount,
-                list_order: id.join(','),
-                id_cartdetail: id_cartdetail,
-                id_customer: currentUser.id_customer
-            })
-        );
-        this.setState({ activecart: false, activeHeadArray: false, activeRefresh: false });
-    };
-    setStateHeadArray = (checked, name) => {
-        const { getCheckedAll, } = this.props;
-        const { HeadArray, ItemArray } = this.state;
-        var numindex = HeadArray.map((item) => { return item.name; }).indexOf(name);
-        HeadArray[numindex].checked = checked;
-        var numcount = ItemArray.filter((value) => { return value.name_store == name }).map((item) => { return item.id_cartdetail });
-        for (var n = 0; n < numcount.length; n++) {
-            var numindex_n = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(numcount[n]);
-            ItemArray[numindex_n].checked = checked;
-        };
-        var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 });
-        getCheckedAll(checkedAll);
-        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
-    };
-    checkItem = (length) => {
-        const { dataService } = this.props;
-        if (dataService != null) {
-            var ItemArray = [];
-            var n;
-            for (n = 0; length > n; n++) {
-                ItemArray[n] = {
-                    checked: true,
-                    itemCount: dataService[n].quantity * 1,
-                    id_cartdetail: dataService[n].id_cartdetail,
-                    name_store: dataService[n].name,
-                };
-            };
-            this.setState({ ItemArray, activeRefresh: true });
-        };
-    };
-    setStateAll = (checked) => {
-        const { getCheckedAll, } = this.props;
-        const { HeadArray, ItemArray } = this.state;
-        for (var n_all = 0; n_all < HeadArray.length; n_all++) {
-            HeadArray[n_all].checked = checked;
-            var numcount = ItemArray.filter((value) => value.name_store == HeadArray[n_all].name)
-                .map((item) => item.id_cartdetail);
-            for (var n = 0; n < numcount.length; n++) {
-                var numindex_n = ItemArray.map((item) => item.id_cartdetail).indexOf(numcount[n])
-                ItemArray[numindex_n].checked = checked
-            };
-            var checkedAll = HeadArray.map((item) => item.checked).every((item2) => item2);
-        };
-        getCheckedAll(checkedAll);
-        this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
-    };
-    renderItem = (data, { checkedAll, dataService, dataService2 } = this.props,
-        { activecart, activeHeadArray, activeRefresh, ItemArray, HeadArray, } = this.state) => {
-        this.dataMySQL = `${finip}/${data.item.path_product}/${data.item.image_product}`;
-        this.numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(data.item.id_cartdetail);
-        ((dataService2 == null && activecart) || (activeHeadArray && activecart) || (activeRefresh)) && this.setStateItemArrayitemCount(
-            ItemArray[this.numindex].itemCount, data.item.id_cartdetail, data.item.max_remain);
-        <TouchableOpacity activeOpacity={1} style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
-            <View style={{ flexDirection: 'row', }}>
-                <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]} textStyle={14}
-                    fontFamily={'SukhumvitSet-Text'} checked={ItemArray[this.numindex].checked} onPress={() =>
-                        this.setStateItemArrayChecked(!ItemArray[this.numindex].checked, data.item.id_cartdetail,)} />
-                <View style={{
-                    backgroundColor: '#fffffe', width: normalize(100), height: 'auto', aspectRatio: 1, marginVertical: 6,
-                    borderColor: '#ECECEC', borderWidth: 1
-                }}>
-                    <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]} source={{ uri: this.dataMySQL, }}
-                        resizeMode={FastImage.resizeMode.contain} />
-                </View>
-                <View style={[stylesMain.ItemCenterVertical, { marginLeft: 20 }]}>
-                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.38 }]}>
-                        {data.item.product_name}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{`${data.item.detail_1} ${data.item.detail_2}`}</Text>
-                    <NumberFormat value={data.item.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, { color: mainColor }]}>{value}</Text>} />
-                    <View style={{ flexDirection: 'row' }}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateItemArrayitemCount(
-                            ItemArray[this.numindex].itemCount - 1,
-                            data.item.id_cartdetail,
-                            data.item.max_remain,
-                        )}>
-                            <View style={[stylesMain.ItemCenter,
-                            { width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1 }]}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4,
-                                { color: ItemArray[this.numindex].itemCount > 1 ? '#111' : '#CECECE' }]}>-</Text>
+export let Product_Cart = (props) => {
+    const { dataService, } = props;
+    console.log('dataService')
+    console.log(dataService)
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {
+    //         activecart: true,
+    //         activeHeadArray: false,
+    //         activeRefresh: false,
+    //     };
+    // };
+    // setStateItemArrayChecked = (checked, id_cartdetail,) => {
+    //     const { ArrayItem, currentUser, dataService, getCheckedAll, } = this.props;
+    //     const { HeadArray, ItemArray } = this.state;
+    //     var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
+    //     ItemArray[numindex].checked = checked;
+    //     var checkedMain = ItemArray.filter((item) => { return item.name_store == ItemArray[numindex].name_store })
+    //         .map((item2) => { return item2.checked }).every((item3) => { return item3 });
+    //     var numindex_h = HeadArray.map((item) => { return item.name; }).indexOf(ItemArray[numindex].name_store);
+    //     var id = [];
+    //     for (var n = 0; n < dataService.length; n++) {
+    //         if (ItemArray[n].checked) {
+    //             id.push(dataService[n].id_cartdetail);
+    //         };
+    //     };
+    //     HeadArray[numindex_h].checked = checkedMain;
+    //     var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 });
+    //     getCheckedAll(checkedAll);
+    //     ArrayItem({
+    //         amount: ItemArray[numindex].itemCount,
+    //         list_order: id.join(','),
+    //         id_cartdetail: id_cartdetail,
+    //         id_customer: currentUser.id_customer
+    //     });
+    //     this.setState({ activecart: true, ItemArray, HeadArray, });
+    // };
+    // setStateItemArrayitemCount = (itemCount, id_cartdetail, max_remain,) => {
+    //     const { ArrayItem, currentUser, dataService, } = this.props;
+    //     const { ItemArray } = this.state;
+    //     var numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(id_cartdetail);
+    //     var id = [];
+    //     for (var n = 0; n < dataService.length; n++) {
+    //         if (ItemArray[n].checked) {
+    //             id.push(ItemArray[n].id_cartdetail);
+    //         };
+    //     };
+    //     itemCount > 0 && itemCount < max_remain && (
+    //         ItemArray[numindex].itemCount = itemCount,
+    //         ArrayItem({
+    //             amount: itemCount,
+    //             list_order: id.join(','),
+    //             id_cartdetail: id_cartdetail,
+    //             id_customer: currentUser.id_customer
+    //         })
+    //     );
+    //     this.setState({ activecart: false, activeHeadArray: false, activeRefresh: false });
+    // };
+    // setStateHeadArray = (checked, name) => {
+    //     const { getCheckedAll, } = this.props;
+    //     const { HeadArray, ItemArray } = this.state;
+    //     var numindex = HeadArray.map((item) => { return item.name; }).indexOf(name);
+    //     HeadArray[numindex].checked = checked;
+    //     var numcount = ItemArray.filter((value) => { return value.name_store == name }).map((item) => { return item.id_cartdetail });
+    //     for (var n = 0; n < numcount.length; n++) {
+    //         var numindex_n = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(numcount[n]);
+    //         ItemArray[numindex_n].checked = checked;
+    //     };
+    //     var checkedAll = HeadArray.map((item) => { return item.checked }).every((item2) => { return item2 });
+    //     getCheckedAll(checkedAll);
+    //     this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
+    // };
+    // checkItem = (length) => {
+    //     const { dataService } = this.props;
+    //     if (dataService != null) {
+    //         var ItemArray = [];
+    //         var n;
+    //         for (n = 0; length > n; n++) {
+    //             ItemArray[n] = {
+    //                 checked: true,
+    //                 itemCount: dataService[n].quantity * 1,
+    //                 id_cartdetail: dataService[n].id_cartdetail,
+    //                 name_store: dataService[n].name,
+    //             };
+    //         };
+    //         this.setState({ ItemArray, activeRefresh: true });
+    //     };
+    // };
+    // setStateAll = (checked) => {
+    //     const { getCheckedAll, } = this.props;
+    //     const { HeadArray, ItemArray } = this.state;
+    //     for (var n_all = 0; n_all < HeadArray.length; n_all++) {
+    //         HeadArray[n_all].checked = checked;
+    //         var numcount = ItemArray.filter((value) => value.name_store == HeadArray[n_all].name)
+    //             .map((item) => item.id_cartdetail);
+    //         for (var n = 0; n < numcount.length; n++) {
+    //             var numindex_n = ItemArray.map((item) => item.id_cartdetail).indexOf(numcount[n])
+    //             ItemArray[numindex_n].checked = checked
+    //         };
+    //         var checkedAll = HeadArray.map((item) => item.checked).every((item2) => item2);
+    //     };
+    //     getCheckedAll(checkedAll);
+    //     this.setState({ activecart: true, activeHeadArray: true, HeadArray, ItemArray, });
+    // };
+    // renderItem = (data, { checkedAll, dataService, dataService2 } = this.props,
+    //     { activecart, activeHeadArray, activeRefresh, ItemArray, HeadArray, } = this.state) => {
+    //     this.dataMySQL = `${finip}/${data.item.path_product}/${data.item.image_product}`;
+    //     this.numindex = ItemArray.map((item) => { return item.id_cartdetail; }).indexOf(data.item.id_cartdetail);
+    //     ((dataService2 == null && activecart) || (activeHeadArray && activecart) || (activeRefresh)) && this.setStateItemArrayitemCount(
+    //         ItemArray[this.numindex].itemCount, data.item.id_cartdetail, data.item.max_remain);
+    //     <TouchableOpacity activeOpacity={1} style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
+    //         <View style={{ flexDirection: 'row', }}>
+    //             <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]} textStyle={14}
+    //                 fontFamily={'SukhumvitSet-Text'} checked={ItemArray[this.numindex].checked} onPress={() =>
+    //                     this.setStateItemArrayChecked(!ItemArray[this.numindex].checked, data.item.id_cartdetail,)} />
+    //             <View style={{
+    //                 backgroundColor: '#fffffe', width: normalize(100), height: 'auto', aspectRatio: 1, marginVertical: 6,
+    //                 borderColor: '#ECECEC', borderWidth: 1
+    //             }}>
+    //                 <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]} source={{ uri: this.dataMySQL, }}
+    //                     resizeMode={FastImage.resizeMode.contain} />
+    //             </View>
+    //             <View style={[stylesMain.ItemCenterVertical, { marginLeft: 20 }]}>
+    //                 <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.38 }]}>
+    //                     {data.item.product_name}</Text>
+    //                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{`${data.item.detail_1} ${data.item.detail_2}`}</Text>
+    //                 <NumberFormat value={data.item.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+    //                     <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold, { color: mainColor }]}>{value}</Text>} />
+    //                 <View style={{ flexDirection: 'row' }}>
+    //                     <TouchableOpacity activeOpacity={1} onPress={() => this.setStateItemArrayitemCount(
+    //                         ItemArray[this.numindex].itemCount - 1,
+    //                         data.item.id_cartdetail,
+    //                         data.item.max_remain,
+    //                     )}>
+    //                         <View style={[stylesMain.ItemCenter,
+    //                         { width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1 }]}>
+    //                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4,
+    //                             { color: ItemArray[this.numindex].itemCount > 1 ? '#111' : '#CECECE' }]}>-</Text>
+    //                         </View>
+    //                     </TouchableOpacity>
+    //                     <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText,
+    //                     { width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1 }]}>
+    //                         <Text style={[stylesMain.ItemCenterVertical]}>{ItemArray[this.numindex].itemCount}</Text>
+    //                     </View>
+    //                     <TouchableOpacity activeOpacity={1} onPress={() => this.setStateItemArrayitemCount(
+    //                         ItemArray[this.numindex].itemCount + 1,
+    //                         data.item.id_cartdetail,
+    //                         data.item.max_remain,
+    //                     )}>
+    //                         <View style={[stylesMain.ItemCenter,
+    //                         { width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1 }]}>
+    //                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
+    //                                 color: ItemArray[this.numindex].itemCount < data.item.max_remain - 1 ? '#111' : '#CECECE'
+    //                             }]}>+</Text>
+    //                         </View>
+    //                     </TouchableOpacity>
+    //                 </View>
+    //             </View>
+    //         </View>
+    //     </TouchableOpacity>
+    // };
+    // DeleteItem = (id_cartdetail, data, rowMap,) => {
+    //     const { ArrayItem2, currentUser } = this.props;
+    //     setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450);
+    //     ArrayItem2({
+    //         list_order: id_cartdetail,
+    //         id_customer: currentUser.id_customer
+    //     });
+    // };
+    // renderHiddenItem = (data, rowMap,) => <View style={{
+    //     alignItems: 'center', backgroundColor: '#DDD', flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 15,
+    // }}>
+    //     <TouchableOpacity style={[{
+    //         alignItems: 'center', bottom: 0, justifyContent: 'center', position: 'absolute', top: 0, width: 75, backgroundColor: 'red',
+    //         right: 0, borderColor: '#ECECEC', borderTopWidth: 1, borderBottomWidth: 1,
+    //     }]}
+    //         onPress={() => this.DeleteItem(data.item.id_cartdetail, data, rowMap)}>
+    //         <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
+    //     </TouchableOpacity>
+    // </View>;
+    // render() {
+    //     const { dataService, } = this.props;
+    //     const { ItemArray, HeadArray, } = this.state;
+    //     dataService && (ItemArray == null || (dataService.length != ItemArray.length)) && this.checkItem(dataService.length);
+    //     var arrayName = [];
+    //     var arrayItem = [];
+    //     if (dataService.length > 0 && HeadArray == null) {
+    //         for (var n = 0; n < dataService.length; n++) {
+    //             if (arrayName.indexOf(dataService[n].name) == -1) {
+    //                 arrayName.push(dataService[n].name);
+    //                 arrayItem.push({
+    //                     name: dataService[n].name, store_path: dataService[n].store_path,
+    //                     store_image: dataService[n].store_image, checked: true
+    //                 });
+    //             };
+    //         };
+    //         this.setState({ HeadArray: arrayItem });
+    //     };
+    //     if (HeadArray != null && HeadArray.map((value) => { return dataService.some((item) => { return item.name == value.name }) })
+    //         .every((value2) => { return value2 }) == false) {
+    //         arrayName = [];
+    //         arrayItem = [];
+    //         for (var n = 0; n < dataService.length; n++) {
+    //             if (arrayName.indexOf(dataService[n].name) == -1) {
+    //                 arrayName.push(dataService[n].name);
+    //                 arrayItem.push({
+    //                     name: dataService[n].name, store_path: dataService[n].store_path,
+    //                     store_image: dataService[n].store_image, checked: true
+    //                 });
+    //             };
+    //         };
+    //         this.setState({ HeadArray: arrayItem, activecart: true, dataService2: [], });
+    //     };
+    return <View>
+        {dataService && dataService.length > 0 ?
+            ItemArray && HeadArray.map((item_n, index_n) => {
+                var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
+                return <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index_n}>
+                    <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
+                        <View style={{ flexDirection: 'row', }}>
+                            <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
+                                textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={item_n.checked}
+                                onPress={() => setStateHeadArray(!item_n.checked, item_n.name)} />
+                            <View style={[stylesMain.ItemCenterVertical,
+                            { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
+                                <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1, borderRadius: 20, }]}
+                                    source={{ uri: dataMySQL_n, }} resizeMode={FastImage.resizeMode.contain} />
                             </View>
-                        </TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, stylesFont.FontFamilyText,
-                        { width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1 }]}>
-                            <Text style={[stylesMain.ItemCenterVertical]}>{ItemArray[this.numindex].itemCount}</Text>
+                            <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                            { marginLeft: 16, }]}>{item_n.name}</Text>
                         </View>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateItemArrayitemCount(
-                            ItemArray[this.numindex].itemCount + 1,
-                            data.item.id_cartdetail,
-                            data.item.max_remain,
-                        )}>
-                            <View style={[stylesMain.ItemCenter,
-                            { width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1 }]}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
-                                    color: ItemArray[this.numindex].itemCount < data.item.max_remain - 1 ? '#111' : '#CECECE'
-                                }]}>+</Text>
-                            </View>
-                        </TouchableOpacity>
+                    </View>
+                    <View>
+                        <SwipeListView useFlatList data={dataService.filter((value) => value.name == item_n.name)}
+                            renderItem={renderItem} renderHiddenItem={renderHiddenItem} disableRightSwipe
+                            rightOpenValue={-75} stopRightSwipe={-75} />
+                    </View>
+                </View>;
+            }) :
+            <View style={stylesCart.Product_Cart}>
+                <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
+                    <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                        <IconFeather name="shopping-cart" size={60} />
+                        <Text>ไม่มีสินค้าในรถเข็นของคุณ</Text>
                     </View>
                 </View>
-            </View>
-        </TouchableOpacity>
-    };
-    DeleteItem = (id_cartdetail, data, rowMap,) => {
-        const { ArrayItem2, currentUser } = this.props;
-        setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450);
-        ArrayItem2({
-            list_order: id_cartdetail,
-            id_customer: currentUser.id_customer
-        });
-    };
-    renderHiddenItem = (data, rowMap,) => <View style={{
-        alignItems: 'center', backgroundColor: '#DDD', flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 15,
-    }}>
-        <TouchableOpacity style={[{
-            alignItems: 'center', bottom: 0, justifyContent: 'center', position: 'absolute', top: 0, width: 75, backgroundColor: 'red',
-            right: 0, borderColor: '#ECECEC', borderTopWidth: 1, borderBottomWidth: 1,
-        }]}
-            onPress={() => this.DeleteItem(data.item.id_cartdetail, data, rowMap)}>
-            <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
-        </TouchableOpacity>
+            </View>}
     </View>;
-    render() {
-        const { dataService, } = this.props;
-        const { ItemArray, HeadArray, } = this.state;
-        dataService && (ItemArray == null || (dataService.length != ItemArray.length)) && this.checkItem(dataService.length);
-        var arrayName = [];
-        var arrayItem = [];
-        if (dataService.length > 0 && HeadArray == null) {
-            for (var n = 0; n < dataService.length; n++) {
-                if (arrayName.indexOf(dataService[n].name) == -1) {
-                    arrayName.push(dataService[n].name);
-                    arrayItem.push({
-                        name: dataService[n].name, store_path: dataService[n].store_path,
-                        store_image: dataService[n].store_image, checked: true
-                    });
-                };
-            };
-            this.setState({ HeadArray: arrayItem });
-        };
-        if (HeadArray != null && HeadArray.map((value) => { return dataService.some((item) => { return item.name == value.name }) })
-            .every((value2) => { return value2 }) == false) {
-            arrayName = [];
-            arrayItem = [];
-            for (var n = 0; n < dataService.length; n++) {
-                if (arrayName.indexOf(dataService[n].name) == -1) {
-                    arrayName.push(dataService[n].name);
-                    arrayItem.push({
-                        name: dataService[n].name, store_path: dataService[n].store_path,
-                        store_image: dataService[n].store_image, checked: true
-                    });
-                };
-            };
-            this.setState({ HeadArray: arrayItem, activecart: true, dataService2: [], });
-        };
-        return <View>
-            {dataService && dataService.length > 0 ?
-                ItemArray && HeadArray.map((item_n, index_n) => {
-                    var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
-                    return <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index_n}>
-                        <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
-                            <View style={{ flexDirection: 'row', }}>
-                                <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
-                                    textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={item_n.checked}
-                                    onPress={() => this.setStateHeadArray(!item_n.checked, item_n.name)} />
-                                <View style={[stylesMain.ItemCenterVertical,
-                                { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
-                                    <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1, borderRadius: 20, }]}
-                                        source={{ uri: dataMySQL_n, }} resizeMode={FastImage.resizeMode.contain} />
-                                </View>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5,
-                                { marginLeft: 16, }]}>{item_n.name}</Text>
-                            </View>
-                        </View>
-                        <View>
-                            <SwipeListView useFlatList data={dataService.filter((value) => value.name == item_n.name)}
-                                renderItem={this.renderItem} renderHiddenItem={this.renderHiddenItem} disableRightSwipe
-                                rightOpenValue={-75} stopRightSwipe={-75} />
-                        </View>
-                    </View>;
-                }) :
-                <View style={stylesCart.Product_Cart}>
-                    <View style={[stylesMain.ItemCenter, { height: 200, width: '100%' }]}>
-                        <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                            <IconFeather name="shopping-cart" size={60} />
-                            <Text>ไม่มีสินค้าในรถเข็นของคุณ</Text>
-                        </View>
-                    </View>
-                </View>}
-        </View>;
-    };
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Like
 export let Product_Like = (props) => <View>

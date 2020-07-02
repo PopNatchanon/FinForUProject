@@ -214,7 +214,7 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
-    marginBottom: 10,
+    marginBottom: 3,
   },
   BoxProduct4Image: {
     width: width,

@@ -574,24 +574,17 @@ export let Register_Affiliate_From = (props) => {
   </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export class ID_card extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      filename: 'ชื่อไฟล์ที่อัพ',
-      date: new Date(),
-      mode: 'date',
-      show: false,
-    };
+export let ID_card = (props) => {
+  const [date, setDate] = useState(new Date())
+  const [filename, setFilename] = useState('ชื่อไฟล์ที่อัพ')
+  const [mode, setMode] = useState('date')
+  const [show, setShow] = useState(false)
+  let onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date; setDate(currentDate); setShow(Platform.OS === 'ios');
   };
-  onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    this.setState({ show: Platform.OS === 'ios' });
-    this.setState({ date: currentDate });
-  };
-  showMode = currentMode => { this.setState({ show: true }); this.setState({ mode: currentMode }); };
-  showDatepicker = () => this.showMode('date');
-  upload_IDcode = async () => {
+  let showMode = currentMode => { setShow(true); setMode(currentMode); };
+  let showDatepicker = () => showMode('date');
+  let upload_IDcode = async () => {
     try {
       const res = await DocumentPicker.pick({ type: [DocumentPicker.types.pdf, DocumentPicker.types.images], });
       console.log(res.uri, res.type, res.name, res.size);
@@ -599,53 +592,50 @@ export class ID_card extends React.Component {
       if (res.type !== DocumentPicker.types.pdf) {
         console.log(patt.exec(res.type));
         if (patt.exec(res.type) === null) { alert('ไฟล์ไม่ถูกต้อง'); }
-        else { this.setState({ filename: res.name }); };
-      } else { this.setState({ filename: res.name }); };
+        else { setFilename(res.name); };
+      } else { setFilename(res.name); };
     } catch (err) { if (DocumentPicker.isCancel(err)) { } else { throw err; }; };
   };
-  render() {
-    const { filename, show, date, mode } = this.state;
-    return <>
-      <ScrollView>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
-        <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
-          <View style={[{
-            width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1,
-            borderRadius: 5, justifyContent: 'center'
-          }]}>
-            <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
-          </View>
-          <TouchableOpacity onPress={() => this.upload_IDcode()} style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-          { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
-            <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
+  return <>
+    <ScrollView>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>บัตรประชาชน</Text>
+      <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, justifyContent: 'space-between' }]}>
+        <View style={[{
+          width: '68%', height: 50, backgroundColor: '#FFFFFF', paddingHorizontal: 10, borderColor: '#EAEAEA', borderWidth: 1,
+          borderRadius: 5, justifyContent: 'center'
+        }]}>
+          <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#C5C5C5' }]}>{filename}</Text>
+        </View>
+        <TouchableOpacity onPress={() => upload_IDcode()} style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+        { width: '30%', borderColor: mainColor, borderWidth: 2, borderRadius: 5, backgroundColor: '#FFFFFF' }]}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: mainColor }]}>อัพโหลด</Text>
+          <IconEntypo name='upload' size={25} style={{ color: mainColor, marginLeft: 5 }} />
+        </TouchableOpacity>
+      </View>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>
+        สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
+      <View style={{
+        backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10
+      }}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
+        <View>
+          <TouchableOpacity onPress={(value) => showDatepicker(value)} style={stylesMain.ItemCenter}>
+            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+            { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+              <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+            </View>
           </TouchableOpacity>
+          {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+            onChange={(value) => onChange(value)} />}
         </View>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C5C5C5', textAlign: 'center' }]}>
-          สามารถอัพโหลดเอกสารได้ 1 ฉบับ ความละเอียดได้ไม่ 5 MB รองรับ .PNG .JPEG .PDF</Text>
-        <View style={{
-          backgroundColor: '#FFFFFF', borderColor: '#EAEAEA', borderWidth: 1, borderRadius: 5, marginHorizontal: 10, padding: 10
-        }}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10 }]}>โปรดระบุวันหมดอายุ</Text>
-          <View>
-            <TouchableOpacity onPress={this.showDatepicker.bind(this)} style={stylesMain.ItemCenter}>
-              <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-              { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
-                <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                  {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
-              </View>
-            </TouchableOpacity>
-            {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
-              onChange={this.onChange.bind(this)} />}
-          </View>
-        </View>
-      </ScrollView>
-      <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
-      </TouchableOpacity>
-    </>;
-  };
+      </View>
+    </ScrollView>
+    <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>บันทึก</Text>
+    </TouchableOpacity>
+  </>;
 };
 
 ///----------------------------------------------------------------------------------------------->>>>

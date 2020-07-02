@@ -531,7 +531,7 @@ export class Post_New extends React.Component {
     getData = (dataService) => {
         const { getActivePost, navigation } = this.props
         getActivePost(false)
-        navigation.state.params.getDataSource(true);
+        route.params.getDataSource(true);
         navigation.goBack()
     }
     getData2 = (dataService2) => {
@@ -769,7 +769,7 @@ export class Select_TagProduct extends React.Component {
     }
     getDataService = (value) => {
         const { navigation } = this.props
-        navigation.state.params.getDataService(value);
+        route.params.getDataService(value);
         navigation.goBack()
     }
     render() {

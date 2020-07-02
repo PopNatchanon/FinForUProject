@@ -37,25 +37,34 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiv
 export default connect(mapStateToProps, mapDispatchToProps)(Profile_Topic);
 function Profile_Topic(props) {
     const { route } = props;
+    const selectedIndex = route.params?.selectedIndex;
+    const id_cartdetail = route.params?.id_cartdetail;
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dataSevice, setDataSevice] = useState(undefined);
-    let getSource = value => { setActiveGetSource(false); setCokie(value.currentUser); setCurrentUser(value.keycokie); };
+    var dataBody = { id_customer: currentUser?.id_customer, };
+    var dataBody2 = {
+        id_customer: currentUser?.id_customer, id_cartdetail: selectedIndex == 7 && id_cartdetail ? id_cartdetail : '',
+    };
+    var nameConsole = selectedIndex == 2 ? '2|product_interest' : selectedIndex == 3 ? '3|store_follow' : selectedIndex == 4 ?
+        '4|review_product' : selectedIndex == 7 ? '7|review_product' : '';
+    var uri = `${finip}/${selectedIndex == 2 ? 'profile/product_interest' : selectedIndex == 3 ? 'profile/store_follow' :
+        (selectedIndex == 4 || selectedIndex == 7) ? 'profile/review_product' : ''}`;
+    let getSource = value => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     let getData = value => { setActiveGetServices(false); setDataSevice(value); };
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value), });
     }, [activeGetSource]);
+    useEffect(() => {
+        !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex &&
+            GetServices({
+                uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: nameConsole,
+                getDataSource: value => getData(value)
+            });
+    }, [!activeGetSource && activeGetServices && currentUser && cokie && selectedIndex]);
     let PathList = () => {
-        const selectedIndex = route.params?.selectedIndex;
-        const id_cartdetail = route.params?.id_cartdetail;
-        const uri = `${finip}/${selectedIndex == 2 ? 'profile/product_interest' : selectedIndex == 3 ? 'profile/store_follow' :
-            (selectedIndex == 4 || selectedIndex == 7) ? 'profile/review_product' : ''}`;
-        var dataBody = { id_customer: currentUser?.id_customer, };
-        var dataBody2 = {
-            id_customer: currentUser?.id_customer, id_cartdetail: selectedIndex == 7 && id_cartdetail ? id_cartdetail : '',
-        };
         switch (selectedIndex) {
             case 0:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -68,28 +77,16 @@ function Profile_Topic(props) {
                     <ChatScreen {...props} />
                 </SafeAreaView>;
             case 2:
-                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 2 && GetServices({
-                    uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: value =>
-                        getData(value),
-                });
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='สิ่งที่สนใจ' />
                     {dataSevice && <InterestedScreen {...props} dataSevice={dataSevice.product} />}
                 </SafeAreaView>;
             case 3:
-                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 3 && GetServices({
-                    uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'store_follow', getDataSource: value =>
-                        getData(value),
-                });
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='ร้านที่ติดตาม' />
                     {dataSevice && <Follow_storeScreen {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />}
                 </SafeAreaView>;
             case 4:
-                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 4 && GetServices({
-                    uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '4|review_product', getDataSource: value =>
-                        getData(value),
-                });
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
                     {dataSevice && <Review_meScreen {...props} dataSevice={dataSevice.my_review} />}
@@ -105,15 +102,11 @@ function Profile_Topic(props) {
                     <Chat_Cutomer />
                 </SafeAreaView>;
             case 7:
-                !activeGetSource && activeGetServices && currentUser && cokie && selectedIndex == 7 && GetServices({
-                    uriPointer: uri, dataBody: dataBody2, Authorization: cokie, showConsole: '7|review_product', getDataSource: value =>
-                        getData(value),
-                });
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
                     <ScrollView>
-                        {dataSevice &&
-                            <Review_From {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice.my_review[0]} />}
+                        {dataSevice?.my_review?.map((value, index) => <Review_From {...props} cokie={cokie} currentUser={currentUser}
+                            dataSevice={value} key={index} />)}
                     </ScrollView>
                 </SafeAreaView>;
             case 8:
@@ -486,7 +479,7 @@ export let Might_like_Store = (props) => {
 export let Review_meScreen = (props) => {
     const { dataSevice, navigation } = props;
     return <ScrollView>
-        {dataSevice.map((value, index) => { return <Review_me {...props} dataSevice={value} key={index} /> })}
+        {dataSevice?.map((value, index) => <Review_me {...props} dataSevice={value} key={index} />)}
     </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Review_me
@@ -754,89 +747,86 @@ export let Topic_DetailHelp = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Review_From
-export class Review_From extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { activeAuto: true, activeGetServices: false, checked2: true, checked4: true, avatarSource: [], starmain: 0 };
-    };
-    selectStar = (starmain) => this.setState({ starmain });
-    UploadImageSingle = (index) => {
-        const { avatarSource } = this.state;
+export let Review_From = (props) => {
+    const { cokie, currentUser, dataSevice, route } = props;
+    const id_cartdetail = route.params?.id_cartdetail;
+    const [activeAuto, setActiveAuto] = useState(true);
+    const [activeGetServices, setActiveGetServices] = useState(false);
+    const [activeavatarSource, setActiveAvatarSource] = useState(false);
+    const [avatarSource, setAvatarSource] = useState([]);
+    const [checked1, setChecked1] = useState(false);
+    const [checked2, setChecked2] = useState(true);
+    const [checked3, setChecked3] = useState(false);
+    const [checked4, setChecked4] = useState(true);
+    const [review, setReview] = useState();
+    const [starMain, setStarMain] = useState(0);
+    const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
+    var dataBody = { id_customer: currentUser ? currentUser.id_customer : '', id_cartdetail, comment: review };
+    var uri = `${finip}/profile/update_review`;
+    // constructor(props) {
+    //     super(props);
+    //     this.state = {  checked2: true, checked4: true,  };
+    // };
+    let UploadImageSingle = (index) => {
         const options = { includeBase64: true };
-        ImagePicker.openPicker(options).then(response => { avatarSource[index] = response; this.setState({ avatarSource }); });
+        ImagePicker.openPicker(options).then(response => {
+            avatarSource[index] = response; setActiveAvatarSource(!activeavatarSource); setAvatarSource(avatarSource);
+        });
     };
-    UploadImageMultiple = () => {
-        const { avatarSource } = this.state;
+    let UploadImageMultiple = () => {
         const options = { multiple: true, includeBase64: true };
         ImagePicker.openPicker(options).then(response => {
-            response.map((item, index) => index + avatarSource.length <= 3 && avatarSource.push(item)); this.setState({ avatarSource });
+            response.map((item, index) => index + avatarSource.length <= 3 && avatarSource.push(item));
+            setActiveAvatarSource(!activeavatarSource); setAvatarSource(avatarSource);
         });
     };
-    setStatus = () => {
-        const { dataSevice } = this.props;
-        this.setState({ activeAuto: false, Review: dataSevice.reviews_detail, starmain: dataSevice.rating });
-    };
-    UploadReview = () => { this.setState({ activeGetServices: true, }); };
-    getData = (value) => { this.setState({ activeGetServices: false }); };
-    render() {
-        const { cokie, currentUser, dataSevice, route } = this.props;
-        const { activeAuto, activeGetServices, avatarSource, Review, starmain } = this.state;
-        const id_cartdetail = route.params?.id_cartdetail;
-        const image_product = `${finip}/${dataSevice.path_product}/${dataSevice.image_product}`;
-        const uri = `${finip}/profile/update_review`;
-        var dataBody = { id_customer: currentUser ? currentUser.id_customer : '', id_cartdetail, comment: Review };
-        activeAuto && this.setStatus();
+    let setStatus = () => { setActiveAuto(false); setReview(dataSevice.reviews_detail); setStarMain(dataSevice.rating); };
+    let UploadReview = () => setActiveGetServices(true);
+    let getData = (value) => setActiveGetServices(false);
+    activeAuto && setStatus();
+    useEffect(() => {
         activeGetServices && GetServices({
-            uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: this.getData.bind(this),
+            uriPointer: uri, dataBody, Authorization: cokie, showConsole: 'product_interest', getDataSource: (value) => getData(value),
         });
-        return <View style={stylesMain.SafeAreaView}>
-            <View style={stylesProfileTopic.Review_From}>
-                <IconIonicons name='md-key' size={30} />
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
+    }, [activeGetServices]);
+    return <View style={stylesMain.SafeAreaView}>
+        <View style={stylesProfileTopic.Review_From}>
+            <IconIonicons name='md-key' size={30} />
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}> คุณภาพสินค้า </Text>
+        </View>
+        <View style={stylesProfileTopic.Review_From_Boximage}>
+            <View style={stylesProfileTopic.Review_From_image}>
+                <FastImage style={stylesProfileTopic.Review_me_image} source={{ uri: image_product, }} />
+                <View style={{ marginLeft: 10, }}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
+                </View>
             </View>
-            <View style={stylesProfileTopic.Review_From_Boximage}>
-                <View style={stylesProfileTopic.Review_From_image}>
-                    <FastImage style={stylesProfileTopic.Review_me_image} source={{ uri: image_product, }} />
-                    <View style={{ marginLeft: 10, }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.product_name}</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataSevice.detail}</Text>
-                    </View>
+            <View style={stylesProfileTopic.Review_From_Star_Box}>
+                {starReview(starMain)}
+            </View>
+            <View style={stylesProfileTopic.Review_From_TextInput}>
+                <TextInput style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]} fontSize={18}
+                    placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา" multiline editable value={review} onChangeText={(value) =>
+                        setReview(value)}></TextInput>
+            </View>
+            <View style={{ width: '100%', }}>
+                <View style={{ flexDirection: 'row', }}>
+                    <CheckBox checked={checked1} onPress={() => { setChecked1(!checked1); setChecked2(!checked2) }} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,
+                    { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>ไม่ระบุตัวตน</Text>
                 </View>
-                <View style={stylesProfileTopic.Review_From_Star_Box}>
-                    {starReview(starmain)}
-                </View>
-                <View style={stylesProfileTopic.Review_From_TextInput}>
-                    <TextInput style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]} fontSize={18}
-                        placeholder="ไม่ต้องอาย โปรดมาช่วยรีวิวเรา" multiline editable value={this.state.Review} onChangeText={(Review) =>
-                            this.setState({ Review })}></TextInput>
-                </View>
-                <View style={{ width: '100%', }}>
-                    <View style={{ flexDirection: 'row', }}>
-                        <CheckBox checked={this.state.checked1} onPress={() =>
-                            this.setState({ checked1: !this.state.checked1, checked2: !this.state.checked2 })} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,
-                        { color: '#EAEAEA', marginTop: 15, marginLeft: -10 }]}>ไม่ระบุตัวตน</Text>
-                    </View>
-                    <View style={{ flexDirection: 'row', borderWidth: 1, padding: 10, borderColor: '#EAEAEA' }}>
-                        {avatarSource ?
-                            <>{avatarSource.map((item, index) => <TouchableOpacity onPress={() => this.UploadImageSingle(index)}
-                                key={index}>
-                                <View style={[stylesMain.ItemCenter,
-                                { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                                    <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical,
-                                    stylesMain.BoxProduct1Image]} />
-                                </View>
-                            </TouchableOpacity>)}
-                                {avatarSource.length < 3 && <TouchableOpacity onPress={() => this.UploadImageMultiple()} key={'upload'}>
-                                    <View style={[stylesMain.ItemCenter,
-                                    { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                                        <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                                            <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
-                                                +เพิ่มรูปภาพ/วีดีโอ</Text>
-                                        </View>
-                                    </View>
-                                </TouchableOpacity>}</> : <TouchableOpacity onPress={() => this.UploadImageMultiple()}>
+                <View style={{ flexDirection: 'row', borderWidth: 1, padding: 10, borderColor: '#EAEAEA' }}>
+                    {avatarSource ?
+                        <>{avatarSource.map((item, index) => <TouchableOpacity onPress={() => UploadImageSingle(index)}
+                            key={index}>
+                            <View style={[stylesMain.ItemCenter,
+                            { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+                                <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical,
+                                stylesMain.BoxProduct1Image]} />
+                            </View>
+                        </TouchableOpacity>)}
+                            {avatarSource.length < 3 && <TouchableOpacity onPress={() => UploadImageMultiple()} key={'upload'}>
                                 <View style={[stylesMain.ItemCenter,
                                 { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
                                     <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
@@ -845,26 +835,33 @@ export class Review_From extends React.Component {
                                             +เพิ่มรูปภาพ/วีดีโอ</Text>
                                     </View>
                                 </View>
-                            </TouchableOpacity>}
-                    </View>
-                </View>
-                <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
-                    <CheckBox checked={this.state.checked3} onPress={() =>
-                        this.setState({ checked3: !this.state.checked3, checked4: !this.state.checked4 })} />
-                    <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>
-                            นโยบายความเป็นส่วนตัวของ FIN</Text>
-                    </View>
-                </View>
-            </View>
-            <View>
-                <View style={{ alignItems: 'center', width: '100%' }}>
-                    <TouchableOpacity onPress={() => this.UploadReview()} style={stylesProfileTopic.Review_From_Buttonshare}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
-                    </TouchableOpacity>
+                            </TouchableOpacity>}</> : <TouchableOpacity onPress={() => UploadImageMultiple()}>
+                            <View style={[stylesMain.ItemCenter,
+                            { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                                    <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
+                                        +เพิ่มรูปภาพ/วีดีโอ</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>}
                 </View>
             </View>
-        </View>;
-    };
+            <View style={[stylesMain.FlexRow, { marginLeft: -10 }]}>
+                <CheckBox checked={checked3} onPress={() => { setChecked3(!checked3); setChecked4(!checked4); }} />
+                <View style={[stylesMain.FlexRow, { marginTop: 20, marginLeft: -15 }]}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ข้าพเจ้ายอมรับและทราบข้อตกลงตาม </Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#36B680' }]}>
+                        นโยบายความเป็นส่วนตัวของ FIN</Text>
+                </View>
+            </View>
+        </View>
+        <View>
+            <View style={{ alignItems: 'center', width: '100%' }}>
+                <TouchableOpacity onPress={() => UploadReview()} style={stylesProfileTopic.Review_From_Buttonshare}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>แชร์รีวิว</Text>
+                </TouchableOpacity>
+            </View>
+        </View>
+    </View>;
 };

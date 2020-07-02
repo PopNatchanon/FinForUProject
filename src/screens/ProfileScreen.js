@@ -52,7 +52,7 @@ function ProfileScreen(props) {
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <ScrollView>
             <View>
-                <Headbar {...props} currentUser={currentUser} dataSevice={dataSevice} getDataSource={() => setActiveGetServices(true)} />
+                <Headbar {...props} currentUser={currentUser} dataSevice={dataSevice} getDataSources={() => setActiveGetServices(true)} />
                 <Menubar {...props} />
                 <Listbar {...props} currentUser={currentUser} cokie={cokie} />
             </View>
@@ -63,12 +63,12 @@ function ProfileScreen(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Headbar
 export let Headbar = (props) => {
-    const { dataSevice, getDataSource, navigation, statusOnline, } = props;
+    const { dataSevice, getDataSources, navigation, statusOnline, } = props;
     var uri;
     dataSevice?.list_profile && (uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`);
     return <View>
         <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
-            goScreen: 'Setting_Topic', setData: { selectedIndex: 0, getDataSource: (value) => getDataSource(value) }, navigation
+            goScreen: 'Setting_Topic', setData: { selectedIndex: 0, getDataSource: (value) => getDataSources(value) }, navigation
         })}>
             <View style={{ backgroundColor: '#4a4a4a', }}>
                 <ImageBackground source={require('../../icon/bgprofile.jpg')} style={stylesProfile.HeadbarImage} />

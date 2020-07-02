@@ -3,7 +3,7 @@ import React from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { connect, useStore } from 'react-redux';
+import { connect } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -26,11 +26,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(Detail_Pro);
 function Detail_Pro(props) {
     const { route } = props;
     const selectedIndex = route.params?.selectedIndex;
-    let PathList = () => {
+    let pathList = () => {
         switch (selectedIndex) {
             case 0:
                 return <View>
-                    <AppBar1 {...props} backArrowtitleHead='รายละเอียดโปรโมชัน' />
+                    <AppBar1 {...props} backArrow titleHead='รายละเอียดโปรโมชัน' />
                     <Detail_Promotion {...props} />
                 </View>;
             case 1:
@@ -50,7 +50,7 @@ function Detail_Pro(props) {
         };
     };
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        {PathList()}
+        {pathList()}
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };

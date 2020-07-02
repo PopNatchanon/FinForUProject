@@ -70,7 +70,7 @@ export let Login = (props) => {
       await AsyncStorage.clear();
     } catch (e) { };
   };
-  let getData = async () => {
+  let getData = async (value) => {
     fetch(`${finip}/auth/login_customer`, {
       method: 'POST',
       headers: {

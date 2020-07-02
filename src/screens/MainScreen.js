@@ -1,9 +1,9 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState, useRef, useReducer } from 'react';
 import {
     Animated, BackHandler, Dimensions, SafeAreaView,
     // ScrollView, 
-    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar
+    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid
 } from 'react-native';
 import {
     PanGestureHandler,
@@ -239,91 +239,81 @@ function MainScreen(props) {
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> ExitAppModule
-export class ExitAppModule extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            backClickCount: 0,
-        };
-        this.springValue = new Animated.Value(0);
-        this.transformValue = new Animated.Value(100)
-        this.handleBackButton = this._handleBackButton.bind(this)
+export let ExitAppModule = (props) => {
+    const { navigation, route } = props;
+    const routeProps = route.name;
+    const [backClickCount, setBackClickCount] = useState(0);
+    const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen'];
+    const springValue = useRef(new Animated.Value(0));
+    const transformValue = useRef(new Animated.Value(100));
+    YellowBox.ignoreWarnings(["Require cycle:", "*"]);
+    let handleBackButton = () => {
+        if (pathMain.indexOf(routeProps) != -1) {
+            if (backClickCount == 1) {
+                BackHandler.exitApp();
+            } else {
+                setBackClickCount(1);
+                Animated.sequence([
+                    Animated.timing(
+                        transformValue.current,
+                        {
+                            toValue: -.08 * height,
+                            friction: 5,
+                            duration: 200,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 1,
+                            duration: 300,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 1,
+                            duration: 500,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        springValue.current,
+                        {
+                            toValue: 0,
+                            duration: 300,
+                            useNativeDriver: true,
+                        }
+                    ),
+                    Animated.timing(
+                        transformValue.current,
+                        {
+                            toValue: 100,
+                            duration: 200,
+                            useNativeDriver: true,
+                        }
+                    ),
+                ]).start(() => {
+                    setBackClickCount(0);
+                });
+            }
+        } else {
+            navigation.pop();
+        }
+        return true;
     };
-    componentDidMount() {
-        YellowBox.ignoreWarnings(["Require cycle:", "*"]);
-        BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
-    };
-    componentWillUnmount() {
-        BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-    };
-    _spring = () => {
-        this.setState({ backClickCount: 1 }, () => {
-            Animated.sequence([
-                Animated.timing(
-                    this.transformValue,
-                    {
-                        toValue: -.08 * height,
-                        friction: 5,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 1,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 1,
-                        duration: 700,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.springValue,
-                    {
-                        toValue: 0,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-                Animated.timing(
-                    this.transformValue,
-                    {
-                        toValue: 100,
-                        duration: 300,
-                        useNativeDriver: true,
-                    }
-                ),
-            ]).start(() => {
-                this.setState({ backClickCount: 0 });
-            });
-        });
-    };
-    _handleBackButton = () => {
-        const { backClickCount } = this.state;
-        const { navigation, route } = this.props;
-        var routeProps = route.name;
-        const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen']
-        console.log(pathMain.indexOf(routeProps) != -1)
-        return pathMain.indexOf(routeProps) != -1 ?
-            (backClickCount == 1 ? BackHandler.exitApp() : this._spring(), true) :
-            (navigation.pop(), true);
-    };
-    render() {
-        return <Animatable.View style={[stylesMain.animatedView, {
-            opacity: this.springValue, transform: [{ translateY: this.transformValue }]
-        }]}>
-            <View style={stylesMain.animatedViewSub}>
-                <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
-            </View>
-        </Animatable.View>;
-    };
+    useEffect(() => {
+        const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
+        return () => backHandler.remove();
+    });
+    return <Animatable.View style={[stylesMain.animatedView,
+    { opacity: springValue.current, transform: [{ translateY: transformValue.current }] }]}>
+        <View style={stylesMain.animatedViewSub}>
+            <Text style={[stylesMain.exitTitleText, stylesFont.FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
+        </View>
+    </Animatable.View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> AppBar ค้นหา
 export let AppBar = (props) => {
@@ -455,7 +445,7 @@ export let AppBar1 = (props) => {
                     activeOpacity={1} onPress={() => goToTop ?
                         NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
                         backNavigation ?
-                            [navigation.state.params.backNavigation('goBack'),
+                            [route.params.backNavigation('goBack'),
                             NavigationNavigateScreen({ goScreen: 'goBack', navigation })] :
                             NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
                     <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left"
@@ -1782,73 +1772,57 @@ export let TodayProduct = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export class Botton_PopUp_FIN extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeShow: true,
-            activeSliding: false,
-            rotate: 0,
-        };
-        this._translateX = new Animated.Value(0);
-        this._translateY = new Animated.Value(0);
-        this._lastOffset = { x: 0, y: 0 };
-        this._onGestureEvent = Animated.event(
-            [{ nativeEvent: { translationX: this._translateX, translationY: this._translateY, }, },],
-            { useNativeDriver: false }
-        );
-    };
-    _onHandlerStateChange = event => {
+export let Botton_PopUp_FIN = (props) => {
+    const [activeShow, setActiveShow] = useState(true);
+    const [activeSliding, setActiveSliding] = useState(false);
+    const translationXRef = useRef(new Animated.Value(0));
+    const translationYRef = useRef(new Animated.Value(0));
+    const _lastOffset = { x: 0, y: 0 };
+    const _onGestureEvent = Animated.event(
+        [{ nativeEvent: { translationX: translationXRef.current, translationY: translationYRef.current, }, },],
+        { useNativeDriver: false }
+    );
+    let _onHandlerStateChange = event => {
         if (event.nativeEvent.oldState === State.ACTIVE) {
-            this._lastOffset.x += event.nativeEvent.translationX;
-            this._lastOffset.y += event.nativeEvent.translationY;
-            this._translateX.setOffset(this._lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
-            this._translateX.setValue(0);
-            this.setState({ rotate: this._lastOffset.x < -(width * 0.5) ? 1 : 0 })
-            this._translateY.setOffset(this._lastOffset.y > 0 ? 0 :
-                this._lastOffset.y < -(height - 185) ? -(height - 185) : this._lastOffset.y);
-            this._translateY.setValue(0);
+            _lastOffset.x += event.nativeEvent.translationX;
+            _lastOffset.y += event.nativeEvent.translationY;
+            translationXRef.current.setOffset(_lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
+            translationXRef.current.setValue(0);
+            translationYRef.current.setOffset(_lastOffset.y > 0 ? 0 : _lastOffset.y < -(height - 215) ? -(height - 215) : _lastOffset.y);
+            translationYRef.current.setValue(0);
         };
     };
-    render() {
-        const { activeSliding, activeShow } = this.state;
-        return <>
-            {
-                activeShow &&
-                <PanGestureHandler {...this.props} onGestureEvent={this._onGestureEvent}
-                    onHandlerStateChange={this._onHandlerStateChange}>
-                    <Animated.View style={{
-                        elevation: 1, height: 60, width: 60, left: width - 65, bottom: 20, marginTop: -60, transform:
-                            [{ translateX: this._translateX }, { translateY: this._translateY },]
-                    }}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setState({ activeSliding: !activeSliding })}>
-                            <FastImage style={[stylesMain.Botton_PopUp_Image,
-                            { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 }]} source={require('../../icon/PopUP.png')}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <TouchableOpacity onPress={() => this.setState({ activeShow: !activeShow })}
-                                style={{ width: 20, height: 20, left: 40, bottom: 40 }}>
-                                <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
-                            </TouchableOpacity>
-                        </TouchableOpacity>
-                    </Animated.View>
-                </PanGestureHandler>}
-            <SlidingView disableDrag componentVisible={activeSliding}
-                containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }} position="right">
-                <TouchableOpacity onPress={() => this.setState({ activeSliding: !activeSliding })}>
-                    <View style={stylesMain.Botton_PopUp_Box}>
-                        <FastImage style={stylesMain.BoxProduct1Image} source={require('../../images/0044-03.png')}
-                            resizeMode={FastImage.resizeMode.contain}>
-                            <View style={stylesMain.Botton_PopUp_Text}>
-                                <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
-                                <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
-                                    ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
-                            </View>
-                        </FastImage>
-                    </View>
+    return <>
+        {activeShow && <PanGestureHandler {...props} onGestureEvent={_onGestureEvent}
+            onHandlerStateChange={_onHandlerStateChange}>
+            <Animated.View style={{
+                elevation: 1, height: 60, width: 60, left: width - 65, bottom: 20, marginTop: -60, transform: [
+                    { translateX: translationXRef.current }, { translateY: translationYRef.current }]
+            }}>
+                <TouchableOpacity activeOpacity={1} onPress={() => setActiveSliding(!activeSliding)}>
+                    <FastImage source={require('../../icon/PopUP.png')} resizeMode={FastImage.resizeMode.cover}
+                        style={[stylesMain.Botton_PopUp_Image, { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 }]} />
+                    <TouchableOpacity onPress={() => setActiveShow(!activeShow)} style={{ width: 20, height: 20, left: 30, bottom: 28 }}>
+                        <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
+                    </TouchableOpacity>
                 </TouchableOpacity>
-            </SlidingView>
-        </>;
-    };
+            </Animated.View>
+        </PanGestureHandler>}
+        <SlidingView disableDrag componentVisible={activeSliding} containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }}
+            position="right">
+            <TouchableOpacity onPress={() => setActiveSliding(!activeSliding)}>
+                <View style={stylesMain.Botton_PopUp_Box}>
+                    <FastImage style={stylesMain.BoxProduct1Image} source={require('../../images/0044-03.png')}
+                        resizeMode={FastImage.resizeMode.contain}>
+                        <View style={stylesMain.Botton_PopUp_Text}>
+                            <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>สวัสดีครับ</Text>
+                            <Text style={[stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
+                        </View>
+                    </FastImage>
+                </View>
+            </TouchableOpacity>
+        </SlidingView>
+    </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Category_Image_Total = (props) => {

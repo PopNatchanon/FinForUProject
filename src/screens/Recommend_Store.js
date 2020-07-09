@@ -4,7 +4,10 @@ import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View, Share,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import {
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+} from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> import
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -24,9 +27,13 @@ import {
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    reduxDataBody: state.activeFetchData
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+});
 export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Store);
 function Recommend_Store(props) {
     const { navigation, route } = props;

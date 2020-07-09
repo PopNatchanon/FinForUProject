@@ -4,7 +4,10 @@ import {
     SafeAreaView, ScrollView, Text, TouchableOpacity, View, Dimensions, ActivityIndicator,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import {
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+} from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -21,9 +24,13 @@ import { GetServices, ProductBox, SlideTab2, LoadingScreen, NavigationNavigateSc
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    reduxDataBody: state.activeFetchData
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+});
 export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
 function CategoryScreen(props) {
     const { route } = props;

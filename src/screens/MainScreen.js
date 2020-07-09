@@ -10,8 +10,11 @@ import {
     ScrollView,
     State,
 } from 'react-native-gesture-handler';
-import { connect, useStore } from 'react-redux';
-import { activeCartList, checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
+import { connect } from 'react-redux';
+import {
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+} from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
@@ -49,9 +52,13 @@ import {
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    reduxDataBody: state.activeFetchData
 });
-const mapDispatchToProps = ({ activeCartList, checkCustomer, fetchData, multiFetchData, setFetchToStart, });
+const mapDispatchToProps = ({
+    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+    setDataRefresh, setDataStart, setFetchToStart
+});
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
 function MainScreen(props) {
     const { fetchData, getFetchData, multiFetchData } = props;

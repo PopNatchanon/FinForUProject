@@ -320,7 +320,7 @@ export let AppBar = (props) => {
         ABDColor, ABDColor_All, ABGColor, AIColor, ABICartColor, backArrow, cartBar, chatBar, filterBar, otherBar, searchBar, SearchText,
     } = props;
     const {
-        fetchData, getActive, getFetchData, navigation,
+        activeCartList, fetchData, getActive, getFetchData, navigation,
     } = props;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [cartMobile, setCartMobile] = useState(0);
@@ -338,12 +338,16 @@ export let AppBar = (props) => {
         (currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching)) &&
             fetchData({ dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`, });
     }, [(currentUser?.id_customer && (getFetchData['cart_mobile'] == undefined || getFetchData['cart_mobile']?.isFetching))])
-    cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0 &&
-        setCartMobile(getFetchData['cart_mobile']?.data?.cart_list.length)
+    if (cartMobile != getFetchData['cart_mobile']?.data?.cart_list.length && getFetchData['cart_mobile']?.data?.cart_list.length >= 0) {
+        activeCartList(getFetchData['cart_mobile']?.data?.cart_list);
+        setCartMobile(getFetchData['cart_mobile']?.data?.cart_list.length);
+    }
     let setSubmit = () => {
         text != undefined && text != ' ' &&
             NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
+    activeCartList && console.log('activeCartList(getFetchData[cart_mobile]?.data');
+    activeCartList && console.log(getFetchData['cart_mobile']?.data);
     const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
     const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
     const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);

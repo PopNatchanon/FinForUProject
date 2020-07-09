@@ -17,7 +17,7 @@ export default StyleSheet.create({
     // flex: 1,
   },
   StoreHeadBox: {
-    flexDirection: 'row',
+    // flexDirection: 'row',
     // justifyContent: 'space-between'
   },
   StoreHeadFace: {
@@ -28,17 +28,17 @@ export default StyleSheet.create({
     // marginTop: 60,
   },
   StoreHeadText: {
-    color: '#FFFFFF',
+    color: '#111111',
     // marginTop: 62,
     marginLeft: 6,
   },
   StoreHeadTextOther: {
     marginLeft: 6,
-    color: '#BEBDBD',
+    color: '#64696F',
   },
   StoreHeadTextOther2: {
     marginLeft: 6,
-    color: '#FFFFFF',
+    color: '#111111',
   },
   HeadButtom: {
     // marginTop: 48,
@@ -73,8 +73,8 @@ export default StyleSheet.create({
     paddingBottom: 3,
   },
   StoreHeadDetailsText1: {
-    marginLeft: 20,
-    marginTop: 8,
+    marginLeft: 21,
+    marginTop: 3,
   },
   StoreHeadDetailsText2_1: {
     marginLeft: 30,
@@ -83,12 +83,12 @@ export default StyleSheet.create({
   StoreHeadDetailsText2_2: {
     color: mainColor,
     marginLeft: 30,
-    marginTop: 8,
+    marginTop: 3,
   },
   StoreHeadDetailsText2_3: {
     color: '#A5A5A5',
     marginLeft: 6,
-    marginTop: 8,
+    marginTop: 3,
   },
   ///-------------------------------------------------------///
   Menubar: {
@@ -110,7 +110,7 @@ export default StyleSheet.create({
   BannerBox: {
     width,
     height: height * 0.25,
-    paddingHorizontal:5
+    paddingHorizontal: 5
   },
   BannerSlide: {
     width: '100%',

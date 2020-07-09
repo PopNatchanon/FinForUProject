@@ -83,6 +83,7 @@ function App() {
         <Stack.Navigator initialRouteName={
           'MainScreen'
           // 'FeedScreen'
+          // 'StoreScreen'
         }>
           <Stack.Screen
             name='MainScreen'

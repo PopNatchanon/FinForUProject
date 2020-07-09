@@ -18,6 +18,7 @@ import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
+import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
 import {
@@ -171,8 +172,7 @@ function StoreScreen(props) {
             onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false, })}>
             {/* <Animatable.View style={{
                         marginTop: -40,
-                        opacity: AnimatedHeadopacity,
-                    }}>
+                        opacity: AnimatedHeadopacity,}}>
                         <StoreHead {...props} dataService={dataService && dataService.store_data} />
                     </Animatable.View> */}
             <Animatable.View style={{ width: (width), aspectRatio: 2.5, marginBottom: -55, }}></Animatable.View>
@@ -207,7 +207,7 @@ export let StoreHead = (props) => {
                                 resizeMode={FastImage.resizeMode.cover} />
                         </View>
                         <View>
-                            <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name}</Text>
+                            <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{value.name}</Text>
                             <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
                                 Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
                             <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -237,73 +237,76 @@ export let StoreHeadDetails = (props) => {
     var dataMySQL;
     dataService && (dataMySQL = `${finip}/${dataService[0]?.image_path}/${dataService[0]?.image}`);
     let getDetailStore = <View style={{ height: 'auto', width, backgroundColor: '#fff' }}>
-        <View style={[stylesStore.StoreHead]}>
-            <View style={stylesStore.StoreHeadBox}>
-                <View style={stylesMain.FlexRow}>
-                    <View style={{ backgroundColor: '#222222', marginTop: 3, marginLeft: 6, paddingRight: 6, height: 60 }}>
-                        <View style={stylesMain.ItemCenterVertical}>
-                            {!activeGetServices ?
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>
-                                    {dataService && dataService[0]?.name}</Text> :
-                                <Text style={[stylesStore.StoreHeadText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
-                                { color: '#222222' }]}>Store</Text>}
-                            {!activeGetServices ?
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8]}>
-                                    Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text> :
-                                <Text style={[stylesStore.StoreHeadTextOther, stylesFont.FontFamilyText, stylesFont.FontSize8,
-                                { color: '#222222' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>}
-                            {!activeGetServices ?
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,]}>
-                                    ผู้ติดตาม {dataService && dataService[0]?.who_follow} | กำลังติดตาม {dataService &&
-                                        dataService[0]?.follow_number}</Text> :
-                                <Text style={[stylesStore.StoreHeadTextOther2, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                                { color: '#222222' }]}>ผู้ติดตาม 0 | กำลังติดตาม 0</Text>}
-                        </View>
-                    </View>
-                    <View style={[stylesStore.StoreHeadFace,
-                    { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC' }]}>
-                        {!activeGetServices ?
-                            <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
-                                backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC'
-                            }]} resizeMode={FastImage.resizeMode.cover} /> :
-                            <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
-                    </View>
-                    <View style={[stylesStore.HeadButtom, { marginLeft: 'auto', marginRight: 'auto' }]}>
-                        <TouchableOpacity onPress={() => undefined}>
-                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                                { color: '#fff' }]}>ติดตาม</Text>
-                            </View>
+        <View style={[stylesStore.StoreHead, stylesMain.FlexRow, { justifyContent: 'space-around', width: '100%' }]}>
+            <View style={[stylesMain.ItemCenterVertical, { width: '27%', marginLeft: 10 }]}>
+                {!activeGetServices ?
+                    <Text style={[stylesFont.FontFamilyBoldBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>
+                        {dataService && dataService[0]?.name}</Text> :
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                    { color: '#222222' }]}>Store</Text>}
+                {!activeGetServices ?
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#64696F' }]}>
+                        Active เมื่อ 1 ชั่วโมง</Text> :
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,
+                    { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
+                {!activeGetServices ?
+                    <View style={stylesMain.FlexRow}>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>
+                                ผู้ติดตาม {dataService && dataService[0]?.who_follow} </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
-                            <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor }]}>
-                                <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                                { color: '#fff' }]}>แชท</Text>
-                            </View>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6', marginLeft: 5 }]}>
+                                กำลังติดตาม {dataService && dataService[0]?.follow_number}</Text>
                         </TouchableOpacity>
+                    </View> :
+                    <View style={stylesMain.FlexRow}>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>
+                            ผู้ติดตาม  </Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7,]}>
+                            กำลังติดตาม</Text>
+                    </View>}
+            </View>
+            <View style={[stylesStore.StoreHeadFace,
+            { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', }]}>
+                {!activeGetServices ?
+                    <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
+                        backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2, borderColor: '#FFD500'
+                    }]} resizeMode={FastImage.resizeMode.stretch} /> :
+                    <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
+            </View>
+            <View style={{ width: '30%', alignItems: 'center' }}>
+                <TouchableOpacity /*onPress={() => undefined}*/>
+                    <View style={[stylesStore.StoreHeadButtom, { borderColor: '#0A55A6', borderWidth: 1 }]}>
+                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                        { color: '#0A55A6' }]}>ติดตาม</Text>
                     </View>
-                </View>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() =>
+                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                    <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor, borderColor: '#0A55A6', borderWidth: 1 }]}>
+                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                        { color: '#fff' }]}>แชท</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
         <View style={{
-            width: '85%', borderBottomColor: '#000', borderBottomWidth: 1, marginTop: 5, marginLeft: 'auto', marginRight: 'auto'
+            width: '90%', borderBottomColor: '#0A55A6', borderBottomWidth: 2, marginTop: 5, marginLeft: 'auto', marginRight: 'auto'
         }}>
         </View>
         <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 3, justifyContent: 'space-between' }]}>
             <View>
                 <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>คะแนนร้านค้า :</Text>
                 <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>รายการสินค้า :</Text>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                    ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
-                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                    ประสิทธิภาพการแชท :</Text>
+                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ระยะเวลาในการจัดเตรียมพัสดุ :</Text>
+                <Text style={[stylesStore.StoreHeadDetailsText1, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ประสิทธิภาพการแชท :</Text>
             </View>
             <View>
                 {!activeGetServices ?
                     <View style={[stylesMain.FlexRow]}>
                         {dataService && dataService[0].rating != 'ยังไม่มีการรีวิว' ?
-                            <View style={[stylesMain.FlexRow, { marginLeft: 28, marginTop: 6, marginBottom: -6 }]}>
+                            <View style={[stylesMain.FlexRow, { marginLeft: 28, marginTop: 3, marginBottom: -6 }]}>
                                 {starReview(dataService[0].rating, 12)}
                             </View> : undefined}
                         {!activeGetServices ?
@@ -340,7 +343,7 @@ export let Menubar = (props) => {
     return <View>
         <View style={[stylesStore.Menubar]}>
             <TabBar sendData={(value) => getSelectedIndex(value.selectedIndex)} item={item} widthBox={95} alignBox='center' radiusBox={4}
-                type='box' overScrollMode={'never'} />
+                type='box' overScrollMode={'never'} activeColor='#102C4A' />
         </View>
     </View>;
 };
@@ -348,6 +351,7 @@ export let Menubar = (props) => {
 export let Banner = (props) => {
     const { activeGetServices, dataService } = props;
     const slideDelay = 3000;
+    const [activeText, setActiveText] = useState(false);
     let renderItem = (item, index) => <View style={stylesStore.BannerBox} key={index}>
         <FastImage source={{ uri: item.image, }} style={stylesStore.BannerSlide} resizeMode={FastImage.resizeMode.cover} />
     </View>;
@@ -364,9 +368,19 @@ export let Banner = (props) => {
                             <Carousel renderItem={renderItem} data={image_banner_sub} loop autoplay autoplayInterval={slideDelay}
                                 pagination={PaginationLight} />}
                     </View>
-                    <View style={{ paddingHorizontal: 10 }}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                            สวัสดีค่า ยินดีต้อนรับค่ะร้านนี้รบกวนไม่ถามเล่นๆ นะคะ หากต่อราคารบกวนไม่ต่อเว่อๆนะคะ ถ้าลดได้ลดให้ค่า</Text>
+                    <View style={{ padding: 5 }}>
+                        <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            สินค้าแฟชั่นที่เราพูดถึงไม่ได้จำกัดว่าเป็นแค่เสื้อผ้าเพียงอย่างเดียว แต่รวมไปถึงกระเป๋า รองเท้า
+                            เครื่องประดับต่างๆ อีกด้วย Lookbook คือการทำคอนเทนต์ที่เน้นภาพ คุณอาจหานายแบบนางแบบพาไปในสถานที่เท่ๆ
+                            ใส่คอนเซ็ปต์ให้กับการถ่ายสักนิดแล้วก็สวมใส่สินค้าที่เป็นของร้านคุณ อาจนำไปใส่กราฟิกแสดงราคาของสินค้าแต่ละชิ้นเหมือนที่นิตยสารแฟชั่นชอบทำ
+                            การทำแบบนี้ถือเป็นคอนเทนต์ขายของแบบไม่น่าเบื่อ ไม่ยัดเยียดจนเกินไปเหมือนกำลังเปิดดูแมกกาซีนแฟชั่นที่เต็มไปด้วยของน่าซื้อ</Text>
+                        <TouchableOpacity onPress={() => setActiveText(!activeText)}>
+                            <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
+                                <Text style={[stylesDetail.Detail_Text_A, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                                    {activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
+                                <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={20} color={mainColor} />
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 {/* <View stD */}
@@ -418,8 +432,8 @@ export let TicketLine = (props) => {
 export let DealTop = (props) => {
     const { activeGetServices, dataService, titlename } = props;
     return <View style={[stylesMain.FrameBackground, { backgroundColor: 'transparent', borderColor: 'transparent', marginTop: 0 }]}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{titlename}</Text>
+        <View style={[stylesMain.FrameBackgroundTextBox, { borderColor: '#f5df89', borderBottomWidth: 3, }]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{titlename}</Text>
         </View>
         {dataService && !activeGetServices ?
             <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
@@ -433,9 +447,11 @@ export let DealTop = (props) => {
 export let PopularProduct = (props) => {
     const { activeGetServices, dataService, headText, noHeadText } = props;
     return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-        {noHeadText ? null : <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-            {headText ?? 'สินค้าขายดี'}</Text>}
-        <View style={stylesMain.BoxProductWarp}>
+        {noHeadText ? null : <View style={[stylesMain.FrameBackgroundTextBox, { borderColor: '#f5df89', borderBottomWidth: 3, }]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
+                {headText ?? 'สินค้าขายดี'}</Text>
+        </View>}
+        <View style={[stylesMain.BoxProductWarp, { marginTop: 0 }]}>
             {!activeGetServices ?
                 dataService && <ProductBox {...props} dataService={dataService} mode='row2colall' pointerUrl='DetailScreen' pointerid_store
                     nameSize={14} priceSize={15} dispriceSize={15} /> :

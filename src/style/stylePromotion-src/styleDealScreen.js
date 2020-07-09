@@ -84,9 +84,7 @@ export default StyleSheet.create({
     },
     Deal_Today_Box: {
         backgroundColor: '#FFFFFF',
-        borderColor: '#00adb5',
-        borderTopWidth: 3,
-        padding: 5,
+        height:115,
     },
     Deal_Today_BoxImage: {
         height: 80,
@@ -364,7 +362,7 @@ export default StyleSheet.create({
     Coupon_BOX2: {
         margin: 4,
         height: 80,
-        borderColor: '#E1E1E1',
+        borderColor: '#E9E9E9',
         borderWidth: 1,
         borderRadius: 5,
         backgroundColor: '#fff',

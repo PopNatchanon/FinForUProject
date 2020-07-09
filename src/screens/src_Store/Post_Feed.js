@@ -147,12 +147,6 @@ function Post_Feed(props) {
                     <AppBar1 {...props} backArrow titleHead='รูปภาพ' />
                     <Group_Image />
                 </>
-            case 15:
-                return <>
-                    {/* หน้าสมาชิก กลุ่ม เข้าจาก หน้าโปรไฟล์ ปุ่มสมาชิกกลุ่ม */}
-                    <AppBar1 {...props} backArrow titleHead='สมาชิก' />
-                    <Group_Member />
-                </>
             case 16:
                 return <>
                     {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
@@ -169,7 +163,7 @@ function Post_Feed(props) {
                 return <>
                     {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
                     <AppBar1 {...props} backArrow titleHead='กลุ่มทั้งหมด' />
-                    <Group_Total />
+                    <Group_Total {...props} />
                 </>
             case 19:
                 return <>
@@ -207,6 +201,18 @@ function Post_Feed(props) {
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <AppBar1 {...props} backArrow saveBar />
                     <Profile_Edit />
+                </>
+            case 24:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...this.props} backArrow selectshare postBar />
+                    <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
+                </>
+            case 25:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...this.props} backArrow titleHead='กลุ่มยอดนิยม' />
+                    <Group_Popular />
                 </>
         }
     }
@@ -265,18 +271,13 @@ export let AppBar_Group = (props) => {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>โปรดเลือกปัญหาเพื่อดำเนินการต่อ</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>คุณสามารถรายงานโพสต์นี้ได้หลังจากเลือกปัญหาแล้ว โปรดทราบว่าขณะนี้เรามีผู้ตรวจสอบน้อยลง</Text>
                     </View>
-                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, }]}>
-                        {ReportBox}
-                    </View>
+                    <View style={[stylesMain.FlexRow, { flexWrap: 'wrap', paddingTop: 10, }]}>{ReportBox}</View>
                     <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, padding: 5, borderRadius: 5 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ส่ง</Text>
                     </TouchableOpacity>
                 </View>
             </BottomSheet>
-            <BottomSheet
-                ref={selectorSheet}
-                height={110}
-                duration={250}
+            <BottomSheet ref={selectorSheet} height={110} duration={250}
                 customStyles={{
                     container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingTop: 10, }
                 }}>
@@ -862,7 +863,7 @@ export let Group_About = (props) => {
         <TouchableOpacity>
             <IconEntypo name='dots-three-vertical' size={25} />
         </TouchableOpacity>
-    </TouchableOpacity>);
+    </TouchableOpacity >);
     return <ScrollView>
         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>เกี่ยวกับกลุ่ม</Text>
@@ -951,12 +952,6 @@ export let Group_Image = (props) => {
         <ImageGallery dataService={dataService} />
     </ScrollView>;
 };
-///----------------------------------------------------------------------------------------------->>>>
-export let Group_Member = (props) => {
-    return <View>
-        <Text>สมาชิก</Text>
-    </View>
-}
 ///----------------------------------------------------------------------------------------------->>>>
 export let Save_Activity = (props) => {
     const selectorSheetRef = useRef(null);
@@ -1071,13 +1066,152 @@ export let Save_Post = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Group_Total = (props) => {
-    return <View>
-        <Text>กลุ่มทั้งหมด</Text>
-    </View>;
+    const { navigation } = props;
+    const Group_Categoryitem = [
+        { image: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`, name: 'เครื่องประดับ' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690336.png`, name: 'พระและเครื่องราง' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690829.png`, name: 'กระเป๋า' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-29-1572332375.png`, name: 'เข็มขัด' },
+        { image: `${ip}/MySQL/uploads/products/2019-10-29-1572324184.png`, name: 'นาฬิกา' },
+    ];
+    const Group_Popularitem = [
+        {
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ฉันชอบดูหนัง.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`,
+            name1: `ฉันชอบดูหนัง`,
+            name2: `ราชบุรีมีอะไร`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `260 โพสต์ต่อวัน`,
+        },
+        {
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`,
+            name1: `ของอร่อยราชบุรีบอกด้วย`,
+            name2: `ราชบุรีซื้อขายได้ทุกอย่าง`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `310 โพสต์ต่อวัน`,
+        },
+        {
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`,
+            name1: `ราชบุรีหางานหาคน`,
+            name2: `ทุกเรื่องราวในราชบุรี`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `420 โพสต์ต่อวัน `,
+        },
+    ];
+    const Group_Totalitem = [
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`, about: `ซื้อ-ขายแลกเปลี่ยน การ์ดจอ เมนบอร์ด ซีพียู psu ram` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`, about: `แนะนำร้านค้า ร้านอาหาร มุมอร่อย มุมของโปรดที่ชื่อชอบทั้งใน รอบๆจังหวัดราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`, about: `กลุ่มนี้มีจุดประสงค์เดียว ก็คือ เพื่อเป็นประโยชน์ให้กับผู้คนและสังคม เน้นราชบุรี ไม่เสนอขายทุกชนิด ไม่แชร์ ไม่แคปเข้ามาทุกกรณี` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`, about: `ซื้อ-ขายแลกเปลี่ยน ตลาดนัดโพธารามonline` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`, about: `ข่าวสารทั่วไปในด้านต่างๆในจังหวัดราชบุรี เช่น ส่งเสริมการท่องเที่ยว ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`, about: `กลุ่มนี้เปิดไว้เพื่อให้คนในราชบุรี ได้เข้ามาแลกเปลี่ยน ซื้อ ขาย สินค้า  ทั้งสินค้า ใหม่  เก่า ทุกชนิด` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`, about: `พบที่เที่ยวดี ๆ ช่วยบอกที` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`, about: `หาคนตรงงาน หางานตรงใจ ที่นี่เลย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`, about: `กลุ่มตลาดโพธาราม เป็นกลุ่มที่ตั้งขึ้นเพื่อ เกิดการซื้อ - ขาย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี`, about: `ซื้อ-ขาย ลงราคาและเบอร์โทร ให้เรียบร้อยนะครับ ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี`, about: `ชุมชนคนราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`, about: `พรานสนับสนุนให้ทุกคน เป็นยอดนักรีวิว นักคิด นักเขียน เช็คอินกินที่ใด ถูกใจ ในนครปฐม ` },
+    ];
+    let Group_Category = Group_Categoryitem.map((value, index) => {
+        return <View key={index} style={[stylesMain.ItemCenter,
+        { borderColor: '#EAEAEA', borderWidth: 1, width: 100, height: 120, marginHorizontal: 2.5 }]}>
+            <FastImage
+                style={{ height: 70, width: 70, marginBottom: 10 }}
+                source={{ uri: value.image, }}
+                resizeMode={FastImage.resizeMode.contain} />
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+        </View>
+    });
+    let Group_Popular = Group_Popularitem.map((value, index) => {
+        return <View>
+            <View key={index} style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
+                borderColor: '#EAEAEA', borderWidth: 1,
+                width: width * 0.6, height: 70, margin: 2.5, padding: 5
+            }]}>
+                <FastImage style={{ height: 55, width: 55, borderRadius: 30 }}
+                    source={{ uri: value.image1, }} resizeMode={FastImage.resizeMode.cover} />
+                <View style={{ width: '65%', marginLeft: 10 }}>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name1}</Text>
+                    <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.post}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
+                </View>
+            </View>
+            <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
+                borderColor: '#EAEAEA', borderWidth: 1, width: width * 0.6, height: 80, margin: 2.5, padding: 5
+            }]}>
+                <FastImage style={{ height: 55, width: 55, borderRadius: 30 }} source={{ uri: value.image2, }}
+                    resizeMode={FastImage.resizeMode.cover} />
+                <View style={{ width: '65%', marginLeft: 10 }}>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name2}</Text>
+                    <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.post}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
+                </View>
+            </View>
+        </View>
+    });
+    let Group_Total = Group_Totalitem.map((value, index) => {
+        return <View key={index} style={{
+            borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8, width: width * 0.30, alignItems: 'center',
+        }}>
+            <FastImage style={{ height: 55, width: '100%', marginBottom: 5 }} source={{ uri: value.image, }}
+                resizeMode={FastImage.resizeMode.stretch} />
+            <View style={{ paddingHorizontal: 5 }}>
+                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.about}</Text>
+            </View>
+            <TouchableOpacity style={{
+                backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 5, paddingVertical: 3, marginVertical: 5
+            }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>เข้าร่วมกลุ่ม</Text>
+            </TouchableOpacity>
+        </View>
+    });
+    return <ScrollView>
+        <View style={stylesMain.FrameBackground}>
+            <View style={{ marginLeft: 10, marginTop: 5 }}>
+                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>หมวดหมู่</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ค้นหากลุ่มโดยการเลือกดูหมวดหมู่ยอดนิยม</Text>
+            </View>
+            <View style={{ paddingHorizontal: 2.5, marginBottom: 5, marginTop: 5 }}>
+                <ScrollView horizontal>
+                    {Group_Category}
+                </ScrollView>
+            </View>
+        </View>
+        <View style={stylesMain.FrameBackground}>
+            <View style={[stylesMain.FlexRow, { marginTop: 5, justifyContent: 'space-between', marginHorizontal: 10 }]}>
+                <View>
+                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มยอดนิยม</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กลุ่มที่คุณอาจสนใจ</Text>
+                </View>
+                <TouchableOpacity style={stylesMain.ItemCenter} onPress={() => NavigationNavigateScreen({
+                    goScreen: 'Post_Feed', setData: { selectedIndex: 25, }, navigation
+                })}>
+                    <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold]}>ทั้งหมด</Text>
+                </TouchableOpacity>
+            </View>
+            <View style={{ paddingHorizontal: 2.5, marginBottom: 5, marginTop: 5 }}>
+                <ScrollView horizontal>
+                    {Group_Popular}
+                </ScrollView>
+            </View>
+        </View>
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+            <View style={{ marginLeft: 10, marginTop: 5 }}>
+                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มทั้งหมด</Text>
+            </View>
+            <View style={[stylesMain.FlexRow,
+            { flexWrap: 'wrap', justifyContent: 'space-around', paddingHorizontal: 5, paddingBottom: 10 }]}>
+                {Group_Total}
+            </View>
+        </View>
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Feed_Notification = (props) => {
-    const selectorSheetRef = useRef(null);
+    const selectorSheetRef = useRef(null)
     return <ScrollView>
         <View>
             <View style={{ alignItems: 'flex-end', paddingHorizontal: 10, paddingVertical: 5 }}>
@@ -1099,11 +1233,16 @@ export let Feed_Notification = (props) => {
                         </TouchableOpacity>
                     </View>
                 </BottomSheet>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10, marginTop: 10 }]}>
+                <View style={[stylesMain.FlexRow,
+                { justifyContent: 'space-between', paddingHorizontal: 10, marginTop: 10 }]}>
                     <View style={stylesMain.FlexRow}>
                         <View>
-                            <FastImage style={{ height: 50, width: 50, borderRadius: 25, }} resizeMode={FastImage.resizeMode.cover}
-                                source={{ uri: `${ip}/MySQL/uploads/Group_image/1.jpg`, }} />
+                            <FastImage
+                                style={{ height: 50, width: 50, borderRadius: 25, }}
+                                source={{
+                                    uri: `${ip}/MySQL/uploads/Group_image/1.jpg`,
+                                }}
+                                resizeMode={FastImage.resizeMode.cover} />
                             {index % 2 == 0 ?
                                 <View style={{ alignItems: 'flex-end', top: -20 }}>
                                     <View style={[stylesMain.ItemCenter,
@@ -1121,19 +1260,22 @@ export let Feed_Notification = (props) => {
                             <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
                                 <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                     สติ๊ก กี้ ถูกใจโพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee</Text>
+                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                                </Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
                                     1 ชั่วโมงที่แล้ว</Text>
                             </View> : <View style={{ marginLeft: 10, width: width * 0.68, justifyContent: 'space-between' }}>
                                 <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                                     สติ๊ก กี้ คอมเมนท์โพสต์ของ Chanun Nurainee สติ๊กกี้ถูกใจโพสต์ของChanunNurainee
-                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee</Text>
+                                    สติ๊กกี้ถูกใจโพสต์ของ Chanun Nurainee
+                                                </Text>
                                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#A9A9A9' }]}>
                                     1 ชั่วโมงที่แล้ว</Text>
                             </View>}
                     </View>
-                    <TouchableOpacity onPress={() => selectorSheetRef.current.open()}>
-                        <View style={[stylesMain.ItemCenter, { height: 30, width: 30, borderRadius: 15 }]}>
+                    <TouchableOpacity onPress={() => { selectorSheetRef.current.open() }} >
+                        <View style={[stylesMain.ItemCenter,
+                        { height: 30, width: 30, borderRadius: 15 }]}>
                             <IconEntypo name='dots-three-vertical' size={20} />
                         </View>
                     </TouchableOpacity>
@@ -1273,134 +1415,91 @@ export let Profile_FeedCustomer = (props) => {
     var uri = `${finip}/${'brand/feed_highlight'}`;
     useEffect(() => {
         activeSelectedIndex &&
-            GetServices({
-                uriPointer: uri, getDataSource: value => { setActiveSelectedIndex(false); setDataService(value); },
-            });
+            GetServices({ uriPointer: uri, getDataSource: value => { setActiveSelectedIndex(false); setDataService(value); }, });
     }, [activeSelectedIndex]);
-    const TabBar_Profile = [{
-        name: <Text style={stylesFont.FontSize6}>
-            <IconFeather name='layout' size={20} />โพสต์</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>
-            <IconAntDesign name='solution1' size={20} />ชุมชน</Text>
-    }];
-    return (
-        <ScrollView {...props}>
-            <View style={{ backgroundColor: '#FFFFFF' }}>
-                <FastImage
-                    style={{ width: '100%', height: 150, }}
-                    source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
-                    resizeMode={FastImage.resizeMode.cover} />
-                <View style={{ justifyContent: 'space-between' }}>
-                    <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 5 }]}>
-                        <View style={stylesMain.FlexRow}>
-                            <FastImage
-                                style={{
-                                    height: 90, width: 90, marginLeft: 5, borderRadius: 45,
-                                    bottom: 20, borderColor: '#FFFFFF', borderWidth: 3
-                                }}
-                                source={{
-                                    uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
-                                }}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <View style={{ marginLeft: 5, width: '52%', marginTop: 5 }}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ppooo</Text>
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BEBDBD' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>200 โพสต์  </Text>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
-                            </View>
+    const TabBar_Profile = [
+        { name: <Text style={stylesFont.FontSize6}><IconFeather name='layout' size={20} />โพสต์</Text> },
+        { name: <Text style={stylesFont.FontSize6}><IconAntDesign name='solution1' size={20} />ชุมชน</Text> }
+    ];
+    return <ScrollView {...props}>
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+            <FastImage style={{ width: '100%', height: 150, }} source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
+                resizeMode={FastImage.resizeMode.cover} />
+            <View style={{ justifyContent: 'space-between' }}>
+                <View style={[stylesMain.FlexRow, { borderBottomWidth: 2, marginHorizontal: 5 }]}>
+                    <View style={stylesMain.FlexRow}>
+                        <FastImage style={{
+                            height: 90, width: 90, marginLeft: 5, borderRadius: 45, bottom: 20, borderColor: '#FFFFFF', borderWidth: 3
+                        }} source={{ uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`, }} resizeMode={FastImage.resizeMode.cover} />
+                        <View style={{ marginLeft: 5, width: '52%', marginTop: 5 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ppooo</Text>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BEBDBD' }]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>200 โพสต์  </Text>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>ผู้ติดตาม 200K คน กำลังติดตาม 20 คน</Text>
                         </View>
-                        {
-                            Bottom &&
-                            <View>
-                                <TouchableOpacity style={[stylesMain.ItemCenter, {
-                                    backgroundColor: '#0A55A6',
-                                    marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
-                                }]}>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>กำลงติดตาม</Text>
-                                </TouchableOpacity>
-                                <TouchableOpacity style={[stylesMain.ItemCenter, {
-                                    backgroundColor: '#0A55A6',
-                                    marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15
-                                }]}>
-                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>แชท</Text>
-                                </TouchableOpacity>
-                            </View>
-                        }
-                        {
-                            otherBar &&
-                            <TouchableOpacity key='otherBar' onPress={() => NavigationNavigateScreen({
-                                goScreen: 'Post_Feed', setData: {
-                                    selectedIndex: 23,
-                                }, navigation
-                            })}
-                                style={{ alignItems: 'flex-end', width: width * 0.15, marginTop: 10 }}>
-                                <IconFontAwesome5 name="ellipsis-v" size={20} />
+                    </View>
+                    {Bottom &&
+                        <View>
+                            <TouchableOpacity style={[stylesMain.ItemCenter,
+                            { backgroundColor: '#0A55A6', marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>กำลงติดตาม</Text>
                             </TouchableOpacity>
-                        }
+                            <TouchableOpacity style={[stylesMain.ItemCenter,
+                            { backgroundColor: '#0A55A6', marginTop: 5, paddingHorizontal: 10, paddingVertical: 5, borderRadius: 15 }]}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>แชท</Text>
+                            </TouchableOpacity>
+                        </View>}
+                    {otherBar && <TouchableOpacity key='otherBar' onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Post_Feed', setData: { selectedIndex: 23, }, navigation
+                    })} style={{ alignItems: 'flex-end', width: width * 0.15, marginTop: 10 }}>
+                        <IconFontAwesome5 name="ellipsis-v" size={20} />
+                    </TouchableOpacity>}
+                </View>
+            </View>
+            <View style={[stylesMain.FrameBackground]}>
+                <View style={{ borderBottomWidth: 2, paddingBottom: 10, marginHorizontal: 5, paddingHorizontal: 10 }}>
+                    <View style={stylesMain.FlexRow}>
+                        <IconEntypo name='location-pin' size={20} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>จ.นครศรีธรรมราช, ประเทศไทย</Text>
+                    </View>
+                    <View style={stylesMain.FlexRow}>
+                        <IconFontAwesome name='birthday-cake' size={20} />
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>เกิดเมื่อ 29 มิถุนายน ค.ศ. 1995</Text>
                     </View>
                 </View>
-                <View style={[stylesMain.FrameBackground]}>
-                    <View style={{ borderBottomWidth: 2, paddingBottom: 10, marginHorizontal: 5, paddingHorizontal: 10 }}>
-                        <View style={stylesMain.FlexRow}>
-                            <IconEntypo name='location-pin' size={20} />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>จ.นครศรีธรรมราช, ประเทศไทย</Text>
-                        </View>
-                        <View style={stylesMain.FlexRow}>
-                            <IconFontAwesome name='birthday-cake' size={20} />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 10 }]}>เกิดเมื่อ 29 มิถุนายน ค.ศ. 1995</Text>
-                        </View>
-                    </View>
-
-                </View>
-                <View style={{ paddingHorizontal: 10 }}>
-                    <View style={{ padding: 10 }}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>เกี่ยวกับ</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>S.adnight 420K ❤ แคปชั่นโดนใจ คำคมไทยแปลอังกฤษ Since :
+            </View>
+            <View style={{ paddingHorizontal: 10 }}>
+                <View style={{ padding: 10 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>เกี่ยวกับ</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>S.adnight 420K ❤ แคปชั่นโดนใจ คำคมไทยแปลอังกฤษ Since :
                         16.5.2019 📌อยากให้ลบรูปแจ้ง DM เครดิตใส่ไว้ในรูปนะคะ😊</Text>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
-                    </View>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>ลิงค์ร้านค้า: https://finforyou.com/ppooo</Text>
                 </View>
             </View>
-            <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'center', marginTop: 5 }]}>
-                <TabBar
-                    // sendData={updateIndex2}
-                    item={TabBar_Profile}
-                    type='box'
-                    // noLimit
-                    widthBox={96}
-                    radiusBox={4} />
-            </View>
-            {
-                dataService &&
-                <FlatList
-                    scrollEnabled={true}
-                    initialNumToRender={10}
-                    data={dataService.feed_follow}
-                    keyExtractor={(value, index) => `Feed${index}`}
-                    renderItem={(value) => {
-                        return <FeedBox {...props} dataService={value.item} Header Follow={false} />
-                    }}
-                />
-            }
-        </ScrollView>
-    )
-}
+        </View>
+        <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { justifyContent: 'center', marginTop: 5 }]}>
+            <TabBar item={TabBar_Profile} type='box' widthBox={96} radiusBox={4} />
+        </View>
+        {dataService && <FlatList scrollEnabled={true} initialNumToRender={10} data={dataService.feed_follow}
+            keyExtractor={(value, index) => `Feed${index}`} renderItem={(value) =>
+                <FeedBox {...props} dataService={value.item} Header Follow={false} />} />}
+    </ScrollView>;
+};
 ///----------------------------------------------------------------------------------------------->>>>
 export let Profile_Edit = (props) => {
     const [name, setName] = useState('');
     const [Details, setDetails] = useState('');
-    const [website, setwebsite] = useState('');
+    const [website, setWebsite] = useState('');
     const [Address, setAddress] = useState('');
     const [Birthday, setBirthday] = useState('');
     const [InputGender, setGender] = useState(false);
     const [item1, setItem1] = useState(false)
-    const Address_Sheet = useRef(null)
-    const Birthday_Sheet = useRef(null)
-    const Gender_Sheet = useRef(null)
     const [date, setDate] = useState(new Date());
     const [mode, setMode] = useState('date');
     const [show, setShow] = useState(false);
+    const Address_SheetRef = useRef(null)
+    const Birthday_SheetRef = useRef(null)
+    const Gender_SheetRef = useRef(null)
     let getName = (value) => {
         setActiveData(true);
         setName(value);
@@ -1414,176 +1513,172 @@ export let Profile_Edit = (props) => {
         setShow(true);
         setMode(currentMode);
     };
-    return (
-        <ScrollView>
-            {/* ที่อยู่ */}
-            <BottomSheet
-                ref={Address_Sheet}
-                height={150}
-                duration={250}
-                customStyles={{
-                    container: {
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        paddingTop: 10,
-                    }
-                }}>
-                <View style={{ paddingHorizontal: 10 }}>
-                    <View style={stylesMain.ItemCenter}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ที่อยู่</Text>
-                    </View>
-                    <View style={{ height: 100, borderWidth: 1, borderRadius: 5 }}>
-                        <TextInput
-                            style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                            multiline
-                            editable
-                            maxLength={200}
-                            value={Address} onChangeText={(value) => setAddress(value)}>
-                        </TextInput>
-                    </View>
-
+    return <ScrollView>
+        {/* ที่อยู่ */}
+        <BottomSheet ref={Address_SheetRef} height={150} duration={250}
+            customStyles={{ container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingTop: 10, } }}>
+            <View style={{ paddingHorizontal: 10 }}>
+                <View style={stylesMain.ItemCenter}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ที่อยู่</Text>
                 </View>
-            </BottomSheet>
-            {/* วันเกิด */}
-            <BottomSheet
-                ref={Birthday_Sheet}
-                height={110}
-                duration={250}
-                customStyles={{
-                    container: {
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        paddingTop: 10,
-                    }
-                }}>
-                <View style={{ paddingHorizontal: 10 }}>
-                    <View style={stylesMain.ItemCenter}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
-                    </View>
-                    <View>
-                        <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
-                            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
-                                <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>{`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
-                            </View>
-                        </TouchableOpacity>
-                        {show && (<DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner" onChange={(event, selectedDate) => onChange(event, selectedDate)} />)}
-                    </View>
-                </View>
-            </BottomSheet>
-            {/* เพศ */}
-            <BottomSheet
-                ref={Gender_Sheet}
-                height={100}
-                duration={250}
-                customStyles={{
-                    container: {
-                        borderTopLeftRadius: 10,
-                        borderTopRightRadius: 10,
-                        paddingTop: 10,
-                    }
-                }}>
-                <View style={{ alignItems: 'center' }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
-                    <View style={stylesMain.FlexRow}>
-                        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() => setGender({ InputGender: true, })} />
-                        <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
-                        <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender} onPress={() => setGender({ InputGender: false, })} />
-                        <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
-                    </View>
-                </View>
-            </BottomSheet>
-            <FastImage
-                style={{ width: '100%', height: 150, }}
-                source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
-                resizeMode={FastImage.resizeMode.cover} />
-            <View style={{ backgroundColor: '#FFFFFF' }}>
-                <View style={[stylesMain.FlexRow, { justifyContent: 'center', marginTop: -30, }]}>
-                    <FastImage
-                        style={{
-                            height: 110, width: 110, borderRadius: 60,
-                            borderColor: '#FFFFFF', borderWidth: 3,
-                        }}
-                        source={{
-                            uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover}
-                    />
-                    <TouchableOpacity style={[stylesMain.ItemCenter, {
-                        backgroundColor: '#C4C4C4', padding: 10, borderRadius: 20,
-                        borderColor: '#FFFFFF', borderWidth: 2, width: 40, height: 40, left: -40, top: 70
-                    }]}>
-                        <IconFeather name='camera' size={17} />
-                    </TouchableOpacity>
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ชื่อ</Text>
-                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5 }}>
-                    <TextInput
-                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        multiline
-                        editable
-                        maxLength={30}
-                        value={name} onChangeText={(value) => setName(value)}>
-                    </TextInput>
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ประวัติ</Text>
-                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, height: 150 }}>
-                    <TextInput
-                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        multiline
-                        editable
-                        maxLength={5000}
-                        value={Details} onChangeText={(value) => setDetails(value)}>
-                    </TextInput>
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>เว็บไซต์</Text>
-                <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, marginBottom: 10 }}>
-                    <TextInput
-                        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        multiline
-                        editable
-                        maxLength={30}
-                        value={website} onChangeText={(value) => setwebsite(value)}>
+                <View style={{ height: 100, borderWidth: 1, borderRadius: 5 }}>
+                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} multiline editable maxLength={200}
+                        value={Address} onChangeText={(value) => setAddress(value)}>
                     </TextInput>
                 </View>
             </View>
-            <View style={{ backgroundColor: '#C4C4C4' }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>ข้อมูลโปรไฟล์</Text>
-            </View>
-            <View style={{ backgroundColor: '#FFFFFF' }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>ที่อยู่</Text>
-                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
-                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '65%' }]}>อำเภอเชียรใหญ่ เป็นอำเภอหนึ่งในจังหวัดนครศรีธรรมราช</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => { Address_Sheet.current.open() }}>
-                        <IconFeather name='edit' size={20} />
-                    </TouchableOpacity>
+        </BottomSheet>
+        {/* วันเกิด */}
+        <BottomSheet ref={Birthday_SheetRef} height={110} duration={250}
+            customStyles={{ container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingTop: 10, } }}>
+            <View style={{ paddingHorizontal: 10 }}>
+                <View style={stylesMain.ItemCenter}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
                 </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>วันเกิด</Text>
-                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
-                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>29 มิถุนายน ค.ศ. 1995</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => { Birthday_Sheet.current.open() }}>
-                        <IconFeather name='edit' size={20} />
+                <View>
+                    <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+                        <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                        { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                            <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                                {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                        </View>
                     </TouchableOpacity>
-                </View>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>เพศ</Text>
-                <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
-                    <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                        <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชาย</Text>
-                    </View>
-                    <TouchableOpacity onPress={() => { Gender_Sheet.current.open() }}>
-                        <IconFeather name='edit' size={20} />
-                    </TouchableOpacity>
+                    {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+                        onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
                 </View>
             </View>
-        </ScrollView>
-    )
-}
+        </BottomSheet>
+        {/* เพศ */}
+        <BottomSheet ref={Gender_SheetRef} height={100} duration={250}
+            customStyles={{ container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingTop: 10, } }}>
+            <View style={{ alignItems: 'center' }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
+                <View style={stylesMain.FlexRow}>
+                    <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender}
+                        onPress={() => setGender({ InputGender: true, })} />
+                    <IconFontisto name='male' size={20} style={{ marginTop: 15, marginLeft: -10, color: mainColor }} />
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 15, marginLeft: 10 }]}>ชาย</Text>
+                    <CheckBox size={25} checkedIcon='dot-circle-o' uncheckedIcon='circle-o' checked={InputGender}
+                        onPress={() => setGender({ InputGender: false, })} />
+                    <IconFontisto name='female' size={20} style={{ marginTop: 15, marginLeft: -10, color: '#ff1ac6' }} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 15, marginLeft: 10 }]}>หญิง</Text>
+                </View>
+            </View>
+        </BottomSheet>
+        <FastImage style={{ width: '100%', height: 150, }} source={{ uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`, }}
+            resizeMode={FastImage.resizeMode.cover} />
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+            <View style={[stylesMain.FlexRow, { justifyContent: 'center', marginTop: -30, }]}>
+                <FastImage style={{ height: 110, width: 110, borderRadius: 60, borderColor: '#FFFFFF', borderWidth: 3, }}
+                    source={{ uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`, }} resizeMode={FastImage.resizeMode.cover} />
+                <TouchableOpacity style={[stylesMain.ItemCenter, {
+                    backgroundColor: '#C4C4C4', padding: 10, borderRadius: 20, borderColor: '#FFFFFF', borderWidth: 2, width: 40,
+                    height: 40, left: -40, top: 70
+                }]}>
+                    <IconFeather name='camera' size={17} />
+                </TouchableOpacity>
+            </View>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ชื่อ</Text>
+            <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5 }}>
+                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} multiline editable maxLength={30}
+                    value={name} onChangeText={(value) => setName(value)}>
+                </TextInput>
+            </View>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>ประวัติ</Text>
+            <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, height: 150 }}>
+                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} multiline editable maxLength={5000}
+                    value={Details} onChangeText={(value) => setDetails(value)}>
+                </TextInput>
+            </View>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, }]}>เว็บไซต์</Text>
+            <View style={{ marginHorizontal: 10, borderWidth: 1, borderRadius: 5, marginBottom: 10 }}>
+                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} multiline editable maxLength={30} value={website}
+                    onChangeText={(value) => setWebsite(value)}>
+                </TextInput>
+            </View>
+        </View>
+        <View style={{ backgroundColor: '#C4C4C4' }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>ข้อมูลโปรไฟล์</Text>
+        </View>
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>ที่อยู่</Text>
+            <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                    <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { width: '65%' }]}>อำเภอเชียรใหญ่ เป็นอำเภอหนึ่งในจังหวัดนครศรีธรรมราช</Text>
+                </View>
+                <TouchableOpacity onPress={() => { Address_SheetRef.current.open() }}>
+                    <IconFeather name='edit' size={20} />
+                </TouchableOpacity>
+            </View>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>วันเกิด</Text>
+            <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                    <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>29 มิถุนายน ค.ศ. 1995</Text>
+                </View>
+                <TouchableOpacity onPress={() => { Birthday_SheetRef.current.open() }}>
+                    <IconFeather name='edit' size={20} />
+                </TouchableOpacity>
+            </View>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 10 }]}>เพศ</Text>
+            <View style={[stylesMain.FlexRow, { alignItems: 'center', justifyContent: 'space-between', paddingHorizontal: 10 }]}>
+                <View style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
+                    <CheckBox size={25} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} />
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชาย</Text>
+                </View>
+                <TouchableOpacity onPress={() => { Gender_SheetRef.current.open() }}>
+                    <IconFeather name='edit' size={20} />
+                </TouchableOpacity>
+            </View>
+        </View>
+    </ScrollView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export let Group_Popular = (props) => {
+    const Group_Popularitem = [
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`, about: `ซื้อ-ขายแลกเปลี่ยน การ์ดจอ เมนบอร์ด ซีพียู psu ram` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`, about: `แนะนำร้านค้า ร้านอาหาร มุมอร่อย มุมของโปรดที่ชื่อชอบทั้งใน รอบๆจังหวัดราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`, about: `กลุ่มนี้มีจุดประสงค์เดียว ก็คือ เพื่อเป็นประโยชน์ให้กับผู้คนและสังคม เน้นราชบุรี ไม่เสนอขายทุกชนิด ไม่แชร์ ไม่แคปเข้ามาทุกกรณี` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`, about: `ซื้อ-ขายแลกเปลี่ยน ตลาดนัดโพธารามonline` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`, about: `ข่าวสารทั่วไปในด้านต่างๆในจังหวัดราชบุรี เช่น ส่งเสริมการท่องเที่ยว ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`, about: `กลุ่มนี้เปิดไว้เพื่อให้คนในราชบุรี ได้เข้ามาแลกเปลี่ยน ซื้อ ขาย สินค้า  ทั้งสินค้า ใหม่  เก่า ทุกชนิด` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`, about: `พบที่เที่ยวดี ๆ ช่วยบอกที` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`, about: `หาคนตรงงาน หางานตรงใจ ที่นี่เลย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`, about: `กลุ่มตลาดโพธาราม เป็นกลุ่มที่ตั้งขึ้นเพื่อ เกิดการซื้อ - ขาย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี`, about: `ซื้อ-ขาย ลงราคาและเบอร์โทร ให้เรียบร้อยนะครับ ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี`, about: `ชุมชนคนราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`, about: `พรานสนับสนุนให้ทุกคน เป็นยอดนักรีวิว นักคิด นักเขียน เช็คอินกินที่ใด ถูกใจ ในนครปฐม ` },
+    ];
+    let Group_Total = Group_Popularitem.map((value, index) => <View key={index} style={{
+        borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8,
+        width: width * 0.30, alignItems: 'center',
+    }}>
+        <FastImage
+            style={{ height: 55, width: '100%', marginBottom: 5 }} source={{ uri: value.image, }} resizeMode={FastImage.resizeMode.stretch} />
+        <View style={{ paddingHorizontal: 5 }}>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+            <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{value.about}</Text>
+        </View>
+        <TouchableOpacity style={{
+            backgroundColor: mainColor, paddingHorizontal: 10,
+            borderRadius: 5, paddingVertical: 3, marginVertical: 5
+        }}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>เข้าร่วมกลุ่ม</Text>
+        </TouchableOpacity>
+    </View>);
+    return <ScrollView>
+        <View style={{ backgroundColor: '#FFFFFF' }}>
+            <View style={{ marginLeft: 10, marginTop: 5 }}>
+                <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มทั้งหมด</Text>
+            </View>
+            <View style={[stylesMain.FlexRow, {
+                flexWrap: 'wrap',
+                justifyContent: 'space-around', paddingHorizontal: 5, paddingBottom: 10
+            }]}>
+                {Group_Total}
+            </View>
+        </View>
+    </ScrollView>;
+};

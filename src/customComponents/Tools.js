@@ -984,21 +984,22 @@ export function GetCoupon(props) {
         codeList, colorCoupon, couponText, getCoupon, flexRow, marginL, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
     } = props
     return (
-        <View style={[
-            flexRow ?
-                stylesDeal.Coupon_BOX2 :
-                stylesDeal.Coupon_BOX, {
-                backgroundColor:
-                    codeList != 'available' ?
-                        '#C4C4C4' :
-                        null,
-                marginLeft: marginL ?? 10
-            }]}>
+        <View style={[stylesDeal.Coupon_BOX2
+            // flexRow ?
+            //     stylesDeal.Coupon_BOX2  :
+            //     stylesDeal.Coupon_BOX, {
+            //     backgroundColor:
+            //         codeList != 'available' ?
+            //             '#C4C4C4' :
+            //             null,
+            //     marginLeft: marginL ?? 10
+            // }
+            ]}>
             <View style={{
-                opacity:
-                    codeList != 'available' ?
-                        0.4 :
-                        null,
+                // opacity:
+                //     codeList != 'available' ?
+                //         0.4 :
+                //         null,
                 flexDirection: 'row',
                 justifyContent:
                     flexRow ?
@@ -1010,8 +1011,8 @@ export function GetCoupon(props) {
                         null,
             }}>
                 <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{couponText}</Text>
-                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
                         timeOut ?
                             timeOut :
@@ -1039,7 +1040,8 @@ export function GetCoupon(props) {
             {
                 codeList != 'available' &&
                 <View style={{
-                    backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
+                    backgroundColor: '#C1C1C1', opacity: 0.7,
+                    width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
                     alignItems: 'center'
                 }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
@@ -1190,7 +1192,7 @@ export function RenderProduct(props) {
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
     ]);
-    var dataMySQL = `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
+    var dataMySQL = `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}_.webp`;
     var discount;
     item.discount && (discount = item.discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ?
@@ -1312,13 +1314,6 @@ export class FeedBox extends React.Component {
         const { getDataSource } = this.props
         getDataSource(activeRef)
     }
-    Setting_Group() {
-        return (
-            <View>
-
-            </View>
-        )
-    }
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props
         const { like, } = this.state
@@ -1390,7 +1385,7 @@ export class FeedBox extends React.Component {
                         <View>
                             <TouchableOpacity onPress={() => {
                                 NavigationNavigateScreen({
-                                    goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, navigation
+                                    goScreen: 'Post_Feed', setData: { selectedIndex: 24, }, navigation
                                 });
                                 this.share_Feed.close();
                             }}

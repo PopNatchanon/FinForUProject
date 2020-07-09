@@ -356,7 +356,7 @@ export let AppBar = (props) => {
     filterBar && (allWidth -= 30);
     otherBar && (allWidth -= 30);
     return <Animatable.View style={[stylesMain.Appbar, stylesMain.FlexRow, {
-        width, height: 55, borderWidth: 0, borderBottomWidth: 1, backgroundColor: ABGColor ?? mainColor,
+        width, borderWidth: 0, borderBottomWidth: 1, backgroundColor: ABGColor ?? mainColor,
         borderColor: ABDColor_All ?? ABDColor ?? mainColor, borderBottomColor: ABDColor ?? mainColor, borderColor: 'transparent',
     }]}>
         {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
@@ -382,7 +382,7 @@ export let AppBar = (props) => {
                     goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
                 })}>
                 <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
-                { height: 30, borderWidth: 2, borderColor: '#f5df89', }]}>
+                { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
                     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
                         stylesMain.ItemCenterVertical]}>{SearchText ?? 'ค้นหาสินค้า/ร้านค้า'}</Text>
@@ -595,8 +595,8 @@ export let Guarantee = (props) => {
             flexDirection: 'row', width: '100%', height: 'auto', paddingHorizontal: 5, aspectRatio: 8.5, marginTop: 5,
             backgroundColor: '#FFFFFF', borderRadius: 5
         }}>
-            <View style={[stylesMain.ItemCenter, { width: '30%', borderColor: '#f5df89', borderWidth: 2 }]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.cover}
+            <View style={[stylesMain.ItemCenter, { width: '30%', borderColor: '#ffbf00', borderWidth: 1, borderRadius: 5 }]}>
+                <FastImage style={[stylesMain.BoxProduct1Image, { borderRadius: 4 }]} resizeMode={FastImage.resizeMode.cover}
                     source={{ uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, }} />
             </View>
             <View style={{ width: '30%', justifyContent: 'center' }}>
@@ -826,7 +826,7 @@ export let Popular_store = (props) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
                 NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
-                <View style={stylesMain.BoxStore1Box}>
+                <View style={[stylesMain.BoxStore1Box, { marginLeft: 0 }]}>
                     <FastImage style={stylesMain.BoxStore1Image} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>;
@@ -1182,7 +1182,7 @@ export let NewStore = (props) => {
                     id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
                 }, navigation
             })}>
-                <View style={stylesMain.BoxStore1Box}>
+                <View style={[stylesMain.BoxStore1Box, { marginLeft: 0 }]}>
                     <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>;
@@ -1294,6 +1294,7 @@ export function CategoryProduct(props) {
         if (index < 2 /*getFetchData['category_mobile'].length*/) {
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
             var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
+
             return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
@@ -1360,7 +1361,7 @@ export let CategoryProductSubStore = (props) => {
         {shop && shop.length > 0 ?
             <Carousel key={'banner'} renderItem={_renderBanner} data={shop} loop autoplay autoplayInterval={3000}
                 pagination={PaginationLight} /> :
-            <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
+            <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color, }}>
                 <View style={stylesMain.CategoryProductStoreImage} />
             </View>}
     </>;
@@ -1376,6 +1377,8 @@ export let CategoryProductSubPromotion = (props) => {
     let dataCategoryProductSubPromotionSmall = promo_2 ?
         promo_2.map((value, index) => {
             var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+            console.log('CategoryProductSubPromotion')
+            console.log(dataMySQL)
             // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
             return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
                 {value &&
@@ -1388,8 +1391,10 @@ export let CategoryProductSubPromotion = (props) => {
     </View>;
     let dataCategoryProductSubPromotionBig = promo_1 ?
         promo_1.map((value, index) => {
-            // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
             var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+            console.log('CategoryProductSubPromotion')
+            console.log(dataMySQL)
+            // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
             return <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
                 {value && <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize'
                     style={stylesMain.BoxProduct1Image} />}
@@ -1430,7 +1435,9 @@ export let Second_product = (props) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
                 <View style={{ width: width * 0.32, height: 130 }}>
-                    <Image source={{ uri: dataMySQL, }} style={stylesMain.litleSlideImage} resizeMode='stretch'
+                    <Image source={{ uri: dataMySQL, }}
+                        style={stylesMain.litleSlideImage}
+                        resizeMode='stretch'
                         resizeMethod='resize' />
                 </View>
             </View>;
@@ -1444,7 +1451,10 @@ export let Second_product = (props) => {
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
     var header_url;
-    dataService?.mobile_bar?.map((item) => { header_url = `${finip}/${item.image_path}/${item.image}` });
+    dataService?.mobile_bar?.map((item) => {
+        // header_url = `${finip}/${item.image_path}/${item.image}` });
+        header_url = `${ip}/MySQL/uploads/Category_Total/Second/header.jpg`
+    });
     let Second_Storeheader = <View key={'mobile_bar'} style={[stylesMain.FrameBackground2, { marginTop: 0, borderBottomWidth: null }]}>
         <View>
             {Header_Second ?

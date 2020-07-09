@@ -145,7 +145,7 @@ export default StyleSheet.create({
     paddingRight: 4,
   },
   BoxProduct2BoxProduct: {
-    width: '100%',
+    width: '110%',
     marginTop: 3,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -450,7 +450,6 @@ export default StyleSheet.create({
   },
   FrameBackgroundTextStart: {
     marginLeft: 10,
-    marginTop: 4,
   },
   FrameBackgroundTextEnd: {
     color: mainColor,

@@ -134,12 +134,6 @@ export default class Post_Feed extends Component {
                     <AppBar1 {...this.props} backArrow titleHead='รูปภาพ' />
                     <Group_Image />
                 </>
-            case 15:
-                return <>
-                    {/* หน้าสมาชิก กลุ่ม เข้าจาก หน้าโปรไฟล์ ปุ่มสมาชิกกลุ่ม */}
-                    <AppBar1 {...this.props} backArrow titleHead='สมาชิก' />
-                    <Group_Member />
-                </>
             case 16:
                 return <>
                     {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
@@ -156,7 +150,7 @@ export default class Post_Feed extends Component {
                 return <>
                     {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
                     <AppBar1 {...this.props} backArrow titleHead='กลุ่มทั้งหมด' />
-                    <Group_Total />
+                    <Group_Total {...this.props} />
                 </>
             case 19:
                 return <>
@@ -202,6 +196,7 @@ export default class Post_Feed extends Component {
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar1 {...this.props} backArrow titleHead='กลุ่มยอดนิยม' />
+                    <Group_Popular />
                 </>
         }
     }
@@ -1024,7 +1019,7 @@ export let Profile_Group = (props) => {
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => NavigationNavigateScreen({
                             goScreen: 'Post_Feed', setData: {
-                                selectedIndex: 15,
+                                selectedIndex: 13,
                             }, navigation
                         })}>
                             <View style={[stylesMain.ItemCenter, { backgroundColor: '#C4C4C4', padding: 10, borderRadius: 25, width: width * 0.32 }]}>
@@ -1072,11 +1067,8 @@ export let Group_About = (props) => {
         Group_Member.map((value, index) => {
             return <TouchableOpacity key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 10 }]}>
                 <View style={stylesMain.FlexRow}>
-                    <FastImage
-                        style={{ height: 50, width: 50, borderRadius: 25, }}
-                        source={{
-                            uri: value.image,
-                        }}
+                    <FastImage style={{ height: 50, width: 50, borderRadius: 25, }}
+                        source={{ uri: value.image, }}
                         resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ marginLeft: 10 }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{value.name}</Text>
@@ -1190,14 +1182,6 @@ export let Group_Image = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
             <ImageGallery dataService={dataService} />
         </ScrollView>
-    )
-}
-///----------------------------------------------------------------------------------------------->>>>
-export let Group_Member = (props) => {
-    return (
-        <View>
-            <Text>สมาชิก</Text>
-        </View>
     )
 }
 ///----------------------------------------------------------------------------------------------->>>>
@@ -1362,6 +1346,7 @@ export let Save_Post = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Group_Total = (props) => {
+    const { navigation } = props;
     const Group_Categoryitem = [
         { image: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`, name: 'เครื่องประดับ' },
         { image: `${ip}/MySQL/uploads/products/2019-10-10-1570690336.png`, name: 'พระและเครื่องราง' },
@@ -1371,37 +1356,43 @@ export let Group_Total = (props) => {
     ]
     const Group_Popularitem = [
         {
-            image1: `${ip}/MySQL/uploads/products/P1230056ok_HIMI71t.jpg`,
-            image2: `${ip}/MySQL/uploads/products/pearl.jpg`,
-            name: `ชอบช้อปกรุ๊ป - เพื่อนรับหิ้วที่ปลอดภัย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย `,
-            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน `,
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ฉันชอบดูหนัง.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`,
+            name1: `ฉันชอบดูหนัง`,
+            name2: `ราชบุรีมีอะไร`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `260 โพสต์ต่อวัน`,
         },
         {
-            image1: `${ip}/MySQL/uploads/products/slide4.jpg`,
-            image2: `${ip}/MySQL/uploads/products/2019-04-01-1554136830.jpg`,
-            name: `การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย`,
-            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน`,
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`,
+            name1: `ของอร่อยราชบุรีบอกด้วย`,
+            name2: `ราชบุรีซื้อขายได้ทุกอย่าง`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `310 โพสต์ต่อวัน`,
         },
         {
-            image1: `${ip}/MySQL/uploads/products/2019-03-20-1553064729.jpg`,
-            image2: `${ip}/MySQL/uploads/products/2019-03-17-1552809845.jpg`,
-            name: `ชอบช้อปกรุ๊ป - เพื่อนรับหิ้วที่ปลอดภัย การ์ดจอคอมฯ และอุปกรณ์คอมฯ มือสองทั่วไทย`,
-            member: `สมาชิก 1.9 แสน คน • 190 โพสต์ต่อวัน `,
+            image1: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`,
+            image2: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`,
+            name1: `ราชบุรีหางานหาคน`,
+            name2: `ทุกเรื่องราวในราชบุรี`,
+            member: `สมาชิก 1.9 แสน คน`,
+            post: `420 โพสต์ต่อวัน `,
         },
     ]
     const Group_Totalitem = [
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more' },
-        { image: `${ip}/MySQL/uploads/products/Campaign9999.png`, name: 'เสื้อผ้าคุณผู้หญิง Less is more' },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`,about:`ซื้อ-ขายแลกเปลี่ยน การ์ดจอ เมนบอร์ด ซีพียู psu ram`},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`,about:`แนะนำร้านค้า ร้านอาหาร มุมอร่อย มุมของโปรดที่ชื่อชอบทั้งใน รอบๆจังหวัดราชบุรี `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`,about:`กลุ่มนี้มีจุดประสงค์เดียว ก็คือ เพื่อเป็นประโยชน์ให้กับผู้คนและสังคม เน้นราชบุรี ไม่เสนอขายทุกชนิด ไม่แชร์ ไม่แคปเข้ามาทุกกรณี` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`,about:`ซื้อ-ขายแลกเปลี่ยน ตลาดนัดโพธารามonline` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`,about:`ข่าวสารทั่วไปในด้านต่างๆในจังหวัดราชบุรี เช่น ส่งเสริมการท่องเที่ยว ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`,about:`กลุ่มนี้เปิดไว้เพื่อให้คนในราชบุรี ได้เข้ามาแลกเปลี่ยน ซื้อ ขาย สินค้า  ทั้งสินค้า ใหม่  เก่า ทุกชนิด` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`,about:`พบที่เที่ยวดี ๆ ช่วยบอกที` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`,about:`หาคนตรงงาน หางานตรงใจ ที่นี่เลย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`,about:`กลุ่มตลาดโพธาราม เป็นกลุ่มที่ตั้งขึ้นเพื่อ เกิดการซื้อ - ขาย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี` ,about:`ซื้อ-ขาย ลงราคาและเบอร์โทร ให้เรียบร้อยนะครับ `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี` ,about:`ชุมชนคนราชบุรี `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`,about:`พรานสนับสนุนให้ทุกคน เป็นยอดนักรีวิว นักคิด นักเขียน เช็คอินกินที่ใด ถูกใจ ในนครปฐม `},
     ]
     let Group_Category = (
         Group_Categoryitem.map((value, index) => {
@@ -1419,26 +1410,28 @@ export let Group_Total = (props) => {
             return <View>
                 <View key={index} style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
                     borderColor: '#EAEAEA', borderWidth: 1,
-                    width: width * 0.7, height: 70, margin: 2.5, padding: 5
+                    width: width * 0.6, height: 70, margin: 2.5, padding: 5
                 }]}>
                     <FastImage style={{ height: 55, width: 55, borderRadius: 30 }}
                         source={{ uri: value.image1, }}
                         resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ width: '70%', marginLeft: 10 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                    <View style={{ width: '65%', marginLeft: 10 }}>
+                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name1}</Text>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.post}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
                     </View>
                 </View>
                 <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, {
                     borderColor: '#EAEAEA', borderWidth: 1,
-                    width: width * 0.7, height: 80, margin: 2.5, padding: 5
+                    width: width * 0.6, height: 80, margin: 2.5, padding: 5
                 }]}>
                     <FastImage
                         style={{ height: 55, width: 55, borderRadius: 30 }}
                         source={{ uri: value.image2, }}
                         resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ width: '70%', marginLeft: 10 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                    <View style={{ width: '65%', marginLeft: 10 }}>
+                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name2}</Text>
+                        <Text numberOfLines={2} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.post}</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.member}</Text>
                     </View>
                 </View>
@@ -1451,11 +1444,10 @@ export let Group_Total = (props) => {
                 width: width * 0.30, alignItems: 'center',
             }}>
                 <FastImage
-                    style={{ height: 55, width: '100%', marginBottom: 5 }}
-                    source={{ uri: value.image, }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    style={{ height: 55, width: '100%', marginBottom: 5 }} source={{ uri: value.image, }} resizeMode={FastImage.resizeMode.stretch} />
                 <View style={{ paddingHorizontal: 5 }}>
-                    <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{value.name}</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{value.about}</Text>
                 </View>
                 <TouchableOpacity style={{
                     backgroundColor: mainColor, paddingHorizontal: 10,
@@ -1484,7 +1476,11 @@ export let Group_Total = (props) => {
                         <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มยอดนิยม</Text>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กลุ่มที่คุณอาจสนใจ</Text>
                     </View>
-                    <TouchableOpacity style={stylesMain.ItemCenter}>
+                    <TouchableOpacity style={stylesMain.ItemCenter} onPress={() => NavigationNavigateScreen({
+                        goScreen: 'Post_Feed', setData: {
+                            selectedIndex: 25,
+                        }, navigation
+                    })}>
                         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold]}>ทั้งหมด</Text>
                     </TouchableOpacity>
                 </View>
@@ -2079,6 +2075,58 @@ export let Profile_Edit = (props) => {
                     <TouchableOpacity onPress={() => { Gender_Sheet.current.open() }}>
                         <IconFeather name='edit' size={20} />
                     </TouchableOpacity>
+                </View>
+            </View>
+        </ScrollView>
+    )
+}
+///----------------------------------------------------------------------------------------------->>>>
+export let Group_Popular = (props) => {
+    const Group_Popularitem = [
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`,about:`ซื้อ-ขายแลกเปลี่ยน การ์ดจอ เมนบอร์ด ซีพียู psu ram`},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`,about:`แนะนำร้านค้า ร้านอาหาร มุมอร่อย มุมของโปรดที่ชื่อชอบทั้งใน รอบๆจังหวัดราชบุรี `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`,about:`กลุ่มนี้มีจุดประสงค์เดียว ก็คือ เพื่อเป็นประโยชน์ให้กับผู้คนและสังคม เน้นราชบุรี ไม่เสนอขายทุกชนิด ไม่แชร์ ไม่แคปเข้ามาทุกกรณี` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`,about:`ซื้อ-ขายแลกเปลี่ยน ตลาดนัดโพธารามonline` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`,about:`ข่าวสารทั่วไปในด้านต่างๆในจังหวัดราชบุรี เช่น ส่งเสริมการท่องเที่ยว ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`,about:`กลุ่มนี้เปิดไว้เพื่อให้คนในราชบุรี ได้เข้ามาแลกเปลี่ยน ซื้อ ขาย สินค้า  ทั้งสินค้า ใหม่  เก่า ทุกชนิด` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`,about:`พบที่เที่ยวดี ๆ ช่วยบอกที` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`,about:`หาคนตรงงาน หางานตรงใจ ที่นี่เลย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`,about:`กลุ่มตลาดโพธาราม เป็นกลุ่มที่ตั้งขึ้นเพื่อ เกิดการซื้อ - ขาย` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี` ,about:`ซื้อ-ขาย ลงราคาและเบอร์โทร ให้เรียบร้อยนะครับ `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี` ,about:`ชุมชนคนราชบุรี `},
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`,about:`พรานสนับสนุนให้ทุกคน เป็นยอดนักรีวิว นักคิด นักเขียน เช็คอินกินที่ใด ถูกใจ ในนครปฐม `},
+    ]
+    let Group_Total = (
+        Group_Popularitem.map((value, index) => {
+            return <View key={index} style={{
+                borderColor: '#EAEAEA', borderWidth: 1, marginTop: 8,
+                width: width * 0.30, alignItems: 'center',
+            }}>
+                <FastImage
+                    style={{ height: 55, width: '100%', marginBottom: 5 }} source={{ uri: value.image, }} resizeMode={FastImage.resizeMode.stretch} />
+                <View style={{ paddingHorizontal: 5 }}>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{value.about}</Text>
+                </View>
+                <TouchableOpacity style={{
+                    backgroundColor: mainColor, paddingHorizontal: 10,
+                    borderRadius: 5, paddingVertical: 3, marginVertical: 5
+                }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>เข้าร่วมกลุ่ม</Text>
+                </TouchableOpacity>
+            </View>
+        }))
+    return (
+        <ScrollView>
+            <View style={{ backgroundColor: '#FFFFFF' }}>
+                <View style={{ marginLeft: 10, marginTop: 5 }}>
+                    <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มทั้งหมด</Text>
+                </View>
+                <View style={[stylesMain.FlexRow, {
+                    flexWrap: 'wrap',
+                    justifyContent: 'space-around', paddingHorizontal: 5, paddingBottom: 10
+                }]}>
+                    {Group_Total}
                 </View>
             </View>
         </ScrollView>

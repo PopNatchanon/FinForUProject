@@ -4,7 +4,7 @@ import {
   Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -23,9 +23,9 @@ import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Too
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(The_BestFinScreen);
 function The_BestFinScreen(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);

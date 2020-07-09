@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import CookieManager from '@react-native-community/cookies';
@@ -26,9 +26,9 @@ import { GetServices, LoadingScreen, GetData, } from '../../customComponents/Too
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CancelScreen);
 function CancelScreen(props) {
   const { route } = props;

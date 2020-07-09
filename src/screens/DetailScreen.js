@@ -4,7 +4,10 @@ import {
   Animated, Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Modal,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import {
+  activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+  setDataRefresh, setDataStart, setFetchToStart,
+} from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
@@ -37,9 +40,13 @@ import {
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+  reduxDataBody: state.activeFetchData
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({
+  activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+  setDataRefresh, setDataStart, setFetchToStart
+});
 export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)
 function DetailScreen(props) {
   const { getFetchData, route } = props;
@@ -623,7 +630,7 @@ export let Detail = (props) => {
     <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>รายละเอียดสินค้า</Text>
     </View>
-    <View style={[{ marginTop: normalize(-5), }]} >
+    <View style={[{ marginTop: normalize(-5), }]}>
       <View style={[{ paddingHorizontal: 6, maxHeight: activeText == false ? 94 : '100%', overflow: 'hidden', }]}
         onLayout={({ nativeEvent: { layout: { height } } }) => setShowMoreButton(height >= normalize(94))}>
         <WebView source={{ html: '<h1>Hello world</h1>' }} />

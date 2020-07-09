@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, ActivityIndicator,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -27,9 +27,9 @@ import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen, Naviga
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
 function ProfileScreen(props) {
     const [activeGetServices, setActiveGetServices] = useState(true);

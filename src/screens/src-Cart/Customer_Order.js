@@ -7,7 +7,7 @@ import {
     TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -35,11 +35,9 @@ import { GetServices, NavigationNavigateScreen, LoadingScreen, GetData } from '.
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData,
-    getFetchData: state.singleFetchDataFromService,
-    activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_Order);
 function Customer_Order(props) {
     const { route } = props;
@@ -238,8 +236,7 @@ export let Option_payment = (props) => {
                             paddingTop: 10,
                             alignItems: "center"
                         }
-                    }}
-                >
+                    }}>
                     <View style={{ alignItems: 'center', height: 'auto', }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { marginBottom: 10 }]}>เลือกวิธีการชำระเงิน</Text>
                         <View style={stylesCustomerOrder.Payment_Box}>
@@ -390,7 +387,7 @@ export let Option_payment = (props) => {
                     <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />
                 </TouchableOpacity>
             </View>
-        </View >}
+        </View>}
     </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Bar_payment

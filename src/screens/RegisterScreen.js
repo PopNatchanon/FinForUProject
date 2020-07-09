@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, ImageBackground,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 import { CheckBox } from 'react-native-elements';
@@ -25,9 +25,9 @@ import { ExitAppModule } from './MainScreen';
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Register_OTPScreen);
 function Register_OTPScreen(props) {
   return <SafeAreaView style={{ flex: 1, backgroundColor: '#071727' }}>
@@ -42,7 +42,7 @@ function Register_OTPScreen(props) {
 ///----------------------------------------------------------------------------------------------->>>> Logo
 export let Logo = (props) => <View>
   <ImageBackground style={stylesLogin.Logo_Box} source={{ uri: `${ip}/MySQL/uploads/icon_5/11111-10.jpg`, }}
-    resizeMode={FastImage.resizeMode.stretch} >
+    resizeMode={FastImage.resizeMode.stretch}>
     <FastImage style={stylesLogin.Logo} source={require('../../icon/unicorn-fin-logoaaaa.png')}
       resizeMode={FastImage.resizeMode.contain} />
   </ImageBackground>

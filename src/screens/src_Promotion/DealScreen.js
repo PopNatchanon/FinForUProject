@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -29,9 +29,9 @@ import {
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(DealScreen);
 function DealScreen(props) {
   const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
@@ -125,7 +125,7 @@ export let Deal_Calendar = (props) => {
   const { dataService } = props;
   let emptyBox = GenArreyNumber(8).map((_, index) => <View key={index} style={[stylesDeal.Deal_Calendar_BoxN,
   { backgroundColor: '#ECECEC', borderRadius: 0, }]}>
-    <View style={stylesMain.BoxProduct1Image} ></View>
+    <View style={stylesMain.BoxProduct1Image}></View>
   </View>);
   return <>
     <View style={[stylesMain.FrameBackground, /* { backgroundColor: '#B5F5D1', width: '100%' } */]}>

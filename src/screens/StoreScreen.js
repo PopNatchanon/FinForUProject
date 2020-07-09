@@ -4,7 +4,7 @@ import {
     ActivityIndicator, Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View, FlatList,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
 import FastImage from 'react-native-fast-image';
@@ -27,9 +27,9 @@ import {
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(StoreScreen);
 function StoreScreen(props) {
     const { navigation, route, } = props;
@@ -422,7 +422,7 @@ export let DealTop = (props) => {
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{titlename}</Text>
         </View>
         {dataService && !activeGetServices ?
-            <FlatProduct {...props} custumNavigation='DealTop' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
+            <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
                 nameSize={14} priceSize={15} dispriceSize={15} /> :
             <View style={[stylesMain.ItemCenter, { width, height: 115 + 55 }]}>
                 <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />

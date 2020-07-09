@@ -1,30 +1,19 @@
-import { SET_ACTIVE_FETCH_DATA } from '../actions/constants';
+import { SET_DATA_TO_END, SET_DATA_TO_REFRESH, SET_DATA_TO_START } from '../actions/constants';
 const initialState = {
-    dataList: [{
-        name: 'start',
-        id: 0,
-        isActive: true,
-    }]
+    dataList: {},
+    isActive: false,
+    isRefresh: false,
+    name: '',
+    otherData: {},
 };
 export default (state = initialState, action) => {
-    const { dataList } = state;
     switch (action.type) {
-        case SET_ACTIVE_FETCH_DATA:
-            if (dataList[0].name == 'start') {
-                dataList[0] = {
-                    name: action.name,
-                    isActive: action.payload,
-                };
-            } else if (action.id == -1) {
-                dataList.push({
-                    name: action.name,
-                    id: dataList.length,
-                    isActive: action.payload,
-                });
-            } else {
-                dataList[action.id].isActive = action.payload;
-            };
-            return { ...state, dataList: dataList };
+        case SET_DATA_TO_END:
+            return { ...state, isActive: false, isRefresh: true, };
+        case SET_DATA_TO_REFRESH:
+            return { ...state, dataList: {}, isRefresh: false, name: '', otherData: {} };
+        case SET_DATA_TO_START:
+            return { ...state, dataList: action.payload, isActive: true, isRefresh: false, name: action.name, otherData: action.other };
         default:
             return state;
     };

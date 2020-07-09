@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -24,9 +24,9 @@ import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Detail_Campaign);
 function Detail_Campaign(props) {
     const { route } = props;
@@ -147,7 +147,7 @@ export let Store_Campaign = (props) => {
     var campaign_banner_2 = [];
     var campaign_banner_3 = [];
     let emptyBox = <View style={[stylesDeal.Store_Sale_BoxA_Carousel, { backgroundColor: '#ECECEC' }]}>
-        <View style={stylesDeal.Store_Sale_Image} ></View>
+        <View style={stylesDeal.Store_Sale_Image}></View>
     </View>;
     let emptyBox2 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxA_image,
     { backgroundColor: '#ECECEC' }]}>

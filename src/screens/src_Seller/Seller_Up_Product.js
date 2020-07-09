@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -28,11 +28,9 @@ import { ip, finip } from '../../navigator/IpConfig';
 import { set } from 'react-native-reanimated';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Up_Product);
 function Seller_Up_Product(props) {
   return <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
@@ -690,8 +688,8 @@ export let Seller_Up_ProductDetail = (props) => {
         <View style={{ flexDirection: 'row' }}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical,]}>
             {(saveCategorySelect || saveSubCategorySelect || saveUnSubCategorySelect) ? `${(saveCategorySelect?.name)} ${
-              (saveSubCategorySelect && (' > ' + saveSubCategorySelect?.name))} ${(saveUnSubCategorySelect &&
-                (' > ' + saveUnSubCategorySelect?.name))}` : <Text style={{ color: '#A3A3A3' }}>{'ตั้งหมวดสินค้า'}</Text>}</Text>
+              (saveSubCategorySelect && ('> ' + saveSubCategorySelect?.name))} ${(saveUnSubCategorySelect &&
+                ('> ' + saveUnSubCategorySelect?.name))}` : <Text style={{ color: '#A3A3A3' }}>{'ตั้งหมวดสินค้า'}</Text>}</Text>
           <IconEntypo name='chevron-right' size={35} style={[stylesMain.ItemCenterVertical, { color: mainColor }]} />
         </View>
       </View>
@@ -803,5 +801,5 @@ export let Seller_Up_ProductDetail = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
       <IconEntypo name='chevron-right' size={35} color={mainColor} />
     </View>
-  </View >;
+  </View>;
 };

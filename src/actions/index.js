@@ -2,21 +2,95 @@ import AsyncStorage from '@react-native-community/async-storage';
 import CookieManager from '@react-native-community/cookies';
 import SplashScreen from 'react-native-splash-screen';
 import {
-    COSTOMER_DATA, COSTOMER_DATA_FAILURE, COSTOMER_DATA_SUCCESS, COSTOMER_GET_DATA_TOKEN, COSTOMER_NOT_LOGIN, FETCH_DATA, FETCH_DATA_FAILURE,
-    FETCH_DATA_START, FETCH_DATA_SUCCESS, SET_ACTIVE_FETCH_DATA,
+    CART_DATA, CART_DATA_CHECK, CART_DATA_CHECK_ALL, CART_DATA_DELETE, CART_DATA_UPDATE, COSTOMER_DATA, COSTOMER_DATA_FAILURE,
+    COSTOMER_DATA_SUCCESS, COSTOMER_GET_DATA_TOKEN, COSTOMER_NOT_LOGIN, FETCH_DATA, FETCH_DATA_FAILURE, FETCH_DATA_START,
+    FETCH_DATA_SUCCESS, SET_DATA_TO_END, SET_DATA_TO_REFRESH, SET_DATA_TO_START,
 } from '../actions/constants';
 import { finip } from '../navigator/IpConfig';
 import { promiseConnectServices, promiseProcessData } from './api';
 //==================================================>activeFetchData
-export const setStageActiveFetch = (data, id, name) => ({
-    name,
-    id,
-    payload: data,
-    type: SET_ACTIVE_FETCH_DATA,
+export const setStageSetDataToEnd = () => ({
+    type: SET_DATA_TO_END,
 });
-export const setActiveFetch = (props) => {
-    const { id, name, setActive } = props
-    return (dispatch) => { dispatch(setStageActiveFetch(setActive, id, name)); };
+export const setStageSetDataToRefresh = () => ({
+    type: SET_DATA_TO_REFRESH,
+});
+export const setStageSetDataToStart = (data, name, other) => ({
+    name, other,
+    payload: data,
+    type: SET_DATA_TO_START,
+});
+export const setDataEnd = () => {
+    return (dispatch) => { dispatch(setStageSetDataToEnd()); };
+};
+export const setDataRefresh = () => {
+    return (dispatch) => { dispatch(setStageSetDataToRefresh()); };
+};
+export const setDataStart = (data, name, other) => {
+    return (dispatch) => { dispatch(setStageSetDataToStart(data, name, other)); };
+};
+//========================================>cartData
+export const setStageCartData = (data) => ({
+    payload: data,
+    type: CART_DATA,
+});
+export const setStageCartDataCheck = (id_cartdetail, id_store) => ({
+    id_cartdetail, id_store,
+    type: CART_DATA_CHECK,
+});
+export const setStageCartDataCheckAll = (id_store) => ({
+    id_store,
+    type: CART_DATA_CHECK_ALL,
+});
+export const setStageCartDataDelete = (id_cartdetail, id_store) => ({
+    id_cartdetail, id_store,
+    type: CART_DATA_DELETE,
+});
+export const setStageCartDataUpdate = (data, id_cartdetail, id_store) => ({
+    id_cartdetail, id_store,
+    payload: data,
+    type: CART_DATA_UPDATE,
+});
+export const activeCartList = (item) => {
+    console.log('=========================?>setStageCartData');
+    console.log(item)
+    var list_store = [];
+    item.map((value) => {
+        var numberList = list_store.map((value2) => value2.id_store).indexOf(value.id_store);
+        var productList = value;
+        productList.checked = true;
+        if (numberList == -1) {
+            console.log(value)
+            list_store.push({
+                id_store: value.id_store, name: value.name, store_path: value.store_path, store_image: value.store_image,
+                checked: true, product: [productList]
+            });
+        } else {
+            var subNumberList = list_store.map((value2) => value2.product).map((value3) => value3.id_cartdetail).indexOf(value.id_cartdetail);
+            if (subNumberList == -1) {
+                list_store[numberList].product.push(productList)
+            }
+        }
+    });
+    console.log('=========================?>list_store');
+    console.log(list_store);
+    return (dispatch) => {
+        dispatch(setStageCartData(list_store));
+    }
+}
+export const cartListChecked = (id_cartdetail, id_store) => {
+    return (dispatch) => { dispatch(setStageCartDataCheck(id_cartdetail, id_store)); }
+}
+export const cartListCheckedAll = (id_store) => {
+    return (dispatch) => { dispatch(setStageCartDataCheckAll(id_store)); }
+}
+export const cartListDelete = (id_cartdetail, id_store) => {
+    return (dispatch) => { dispatch(setStageCartDataDelete(id_cartdetail, id_store)); }
+}
+export const cartListUpdate = (data, id_cartdetail, id_store) => {
+    return (dispatch) => {
+        dispatch(setStageCartDataUpdate(data, id_cartdetail, id_store));
+    }
 }
 //==================================================>customerData
 export const setStageCustomerData = () => ({
@@ -59,14 +133,14 @@ export const checkCustomer = () => {
             console.log(error)
             if (error) {
                 console.log(error)
-                getCokie  && (value.keycokie = undefined)
-                getUser  && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             }
             if (dataCokie === undefined) {
                 console.log(`dataCokie`);
-                getCokie  && (value.keycokie = undefined)
-                getUser  && (value.currentUser = undefined);
+                getCokie && (value.keycokie = undefined)
+                getUser && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             };
         } else {

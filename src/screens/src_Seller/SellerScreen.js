@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -27,9 +27,9 @@ import { NavigationNavigateScreen } from '../../customComponents/Tools';
 import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SellerScreen);
 function SellerScreen(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -256,7 +256,7 @@ export let Seller_Product = (props) => <View style={stylesMain.FrameBackground}>
         <Seller_Product_Box />
         <Seller_Product_Box />
     </View>
-</View >;
+</View>;
 ///--------------------------------------------------------------------------///
 export let Seller_Product_Box = (props) => <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>
     <View style={{ alignItems: 'center', marginHorizontal: 8 }}>

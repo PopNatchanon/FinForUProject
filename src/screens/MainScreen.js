@@ -11,7 +11,7 @@ import {
     State,
 } from 'react-native-gesture-handler';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { activeCartList, checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
@@ -48,9 +48,9 @@ import {
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ activeCartList, checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
 function MainScreen(props) {
     const { fetchData, getFetchData, multiFetchData } = props;
@@ -245,7 +245,7 @@ export let ExitAppModule = (props) => {
     const pathMain = ['MainScreen', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen'];
     const springValue = useRef(new Animated.Value(0));
     const transformValue = useRef(new Animated.Value(100));
-    YellowBox.ignoreWarnings(["Require cycle:", "*"]);
+    YellowBox.ignoreWarnings(["Require cycle:", "VirtualizedList:", "VirtualizedLists should never", "*"]);
     let handleBackButton = () => {
         if (pathMain.indexOf(routeProps) != -1) {
             if (backClickCount == 1) {
@@ -559,7 +559,7 @@ export let Guarantee = (props) => {
                         <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.cover}
                             source={{ uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, }} />
                     </View>
-                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
+                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }}>
                         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
@@ -569,7 +569,7 @@ export let Guarantee = (props) => {
                         <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, }}
                             resizeMode={FastImage.resizeMode.cover} />
                     </View>
-                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }} >
+                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }}>
                         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
@@ -659,7 +659,7 @@ export let Trend_Hit = (props) => {
             return <View key={index} style={[stylesMain.ItemCenter,
             { width: width * 0.32, borderWidth: 1, flexDirection: 'row', borderColor: '#ECECEC', borderRadius: 5, }]}>
                 <FastImage style={{ height: 40, width: 40 }} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
-                <View >
+                <View>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>
                         37K products</Text>
@@ -821,7 +821,7 @@ export let Popular_store = (props) => {
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                 ร้านที่ใช่อยากให้ช้อป</Text>
         </View>
-        <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between', paddingHorizontal: 5 }]} >
+        <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between', paddingHorizontal: 5 }]}>
             {PopularStoreItem}
         </View>
     </View>;
@@ -1276,9 +1276,9 @@ export function CategoryProduct(props) {
         var mix_color = color_up(item.bg_m);
         var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
         if (index < 2 /*getFetchData['category_mobile'].length*/) {
-            // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
-            var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
-            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>
+            var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+            // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
+            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
                         NavigationNavigateScreen({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation, })}>
@@ -1331,8 +1331,8 @@ export let CategoryProductSubProduct = (props) => {
 export let CategoryProductSubStore = (props) => {
     const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
-        // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
         return <TouchableOpacity activeOpacity={1} key={value.id}>
             <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
                 <Image source={{ uri: dataMySQL, }} style={[stylesMain.CategoryProductStoreImage, { backgroundColor: mix_color }]}
@@ -1353,15 +1353,15 @@ export let CategoryProductSubStore = (props) => {
 export let CategoryProductSubPromotion = (props) => {
     const { getFetchData, mix_color, promo_1, promo_2, shop } = props;
     let boxEmptySmall = (
-        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, backgroundColor: mix_color, }]} >
+        <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, backgroundColor: mix_color, }]}>
             <View style={stylesMain.BoxProduct1Image} />
         </View>
     );
     let dataCategoryProductSubPromotionSmall = promo_2 ?
         promo_2.map((value, index) => {
-            var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
-            // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
-            return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
+            // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+            var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
+            return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index}>
                 {value &&
                     <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}
             </View>;
@@ -1372,8 +1372,8 @@ export let CategoryProductSubPromotion = (props) => {
     </View>;
     let dataCategoryProductSubPromotionBig = promo_1 ?
         promo_1.map((value, index) => {
-            // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
-            var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+            var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+            // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
             return <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
                 {value && <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize'
                     style={stylesMain.BoxProduct1Image} />}
@@ -1589,9 +1589,9 @@ export let Fin_Mall = (props) => {
                             <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
                                 <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
                                 { color: '#19508B' }]}>NaN</Text>
-                                <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                                    renderText={value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8,
-                                    stylesFont.FontFamilyBold, { color: '#19508B' }]}>{value}</Text>} />
+                                <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                                    <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                    { color: '#19508B' }]}>{value}</Text>} />
                             </View>
                         </View>)}
                     </View>}
@@ -1657,7 +1657,7 @@ export let FIN_Supermarket = (props) => {
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
-        <ScrollView horizontal >
+        <ScrollView horizontal>
             <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
                 <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
                     source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, }} />
@@ -1700,7 +1700,7 @@ export let FIN_Supermarket = (props) => {
                 </View>
             </View>
         </ScrollView>
-        <ScrollView horizontal >
+        <ScrollView horizontal>
             <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
                 <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
                     source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }} />

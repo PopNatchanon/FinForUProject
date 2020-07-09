@@ -4,7 +4,7 @@ import {
     Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
 export const { width, height } = Dimensions.get('window');
@@ -24,9 +24,9 @@ import { GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(FlashSaleScreen);
 function FlashSaleScreen(props) {
     const [activeFlashStart, setActiveFlashStart] = useState(true)

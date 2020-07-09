@@ -1,5 +1,13 @@
 //========================================>activeFecthData
-export const SET_ACTIVE_FETCH_DATA = 'SET_ACTIVE_FETCH_DATA';
+export const SET_DATA_TO_END = 'SET_DATA_TO_END';
+export const SET_DATA_TO_REFRESH = 'SET_DATA_TO_REFRESH';
+export const SET_DATA_TO_START = 'SET_DATA_TO_START';
+//========================================>cartData
+export const CART_DATA = 'CART_DATA';
+export const CART_DATA_CHECK = 'CART_DATA_CHECK';
+export const CART_DATA_CHECK_ALL = 'CART_DATA_CHECK_ALL';
+export const CART_DATA_DELETE = 'CART_DATA_DELETE';
+export const CART_DATA_UPDATE = 'CART_DATA_UPDATE';
 //========================================>singleFetchDataFromService
 export const COSTOMER_DATA = 'COSTOMER_DATA';
 export const COSTOMER_DATA_FAILURE = 'COSTOMER_DATA_FAILURE';

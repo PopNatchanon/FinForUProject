@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 import { CheckBox } from 'react-native-elements';
@@ -24,9 +24,9 @@ import { GetServices, GetData } from '../../customComponents/Tools';
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_account);
 function Customer_account(props) {
     const { navigation, route } = props;
@@ -114,7 +114,7 @@ export let Appbar = (props) => {
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>{type == 'edit' ?
                         'แก้ไขที่อยู่' : 'ที่อยู่ใหม่'}</Text>
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()} >
+                <TouchableOpacity activeOpacity={1} onPress={() => navigation.goBack()}>
                     <IconAntDesign name='closecircleo' size={25} color='#FFFFFF' style={[stylesMain.ItemCenterVertical,]} />
                 </TouchableOpacity>
             </View>

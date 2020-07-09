@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Button
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 export const { width, height } = Dimensions.get('window');
@@ -29,15 +29,13 @@ import {
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData,
-  getFetchData: state.singleFetchDataFromService,
-  activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({
   checkCustomer,
   fetchData,
   multiFetchData,
-  setActiveFetch,
+
   setFetchToStart,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FeedScreen)
@@ -157,7 +155,7 @@ export function Button_Bar(props) {
           })}>
         </ActionButton>
       }
-    </View >
+    </View>
   );
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
@@ -192,13 +190,13 @@ export function Highlights(props) {
       <View style={[stylesMain.FrameBackground, { marginTop: -5 }]}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>ร้านค้ายอดนิยม</Text>
         <ScrollView horizontal>
-          <View style={{ paddingLeft: 10, flexDirection: 'row', aspectRatio: 3, height: 'auto',marginBottom: 5 }}>
+          <View style={{ paddingLeft: 10, flexDirection: 'row', aspectRatio: 3, height: 'auto', marginBottom: 5 }}>
             {
               [0, 1, 2, 3, 4].map((_, index) => {
                 return (
                   <View key={index} style={{
                     width: '21%', marginRight: 10,
-                    borderColor: '#C4C4C4', borderWidth: 1.5, 
+                    borderColor: '#C4C4C4', borderWidth: 1.5,
                   }}>
                     <View style={{ height: '30%' }}>
                       <FastImage
@@ -271,7 +269,7 @@ export function Feed_Login(props) {
       />
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>ลงชื่อเข้าฟีด</Text>
       <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', padding: 10, borderRadius: 10, width: width * 0.75 }]}>
-        <TouchableOpacity >
+        <TouchableOpacity>
           <View style={[stylesMain.FlexRow,
           { borderColor: '#0A55A6', borderWidth: 1, borderRadius: 20, padding: 5, width: width * 0.60, }]}>
             <FastImage

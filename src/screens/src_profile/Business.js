@@ -4,7 +4,7 @@ import {
   Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Button, Platform
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -35,9 +35,9 @@ import { Product_income } from '../src_Seller/Seller_Topic';
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService, activeFetchData: state.activeFetchData,
+  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setActiveFetch, setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Business);
 function Business(props) {
   const { route } = props;
@@ -105,7 +105,7 @@ export let Register_Affiliate = (props) => {
       }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>สมาชิกAffiliate</Text>
       </View>
-      <View style={{ borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }} >
+      <View style={{ borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>
           FIN Affiliate Influencer Program ช่องทางใหม่หารายได้ผ่านโซเชียล</Text>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>4 ขั้นตอนง่าย ๆ ในการเข้าร่วม  Affiliate Influencer Program</Text>
@@ -140,7 +140,7 @@ export let Menu_Affiliate = (props) => {
       }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'center' }]}>สมาชิกAffiliate</Text>
       </View>
-      <View style={{ borderColor: mainColor, borderWidth: 2, padding: 30, borderRadius: 5, }} >
+      <View style={{ borderColor: mainColor, borderWidth: 2, padding: 30, borderRadius: 5, }}>
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
           <View style={{ width: '48%', alignItems: 'flex-end' }}>
             <TouchableOpacity onPress={() =>
@@ -192,7 +192,7 @@ export let Business_Profile = (props) => {
       <View style={{
         height: 100, width: 100, backgroundColor: '#128BCE', borderRadius: 50, marginTop: 20, padding: 10, borderWidth: 2,
         borderColor: mainColor
-      }} >
+      }}>
         <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/addmin/unnamed.png`, }}
           resizeMode={FastImage.resizeMode.stretch} />
       </View>
@@ -344,8 +344,7 @@ export let Growth = (props) => {
             data={data}
             gridMin={0}
             contentInset={{ top: 10, bottom: 10 }}
-            svg={{ stroke: 'rgb(134, 65, 244)' }}
-          >
+            svg={{ stroke: 'rgb(134, 65, 244)' }}>
             <Grid />
           </LineChart>
           <XAxis

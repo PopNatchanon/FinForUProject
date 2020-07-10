@@ -29,7 +29,8 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { TabBar, NavigationNavigateScreen } from '../../customComponents/Tools';
+import { TabBar } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 import { Product_income } from '../src_Seller/Seller_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -121,7 +122,7 @@ export let Register_Affiliate = (props) => {
       <View style={[stylesMain.ItemCenter, { marginTop: 10 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>ร่วมสมัครเป็นนักขายออนไลน์เพื่อสร้างรายได้กับเรา</Text>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>เพิ่มโอกาสสร้างรายได้เสริม ด้วย Affiliate Marketing</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
+        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 6 }, navigation })}
           style={[stylesMain.ItemCenter, { borderColor: mainColor, borderWidth: 2, margin: 10, padding: 10, borderRadius: 5 }]}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>สมัครฟรี คลิกที่นี่!</Text>
         </TouchableOpacity>
@@ -144,7 +145,7 @@ export let Menu_Affiliate = (props) => {
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between' }]}>
           <View style={{ width: '48%', alignItems: 'flex-end' }}>
             <TouchableOpacity onPress={() =>
-              NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 2 }, navigation })}>
+              NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 2 }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/1458482.png' }} />
               </View>
@@ -153,7 +154,7 @@ export let Menu_Affiliate = (props) => {
           </View>
           <View style={{ width: '48%' }}>
             <TouchableOpacity onPress={() =>
-              NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 5 }, navigation })}>
+              NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 5 }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/bank2.png' }} />
               </View>
@@ -164,7 +165,7 @@ export let Menu_Affiliate = (props) => {
         <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 20 }]}>
           <View style={{ width: '48%', alignItems: 'flex-end' }}>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-              NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
+              NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
               <View style={{ height: 100, width: 100, borderColor: mainColor, borderWidth: 2, padding: 10, borderRadius: 5 }}>
                 <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: ip + '/MySQL/uploads/Affiliate/passbook-512.png' }} />
               </View>
@@ -241,14 +242,14 @@ export let Business_Profile = (props) => {
         </View>
       </View>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 3 }, navigation })}>
         <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>รายการสินค้า</Text>
           <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
         </View>
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 4 }, navigation })}>
         <View style={[stylesProfile.ListMenuList, { paddingHorizontal: 10 }]}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10 }]}>การเติบโต</Text>
           <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
@@ -422,14 +423,14 @@ export let Finance = (props) => {
       </View>
     </View>
     <TouchableOpacity activeOpacity={1} onPress={() =>
-      NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation })}>
+      NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 13 }, navigation })}>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
       </View>
     </TouchableOpacity>
     <TouchableOpacity activeOpacity={1} onPress={() =>
-      NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
+      NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
         <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
@@ -511,7 +512,7 @@ export let Register_Affiliate_From = (props) => {
             onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
         </View>
       </View>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 7 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 7 }, navigation })}>
         <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
           <View style={{ width: '95%' }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สำเนาบัตรประชาชน</Text>
@@ -526,7 +527,7 @@ export let Register_Affiliate_From = (props) => {
         </View>
       </TouchableOpacity>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 17 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 17 }, navigation })}>
         <View style={[stylesMain.FrameBackground, stylesMain.FlexRow, { paddingHorizontal: 10 }]}>
           <View style={{ width: '95%' }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>
@@ -566,7 +567,7 @@ export let Register_Affiliate_From = (props) => {
         </View>
       </View>
     </ScrollView>
-    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}
+    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 1 }, navigation })}
       style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', height: 50 }]}>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ยืนยัน</Text>
     </TouchableOpacity>

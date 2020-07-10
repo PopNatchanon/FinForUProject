@@ -17,7 +17,8 @@ import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
-import { TabBar, GetData, GetServices, LoadingScreen, NavigationNavigateScreen, } from '../../customComponents/Tools';
+import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -89,7 +90,7 @@ export let CampaignBody = (props) => {
         <View style={[ststylePromotionDeal.CampaignBody_Icon, stylesMain.ItemCenterVertical]}>
           <IconEntypo name='share' size={20} color='#FFFFFF' />
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
           goScreen: 'Detail_Campaign', setData: { selectedIndex: 0, id_campaign: dataService?.id_campaign }, navigation
         })}>
           <View style={[ststylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>

@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -25,7 +25,8 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from '../../MainScreen';
-import { GetData, GetServices, GetServicesBlob, NavigationNavigateScreen } from '../../../customComponents/Tools';
+import { GetData, GetServices, GetServicesBlob } from '../../../customComponents/Tools';
+import { NavigationNavigate } from '../../../customComponents';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
@@ -33,7 +34,7 @@ import { finip, ip, } from '../../../navigator/IpConfig';
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Setting_Topic);
 function Setting_Topic(props) {
   const { route } = props;
@@ -330,7 +331,7 @@ export let Edit_Profile = (props) => {
             <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
           </View></TouchableOpacity>
         <TouchableOpacity onPress={() =>
-          NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
+          NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เปลี่ยนรหัสผ่าน</Text>
@@ -462,7 +463,7 @@ export let Edit_Address = (props) => {
       })}
     </ScrollView>
     <View style={{ alignItems: 'center', justifyContent: 'flex-end' }}>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Customer_account', setData: { type_special, updateData2: (value) => getData2(value), }, navigation
       })}>
         <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
@@ -477,7 +478,7 @@ export let Address_Customar = (props) => {
   const { dataService, index, navigation, route, type, type_special, updateData2 } = props;
   let returnValue = (value) => { route.params.updateData(value); navigation.goBack(); };
   return <TouchableOpacity key={index} onPress={() => type == 'select' ?
-    returnValue(dataService.id_address) : NavigationNavigateScreen({
+    returnValue(dataService.id_address) : NavigationNavigate({
       goScreen: 'Customer_account', setData: {
         type: 'edit', type_special, id_address: dataService.id_address, updateData2: value => updateData2(value),
       }, navigation
@@ -520,7 +521,7 @@ export let Edit_Bell = (props) => {
   const { navigation, } = props;
   return <SafeAreaView>
     <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
-    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
+    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
       <View style={stylesProfileTopic.BoxTopic}>
         <View style={stylesMain.FlexRow}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือน</Text>
@@ -528,7 +529,7 @@ export let Edit_Bell = (props) => {
         <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
+    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
       <View style={stylesProfileTopic.BoxTopic}>
         <View style={stylesMain.FlexRow}>
           <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือนทาง E-mail</Text>

@@ -20,6 +20,7 @@ import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
+import { GenArray } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -80,7 +81,7 @@ export let Detail_Description = (props) => {
 export let New_year_Campaign = (props) => {
     const { dataService } = props;
     // const dataService = []
-    let emptyBox = GenArreyNumber(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
+    let emptyBox = GenArray(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
     { borderColor: '#CCCCCC' }]}>
         <View style={[stylesMain.ItemCenter,
         { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
@@ -111,7 +112,7 @@ export let New_year_Campaign = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> New_year_NewB
 export let New_year_Product = (props) => {
     const { dataService } = props;
-    let emptyBox = GenArreyNumber(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
+    let emptyBox = GenArray(7).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
     { borderColor: '#CCCCCC' }]}>
         <View style={[stylesMain.ItemCenter,
         { backgroundColor: '#ECECEC', width: 119, borderBottomColor: '#CCCCCC', borderBottomWidth: 0.5 }]}>
@@ -149,11 +150,11 @@ export let Store_Campaign = (props) => {
     let emptyBox = <View style={[stylesDeal.Store_Sale_BoxA_Carousel, { backgroundColor: '#ECECEC' }]}>
         <View style={stylesDeal.Store_Sale_Image}></View>
     </View>;
-    let emptyBox2 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxA_image,
+    let emptyBox2 = GenArray(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxA_image,
     { backgroundColor: '#ECECEC' }]}>
         <View style={stylesDeal.Store_Sale_Image}></View>
     </View>);
-    let emptyBox3 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxB_image,
+    let emptyBox3 = GenArray(2).map((_, index) => <View key={index} style={[stylesDeal.Store_Sale_BoxB_image,
     { backgroundColor: '#ECECEC' }]}>
         <View style={stylesDeal.Store_Sale_Image}></View>
     </View>);

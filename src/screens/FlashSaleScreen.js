@@ -4,7 +4,7 @@ import {
     Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
 export const { width, height } = Dimensions.get('window');
@@ -20,13 +20,14 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Slide } from './MainScreen';
 import { GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(FlashSaleScreen);
 function FlashSaleScreen(props) {
     const [activeFlashStart, setActiveFlashStart] = useState(true)
@@ -231,14 +232,14 @@ export let FlashSale_Product = (props) => {
     return <View style={stylesTopic.FlashSale_Product}>
         <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
             <TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
+                NavigationNavigate({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
                 <View style={stylesTopic.FlashSale_ProductBox_Image}>
                     <FastImage style={stylesTopic.Image} source={{ uri: image_product }} resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
             <View style={{ flexDirection: 'row', flex: 1, }}>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
+                    NavigationNavigate({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
                     <View style={{ width: width * 0.52 }}>
                         <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
                             {dataService.name}</Text>
@@ -248,7 +249,7 @@ export let FlashSale_Product = (props) => {
                     </View>
                 </TouchableOpacity>
                 <View style={{ width: 40, justifyContent: 'flex-end' }}>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation })}>
+                    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'CartScreen', navigation })}>
                         <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                             <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                         </View>

@@ -34,8 +34,9 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule } from './MainScreen';
 import {
-  GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, NavigationNavigateScreen, LoadingScreen, starReview,
+  GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, LoadingScreen,
 } from '../customComponents/Tools';
+import { StarReview, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -266,7 +267,7 @@ export let Detail_Data = (props) => {
             {item.name}</Text>
           <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
             <View style={stylesDetail.Price_Text_IconBoxStar}>
-              {getStarReview && starReview(getStarReview)}
+              {getStarReview && StarReview(getStarReview)}
               <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
               </Text>
             </View>
@@ -305,13 +306,13 @@ export let Store = (props) => {
       <View style={stylesDetail.Store_Box1}>
         <View style={stylesDetail.Store_Box2}>
           <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
+            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
             <FastImage source={{ uri: dataMySQL, }} style={[stylesDetail.Store_Image,
             { marginLeft: 10, backgroundColor: 'transparent' }]} />
           </TouchableOpacity>
           <View style={stylesDetail.Store_Text_Box}>
             <TouchableOpacity onPress={() =>
-              NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
+              NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
               <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{item.store_name}</Text>
             </TouchableOpacity>
             <Text style={[stylesDetail.Store_Text, stylesFont.FontFamilyText, stylesFont.FontSize8]}>Active เมื่อ 1 ชั่วโมงที่ผ่านมา</Text>
@@ -576,7 +577,7 @@ export let Selector = (props) => {
     </BottomSheet>
     {dataService?.detail_product?.length > 0 && <View style={stylesDetail.Coupon}>
       <TouchableOpacity activeOpacity={1} onPress={() => currentUser ?
-        sendBuyProduct('null') : NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+        sendBuyProduct('null') : NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
         <View style={[stylesDetail.Coupon_Box, stylesMain.ItemCenterVertical]}>
           <Text style={[stylesDetail.Coupon_Text, stylesFont.FontSize5, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical]}>
             ตัวเลือก</Text>
@@ -681,7 +682,7 @@ export let Reviews = (props) => {
           <FastImage style={stylesDetail.Comment_R_Image} source={{ uri: `${ip}/MySQL/uploads/products/2019-06-09-1560016588.jpg` }} />
           <View style={stylesDetail.Comment_R_Text}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{item.name ?? 'ไม่ระบุตัวตน'}</Text>
-            <View style={stylesDetail.Comment_R_Iconstar}>{starReview(item.rating, 15)}
+            <View style={stylesDetail.Comment_R_Iconstar}>{StarReview(item.rating, 15)}
             </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{item.detail}</Text>
             <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>{imagereview}
@@ -698,7 +699,7 @@ export let Reviews = (props) => {
     <View style={stylesMain.FrameBackground}>
       <View style={stylesMain.FrameBackgroundTextBox}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>คะแนนร้านค้า</Text>
-        <TouchableOpacity style={stylesMain.FlexRow} onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity style={stylesMain.FlexRow} onPress={() => NavigationNavigate({
           goScreen: 'Reviews_score', setData: { id_store: dataService[0].id_store, id_product: dataService[0].id_product }, navigation
         })}>
           <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 0 }]}>
@@ -708,7 +709,7 @@ export let Reviews = (props) => {
       </View>
       <View style={stylesDetail.Price_Text_IconBox}>
         <View style={stylesDetail.Price_Text_IconBoxStar}>
-          {starReview(dataService2?.rating_total)}
+          {StarReview(dataService2?.rating_total)}
           <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
             {dataService2?.rating_total}/5</Text>
           <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
@@ -752,7 +753,7 @@ export let Same_Store = (props) => {
   return <View style={stylesMain.FrameBackground}>
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สินค้าจากร้านเดียวกัน</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Same_StoreScreen', setData: { type_product: 'this_store', id_type: id_type, id_store: id_store }, navigation
       })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
@@ -788,7 +789,7 @@ export let Similar_Product = (props) => {
   return <View style={stylesMain.FrameBackground}>
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สินค้าที่คล้ายกัน</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Same_StoreScreen', setData: { type_product: 'same_product', id_type: id_type, id_store: id_store }, navigation
       })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
@@ -824,7 +825,7 @@ export let Might_like = (props) => {
   return <View style={stylesMain.FrameBackground}>
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>คุณอาจชอบสิ่งนี้</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Same_StoreScreen', setData: { type_product: 'youlike', id_type: id_type, id_store: id_store }, navigation
       })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
@@ -843,15 +844,15 @@ export let Buy_bar = (props) => {
   let dataServicesTab = dataService?.product_data.map((item, index) => <View style={stylesDetail.Buy_bar} key={index}>
     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
       <TouchableOpacity activeOpacity={1} onPress={() => currentUser ?
-        NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-        NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+        NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
+        NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
         <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>แชท</Text>
       </TouchableOpacity>
     </View>
     <Text style={{ fontSize: 30 }}>|</Text>
     <TouchableOpacity onPress={() =>
-      NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
+      NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_store: item.id_store }, navigation })}>
       <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
         <IconFontisto name='shopping-store' size={22} style={stylesMain.ItemCenterVertical} />
         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>
@@ -859,14 +860,14 @@ export let Buy_bar = (props) => {
       </View>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => currentUser ?
-      BuyProductTab('addcart') : NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+      BuyProductTab('addcart') : NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
       <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
         <IconAntDesign name='shoppingcart' size={25} />
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>เพิ่มลงรถเข็น</Text>
       </View>
     </TouchableOpacity>
     <TouchableOpacity onPress={() => currentUser ?
-      BuyProductTab('gocart') : NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+      BuyProductTab('gocart') : NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
       <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
         <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>ซื้อเลย</Text>
       </View>

@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
@@ -20,13 +20,13 @@ import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { NavigationNavigateScreen } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
 function SettingScreen(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -59,7 +59,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 0 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 0 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>หน้าของฉัน</Text>
@@ -68,7 +68,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 1 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ที่อยู่ของฉัน</Text>
@@ -82,7 +82,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแชท</Text>
@@ -91,7 +91,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแจ้งเตือน</Text>
@@ -100,7 +100,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ภาษา</Text>
                 <IconEntypo name='chevron-right' style={stylesProfileTopic.SettingIcon} size={35} color={mainColor} />
@@ -112,7 +112,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ศูนย์ช่วยเหลือ</Text>

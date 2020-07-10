@@ -24,8 +24,9 @@ import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
 import {
-  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct, GenArreyNumber,
+  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
 } from '../../customComponents/Tools';
+import { GenArray, NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -94,27 +95,27 @@ export let Slide = (props) => {
 export let Button_Bar = (props) => {
   const { navigation } = props;
   return <View style={[stylesDeal.Button_Bar, { bottom: '7%', }]}>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'DealScreen', navigation, noPush: true })}>
+    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/01.jpg')} resizeMode={FastImage.resizeMode.contain} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'CoinScreen', navigation, noPush: true })}>
+    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'CoinScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/02.jpg')} resizeMode={FastImage.resizeMode.contain} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'CampaignScreen', navigation, noPush: true })}>
+    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'CampaignScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/03.jpg')} resizeMode={FastImage.resizeMode.contain} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'The_BestFinScreen', navigation, noPush: true })}>
+    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'The_BestFinScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/04.jpg')} resizeMode={FastImage.resizeMode.contain} />
       </View>
     </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Installment_payScreen', navigation, noPush: true })}>
+    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Installment_payScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/05.jpg')} resizeMode={FastImage.resizeMode.contain} />
       </View>
@@ -124,7 +125,7 @@ export let Button_Bar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Deal_Calendar
 export let Deal_Calendar = (props) => {
   const { dataService } = props;
-  let emptyBox = GenArreyNumber(8).map((_, index) => <View key={index} style={[stylesDeal.Deal_Calendar_BoxN,
+  let emptyBox = GenArray(8).map((_, index) => <View key={index} style={[stylesDeal.Deal_Calendar_BoxN,
   { backgroundColor: '#ECECEC', borderRadius: 0, }]}>
     <View style={stylesMain.BoxProduct1Image}></View>
   </View>);
@@ -178,7 +179,7 @@ export let Deal_Today = (props) => {
     activeServices.activeGetServices2 && currentUser && cokie &&
       GetServices({ Authorization: cokie, dataBody: dataBody2, uriPointer: uri2, getDataSource: value => getData2(value) });
   }, [activeServices.activeGetServices2 && currentUser && cokie]);
-  let emptyBox = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
+  let emptyBox = GenArray(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
       <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
@@ -192,7 +193,7 @@ export let Deal_Today = (props) => {
       </TouchableOpacity>
     </View>
   </View>);
-  let emptyBox2 = GenArreyNumber(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
+  let emptyBox2 = GenArray(2).map((_, index) => <View key={index} style={[stylesDeal.Coupon_BOX, { marginLeft: 3 }]}>
     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
       <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{' '}</Text>
@@ -209,7 +210,7 @@ export let Deal_Today = (props) => {
   return <View style={[stylesMain.FrameBackground,/*{ backgroundColor: '#AF5F92', }*/]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ดีลเด็ดประจำวัน</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 0 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 0 }, navigation })}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { marginRight: 10, marginTop: 4 }]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -249,7 +250,7 @@ export let Deal_Today = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Deal_Exclusive
 export let Deal_Exclusive = (props) => {
   const { dataService, navigation } = props;
-  let emptyBox = GenArreyNumber(3).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2,
+  let emptyBox = GenArray(3).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2,
   { overflow: 'hidden' }]}>
     <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
       <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
@@ -263,7 +264,7 @@ export let Deal_Exclusive = (props) => {
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#8E1006', width: '100%' }]}> */}
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ดีลสุด Exclusive</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 1 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 1 }, navigation })}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -318,14 +319,14 @@ export let Second_Store = (props) => {
   return <View style={[stylesMain.FrameBackground, { width: '100%' }]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านมือสองลดราคา</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 2 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 2 }, navigation })}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
     {sildeView()}
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>มือสองลดราคา</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 3 }, navigation })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 3 }, navigation })}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -336,7 +337,7 @@ export let Second_Store = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> ProDed_Store
 export let ProDed_Store = (props) => {
   const { dataService, navigation } = props
-  let emptyBox = GenArreyNumber(4).map((_, index) => <View style={stylesDeal.ProDed_Store} key={index}>
+  let emptyBox = GenArray(4).map((_, index) => <View style={stylesDeal.ProDed_Store} key={index}>
     <View style={{ height: 100, width: 100, }}></View>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>{' '}</Text>
   </View>);
@@ -351,7 +352,7 @@ export let ProDed_Store = (props) => {
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#691f50', width: '100%' }]}> */}
       <View style={stylesDeal.BoxText_Row}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ร้านนี้มีดีล</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Deal_Topic', setData: { selectedIndex: 4 }, navigation })}>
+        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 4 }, navigation })}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
         </TouchableOpacity>
       </View>
@@ -364,7 +365,7 @@ export let ProDed_Store = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> ProDed_New_Store
 export let ProDed_New_Store = (props) => {
   const { dataService } = props;
-  let emptyBox = GenArreyNumber(5).map((_, index) => <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
+  let emptyBox = GenArray(5).map((_, index) => <View key={index} style={stylesDeal.ProDed_New_Store_Boximage}>
     <View style={{ width: 60, height: 60 }}>
     </View>
     <View style={stylesDeal.ProDed_New_Store_Button}>

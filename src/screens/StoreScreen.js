@@ -25,8 +25,9 @@ import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
 import {
-    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct, starReview, GenArreyNumber,
+    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, FlatProduct,
 } from '../customComponents/Tools';
+import { StarReview, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';
@@ -194,7 +195,7 @@ function StoreScreen(props) {
             {ViewSide()}
         </ScrollView>
         {selectedIndex == 2 && <>
-            <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigateScreen({
+            <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigate({
                 goScreen: 'Post_Feed', setData: {
                     selectedIndex: 1, id_store, store_data: dataService.store_data, getDataSource: (value) => setActiveRef(value)
                 }, navigation
@@ -229,7 +230,7 @@ export let StoreHead = (props) => {
                             <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ติดตาม</Text>
                         </View>
                         <TouchableOpacity onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                             <View style={stylesStore.StoreHeadButtom}>
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>แชท</Text>
                             </View>
@@ -285,7 +286,7 @@ export let StoreHeadDetails = (props) => {
             { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', }]}>
                 {!activeGetServices ?
                     <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
-                        backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2, 
+                        backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2,
                         borderColor: '#FFD500'
                     }]} resizeMode={FastImage.resizeMode.stretch} /> :
                     <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
@@ -298,7 +299,7 @@ export let StoreHeadDetails = (props) => {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                     <LinearGradient colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#FFD500', borderWidth: 1 }]}>
                         <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
                         { color: '#fff' }]}>แชท</Text>
@@ -322,7 +323,7 @@ export let StoreHeadDetails = (props) => {
                     <View style={[stylesMain.FlexRow]}>
                         {dataService && dataService[0].rating != 'ยังไม่มีการรีวิว' ?
                             <View style={[stylesMain.FlexRow, { marginLeft: 28, marginTop: 3, marginBottom: -6 }]}>
-                                {starReview(dataService[0].rating, 12)}
+                                {StarReview(dataService[0].rating, 12)}
                             </View> : undefined}
                         {!activeGetServices ?
                             <Text style={[stylesStore.StoreHeadDetailsText2_3, stylesFont.FontFamilyText, stylesFont.FontSize7,
@@ -344,7 +345,7 @@ export let StoreHeadDetails = (props) => {
                         {dataService && dataService[0]?.chat_performance}</Text> : <></>}
             </View>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store }, navigation })}>
+                NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 0, id_store }, navigation })}>
                 <IconEntypo name='chevron-right' size={25} color={mainColor} />
             </TouchableOpacity>
         </View>

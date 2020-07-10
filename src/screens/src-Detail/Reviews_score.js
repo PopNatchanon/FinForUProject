@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -16,14 +16,15 @@ import stylesFont from '../../style/stylesFont';
 import stylesDetail from '../../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
-import { TabBar, LoadingScreen, GetServices, starReview } from '../../customComponents/Tools';
+import { TabBar, LoadingScreen, GetServices } from '../../customComponents/Tools';
+import { StarReview } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Reviews_score);
 function Reviews_score(props) {
     const { route } = props;
@@ -141,7 +142,7 @@ export let Reviews_Box = (props) => {
             <View style={stylesDetail.Comment_R_Text}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{dataService.name}</Text>
                 <View style={stylesDetail.Comment_R_Iconstar}>
-                    {starReview(dataService.rating, 15)}
+                    {StarReview(dataService.rating, 15)}
                 </View>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataService.detail}</Text>
                 <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>

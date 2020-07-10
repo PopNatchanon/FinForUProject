@@ -4,7 +4,7 @@ import {
     Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
@@ -25,7 +25,8 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
-import { GetData, GetServices, LoadingScreen, NavigationNavigateScreen, starReview } from '../../customComponents/Tools';
+import { GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
+import { StarReview, NavigationNavigate } from '../../customComponents';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -33,7 +34,7 @@ import { ip, finip } from '../../navigator/IpConfig';
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Profile_Topic);
 function Profile_Topic(props) {
     const { route } = props;
@@ -152,11 +153,11 @@ export let ChatScreen = (props) => {
     const { navigation } = props;
     return <ScrollView>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
             <Chat_Tag />
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 6 }, navigation })}>
             <Chat_Tag />
         </TouchableOpacity>
     </ScrollView>;
@@ -389,7 +390,7 @@ export let Follow_store_Box = (props) => {
     }, [activeGetServices]);
     return <>
         <View style={stylesProfileTopic.Follow_store_Box}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            <TouchableOpacity onPress={() => NavigationNavigate({
                 goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
             })}
                 style={{ flexDirection: 'row', }}>
@@ -425,7 +426,7 @@ export let Might_like_Store = (props) => {
     return <View>
         <View style={stylesProfileTopic.Might_like_Store}>
             <View style={stylesProfileTopic.Follow_store_Box}>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                <TouchableOpacity onPress={() => NavigationNavigate({
                     goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
                 })}
                     style={{ flexDirection: 'row', }}>
@@ -495,9 +496,9 @@ export let Review_me = (props) => {
                         สั่งซื้อวันที่ 12 ธ.ค.2019 </Text>
                 </View>
                 <View style={{ flexDirection: 'row', width: 120, justifyContent: 'space-between' }}>
-                    {starReview(dataSevice.rating, 20)}
+                    {StarReview(dataSevice.rating, 20)}
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 7, id_cartdetail: dataSevice.id_cartdetail }, navigation
                 })}>
                     <View style={stylesProfileTopic.Review_me_Box_head}>
@@ -575,10 +576,10 @@ export let Topic_Help = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>หัวข้อ</Text>
         <View style={{ justifyContent: 'center', alignItems: 'center', paddingBottom: 10 }}>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() => HeadTitle_Help ? HeadTitle_Help == 'บัญชีของฉัน' ? null :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation, noPush: true
                 }) :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'บัญชีของฉัน' }, navigation,
                 })}>
                 <IconAntDesign RightItem name="user" size={30} style={stylesProfileTopic.Topic_Box_icon} />
@@ -586,40 +587,40 @@ export let Topic_Help = (props) => {
             </TouchableOpacity>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การคืนสินค้า' ?
                 null :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation, noPush: true
                 }) :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การคืนสินค้า' }, navigation,
                 })}>
                 <IconAntDesign RightItem name="retweet" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
             </TouchableOpacity>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การชำระเงิน' ? null :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation, noPush: true
                 }) :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การชำระเงิน' }, navigation,
                 })}>
                 <IconEntypo RightItem name="credit-card" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
             </TouchableOpacity>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การสั่งซื้อ' ? null :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation, noPush: true
                 }) :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'การสั่งซื้อ' }, navigation,
                 })}>
                 <IconAntDesign RightItem name="shoppingcart" size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
             </TouchableOpacity>
             <TouchableOpacity style={stylesProfileTopic.Topic_Box} onPress={() => HeadTitle_Help ? HeadTitle_Help == 'หัวข้ออื่นๆ' ? null :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation, noPush: true
                 }) :
-                NavigationNavigateScreen({
+                NavigationNavigate({
                     goScreen: 'Profile_Topic', setData: { selectedIndex: 8, HeadTitle_Help: 'หัวข้ออื่นๆ' }, navigation,
                 })}>
                 <IconAntDesign RightItem name="ellipsis1" size={30} style={stylesProfileTopic.Topic_Box_icon} />
@@ -644,7 +645,7 @@ export let Account_Help = (props) => {
             </View>
         </View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
             goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
         })}>
             <View style={stylesProfileTopic.Question_Box}>
@@ -652,7 +653,7 @@ export let Account_Help = (props) => {
                     ทำไมฉันจึงไม่สามารถเปลี่ยนเบอร์โทรศัพท์ที่ลงทะเบียนไว้ได้?</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
             goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
         })}>
             <View style={stylesProfileTopic.Question_Box}>
@@ -660,7 +661,7 @@ export let Account_Help = (props) => {
                     ทำไมคำขอลบบัญชีของฉันจึงถูกปฏิเสธ?</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
             goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
         })}>
             <View style={stylesProfileTopic.Question_Box}>
@@ -668,7 +669,7 @@ export let Account_Help = (props) => {
                     ฉันสามารถเปลี่ยนบัญชีผู้ใช้และเปลี่ยนชื่อของร้านค้าได้อย่างไร</Text>
             </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
             goScreen: 'Profile_Topic', setData: { selectedIndex: 9, HeadTitle_Help: HeadTitle_Help }, navigation
         })}>
             <View style={stylesProfileTopic.Question_Box}>
@@ -803,7 +804,7 @@ export let Review_From = (props) => {
                 </View>
             </View>
             <View style={stylesProfileTopic.Review_From_Star_Box}>
-                {starReview(starMain)}
+                {StarReview(starMain)}
             </View>
             <View style={stylesProfileTopic.Review_From_TextInput}>
                 <TextInput style={[stylesFont.FontFamilyText, { margin: 10, width: '95%' }]} fontSize={18}

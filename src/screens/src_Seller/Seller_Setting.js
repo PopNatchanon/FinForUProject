@@ -3,7 +3,7 @@ import {
     Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
@@ -19,13 +19,13 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../../screens/MainScreen';
-import { NavigationNavigateScreen } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Setting);
 function Seller_Setting(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -52,21 +52,21 @@ export let Seller_Setting_Topic = (props) => {
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>บัญชีร้านของฉัน</Text>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Profile_Edit', navigation })}>
+        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Seller_Profile_Edit', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>หน้าร้านของฉัน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 0 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 0 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการจดแจ้ง</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 9 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 9 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ที่อยู่ร้านค้าของฉัน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -76,21 +76,21 @@ export let Seller_Setting_Topic = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>การตั้งค่า</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -100,7 +100,7 @@ export let Seller_Setting_Topic = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>ช่วยเหลือ</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ศูนย์ช่วยเหลือ</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />

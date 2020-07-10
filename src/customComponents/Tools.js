@@ -35,167 +35,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
-///----------------------------------------------------------------------------------------------->>>> Toolbar
-export class Toolbar extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            activeGetCurrentUser: true,
-        }
-    }
-    componentDidMount() {
-        this.props?.customerData?.isChecked == false && this.props?.checkCustomer()
-    }
-    getSource = (value) => {
-        this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser })
-    }
-    render() {
-        const { navigation, route } = this.props
-        const { activeGetCurrentUser, currentUser } = this.state;
-        var u_name = null;
-        if (currentUser != null) {
-            currentUser.name &&
-                (u_name = currentUser.name)
-        }
-        var routeSelcet = route.name
-        activeGetCurrentUser && GetData({ getSource: this.getSource.bind(this), getUser: true })
-        return (
-            <View style={stylesMain.Toolbar}>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={
-                        routeSelcet != 'MainScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'MainScreen', navigation, noPush: true }) :
-                            null
-                    }>
-                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="home" size={25}
-                            color={
-                                routeSelcet == 'MainScreen' ?
-                                    mainColor :
-                                    '#111'
-                            } />
-                        <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                            color:
-                                routeSelcet == 'MainScreen' ?
-                                    mainColor :
-                                    '#111'
-                        }}>Home</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={
-                        routeSelcet != 'FeedScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'FeedScreen', navigation, noPush: true }) :
-                            null}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="tagso" size={25}
-                            color={
-                                routeSelcet == 'FeedScreen' ?
-                                    mainColor :
-                                    '#111'} />
-                        <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                            color:
-                                routeSelcet == 'FeedScreen' ?
-                                    mainColor :
-                                    '#111'
-                        }}> Feed</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={
-                        routeSelcet != 'NewsScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'NewsScreen', navigation, noPush: true }) :
-                            null}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="notification" size={25}
-                            color={
-                                routeSelcet == 'NewsScreen' ?
-                                    mainColor :
-                                    '#111'} />
-                        <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                            color:
-                                routeSelcet == 'NewsScreen' ?
-                                    mainColor :
-                                    '#111'
-                        }}>News</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity activeOpacity={1}
-                    onPress={
-                        routeSelcet != 'BellScreen' ?
-                            () => NavigationNavigateScreen({ goScreen: 'BellScreen', navigation, noPush: true }) :
-                            null}>
-                    <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                        <IconAntDesign name="bells" size={25}
-                            color={
-                                routeSelcet == 'BellScreen' ?
-                                    mainColor :
-                                    '#111'
-                            } />
-                        <Text style={{
-                            fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                            color:
-                                routeSelcet == 'BellScreen' ?
-                                    mainColor :
-                                    '#111'
-                        }}>เตือน</Text>
-                    </View>
-                </TouchableOpacity>
-                {
-                    currentUser == null ?
-                        <TouchableOpacity activeOpacity={1}
-                            onPress={
-                                routeSelcet != 'LoginScreen' ?
-                                    () => NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, noPush: true }) :
-                                    null}>
-                            <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                                <IconAntDesign name="user" size={25} color={
-                                    routeSelcet == 'LoginScreen' ?
-                                        mainColor :
-                                        '#111'
-                                } />
-                                <Text style={{
-                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                                    color:
-                                        routeSelcet == 'LoginScreen' ?
-                                            mainColor :
-                                            '#111'
-                                }}>ฉัน</Text>
-                            </View>
-                        </TouchableOpacity> :
-                        <TouchableOpacity activeOpacity={1}
-                            onPress={
-                                routeSelcet != 'ProfileScreen' ?
-                                    () => NavigationNavigateScreen({ goScreen: 'ProfileScreen', navigation, noPush: true }) :
-                                    null
-                            }>
-                            <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                                <IconAntDesign name="user" size={25} color={
-                                    routeSelcet == 'ProfileScreen' ?
-                                        mainColor :
-                                        '#111'
-                                } />
-                                <Text numberOfLines={1} style={{
-                                    fontSize: 13, fontFamily: 'SukhumvitSet-Text',
-                                    color:
-                                        routeSelcet == 'ProfileScreen' ?
-                                            mainColor :
-                                            '#111'
-                                }}>
-                                    ฉัน
-                                {/* {u_name} */}
-                                </Text>
-
-                            </View>
-                        </TouchableOpacity>
-                }
-            </View>
-        )
-    }
-}
+import { NavigationNavigate } from '.';
 ///----------------------------------------------------------------------------------------------->>>> TabBar
 export class TabBar extends React.Component {
     constructor(props) {
@@ -994,7 +834,7 @@ export function GetCoupon(props) {
             //             null,
             //     marginLeft: marginL ?? 10
             // }
-            ]}>
+        ]}>
             <View style={{
                 // opacity:
                 //     codeList != 'available' ?
@@ -1077,7 +917,7 @@ export function ProductBox(props) {
                 `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={noNavigation ?
                 () => getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
-                () => NavigationNavigateScreen({ goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation })}>
+                () => NavigationNavigate({ goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation })}>
                 <View style={[stylesMain.ItemCenter, mode == 'row4col1' ?
                     stylesMain.BoxProduct5Box : mode == 'row3col2' ?
                         stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ?
@@ -1158,31 +998,6 @@ export function FlatProduct(props) {
                 {numberOfColumn == 2 && value.item.item2 && <RenderProduct {...props} item={value.item.item2} />}
             </View>} />;
 };
-///----------------------------------------------------------------------------------------------->>>> NavigationNavigateScreen
-export function NavigationNavigateScreen(props) {
-    const {
-        goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
-    } = props;
-    const navigationActions = CommonActions.reset({
-        index: 0,
-        actions: [StackActions.replace({ routeName: goScreen, params: setData })],
-    });
-    console.log(goScreen);
-    console.log(setData);
-    setConsole && (
-        console.log(setConsole.consolename),
-        console.log(setConsole.consolelog)
-    );
-    goScreen == 'goBack' ?
-        goBack() :
-        passHome ?
-            dispatch(navigationActions) :
-            goScreen == 'popToTop' ?
-                popToTop() :
-                noPush ?
-                    replace(goScreen, setData) :
-                    push(goScreen, setData);
-};
 ///----------------------------------------------------------------------------------------------->>>> RenderProduct
 export function RenderProduct(props) {
     const {
@@ -1196,7 +1011,7 @@ export function RenderProduct(props) {
     var discount;
     item.discount && (discount = item.discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ?
-        getDataService({ id_product, name }) : NavigationNavigateScreen({ navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product } })}>
+        getDataService({ id_product, name }) : NavigationNavigate({ navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product } })}>
         <View style={[stylesMain.ItemCenter, mode == 'row4' ?
             stylesMain.BoxProduct5Box : mode == 'row3' ?
                 stylesMain.BoxProduct1Box2 : mode == 'row3_new' ?
@@ -1303,7 +1118,7 @@ export class FeedBox extends React.Component {
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props
         userOwner && (
-            selected == 0 && NavigationNavigateScreen({
+            selected == 0 && NavigationNavigate({
                 goScreen: 'Post_Feed', setData: {
                     selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this)
                 }, navigation
@@ -1384,7 +1199,7 @@ export class FeedBox extends React.Component {
                     <View style={{ width: '95%' }}>
                         <View>
                             <TouchableOpacity onPress={() => {
-                                NavigationNavigateScreen({
+                                NavigationNavigate({
                                     goScreen: 'Post_Feed', setData: { selectedIndex: 24, }, navigation
                                 });
                                 this.share_Feed.close();
@@ -1446,7 +1261,7 @@ export class FeedBox extends React.Component {
                     {
                         Header &&
                         <View style={stylesMain.BoxProduct4PlusHeader}>
-                            <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigateScreen({
+                            <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigate({
                                 goScreen: 'StoreScreen', setData: {
                                     id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store
                                 }, navigation
@@ -1520,7 +1335,7 @@ export class FeedBox extends React.Component {
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                                     ถูกใจ</Text>
                             </TouchableOpacity>
-                            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
                                 goScreen: 'Deal_Topic', setData: { selectedIndex: 9 }, navigation
                             })}>
                                 <View style={stylesMain.BoxProduct4ComBoxIcon}>
@@ -1813,138 +1628,3 @@ export class PricesSlide extends React.Component {
     }
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export function starReview(star, starSize) {
-    let starBox = []
-    for (var n = 0; n < 5; n++) {
-        if (star > n) {
-            starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#FFAC33' />);
-        } else {
-            starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20} color='#E9E9E9' />);
-        };
-    };
-    return starBox;
-};
-///----------------------------------------------------------------------------------------------->>>>
-export let GenArreyNumber = (numberofBox, arrayList) => {
-    const numberOfList = arrayList?.length;
-    var countOfList = 0;
-    var box = [];
-    for (var n = 0; n < numberofBox; n++) {
-        box.push(numberOfList ? arrayList[countOfList] : n);
-        if (numberOfList) {
-            if (countOfList == numberOfList - 1) {
-                countOfList = 0;
-            } else {
-                countOfList++;
-            };
-        };
-    };
-    return box;
-};
-///----------------------------------------------------------------------------------------------->>>>
-export function ImageGallery(props) {
-    const { dataService } = props;
-    const [aStoreIndex, setAStoreIndex] = useState({});
-    const [bStoreIndex, setBStoreIndex] = useState([]);
-    const [cStoreIndex, setCStoreIndex] = useState([]);
-    const [randomLayout, setRandomLayout] = useState({});
-    let imageColumn = (value, index, boxwidth, boxheight) => {
-        return <View key={index} style={{ width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginTop: 5, marginLeft: 5 }}>
-            <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-                <FastImage
-                    style={{ width: '100%', height: '100%' }}
-                    source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                    resizeMode={FastImage.resizeMode.cover} />
-            </TouchableOpacity>
-        </View >;
-    };
-    let imageRow = (value, index, boxwidth, boxheight, position, setbox) => {
-        if (setbox == 'row3' && cStoreIndex.indexOf(index) == -1) {
-            for (var n = 0; n < 3; n++) {
-                cStoreIndex.indexOf(index + n) == -1 && cStoreIndex.push(index + n)
-                cStoreIndex.indexOf(index + n) == -1 && setCStoreIndex(cStoreIndex);
-            };
-        }
-        if (boxwidth < 3 && boxheight > 1 && aStoreIndex[index] == undefined) {
-            var indexbox = [];
-            aStoreIndex[index] = {};
-            for (var n = 1; n <= boxheight; n++) {
-                indexbox.push({ index: index + n, listdata: dataService[index + n] });
-                bStoreIndex.indexOf(index + n) == -1 && bStoreIndex.push(index + n)
-                bStoreIndex.indexOf(index + n) == -1 && setBStoreIndex(bStoreIndex);
-            };
-            aStoreIndex[index].data = indexbox;
-            setAStoreIndex(aStoreIndex);
-        }
-        console.log('boxwidth|boxheight')
-        console.log(`${boxwidth}|${boxheight}`)
-        return <View key={index} style={{ flexDirection: 'row' }}>
-            {position == 'left' && boxwidth < 3 && boxheight > 1 && <View>
-                {aStoreIndex[index].data.map((value2) => value2.index < dataService.length && imageColumn(value2.listdata, value2.index, 1, 1))}
-            </View>}
-            <View style={{ width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginTop: 5, marginLeft: 5 }}>
-                <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-                    <FastImage
-                        style={{ width: '100%', height: '100%' }}
-                        source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                </TouchableOpacity>
-            </View>
-            {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>
-                {aStoreIndex[index].data.map((value2) => value2.index < dataService.length && imageColumn(value2?.listdata, value2.index, 1, 1))}
-            </View>}
-        </View>;
-    };
-    ///bStoreIndex.indexOf(index) == -1
-    let imagebox = dataService ?
-        <>
-            {/* <View style={{ width, flex: 1, flexDirection: 'row', justifyContent: 'space-between' }}>
-                <TouchableOpacity onPress={() => console.log(aStoreIndex)} style={{ backgroundColor: '#465468', height: 50, width: 50 }}><Text>a</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => {
-                    console.log('=====================================>aStoreIndex')
-                    for (var n = 0; n < dataService.length; n++) {
-                        aStoreIndex[n] && console.log(n)
-                        aStoreIndex[n] && console.log(aStoreIndex[n].data)
-                    }
-                }} style={{ backgroundColor: '#465468', height: 50, width: 50 }}><Text>a.2</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => console.log(bStoreIndex)} style={{ backgroundColor: '#894562', height: 50, width: 50 }}><Text>b</Text></TouchableOpacity>
-                <TouchableOpacity onPress={() => console.log(cStoreIndex)} style={{ backgroundColor: '#145788', height: 50, width: 50 }}><Text>c</Text></TouchableOpacity>
-            </View> */}
-            <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap', }}>
-                {dataService?.map((value, index) => {
-                    if (randomLayout[index] == undefined) {
-                        randomLayout[index] = cStoreIndex.indexOf(index) == -1 ?
-                            bStoreIndex.indexOf(index) == -1 ?
-                                index < dataService.length - 3 ?
-                                    Math.floor(Math.random() * 6) :
-                                    99 :
-                                '999' :
-                            99;
-                        setRandomLayout(randomLayout);
-                    };
-                    return randomLayout[index] == 0 ?
-                        imageRow(value, index, 1, 1, undefined, 'row3') :
-                        randomLayout[index] == 1 ?
-                            // index != 1 ?
-                            imageRow(value, index, 2, 2, 'right') :
-                            // imageRow(value, index, 2, 2, 'left') :
-                            randomLayout[index] == 2 ?
-                                // index != 0 && index != 1 ?
-                                imageRow(value, index, 2, 2, 'left') :
-                                // imageRow(value, index, 1, 1, undefined) :
-                                randomLayout[index] == 3 ?
-                                    imageRow(value, index, 3, 2, undefined) :
-                                    randomLayout[index] == 4 ?
-                                        imageRow(value, index, 2, 3, 'right') :
-                                        randomLayout[index] == 5 ?
-                                            imageRow(value, index, 2, 3, 'left') :
-                                            randomLayout[index] == 6 ?
-                                                imageRow(value, index, 3, 3, undefined) :
-                                                randomLayout[index] == 99 ?
-                                                    imageRow(value, index, 1, 1, undefined) :
-                                                    null
-                })}
-            </View>
-        </> : <></>;
-    return imagebox;
-};

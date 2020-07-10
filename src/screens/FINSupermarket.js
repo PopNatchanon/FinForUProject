@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import SlidingView from 'rn-sliding-view';
@@ -20,16 +20,17 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
-import { GetServices, TabBar, ProductBox, SlideTab2, NavigationNavigateScreen, FlatProduct, } from '../customComponents/Tools';
+import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { Might_like_Store } from './src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(FINSupermarket);
 function FINSupermarket(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
@@ -67,7 +68,7 @@ export let FinMall_Product = (props) => {
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Fin Mall</Text>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigateScreen({ goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation })}>
+        NavigationNavigate({ goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>

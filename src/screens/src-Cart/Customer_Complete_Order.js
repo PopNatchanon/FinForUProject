@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 export const { width, height } = Dimensions.get('window');
@@ -17,14 +17,15 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, TodayProduct, } from '../MainScreen';
-import { GetServices, NavigationNavigateScreen } from '../../customComponents/Tools';
+import { GetServices } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Customer_Complete_Order);
 function Customer_Complete_Order(props) {
   const { route } = props;
@@ -112,7 +113,7 @@ export let Customer_Product = (props) => {
           </View>
         </View>
         <View style={{ alignItems: 'center', marginTop: 10 }}>
-          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'popToTop', navigation })}>
+          <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'popToTop', navigation })}>
             <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, padding: 10, borderRadius: 5, }}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ช้อปต่อไม่รอแล้วนะ</Text>
             </View>

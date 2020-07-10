@@ -22,7 +22,8 @@ import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
-import { GetServices, NavigationNavigateScreen } from '../../customComponents/Tools';
+import { GetServices, } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip, finip } from '../../navigator/IpConfig';
 import { set } from 'react-native-reanimated';
@@ -467,7 +468,7 @@ export let Seller_Up_ProductDetail = (props) => {
       </TouchableOpacity>
       <TouchableOpacity activeOpacity={1} onPress={() => {
         SelectSheetRef.current.close();
-        NavigationNavigateScreen({
+        NavigationNavigate({
           goScreen: 'Seller_Topic', setData: {
             selectedIndex: 14, optionName: valueName, optionValue: valueNumber, optionName2: valueName2, optionValue2: valueNumber2
           }, navigation

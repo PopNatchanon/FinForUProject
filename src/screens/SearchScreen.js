@@ -19,7 +19,8 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_THREE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetData, GetServices, SlideTab2, NavigationNavigateScreen, } from '../customComponents/Tools'
+import { GetData, GetServices, SlideTab2, } from '../customComponents/Tools'
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -153,7 +154,7 @@ export let HeadBox = (props) => {
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
             {otherOption && <TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
+                NavigationNavigate({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
                 <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
                     stylesMain.ItemCenterVertical, { marginRight: 0, }]}>ร้านค้าอื่นๆ</Text>
@@ -183,7 +184,7 @@ export let StoreCard = (props) => {
     }, [activeGetServices]);
     return <View style={stylesMain.BoxStore5Box}>
         <TouchableOpacity style={stylesMain.FlexRow} onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
+            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
             <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore5Image]} />
             </View>
@@ -206,7 +207,7 @@ export let StoreCard = (props) => {
                 </View>
                 <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>พูดคุย</Text>
                     </TouchableOpacity>
                 </View>

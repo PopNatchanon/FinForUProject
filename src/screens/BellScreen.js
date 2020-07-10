@@ -14,7 +14,8 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, Toolbar, NavigationNavigateScreen } from '../customComponents/Tools';
+import { GetServices } from '../customComponents/Tools';
+import { Toolbar, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -50,7 +51,7 @@ export let Popular_store = (props) => {
     let dataNewStore = (dataService?.map((item, index) => {
         var dataMySQL = `${ip}/mysql/uploads/slide/${item.image}`;
         return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
+            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
             <View style={stylesMain.BoxStore3Box}>
                 <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore3Image} />
                 <Text numberOfLines={5} style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize6,
@@ -78,7 +79,7 @@ export let Pro_for_U = (props) => {
         </View>
         <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesMain.BoxStore4Box}>
                     <FastImage style={stylesMain.BoxStore4Image}
                         source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
@@ -87,7 +88,7 @@ export let Pro_for_U = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesMain.BoxStore4Box}>
                     <FastImage style={stylesMain.BoxStore4Image}
                         source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, }} />
@@ -96,7 +97,7 @@ export let Pro_for_U = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesMain.BoxStore4Box}>
                     <FastImage style={stylesMain.BoxStore4Image}
                         source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, }} />
@@ -105,7 +106,7 @@ export let Pro_for_U = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesMain.BoxStore4Box}>
                     <FastImage style={stylesMain.BoxStore4Image}
                         source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop4.jpg`, }} />
@@ -125,7 +126,7 @@ export let Update_buy = (props) => {
         </View>
         <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={stylesMain.BoxStore4Box}>
                     <FastImage style={stylesMain.BoxStore4Image}
                         source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />

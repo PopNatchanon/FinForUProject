@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, ActivityIndicator,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -22,14 +22,15 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesProfile from '../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen';
-import { GetCoupon, GetData, TabBar, Toolbar, GetServices, LoadingScreen, NavigationNavigateScreen } from '../customComponents/Tools';
+import { GetCoupon, GetData, TabBar, GetServices, LoadingScreen } from '../customComponents/Tools';
+import { Toolbar, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileScreen);
 function ProfileScreen(props) {
     const [activeGetServices, setActiveGetServices] = useState(true);
@@ -67,7 +68,7 @@ export let Headbar = (props) => {
     var uri;
     dataSevice?.list_profile && (uri = `${finip}/${dataSevice.list_profile[0].image_path}/${dataSevice.list_profile[0].image}`);
     return <View>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
             goScreen: 'Setting_Topic', setData: { selectedIndex: 0, getDataSource: (value) => getDataSources(value) }, navigation
         })}>
             <View style={{ backgroundColor: '#4a4a4a', }}>
@@ -79,7 +80,7 @@ export let Headbar = (props) => {
                 <View style={stylesMain.FlexRow}>
                     <View>
                         <TouchableOpacity activeOpacity={1} onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'SellerScreen', navigation })}>
+                            NavigationNavigate({ goScreen: 'SellerScreen', navigation })}>
                             <View style={stylesProfile.HeadbarBox1Sub}>
                                 <Text style={[stylesProfile.HeadbarBox1SubText, stylesFont.FontFamilyText,
                                 stylesFont.FontSize6]}>เริ่มค้าขาย</Text>
@@ -101,11 +102,11 @@ export let Headbar = (props) => {
                     </View>
                 </View>
                 <View style={{ flexDirection: 'row', padding: 8 }}>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'SettingScreen', navigation })}>
+                    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'SettingScreen', navigation })}>
                         <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25}
                             color='#FFFFFF' />
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'CartScreen', navigation })}>
+                    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'CartScreen', navigation })}>
                         <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
                     </TouchableOpacity>
                 </View>
@@ -119,7 +120,7 @@ export let Menubar = (props) => {
     return <View style={stylesProfile.Menu}>
         <View style={[stylesMain.ItemCenter, stylesProfile.Menubar]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>รายการสั่งซื้อของฉัน</Text>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigateScreen({
+            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({
                 goScreen: 'Total_Order', setData: { selectedIndex: 0 }, navigation
             })} style={{ flexDirection: 'row' }}>
                 <Text style={[stylesProfile.MenubarText2, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รายการการสั่งซื้อทั้งหมด</Text>
@@ -135,28 +136,28 @@ export let MenubarSub = (props) => {
     return <View style={stylesProfile.MenubarSub}>
         <View style={stylesMain.FlexRow}>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 1 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <FastImage source={require('../../icon/two-money-cards.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รอจ่ายเงิน</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <FastImage source={require('../../icon/month-calendar.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ที่ต้องได้รับ</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <FastImage source={require('../../icon/truck-facing-right.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดำเนินการส่ง</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Total_Order', setData: { selectedIndex: 3 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 3 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <FastImage source={require('../../icon/rating.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รีวิวสินค้า</Text>
@@ -165,7 +166,7 @@ export let MenubarSub = (props) => {
         </View>
         <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
             <TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Return_products', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Return_products', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                     <FastImage source={require('../../icon/repeat.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -173,7 +174,7 @@ export let MenubarSub = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'CancelScreen', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'CancelScreen', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                     <FastImage source={require('../../icon/box.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -204,7 +205,7 @@ export let Listbar = (props) => {
                     stylesFont.FontCenter]}>หน้าหลัก</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigateScreen({ goScreen: 'DealScreen', navigation })}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation })}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
                         <IconMaterialCommunityIcons name='octagram-outline' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
@@ -222,7 +223,7 @@ export let Listbar = (props) => {
                     stylesFont.FontCenter]}>โค้ดส่วนลด</Text>
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigateScreen({ goScreen: 'CoinScreen', navigation })}>
+            <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({ goScreen: 'CoinScreen', navigation })}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
                         <FastImage source={require('../../icon/bitcoin2.png')} style={stylesProfile.ListbarBoxImage} />
@@ -243,7 +244,7 @@ export let ListMenu = (props) => {
     return <View>
         <View style={stylesProfile.ListMenu}>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
@@ -255,7 +256,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Business', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Business', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconFontAwesome RightItem name="users" size={30} color='#7CB4F0' style={stylesProfile.ListMenuListSubIcon} />
@@ -266,7 +267,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconAntDesign RightItem name="wechat" size={35} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
@@ -277,7 +278,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={stylesProfile.ListMenuListSubIcon} />
@@ -288,7 +289,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconFontisto RightItem name="shopping-store" size={30} color={mainColor}
@@ -300,7 +301,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295'
@@ -312,7 +313,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 5 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />

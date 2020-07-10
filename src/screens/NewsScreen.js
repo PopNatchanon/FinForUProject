@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -16,14 +16,15 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { TabBar, Toolbar } from '../customComponents/Tools';
+import { TabBar } from '../customComponents/Tools';
+import { Toolbar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(NewsScreen);
 function NewsScreen(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);

@@ -48,6 +48,7 @@ import {
     BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
     FlatProduct, FlatComponent, NavigationNavigateScreen,
 } from '../customComponents/Tools';
+import { ButtomTab } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -128,11 +129,19 @@ function MainScreen(props) {
     //     getFetchData['category_mobile']?.isFetching == false &&
     //         FetchDataCate();
     // }, [getFetchData['category_mobile']?.isFetching == false]);
+    let itemList = [{ name: 'หน้าแรก', colors: ['#8cf', '#17f'] }, { name: 'หน้าสอง', colors: ['#8c1', '#171'] }]
     let itemT = [
         /////--------------------------------------------->>>Start
         {
             nameComponent: 'Slide',
             renderComponent: <Slide {...props} />
+        },
+        {
+            nameComponent: 'Slidezzz',
+            renderComponent: <View style={{ flexDirection: 'row' }}>
+                <ButtomTab colors={['#8cf', '#17f']} data={itemList} fontStyle={[stylesFont.FontSize5,
+                stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => console.log(value)} />
+            </View>
         },
         {
             nameComponent: 'Guarantee',

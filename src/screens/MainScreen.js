@@ -70,13 +70,13 @@ function MainScreen(props) {
     const maxheight = 55;
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
-        outputRange: ['transparent', appBarColor],
+        outputRange: ['transparent', mainColor],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
     const AnimatedCart = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
-        outputRange: ['#ECECEC', appBarColor],
+        outputRange: ['#ECECEC', mainColor],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
@@ -136,13 +136,13 @@ function MainScreen(props) {
             nameComponent: 'Slide',
             renderComponent: <Slide {...props} />
         },
-        {
-            nameComponent: 'Slidezzz',
-            renderComponent: <View style={{ flexDirection: 'row' }}>
-                <ButtomTab colors={['#8cf', '#17f']} data={itemList} fontStyle={[stylesFont.FontSize5,
-                stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => console.log(value)} />
-            </View>
-        },
+        // {
+        //     nameComponent: 'Slidezzz',
+        //     renderComponent: <View style={{ flexDirection: 'row' }}>
+        //         <ButtomTab colors={['#8cf', '#17f']} data={itemList} fontStyle={[stylesFont.FontSize5,
+        //         stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => console.log(value)} />
+        //     </View>
+        // },
         {
             nameComponent: 'Guarantee',
             renderComponent: <Guarantee  {...props} />

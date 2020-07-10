@@ -30,6 +30,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';
+import { ButtomTab } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -188,6 +189,7 @@ function StoreScreen(props) {
                 <StoreHeadDetails {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data} />
             </Animatable.View>
             <Menubar {...props} getSelectedIndex={(value) => getSelectedIndex(value)} />
+            {/* <Test_Coupon /> */}
             <Banner {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data} key={'Banner'} />
             {ViewSide()}
         </ScrollView>
@@ -248,9 +250,9 @@ export let StoreHeadDetails = (props) => {
         <View style={[stylesStore.StoreHead, stylesMain.FlexRow, { justifyContent: 'space-around', width: '100%' }]}>
             <View style={[stylesMain.ItemCenterVertical, { width: '27%', marginLeft: 10 }]}>
                 {!activeGetServices ?
-                    <Text style={[stylesFont.FontFamilyBoldBold, stylesFont.FontSize5, { color: '#0A55A6' }]}>
+                    <Text style={[stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>
                         {dataService && dataService[0]?.name}</Text> :
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,
                     { color: '#222222' }]}>Store</Text>}
                 {!activeGetServices ?
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#64696F' }]}>
@@ -259,7 +261,11 @@ export let StoreHeadDetails = (props) => {
                     { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
                 {!activeGetServices ?
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity>
+                        <TouchableOpacity nPress={() => NavigationNavigateScreen({
+                            goScreen: 'Post_Feed', setData: {
+                                selectedIndex: 26, id_store, store_data: dataService.store_data, getDataSource: (value) => setActiveRef(value)
+                            }, navigation
+                        })}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>
                                 ผู้ติดตาม {dataService && dataService[0]?.who_follow} </Text>
                         </TouchableOpacity>
@@ -279,23 +285,24 @@ export let StoreHeadDetails = (props) => {
             { marginTop: -20, marginLeft: 6, backgroundColor: '#fff', }]}>
                 {!activeGetServices ?
                     <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
-                        backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2, borderColor: '#FFD500'
+                        backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2, 
+                        borderColor: '#FFD500'
                     }]} resizeMode={FastImage.resizeMode.stretch} /> :
                     <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
             </View>
             <View style={{ width: '30%', alignItems: 'center' }}>
-                <TouchableOpacity /*onPress={() => undefined}*/>
+                <TouchableOpacity onPress={() => undefined}>
                     <View style={[stylesStore.StoreHeadButtom, { borderColor: '#0A55A6', borderWidth: 1 }]}>
-                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                        { color: '#0A55A6' }]}>ติดตาม</Text>
+                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                        { color: '#0A55A6' }]}>กำลังติดตาม</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>
                     NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
-                    <View style={[stylesStore.StoreHeadButtom, { backgroundColor: mainColor, borderColor: '#0A55A6', borderWidth: 1 }]}>
-                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7,
+                    <LinearGradient colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#FFD500', borderWidth: 1 }]}>
+                        <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
                         { color: '#fff' }]}>แชท</Text>
-                    </View>
+                    </LinearGradient>
                 </TouchableOpacity>
             </View>
         </View>
@@ -350,8 +357,8 @@ export let Menubar = (props) => {
     const item = [{ name: 'หน้าหลัก' }, { name: 'สินค้าทั้งหมด' }, { name: 'ฟีด' }];
     return <View>
         <View style={[stylesStore.Menubar]}>
-            <TabBar sendData={(value) => getSelectedIndex(value.selectedIndex)} item={item} widthBox={95} alignBox='center' radiusBox={4}
-                type='box' overScrollMode={'never'} activeColor='#0A55A6' inactiveColor='#0A55A6' inactiveFontColor='#0A55A6' />
+            <ButtomTab colors={['#10162d', '#284d8f']} data={item} setWidthBox={width * 0.31} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
+            stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => getSelectedIndex(value)} />
         </View>
     </View>;
 };
@@ -363,12 +370,14 @@ export let Banner = (props) => {
     let renderItem = (item, index) =>
         <View style={stylesStore.BannerBox} key={index}>
             <FastImage source={{
-                uri: `${ip}/${item.image_path}/${item.image}`,
+                uri:
+                    `${ip}/${item.image_path}/${item.image}`,
                 // item.image,
             }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
         </View>;
     let getDetail = !activeGetServices ?
         dataService && dataService.map((value, index) => {
+            // ส่วนทดสอบ banner
             const itemT = [
                 { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-2.jpg' },
                 { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-4.jpg' },
@@ -548,3 +557,19 @@ export let BoxProduct4 = (props) => {
         </View>
     </View>;
 };
+///----------------------------------------------------------------------------------------------->>>>
+export let Test_Coupon = (props) => {
+    return <View style={{
+        width: 0,
+        height: 0,
+        backgroundColor: 'transparent',
+        borderStyle: 'solid',
+        borderLeftWidth: 50,
+        borderRightWidth: 50,
+        borderBottomWidth: 100,
+        borderLeftColor: 'transparent',
+        borderRightColor: 'transparent',
+        borderBottomColor: 'red'
+    }}>
+    </View>
+}

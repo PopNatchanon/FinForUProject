@@ -50,7 +50,7 @@ export default StyleSheet.create({
     borderColor: '#FFFFFF',
     borderWidth: 1,
     borderRadius: 30,
-    width: 80,
+    width: 100,
     height: 25,
     // marginLeft: 30,
     marginTop: 4,

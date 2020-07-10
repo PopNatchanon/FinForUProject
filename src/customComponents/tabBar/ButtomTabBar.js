@@ -64,9 +64,9 @@ ButtomTabBar.propTypes = {
 }
 ButtomTabBar.defaultProps = {
     backgroundColor: '#123456',
-    borderColor: '#FFD500',
+    borderColor: '#E7BD00',
     borderRadius: 6,
-    borderWidth: 2,
+    borderWidth: 1,
     changeSelect: true,
     colors: ['#234567', '#123456'],
     end: { x: 1, y: 0 },
@@ -75,7 +75,7 @@ ButtomTabBar.defaultProps = {
     margin: 2,
     notBackgroundColor: '#fff',
     notSelectColors: ['#fff', '#fff'],
-    notSelectFontColors: '#FFD500',
+    notSelectFontColors: '#E7BD00',
     start: { x: 0, y: 0 },
     setHeightBox: 40,
     setWidthBox: 100,

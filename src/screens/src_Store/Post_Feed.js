@@ -228,6 +228,12 @@ function Post_Feed(props) {
                     <AppBar1 {...this.props} backArrow titleHead='กลุ่มยอดนิยม' />
                     <Group_Popular />
                 </>
+            case 26:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...this.props} backArrow titleHead='ผู้ติดตาม' />
+                    <Followers />
+                </>
         }
     }
     return PathList()
@@ -1696,3 +1702,15 @@ export let Group_Popular = (props) => {
         </View>
     </ScrollView>;
 };
+///----------------------------------------------------------------------------------------------->>>>
+export let Followers = (props) => {
+    return <View>
+        <Text>ผู้ติดตาม</Text>
+    </View>
+}
+///----------------------------------------------------------------------------------------------->>>>
+export let Following = (props) => {
+    return <View>
+        <Text>กำลังติดตาม</Text>
+    </View>
+}

@@ -73,18 +73,8 @@ function Post_Feed(props) {
     }, [activeGetCurrentUser])
     let PathList = () => {
         const maxheight = 55;
-        const AnimatedHeadbg = scrollY.interpolate({
-            inputRange: [maxheight, maxheight * 2],
-            outputRange: ['transparent', appBarColor],
-            extrapolate: 'clamp',
-            useNativeDriver: true,
-        });
-        const AnimatedCart = scrollY.interpolate({
-            inputRange: [maxheight, maxheight * 2],
-            outputRange: ['#ECECEC', appBarColor],
-            extrapolate: 'clamp',
-            useNativeDriver: true,
-        });
+        let AnimatedHeadbg;
+        let AnimatedCart;
         switch (selectedIndex) {
             case 0:
                 return <>
@@ -122,6 +112,18 @@ function Post_Feed(props) {
                     <New_Group {...props} />
                 </>
             case 12:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
                     <Animated.View style={{
@@ -184,6 +186,18 @@ function Post_Feed(props) {
                     <Profile_FeedStore />
                 </>
             case 22:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <Animated.View style={{

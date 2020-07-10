@@ -1001,16 +1001,16 @@ export function GetCoupon(props) {
                 //         0.4 :
                 //         null,
                 flexDirection: 'row',
-                justifyContent:
-                    flexRow ?
-                        null :
-                        'flex-end',
-                marginBottom:
-                    codeList != 'available' ?
-                        -70 :
-                        null,
+                // justifyContent:
+                //     flexRow ?
+                //         null :
+                //         'flex-end',
+                // marginBottom:
+                //     codeList != 'available' ?
+                //         -70 :
+                //         null,
             }}>
-                <View style={{ width: width * 0.31, height: 80, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
+                <View style={{ width: width * 0.31, height: 60, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {

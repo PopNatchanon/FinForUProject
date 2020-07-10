@@ -25,10 +25,11 @@ import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
 import {
-    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct, starReview,
+    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, NavigationNavigateScreen, FlatProduct, starReview, GenArreyNumber,
 } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
+import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -144,11 +145,11 @@ function StoreScreen(props) {
         switch (selectedIndex) {
             case 0:
                 return [<TicketLine {...props} cokie={cokie} currentUser={currentUser} key={'TicketLine'} />,
-                <DealTop {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data[0]?.product_big_deal}
+                <DealTop {...props} activeGetServices={activeGetServices} bgcolor={['#244B80', '#90BBFC',]} dataService={dataService?.store_data[0]?.product_big_deal}
                     key={'product_big_deal'} titlename='ดีลเด็ด' />,
-                <DealTop {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data[0]?.product_new}
+                <DealTop {...props} activeGetServices={activeGetServices} bgcolor={['#8E4A75', '#EEB6D8',]} dataService={dataService?.store_data[0]?.product_new}
                     key={'product_new'} titlename='สินค้ามาใหม่' />,
-                <PopularProduct {...props} activeGetServices={activeGetServices}
+                <PopularProduct {...props} activeGetServices={activeGetServices} bgcolor={['#15674E', '#70CDB0',]}
                     dataService={dataService?.store_data[0]?.product_best_sale} key={'product_best_sale'} />];
             case 1:
                 return [<SubMenu getSelectedIndex2={(value) => getSelectedIndex2(value)} key={'SubMenu'} />,
@@ -350,7 +351,7 @@ export let Menubar = (props) => {
     return <View>
         <View style={[stylesStore.Menubar]}>
             <TabBar sendData={(value) => getSelectedIndex(value.selectedIndex)} item={item} widthBox={95} alignBox='center' radiusBox={4}
-                type='box' overScrollMode={'never'} activeColor='#102C4A' />
+                type='box' overScrollMode={'never'} activeColor='#0A55A6' inactiveColor='#0A55A6' inactiveFontColor='#0A55A6' />
         </View>
     </View>;
 };
@@ -359,15 +360,25 @@ export let Banner = (props) => {
     const { activeGetServices, dataService } = props;
     const slideDelay = 3000;
     const [activeText, setActiveText] = useState(false);
-    let renderItem = (item, index) => <View style={stylesStore.BannerBox} key={index}>
-        <FastImage source={{ uri: item.image, }} style={stylesStore.BannerSlide} resizeMode={FastImage.resizeMode.cover} />
-    </View>;
+    let renderItem = (item, index) =>
+        <View style={stylesStore.BannerBox} key={index}>
+            <FastImage source={{
+                uri: `${ip}/${item.image_path}/${item.image}`,
+                // item.image,
+            }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
+        </View>;
     let getDetail = !activeGetServices ?
         dataService && dataService.map((value, index) => {
+            const itemT = [
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-2.jpg' },
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-4.jpg' },
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '2222.jpg' },
+            ];
             var image_banner_sub;
-            value.image_banner && (image_banner_sub = value.image_banner.split(';'));
-            value.image_banner && (image_banner_sub = image_banner_sub.map(
-                (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
+            image_banner_sub = itemT;
+            // value.image_banner && (image_banner_sub = value.image_banner.split(';'));
+            // value.image_banner && (image_banner_sub = image_banner_sub.map(
+            //     (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
             return <View key={index}>
                 <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                     <View>
@@ -377,10 +388,9 @@ export let Banner = (props) => {
                     </View>
                     <View style={{ padding: 5 }}>
                         <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                            สินค้าแฟชั่นที่เราพูดถึงไม่ได้จำกัดว่าเป็นแค่เสื้อผ้าเพียงอย่างเดียว แต่รวมไปถึงกระเป๋า รองเท้า
-                            เครื่องประดับต่างๆ อีกด้วย Lookbook คือการทำคอนเทนต์ที่เน้นภาพ คุณอาจหานายแบบนางแบบพาไปในสถานที่เท่ๆ
-                            ใส่คอนเซ็ปต์ให้กับการถ่ายสักนิดแล้วก็สวมใส่สินค้าที่เป็นของร้านคุณ อาจนำไปใส่กราฟิกแสดงราคาของสินค้าแต่ละชิ้นเหมือนที่นิตยสารแฟชั่นชอบทำ
-                            การทำแบบนี้ถือเป็นคอนเทนต์ขายของแบบไม่น่าเบื่อ ไม่ยัดเยียดจนเกินไปเหมือนกำลังเปิดดูแมกกาซีนแฟชั่นที่เต็มไปด้วยของน่าซื้อ</Text>
+                            Store
+                            จาก CARHARTT WIP อัพเดทของใหม่เข้าร้านกับ PRONTO ของลง! รายการใหม่แกะกล่องจากร้าน PRONTO** ที่จะมาอัปเดต ⭐HIGHLIGHT⭐
+                            ของเข้าใหม่ประจำสัปดาห์ พร้อมแนะนำรายละเอียดสินค้า ควบคู่ไปกับความสนุกสนาน</Text>
                         <TouchableOpacity onPress={() => setActiveText(!activeText)}>
                             <View style={[stylesMain.ItemCenter, stylesMain.FlexRow]}>
                                 <Text style={[stylesDetail.Detail_Text_A, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
@@ -437,11 +447,13 @@ export let TicketLine = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> DealTop
 export let DealTop = (props) => {
-    const { activeGetServices, dataService, titlename } = props;
-    return <View style={[stylesMain.FrameBackground, { backgroundColor: 'transparent', borderColor: 'transparent', marginTop: 0 }]}>
-        <View style={[stylesMain.FrameBackgroundTextBox, { borderColor: '#f5df89', borderBottomWidth: 3, }]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{titlename}</Text>
-        </View>
+    const { activeGetServices, bgcolor, dataService, titlename } = props;
+    return <View style={[stylesMain.FrameBackground, { paddingBottom: 5, backgroundColor: 'transparent' }]}>
+        <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+            <View style={[stylesMain.FlexRow, { paddingVertical: 5 }]}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{titlename}</Text>
+            </View>
+        </LinearGradient>
         {dataService && !activeGetServices ?
             <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
                 nameSize={14} priceSize={15} dispriceSize={15} /> :
@@ -452,12 +464,14 @@ export let DealTop = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
 export let PopularProduct = (props) => {
-    const { activeGetServices, dataService, headText, noHeadText } = props;
+    const { activeGetServices, dataService, headText, noHeadText, bgcolor, } = props;
     return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-        {noHeadText ? null : <View style={[stylesMain.FrameBackgroundTextBox, { borderColor: '#f5df89', borderBottomWidth: 3, }]}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-                {headText ?? 'สินค้าขายดี'}</Text>
-        </View>}
+        {noHeadText ? null : <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+            <View style={[stylesMain.FrameBackgroundTextBox, { paddingVertical: 5 }]}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
+                    {headText ?? 'สินค้าขายดี'}</Text>
+            </View>
+        </LinearGradient>}
         <View style={[stylesMain.BoxProductWarp, { marginTop: 0 }]}>
             {!activeGetServices ?
                 dataService && <ProductBox {...props} dataService={dataService} mode='row2colall' pointerUrl='DetailScreen' pointerid_store

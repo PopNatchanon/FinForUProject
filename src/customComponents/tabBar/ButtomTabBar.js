@@ -1,6 +1,6 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, } from "react-native"
+import { View, Text, TouchableOpacity, ViewPropTypes, TextPropTypes, } from "react-native"
 ///----------------------------------------------------------------------------------------------->>>> Import
 import LinearGradient from 'react-native-linear-gradient';
 import PropTypes from 'prop-types';
@@ -43,13 +43,13 @@ ButtomTabBar.propTypes = {
     borderColor: PropTypes.string,
     borderRadius: PropTypes.number,
     borderWidth: PropTypes.number,
-    boxStyle: PropTypes.object,
+    boxStyle: ViewPropTypes.style,
     changeSelect: PropTypes.bool,
     colors: PropTypes.string,
     data: PropTypes.func,
     end: PropTypes.object,
     fontColors: PropTypes.string,
-    fontStyle: PropTypes.object,
+    fontStyle: TextPropTypes.style,
     linearGradient: PropTypes.bool,
     margin: PropTypes.number,
     notBackgroundColor: PropTypes.string,

@@ -30,7 +30,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { GetServices, NavigationNavigateScreen, LoadingScreen, GetData } from '../../customComponents/Tools';
+import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -109,7 +110,7 @@ export let Account = (props) => {
                     ])}
                 </View>
             </View>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({
+            <TouchableOpacity onPress={() => NavigationNavigate({
                 goScreen: 'Setting_Topic', setData: {
                     selectedIndex: 1, type: 'select', updateData: value => getData(value),
                     no_invoice: data.no_invoice
@@ -378,7 +379,7 @@ export let Option_payment = (props) => {
                         { paddingLeft: 8, width: '100%', }]}>{data.address}</Text>}
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                <TouchableOpacity onPress={() => NavigationNavigate({
                     goScreen: 'Setting_Topic', setData: {
                         selectedIndex: 1, type: 'select', type_special: 'tax', updateData: value => getDatas(value),
                         no_invoice: data.no_invoice
@@ -488,7 +489,7 @@ export class OmiseBox extends Component {
                 item2.map((value3) => {
                     if (value3 == 'true') {
                         getData(false);
-                        NavigationNavigateScreen({ goScreen: 'Customer_Complete_Order', setData: { no_invoice }, navigation });
+                        NavigationNavigate({ goScreen: 'Customer_Complete_Order', setData: { no_invoice }, navigation });
                     };
                     if (value3 == 'false') {
 

@@ -19,7 +19,8 @@ import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, ProductBox, SlideTab2, LoadingScreen, NavigationNavigateScreen, FlatProduct, } from '../customComponents/Tools';
+import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../customComponents/Tools';
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -96,7 +97,7 @@ export let Recommend_Store = (props) => {
     let dataPromotionPopular = recommend?.length > 0 ?
         recommend.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
+            return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
                 <View style={stylesMain.BoxStore1Box}>
                     <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
                 </View>
@@ -105,7 +106,7 @@ export let Recommend_Store = (props) => {
     return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านค้าที่แนะนำ</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>

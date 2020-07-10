@@ -21,7 +21,7 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
 import { Order_Me_Box } from './Seller_Totel_Order';
-import { NavigationNavigateScreen } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
 import { Value } from 'react-native-reanimated';
@@ -167,7 +167,7 @@ export let Treasury_store_Product = (props) => {
             <IconFontAwesome name='trash-o' size={20} color='#6B87CF' />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>ลบ</Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Up_Product', navigation })}
+          <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Seller_Up_Product', navigation })}
             style={stylesMain.FlexRow}>
             <IconFeather name='edit' size={20} color='#6B87CF' />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#6B87CF' }]}>แก้ไข</Text>

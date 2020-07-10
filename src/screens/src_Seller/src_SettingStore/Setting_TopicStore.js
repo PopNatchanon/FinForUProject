@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView, Image,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
@@ -26,14 +26,15 @@ import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../../../screens/MainScreen';
-import { NavigationNavigateScreen, GetServices } from '../../../customComponents/Tools';
+import { GetServices } from '../../../customComponents/Tools';
+import { NavigationNavigate } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Setting_TopicStore);
 function Setting_TopicStore(props) {
     const { route } = props;
@@ -117,7 +118,7 @@ export let Notification = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 1 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 1 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -127,7 +128,7 @@ export let Notification = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 2 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 2 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
@@ -135,7 +136,7 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
@@ -143,21 +144,21 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 4 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 4 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 5 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 5 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 6 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 6 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
@@ -165,7 +166,7 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 7 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_TopicStore', setDate: { selectedIndex: 7 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -429,7 +430,7 @@ export let Setting_Address_Store = (props) => {
         <Address_Customar MainAddress />
         <Address_Customar />
         <View style={{ alignItems: 'center', justifyContent: 'flex-end', height: 475 }}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Customer_account', navigation })}>
+            <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Customer_account', navigation })}>
                 <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, { color: '#FFFFFF' }]}>เพิ่มที่อยู่</Text>
                 </View>

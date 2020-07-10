@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -14,14 +14,14 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
-import { NavigationNavigateScreen } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Detail_Pro);
 function Detail_Pro(props) {
     const { route } = props;
@@ -146,7 +146,7 @@ export let Detail_Product_Check = (props) => <View style={stylesMain.FrameBackgr
 export let Detail_Button = (props) => {
     const { navigation } = props;
     return <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigateScreen({ goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 2 }, navigation })}>
         <View style={{
             width: '100%', backgroundColor: mainColor, height: 50, alignItems: 'center', justifyContent: 'center', marginTop: 10
         }}>

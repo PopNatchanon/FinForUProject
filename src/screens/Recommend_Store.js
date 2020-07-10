@@ -21,8 +21,9 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
 import { AppBar, ExitAppModule, } from './MainScreen';
 import {
-    GetData, GetServices, ProductBox, LoadingScreen, NavigationNavigateScreen, FlatProduct, starReview
+    GetData, GetServices, ProductBox, LoadingScreen, FlatProduct
 } from '../customComponents/Tools';
+import { StarReview, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -124,7 +125,7 @@ export let Store_Detail = (props) => {
             <FastImage style={stylesTopic.Store_Image} source={{ uri: image_header }} resizeMode={FastImage.resizeMode.stretch} />
             <View style={stylesTopic.Store_Box}>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
+                    NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
                     <View style={[stylesTopic.Store_Pro, stylesMain.ItemCenter]}>
                         <FastImage style={{ height: '70%', width: '70%' }} source={{ uri: image_store }}
                             resizeMode={FastImage.resizeMode.contain} />
@@ -132,7 +133,7 @@ export let Store_Detail = (props) => {
                 </TouchableOpacity>
                 <View style={{ margin: 10, }}>
                     <TouchableOpacity onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
+                        NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
                         <View style={stylesTopic.Store_Name}>
                             <Text style={[stylesTopic.Store_NameText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                 {dataService.store_name}</Text>
@@ -140,7 +141,7 @@ export let Store_Detail = (props) => {
                     </TouchableOpacity>
                     <View style={stylesTopic.Store_Star}>
                         {dataService.rating != 'ยังไม่มีการรีวิว' ?
-                            starReview(dataService.rating, 15) : <Text style={stylesFont.FontFamilyText}>{dataService.rating}</Text>}
+                            StarReview(dataService.rating, 15) : <Text style={stylesFont.FontFamilyText}>{dataService.rating}</Text>}
                     </View>
                     <View style={{ marginTop: 5 }}>
                         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>คะแนนร้านค้า: 4.8 จาก 5</Text>
@@ -155,7 +156,7 @@ export let Store_Detail = (props) => {
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}
+                            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}
                             style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
                             <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>เข้าดูร้านค้า</Text>
                         </TouchableOpacity>

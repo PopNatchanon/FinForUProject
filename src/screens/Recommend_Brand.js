@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -15,14 +15,15 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, } from './MainScreen';
-import { ProductBox, LoadingScreen, GetData, GetServices, NavigationNavigateScreen, FlatProduct, } from '../customComponents/Tools';
+import { ProductBox, LoadingScreen, GetData, GetServices, FlatProduct, } from '../customComponents/Tools';
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Brand);
 function Recommend_Brand(props) {
     const [activeDataService, setActiveDataService] = useState(true);
@@ -59,7 +60,7 @@ export let Recommend_Brand_Store = (props) => {
                 <FastImage style={stylesTopic.Recommend_Brand_Proimage} source={{ uri: image_store, }}
                     resizeMode={FastImage.resizeMode.contain} />
             </View>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation })}>
+            <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation })}>
                 <View style={[stylesTopic.Recommend_Brand_ProButton]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>
                 </View>

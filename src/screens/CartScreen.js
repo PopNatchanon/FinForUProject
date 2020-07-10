@@ -29,14 +29,22 @@ import stylesFont, { normalize } from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from './MainScreen';
-import { GetServices, GetData, NavigationNavigateScreen, LoadingScreen } from '../customComponents/Tools';
+import { GetServices, GetData, LoadingScreen } from '../customComponents/Tools';
+import { NavigationNavigate } from '../customComponents';
 import { PopularProduct } from './StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
+const getCartDataList = (cartData) => {
+    const cartDataList = [];
+    cartData?.map((value) => value.product.map((value2) => {
+        if (value2.checked) return cartDataList.push(value2.id_cartdetail);
+    }));
+    return cartDataList;
+};
 const mapStateToProps = (state) => ({
-    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-    reduxDataBody: state.activeFetchData
+    cartData: state.cartData, cartDataList: getCartDataList(state.cartData.data), customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -44,11 +52,12 @@ const mapDispatchToProps = ({
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);
 function CartScreen(props) {
-    const { cartData, cartListUpdate, getFetchData, reduxDataBody, setDataEnd, setFetchToStart } = props;
-    const [activeDelete, setActiveDelete] = useState(false);
+    const { cartData, cartDataList, fetchData, getFetchData, reduxDataBody, setDataEnd, setFetchToStart } = props;
+    const [activeCheck, setActiveCheck] = useState(false);
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [activeF, setActiveF] = useState(true);
     const [activeRefresh, setActiveRefresh] = useState(true);
+    const [activeUpdate, setActiveUpdate] = useState(true);
     const [activeSave, setActiveSave] = useState(false);
     const [activeSave2, setActiveSave2] = useState(false);
     const [arrayItem, setArrayItem] = useState(undefined);
@@ -60,7 +69,8 @@ function CartScreen(props) {
     const [dataService, setDataService] = useState(undefined);
     const [dataService2, setDataService2] = useState(undefined);
     const [dataService3, setDataService3] = useState(undefined);
-    const [list_Order, setList_Order] = useState(undefined);
+    console.log('<:::------------------------------------------------:::>')
+    console.log(cartDataList)
     var dataBody;
     var uri = `${finip}/cart/cart_mobile`;
     var uri2 = `${finip}/cart/auto_save_ajax`;
@@ -68,24 +78,34 @@ function CartScreen(props) {
     currentUser && (dataBody = { id_customer: currentUser.id_customer });
     let getSource = (value) => { setActiveGetSource(false); setCurrentUser(value.currentUser); setCokie(value.keycokie); };
     let getData = (value) => {
-        for (var n = 0; n < value.cart_list.length; n++) {
-            value.cart_list[n].key = n;
-        };
-        setActiveRefresh(false);
-        setDataService(value);
+        fetchData({ dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`, });
+        console.log('------------------------------------------------:::>')
+        console.log(value.cart_list)
+        setActiveUpdate(false);
+        activeCartList(value.cart_list);
+        setTimeout(() => { setActiveRefresh(!activeRefresh); setActiveCheck(true); }, 2000);
     };
     let getData2 = (value) => {
-        setActiveRefresh(true); setActiveF(false); setDataEnd(); setDataService2(value);
+        setActiveF(false); setDataEnd(); setDataService2(value);
     };
-    let getData3 = (value) => { setActiveRefresh(true); setActiveDelete(false); setDataEnd(); setDataService3(value); };
+    let getData3 = (value) => {
+        setTimeout(() => { setActiveUpdate(true); }, 1000); setDataEnd(); setDataService3(value);
+    };
     let getCheckedAll = (value) => { setCheckedAll(value); setActiveSave2(true); };
     let ArrayItems = (value) => { setActiveSave(true); setArrayItem(value); };
-    let ArrayItems2 = (value) => { setActiveDelete(true); setArrayItem2(value); setButtomDeleteAll(false); };
+    let ArrayItems2 = (value) => { setArrayItem2(value); setButtomDeleteAll(false); };
     let propsFunction = () => { setButtomDeleteAll(!buttomDeleteAll); };
-    let sendList_order = (value) => setList_Order(value);
+    !cartData.isActive && activeCartList()
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
     }, [activeGetSource]);
+    useEffect(() => {
+        activeUpdate && cokie && dataBody && dataBody.id_customer &&
+            GetServices({
+                uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: value => getData(value),
+                showConsole: 'refreshCart'
+            });
+    }, [activeUpdate && cokie && dataBody && dataBody.id_customer]);
     useEffect(() => {
         activeF && cokie && reduxDataBody && reduxDataBody.dataList && reduxDataBody.dataList.id_customer &&
             reduxDataBody.dataList.list_order && GetServices({
@@ -108,12 +128,6 @@ function CartScreen(props) {
                 showConsole: 'cartDelete'
             });
     }, [reduxDataBody?.isActive && reduxDataBody?.name == 'cartDelete']);
-    useEffect(() => {
-        if (cartData.length == 0 && getFetchData['cart_mobile']?.data?.cart_list?.length > 0) {
-            console.log('activeCartList')
-            activeCartList(getFetchData['cart_mobile'].data.cart_list);
-        };
-    }, [getFetchData['cart_mobile']?.data?.cart_list]);
     activeSave2 && setActiveSave2(false);
     console.log('dataService2|CartScreen')
     console.log(dataService2)
@@ -121,38 +135,38 @@ function CartScreen(props) {
         {/* {reduxDataBody?.isActive || reduxDataBody?.isRefresh && <LoadingScreen />} */}
         <AppBar1 {...props} titleHead='รถเข็น' backArrow />
         <ScrollView>
-            <Product_Cart {...props} activeRefresh={activeRefresh} currentUser={currentUser} list_Order={list_Order}
-                sendList_order={value => sendList_order(value)} />
+            <Product_Cart {...props} activeRefresh={activeRefresh} currentUser={currentUser} />
             {/* <Product_Like /> */}
             <PopularProduct {...props} dataService={getFetchData['publish_mobile']?.data?.for_you2} headText={'คุณอาจชอบสิ่งนี้'} />
         </ScrollView>
-        {getFetchData['cart_mobile']?.data?.cart_list?.length > 0 &&
-            <Buy_bar {...props} dataService2={dataService2} currentUser={currentUser} cokie={cokie} list_Order={list_Order} />}
+        {/* {getFetchData['cart_mobile']?.data?.cart_list?.length > 0 && 
+             <Buy_bar {...props} activeCheck={activeCheck} dataService2={dataService2} currentUser={currentUser} cokie={cokie}
+                 sendCheck={(value) => setActiveCheck(value)} />}*/}
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
 export let Product_Cart = (props) => {
     const {
-        activeCartList, activeRefresh, cartData, cartListChecked, cartListCheckedAll, cartListUpdate, currentUser, getFetchData,
-        list_Order, reduxDataBody, setDataRefresh, setDataStart, sendList_order,
+        activeCartList, activeRefresh, cartData, cartDataList, cartListChecked, cartListCheckedAll, cartListUpdate, currentUser,
+        getFetchData, reduxDataBody, setDataRefresh, setDataStart,
     } = props;
     const [active, setActive] = useState(false);
     const [activeReload, setActiveReload] = useState(false);
+    const [activeReload2, setActiveReload2] = useState(true);
     const [cartID, setCartID] = useState([]);
     const productBox = [];
-    activeRefresh != activeReload && setActiveReload(activeRefresh)
-    cartData.map((value) => value.product.map((value2) => { if (value2.checked) productBox.push(value2.id_cartdetail) }))
-    console.log('cartData|Product_Cart');
-    console.log(cartData);
-    if (currentUser && productBox.join(',') != list_Order) {
-        sendList_order(productBox.join(','))
+    useEffect(() => {
+        setActiveReload(!activeReload)
+    }, [cartData])
+    if (activeReload2 && currentUser) {
         setDataStart({
             amount: (cartData[0]?.product[0]?.quantity * 1),
-            list_order: productBox.join(','),
+            list_order: cartDataList,
             id_cartdetail: cartData[0]?.product[0]?.id_cartdetail,
             id_customer: currentUser.id_customer,
-        }, 'cartAamount')
+        }, 'cartAamount');
+        setActiveReload2(false);
     };
     let renderItem = (data) => <TouchableOpacity activeOpacity={1}
         style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
@@ -179,7 +193,7 @@ export let Product_Cart = (props) => {
                         (data.item.quantity * 1) - 1 > 0 && (data.item.quantity * 1) - 1 < data.item.max_remain ?
                             [setDataStart({
                                 amount: (data.item.quantity * 1) - 1,
-                                list_order: list_Order,
+                                list_order: cartDataList,
                                 id_cartdetail: data.item.id_cartdetail,
                                 id_customer: currentUser.id_customer,
                             }, 'cartAamount'), cartListUpdate((data.item.quantity * 1) - 1, data.item.id_cartdetail, data.item.id_store)] :
@@ -198,7 +212,7 @@ export let Product_Cart = (props) => {
                         (data.item.quantity * 1) + 1 > 0 && (data.item.quantity * 1) + 1 < data.item.max_remain ?
                             [setDataStart({
                                 amount: (data.item.quantity * 1) + 1,
-                                list_order: list_Order,
+                                list_order: cartDataList,
                                 id_cartdetail: data.item.id_cartdetail,
                                 id_customer: currentUser.id_customer,
                             }, 'cartAamount'), cartListUpdate((data.item.quantity * 1) + 1, data.item.id_cartdetail, data.item.id_store)] :
@@ -230,8 +244,10 @@ export let Product_Cart = (props) => {
     </View>;
     return <View>
         {active && <LoadingScreen />}
-        {cartData && cartData.length > 0 ?
-            cartData.map((item_n, index_n) => {
+        {cartData && cartData.data.length > 0 ?
+            cartData.data.map((item_n, index_n) => {
+                console.log('item_n')
+                console.log(item_n)
                 var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
                 return <View style={{ marginBottom: 10, backgroundColor: '#fff' }} key={index_n}>
                     <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
@@ -347,17 +363,17 @@ export class Buy_bar extends React.Component {
         this.setState({ dataService, Coupon: false, });
     };
     getData2 = (dataService3) => {
-        const { currentUser, list_Order, } = this.props;
+        const { currentUser, cartDataList, } = this.props;
         const { text, } = this.state;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: list_Order,
+            list_order: cartDataList,
             use_coupon: '',
             other_coupon: text,
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: list_Order,
+            id_cartdetail: cartDataList,
             use_coupon: '',
             other_coupon: text,
             buy_now: "cart",
@@ -369,16 +385,16 @@ export class Buy_bar extends React.Component {
             this.setState({ errorService3: true, otherCoupon: false, text: '' });
     };
     setStateCoupon2 = (dataService4) => {
-        const { currentUser, list_Order, } = this.props;
+        const { currentUser, cartDataList, } = this.props;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: list_Order,
+            list_order: cartDataList,
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: list_Order,
+            id_cartdetail: cartDataList,
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
             buy_now: "cart",
@@ -387,27 +403,29 @@ export class Buy_bar extends React.Component {
         this.ConponSheet.close();
     };
     getData3 = (dataService5) => {
+        const { sendCheck } = this.props;
         const { check_coupon2 } = this.state;
+        sendCheck(false);
         this.setState({
             dataService5, check_coupon: false, Service3: check_coupon2 ? false : true, check_coupon2: false
         });
     };
     getData4 = (dataService6) => {
         const { navigation } = this.props;
-        NavigationNavigateScreen({ goScreen: 'Customer_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
+        NavigationNavigate({ goScreen: 'Customer_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
     };
     setStateText = (text) => this.setState({ text });
     setStateCancel = () => {
-        const { currentUser, list_Order, } = this.props;
+        const { currentUser, cartDataList, } = this.props;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: list_Order,
+            list_order: cartDataList,
             use_coupon: '',
             other_coupon: '',
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: list_Order,
+            id_cartdetail: cartDataList,
             use_coupon: '',
             other_coupon: '',
             buy_now: "cart",
@@ -418,11 +436,11 @@ export class Buy_bar extends React.Component {
         });
     };
     setStateCoupon = () => {
-        const { currentUser, list_Order, } = this.props;
+        const { currentUser, cartDataList, } = this.props;
         const { text, } = this.state;
         var dataBody2 = {
             id_customer: currentUser?.id_customer,
-            list_order: list_Order,
+            list_order: cartDataList,
             my_coupon: text,
         };
         text !== undefined && this.setState({ otherCoupon: true, dataBody2 });
@@ -444,7 +462,7 @@ export class Buy_bar extends React.Component {
     setStateBill = () => this.setState({ create_bill: true });
     StateBox = () => { };
     render() {
-        const { buttomDeleteAll, checkedAll, currentUser, dataService2, cokie, list_Order, } = this.props;
+        const { activeCheck, buttomDeleteAll, checkedAll, currentUser, dataService2, cokie, cartDataList, } = this.props;
         const {
             create_bill, check_coupon, Coupon, dataBody2, dataBody3, dataBody4, dataService3, dataService4, dataService5, errorService3,
             otherCoupon, savelist_Order, Service3, text,
@@ -456,7 +474,7 @@ export class Buy_bar extends React.Component {
         var uri = `${finip}/cart/check_coupon`;
         var dataBody = {
             id_customer: currentUser?.id_customer,
-            list_order: list_Order
+            list_order: cartDataList
         };
         var uri2 = `${finip}/coupon/get_other_coupon`;
         var uri3 = `${finip}/cart/track_data`;
@@ -464,15 +482,14 @@ export class Buy_bar extends React.Component {
         errorService3 && this._spring();
         Coupon && cokie && dataBody.id_customer && dataBody.list_order &&
             GetServices({
-                uriPointer: uri, showConsole: 'check_coupon', Authorization: cokie, dataBody: dataBody,
-                getDataSource: this.getData.bind(this)
+                uriPointer: uri, Authorization: cokie, dataBody: dataBody, getDataSource: this.getData.bind(this)
             });
         otherCoupon && cokie && dataBody2.id_customer && dataBody2.list_order &&
             GetServices({
                 uriPointer: uri2, showConsole: 'get_other_coupon', Authorization: cokie, dataBody: dataBody2,
                 getDataSource: this.getData2.bind(this)
             });
-        check_coupon && cokie && dataBody3.id_customer && dataBody3.list_order &&
+        (activeCheck || check_coupon) && cokie && dataBody3.id_customer && dataBody3.list_order &&
             GetServices({
                 uriPointer: uri3, showConsole: 'track_data', Authorization: cokie, dataBody: dataBody3,
                 getDataSource: this.getData3.bind(this), showConsole: 'track_data'

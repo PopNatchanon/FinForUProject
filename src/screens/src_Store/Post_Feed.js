@@ -10,8 +10,9 @@ import {
 } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import FastImage from 'react-native-fast-image';
 import BottomSheet from 'react-native-raw-bottom-sheet';
+import { Button } from 'native-base';
+import FastImage from 'react-native-fast-image';
 import ImagePicker from 'react-native-image-crop-picker';
 import { TextInput } from 'react-native-gesture-handler';
 import RNFetchBlob from 'rn-fetch-blob'
@@ -20,6 +21,7 @@ import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
 import { CheckBox } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import { Icon } from 'react-native-elements';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -38,15 +40,14 @@ import stylesTopic from '../../style/styleTopic';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob, NavigationNavigateScreen, GenArreyNumber, ImageGallery, starReview
+    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
 } from '../../customComponents/Tools';
+import { ImageGallery, GenArray, StarReview, NavigationNavigate } from '../../customComponents';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
-import { Icon } from 'react-native-elements';
-import { Button } from 'native-base';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -73,18 +74,8 @@ function Post_Feed(props) {
     }, [activeGetCurrentUser])
     let PathList = () => {
         const maxheight = 55;
-        const AnimatedHeadbg = scrollY.interpolate({
-            inputRange: [maxheight, maxheight * 2],
-            outputRange: ['transparent', appBarColor],
-            extrapolate: 'clamp',
-            useNativeDriver: true,
-        });
-        const AnimatedCart = scrollY.interpolate({
-            inputRange: [maxheight, maxheight * 2],
-            outputRange: ['#ECECEC', appBarColor],
-            extrapolate: 'clamp',
-            useNativeDriver: true,
-        });
+        let AnimatedHeadbg;
+        let AnimatedCart;
         switch (selectedIndex) {
             case 0:
                 return <>
@@ -122,6 +113,18 @@ function Post_Feed(props) {
                     <New_Group {...props} />
                 </>
             case 12:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
                     <Animated.View style={{
@@ -184,6 +187,18 @@ function Post_Feed(props) {
                     <Profile_FeedStore />
                 </>
             case 22:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <Animated.View style={{
@@ -229,7 +244,7 @@ export let AppBar_Group = (props) => {
     const [text, setText] = useState(undefined);
     const setSubmit = () => {
         text != undefined && text != ' ' &&
-            NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
+            NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
     const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
     const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -308,11 +323,11 @@ export let AppBar_Group = (props) => {
             {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
             {[backArrow && <View key={'backarrow'}>
                 <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
-                    onPress={() => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
+                    onPress={() => { NavigationNavigate({ goScreen: 'goBack', navigation }); }}>
                     <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ?? '#fff', }} />
                 </TouchableOpacity>
             </View>,
-            searchBar && <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={() => NavigationNavigateScreen({
+            searchBar && <TouchableOpacity key={'searchBar'} activeOpacity={1} onPress={() => NavigationNavigate({
                 goScreen: 'Post_Feed', setData: { selectedIndex: 20, }, navigation
             })}
                 style={{ marginRight: 3 }}>
@@ -400,7 +415,7 @@ export let Score_store = (props) => {
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
                             {dataService?.rating_store} คะแนน</Text>}
                     <View style={stylesMain.FlexRow}>
-                        {starReview(dataService?.rating_store, 20)}
+                        {StarReview(dataService?.rating_store, 20)}
                     </View>
                 </View>
             </View>
@@ -430,7 +445,7 @@ export let Box_Rating = (props) => {
         </View>
         <View style={{ padding: 10 }}>
             <View style={stylesMain.FlexRow}>
-                {starReview(dataService?.rating, 20)}
+                {StarReview(dataService?.rating, 20)}
             </View>
             {comment_box && <View style={{ backgroundColor: mainColor, width: 110, margin: 10 }}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>
@@ -620,7 +635,7 @@ export let Post_New = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>รูปภาพ</Text>
             </TouchableOpacity>
             <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: '#ECECEC', borderBottomWidth: 1, padding: 10 }]}
-                activeOpacity={1} onPress={() => NavigationNavigateScreen({
+                activeOpacity={1} onPress={() => NavigationNavigate({
                     goScreen: 'Post_Feed', setData: {
                         selectedIndex: 2, id_store, getDataService: value => getDataService(value)
                     }, navigation
@@ -744,7 +759,7 @@ export let New_Group = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { margin: 10 }]}>เพิ่มรูปภาพ</Text>
             </TouchableOpacity>
         </View>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'Post_Feed', setData: { selectedIndex: 12, }, navigation })}
+        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 12, }, navigation })}
             style={stylesMain.ItemCenter}>
             <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', width: '30%', borderRadius: 5, height: 30 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>+ สร้างกลุ่ม</Text>
@@ -794,7 +809,7 @@ export let Profile_Group = (props) => {
                     </View>
                 </View>
                 <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', paddingVertical: 10 }]}>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    <TouchableOpacity onPress={() => NavigationNavigate({
                         goScreen: 'Post_Feed', setData: { selectedIndex: 13, }, navigation
                     })}>
                         <View style={[stylesMain.ItemCenter, {
@@ -803,7 +818,7 @@ export let Profile_Group = (props) => {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เกี่ยวกับกลุ่ม</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    <TouchableOpacity onPress={() => NavigationNavigate({
                         goScreen: 'Post_Feed', setData: { selectedIndex: 14, }, navigation
                     })}>
                         <View style={[stylesMain.ItemCenter,
@@ -811,7 +826,7 @@ export let Profile_Group = (props) => {
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>รูปภาพ</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity onPress={() => NavigationNavigateScreen({
+                    <TouchableOpacity onPress={() => NavigationNavigate({
                         goScreen: 'Post_Feed', setData: { selectedIndex: 15, }, navigation
                     })}>
                         <View style={[stylesMain.ItemCenter,
@@ -832,7 +847,7 @@ export let Profile_Group = (props) => {
                 </View>
             </View>
         </ScrollView>
-        <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigateScreen({
+        <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, navigation
         })}>
         </ActionButton>
@@ -943,7 +958,7 @@ export let Group_Image = (props) => {
     ];
     useEffect(() => {
         if (activeGetServices) {
-            setActiveGetServices(false); setDataService(GenArreyNumber(40, itemT));
+            setActiveGetServices(false); setDataService(GenArray(40, itemT));
         };
     }, [activeGetServices]);
     console.log(activeGetServices);
@@ -1186,7 +1201,7 @@ export let Group_Total = (props) => {
                     <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyBold]}>กลุ่มยอดนิยม</Text>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>กลุ่มที่คุณอาจสนใจ</Text>
                 </View>
-                <TouchableOpacity style={stylesMain.ItemCenter} onPress={() => NavigationNavigateScreen({
+                <TouchableOpacity style={stylesMain.ItemCenter} onPress={() => NavigationNavigate({
                     goScreen: 'Post_Feed', setData: { selectedIndex: 25, }, navigation
                 })}>
                     <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold]}>ทั้งหมด</Text>
@@ -1449,7 +1464,7 @@ export let Profile_FeedCustomer = (props) => {
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>แชท</Text>
                             </TouchableOpacity>
                         </View>}
-                    {otherBar && <TouchableOpacity key='otherBar' onPress={() => NavigationNavigateScreen({
+                    {otherBar && <TouchableOpacity key='otherBar' onPress={() => NavigationNavigate({
                         goScreen: 'Post_Feed', setData: { selectedIndex: 23, }, navigation
                     })} style={{ alignItems: 'flex-end', width: width * 0.15, marginTop: 10 }}>
                         <IconFontAwesome5 name="ellipsis-v" size={20} />

@@ -18,9 +18,10 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, AppBar1, BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
-import { GetServices, ProductBox, SlideTab2, NavigationNavigateScreen, FlatProduct, } from '../customComponents/Tools';
+import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 import { Store_Detail, } from './Recommend_Store';
+import { NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -96,13 +97,13 @@ export let Second_Store = (props) => {
     </View>
     <View style={stylesMain.FlexRow}>
       <View style={[stylesMain.BoxStoreSecond]}>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
           <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, }}
             resizeMode={FastImage.resizeMode.stretch} />
         </TouchableOpacity>
       </View>
       <View style={[stylesMain.BoxStoreSecond]}>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
           <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, }}
             resizeMode={FastImage.resizeMode.stretch} />
         </TouchableOpacity>

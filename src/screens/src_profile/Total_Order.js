@@ -21,7 +21,8 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule } from '../MainScreen';
-import { TabBar, GetServices, LoadingScreen, NavigationNavigateScreen, GetData } from '../../customComponents/Tools';
+import { TabBar, GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -211,7 +212,7 @@ export let From_Order_Box = (props) => {
                     </View>
                 </View>
                 {dataService.status_purchase == 'wait' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1' }]}>รอชำระ</Text>
                 </TouchableOpacity>}
@@ -222,12 +223,12 @@ export let From_Order_Box = (props) => {
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>
                         {'กำลังจัดส่ง\n'}<Text style={{ color: '#111' }}>[{dataService.tracking_number}]</Text></Text>)}
                 {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#20BDA1', width: width * 0.3, textAlign: 'center', }]}><IconFeather name='edit' size={15} />เขียนรีวิว</Text>
                 </TouchableOpacity>}
                 {dataService.status_purchase == 'cancel' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>ยกเลิก</Text>
                 </TouchableOpacity>}
@@ -259,7 +260,7 @@ export let From_Order_Box = (props) => {
                 </View>
                 <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'payment_order'} onPress={() =>
-                        NavigationNavigateScreen({
+                        NavigationNavigate({
                             goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation
                         })}>
                         <View style={[stylesProfileTopic.Order_Button,
@@ -268,20 +269,20 @@ export let From_Order_Box = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'return_order'} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Return_products', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Return_products', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={{ borderBottomColor: mainColor, borderBottomWidth: 1, height: 20, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>ส่งคำร้องคืนสินค้า</Text>
                         </View>
                     </TouchableOpacity>}
                     {(dataService.status_purchase == 'paid' || dataService.status_purchase == 'accepted') && <TouchableOpacity
                         key={'detail_order'} onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'Order_Detail', setData: setDataDetailOrder, navigation })}>
+                            NavigationNavigate({ goScreen: 'Order_Detail', setData: setDataDetailOrder, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                         </View>

@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
@@ -30,14 +30,15 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1 } from '../MainScreen';
-import { TabBar, NavigationNavigateScreen, GetData, GetServices } from '../../customComponents/Tools';
+import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Topic);
 function Seller_Topic(props) {
     const { route } = props;
@@ -179,7 +180,7 @@ export let PIN_Code = (props) => {
                     pinInput.current.shake().then(() => resetInput(true, ''));
                     // setTimeout(() => this.setState({ activeInput: true, }), 2000);
                 } else {
-                    NavigationNavigateScreen({
+                    NavigationNavigate({
                         goScreen: 'Seller_Topic', setData: {
                             selectedIndex: Withdraw == "Withdraw" ? 11 : Withdraw == "History" ? 13 : 17,
                         }, navigation
@@ -234,7 +235,7 @@ export let PIN_Code_Mail = (props) => {
                     pinInput.current.shake().then(() => resetInput(true, ''));
                     // setTimeout(() => this.setState({ activeInput: true, }), 2000);
                 } else {
-                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == 11 }, navigation });
+                    NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: Withdraw == 11 }, navigation });
                 };
             }
         });
@@ -271,7 +272,7 @@ export let PIN_Code_Mail = (props) => {
 //     }
 //     finishProcess(pinCode) {
 //         const { navigation } = this.props
-//         NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
+//         NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9, }, navigation })
 //     };
 //     handleResultEnterPin(pinCode) {
 //         this.setState({ pinCodeStatus: 'failure' });
@@ -299,21 +300,21 @@ export let Seller_Advertisement = (props) => {
     const { navigation } = props;
     return <View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>แพคเกจปัจจุบันที่ใช้อยู่</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 6 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>FIN แคมเปญ</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 15 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 15 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>โค้ดส่วนลด</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -415,7 +416,7 @@ export let Seller_Comment = (props) => {
             </View>
             {Comment_Reply ?
                 <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 5 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 5 }, navigation })}>
                     <IconFeather name='edit' size={15} color='#20BDA1' />
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#20BDA1' }]}> เขียนตอบกลับ</Text>
                 </TouchableOpacity> : null}
@@ -469,7 +470,7 @@ export let Seller_Advertisement_Packet = (props) => {
         </View>
         <View style={{ width: '100%', alignItems: 'flex-end' }}>
             <TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 4 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 4 }, navigation })}>
                 <View style={[stylesSeller.Seller_Return_Button, { margin: 10 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>ซื้อแพคเกจ</Text>
                 </View>
@@ -556,7 +557,7 @@ export let Seller_Fin_Campaign = (props) => {
                     (วันที่่ 5 - 11 มี.ค.) " เลย</Text>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>การเข้าร่วมโปรโมชั่นจะสิ้นสุดภายใน3 วัน 1 ชั่วโมง</Text>
                 <TouchableOpacity style={{ alignItems: 'flex-end', marginTop: 10 }} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <View style={[stylesMain.ItemCenter, { backgroundColor: '#7ED0E8', width: 130, borderRadius: 5, height: 30 }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
                             เข้าร่วมโปรโมชั่น ตอนนี้!</Text>
@@ -702,7 +703,7 @@ export let Withdraw_money = (props) => {
     }, [activeDataService && currentUser]);
     return <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
         <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'History' }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'History' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
@@ -711,7 +712,7 @@ export let Withdraw_money = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
@@ -720,7 +721,7 @@ export let Withdraw_money = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 10, Withdraw: 'Bank' }, navigation })}>
             <View style={stylesProfile.ListMenuList}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>บัญชีธนาคาร</Text>
@@ -761,7 +762,7 @@ export let Confirm_Bank = (props) => {
         </View>
         <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation })}
+                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 12 }, navigation })}
                 style={[stylesMain.ItemCenter,
                 { width: '80%', height: 50, backgroundColor: mainColor, borderRadius: 5, marginVertical: 10 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
@@ -1049,7 +1050,7 @@ export let Code_Sale = (props) => {
             {Code_BOX}
         </ScrollView>
         <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingVertical: 10 }]}
-            onPress={() => NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation })}>
+            onPress={() => NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 16 }, navigation })}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>สร้างโปรโมชันส่วนลด</Text>
         </TouchableOpacity>
     </>;
@@ -1121,7 +1122,7 @@ export let Form_Code_Sale = (props) => {
                     setMin_Price(value)} />
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}
+            NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 7 }, navigation })}
             style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>เลือกสินค้าที่ใช้ได้</Text>
             <IconEntypo name='chevron-right' size={40} color={mainColor} />
@@ -1132,7 +1133,7 @@ export let Form_Code_Sale = (props) => {
 export let Bank_Totel = (props) => {
     const { Bank_True, Bank_False, Bank_Default, Bank_Edit, navigation } = props;
     return <TouchableOpacity onPress={() =>
-        NavigationNavigateScreen({ goScreen: 'Seller_Topic', setData: { selectedIndex: 18 }, navigation })}
+        NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 18 }, navigation })}
         style={[stylesMain.FlexRow, {
             backgroundColor: '#FFFFFF', width: '95%', padding: 10, borderColor: '#C4C4C4', borderWidth: 1, borderRadius: 5,
             marginTop: 10, height: 'auto', aspectRatio: 3, justifyContent: 'space-between'

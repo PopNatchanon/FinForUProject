@@ -23,8 +23,9 @@ import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, ExitAppModule, Botton_PopUp_FIN, AppBar } from './MainScreen';
 import {
-  FeedBox, GetData, GetServices, TabBar, Toolbar, LoadingScreen, NavigationNavigateScreen,
+  FeedBox, GetData, GetServices, TabBar, LoadingScreen,
 } from '../customComponents/Tools';
+import { Toolbar, StarReview, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -148,7 +149,7 @@ export function Button_Bar(props) {
       {
         selectedIndex == 0 &&
         <ActionButton buttonColor={mainColor} size={50}
-          onPress={() => NavigationNavigateScreen({
+          onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 1,
             }, navigation
@@ -161,29 +162,6 @@ export function Button_Bar(props) {
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export function Highlights(props) {
   const { dataService, selectedIndex, } = props;
-  function starReview(star, starSize) {
-    let starBox = []
-    for (var n = 0; n < 5; n++) {
-      if (star > n) {
-        starBox.push(
-          <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-            starSize ?
-              starSize :
-              20
-          } color='#FFAC33' />
-        )
-      } else {
-        starBox.push(
-          <IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={
-            starSize ?
-              starSize :
-              20
-          } color='#E9E9E9' />
-        )
-      }
-    }
-    return starBox
-  }
   function headerStoryList() {
     return (
       selectedIndex == 1 &&
@@ -217,7 +195,7 @@ export function Highlights(props) {
                     <View style={{ alignItems: 'center' }}>
                       <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>PPoo</Text>
                       <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>ผู้ติดตาม 20.2 พัน</Text>
-                      <View style={stylesMain.FlexRow}>{starReview(5, 15)}</View>
+                      <View style={stylesMain.FlexRow}>{StarReview(5, 15)}</View>
                       <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>4.8 จาก 5 (46.9 พันคะแนน)</Text>
                       <TouchableOpacity>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', width: width * 0.20, borderRadius: 10, marginTop: 5, }]}>
@@ -346,7 +324,7 @@ export function Feed_About(props) {
     }))
   let GroupItem = (
     item_Group.map((value, index) => {
-      return <TouchableOpacity key={index} onPress={() => NavigationNavigateScreen({
+      return <TouchableOpacity key={index} onPress={() => NavigationNavigate({
         goScreen: 'Post_Feed', setData: {
           selectedIndex: 12,
         }, navigation
@@ -366,7 +344,7 @@ export function Feed_About(props) {
     }))
   return (<ScrollView>
     <View style={{ flex: 1, backgroundColor: '#FFFFFF', padding: 10 }}>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Post_Feed', setData: {
           selectedIndex: 22,
         }, navigation
@@ -381,7 +359,7 @@ export function Feed_About(props) {
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
       </TouchableOpacity>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => NavigationNavigateScreen({
+        <TouchableOpacity onPress={() => NavigationNavigate({
           goScreen: 'Post_Feed', setData: {
             selectedIndex: 16,
           }, navigation
@@ -391,7 +369,7 @@ export function Feed_About(props) {
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity
-          onPress={() => NavigationNavigateScreen({
+          onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 17,
             }, navigation
@@ -401,7 +379,7 @@ export function Feed_About(props) {
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity
-          onPress={() => NavigationNavigateScreen({
+          onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 18,
             }, navigation
@@ -411,7 +389,7 @@ export function Feed_About(props) {
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
         <TouchableOpacity
-          onPress={() => NavigationNavigateScreen({
+          onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 19,
             }, navigation
@@ -440,7 +418,7 @@ export function Feed_About(props) {
         <IconEntypo name='chevron-down' size={25} />
       </TouchableOpacity>
       <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold, { margin: 5 }]}>กลุ่มของคุณ</Text>
-      <TouchableOpacity onPress={() => NavigationNavigateScreen({
+      <TouchableOpacity onPress={() => NavigationNavigate({
         goScreen: 'Post_Feed', setData: {
           selectedIndex: 11,
         }, navigation

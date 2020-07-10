@@ -45,10 +45,10 @@ import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
-    BrowerScreen, GetServices, GetData, ProductBox, Toolbar, TabBar, LoadingScreen, RenderHeader,
-    FlatProduct, FlatComponent, NavigationNavigateScreen,
+    BrowerScreen, GetServices, GetData, ProductBox, TabBar, LoadingScreen, RenderHeader,
+    FlatProduct, FlatComponent,
 } from '../customComponents/Tools';
-import { ButtomTab } from '../customComponents';
+import { ButtomTab, Toolbar, NavigationNavigate } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -129,7 +129,8 @@ function MainScreen(props) {
     //     getFetchData['category_mobile']?.isFetching == false &&
     //         FetchDataCate();
     // }, [getFetchData['category_mobile']?.isFetching == false]);
-    let itemList = [{ name: 'หน้าแรก', colors: ['#8cf', '#17f'] }, { name: 'หน้าสอง', colors: ['#8c1', '#171'] }]
+    let itemList = [{ name: 'หน้าแรก', colors: ['#8cf', '#17f'] }, { name: 'หน้าสอง', colors: ['#8c1', '#171'] },
+    { name: 'หน้าสาม', colors: ['#a9f', '#61f'] }]
     let itemT = [
         /////--------------------------------------------->>>Start
         {
@@ -139,7 +140,7 @@ function MainScreen(props) {
         {
             nameComponent: 'Slidezzz',
             renderComponent: <View style={{ flexDirection: 'row' }}>
-                <ButtomTab colors={['#8cf', '#17f']} data={itemList} fontStyle={[stylesFont.FontSize5,
+                <ButtomTab colors={['#8cf', '#17f']} setWidthBox={31.8 * (width / 102)} data={itemList} fontStyle={[stylesFont.FontSize5,
                 stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => console.log(value)} />
             </View>
         },
@@ -361,7 +362,7 @@ export let AppBar = (props) => {
     }
     let setSubmit = () => {
         text != undefined && text != ' ' &&
-            NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
+            NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
     };
     activeCartList && console.log('activeCartList(getFetchData[cart_mobile]?.data');
     activeCartList && console.log(getFetchData['cart_mobile']?.data);
@@ -382,7 +383,7 @@ export let AppBar = (props) => {
         {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
         {backArrow && <View key={'backarrow'}>
             <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
-                onPress={() => { NavigationNavigateScreen({ goScreen: 'goBack', navigation }); }}>
+                onPress={() => { NavigationNavigate({ goScreen: 'goBack', navigation }); }}>
                 <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor ?? '#fff', }} />
             </TouchableOpacity>
         </View>}
@@ -398,7 +399,7 @@ export let AppBar = (props) => {
                 </View>
             </TouchableOpacity> :
             <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                style={{ marginRight: 3 }} onPress={() => NavigationNavigateScreen({
+                style={{ marginRight: 3 }} onPress={() => NavigationNavigate({
                     goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
                 })}>
                 <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
@@ -421,14 +422,14 @@ export let AppBar = (props) => {
             </TouchableOpacity>}
             {chatBar && <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                 onPress={() => currentUser ?
-                    NavigationNavigateScreens({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                    NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                 <IconAntDesign name="message1" size={25} style={{ color: '#fff' }} />
             </TouchableOpacity>}
             {cartBar && <TouchableOpacity key='cartBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
                 onPress={() => currentUser ?
-                    NavigationNavigateScreen({ goScreen: 'CartScreen', navigation }) :
-                    NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                    NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                 {((getFetchData['cart_mobile'] && getFetchData['cart_mobile']?.isError) || cartMobile <= 0) ?
                     <></> :
                     <Animated.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
@@ -463,11 +464,11 @@ export let AppBar1 = (props) => {
             {backArrow &&
                 <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
                     activeOpacity={1} onPress={() => goToTop ?
-                        NavigationNavigateScreen({ goScreen: 'popToTop', navigation }) :
+                        NavigationNavigate({ goScreen: 'popToTop', navigation }) :
                         backNavigation ?
                             [route.params.backNavigation('goBack'),
-                            NavigationNavigateScreen({ goScreen: 'goBack', navigation })] :
-                            NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
+                            NavigationNavigate({ goScreen: 'goBack', navigation })] :
+                            NavigationNavigate({ goScreen: 'goBack', navigation })}>
                     <IconEntypo style={[stylesStore.Icon_appbar, { color: backArrowColor ?? '#ffffff' }]} name="chevron-left"
                         size={30} />
                 </TouchableOpacity>}
@@ -491,24 +492,24 @@ export let AppBar1 = (props) => {
         </View>
         <View style={stylesMain.FlexRow}>
             {searchBar && <TouchableOpacity key={'searchBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation })}>
+                NavigationNavigate({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation })}>
                 <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                 { marginRight: 8 }]} />
             </TouchableOpacity>}
             {settingBar && <TouchableOpacity key={'settingBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Seller_Setting', navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Setting', navigation })}>
                 <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar,
                 stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
             </TouchableOpacity>}
             {chatBar && <TouchableOpacity key={'chatBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
                 currentUser ?
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                    NavigationNavigateScreen({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                 <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                 { marginRight: 8 }]} />
             </TouchableOpacity>}
             {storeBar && <TouchableOpacity key={'storeBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
                 <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar,
                 stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
             </TouchableOpacity>}
@@ -522,7 +523,7 @@ export let AppBar1 = (props) => {
                 { width: 60, marginRight: 8, }]}>บันทึก</Text>
             </TouchableOpacity>}
             {UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation })}>
                 <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
                 stylesFont.FontSize4, { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
             </TouchableOpacity>}
@@ -644,7 +645,7 @@ export let Category = (props) => {
             if (index < dataService?.category.length) {
                 var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
                 return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation })}
+                    NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation })}
                     style={stylesMain.Category}>
                     <FastImage source={{ uri: dataMySQL, }} style={stylesMain.Category_box} resizeMode={FastImage.resizeMode.cover} />
                     <View style={{ height: 25 }}>
@@ -744,34 +745,34 @@ export let Button_Bar = (props) => {
     return <>
         <View style={[stylesMain.FlexRow,
         { zIndex: 1, width, justifyContent: 'space-around', marginTop: 3, backgroundColor: 'transparent', elevation: 1 }]}>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'DealScreen', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation })}>
                 <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                     <FastImage style={stylesMain.Button_Bar_icon} source={require('../../icon/Icon_Deal/01.jpg')}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'CoinScreen', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'CoinScreen', navigation })}>
                 <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                     <FastImage style={stylesMain.Button_Bar_icon} source={require('../../icon/Icon_Deal/02.jpg')}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'CampaignScreen', navigation })}>
+                NavigationNavigate({ goScreen: 'CampaignScreen', navigation })}>
                 <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                     <FastImage style={stylesMain.Button_Bar_icon} source={require('../../icon/Icon_Deal/03.jpg')}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'The_BestFinScreen', navigation })}>
+                NavigationNavigate({ goScreen: 'The_BestFinScreen', navigation })}>
                 <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                     <FastImage style={stylesMain.Button_Bar_icon} source={require('../../icon/Icon_Deal/04.jpg')}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Installment_payScreen', navigation })}>
+                NavigationNavigate({ goScreen: 'Installment_payScreen', navigation })}>
                 <View style={[stylesMain.Button_Bar_Box, { elevation: 1 }]}>
                     <FastImage style={stylesMain.Button_Bar_icon} source={require('../../icon/Icon_Deal/05.jpg')}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -801,7 +802,7 @@ export let Recommend_Brand = (props) => {
             // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Recommend_Brand', navigation })}>
+                NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
                 <View style={stylesMain.Brand_image_Box}>
                     <FastImage style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]} source={{ uri: dataMySQL, }}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -813,7 +814,7 @@ export let Recommend_Brand = (props) => {
             // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Recommend_Brand', navigation })}>
+                NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
                 <View style={stylesMain.Brand_image_Box}>
                     <FastImage style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]} source={{ uri: dataMySQL, }}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -823,7 +824,7 @@ export let Recommend_Brand = (props) => {
     return <View style={[stylesMain.FrameBackground2, { paddingBottom: 0, }]}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>แบรนด์แนะนำ</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Brand', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
@@ -845,7 +846,7 @@ export let Popular_store = (props) => {
         dataService.store_good.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+                NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
                 <View style={[stylesMain.BoxStore1Box, { marginLeft: 0 }]}>
                     <FastImage style={stylesMain.BoxStore1Image} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
                 </View>
@@ -896,7 +897,7 @@ export let Popular_product = (props) => {
             <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.6, }]}>
                 <ScrollView horizontal>
                     {<TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Popular_productScreen', setData: { id_item: 0, }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Popular_productScreen', setData: { id_item: 0, }, navigation })}>
                         <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                             <View style={stylesMain.PopularText_A}>
                                 <Text style={[{ marginLeft: 8, color: '#fff', }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
@@ -908,7 +909,7 @@ export let Popular_product = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity key={'best_price'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Popular_productScreen', setData: { id_item: 1, }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Popular_productScreen', setData: { id_item: 1, }, navigation })}>
                         <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                             <View style={stylesMain.PopularText_A}>
                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
@@ -920,7 +921,7 @@ export let Popular_product = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity key={'best_sale'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Popular_productScreen', setData: { id_item: 2, }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Popular_productScreen', setData: { id_item: 2, }, navigation })}>
                         <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
                             <View style={stylesMain.PopularText_A}>
                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
@@ -932,7 +933,7 @@ export let Popular_product = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity key={'best_cool'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Popular_productScreen', setData: { id_item: 3, }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Popular_productScreen', setData: { id_item: 3, }, navigation })}>
                         <View style={[stylesMain.Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
                             <View style={stylesMain.PopularText_A}>
                                 <Text style={[{ marginLeft: 8, color: '#fff' }, stylesFont.FontSize6, stylesFont.FontFamilyText]}>
@@ -1046,7 +1047,7 @@ export let FlashSale = (props) => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'FlashSaleScreen', navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'FlashSaleScreen', navigation })}>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
                         ดูทั้งหมด</Text>
                 </TouchableOpacity>
@@ -1078,7 +1079,7 @@ export let FlashSale = (props) => {
                         </View>
                     </View>
                 </View>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'FlashSaleScreen', navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'FlashSaleScreen', navigation })}>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
                         ดูทั้งหมด</Text>
                 </TouchableOpacity>
@@ -1110,7 +1111,7 @@ export let PromotionPopular = (props) => {
         dataService.recommend_store.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })} key={index}>
+                NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
                 <View style={[stylesMain.BoxStore2Box2]}>
                     <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore2Image2]}
                         resizeMode={FastImage.resizeMode.cover} />
@@ -1127,7 +1128,7 @@ export let PromotionPopular = (props) => {
     return <View style={stylesMain.FrameBackground2}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ลายแทงร้านค้าแนะนำ</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'Recommend_Store', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
@@ -1152,7 +1153,7 @@ export let Product_for_you = (props) => {
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 FIN คัดมาเพื่อคุณ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'Product_for_youScreen', navigation })}>
+                NavigationNavigate({ goScreen: 'Product_for_youScreen', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
@@ -1178,7 +1179,7 @@ export let Highlight = (props) => {
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
                 ไฮไลท์ประจำสัปดาห์</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'HighlightScreen', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'HighlightScreen', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}> ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
@@ -1197,7 +1198,7 @@ export let NewStore = (props) => {
     let dataNewStore = dataService?.dont_miss ?
         dataService?.dont_miss.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigateScreen({
+            return <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigate({
                 goScreen: 'Recommend_Store', setData: {
                     id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total'
                 }, navigation
@@ -1230,7 +1231,7 @@ export let Exclusive = (props) => {
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 สินค้าสุด Exclusive</Text>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
+            <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
@@ -1272,7 +1273,7 @@ export function CategoryProduct_new(props) {
     let dataCategory = <View style={[stylesMain.FrameBackground2, { backgroundColor: '#800c0a' }]}>
         <>
             {<TouchableOpacity onPress={() =>
-                NavigationNavigateScreen({ goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation, })}>
+                NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: dataService.id_type }, navigation, })}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.CategoryProductImageHead]}
                     resizeMode={FastImage.resizeMode.contain} />
             </TouchableOpacity>}
@@ -1317,7 +1318,7 @@ export function CategoryProduct(props) {
             return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation, })}>
+                        NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation, })}>
                         <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.CategoryProductImageHead]}
                             resizeMode={FastImage.resizeMode.contain} />
                     </TouchableOpacity>}
@@ -1484,7 +1485,7 @@ export let Second_product = (props) => {
                 dataService?.mobile_bar ?
                     <TouchableOpacity activeOpacity={1}
                         onPress={() =>
-                            NavigationNavigateScreen({ goScreen: 'SecondScreen', setData: { selectedIndex: 0 }, navigation, })}>
+                            NavigationNavigate({ goScreen: 'SecondScreen', setData: { selectedIndex: 0 }, navigation, })}>
                         <Image style={[stylesMain.CategoryProductImageHead, { marginTop: 0 }]} source={{ uri: header_url }}
                             resizeMode='cover' resizeMethod='resize' />
                     </TouchableOpacity> :
@@ -1511,7 +1512,7 @@ export let Second_product = (props) => {
                     ร้านค้ามือสองแนะนำโดย FIN </Text>}
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'SecondScreen', setData: { selectedIndex: 1 }, navigation, })}>
+                    NavigationNavigate({ goScreen: 'SecondScreen', setData: { selectedIndex: 1 }, navigation, })}>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>
                         ดูทั้งหมด</Text>
                 </TouchableOpacity>
@@ -1594,7 +1595,7 @@ export let Fin_Mall = (props) => {
             <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
                 {dataService ?
                     <TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'FinMallScreen', navigation })}>
+                        NavigationNavigate({ goScreen: 'FinMallScreen', navigation })}>
                         <View style={stylesMain.FlexRow}>
                             {productFinmail(dataService.product_hit)}
                         </View>
@@ -1621,7 +1622,7 @@ export let Fin_Mall = (props) => {
             <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
                 {dataService ?
                     <TouchableOpacity key={'exclusive'} activeOpacity={1} onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'ExclusiveScreen', navigation })}>
+                        NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
                         <View style={stylesMain.FlexRow}>
                             {productFinmail(dataService.exclusive)}
                         </View>
@@ -1666,7 +1667,7 @@ export let FIN_Supermarket = (props) => {
                 nameFlatProduct='FIN_Supermarket' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />}
         </View>
         <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
-            <TouchableOpacity onPress={() => NavigationNavigateScreen({ goScreen: 'FINSupermarket', navigation })}
+            <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'FINSupermarket', navigation })}
                 style={{ width: width * 0.60, marginRight: 5 }}>
                 <Image style={stylesMain.BoxProduct1Image} resizeMode='stretch' resizeMethod='resize'
                     source={{ uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`, }} />
@@ -1872,7 +1873,7 @@ export let Not_Internet = (props) => {
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: 300, textAlign: 'center', color: '#969BA0' }]}>
             WHOOPS! ดูเหมือนว่าจะมีปัญหาในการเชื่อมต่อเซิร์ฟเวอร์ ลองพยายามตรวจสอบ
                 การเชื่อมต่ออินเตอร์เน็ตแล้วลองใหม่อีกครั้ง </Text>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigateScreen({ goScreen: 'goBack', navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}>
             <View style={[stylesMain.ItemCenter, { padding: 10, backgroundColor: mainColor, borderRadius: 5, marginTop: 10 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>โหลดอีกครั้ง</Text>
             </View>

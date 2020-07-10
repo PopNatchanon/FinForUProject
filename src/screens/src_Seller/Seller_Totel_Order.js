@@ -20,7 +20,8 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar1, } from '../MainScreen';
-import { TabBar, GetData, GetServices, NavigationNavigateScreen } from '../../customComponents/Tools';
+import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
+import { NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -125,7 +126,7 @@ export let Order_Me_Box = (props) => {
                         <IconFeather name='edit' size={15} />รอการรีวิว</Text>
                 </TouchableOpacity>}
                 {dataService.purchase == 'reviewed' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigateScreen({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 7 }, navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>สำเร็จแล้ว</Text>
                 </TouchableOpacity>}
@@ -159,7 +160,7 @@ export let Order_Me_Box = (props) => {
                 </View>
                 <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                     <TouchableOpacity onPress={() =>
-                        NavigationNavigateScreen({ goScreen: 'Seller_Detail_Order', setData: { selectedIndex: 0 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Seller_Detail_Order', setData: { selectedIndex: 0 }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                         </View>

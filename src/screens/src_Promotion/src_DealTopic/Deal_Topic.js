@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -26,7 +26,7 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen, NavigationNavigateScreen } from '../../../customComponents/Tools';
+import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 import { ProductBox } from '../../../customComponents/Tools';
@@ -36,7 +36,7 @@ import { finip, ip } from '../../../navigator/IpConfig';
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Deal_Topic);
 function Deal_Topic(props) {
     const { route } = props;

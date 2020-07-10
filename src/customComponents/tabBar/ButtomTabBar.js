@@ -1,9 +1,9 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
-import { View, Text, TouchableOpacity, ViewPropTypes, TextPropTypes, } from "react-native"
+import PropTypes from 'prop-types';
+import { View, Text, TouchableOpacity, TextPropTypes, ViewPropTypes, } from "react-native"
 ///----------------------------------------------------------------------------------------------->>>> Import
 import LinearGradient from 'react-native-linear-gradient';
-import PropTypes from 'prop-types';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import styleMain from '../../style/StylesMainScreen'
@@ -14,23 +14,23 @@ function ButtomTabBar(props) {
     const [selected, setSelected] = useState(0);
     return props.data.map((value, index) => <TouchableOpacity key={index} onPress={() => {
         props.changeSelect ? setSelected(index) : undefined; props.sendDataOut(index)
-    }} style={{
+    }} style={[{
         borderColor: props.borderColor, borderRadius: props.borderRadius, borderWidth: props.borderWidth, margin: props.margin,
         overflow: 'hidden'
-    }}>
+    }, props.boxOutStyle,]}>
         {props.linearGradient ?
             <LinearGradient colors={index == selected ? value.colors ?? props.colors : props.notSelectColors}
-                start={props.start} end={props.end} style={[styleMain.ItemCenter, props.boxStyle, {
+                start={props.start} end={props.end} style={[styleMain.ItemCenter, {
                     width: props.setWidthBox, height: props.setHeightBox,
-                }]}>
+                }, props.boxInStyle,]}>
                 <Text style={[props.fontStyle, {
                     color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors
                 }]}>{value.name}</Text>
             </LinearGradient> :
-            <View style={[styleMain.ItemCenter, props.boxStyle, {
+            <View style={[styleMain.ItemCenter, {
                 width: props.setWidthBox, height: props.setHeightBox,
                 backgroundColor: index == selected ? value.backgroundColor ?? props.backgroundColor : props.notBackgroundColor
-            }]}>
+            }, props.boxInStyle,]}>
                 <Text style={[props.fontStyle, {
                     color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors
                 }]}>{value.name}</Text>
@@ -43,19 +43,21 @@ ButtomTabBar.propTypes = {
     borderColor: PropTypes.string,
     borderRadius: PropTypes.number,
     borderWidth: PropTypes.number,
-    boxStyle: ViewPropTypes.style,
+    boxInStyle: ViewPropTypes.style,
+    boxOutStyle: ViewPropTypes.style,
     changeSelect: PropTypes.bool,
-    colors: PropTypes.string,
-    data: PropTypes.func,
+    colors: PropTypes.array,
+    data: PropTypes.array,
     end: PropTypes.object,
     fontColors: PropTypes.string,
-    fontStyle: TextPropTypes.style,
+    fontStyle: Text.propTypes.style,
     linearGradient: PropTypes.bool,
     margin: PropTypes.number,
     notBackgroundColor: PropTypes.string,
-    notSelectColors: PropTypes.string,
+    notSelectColors: PropTypes.array,
     notSelectFontColors: PropTypes.string,
     start: PropTypes.object,
+    sendDataOut: PropTypes.func,
     setHeightBox: PropTypes.number,
     setSelectedOut: PropTypes.number,
     setWidthBox: PropTypes.number,

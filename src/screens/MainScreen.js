@@ -48,7 +48,7 @@ import {
     BrowerScreen, GetServices, GetData, ProductBox, TabBar, LoadingScreen, RenderHeader,
     FlatProduct, FlatComponent,
 } from '../customComponents/Tools';
-import { ButtomTab, Toolbar, NavigationNavigate } from '../customComponents';
+import { ButtomTab, Toolbar, NavigationNavigate, AppBar as AAppBar, Rgba2hex } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -70,7 +70,13 @@ function MainScreen(props) {
     const maxheight = 55;
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
-        outputRange: ['transparent', appBarColor],
+        outputRange: ['#ffffff00', '#10162dff'],
+        extrapolate: 'clamp',
+        useNativeDriver: true,
+    });
+    const AnimatedHeadbg2 = scrollY.interpolate({
+        inputRange: [maxheight, maxheight * 2],
+        outputRange: ['#ffffff00', '#284d8fff'],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
@@ -129,20 +135,11 @@ function MainScreen(props) {
     //     getFetchData['category_mobile']?.isFetching == false &&
     //         FetchDataCate();
     // }, [getFetchData['category_mobile']?.isFetching == false]);
-    let itemList = [{ name: 'หน้าแรก', colors: ['#8cf', '#17f'] }, { name: 'หน้าสอง', colors: ['#8c1', '#171'] },
-    { name: 'หน้าสาม', colors: ['#a9f', '#61f'] }]
     let itemT = [
         /////--------------------------------------------->>>Start
         {
             nameComponent: 'Slide',
             renderComponent: <Slide {...props} />
-        },
-        {
-            nameComponent: 'Slidezzz',
-            renderComponent: <View style={{ flexDirection: 'row' }}>
-                <ButtomTab colors={['#8cf', '#17f']} setWidthBox={31.8 * (width / 102)} data={itemList} fontStyle={[stylesFont.FontSize5,
-                stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => console.log(value)} />
-            </View>
         },
         {
             nameComponent: 'Guarantee',
@@ -236,6 +233,7 @@ function MainScreen(props) {
     //         renderComponent: <CategoryProduct_new {...props} dataService={value} />
     //     })
     // })
+    const colors = [AnimatedHeadbg, AnimatedHeadbg2]
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {/* {
                 activeTime ?
@@ -245,7 +243,7 @@ function MainScreen(props) {
         <Animated.View style={{
             zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
         }}>
-            <AppBar {...props} ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} cartBar chatBar />
+            <AAppBar {...props} colorSet={colors} enableAnimated={AnimatedHeadbg} cartBar chatBar enableSearch />
         </Animated.View>
         <FlatComponent animatedView attachNativeEvent componentPage='MainScreen' component={itemT} initialNumToRender={10}
             scrollEventThrottle={8} showsVerticalScrollIndicator={false}

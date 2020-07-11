@@ -21,11 +21,11 @@ import { normalize } from '../style/stylesFont';
 import stylesFont from '../style/stylesFont';
 import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Botton_PopUp_FIN, AppBar } from './MainScreen';
+import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import {
   FeedBox, GetData, GetServices, TabBar, LoadingScreen,
 } from '../customComponents/Tools';
-import { Toolbar, StarReview, NavigationNavigate } from '../customComponents';
+import { Toolbar, StarReview, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -61,7 +61,7 @@ function FeedScreen(props) {
           activeGetSource  &&
           <LoadingScreen key='LoadingScreen' />
         } */}
-      <AppBar1 {...props} titleHead='Feed' menuBar />
+      <AppBar {...props} titleHead='Feed' menuBar />
       {
         currentUser &&
         <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
@@ -107,7 +107,7 @@ export function MenuBar(props) {
           noSpace
           setVertical={2}
           widthBox={130}
-          spaceColor={mainColor}
+          spaceColor={'#284d8fff'}
           activeColor='#fff'
           fontColor='#fff' />
       </>

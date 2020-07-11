@@ -1,3 +1,4 @@
+import AppBar from './tabComponents/AppBar';
 import ButtomTab from './tabComponents/ButtomTabBar';
 import GenArray from './otherComponents/GenArrayNumber';
 import ImageGallery from './imageComponents/ImageGallery';
@@ -7,6 +8,7 @@ import Toolbar from './tabComponents/Toolbar';
 
 
 export {
+    AppBar,
     ButtomTab,
     GenArray,
     ImageGallery,

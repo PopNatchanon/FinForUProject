@@ -37,7 +37,6 @@ function ButtomTabBar(props) {
             </View>}
     </TouchableOpacity>)
 }
-
 ButtomTabBar.propTypes = {
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,

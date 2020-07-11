@@ -2,7 +2,7 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { normalize } from './stylesFont';
 export const { width, height } = Dimensions.get('window');
 
-export const mainColor = '#001252'
+export const mainColor = '#001666'
 export const appBarColor = '#0A3350'
 export let color_up = value => {
   var color = value.toLowerCase();

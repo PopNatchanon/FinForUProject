@@ -262,9 +262,9 @@ export let StoreHeadDetails = (props) => {
                     { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
                 {!activeGetServices ?
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity nPress={() => NavigationNavigateScreen({
+                        <TouchableOpacity onPress={() => NavigationNavigate({
                             goScreen: 'Post_Feed', setData: {
-                                selectedIndex: 26, id_store, store_data: dataService.store_data, getDataSource: (value) => setActiveRef(value)
+                                selectedIndex: 26,
                             }, navigation
                         })}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>

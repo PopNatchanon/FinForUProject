@@ -48,6 +48,7 @@ import { Store_Detail } from '../Recommend_Store';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
+import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -220,19 +221,19 @@ function Post_Feed(props) {
             case 24:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...this.props} backArrow selectshare postBar />
-                    <Post_New {...this.props} activePost={activePost} cokie={cokie} getActivePost={this.getActivePost.bind(this)} />
+                    <AppBar1 {...props} backArrow selectshare postBar />
+                    <Post_New {...props} activePost={activePost} cokie={cokie} getActivePost={(value) => getActivePost(value)} />
                 </>
             case 25:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...this.props} backArrow titleHead='กลุ่มยอดนิยม' />
+                    <AppBar1 {...props} backArrow titleHead='กลุ่มยอดนิยม' />
                     <Group_Popular />
                 </>
             case 26:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...this.props} backArrow titleHead='ผู้ติดตาม' />
+                    <AppBar1 {...props} backArrow titleHead='ผู้ติดตาม' />
                     <Followers />
                 </>
         }
@@ -707,7 +708,7 @@ export let Feed_comment = (props) => {
         { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
         { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ" },
     ])
-    return <FlatList style={stylesTopic.root} data={this.state.data} extraData={this.state} ItemSeparatorComponent={() =>
+    return <FlatList style={stylesTopic.root} data={data} extraData={this.state} ItemSeparatorComponent={() =>
         <View style={stylesTopic.separator} />} keyExtractor={(item) => item.id} renderItem={(item) => {
             const Notification = item.item;
             return <View style={stylesTopic.container}>
@@ -1705,13 +1706,86 @@ export let Group_Popular = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Followers = (props) => {
-    return <View>
-        <Text>ผู้ติดตาม</Text>
-    </View>
+    const Followersitem = [
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี`, about: `ชุมชนคนราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`, },
+    ];
+    let FollowersBox = Followersitem.map((value, index) =>
+        <View key={index} style={[stylesMain.FlexRow, { padding: 5, backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between' }]}>
+            <View style={stylesMain.FlexRow}>
+                <FastImage
+                    style={{ height: 60, width: 60, borderRadius: 60 / 2 }}
+                    source={{ uri: value.image, }}
+                    resizeMode={FastImage.resizeMode.stretch} />
+                <View style={{ width: width * 0.50, justifyContent: 'center' }}>
+                    <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 10 }]}>{value.name}</Text>
+                </View>
+            </View>
+            <View style={{ justifyContent: 'center' }}>
+                <TouchableOpacity >
+                    <LinearGradient colors={['#001666', '#4767DC']} style={[stylesMain.FlexRow, stylesMain.ItemCenter, {
+                        height: 30, paddingHorizontal: 20, borderRadius: 20
+                    }]}>
+                        <IconEntypo name='plus' size={18} color='#FFFFFF' />
+                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF', marginLeft: 5 }]}>ติดตาม</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
+        </View>);
+    return <ScrollView>
+        {FollowersBox}
+    </ScrollView>
+
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Following = (props) => {
-    return <View>
-        <Text>กำลังติดตาม</Text>
-    </View>
+    const Followingitem = [
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกเรื่องราวในราชบุรี.jpg`, name: `ทุกเรื่องราวในราชบุรี`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดนัดโพธารามonline.jpg`, name: `ตลาดนัดโพธารามonline`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีมีอะไร.jpg`, name: `ราชบุรีมีอะไร`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีซื้อขายได้ทุกอย่าง.jpg`, name: `ราชบุรีซื้อขายได้ทุกอย่าง`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีกินเที่ยว.jpg`, name: `ราชบุรีกินเที่ยว`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ราชบุรีหางานหาคน.jpg`, name: `ราชบุรีหางานหาคน`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ตลาดโพธาราม.jpg`, name: `ตลาดโพธาราม`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี.jpg`, name: `ซื้อขายโคนมบ้านโป่งโพธารามราชบุรี ซื้อขายโคนมบ้านโป่งโพธารามราชบุ`, },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี`, about: `ชุมชนคนราชบุรี ` },
+        { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`, },
+    ];
+    let FollowingBox = Followersitem.map((value, index) =>
+        <View key={index} style={[stylesMain.FlexRow, { padding: 5, backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between' }]}>
+            <View style={stylesMain.FlexRow}>
+                <FastImage
+                    style={{ height: 60, width: 60, borderRadius: 60 / 2 }}
+                    source={{ uri: value.image, }}
+                    resizeMode={FastImage.resizeMode.stretch} />
+                <View style={{ width: width * 0.50, justifyContent: 'center' }}>
+                    <Text numberOfLines={2} style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { marginLeft: 10 }]}>{value.name}</Text>
+                </View>
+            </View>
+            <View style={{ justifyContent: 'center' }}>
+                <TouchableOpacity >
+                    <LinearGradient colors={['#001666', '#4767DC']} style={[stylesMain.FlexRow, stylesMain.ItemCenter, {
+                        height: 30, paddingHorizontal: 20, borderRadius: 20
+                    }]}>
+                        <IconEntypo name='plus' size={18} color='#FFFFFF' />
+                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
+                    </LinearGradient>
+                </TouchableOpacity>
+            </View>
+        </View>);
+    return <ScrollView>
+        {FollowingBox}
+    </ScrollView>
 }

@@ -47,7 +47,7 @@ export let MenuBar = (props) => {
     return <View>
         <View>
             <TabBar sendData={value => getData(value.selectedIndex)} item={item} noSpace setVertical={2} widthBox={100}
-                spaceColor='#10162d' activeColor='#fff' fontColor='#fff' />
+                spaceColor='#001666' activeColor='#fff' fontColor='#fff' />
         </View>
     </View>;
 };

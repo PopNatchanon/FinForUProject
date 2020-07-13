@@ -36,7 +36,6 @@ const mapDispatchToProps = ({
   checkCustomer,
   fetchData,
   multiFetchData,
-
   setFetchToStart,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FeedScreen)

@@ -42,7 +42,7 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
 } from '../../customComponents/Tools';
-import { ImageGallery, GenArray, StarReview, NavigationNavigate } from '../../customComponents';
+import { ImageGallery, GenArray, StarReview, NavigationNavigate, } from '../../customComponents';
 import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
@@ -114,13 +114,13 @@ function Post_Feed(props) {
                     <New_Group {...props} />
                 </>
             case 12:
-                AnimatedHeadbg = scrollY.interpolate({
+                    AnimatedHeadbg = scrollY.interpolate({
                     inputRange: [maxheight, maxheight * 2],
                     outputRange: ['transparent', appBarColor],
                     extrapolate: 'clamp',
                     useNativeDriver: true,
                 });
-                AnimatedCart = scrollY.interpolate({
+                    AnimatedCart = scrollY.interpolate({
                     inputRange: [maxheight, maxheight * 2],
                     outputRange: ['#ECECEC', appBarColor],
                     extrapolate: 'clamp',
@@ -176,16 +176,54 @@ function Post_Feed(props) {
                     <Feed_Notification />
                 </>
             case 20:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า ค้นหา เข้าจากหน้า Profile กลุ่ม */}
-                    <AppBar_Group {...props} backArrow searchBar otherBar />
-                    <Group_Search />
+                    <Animated.View style={{
+                        zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
+                        marginTop: -(maxheight),
+                    }}>
+                        <AppBar_Group ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} backArrow backArrow searchBar otherBar />
+                        <Group_Search {...props} otherBar onScroll={Animated.event([{
+                            nativeEvent: { contentOffset: { y: scrollY } }
+                        }], { useNativeDriver: false, })} />
+                    </Animated.View>
                 </>
             case 21:
+                AnimatedHeadbg = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['transparent', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
+                AnimatedCart = scrollY.interpolate({
+                    inputRange: [maxheight, maxheight * 2],
+                    outputRange: ['#ECECEC', appBarColor],
+                    extrapolate: 'clamp',
+                    useNativeDriver: true,
+                });
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
-                    <AppBar_Group {...props} backArrow />
-                    <Profile_FeedStore />
+                    <Animated.View style={{
+                        zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
+                        marginTop: -(maxheight),
+                    }}>
+                        <AppBar_Group ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbg} ABICartColor={AnimatedCart} backArrow />
+                        <Profile_FeedStore {...props} otherBar onScroll={Animated.event([{
+                            nativeEvent: { contentOffset: { y: scrollY } }
+                        }], { useNativeDriver: false, })} />
+                    </Animated.View>
                 </>
             case 22:
                 AnimatedHeadbg = scrollY.interpolate({
@@ -235,6 +273,12 @@ function Post_Feed(props) {
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar1 {...props} backArrow titleHead='ผู้ติดตาม' />
                     <Followers />
+                </>
+            case 27:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar1 {...props} backArrow titleHead='กำลังติดตาม' />
+                    <Following />
                 </>
         }
     }
@@ -885,7 +929,7 @@ export let Group_About = (props) => {
         <TouchableOpacity>
             <IconEntypo name='dots-three-vertical' size={25} />
         </TouchableOpacity>
-    </TouchableOpacity >);
+    </TouchableOpacity>);
     return <ScrollView>
         <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>เกี่ยวกับกลุ่ม</Text>
@@ -1726,14 +1770,14 @@ export let Followers = (props) => {
                 <FastImage
                     style={{ height: 60, width: 60, borderRadius: 60 / 2 }}
                     source={{ uri: value.image, }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.cover} />
                 <View style={{ width: width * 0.50, justifyContent: 'center' }}>
                     <Text numberOfLines={2} style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { marginLeft: 10 }]}>{value.name}</Text>
                 </View>
             </View>
             <View style={{ justifyContent: 'center' }}>
                 <TouchableOpacity >
-                    <LinearGradient colors={['#001666', '#4767DC']} style={[stylesMain.FlexRow, stylesMain.ItemCenter, {
+                    <LinearGradient colors={['#10162d', '#284d8f']} style={[stylesMain.FlexRow, stylesMain.ItemCenter, {
                         height: 30, paddingHorizontal: 20, borderRadius: 20
                     }]}>
                         <IconEntypo name='plus' size={18} color='#FFFFFF' />
@@ -1763,25 +1807,22 @@ export let Following = (props) => {
         { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ทุกวันที่ราชบุรี.jpg`, name: `ทุกวันที่ราชบุรี`, about: `ชุมชนคนราชบุรี ` },
         { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/เช็คอินของกินร้านอาหารเด็ดนครปฐม.jpg`, name: `เช็คอินของกินร้านอาหารเด็ดนครปฐม`, },
     ];
-    let FollowingBox = Followersitem.map((value, index) =>
+    let FollowingBox = Followingitem.map((value, index) =>
         <View key={index} style={[stylesMain.FlexRow, { padding: 5, backgroundColor: '#FFFFFF', marginTop: 5, justifyContent: 'space-between' }]}>
             <View style={stylesMain.FlexRow}>
                 <FastImage
                     style={{ height: 60, width: 60, borderRadius: 60 / 2 }}
                     source={{ uri: value.image, }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.cover} />
                 <View style={{ width: width * 0.50, justifyContent: 'center' }}>
                     <Text numberOfLines={2} style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { marginLeft: 10 }]}>{value.name}</Text>
                 </View>
             </View>
             <View style={{ justifyContent: 'center' }}>
                 <TouchableOpacity >
-                    <LinearGradient colors={['#001666', '#4767DC']} style={[stylesMain.FlexRow, stylesMain.ItemCenter, {
-                        height: 30, paddingHorizontal: 20, borderRadius: 20
-                    }]}>
-                        <IconEntypo name='plus' size={18} color='#FFFFFF' />
-                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
-                    </LinearGradient>
+                    <View style={{ borderColor: '#001666', borderWidth: 1.5, paddingHorizontal: 20, borderRadius: 25 }}>
+                        <Text style={[stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#001666' }]}>กำลังติดตาม</Text>
+                    </View>
                 </TouchableOpacity>
             </View>
         </View>);

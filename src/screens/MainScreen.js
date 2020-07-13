@@ -80,12 +80,6 @@ function MainScreen(props) {
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
-    const AnimatedCart = scrollY.interpolate({
-        inputRange: [maxheight, maxheight * 2],
-        outputRange: ['#ECECEC', mainColor],
-        extrapolate: 'clamp',
-        useNativeDriver: true,
-    });
     useEffect(() => { setTimeout(() => setActiveTime(false), 5000); })
     let FetchDataMain = () => {
         multiFetchData({

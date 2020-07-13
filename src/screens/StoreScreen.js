@@ -143,15 +143,18 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/NewDEW.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/New8.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/NewPro.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:
                 return [<TicketLine {...props} cokie={cokie} currentUser={currentUser} key={'TicketLine'} />,
-                <DealTop {...props} activeGetServices={activeGetServices} bgcolor={['#244B80', '#90BBFC',]} dataService={dataService?.store_data[0]?.product_big_deal}
+                <DealTop {...props} activeGetServices={activeGetServices} H_Banner={H_Banner1} dataService={dataService?.store_data[0]?.product_big_deal}
                     key={'product_big_deal'} titlename='ดีลเด็ด' />,
-                <DealTop {...props} activeGetServices={activeGetServices} bgcolor={['#8E4A75', '#EEB6D8',]} dataService={dataService?.store_data[0]?.product_new}
+                <DealTop {...props} activeGetServices={activeGetServices} H_Banner={H_Banner2} dataService={dataService?.store_data[0]?.product_new}
                     key={'product_new'} titlename='สินค้ามาใหม่' />,
-                <PopularProduct {...props} activeGetServices={activeGetServices} bgcolor={['#15674E', '#70CDB0',]}
+                <PopularProduct {...props} activeGetServices={activeGetServices} H_Banner={H_Banner3}
                     dataService={dataService?.store_data[0]?.product_best_sale} key={'product_best_sale'} />];
             case 1:
                 return [<SubMenu getSelectedIndex2={(value) => getSelectedIndex2(value)} key={'SubMenu'} />,
@@ -251,10 +254,10 @@ export let StoreHeadDetails = (props) => {
         <View style={[stylesStore.StoreHead, stylesMain.FlexRow, { justifyContent: 'space-around', width: '100%' }]}>
             <View style={[stylesMain.ItemCenterVertical, { width: '27%', marginLeft: 10 }]}>
                 {!activeGetServices ?
-                    <Text style={[stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, { color: '#0A55A6' }]}>
+                    <Text style={[stylesFont.FontFamilyBoldBold, stylesFont.FontSize4, { color: '#10162d' }]}>
                         {dataService && dataService[0]?.name}</Text> :
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,
-                    { color: '#222222' }]}>Store</Text>}
+                    { color: '#10162d' }]}>Store</Text>}
                 {!activeGetServices ?
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#64696F' }]}>
                         Active เมื่อ 1 ชั่วโมง</Text> :
@@ -267,11 +270,16 @@ export let StoreHeadDetails = (props) => {
                                 selectedIndex: 26,
                             }, navigation
                         })}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6' }]}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#10162d' }]}>
                                 ผู้ติดตาม {dataService && dataService[0]?.who_follow} </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#0A55A6', marginLeft: 5 }]}>
+                        <TouchableOpacity
+                            onPress={() => NavigationNavigate({
+                                goScreen: 'Post_Feed', setData: {
+                                    selectedIndex: 27,
+                                }, navigation
+                            })}>
+                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#10162d', marginLeft: 5 }]}>
                                 กำลังติดตาม {dataService && dataService[0]?.follow_number}</Text>
                         </TouchableOpacity>
                     </View> :
@@ -287,20 +295,22 @@ export let StoreHeadDetails = (props) => {
                 {!activeGetServices ?
                     <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
                         backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2,
-                        borderColor: '#FFD500'
+                        borderColor: '#FFAC33'
                     }]} resizeMode={FastImage.resizeMode.stretch} /> :
                     <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
             </View>
             <View style={{ width: '30%', alignItems: 'center' }}>
                 <TouchableOpacity onPress={() => undefined}>
-                    <View style={[stylesStore.StoreHeadButtom, { borderColor: '#0A55A6', borderWidth: 1 }]}>
+                    <View style={[stylesStore.StoreHeadButtom, { borderColor: '#10162d', borderWidth: 1 }]}>
                         <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
-                        { color: '#0A55A6' }]}>กำลังติดตาม</Text>
+                        { color: '#10162d' }]}>กำลังติดตาม</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>
                     NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
-                    <LinearGradient colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#FFD500', borderWidth: 1 }]}>
+                    <LinearGradient
+                        start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
+                        colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#FFD500', borderWidth: 1 }]}>
                         <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
                         { color: '#fff' }]}>แชท</Text>
                     </LinearGradient>
@@ -308,7 +318,7 @@ export let StoreHeadDetails = (props) => {
             </View>
         </View>
         <View style={{
-            width: '90%', borderBottomColor: '#0A55A6', borderBottomWidth: 2, marginTop: 5, marginLeft: 'auto', marginRight: 'auto'
+            width: '90%', borderBottomColor: '#10162d', borderBottomWidth: 2, marginTop: 5, marginLeft: 'auto', marginRight: 'auto'
         }}>
         </View>
         <View style={[stylesStore.StoreHeadDetails, { paddingTop: 0, marginBottom: 3, justifyContent: 'space-between' }]}>
@@ -359,7 +369,7 @@ export let Menubar = (props) => {
     return <View>
         <View style={[stylesStore.Menubar]}>
             <ButtomTab colors={['#10162d', '#284d8f']} data={item} setWidthBox={width * 0.31} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
-            stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => getSelectedIndex(value)} />
+            stylesFont.FontFamilyBold]} linearGradient={true} sendDataOut={(value) => getSelectedIndex(value)} notSelectFontColors='#10162d' />
         </View>
     </View>;
 };
@@ -372,8 +382,8 @@ export let Banner = (props) => {
         <View style={stylesStore.BannerBox} key={index}>
             <FastImage source={{
                 uri:
-                    `${ip}/${item.image_path}/${item.image}`,
-                // item.image,
+                    // `${ip}/${item.image_path}/${item.image}`,
+                    item.image,
             }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
         </View>;
     let getDetail = !activeGetServices ?
@@ -385,10 +395,10 @@ export let Banner = (props) => {
                 { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '2222.jpg' },
             ];
             var image_banner_sub;
-            image_banner_sub = itemT;
-            // value.image_banner && (image_banner_sub = value.image_banner.split(';'));
-            // value.image_banner && (image_banner_sub = image_banner_sub.map(
-            //     (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
+            // image_banner_sub = itemT;
+            value.image_banner && (image_banner_sub = value.image_banner.split(';'));
+            value.image_banner && (image_banner_sub = image_banner_sub.map(
+                (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
             return <View key={index}>
                 <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                     <View>
@@ -457,13 +467,19 @@ export let TicketLine = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> DealTop
 export let DealTop = (props) => {
-    const { activeGetServices, bgcolor, dataService, titlename } = props;
+    const { activeGetServices, H_Banner, dataService, titlename } = props;
     return <View style={[stylesMain.FrameBackground, { paddingBottom: 5, backgroundColor: 'transparent' }]}>
-        <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
+        <FastImage
+            style={{ height: 45, width: '100%', }}
+            source={{
+                uri: H_Banner,
+            }}
+            resizeMode={FastImage.resizeMode.constain} />
+        {/* <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
             <View style={[stylesMain.FlexRow, { paddingVertical: 5 }]}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{titlename}</Text>
             </View>
-        </LinearGradient>
+        </LinearGradient> */}
         {dataService && !activeGetServices ?
             <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
                 nameSize={14} priceSize={15} dispriceSize={15} /> :
@@ -474,14 +490,15 @@ export let DealTop = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> PopularProduct
 export let PopularProduct = (props) => {
-    const { activeGetServices, dataService, headText, noHeadText, bgcolor, } = props;
+    const { activeGetServices, dataService, headText, noHeadText, H_Banner } = props;
     return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-        {noHeadText ? null : <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-            <View style={[stylesMain.FrameBackgroundTextBox, { paddingVertical: 5 }]}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                    {headText ?? 'สินค้าขายดี'}</Text>
-            </View>
-        </LinearGradient>}
+        {noHeadText ? null : <FastImage
+            style={{ height: 45, width: '100%', }}
+            source={{
+                uri: H_Banner,
+            }}
+            resizeMode={FastImage.resizeMode.constain} />
+        }
         <View style={[stylesMain.BoxProductWarp, { marginTop: 0 }]}>
             {!activeGetServices ?
                 dataService && <ProductBox {...props} dataService={dataService} mode='row2colall' pointerUrl='DetailScreen' pointerid_store

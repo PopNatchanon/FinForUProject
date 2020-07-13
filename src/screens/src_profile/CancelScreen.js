@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import CookieManager from '@react-native-community/cookies';
@@ -19,8 +19,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 import { From_Order_Box } from './Total_Order';
+import { AppBar } from '../../customComponents';
 import { GetServices, LoadingScreen, GetData, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -28,7 +29,7 @@ import { ip, finip } from '../../navigator/IpConfig';
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CancelScreen);
 function CancelScreen(props) {
   const { route } = props;
@@ -56,7 +57,7 @@ function CancelScreen(props) {
   };
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     {isLoading && <LoadingScreen />}
-    <AppBar1 {...props} backArrow titleHead='ยกเลิกสินค้า' />
+    <AppBar {...props} backArrow titleHead='ยกเลิกสินค้า' />
     <ScrollView>
       {PathList()}
     </ScrollView>

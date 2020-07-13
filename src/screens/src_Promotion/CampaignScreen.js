@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -15,17 +15,17 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
+import {  ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CampaignScreen);
 function CampaignScreen(props) {
   const [activeDataService, setActiveDataService] = useState(true);
@@ -44,7 +44,7 @@ function CampaignScreen(props) {
   }, [!activeGetCurrentUser && activeDataService]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-    <AppBar1 {...props} titleHead={'แคมเปญ'} backArrow searchBar chatBar />
+    <AppBar {...props} titleHead={'แคมเปญ'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} banner={dataService?.banner} isOutData />
       <Campaign_tag {...props} dataService={dataService ?? undefined} currentUser={currentUser} />

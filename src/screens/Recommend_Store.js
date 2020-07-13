@@ -19,17 +19,24 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { AppBar, ExitAppModule, } from './MainScreen';
+import { ExitAppModule, } from './MainScreen';
 import {
     GetData, GetServices, ProductBox, LoadingScreen, FlatProduct
 } from '../customComponents/Tools';
-import { StarReview, NavigationNavigate } from '../customComponents';
+import { StarReview, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
+const getCartDataCount = (cartData) => {
+    var cartDataCount = 0;
+    cartData?.map((value) => value.product.map((value2) => {
+        return cartDataCount += value2.quantity * 1;
+    }));
+    return cartDataCount;
+};
 const mapStateToProps = (state) => ({
-    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-    reduxDataBody: state.activeFetchData
+    cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -62,7 +69,7 @@ function Recommend_Store(props) {
     return (
         <SafeAreaView style={stylesMain.SafeAreaView}>
             {(activeGetSource || activeGetServices || activeStore_Detail) && <LoadingScreen key='LoadingScreen' />}
-            <AppBar {...props} backArrow cartBar chatBar />
+            <AppBar {...props} backArrow cartBar chatBar enableSearch />
             <ScrollView>
                 <Header dataService={{
                     slide_image: dataService && dataService.slide_image, list_slide: dataService && dataService.list_slide

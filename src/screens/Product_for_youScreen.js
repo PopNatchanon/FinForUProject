@@ -4,24 +4,25 @@ import {
   Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
+import {  TodayProduct, ExitAppModule, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
 import { GetData, GetServices, SlideTab2, LoadingScreen } from '../customComponents/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Product_for_youScreen);
 function Product_for_youScreen(props) {
   const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
@@ -77,7 +78,7 @@ function Product_for_youScreen(props) {
   }, [!activeGetCurrentUser && activeGetServices])
   return <SafeAreaView style={stylesMain.SafeAreaView} key='foryou'>
     {(activeGetCurrentUser || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
-    <AppBar1 {...props} backArrow titleHead='FIN คัดมาเพื่อคุณ' />
+    <AppBar {...props} backArrow titleHead='FIN คัดมาเพื่อคุณ' />
     <ScrollView stickyHeaderIndices={[2]}>
       <Slide dataService={dataService && dataService.banner} />
       <View style={{ marginBottom: 10 }}></View>

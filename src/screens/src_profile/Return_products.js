@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
@@ -19,14 +19,15 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Return_products);
 function Return_products(props) {
   const { route } = props;
@@ -44,7 +45,7 @@ function Return_products(props) {
     };
   };
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
+    <AppBar {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
     <ScrollView>
       {PathList()}
     </ScrollView>

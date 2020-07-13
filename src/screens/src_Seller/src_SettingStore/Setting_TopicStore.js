@@ -25,9 +25,8 @@ import stylesLogin from '../../../style/stylesLoginScreen';
 import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../../../screens/MainScreen';
 import { GetServices } from '../../../customComponents/Tools';
-import { NavigationNavigate } from '../../../customComponents';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -43,65 +42,65 @@ function Setting_TopicStore(props) {
         switch (selectedIndex) {
             case 0:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification {...props} />
                     {/* แก้ไขเอกสารการจดแจ้ง */}
                 </View>;
             case 1:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='เพิ่มบัญชีธนาคาร' saveBar />
+                    <AppBar {...props} backArrow titleHead='เพิ่มบัญชีธนาคาร' saveBar />
                     <Edit_Bank {...props} />
                     {/* แก้ไขบัญชีธนาคาร */}
                 </View>;
             case 2:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} />
                     {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
                 </View>;
             case 3:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                 </View>;
             case 4:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                 </View>;
             case 5:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                 </View>;
             case 6:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                 </View>;
             case 7:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                 </View>;
             case 8:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                 </View>;
             case 9:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='ที่อยู่ร้านค้าของฉัน' />
+                    <AppBar {...props} backArrow titleHead='ที่อยู่ร้านค้าของฉัน' />
                     <Setting_Address_Store {...props} />
                 </View>;
             case 10:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='เพิ่มเลขพัสดุ' />
+                    <AppBar {...props} backArrow titleHead='เพิ่มเลขพัสดุ' />
                     <Up_Code_Number />
                 </View>;
             case 11:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='แก้ไขเลขพัสดุ' />
+                    <AppBar {...props} backArrow titleHead='แก้ไขเลขพัสดุ' />
                     <Up_Code_Number />
                 </View>;
         };

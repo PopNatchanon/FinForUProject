@@ -15,9 +15,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
+import { ExitAppModule } from './MainScreen';
 import { TabBar } from '../customComponents/Tools';
-import { Toolbar } from '../customComponents';
+import { Toolbar, BorderBottomTab, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -31,7 +31,7 @@ function NewsScreen(props) {
     var titleValue;
     selectedIndex == 0 ? titleValue = 'NEWS' : titleValue = 'BLOG';
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        <AppBar1 titleHead={titleValue} menuBar />
+        <AppBar titleHead={titleValue} menuBar noBottomColor />
         <MenuBar getData={value => setSelectedIndex(value)} />
         <ScrollView>
             <Button_Bar selectedIndex={selectedIndex} />
@@ -46,8 +46,8 @@ export let MenuBar = (props) => {
     const item = [{ name: 'NEWS' }, { name: 'BLOG' }];
     return <View>
         <View>
-            <TabBar sendData={value => getData(value.selectedIndex)} item={item} noSpace setVertical={2} widthBox={100}
-                spaceColor='#001666' activeColor='#fff' fontColor='#fff' />
+            <BorderBottomTab data={item} fontStyle={[stylesFont.FontFamilySemiBold, stylesFont.FontSize6]}
+                sendDataOut={(value) => getData(value)} />
         </View>
     </View>;
 };

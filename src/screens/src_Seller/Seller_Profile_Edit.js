@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -23,18 +23,18 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Profile_Edit);
 function Seller_Profile_Edit(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
+        <AppBar {...props} backArrow titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
         <ScrollView>
             <Seller_SettingImage />
             <Seller_Up_Image />

@@ -27,11 +27,12 @@ import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
 import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
-import { TodayProduct, Slide, AppBar1, ExitAppModule, } from '../../MainScreen';
+import { TodayProduct, Slide,  ExitAppModule, } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 import { ProductBox } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
+import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -78,7 +79,7 @@ function Deal_Topic(props) {
         switch (selectedIndex) {
             case 0:
                 return <View style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='ดีลสุดคุ้ม' />
+                    <AppBar {...props} backArrow titleHead='ดีลสุดคุ้ม' />
                     <ScrollView>
                         {dataService && dataService.banner && <Slide banner={dataService.banner} />}
                         {currentUser && <Deal_CuponToday {...props} currentUser={currentUser} cokie={cokie} />}
@@ -91,7 +92,7 @@ function Deal_Topic(props) {
                 </View>;
             case 1:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='ดีลสุด Exclusive' />
+                    <AppBar {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         {dataService && dataService.banner && <Slide banner={dataService.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
@@ -102,7 +103,7 @@ function Deal_Topic(props) {
                 </View>;
             case 2:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
+                    <AppBar {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>
@@ -112,7 +113,7 @@ function Deal_Topic(props) {
                 </View>;
             case 3:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
+                    <AppBar {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>
@@ -124,7 +125,7 @@ function Deal_Topic(props) {
                 </View>;
             case 4:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
+                    <AppBar {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
                         <View style={{ marginBottom: 10 }}></View>

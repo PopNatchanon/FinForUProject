@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -12,16 +12,17 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, TodayProduct, } from './MainScreen';
+import {  ExitAppModule, TodayProduct, } from './MainScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { TabBar, GetServices } from '../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../navigator/IpConfig';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Popular_productScreen);
 function Popular_productScreen(props) {
     const { getFetchData, route, } = props;
@@ -46,7 +47,7 @@ function Popular_productScreen(props) {
         activeDataService && GetServices({ uriPointer: uri, dataBody, getDataSource: (value) => getData(value), });
     }, [activeDataService]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow titleHead='สินค้ายอดนิยม' />
+        <AppBar {...props} backArrow titleHead='สินค้ายอดนิยม' />
         {id_items != null ?
             <ScrollView stickyHeaderIndices={[2]} ref={ScrollViewRef}>
                 <Slide dataService={dataService} />

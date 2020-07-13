@@ -24,9 +24,9 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesLogin from '../../../style/stylesLoginScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, } from '../../MainScreen';
+import { ExitAppModule, } from '../../MainScreen';
 import { GetData, GetServices, GetServicesBlob } from '../../../customComponents/Tools';
-import { NavigationNavigate } from '../../../customComponents';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
@@ -319,7 +319,7 @@ export let Edit_Profile = (props) => {
       customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
       {phone_numberSheetBody()}
     </BottomSheet>
-    <AppBar1 {...props} backArrow titleHead='แก้ไขโปรไฟล์' />
+    <AppBar {...props} backArrow titleHead='แก้ไขโปรไฟล์' />
     <ScrollView>
       <Seller_SettingImage image_path={image_path} image={image} sendImageProfile={(value) => sendImageProfile(value)} />
       <View style={{ marginTop: 20, height, }}>
@@ -398,7 +398,7 @@ export let Edit_Pass = (props) => {
     setActiveGetServices(false); setDataSevice(value);
   };
   return <>
-    <AppBar1 {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
+    <AppBar {...this.props} backArrow titleHead='เปลี่ยนรหัสผ่าน' />
     <ScrollView>
       <View style={stylesProfileTopic.Edit_Pass}>
         <View style={{ width: '80%' }}>
@@ -455,7 +455,7 @@ export let Edit_Address = (props) => {
       GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: (value) => getData(value) });
   }, [currentUser && cokie && currentUser.id_customer && activeReset]);
   return <View style={{ flex: 1, height: '100%' }}>
-    <AppBar1 {...props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
+    <AppBar {...props} backArrow titleHead={type_special == 'tax' ? 'ที่อยู่ในใบกำกับภาษี' : 'ที่อยู่ของฉัน'} />
     <ScrollView style={{ height: 1000 }}>
       {dataService && dataService.list_address && !activeReset && dataService.list_address.map((value, index) => {
         return <Address_Customar {...props} dataService={value} index={index} key={index} type={type} type_special={type_special}
@@ -504,7 +504,7 @@ export let Address_Customar = (props) => {
 export let Edit_Chat = (props) => {
   const [settingChat, setSettingChat] = useState({ publicChat: true });
   return <>
-    <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแชท' />
+    <AppBar {...props} backArrow titleHead='ตั้งค่าการแชท' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={{ margin: 10 }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อนุญาตให้ทำการแชทจากหน้าโปรไฟล์</Text>
@@ -520,7 +520,7 @@ export let Edit_Chat = (props) => {
 export let Edit_Bell = (props) => {
   const { navigation, } = props;
   return <SafeAreaView>
-    <AppBar1 {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
+    <AppBar {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
     <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
       <View style={stylesProfileTopic.BoxTopic}>
         <View style={stylesMain.FlexRow}>
@@ -543,7 +543,7 @@ export let Edit_Bell = (props) => {
 export let Language_Screen = (props) => {
   const [settingLanguage, setSettingLanguage] = useState('th');
   return <SafeAreaView>
-    <AppBar1 {...props} backArrow titleHead='ภาษา' />
+    <AppBar {...props} backArrow titleHead='ภาษา' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={stylesMain.FlexRow}>
         <CheckBox checked={settingLanguage == 'en'} onPress={() => setSettingLanguage('en')} />
@@ -569,7 +569,7 @@ export let Language_Screen = (props) => {
 export let Edit_Setting_Bell = (props) => {
   const [settingAlert, setSettingAlert] = useState({ alertOnMobile: true, chat: true, promotion: true, updateBuy: true, });
   return <SafeAreaView>
-    <AppBar1 {...props} backArrow titleHead='การแจ้งเตือน' />
+    <AppBar {...props} backArrow titleHead='การแจ้งเตือน' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือน</Text>
@@ -604,7 +604,7 @@ export let Edit_Setting_Bell = (props) => {
 export let Edit_Setting_Email = (props) => {
   const [settingEmail, setSettingEmail] = useState({ alertEmail: true, mailNews: true, updateBuy: true, });
   return <SafeAreaView>
-    <AppBar1 {...props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
+    <AppBar {...props} backArrow titleHead='การแจ้งเตือนทางE-mail' />
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={[stylesMain.FlexRow, { marginTop: 5 }]}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือนทาง E-mail</Text>

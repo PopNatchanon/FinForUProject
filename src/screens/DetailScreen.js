@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import {
   activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
-  setDataRefresh, setDataStart, setFetchToStart,
+  setDataRefresh, setDataStart, setFetchToStart
 } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
@@ -32,17 +32,24 @@ import stylesDetail from '../style/StylesDetailScreen'
 import stylesFont, { normalize } from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitAppModule } from './MainScreen';
+import { ExitAppModule } from './MainScreen';
 import {
   GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, LoadingScreen,
 } from '../customComponents/Tools';
-import { StarReview, NavigationNavigate } from '../customComponents';
+import { StarReview, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
+const getCartDataCount = (cartData) => {
+  var cartDataCount = 0;
+  cartData?.map((value) => value.product.map((value2) => {
+    return cartDataCount += value2.quantity * 1;
+  }));
+  return cartDataCount;
+};
 const mapStateToProps = (state) => ({
-  cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-  reduxDataBody: state.activeFetchData
+  cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
   activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -134,7 +141,7 @@ function DetailScreen(props) {
             right: 0,
             overflow: 'hidden',
           }}> */}
-    <AppBar {...props} backArrow cartBar />
+    <AppBar {...props} backArrow cartBar enableSearch />
     {/* </View>
         </Animatable.View> */}
     {dataService && <FlatComponent component={itemT} key='Main' />}

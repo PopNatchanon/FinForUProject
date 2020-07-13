@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -15,16 +15,17 @@ import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, } from './MainScreen';
+import {  TodayProduct, ExitAppModule, } from './MainScreen';
 import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from '../customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ExclusiveScreen)
 function ExclusiveScreen(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);
@@ -76,7 +77,7 @@ function ExclusiveScreen(props) {
   }, [!activeGetSource && activeGetServices]);
   return <SafeAreaView style={stylesMain.SafeAreaView} key='Exclusive'>
     {(activeGetSource || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
-    <AppBar1 {...props} titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar />
+    <AppBar {...props} titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar />
     <ScrollView stickyHeaderIndices={[2]}>
       <Slide dataService={dataService && dataService.banner} />
       <View style={{ marginBottom: 10 }}></View>

@@ -20,9 +20,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 import { TabBar, GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -44,7 +44,7 @@ function Total_Order(props) {
     }, [activeGetSource]);
     return <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
         {isLoading && <LoadingScreen />}
-        <AppBar1 {...props} backArrow titleHead='การสั่งซื้อของฉัน' />
+        <AppBar {...props} backArrow titleHead='การสั่งซื้อของฉัน' />
         <Button_bar {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)}
             setFSelectedIndex={selectedIndex * 1} />
         <ExitAppModule {...props} />

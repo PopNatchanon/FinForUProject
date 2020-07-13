@@ -4,7 +4,7 @@ import {
   Dimensions, Image, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -15,17 +15,18 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Slide, } from '../MainScreen';
+import {  ExitAppModule, Slide, } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
 import { CategoryProduct } from '../MainScreen';
 import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Installment_payScreen);
 function Installment_payScreen(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);
@@ -36,7 +37,7 @@ function Installment_payScreen(props) {
     activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value), });
   }, [activeGetServices]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
+    <AppBar {...props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} banner={dataService?.banner} />
       <Head_Image />

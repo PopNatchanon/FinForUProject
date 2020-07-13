@@ -16,9 +16,9 @@ import NumberFormat from 'react-number-format';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, TodayProduct, } from '../MainScreen';
+import {  ExitAppModule, TodayProduct, } from '../MainScreen';
 import { GetServices } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -57,7 +57,7 @@ function Customer_Complete_Order(props) {
     activeProduct && GetServices({ uriPointer: uri2, dataBody: dataBody2, getDataSource: value => getData2(value), });
   }, [activeProduct]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} backArrow goToTop />
+    <AppBar {...props} backArrow goToTop />
     <ScrollView>
       {dataService && <Customer_Product dataService={dataService} no_invoice={no_invoice} key={'Customer_Product'} />}
       {dataService2 && <TodayProduct {...props} noTitle loadData={dataService2} key={'TodayProduct'} />}

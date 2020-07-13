@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import { CheckBox } from 'react-native-elements';
@@ -19,9 +19,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
 import { Order_Me_Box } from './Seller_Totel_Order';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
 import { Value } from 'react-native-reanimated';
@@ -29,7 +28,7 @@ import { Value } from 'react-native-reanimated';
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Return);
 function Seller_Return(props) {
   const { route } = props;
@@ -38,7 +37,7 @@ function Seller_Return(props) {
     switch (selectedIndex) {
       case 0:
         return <View style={stylesMain.SafeAreaView}>
-          <AppBar1 {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
+          <AppBar {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
           <ScrollView>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
             <Order_Me_Box {...props} Cause_cancel detail_order_cancel Contact_buyer />
@@ -50,14 +49,14 @@ function Seller_Return(props) {
         </View>;
       case 1:
         return <View style={stylesMain.SafeAreaView}>
-          <AppBar1 {...props} backArrow titleHead='รายละเอียด' />
+          <AppBar {...props} backArrow titleHead='รายละเอียด' />
           <ScrollView>
             <Seller_Return_Detail />
           </ScrollView>
         </View>;
       case 2:
         return <View style={stylesMain.SafeAreaView}>
-          <AppBar1 {...props} backArrow titleHead='คลังสินค้า' />
+          <AppBar {...props} backArrow titleHead='คลังสินค้า' />
           <ScrollView>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
             <Treasury_store_Product {...props} />
@@ -70,7 +69,7 @@ function Seller_Return(props) {
         </View>;
       case 3:
         return <View style={stylesMain.SafeAreaView}>
-          <AppBar1 {...props} backArrow titleHead='ยกเลิกสินค้า' />
+          <AppBar {...props} backArrow titleHead='ยกเลิกสินค้า' />
           <ScrollView>
             <Order_Me_Box {...props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />
             <Order_Me_Box {...props} cancel_order Cause_cancel detail_order_cancel Contact_buyer />

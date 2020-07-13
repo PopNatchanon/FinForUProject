@@ -24,9 +24,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, TodayProduct } from '../MainScreen';
+import {  ExitAppModule, TodayProduct } from '../MainScreen';
 import { GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
-import { StarReview, NavigationNavigate } from '../../customComponents';
+import { StarReview, NavigationNavigate, AppBar } from '../../customComponents';
 import { PopularProduct } from '../StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -69,32 +69,32 @@ function Profile_Topic(props) {
         switch (selectedIndex) {
             case 0:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='ดูล่าสุด' />
+                    <AppBar {...props} backArrow titleHead='ดูล่าสุด' />
                     <LatestScreen {...props} />
                 </SafeAreaView>;
             case 1:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='แชท' />
+                    <AppBar {...props} backArrow titleHead='แชท' />
                     <ChatScreen {...props} />
                 </SafeAreaView>;
             case 2:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='สิ่งที่สนใจ' />
+                    <AppBar {...props} backArrow titleHead='สิ่งที่สนใจ' />
                     {dataSevice && <InterestedScreen {...props} dataSevice={dataSevice.product} />}
                 </SafeAreaView>;
             case 3:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='ร้านที่ติดตาม' />
+                    <AppBar {...props} backArrow titleHead='ร้านที่ติดตาม' />
                     {dataSevice && <Follow_storeScreen {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />}
                 </SafeAreaView>;
             case 4:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
+                    <AppBar {...props} backArrow titleHead='รีวิวของฉัน' />
                     {dataSevice && <Review_meScreen {...props} dataSevice={dataSevice.my_review} />}
                 </SafeAreaView>;
             case 5:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <Help_meScreen {...props} />
                 </SafeAreaView>;
             case 6:
@@ -104,7 +104,7 @@ function Profile_Topic(props) {
                 </SafeAreaView>;
             case 7:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='รีวิวของฉัน' />
+                    <AppBar {...props} backArrow titleHead='รีวิวของฉัน' />
                     <ScrollView>
                         {dataSevice?.my_review?.map((value, index) => <Review_From {...props} cokie={cokie} currentUser={currentUser}
                             dataSevice={value} key={index} />)}
@@ -112,14 +112,14 @@ function Profile_Topic(props) {
                 </SafeAreaView>;
             case 8:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <ScrollView>
                         <Account_Help {...props} />
                     </ScrollView>
                 </SafeAreaView>;
             case 9:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='Fin Helpcenter' />
+                    <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <Topic_DetailHelp {...props} />
                 </SafeAreaView>;
         };

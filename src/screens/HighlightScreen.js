@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, View, TouchableOpacity, Text,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -16,24 +16,25 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
+import {  ExitAppModule } from './MainScreen';
 import { FlashSale_Product } from './FlashSaleScreen';
 import { Slide } from './src_Promotion/DealScreen';
 import { GetServices, TabBar } from '../customComponents/Tools';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(HighlightScreen);
 function HighlightScreen(props) {
   const { getFetchData } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   let getUpdateIndex = (value) => setSelectedIndex(value.selectedIndex);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} backArrow titleHead='ไฮไลท์ประจำสัปดาห์' />
+    <AppBar {...props} backArrow titleHead='ไฮไลท์ประจำสัปดาห์' />
     <ScrollView stickyHeaderIndices={[2]}>
       <Slide {...props} dataService={undefined} />
       <Highlight_Brand />

@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -19,16 +19,17 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, } from '../MainScreen';
+import {  TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../../customComponents/Tools';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(CoinScreen);
 function CoinScreen(props) {
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
@@ -48,7 +49,7 @@ function CoinScreen(props) {
     }, [!activeGetCurrentUser && activeDataService && cokie]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-        <AppBar1 {...props} titleHead={'FIN COINS'} backArrow searchBar chatBar />
+        <AppBar {...props} titleHead={'FIN COINS'} backArrow searchBar chatBar />
         <ScrollView>
             <Slide dataService={dataService?.banner} />
             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100, marginTop: 10 }]}>

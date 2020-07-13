@@ -18,14 +18,14 @@ import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
+import {  TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
 import { Slide, } from './src_Promotion/DealScreen';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from './ExclusiveScreen';
 import { Might_like_Store } from './src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -34,7 +34,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(FINSupermarket);
 function FINSupermarket(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} backArrow titleHead='FIN Supermarket' />
+    <AppBar {...props} backArrow titleHead='FIN Supermarket' />
     <ScrollView>
       <View style={{ width: '100%', height: 180, marginTop: 10 }}>
         <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/bannersupermarket5.jpg`, }}

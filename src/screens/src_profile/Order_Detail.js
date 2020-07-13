@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import CookieManager from '@react-native-community/cookies';
@@ -16,15 +16,16 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Order_Detail);
 function Order_Detail(props) {
     const { route } = props;
@@ -50,7 +51,7 @@ function Order_Detail(props) {
     }, [activeSelectedIndex && currentUser && id_cartdetail && cokie]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {activeSelectedIndex && <LoadingScreen key={'LoadingScreen'} />}
-        <AppBar1 {...props} backArrow titleHead='รายละเอียด' />
+        <AppBar {...props} backArrow titleHead='รายละเอียด' />
         <ScrollView>
             {dataService && dataService.result && dataService.result.length > 0 ?
                 dataService.result.map((value, index) => {

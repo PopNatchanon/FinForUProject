@@ -4,7 +4,7 @@ import {
   Dimensions, Image, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -16,16 +16,17 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Second_product, Slide } from '../MainScreen';
+import {  ExitAppModule, Second_product, Slide } from '../MainScreen';
 import { Button_Bar, } from './DealScreen';
 import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(The_BestFinScreen);
 function The_BestFinScreen(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);
@@ -36,7 +37,7 @@ function The_BestFinScreen(props) {
     activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value) });
   }, [activeGetServices]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
-    <AppBar1 {...props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
+    <AppBar {...props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} banner={dataService?.banner} isOutData />
       <Fin_sale {...props} dataService={dataService?.product_discount80} />

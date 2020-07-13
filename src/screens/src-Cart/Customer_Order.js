@@ -29,9 +29,9 @@ import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -81,7 +81,7 @@ function Customer_Order(props) {
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value), });
     }, [activeReset]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow titleHead='สั่งซื้อสินค้า' />
+        <AppBar {...props} backArrow titleHead='สั่งซื้อสินค้า' />
         <ScrollView>
             {dataService && <Account {...props} dataService={dataService} getData={value => getData2(value)} />}
             {dataService && dataService.list_cart.map((value, index) => { return <Order dataService={value} key={index} /> })}

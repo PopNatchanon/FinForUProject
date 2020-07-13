@@ -42,8 +42,8 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
 } from '../../customComponents/Tools';
-import { ImageGallery, GenArray, StarReview, NavigationNavigate, } from '../../customComponents';
-import { TodayProduct, Slide, AppBar1, ExitAppModule, AppBar } from '../MainScreen';
+import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../customComponents';
+import { TodayProduct, Slide, ExitAppModule } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -81,46 +81,46 @@ function Post_Feed(props) {
             case 0:
                 return <>
                     {/* หน้า คะแนนร้านค้า เข้าจากหน้า Store  */}
-                    <AppBar1 {...props} backArrow titleHead='คะแนนประจำร้าน' />
+                    <AppBar {...props} backArrow titleHead='คะแนนประจำร้าน' />
                     <Score_store {...props} cokie={cokie} />
                 </>
             case 1:
                 return <>
                     {/* หน้าสร้างโพสต์ เข้าจากปุ่มบวกหน้า Feed*/}
-                    <AppBar1 {...props} backArrow postBar getActivePost={(value) => getActivePost(value)}
+                    <AppBar {...props} backArrow postBar getActivePost={(value) => getActivePost(value)}
                         titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'สร้างโพสต์'} />
                     <Post_New {...props} activePost={activePost} cokie={cokie} getActivePost={(value) => getActivePost(value)} />
                 </>
             case 2:
                 return <>
                     {/* หน้า แท็กสินค้า เข้าจากหน้า Feed */}
-                    <AppBar1 {...props} backArrow titleHead='เลือกสินค้า' />
+                    <AppBar {...props} backArrow titleHead='เลือกสินค้า' />
                     <Select_TagProduct {...props} cokie={cokie} />
                 </>
             case 3:
                 return <>
                     {/* หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น */}
-                    <AppBar1 {...props} backArrow titleHead='คอมเมนท์' chatBar />
+                    <AppBar {...props} backArrow titleHead='คอมเมนท์' chatBar />
                     <Feed_comment />
                 </>
             case 10:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='สินค้า' />
+                    <AppBar {...props} backArrow titleHead='สินค้า' />
                 </>
             case 11:
                 return <>
                     {/* หน้าสร้าง กลุ่มเข้าจาก หน้า Feed_About */}
-                    <AppBar1 {...props} backArrow titleHead='สร้างกลุ่ม' />
+                    <AppBar {...props} backArrow titleHead='สร้างกลุ่ม' />
                     <New_Group {...props} />
                 </>
             case 12:
-                    AnimatedHeadbg = scrollY.interpolate({
+                AnimatedHeadbg = scrollY.interpolate({
                     inputRange: [maxheight, maxheight * 2],
                     outputRange: ['transparent', appBarColor],
                     extrapolate: 'clamp',
                     useNativeDriver: true,
                 });
-                    AnimatedCart = scrollY.interpolate({
+                AnimatedCart = scrollY.interpolate({
                     inputRange: [maxheight, maxheight * 2],
                     outputRange: ['#ECECEC', appBarColor],
                     extrapolate: 'clamp',
@@ -142,37 +142,37 @@ function Post_Feed(props) {
             case 13:
                 return <>
                     {/* หน้าเกี่ยวกับ กลุ่ม เข้าจาก หน้า โปรไฟล์กลุ่ม ปุ่มเกี่ยวกับกลุ่ม */}
-                    <AppBar1 {...props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
+                    <AppBar {...props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
                     <Group_About />
                 </>
             case 14:
                 return <>
                     {/* หน้ารูปภาพ กลุ่ม เข้าจาก หน้าโปรไฟล์กลุ่ม ปุ่มรูปภาพกลุ่ม */}
-                    <AppBar1 {...props} backArrow titleHead='รูปภาพ' />
+                    <AppBar {...props} backArrow titleHead='รูปภาพ' />
                     <Group_Image />
                 </>
             case 16:
                 return <>
                     {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
-                    <AppBar1 {...props} backArrow titleHead='บันทึกกิจกรรม' />
+                    <AppBar {...props} backArrow titleHead='บันทึกกิจกรรม' />
                     <Save_Activity />
                 </>
             case 17:
                 return <>
                     {/* หน้า รายการที่บันทึกไว้ เข้าจาก หน้า Feed_About */}
-                    <AppBar1 {...props} backArrow titleHead='โพสต์ที่บันทึก' />
+                    <AppBar {...props} backArrow titleHead='โพสต์ที่บันทึก' />
                     <Save_Post />
                 </>
             case 18:
                 return <>
                     {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
-                    <AppBar1 {...props} backArrow titleHead='กลุ่มทั้งหมด' />
+                    <AppBar {...props} backArrow titleHead='กลุ่มทั้งหมด' />
                     <Group_Total {...props} />
                 </>
             case 19:
                 return <>
                     {/* หน้า การแจ้งเตือน เข้าจาก หน้า Feed_About */}
-                    <AppBar1 {...props} backArrow titleHead='การแจ้งเตือน' />
+                    <AppBar {...props} backArrow titleHead='การแจ้งเตือน' />
                     <Feed_Notification />
                 </>
             case 20:
@@ -253,31 +253,31 @@ function Post_Feed(props) {
             case 23:
                 return <>
                     {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
-                    <AppBar1 {...props} backArrow saveBar />
+                    <AppBar {...props} backArrow saveBar />
                     <Profile_Edit />
                 </>
             case 24:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...props} backArrow selectshare postBar />
+                    <AppBar {...props} backArrow selectshare postBar />
                     <Post_New {...props} activePost={activePost} cokie={cokie} getActivePost={(value) => getActivePost(value)} />
                 </>
             case 25:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...props} backArrow titleHead='กลุ่มยอดนิยม' />
+                    <AppBar {...props} backArrow titleHead='กลุ่มยอดนิยม' />
                     <Group_Popular />
                 </>
             case 26:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...props} backArrow titleHead='ผู้ติดตาม' />
+                    <AppBar {...props} backArrow titleHead='ผู้ติดตาม' />
                     <Followers />
                 </>
             case 27:
                 return <>
                     {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
-                    <AppBar1 {...props} backArrow titleHead='กำลังติดตาม' />
+                    <AppBar {...props} backArrow titleHead='กำลังติดตาม' />
                     <Following />
                 </>
         }

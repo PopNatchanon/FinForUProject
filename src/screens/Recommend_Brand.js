@@ -14,9 +14,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, } from './MainScreen';
+import {  ExitAppModule, } from './MainScreen';
 import { ProductBox, LoadingScreen, GetData, GetServices, FlatProduct, } from '../customComponents/Tools';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -41,7 +41,7 @@ function Recommend_Brand(props) {
     }, [activeGetCurrentUser]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-        <AppBar1 {...props} titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar />
+        <AppBar {...props} titleHead={'แบรนด์แนะนำ'} backArrow searchBar chatBar />
         <ScrollView>
             {dataService?.store?.map((value, index) => <Recommend_Brand_Store {...props} key={index} dataService={value} />)}
         </ScrollView>

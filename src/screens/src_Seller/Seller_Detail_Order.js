@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
@@ -14,14 +14,14 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
+import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Detail_Order);
 function Seller_Detail_Order(props) {
     const { route } = props;
@@ -30,7 +30,7 @@ function Seller_Detail_Order(props) {
         switch (selectedIndex) {
             case 0:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='รายละเอียด' />
+                    <AppBar {...props} backArrow titleHead='รายละเอียด' />
                     <ScrollView>
                         <Detail />
                         <Order_Sending />
@@ -38,7 +38,7 @@ function Seller_Detail_Order(props) {
                 </SafeAreaView>;
             case 1:
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
-                    <AppBar1 {...props} backArrow titleHead='รายละเอียด' />
+                    <AppBar {...props} backArrow titleHead='รายละเอียด' />
                     <ScrollView>
                         <Detail />
                         <Order_Sending />

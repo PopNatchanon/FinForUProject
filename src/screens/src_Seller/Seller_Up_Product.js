@@ -21,9 +21,8 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
 import { GetServices, } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip, finip } from '../../navigator/IpConfig';
 import { set } from 'react-native-reanimated';
@@ -35,7 +34,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Up_Product);
 function Seller_Up_Product(props) {
   return <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
-    <AppBar1 {...props} backArrow titleHead='เพิ่มสินค้า' saveBar />
+    <AppBar {...props} backArrow titleHead='เพิ่มสินค้า' saveBar />
     <ScrollView>
       <Seller_Up_Image />
       <Seller_Up_ProductDetail {...props} />

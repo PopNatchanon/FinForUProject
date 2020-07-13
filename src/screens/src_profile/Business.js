@@ -28,9 +28,9 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
+import {  ExitAppModule } from '../MainScreen';
 import { TabBar } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 import { Product_income } from '../src_Seller/Seller_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -47,46 +47,46 @@ function Business(props) {
     switch (selectedIndex) {
       case 0: // หน้าเข้ามาครั้งแรก Affiliate มีปุ่มให้กดสมัครสมาชิก  
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Register_Affiliate {...props} />
         </>;
       case 1: // หน้าเมนูหลักของ Affiliate
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Menu_Affiliate {...props} />
         </>;
       case 2: //  หน้าโปรไฟล์ของ Affiliate มีเมนูด้านล่าง 
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <ScrollView>
             <Business_Profile {...props} />
           </ScrollView>
         </>;
       case 3: //  เข้าจากโปรไฟล์ของ Affiliate รายการสินค้า 
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <ScrollView>
             <Income {...props} />
           </ScrollView>
         </>;
       case 4: //  เข้าจากโปรไฟล์ของ Affiliate การเติบโต 
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Growth />
         </>;
       case 5: //  เข้าจากเมนูหลักของ Affiliate การเงิน 
         return <>
-          <AppBar1 {...props} backArrow titleHead='การเงิน' />
+          <AppBar {...props} backArrow titleHead='การเงิน' />
           <Finance {...props} />
         </>;
       case 6: // หน้าแบบFromการสมัครสมาชิก Affiliate
         return <>
-          <AppBar1 {...props} backArrow titleHead='สมาชิกAffiliate' />
+          <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
           <Register_Affiliate_From {...props} />
         </>;
       case 7: // หน้าเพิ่มสำเนาบัตรประชาชน เข้าจาก หน้าแบบFromการสมัครสมาชิก Affiliate 
         return <>
-          <AppBar1 {...props} backArrow titleHead='บัตรประชาชน' />
+          <AppBar {...props} backArrow titleHead='บัตรประชาชน' />
           <ID_card />
         </>;
     };

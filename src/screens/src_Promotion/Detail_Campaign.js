@@ -16,11 +16,11 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import StylesMainScreen from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
+import {  Slide, TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar } from '../HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
-import { GenArray } from '../../customComponents';
+import { GenArray, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -47,7 +47,7 @@ function Detail_Campaign(props) {
         activeGetCurrentUser && GetData({ getSource: value => getSource(value), getUser: true, });
     }, [activeGetCurrentUser]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} titleHead={'โปรโมชั่น'} backArrow searchBar chatBar />
+        <AppBar {...props} titleHead={'โปรโมชั่น'} backArrow searchBar chatBar />
         <ScrollView>
             <Slide {...props} banner={dataService?.list_banner} isOutData />
             <Detail_Description {...props} activeDataService={activeDataService} dataService={dataService?.data_campaign} />

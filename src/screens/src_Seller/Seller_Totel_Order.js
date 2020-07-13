@@ -19,9 +19,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, } from '../MainScreen';
+import {  } from '../MainScreen';
 import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -34,7 +34,7 @@ function Seller_Totel_Order(props) {
     const { route } = props;
     const selectedIndex = route.params?.selectedIndex;
     return <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
-        <AppBar1 {...props} backArrow titleHead='ประวัติการขาย' />
+        <AppBar {...props} backArrow titleHead='ประวัติการขาย' />
         <Button_bar {...props} setSelected={selectedIndex} />
     </SafeAreaView>;
 };

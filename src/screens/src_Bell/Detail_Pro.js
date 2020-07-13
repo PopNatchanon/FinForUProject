@@ -13,8 +13,8 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
-import { NavigationNavigate } from '../../customComponents';
+import {  ExitAppModule } from '../MainScreen';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -30,12 +30,12 @@ function Detail_Pro(props) {
         switch (selectedIndex) {
             case 0:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='รายละเอียดโปรโมชัน' />
+                    <AppBar {...props} backArrow titleHead='รายละเอียดโปรโมชัน' />
                     <Detail_Promotion {...props} />
                 </View>;
             case 1:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
+                    <AppBar {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                     <ScrollView>
                         <Detail_Order />
                         <Detail_Product />
@@ -44,7 +44,7 @@ function Detail_Pro(props) {
                 </View>;
             case 2:
                 return <View>
-                    <AppBar1 {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
+                    <AppBar {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                     <Detail_Product_Check />
                 </View>;
         };

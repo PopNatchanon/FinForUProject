@@ -50,7 +50,7 @@ class AppSearchBar extends React.Component {
             activeCartList, AIColor, backArrow, borderBottomColor, cartBar, cartData, cartDataCount, chatBar, colorSet, filterBar,
             getFetchData, navigation, otherBar, searchBar, SearchText,
         } = this.props;
-        const { cokie, currentUser } = this.state;
+        const { cokie, currentUser, text } = this.state;
         let setSubmit = () => {
             text != undefined && text != ' ' &&
                 NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
@@ -74,7 +74,7 @@ class AppSearchBar extends React.Component {
         return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
             style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
-                borderBottomColor: borderBottomColor ?? colors[colors.length - 1],
+                borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
             }]}>
             {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
             {backArrow && <View key={'backarrow'}>
@@ -89,7 +89,7 @@ class AppSearchBar extends React.Component {
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
                             <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
                             stylesFont.FontCenter]} placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() =>
-                                setSubmit()} onChangeText={value => setText(value)} />
+                                setSubmit()} onChangeText={value => this.setState({ text: value })} />
                         </View>
                         <AIconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                     </View>
@@ -171,7 +171,7 @@ class AppNoSearchBar extends React.Component {
         return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
             style={[stylesMain.Appbar, stylesMain.FlexRow, {
                 width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
-                borderBottomColor: borderBottomColor ?? colors[colors.length - 1],
+                borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
             }]}>
             {/* <AStatusBar backgroundColor={mainColor} /> */}
             <View style={stylesMain.FlexRow}>
@@ -257,16 +257,19 @@ function AppBar(props) {
 }
 AppBar.propTypes = {
     AIColor: PropTypes.string,
-    borderBottomColor: PropTypes.string,
+    borderBottomColor: PropTypes.oneOfType(PropTypes.object, PropTypes.string),
     enableSearch: PropTypes.bool,
     end: PropTypes.object,
+    noBottomColor: PropTypes.bool,
     start: PropTypes.object,
 }
 AppBar.defaultProps = {
     AIColor: '#fff',
+    borderBottomColor: '#ffbf00',
     colorSet: ['#10162dff', '#284d8fff'],
     enableSearch: false,
     end: { x: 0, y: 1 },
+    noBottomColor: false,
     start: { x: 0, y: 0 },
 }
 export default AppBar;

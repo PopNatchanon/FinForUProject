@@ -18,8 +18,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../../screens/MainScreen';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
@@ -29,7 +28,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(Seller_Setting);
 function Seller_Setting(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow titleHead='ตั้งค่าร้านค้า' />
+        <AppBar {...props} backArrow titleHead='ตั้งค่าร้านค้า' />
         <ScrollView>
             <Seller_Setting_Topic {...props} />
         </ScrollView>

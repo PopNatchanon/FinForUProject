@@ -13,9 +13,9 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../style/stylesFont';
 import stylesMain from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
+import { ExitAppModule } from './MainScreen';
 import { GetServices } from '../customComponents/Tools';
-import { Toolbar, NavigationNavigate } from '../customComponents';
+import { Toolbar, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -26,7 +26,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(BellScreen);
 function BellScreen(props) {
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
-        <AppBar1 titleHead='การแจ้งเตือน' />
+        <AppBar titleHead='การแจ้งเตือน' />
         <ScrollView>
             <Popular_store {...props} />
             <Pro_for_U {...props} />

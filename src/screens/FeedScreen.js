@@ -3,8 +3,11 @@ import React, { useEffect, useState, } from 'react';
 import {
   Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Button
 } from 'react-native';
-import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
+import { connect } from 'react-redux';
+import {
+  activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+  setDataRefresh, setDataStart, setFetchToStart
+} from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 export const { width, height } = Dimensions.get('window');
@@ -25,18 +28,17 @@ import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import {
   FeedBox, GetData, GetServices, TabBar, LoadingScreen,
 } from '../customComponents/Tools';
-import { Toolbar, StarReview, NavigationNavigate, AppBar } from '../customComponents';
+import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+  cartData: state.cartData, customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
-  checkCustomer,
-  fetchData,
-  multiFetchData,
-  setFetchToStart,
+  activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
+  setDataRefresh, setDataStart, setFetchToStart
 });
 export default connect(mapStateToProps, mapDispatchToProps)(FeedScreen)
 function FeedScreen(props) {
@@ -60,7 +62,7 @@ function FeedScreen(props) {
           activeGetSource  &&
           <LoadingScreen key='LoadingScreen' />
         } */}
-      <AppBar {...props} titleHead='Feed' menuBar />
+      <AppBar {...props} titleHead='Feed' menuBar noBottomColor />
       {
         currentUser &&
         <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
@@ -84,36 +86,17 @@ function FeedScreen(props) {
 export function MenuBar(props) {
   const { getActiveSelectedIndex, selectedIndex, sendText } = props;
   const item = [{
-    name: <Text style={stylesFont.FontSize6}>
-      <IconFontAwesome5 name='grin-hearts' size={20} /> กำลังติดตาม</Text>
+    icon: <IconFontAwesome5 name='grin-hearts' size={20} />,
+    name: <Text style={stylesFont.FontSize6}>กำลังติดตาม</Text>
   }, {
-    name: <Text style={stylesFont.FontSize6}>
-      <IconFontAwesome5 name='hotjar' size={20} /> ฮไลท์</Text>
+    icon: <IconFontAwesome5 name='hotjar' size={20} />,
+    name: <Text style={stylesFont.FontSize6}>ฮไลท์</Text>
   }];
+  rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#FFFF' }} />
   return (
     <View>
-      <>
-        <TabBar
-          sendData={value => {
-            value.selectedIndex != 3 && ([
-              sendText(value.selectedIndex),
-              getActiveSelectedIndex(true)
-            ])
-          }}
-          SetValue={selectedIndex}
-          NoSelectTab
-          item={item}
-          noSpace
-          setVertical={2}
-          widthBox={130}
-          spaceColor={'#284d8fff'}
-          activeColor='#fff'
-          fontColor='#fff' />
-      </>
-      <TouchableOpacity onPress={() => sendText(3)}
-        style={{ left: '90%', bottom: '75%', width: 50, marginBottom: -20 }}>
-        <IconFontAwesome name='navicon' size={25} style={{ width: 50, color: '#FFFF' }} />
-      </TouchableOpacity>
+      <BorderBottomTab data={item} fontStyle={[stylesFont.FontFamilySemiBold, stylesFont.FontSize6]}
+        sendDataOut={(value) => sendText(value)} rightIcon={rigthItem} />
     </View>
   );
 };

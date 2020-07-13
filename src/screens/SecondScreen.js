@@ -16,18 +16,25 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, AppBar1, BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
+import {  BannerBar_ONE, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 import { Store_Detail, } from './Recommend_Store';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
+const getCartDataCount = (cartData) => {
+  var cartDataCount = 0;
+  cartData?.map((value) => value.product.map((value2) => {
+    return cartDataCount += value2.quantity * 1;
+  }));
+  return cartDataCount;
+};
 const mapStateToProps = (state) => ({
-  cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-  reduxDataBody: state.activeFetchData
+  cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
+  getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
   activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -41,12 +48,12 @@ function SecondScreen(props) {
     switch (selectedIndex) {
       case 0:
         return <SafeAreaView style={stylesMain.SafeAreaView}>
-          <AppBar {...props} backArrow cartBar />
+          <AppBar {...props} backArrow cartBar enableSearch />
           <Second_Product {...props} />
         </SafeAreaView>;
       case 1:
         return <SafeAreaView style={stylesMain.SafeAreaView}>
-          <AppBar1 {...props} titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow />
+          <AppBar {...props} titleHead={'ร้านค้ามือสองที่แนะนำ'} backArrow />
           <Secon_Store />
         </SafeAreaView>;
     };

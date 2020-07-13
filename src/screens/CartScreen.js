@@ -28,9 +28,9 @@ import stylesCart from '../style/stylesCartScreen';
 import stylesFont, { normalize } from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from './MainScreen';
+import { ExitAppModule } from './MainScreen';
 import { GetServices, GetData, LoadingScreen } from '../customComponents/Tools';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 import { PopularProduct } from './StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
@@ -127,7 +127,7 @@ function CartScreen(props) {
         cartListResult({ cokie: cokie, id_customer: currentUser.id_customer, list_order: cartDataList.join(',') })
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {/* {reduxDataBody?.isActive || reduxDataBody?.isRefresh && <LoadingScreen />} */}
-        <AppBar1 {...props} titleHead='รถเข็น' backArrow />
+        <AppBar {...props} titleHead='รถเข็น' backArrow />
         <ScrollView>
             <Product_Cart {...props} activeRefresh={activeRefresh} cokie={cokie} currentUser={currentUser} />
             {/* <Product_Like /> */}

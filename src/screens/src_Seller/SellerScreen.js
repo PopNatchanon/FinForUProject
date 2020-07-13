@@ -21,8 +21,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -33,7 +32,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(SellerScreen);
 function SellerScreen(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow settingBar chatBar titleHead='ร้านของฉัน' />
+        <AppBar {...props} backArrow settingBar chatBar titleHead='ร้านของฉัน' />
         <ScrollView>
             <View>
                 <Headbar {...props} />

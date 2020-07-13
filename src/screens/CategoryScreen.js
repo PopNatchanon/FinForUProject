@@ -17,16 +17,23 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
+import { BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
 import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../customComponents/Tools';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
+const getCartDataCount = (cartData) => {
+    var cartDataCount = 0;
+    cartData?.map((value) => value.product.map((value2) => {
+        return cartDataCount += value2.quantity * 1;
+    }));
+    return cartDataCount;
+};
 const mapStateToProps = (state) => ({
-    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-    reduxDataBody: state.activeFetchData
+    cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -72,7 +79,7 @@ function CategoryScreen(props) {
     }, { title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }] }];
     return <SafeAreaView style={[stylesMain.SafeAreaView]}>
         {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
-        <AppBar {...props} backArrow cartBar />
+        <AppBar {...props} backArrow cartBar enableSearch />
         <ScrollView stickyHeaderIndices={[5]}>
             <Slide {...props} banner={dataService?.banner} />
             <Recommend_Store {...props} recommend={dataService?.recommend} />

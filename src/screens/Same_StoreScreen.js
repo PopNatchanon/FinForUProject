@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData,  setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -12,17 +12,18 @@ export const { width, height } = Dimensions.get('window');
 import { mainColor } from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, TodayProduct, ExitAppModule } from './MainScreen';
+import {  TodayProduct, ExitAppModule } from './MainScreen';
 import { Button_Bar } from './HighlightScreen';
 import { GetServices } from '../customComponents/Tools';
 import { Slide } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
-const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData,  setFetchToStart, });
+const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Same_StoreScreen);
 function Same_StoreScreen(props) {
     const { route } = props;
@@ -51,7 +52,7 @@ function Same_StoreScreen(props) {
         default: break;
     };
     return <SafeAreaView style={{ height: '100%' }}>
-        <AppBar1 {...props} titleHead={title} backArrow />
+        <AppBar {...props} titleHead={title} backArrow />
         <ScrollView stickyHeaderIndices={[type_product == 'youlike' ? 2 : null]}>
             <Slide {...props} />
             <Header Title={title} />

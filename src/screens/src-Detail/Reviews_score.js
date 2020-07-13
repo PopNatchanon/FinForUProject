@@ -15,9 +15,8 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesDetail from '../../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
 import { TabBar, LoadingScreen, GetServices } from '../../customComponents/Tools';
-import { StarReview } from '../../customComponents';
+import { StarReview, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -53,7 +52,7 @@ function Reviews_score(props) {
     }, [activeGetServices]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
-        <AppBar1 {...props} backArrow titleHead='คะแนน' />
+        <AppBar {...props} backArrow titleHead='คะแนน' />
         <Reviews_Bar filterValue={value => boxFilterValue(value)} />
         <ScrollView>
             {dataService && dataService.list_reviews.length > 0 ?

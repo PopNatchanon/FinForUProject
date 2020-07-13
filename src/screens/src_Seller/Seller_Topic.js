@@ -29,9 +29,8 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1 } from '../MainScreen';
 import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
-import { NavigationNavigate } from '../../customComponents';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -54,100 +53,100 @@ function Seller_Topic(props) {
         switch (selectedIndex) {
             case 0:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='จัดการโฆษณา' />
+                    <AppBar {...props} backArrow titleHead='จัดการโฆษณา' />
                     <Seller_Advertisement {...props} backArrow />
                 </>;
             case 1:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='สถิติร้านร้านค้า' />
+                    <AppBar {...props} backArrow titleHead='สถิติร้านร้านค้า' />
                     <Seller_Statistics />
                 </>;
             case 2:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='คะแนนของฉัน' />
+                    <AppBar {...props} backArrow titleHead='คะแนนของฉัน' />
                     <ScrollView>
                         <Seller_Score {...props} />
                     </ScrollView>
                 </>;
             case 3:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
+                    <AppBar {...props} backArrow titleHead='แพคเกจปัจจุบันที่ใช้อยู่' />
                     <Seller_Advertisement_Packet {...props} backArrow />
                 </>;
             case 4:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='จัดการโฆษณา' />
+                    <AppBar {...props} backArrow titleHead='จัดการโฆษณา' />
                     <Seller_Advertisement_PacketBuy {...props} />
                 </>;
             case 5:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ตอบกลับความคิดเห็น' />
+                    <AppBar {...props} backArrow titleHead='ตอบกลับความคิดเห็น' />
                     <Seller_Comment_Reply />
                 </>;
             case 6:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='FIN แคมเปญ' />
+                    <AppBar {...props} backArrow titleHead='FIN แคมเปญ' />
                     <Seller_Fin_Campaign {...props} />
                 </>;
             case 7:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='เลือกสินค้า' />
+                    <AppBar {...props} backArrow titleHead='เลือกสินค้า' />
                     <Seller_ProductSelect />
                 </>;
             case 8:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='รายได้ของฉัน' />
+                    <AppBar {...props} backArrow titleHead='รายได้ของฉัน' />
                     <My_income />
                 </>;
             case 9:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ถอนเงิน' />
+                    <AppBar {...props} backArrow titleHead='ถอนเงิน' />
                     <Withdraw_money {...props} cokie={cokie} currentUser={currentUser} />
                 </>;
             case 10:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='PIN' />
+                    <AppBar {...props} backArrow titleHead='PIN' />
                     <PIN_Code {...props} cokie={cokie} currentUser={currentUser} />
                 </>;
             case 11:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ถอนเงิน' />
+                    <AppBar {...props} backArrow titleHead='ถอนเงิน' />
                     <Confirm_Bank {...props} />
                 </>;
             case 12:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ถอนเงิน' />
+                    <AppBar {...props} backArrow titleHead='ถอนเงิน' />
                     <PIN_Code_Mail {...props} />
                 </>;
             case 13:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ประวัติการถอนเงิน' />
+                    <AppBar {...props} backArrow titleHead='ประวัติการถอนเงิน' />
                     <Withdrawal_history {...props} cokie={cokie} currentUser={currentUser} />
                 </>;
             case 14:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='เพิ่มสินค้า' saveBar />
+                    <AppBar {...props} backArrow titleHead='เพิ่มสินค้า' saveBar />
                     <Up_Product_Select {...props} />
                 </>;
             case 15:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='โค้ดส่วนลด' />
+                    <AppBar {...props} backArrow titleHead='โค้ดส่วนลด' />
                     <Code_Sale {...props} />
                 </>;
             case 16:
                 return <>
-                    <AppBar1 {...props} backArrow titleHead='ข้อมูลโค้ดส่วนลด' />
+                    <AppBar {...props} backArrow titleHead='ข้อมูลโค้ดส่วนลด' />
                     <Form_Code_Sale {...props} />
                 </>;
             case 17:
                 return <>
-                    <AppBar1 {...props} UpBankBar backArrow titleHead='บัญชีธนาคาร' />
+                    <AppBar {...props} UpBankBar backArrow titleHead='บัญชีธนาคาร' />
                     <Bank_Totel {...props} Bank_True Bank_Default />
                     <Bank_Totel {...props} Bank_False Bank_Edit />
                 </>;
             case 18:
                 return <>
-                    <AppBar1 {...props} deleteBar backArrow titleHead='บัญชีธนาคาร' />
+                    <AppBar {...props} deleteBar backArrow titleHead='บัญชีธนาคาร' />
                     <Bank_detall />
                 </>;
         };

@@ -22,11 +22,11 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
+import {  ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
 import {
   GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
 } from '../../customComponents/Tools';
-import { GenArray, NavigationNavigate } from '../../customComponents';
+import { GenArray, NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -53,7 +53,7 @@ function DealScreen(props) {
   }, [activeGetCurrentUser]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     {(activeGetCurrentUser || activeGetServices) && <LoadingScreen />}
-    <AppBar1 {...props} titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar />
+    <AppBar {...props} titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} dataService={dataService?.banner} />
       <Deal_Calendar dataService={dataService?.carlendar_banner} />
@@ -348,17 +348,17 @@ export let ProDed_Store = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!</Text>
     </View>;
   }) : emptyBox;
-  return <LinearGradient colors={['#691f50','#BD3790']}  style={[stylesMain.FrameBackground, {width: '100%' }]}>
+  return <LinearGradient colors={['#691f50', '#BD3790']} style={[stylesMain.FrameBackground, { width: '100%' }]}>
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#691f50', width: '100%' }]}> */}
-      <View style={stylesDeal.BoxText_Row}>
-        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ร้านนี้มีดีล</Text>
-        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 4 }, navigation })}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
-        </TouchableOpacity>
-      </View>
-      <ScrollView horizontal>
-        {dataNewStore()}
-      </ScrollView>
+    <View style={stylesDeal.BoxText_Row}>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ร้านนี้มีดีล</Text>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 4 }, navigation })}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
+      </TouchableOpacity>
+    </View>
+    <ScrollView horizontal>
+      {dataNewStore()}
+    </ScrollView>
     {/* </View> */}
   </LinearGradient>;
 };

@@ -19,8 +19,8 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule } from '../MainScreen';
-import { NavigationNavigate } from '../../customComponents';
+import {  ExitAppModule } from '../MainScreen';
+import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
@@ -30,7 +30,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(SettingScreen);
 function SettingScreen(props) {
     return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar1 {...props} backArrow titleHead='ตั้งค่าบัญชี' />
+        <AppBar {...props} backArrow titleHead='ตั้งค่าบัญชี' />
         <ScrollView>
             <View>
                 <ListMenu {...props} />

@@ -18,9 +18,9 @@ import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar1, ExitAppModule, Slide } from './MainScreen';
+import {  ExitAppModule, Slide } from './MainScreen';
 import { GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
-import { NavigationNavigate } from '../customComponents';
+import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -83,7 +83,7 @@ function FlashSaleScreen(props) {
     });
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {activeFlashStart && <LoadingScreen key={'LoadingScreen'} />}
-        <AppBar1 {...props} titleHead={'FLASH SALE'} backArrow searchBar chatBar />
+        <AppBar {...props} titleHead={'FLASH SALE'} backArrow searchBar chatBar />
         <ScrollView stickyHeaderIndices={[1]} scrollEventThrottle={8} onScroll={Animated.event([{
             nativeEvent: { contentOffset: { y: scrollY } }
         }], { useNativeDriver: false, })}>

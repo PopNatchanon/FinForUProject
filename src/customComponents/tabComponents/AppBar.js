@@ -40,22 +40,21 @@ class AppSearchBar extends React.Component {
     componentDidMount() {
         const { activeGetCurrentUser } = this.state;
         activeGetCurrentUser && GetData({
-            getSource: value => {
-                this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
-            }, getUser: true,
+            getCokie: true, getUser: true, getSource: value => {
+                this.setState({ activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser });
+            },
         });
     };
     render() {
         const {
-            activeCartList, AIColor, backArrow, cartBar, chatBar, colorSet, filterBar, getFetchData, navigation, otherBar,
-            searchBar, SearchText,
+            activeCartList, AIColor, backArrow, borderBottomColor, cartBar, cartData, cartDataCount, chatBar, colorSet, filterBar,
+            getFetchData, navigation, otherBar, searchBar, SearchText,
         } = this.props;
+        const { cokie, currentUser } = this.state;
         let setSubmit = () => {
             text != undefined && text != ' ' &&
                 NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
         };
-        activeCartList && console.log('activeCartList(getFetchData[cart_mobile]?.data');
-        activeCartList && console.log(getFetchData['cart_mobile']?.data);
         const AIconAntDesign = Animatable.createAnimatableComponent(IconAntDesign);
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -67,17 +66,15 @@ class AppSearchBar extends React.Component {
         filterBar && (allWidth -= 30);
         otherBar && (allWidth -= 30);
         const colors = [];
-        console.log('colorSet')
-        console.log(colorSet)
         if (colorSet) {
             colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         };
-        console.log('LinearGradient')
-        console.log(colors)
+        !cartData?.isActive && !cartData?.isRefresh && cartData.data.length == 0 && cokie && currentUser?.id_customer &&
+            activeCartList({ cokie: cokie, id_customer: currentUser?.id_customer })
         return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
             style={[stylesMain.Appbar, stylesMain.FlexRow, {
-                width, borderWidth: 0, borderBottomWidth: 1, borderColor: colors[colors.length - 1],
-                borderBottomColor: colors[colors.length - 1],
+                width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
+                borderBottomColor: borderBottomColor ?? colors[colors.length - 1],
             }]}>
             {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
             {backArrow && <View key={'backarrow'}>
@@ -129,7 +126,14 @@ class AppSearchBar extends React.Component {
                     onPress={() => currentUser ?
                         NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
                         NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
-                    <AIconAntDesign name="shoppingcart" size={25} style={{ color: AIColor }} />
+                    {((cartData?.isError) || cartDataCount <= 0) ?
+                        <></> :
+                        <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                            backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
+                            textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
+                            borderColor: AIColor, borderWidth: 1,
+                        }]}>{cartDataCount}</Animatable.Text>}
+                    <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                 </TouchableOpacity>}
             </View>}
         </LinearGradient>;
@@ -147,16 +151,17 @@ class AppNoSearchBar extends React.Component {
     componentDidMount() {
         const { activeGetCurrentUser } = this.state;
         activeGetCurrentUser && GetData({
-            getSource: value => {
-                this.setState({ activeGetCurrentUser: false, currentUser: value.currentUser });
+            getCokie: true, getSource: value => {
+                this.setState({ activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser });
             }, getUser: true,
         });
     };
     render() {
         const {
-            backArrow, backNavigation, ButtomDeleteAll, chatBar, colorSet, deleteBar, getActivePost, goToTop, navigation, propsFunction,
-            postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
+            backArrow, backNavigation, borderBottomColor, ButtomDeleteAll, chatBar, colorSet, deleteBar, getActivePost, goToTop, navigation,
+            propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
         } = this.props;
+        const { cokie, currentUser } = this.state;
         console.log('colorSet')
         console.log(colorSet)
         const colors = [];
@@ -165,8 +170,8 @@ class AppNoSearchBar extends React.Component {
         };
         return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
             style={[stylesMain.Appbar, stylesMain.FlexRow, {
-                width, borderWidth: 0, borderBottomWidth: 1, borderColor: colors[colors.length - 1],
-                borderBottomColor: colors[colors.length - 1],
+                width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
+                borderBottomColor: borderBottomColor ?? colors[colors.length - 1],
             }]}>
             {/* <AStatusBar backgroundColor={mainColor} /> */}
             <View style={stylesMain.FlexRow}>
@@ -252,6 +257,7 @@ function AppBar(props) {
 }
 AppBar.propTypes = {
     AIColor: PropTypes.string,
+    borderBottomColor: PropTypes.string,
     enableSearch: PropTypes.bool,
     end: PropTypes.object,
     start: PropTypes.object,

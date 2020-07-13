@@ -427,7 +427,7 @@ export let Might_like_Store = (props) => {
         <View style={stylesProfileTopic.Might_like_Store}>
             <View style={stylesProfileTopic.Follow_store_Box}>
                 <TouchableOpacity onPress={() => NavigationNavigate({
-                    goScreen: 'StoreScreen', setData: { id_item: dataSevice.id_store }, navigation
+                    goScreen: 'StoreScreen', setData: { id_store: dataSevice.id_store }, navigation
                 })}
                     style={{ flexDirection: 'row', }}>
                     <FastImage style={stylesProfileTopic.Follow_store_Box_image} source={{ uri: image_store, }}

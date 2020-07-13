@@ -7,6 +7,10 @@ export const CART_DATA = 'CART_DATA';
 export const CART_DATA_CHECK = 'CART_DATA_CHECK';
 export const CART_DATA_CHECK_ALL = 'CART_DATA_CHECK_ALL';
 export const CART_DATA_DELETE = 'CART_DATA_DELETE';
+export const CART_DATA_END = 'CART_DATA_END';
+export const CART_DATA_ERROR = 'CART_DATA_ERROR';
+export const CART_DATA_RESULT = 'CART_DATA_RESULT';
+export const CART_DATA_START = 'CART_DATA_START';
 export const CART_DATA_UPDATE = 'CART_DATA_UPDATE';
 //========================================>singleFetchDataFromService
 export const COSTOMER_DATA = 'COSTOMER_DATA';

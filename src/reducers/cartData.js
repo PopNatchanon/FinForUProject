@@ -1,39 +1,57 @@
 import {
-    CART_DATA, CART_DATA_CHECK, CART_DATA_CHECK_ALL, CART_DATA_DELETE, CART_DATA_UPDATE,
+    CART_DATA, CART_DATA_CHECK, CART_DATA_CHECK_ALL, CART_DATA_DELETE, CART_DATA_END, CART_DATA_ERROR, CART_DATA_RESULT, CART_DATA_START,
+    CART_DATA_UPDATE
 } from '../actions/constants';
-const initialState = [];
+const initialState = {
+    data: [],
+    isActive: false,
+    isDelete: false,
+    isError: false,
+    isRefresh: false,
+    isResult: false,
+    result: {},
+};
 export default (state = initialState, action) => {
-    console.log(action.type)
-    console.log('=======================cartData')
-    console.log(state)
+    const { data } = state;
     switch (action.type) {
         case CART_DATA:
-            state = action.payload;
-            return state;
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, isActive: false, isDelete: false, isError: false, isRefresh: true };
         case CART_DATA_CHECK:
-            var numberList = state.map((value2) => value2.id_store).indexOf(action.id_store);
-            var subNumberList = state[numberList].product.map((value3) => value3.id_cartdetail).indexOf(action.id_cartdetail);
-            state[numberList].product[subNumberList].checked = !state[numberList].product[subNumberList].checked;
-            state[numberList].checked = state[numberList].product.every((value) => { return value.checked == true });
-            return state;
+            console.log(`=======================cartData=======>${action.type}`)
+            var numberList = data.map((value2) => value2.id_store).indexOf(action.id_store);
+            var subNumberList = data[numberList].product.map((value3) => value3.id_cartdetail).indexOf(action.id_cartdetail);
+            data[numberList].product[subNumberList].checked = !data[numberList].product[subNumberList].checked;
+            data[numberList].checked = data[numberList].product.every((value) => { return value.checked == true });
+            return { ...state, data: data, isResult: false };
         case CART_DATA_CHECK_ALL:
-            var numberList = state.map((value2) => value2.id_store).indexOf(action.id_store);
-            state[numberList].product.map((value, index) => state[numberList].product[index].checked = !state[numberList].checked);
-            state[numberList].checked = !state[numberList].checked;
-            console.log('state[numberList].product');
-            console.log(state[numberList].product);
-            return state;
+            console.log(`=======================cartData=======>${action.type}`)
+            var numberList = data.map((value2) => value2.id_store).indexOf(action.id_store);
+            data[numberList].product.map((value, index) => data[numberList].product[index].checked = !data[numberList].checked);
+            data[numberList].checked = !data[numberList].checked;
+            return { ...state, data: data, isResult: false };
         case CART_DATA_DELETE:
-            var numberList = state.map((value2) => value2.id_store).indexOf(action.id_store);
-            var subNumberList = state[numberList].product.map((value3) => value3.id_cartdetail).indexOf(action.id_cartdetail);
-            state[numberList].product.slice(subNumberList);
-            return state;
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, isDelete: true };
+        case CART_DATA_END:
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, data: action.payload, isActive: true, isRefresh: false, isResult: false };
+        case CART_DATA_ERROR:
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, isError: true, isRefresh: false };
+        case CART_DATA_RESULT:
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, isResult: true, result: action.payload };
+        case CART_DATA_START:
+            console.log(`=======================cartData=======>${action.type}`)
+            return { ...state, isRefresh: true };
         case CART_DATA_UPDATE:
-            var numberList = state.map((value2) => value2.id_store).indexOf(action.id_store);
-            var subNumberList = state[numberList].product.map((value3) => value3.id_cartdetail)
+            console.log(`=======================cartData=======>${action.type}`)
+            var numberList = data.map((value2) => value2.id_store).indexOf(action.id_store);
+            var subNumberList = data[numberList].product.map((value3) => value3.id_cartdetail)
                 .indexOf(action.id_cartdetail);
-            state[numberList].product[subNumberList].quantity = action.payload;
-            return state;
+            data[numberList].product[subNumberList].quantity = action.payload;
+            return { ...state, data: data, isResult: false };
         default:
             return state;
     };

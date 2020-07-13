@@ -5,8 +5,8 @@ import {
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
 import {
-    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
-    setDataRefresh, setDataStart, setFetchToStart,
+    activeCartList, cartListChecked, cartListCheckedAll, cartListDelete, cartListResult, cartListUpdate, checkCustomer, fetchData,
+    multiFetchData, setDataEnd, setDataRefresh, setDataStart, setFetchToStart,
 } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -47,12 +47,14 @@ const mapStateToProps = (state) => ({
     getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
-    activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
-    setDataRefresh, setDataStart, setFetchToStart
+    activeCartList, cartListChecked, cartListCheckedAll, cartListDelete, cartListResult, cartListUpdate, checkCustomer, fetchData,
+    multiFetchData, setDataEnd, setDataRefresh, setDataStart, setFetchToStart
 });
 export default connect(mapStateToProps, mapDispatchToProps)(CartScreen);
 function CartScreen(props) {
-    const { cartData, cartDataList, fetchData, getFetchData, reduxDataBody, setDataEnd, setFetchToStart } = props;
+    const {
+        activeCartList, cartData, cartDataList, cartListResult, fetchData, getFetchData, reduxDataBody, setDataEnd, setFetchToStart
+    } = props;
     const [activeCheck, setActiveCheck] = useState(false);
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [activeF, setActiveF] = useState(true);
@@ -69,8 +71,11 @@ function CartScreen(props) {
     const [dataService, setDataService] = useState(undefined);
     const [dataService2, setDataService2] = useState(undefined);
     const [dataService3, setDataService3] = useState(undefined);
-    console.log('<:::------------------------------------------------:::>')
+    console.log('cartDataList<:::------------------------------------------------:::>cartDataList')
     console.log(cartDataList)
+    console.log('cartData<:::------------------------------------------------:::>cartData')
+    console.log(cartData)
+    console.log('|||<:::------------------------------------------------:::>|||')
     var dataBody;
     var uri = `${finip}/cart/cart_mobile`;
     var uri2 = `${finip}/cart/auto_save_ajax`;
@@ -79,23 +84,19 @@ function CartScreen(props) {
     let getSource = (value) => { setActiveGetSource(false); setCurrentUser(value.currentUser); setCokie(value.keycokie); };
     let getData = (value) => {
         fetchData({ dataBody: { id_customer: currentUser.id_customer }, name: 'cart_mobile', uri: `${finip}/cart/cart_mobile`, });
-        console.log('------------------------------------------------:::>')
-        console.log(value.cart_list)
         setActiveUpdate(false);
-        activeCartList(value.cart_list);
         setTimeout(() => { setActiveRefresh(!activeRefresh); setActiveCheck(true); }, 2000);
     };
     let getData2 = (value) => {
         setActiveF(false); setDataEnd(); setDataService2(value);
     };
     let getData3 = (value) => {
-        setTimeout(() => { setActiveUpdate(true); }, 1000); setDataEnd(); setDataService3(value);
+        currentUser?.id_customer && activeCartList({ id_customer: currentUser?.id_customer }); setDataEnd(); setDataService3(value);
     };
     let getCheckedAll = (value) => { setCheckedAll(value); setActiveSave2(true); };
     let ArrayItems = (value) => { setActiveSave(true); setArrayItem(value); };
     let ArrayItems2 = (value) => { setArrayItem2(value); setButtomDeleteAll(false); };
     let propsFunction = () => { setButtomDeleteAll(!buttomDeleteAll); };
-    !cartData.isActive && activeCartList()
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
     }, [activeGetSource]);
@@ -121,59 +122,38 @@ function CartScreen(props) {
                 showConsole: 'cartAamount'
             });
     }, [reduxDataBody?.isActive && reduxDataBody?.name == 'cartAamount']);
-    useEffect(() => {
-        reduxDataBody?.isActive && reduxDataBody?.name == 'cartDelete' &&
-            GetServices({
-                uriPointer: uri3, dataBody: reduxDataBody.dataList, Authorization: cokie, getDataSource: value => getData3(value),
-                showConsole: 'cartDelete'
-            });
-    }, [reduxDataBody?.isActive && reduxDataBody?.name == 'cartDelete']);
     activeSave2 && setActiveSave2(false);
-    console.log('dataService2|CartScreen')
-    console.log(dataService2)
+    cartData && cartData.isActive && !cartData.isResult && currentUser?.id_customer &&
+        cartListResult({ cokie: cokie, id_customer: currentUser.id_customer, list_order: cartDataList.join(',') })
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {/* {reduxDataBody?.isActive || reduxDataBody?.isRefresh && <LoadingScreen />} */}
         <AppBar1 {...props} titleHead='รถเข็น' backArrow />
         <ScrollView>
-            <Product_Cart {...props} activeRefresh={activeRefresh} currentUser={currentUser} />
+            <Product_Cart {...props} activeRefresh={activeRefresh} cokie={cokie} currentUser={currentUser} />
             {/* <Product_Like /> */}
             <PopularProduct {...props} dataService={getFetchData['publish_mobile']?.data?.for_you2} headText={'คุณอาจชอบสิ่งนี้'} />
         </ScrollView>
-        {/* {getFetchData['cart_mobile']?.data?.cart_list?.length > 0 && 
-             <Buy_bar {...props} activeCheck={activeCheck} dataService2={dataService2} currentUser={currentUser} cokie={cokie}
-                 sendCheck={(value) => setActiveCheck(value)} />}*/}
+        <Buy_bar {...props} currentUser={currentUser} cokie={cokie} />
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
 export let Product_Cart = (props) => {
     const {
-        activeCartList, activeRefresh, cartData, cartDataList, cartListChecked, cartListCheckedAll, cartListUpdate, currentUser,
-        getFetchData, reduxDataBody, setDataRefresh, setDataStart,
+        activeCartList, activeRefresh, cartData, cartDataList, cartListChecked, cartListCheckedAll, cartListDelete, cartListUpdate,
+        cokie, currentUser, getFetchData, reduxDataBody, setDataRefresh, setDataStart,
     } = props;
     const [active, setActive] = useState(false);
     const [activeReload, setActiveReload] = useState(false);
-    const [activeReload2, setActiveReload2] = useState(true);
-    const [cartID, setCartID] = useState([]);
-    const productBox = [];
     useEffect(() => {
         setActiveReload(!activeReload)
     }, [cartData])
-    if (activeReload2 && currentUser) {
-        setDataStart({
-            amount: (cartData[0]?.product[0]?.quantity * 1),
-            list_order: cartDataList,
-            id_cartdetail: cartData[0]?.product[0]?.id_cartdetail,
-            id_customer: currentUser.id_customer,
-        }, 'cartAamount');
-        setActiveReload2(false);
-    };
     let renderItem = (data) => <TouchableOpacity activeOpacity={1}
         style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
         <View style={{ flexDirection: 'row', }}>
             <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]} textStyle={14}
                 fontFamily={'SukhumvitSet-Text'} checked={data.item.checked} onPress={() => {
-                    cartListChecked(data.item.id_cartdetail, data.item.id_store); setActiveReload(!activeReload);
+                    cartListChecked(data.item.id_cartdetail, data.item.id_store, cartDataList); setActiveReload(!activeReload);
                 }} />
             <View style={{
                 backgroundColor: '#fffffe', width: normalize(100), height: 'auto', aspectRatio: 1, marginVertical: 3,
@@ -191,13 +171,11 @@ export let Product_Cart = (props) => {
                 <View style={{ flexDirection: 'row' }}>
                     <TouchableOpacity activeOpacity={1} onPress={() =>
                         (data.item.quantity * 1) - 1 > 0 && (data.item.quantity * 1) - 1 < data.item.max_remain ?
-                            [setDataStart({
-                                amount: (data.item.quantity * 1) - 1,
-                                list_order: cartDataList,
-                                id_cartdetail: data.item.id_cartdetail,
-                                id_customer: currentUser.id_customer,
-                            }, 'cartAamount'), cartListUpdate((data.item.quantity * 1) - 1, data.item.id_cartdetail, data.item.id_store)] :
-                            null}>
+                            [cartListUpdate({
+                                amount: (data.item.quantity * 1) - 1, cokie, list_order: cartDataList.join(','),
+                                id_cartdetail: data.item.id_cartdetail, id_customer: currentUser.id_customer,
+                                id_store: data.item.id_store,
+                            })] : null}>
                         <View style={[stylesMain.ItemCenter,
                         { width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1 }]}>
                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4,
@@ -210,13 +188,11 @@ export let Product_Cart = (props) => {
                     </View>
                     <TouchableOpacity activeOpacity={1} onPress={() =>
                         (data.item.quantity * 1) + 1 > 0 && (data.item.quantity * 1) + 1 < data.item.max_remain ?
-                            [setDataStart({
-                                amount: (data.item.quantity * 1) + 1,
-                                list_order: cartDataList,
-                                id_cartdetail: data.item.id_cartdetail,
-                                id_customer: currentUser.id_customer,
-                            }, 'cartAamount'), cartListUpdate((data.item.quantity * 1) + 1, data.item.id_cartdetail, data.item.id_store)] :
-                            null}>
+                            [cartListUpdate({
+                                amount: (data.item.quantity * 1) + 1, cokie, list_order: cartDataList.join(','),
+                                id_cartdetail: data.item.id_cartdetail, id_customer: currentUser.id_customer,
+                                id_store: data.item.id_store,
+                            })] : null}>
                         <View style={[stylesMain.ItemCenter,
                         { width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1 }]}>
                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize4, {
@@ -234,11 +210,9 @@ export let Product_Cart = (props) => {
         <TouchableOpacity style={[{
             alignItems: 'center', bottom: 0, justifyContent: 'center', position: 'absolute', top: 0, width: 75, backgroundColor: 'red',
             right: 0, borderColor: '#ECECEC', borderTopWidth: 1, borderBottomWidth: 1,
-        }]} onPress={() => [setDataStart({
-            amount: (data.item.quantity * 1) + 1,
-            list_order: data.item.id_cartdetail,
-            id_customer: currentUser.id_customer
-        }, 'cartDelete'), setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450)]}>
+        }]} onPress={() => [cartListDelete({
+            amount: (data.item.quantity * 1) + 1, cokie, list_order: data.item.id_cartdetail, id_customer: currentUser.id_customer
+        }), setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450)]}>
             <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
         </TouchableOpacity>
     </View>;
@@ -254,7 +228,7 @@ export let Product_Cart = (props) => {
                         <View style={{ flexDirection: 'row', }}>
                             <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
                                 textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={item_n.checked} onPress={() => {
-                                    cartListCheckedAll(item_n.id_store); setActiveReload(!activeReload);
+                                    cartListCheckedAll(item_n.id_store, cartDataList); setActiveReload(!activeReload);
                                 }} />
                             <View style={[stylesMain.ItemCenterVertical,
                             { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
@@ -367,13 +341,13 @@ export class Buy_bar extends React.Component {
         const { text, } = this.state;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: cartDataList,
+            list_order: cartDataList.join(','),
             use_coupon: '',
             other_coupon: text,
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: cartDataList,
+            id_cartdetail: cartDataList.join(','),
             use_coupon: '',
             other_coupon: text,
             buy_now: "cart",
@@ -388,13 +362,13 @@ export class Buy_bar extends React.Component {
         const { currentUser, cartDataList, } = this.props;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: cartDataList,
+            list_order: cartDataList.join(','),
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: cartDataList,
+            id_cartdetail: cartDataList.join(','),
             use_coupon: dataService4.id_coupon,
             other_coupon: '',
             buy_now: "cart",
@@ -419,13 +393,13 @@ export class Buy_bar extends React.Component {
         const { currentUser, cartDataList, } = this.props;
         var dataBody3 = {
             id_customer: currentUser?.id_customer,
-            list_order: cartDataList,
+            list_order: cartDataList.join(','),
             use_coupon: '',
             other_coupon: '',
         };
         var dataBody4 = {
             id_customer: currentUser?.id_customer,
-            id_cartdetail: cartDataList,
+            id_cartdetail: cartDataList.join(','),
             use_coupon: '',
             other_coupon: '',
             buy_now: "cart",
@@ -440,7 +414,7 @@ export class Buy_bar extends React.Component {
         const { text, } = this.state;
         var dataBody2 = {
             id_customer: currentUser?.id_customer,
-            list_order: cartDataList,
+            list_order: cartDataList.join(','),
             my_coupon: text,
         };
         text !== undefined && this.setState({ otherCoupon: true, dataBody2 });
@@ -462,7 +436,7 @@ export class Buy_bar extends React.Component {
     setStateBill = () => this.setState({ create_bill: true });
     StateBox = () => { };
     render() {
-        const { activeCheck, buttomDeleteAll, checkedAll, currentUser, dataService2, cokie, cartDataList, } = this.props;
+        const { activeCheck, buttomDeleteAll, checkedAll, currentUser, dataService2, cokie, cartData, cartDataList, } = this.props;
         const {
             create_bill, check_coupon, Coupon, dataBody2, dataBody3, dataBody4, dataService3, dataService4, dataService5, errorService3,
             otherCoupon, savelist_Order, Service3, text,
@@ -474,7 +448,7 @@ export class Buy_bar extends React.Component {
         var uri = `${finip}/cart/check_coupon`;
         var dataBody = {
             id_customer: currentUser?.id_customer,
-            list_order: cartDataList
+            list_order: cartDataList.join(',')
         };
         var uri2 = `${finip}/coupon/get_other_coupon`;
         var uri3 = `${finip}/cart/track_data`;
@@ -548,13 +522,15 @@ export class Buy_bar extends React.Component {
                     </View>
                     {!buttomDeleteAll && <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รวมทั้งหมด</Text>
-                        <NumberFormat value={dataService5?.now_total ?? dataService2?.now_total ?? ''} prefix={'฿'}
+                        <NumberFormat value={cartData?.result?.now_total ?? ''} prefix={'฿'}
                             displayType={'text'} thousandSeparator={true} renderText={value =>
                                 <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText,
                                 { marginLeft: 4, color: mainColor }]}>{value}</Text>} />
                     </View>}
                     <TouchableOpacity activeOpacity={1} onPress={buttomDeleteAll ? () => this.DeleteAction() : () => this.setStateBill()}>
-                        <View style={[stylesCart.BOX_Buy, stylesMain.ItemCenterVertical]}>
+                        <View style={[stylesCart.BOX_Buy, stylesMain.ItemCenterVertical, {
+                            backgroundColor: !buttomDeleteAll && cartDataList > 0 ? mainColor : '#ECECEC'
+                        }]}>
                             <Text style={[stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6,
                             stylesMain.ItemCenterVertical]}>{buttomDeleteAll ? 'ลบ' : 'ชำระเงิน'}</Text>
                         </View>

@@ -52,9 +52,16 @@ import { ButtomTab, Toolbar, NavigationNavigate, AppBar as AAppBar, Rgba2hex } f
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
+const getCartDataCount = (cartData) => {
+    var cartDataCount = 0;
+    cartData?.map((value) => value.product.map((value2) => {
+        return cartDataCount += value2.quantity * 1;
+    }));
+    return cartDataCount;
+};
 const mapStateToProps = (state) => ({
-    cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-    reduxDataBody: state.activeFetchData
+    cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
+    getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -77,6 +84,12 @@ function MainScreen(props) {
     const AnimatedHeadbg2 = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
         outputRange: ['#ffffff00', '#284d8fff'],
+        extrapolate: 'clamp',
+        useNativeDriver: true,
+    });
+    const AnimatedBorderBottom = scrollY.interpolate({
+        inputRange: [maxheight, maxheight * 2],
+        outputRange: ['#ffffff00', '#ffbf00'],
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
@@ -237,7 +250,8 @@ function MainScreen(props) {
         <Animated.View style={{
             zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
         }}>
-            <AAppBar {...props} colorSet={colors} enableAnimated={AnimatedHeadbg} cartBar chatBar enableSearch />
+            <AAppBar {...props} borderBottomColor={AnimatedBorderBottom} colorSet={colors} enableAnimated={AnimatedHeadbg} cartBar chatBar
+                enableSearch />
         </Animated.View>
         <FlatComponent animatedView attachNativeEvent componentPage='MainScreen' component={itemT} initialNumToRender={10}
             scrollEventThrottle={8} showsVerticalScrollIndicator={false}

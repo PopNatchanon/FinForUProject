@@ -158,7 +158,7 @@ class AppNoSearchBar extends React.Component {
     };
     render() {
         const {
-            backArrow, backNavigation, borderBottomColor, ButtomDeleteAll, chatBar, colorSet, deleteBar, getActivePost, goToTop, navigation,
+            AIColor, backArrow, backNavigation, borderBottomColor, ButtomDeleteAll, chatBar, colorSet, deleteBar, getActivePost, goToTop, navigation,
             propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
         } = this.props;
         const { cokie, currentUser } = this.state;

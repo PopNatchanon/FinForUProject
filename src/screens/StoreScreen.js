@@ -23,11 +23,11 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesDetail from '../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitAppModule, Not_Internet, } from './MainScreen';
+import { ExitAppModule, Not_Internet, } from './MainScreen';
 import {
     FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, FlatProduct,
 } from '../customComponents/Tools';
-import { StarReview, NavigationNavigate } from '../customComponents';
+import { StarReview, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';
@@ -64,12 +64,6 @@ function StoreScreen(props) {
         extrapolate: 'clamp',
         useNativeDriver: false,
     });
-    const AnimatedDetailsopacity = scrollY.interpolate({
-        inputRange: [maxheight, maxheight + 220],
-        outputRange: [1, 0],
-        extrapolate: 'clamp',
-        useNativeDriver: false,
-    });
     const AnimatedHead = scrollY.interpolate({
         inputRange: [0, maxheight],
         outputRange: [maxheight, 55],
@@ -78,21 +72,21 @@ function StoreScreen(props) {
     });
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [0, maxheight / 2],
-        outputRange: ['transparent', mainColor],
+        outputRange: ['#ffffff00', '#10162dff'],
         extrapolate: 'clamp',
-        useNativeDriver: false,
+        useNativeDriver: true,
     });
-    const AnimatedHeadbd = scrollY.interpolate({
+    const AnimatedHeadbg2 = scrollY.interpolate({
         inputRange: [0, maxheight / 2],
-        outputRange: ['transparent', mainColor],
+        outputRange: ['#ffffff00', '#284d8fff'],
         extrapolate: 'clamp',
-        useNativeDriver: false,
+        useNativeDriver: true,
     });
-    const AnimatedHeadi = scrollY.interpolate({
+    const AnimatedBorderBottom = scrollY.interpolate({
         inputRange: [0, maxheight / 2],
-        outputRange: ['#fff', '#fff'],
+        outputRange: ['#ffffff00', '#ffbf00'],
         extrapolate: 'clamp',
-        useNativeDriver: false,
+        useNativeDriver: true,
     });
     var dataBody = {
         id_store: id_store,
@@ -165,6 +159,7 @@ function StoreScreen(props) {
             default:
         };
     };
+    const colors = [AnimatedHeadbg, AnimatedHeadbg2];
     return <View style={[stylesMain.BackgroundAreaView, { height: '100%', }]}>
         <Animatable.View style={{ position: 'absolute', top: 0, left: 0, right: 0, height: AnimatedHead, opacity: AnimatedHeadopacity, }}>
             <View style={[stylesStore.StoreHead]}>
@@ -177,8 +172,8 @@ function StoreScreen(props) {
         </Animatable.View>
         <Animatable.View style={{ height: 55 }}>
             <View style={{ position: 'relative', top: 0, left: 0, right: 0, }}>
-                <AppBar {...props} backArrow filterBar otherBar ABGColor={AnimatedHeadbg} ABDColor={AnimatedHeadbd}
-                    AIColor={AnimatedHeadi} />
+                <AppBar {...props} backArrow filterBar otherBar enableSearch borderBottomColor={AnimatedBorderBottom} colorSet={colors}
+                    enableAnimated={AnimatedHeadbg} />
             </View>
         </Animatable.View>
         <ScrollView scrollEventThrottle={8} stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : 0]}

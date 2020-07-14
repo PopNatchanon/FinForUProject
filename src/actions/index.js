@@ -64,7 +64,7 @@ export const setStageCartDataUpdate = (data, id_cartdetail, id_store) => ({
     type: CART_DATA_UPDATE,
 });
 export const activeCartList = (props) => {
-    const { cokie, id_customer } = props
+    const { id_customer } = props
     return async (dispatch) => {
         dispatch(setStageCartData());
         let error, rawData, processData;
@@ -217,7 +217,7 @@ export const cartListDelete = (props) => {
             console.log(processData);
         }
         dispatch(setStageCartDataDelete());
-        // activeCartList(id_customer)
+        dispatch(activeCartList({ id_customer }));
     }
 }
 export const cartListResult = (props) => {

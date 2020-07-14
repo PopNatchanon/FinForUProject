@@ -257,7 +257,7 @@ function AppBar(props) {
 }
 AppBar.propTypes = {
     AIColor: PropTypes.string,
-    borderBottomColor: PropTypes.oneOfType(PropTypes.object, PropTypes.string),
+    borderBottomColor: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     enableSearch: PropTypes.bool,
     end: PropTypes.object,
     noBottomColor: PropTypes.bool,

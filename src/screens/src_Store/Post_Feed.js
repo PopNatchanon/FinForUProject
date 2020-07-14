@@ -280,6 +280,12 @@ function Post_Feed(props) {
                     <AppBar {...props} backArrow titleHead='กำลังติดตาม' />
                     <Following />
                 </>
+            case 28:
+                return <>
+                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
+                    <AppBar {...props} backArrow titleHead='คูปอง' />
+                    <Test_Coupon />
+                </>
         }
     }
     return PathList()
@@ -1829,4 +1835,33 @@ export let Following = (props) => {
     return <ScrollView>
         {FollowingBox}
     </ScrollView>
+}
+///----------------------------------------------------------------------------------------------->>>>
+export let Test_Coupon = (props) => {
+    return (
+        <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+            <View style={[stylesMain.FlexRow, { width: 160, margin: 10 }]}>
+                <LinearGradient colors={['#1B2A3E', '#395B89', '#1B2A3E',]}
+                    start={{ x: 0, y: 0.5 }} end={{ x: 0.6, y: 0 }}
+                    style={stylesMain.FlexRow, { borderRadius: 10 }}>
+                    <View style={{ justifyContent: 'space-between', }}>
+                        <View style={{ height: 50, justifyContent: 'center', marginHorizontal: 5 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>NAME COUPON</Text>
+                        </View>
+                        <View style={{ borderColor: '#FFFFFF', borderTopWidth: 1, marginHorizontal: 5, paddingVertical: 2 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>ซื้อขั้นต่ำครบ ฿10,000.00</Text>
+                        </View>
+
+                    </View>
+                </LinearGradient>
+                <LinearGradient colors={['#DFA700', '#FBD563', '#DFA700',]}
+                    start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
+                    style={[stylesMain.ItemCenter, { width: 50, borderRadius: 10 }]}>
+                    <TouchableOpacity>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เก็บ</Text>
+                    </TouchableOpacity>
+                </LinearGradient>
+            </View>
+        </View>
+    )
 }

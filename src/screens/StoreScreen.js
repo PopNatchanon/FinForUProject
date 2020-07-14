@@ -137,9 +137,9 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/NewDEW.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/New8.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/NewPro.jpg`;
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/ดีลเด็ด4.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้ามาใหม่2.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้าขาย4.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:
@@ -290,7 +290,7 @@ export let StoreHeadDetails = (props) => {
                 {!activeGetServices ?
                     <FastImage source={{ uri: dataMySQL, }} style={[stylesStore.StoreHeadFace, {
                         backgroundColor: '#fff', borderWidth: 1, borderColor: '#ECECEC', borderWidth: 2,
-                        borderColor: '#FFAC33'
+                        borderColor: '#ffbf00'
                     }]} resizeMode={FastImage.resizeMode.stretch} /> :
                     <ActivityIndicator style={stylesMain.ItemCenterVertical} size={20} />}
             </View>
@@ -305,7 +305,7 @@ export let StoreHeadDetails = (props) => {
                     NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
-                        colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#FFD500', borderWidth: 1 }]}>
+                        colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#ffbf00', borderWidth: 1 }]}>
                         <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyBold, stylesFont.FontSize6,
                         { color: '#fff' }]}>แชท</Text>
                     </LinearGradient>
@@ -426,7 +426,7 @@ export let Banner = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> TicketLine
 export let TicketLine = (props) => {
-    const { currentUser, cokie, route } = props;
+    const { currentUser, cokie, route, navigation } = props;
     const id_store = route.params?.id_store;
     const [activeGetCoupon, setActiveGetCoupon] = useState(false);
     const [activeGetServices, setActiveGetServices] = useState(true);
@@ -447,6 +447,14 @@ export let TicketLine = (props) => {
     }, [activeGetServices && cokie]);
     let getTicketLine = <View key='getTicketLine' style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
         <ScrollView horizontal>
+            <TouchableOpacity onPress={() => NavigationNavigate({
+                goScreen: 'Post_Feed', setData: {
+                    selectedIndex: 28,
+                }, navigation
+            })}
+                style={[stylesMain.ItemCenter, { height: 80, width: 80, backgroundColor: '#1A3263', borderRadius: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>คูปอง</Text>
+            </TouchableOpacity>
             {dataService?.coupon?.length > 0 ?
                 dataService?.coupon.map((value, index) => <GetCoupon flexRow codeList={value.my_coupon == 'no' ? 'available' : ''}
                     getCoupon={values => getCoupon(values)} key={index} saveCoupon

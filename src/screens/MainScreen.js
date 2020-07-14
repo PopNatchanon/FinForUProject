@@ -48,7 +48,7 @@ import {
     BrowerScreen, GetServices, GetData, ProductBox, TabBar, LoadingScreen, RenderHeader,
     FlatProduct, FlatComponent,
 } from '../customComponents/Tools';
-import { ButtomTab, Toolbar, NavigationNavigate, AppBar as AAppBar, Rgba2hex } from '../customComponents';
+import { ButtomTab, Toolbar, NavigationNavigate, AppBar as AAppBar, Rgba2hex, BorderLRBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -544,6 +544,19 @@ export let AppBar1 = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
+    const item = [{
+        name: <Text style={stylesFont.FontSize6}>11111</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>22222</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>33333</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>44444</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>55555</Text>
+    }, {
+        name: <Text style={stylesFont.FontSize6}>66666</Text>
+    },];
     let _renderItem = (item, index) => {
         var dataMySQL;
         banner ?
@@ -553,6 +566,8 @@ export let Slide = (props) => {
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
         </View>;
     };
+    let leftItem = <Text>aaaaaa</Text>
+    let rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#111111' }} />
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
             <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
@@ -560,6 +575,9 @@ export let Slide = (props) => {
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
+        <BorderLRBar data={item} leftIcon={rigthItem} typeActive='font' sendDataOut={(value) => console.log(value)} />
+        <BorderLRBar data={item} noOpacityLeftIcon leftIcon={leftItem} leftType='text' rightIcon={rigthItem}
+            sendDataOut={(value) => console.log(value)} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee

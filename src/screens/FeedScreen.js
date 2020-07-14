@@ -91,7 +91,7 @@ export function MenuBar(props) {
   }, {
     icon: <IconFontAwesome5 name='hotjar' size={20} />,
     name: <Text style={stylesFont.FontSize6}>ฮไลท์</Text>
-  }];
+  },];
   rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#FFFF' }} />
   return (
     <View>

@@ -575,7 +575,9 @@ export let Slide = (props) => {
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
-        <BorderLRBar data={item} leftIcon={rigthItem} typeActive='font' sendDataOut={(value) => console.log(value)} />
+        <View style={{ marginVertical: 2 }}>
+            <BorderLRBar data={item} borderBottomWidth={1} leftIcon={rigthItem} typeActive='font' sendDataOut={(value) => console.log(value)} />
+        </View>
         <BorderLRBar data={item} noOpacityLeftIcon leftIcon={leftItem} leftType='text' rightIcon={rigthItem}
             sendDataOut={(value) => console.log(value)} />
     </View>;

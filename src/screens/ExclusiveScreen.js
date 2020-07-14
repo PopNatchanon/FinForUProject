@@ -15,12 +15,12 @@ import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, } from './MainScreen';
+import { TodayProduct, ExitAppModule, } from './MainScreen';
 import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from '../customComponents/Tools';
 import { Slide, } from './src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
-import { AppBar } from '../customComponents';
+import { AppBar, BorderLRBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -94,31 +94,41 @@ function ExclusiveScreen(props) {
 export let Button_Bar = (props) => {
   const { filterValue, setSliderVisible } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
-  const item = [
-    { name: 'ยอดนิยม' }, { name: 'สินค้าขายดี' }, { name: 'ล่าสุด' }, {
-      actionItem: [
-        <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { color: '#6C6C6C', marginLeft: 2 }]} />,
-        <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />,
-        <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { color: mainColor, marginLeft: 2 }]} />
-      ], actionList: [1, 2], actionReturn: ['min', 'max'], name: 'ราคา'
-    }];
-  let updateIndex = (value) => { filterValue(value.selectedIndex * 1); setSelectedIndex(value.selectedIndex * 1); };
-  let setSliderVisibles = () => setSliderVisible(true);
+  const item = [{
+    name: <Text style={stylesFont.FontSize6}>ยอดนิยม</Text>
+  }, {
+    name: <Text style={stylesFont.FontSize6}>สินค้าขายดี</Text>
+  }, {
+    name: <Text style={stylesFont.FontSize6}>ล่าสุด</Text>
+  }, {
+    actionItem: [{
+      name: <IconMaterialIcons name='unfold-more' size={15} style={[stylesMain.ItemCenterVertical, { marginLeft: 2 }]} />,
+      value: 0,
+    }, {
+      name: <IconMaterialIcons name='arrow-upward' size={15} style={[stylesMain.ItemCenterVertical, { marginLeft: 2 }]} />,
+      value: 'min',
+    }, {
+      name: <IconMaterialIcons name='arrow-downward' size={15} style={[stylesMain.ItemCenterVertical, { marginLeft: 2 }]} />,
+      value: 'max',
+    }], name: <Text style={stylesFont.FontSize6}>ราคา</Text>
+  }];
+  let leftItem = <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เรียงตาม</Text>
+  let rightItem = {
+    icon: <IconFeather RightItem name="filter" size={18} color={mainColor} />,
+    text: <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
+  }
+  let updateIndex = (value, value2) => {
+    console.log('------------------------------------->updateIndex');
+    console.log(value);
+    console.log(value2);
+    value == 5 && setSliderVisible(true);
+    (value != selectedIndex || value2 != 0) && value != 4 && value != 5 && filterValue({ actionReturn: value2, selectedIndex: value });
+    value != selectedIndex && value != 4 && value != 5 && setSelectedIndex(value);
+  };
   return <View>
-    <View style={stylesTopic.Button_Bar}>
-      <View style={[stylesMain.ItemCenterVertical, stylesTopic.Button_Bar_BoxText]}>
-        <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>เรียงตาม</Text>
-      </View>
-      <View>
-        <TabBar sendData={value => updateIndex(value)} item={item} limitBox={width * 0.7} setVertical={2} activeColor={'#fff'}
-          activeFontColor={mainColor} type='tag' />
-      </View>
-      <TouchableOpacity onPress={() => setSliderVisibles()}>
-        <View style={[stylesMain.ItemCenterVertical, stylesTopic.Button_Bar_Icon, { borderLeftColor: 'black', borderLeftWidth: 1.2 }]}>
-          <IconFeather RightItem name="filter" size={18} color={mainColor} />
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
-        </View>
-      </TouchableOpacity>
-    </View>
+    {/* <View style={stylesTopic.Button_Bar}> */}
+    <BorderLRBar data={item} borderBottomWidth={4} noOpacityLeftIcon leftIcon={leftItem} leftType='text' rightIcon={rightItem}
+      rightType='mix' typeActive='font' sendDataOut={(value, value2) => updateIndex(value, value2)} />
+    {/* </View> */}
   </View>;
 };

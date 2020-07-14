@@ -53,8 +53,8 @@ function BorderBottomTabBar(props) {
                                 props.sendDataOut(index);
                             };
                         }} style={[styleMain.ItemCenter, {
-                            borderBottomColor: props.typeActive == 'bottom' && selected == index ? props.activeColor :
-                                props.noSelectBorderBottomColor,
+                            borderBottomColor: props.noSelectBottomColor ? props.noSelectBorderBottomColor :
+                                props.typeActive == 'bottom' && selected == index ? props.activeColor : props.noSelectBorderBottomColor,
                             borderBottomWidth: props.borderBottomWidth,
                             borderTopColor: props.noSelectBorderBottomColor,
                             borderTopWidth: props.borderBottomWidth,

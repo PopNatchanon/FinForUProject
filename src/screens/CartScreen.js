@@ -100,28 +100,6 @@ function CartScreen(props) {
     useEffect(() => {
         activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
     }, [activeGetSource]);
-    useEffect(() => {
-        activeUpdate && cokie && dataBody && dataBody.id_customer &&
-            GetServices({
-                uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: value => getData(value),
-                showConsole: 'refreshCart'
-            });
-    }, [activeUpdate && cokie && dataBody && dataBody.id_customer]);
-    useEffect(() => {
-        activeF && cokie && reduxDataBody && reduxDataBody.dataList && reduxDataBody.dataList.id_customer &&
-            reduxDataBody.dataList.list_order && GetServices({
-                uriPointer: uri2, dataBody: reduxDataBody.dataList, Authorization: cokie, getDataSource: value => getData2(value),
-                showConsole: 'reduxDataBody.dataList'
-            });
-    }, [activeF && cokie && reduxDataBody && reduxDataBody.dataList && reduxDataBody.dataList.id_customer &&
-        reduxDataBody.dataList.list_order]);
-    useEffect(() => {
-        reduxDataBody?.isActive && reduxDataBody?.name == 'cartAamount' &&
-            GetServices({
-                uriPointer: uri2, dataBody: reduxDataBody.dataList, Authorization: cokie, getDataSource: value => getData2(value),
-                showConsole: 'cartAamount'
-            });
-    }, [reduxDataBody?.isActive && reduxDataBody?.name == 'cartAamount']);
     activeSave2 && setActiveSave2(false);
     cartData && cartData.isActive && !cartData.isResult && currentUser?.id_customer &&
         cartListResult({ cokie: cokie, id_customer: currentUser.id_customer, list_order: cartDataList.join(',') })

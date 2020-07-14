@@ -20,6 +20,7 @@ import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
+import Dash from 'react-native-dash';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
@@ -545,18 +546,11 @@ export let AppBar1 = (props) => {
 export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
     const item = [{
-        name: <Text style={stylesFont.FontSize6}>11111</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>22222</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>33333</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>44444</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>55555</Text>
-    }, {
-        name: <Text style={stylesFont.FontSize6}>66666</Text>
-    },];
+        name: <Text style={stylesFont.FontSize6}>{'<0~5'}</Text>
+    }];
+    let selectPath = (value) => {
+        value == 0 && NavigationNavigate({ goScreen: '' });
+    };
     let _renderItem = (item, index) => {
         var dataMySQL;
         banner ?
@@ -566,8 +560,6 @@ export let Slide = (props) => {
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
         </View>;
     };
-    let leftItem = <Text>aaaaaa</Text>
-    let rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#111111' }} />
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
             <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
@@ -575,11 +567,27 @@ export let Slide = (props) => {
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
-        <View style={{ marginVertical: 2 }}>
-            <BorderLRBar data={item} borderBottomWidth={1} leftIcon={rigthItem} typeActive='font' sendDataOut={(value) => console.log(value)} />
+        <View style={{ marginVertical: 5 }}>
+            <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey' }}>
+
+                <View style={{ width: '80%', backgroundColor: 'white', height: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', position: 'absolute' }}>
+
+                </View>
+
+                <View style={{ width: '95%', height: '100%', flexDirection: 'row', alignItems: 'center' }}>
+
+                    <View style={{ height: 50, width: 50, backgroundColor: 'grey', borderRadius: 150 }}>
+                    </View>
+
+                    <Dash style={{ width: '75%', height: 5 }} />
+
+                    <View style={{ height: 50, width: 50, backgroundColor: 'grey', borderRadius: 150, }}>
+                    </View>
+
+
+                </View>
+            </View>
         </View>
-        <BorderLRBar data={item} noOpacityLeftIcon leftIcon={leftItem} leftType='text' rightIcon={rigthItem}
-            sendDataOut={(value) => console.log(value)} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
@@ -1852,7 +1860,7 @@ export let Botton_PopUp_FIN = (props) => {
             </Animated.View>
         </PanGestureHandler>}
         <SlidingView disableDrag componentVisible={activeSliding} containerStyle={{ backgroundColor: null, width: '100%', top: '50%' }}
-            position="right">
+            position="right" >
             <TouchableOpacity onPress={() => setActiveSliding(!activeSliding)}>
                 <View style={stylesMain.Botton_PopUp_Box}>
                     <FastImage style={stylesMain.BoxProduct1Image} source={require('../../images/0044-03.png')}

@@ -158,8 +158,9 @@ class AppNoSearchBar extends React.Component {
     };
     render() {
         const {
-            AIColor, backArrow, backNavigation, borderBottomColor, ButtomDeleteAll, chatBar, colorSet, deleteBar, getActivePost, goToTop, navigation,
-            propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
+            AIColor, backArrow, backNavigation, borderBottomColor, cartData, cartListButtomDelete, chatBar, colorSet, deleteBar,
+            getActivePost, goToTop, navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar,
+            selectshare,
         } = this.props;
         const { cokie, currentUser } = this.state;
         console.log('colorSet')
@@ -168,40 +169,36 @@ class AppNoSearchBar extends React.Component {
         if (colorSet) {
             colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         };
-        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
-            style={[stylesMain.Appbar, stylesMain.FlexRow, {
-                width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
-                borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
-            }]}>
+        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar, stylesMain.FlexRow, {
+            width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1], justifyContent: 'space-between',
+            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
+        }]}>
             {/* <AStatusBar backgroundColor={mainColor} /> */}
             <View style={stylesMain.FlexRow}>
-                {backArrow &&
-                    <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 50, height: 50 }]}
-                        activeOpacity={1} onPress={() => goToTop ?
-                            NavigationNavigate({ goScreen: 'popToTop', navigation }) :
-                            backNavigation ?
-                                [route.params.backNavigation('goBack'),
-                                NavigationNavigate({ goScreen: 'goBack', navigation })] :
-                                NavigationNavigate({ goScreen: 'goBack', navigation })}>
-                        <IconEntypo style={[stylesStore.Icon_appbar, { color: AIColor }]} name="chevron-left" size={30} />
-                    </TouchableOpacity>}
-                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
-                stylesMain.ItemCenterVertical]}>{titleHead ?? ''}</Text>
-                {selectshare &&
-                    <View style={{ marginVertical: 5 }}>
-                        <ModalDropdown
-                            options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']}
-                            defaultValue={
-                                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                                stylesMain.ItemCenterVertical]}>แชร์ไปยัง
-                            <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>
-                            }
-                            textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
-                            stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
-                            dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                            dropdownStyle={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
-                        </ModalDropdown>
-                    </View>}
+                {backArrow && <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
+                    activeOpacity={1} onPress={() => goToTop ?
+                        NavigationNavigate({ goScreen: 'popToTop', navigation }) :
+                        backNavigation ?
+                            [route.params.backNavigation('goBack'),
+                            NavigationNavigate({ goScreen: 'goBack', navigation })] :
+                            NavigationNavigate({ goScreen: 'goBack', navigation })}>
+                    <IconEntypo style={[stylesStore.Icon_appbar, { color: AIColor }]} name="chevron-left" size={30} />
+                </TouchableOpacity>}
+                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical,
+                { marginLeft: backArrow ? 4 : 24, }]}>{titleHead ?? ''}</Text>
+                {selectshare && <View style={{ marginVertical: 5 }}>
+                    <ModalDropdown
+                        options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']}
+                        defaultValue={
+                            <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                            stylesMain.ItemCenterVertical]}>แชร์ไปยัง
+                            <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>}
+                        textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
+                        stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
+                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        dropdownStyle={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
+                    </ModalDropdown>
+                </View>}
             </View>
             <View style={stylesMain.FlexRow}>
                 {searchBar && <TouchableOpacity key={'searchBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
@@ -240,10 +237,10 @@ class AppNoSearchBar extends React.Component {
                     <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
                     stylesFont.FontSize4, { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}
-                {deleteBar && <TouchableOpacity key={'deleteBar'} onPress={() => propsFunction()} style={[stylesMain.ItemCenter,
+                {deleteBar && <TouchableOpacity key={'deleteBar'} onPress={() => cartListButtomDelete()} style={[stylesMain.ItemCenter,
                 { width: 60 }]}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
-                    stylesFont.FontSize4, { width: 60, textAlign: 'center' }]}>{ButtomDeleteAll ? 'เสร็จสิ้น' : 'ลบ'}</Text>
+                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                    { width: 60, textAlign: 'center' }]}>{cartData.buttomDelete ? 'เสร็จสิ้น' : 'ลบ'}</Text>
                 </TouchableOpacity>}
             </View>
         </LinearGradient>;

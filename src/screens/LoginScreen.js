@@ -50,6 +50,7 @@ export let Logo = (props) => <>
 ///----------------------------------------------------------------------------------------------->>>> Login
 export let Login = (props) => {
   const { navigation } = props
+  const [activeUser, setActiveUser] = useState(false);
   const [errorMessage, setErrorMessage] = useState(undefined);
   const [eye, setEye] = useState(true);
   const [showErrorMessage, setShowErrorMessage] = useState(false);
@@ -91,9 +92,10 @@ export let Login = (props) => {
       };
     }).catch((error) => { console.error(error); });
   };
+  console.log(user);
   let handleSubmit = () => FormLoginRef.current.submit();;
-  let EmailInput = (event) => { user.email = event; setUser(user); };
-  let PassInput = (event) => { user.password = event; setUser(user); };
+  let EmailInput = (value) => { user.email = value; setUser(user); setActiveUser(!activeUser); };
+  let PassInput = (value) => { user.password = value; setUser(user); setActiveUser(!activeUser); };
   let setStateEye = (value) => setEye(value);
   return <View style={stylesLogin.Login_Box}>
     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>เข้าสู่ระบบ</Text>

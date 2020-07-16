@@ -495,12 +495,9 @@ export let DealTop = (props) => {
 export let PopularProduct = (props) => {
     const { activeGetServices, dataService, headText, noHeadText, H_Banner } = props;
     return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, { borderColor: '#E9E9E9' }]}>
-        {noHeadText ? null : <FastImage
-            style={{ height: 45, width: '100%', }}
-            source={{
-                uri: H_Banner,
-            }}
-            resizeMode={FastImage.resizeMode.constain} />
+        {noHeadText ? null : H_Banner ? <FastImage style={{ height: 45, width: '100%', }} source={{ uri: H_Banner, }}
+            resizeMode={FastImage.resizeMode.constain} /> : <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold,
+            stylesFont.FontSize4]}>{headText}</Text>
         }
         <View style={[stylesMain.BoxProductWarp, { marginTop: 0 }]}>
             {!activeGetServices ?

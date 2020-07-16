@@ -69,6 +69,7 @@ import Installment_payScreen from '../screens/src_Promotion/Installment_payScree
 import Detail_Campaign from '../screens/src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../screens/src_Store/Post_Feed';
+import FeedsScreen from '../customComponents/FeedsComponents/Feeds';
 ///----------------------------------------------------------------------------------------------->>>>
 // const store = useStore(configureStore);
 const Stack = createStackNavigator();
@@ -348,6 +349,11 @@ function App() {
           <Stack.Screen
             name='Post_Feed'
             component={Post_Feed}
+            options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
+          />
+          <Stack.Screen
+            name='FeedsScreen'
+            component={FeedsScreen}
             options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }}
           />
         </Stack.Navigator>

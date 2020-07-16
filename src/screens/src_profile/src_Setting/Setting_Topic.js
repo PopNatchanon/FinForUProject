@@ -18,6 +18,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
@@ -87,7 +88,7 @@ export let Edit_Profile = (props) => {
   const [activeNow, setActiveNow] = useState(0);
   const [checked, setChecked] = useState(true);
   const [dataBody2, setDataBody2] = useState(undefined);
-  const [date, setDate] = useState(undefined);
+  // const [date, setDate] = useState(undefined);
   const [dataDay, setDataDay] = useState(undefined);
   const [dataMo, setDataMo] = useState(undefined);
   const [dataYear, setDataYear] = useState(undefined);
@@ -104,6 +105,9 @@ export let Edit_Profile = (props) => {
   const [image, setImage] = useState(undefined);
   const [image_path, setImage_Path] = useState(undefined);
   const [path, setPath] = useState(undefined);
+  const [mode, setMode] = useState('date');
+  const [show, setShow] = useState(false);
+  const [date, setDate] = useState(new Date());
   const nameSheetRef = useRef(null);
   const genderSheetRef = useRef(null);
   const birthdaySheetRef = useRef(null);
@@ -111,6 +115,12 @@ export let Edit_Profile = (props) => {
   var dataBody = { id_customer: currentUser?.id_customer ?? '', };
   var uri = `${finip}/profile/profile_mobile`;
   var uri2 = `${finip}/profile/update_profile_mobile`;
+  let onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios');
+    setDate(currentDate);
+  };
+  let showMode = currentMode => { setShow(true); setMode(currentMode); };
   let getDataYear = () => {
     var dates = new Date().getFullYear();
     var box = [];
@@ -211,10 +221,22 @@ export let Edit_Profile = (props) => {
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
         <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
-          <DatePicker style={{ width: 300 }} date={inputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+          <View>
+            <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+              <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+              { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                  {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+              </View>
+            </TouchableOpacity>
+            {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+              onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
+          </View>
+          {/* <DatePicker style={{ width: 300 }} date={inputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
             minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
             customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }}
-            onDateChange={(value) => setInputBirth_day(value)} />
+            onDateChange={(value) => setInputBirth_day(value)} /> */}
           {/* <View style={stylesMain.FlexRow}>
               <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                 <Picker

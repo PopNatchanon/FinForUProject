@@ -60,3 +60,4 @@ buck-out/
 *.apk
 android/app/release/output.json
 *.hprof
+android/app/release/output-metadata.json

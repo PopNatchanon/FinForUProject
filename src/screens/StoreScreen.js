@@ -137,9 +137,9 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/ดีลเด็ด4.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้ามาใหม่2.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้าขาย4.jpg`;
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/ดีลเด็ด7.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้ามาใหม่4.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้าขายดี3.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:

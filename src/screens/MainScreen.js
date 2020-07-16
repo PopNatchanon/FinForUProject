@@ -567,27 +567,19 @@ export let Slide = (props) => {
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
-        <View style={{ marginVertical: 5 }}>
+        {/* <View style={{ marginVertical: 5 }}>
             <View style={{ flex: 1, alignItems: 'center', justifyContent: 'center', backgroundColor: 'grey' }}>
-
                 <View style={{ width: '80%', backgroundColor: 'white', height: '100%', justifyContent: 'space-between', flexDirection: 'row', alignItems: 'center', position: 'absolute' }}>
-
                 </View>
-
                 <View style={{ width: '95%', height: '100%', flexDirection: 'row', alignItems: 'center' }}>
-
                     <View style={{ height: 50, width: 50, backgroundColor: 'grey', borderRadius: 150 }}>
                     </View>
-
                     <Dash style={{ width: '75%', height: 5 }} />
-
                     <View style={{ height: 50, width: 50, backgroundColor: 'grey', borderRadius: 150, }}>
                     </View>
-
-
                 </View>
             </View>
-        </View>
+        </View> */}
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee

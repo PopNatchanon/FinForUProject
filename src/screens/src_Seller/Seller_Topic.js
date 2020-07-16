@@ -9,6 +9,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
 import DatePicker from 'react-native-datepicker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
 import PINCode from '@haskkor/react-native-pincode';
@@ -1066,6 +1067,15 @@ export let Form_Code_Sale = (props) => {
     const [MFG_Time, setMFG_Time] = useState(undefined);
     const [min_Price, setMin_Price] = useState(undefined);
     const [name, setName] = useState(undefined);
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
+    let onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios');
+        setDate(currentDate);
+    };
+    let showMode = currentMode => { setShow(true); setMode(currentMode); };
     let setStateChecked = (value, value2) => { setChecked(value); setChecked2(value2); };
     return <ScrollView>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
@@ -1083,10 +1093,22 @@ export let Form_Code_Sale = (props) => {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่เริ่มต้น</Text>
-            <DatePicker style={{ width: 300 }} date={MFG_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+            <View>
+                <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+                    <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                    { borderWidth: 2, width: '90%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                        <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                            {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                    </View>
+                </TouchableOpacity>
+                {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+                    onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
+            </View>
+            {/* <DatePicker style={{ width: 300 }} date={MFG_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
                 minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
                 customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }} onDateChange={(value) =>
-                    setMFG_Day(value)} />
+                    setMFG_Day(value)} /> */}
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาเริ่มต้น</Text>
@@ -1095,10 +1117,22 @@ export let Form_Code_Sale = (props) => {
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่สิ้นสุด</Text>
-            <DatePicker style={{ width: 300 }} date={EXP_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
+            <View>
+                <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+                    <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                    { borderWidth: 2, width: '90%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+                        <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                            {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                    </View>
+                </TouchableOpacity>
+                {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+                    onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
+            </View>
+            {/* <DatePicker style={{ width: 300 }} date={EXP_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
                 minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
                 customStyles={{ dateIcon: { position: 'absolute', left: 0, top: 4, marginLeft: 0 }, }} onDateChange={(value) =>
-                    setEXP_Day(value)} />
+                    setEXP_Day(value)} /> */}
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาสิ้นสุด</Text>

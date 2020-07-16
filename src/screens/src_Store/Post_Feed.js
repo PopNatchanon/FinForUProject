@@ -45,6 +45,7 @@ import {
 import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../customComponents';
 import { TodayProduct, Slide, ExitAppModule } from '../MainScreen';
 import { Store_Detail } from '../Recommend_Store';
+import Dash from 'react-native-dash';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../navigator/IpConfig';
@@ -1840,28 +1841,116 @@ export let Following = (props) => {
 export let Test_Coupon = (props) => {
     return (
         <View style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
-            <View style={[stylesMain.FlexRow, { width: 160, margin: 10 }]}>
-                <LinearGradient colors={['#1B2A3E', '#395B89', '#1B2A3E',]}
-                    start={{ x: 0, y: 0.5 }} end={{ x: 0.6, y: 0 }}
-                    style={stylesMain.FlexRow, { borderRadius: 10 }}>
-                    <View style={{ justifyContent: 'space-between', }}>
-                        <View style={{ height: 50, justifyContent: 'center', marginHorizontal: 5 }}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>NAME COUPON</Text>
+            <ScrollView>
+                {/* อันแรก */}
+                <View style={[stylesMain.FlexRow, { width: 160, margin: 10 }]}>
+                    <LinearGradient colors={['#1B2A3E', '#395B89', '#1B2A3E',]}
+                        start={{ x: 0, y: 0.5 }} end={{ x: 0.6, y: 0 }}
+                        style={stylesMain.FlexRow, { borderRadius: 10 }}>
+                        <View style={{ justifyContent: 'space-between', }}>
+                            <View style={{ height: 50, justifyContent: 'center', marginHorizontal: 5 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>NAME COUPON</Text>
+                            </View>
+                            <View style={{ borderColor: '#FFFFFF', borderTopWidth: 1, marginHorizontal: 5, paddingVertical: 2 }}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>ซื้อขั้นต่ำครบ ฿10,000.00</Text>
+                            </View>
                         </View>
-                        <View style={{ borderColor: '#FFFFFF', borderTopWidth: 1, marginHorizontal: 5, paddingVertical: 2 }}>
+                    </LinearGradient>
+                    <LinearGradient colors={['#DFA700', '#FBD563', '#DFA700',]}
+                        start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
+                        style={[stylesMain.ItemCenter, { width: 50, borderRadius: 10 }]}>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เก็บ</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
+                </View>
+                {/* อันที่สอง */}
+                <View style={{
+                    width: 160, margin: 10,
+                    flexDirection: 'column', justifyContent: 'flex-start',
+                    borderColor: '#3498DB', borderStyle: 'dotted',
+                    borderRadius: 1, position: 'relative', borderWidth: 2,
+                    backgroundColor: '#3498DB'
+                }}>
+                    <View>
+                        <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', padding: 5, height: 40 }]}>
+                            <View style={stylesMain.ItemCenter}>
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>NAME COUPON</Text>
+                            </View>
+                            <LinearGradient colors={['#DFA700', '#FBD563', '#DFA700',]}
+                                start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
+                                style={[stylesMain.ItemCenter, { width: 40, borderRadius: 10, height: 30 }]}>
+                                <TouchableOpacity>
+                                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>เก็บ</Text>
+                                </TouchableOpacity>
+                            </LinearGradient>
+                        </View>
+                        <View style={{ borderColor: '#FFFFFF', borderTopWidth: 1, padding: 5 }}>
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>ซื้อขั้นต่ำครบ ฿10,000.00</Text>
                         </View>
+                    </View>
+                </View>
+                {/* อันที่สาม */}
+                <View style={[stylesMain.FlexRow, { width: 160, margin: 10, height: 70 }]}>
+                    <LinearGradient colors={['#01608D', '#3498DB', '#01608D',]}
+                        start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
+                        style={[stylesMain.ItemCenter, { width: 10, borderBottomLeftRadius: 10, borderTopLeftRadius: 10 }]}>
+                    </LinearGradient>
+                    <View style={{ justifyContent: 'space-between', borderColor: '#01608D', borderWidth: 1 }}>
+                        <View style={{ height: 50, justifyContent: 'center', marginHorizontal: 5 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>NAME COUPON</Text>
+                        </View>
+                    </View>
+                    <LinearGradient colors={['#01608D', '#3498DB', '#01608D',]}
+                        start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
+                        style={[stylesMain.ItemCenter, { width: 50, borderBottomRightRadius: 10, borderTopRightRadius: 10 }]}>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เก็บ</Text>
+                        </TouchableOpacity>
+                    </LinearGradient>
+                </View>
+                {/* อันที่สี่ */}
+                <LinearGradient
+                    colors={['#A1001B', '#F93B5B', '#A1001B',]}
+                    start={{ x: 0, y: 0.5 }} end={{ x: 0.8, y: 0 }}
+                    style={{ width: 170, margin: 10, height: 70, borderRadius: 10 }}>
+                    <View style={stylesMain.FlexRow}>
+                        <TouchableOpacity style={[stylesMain.ItemCenter, { width: 40 }]}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 5, color: '#FFFFFF' }]}>เก็บ</Text>
+                        </TouchableOpacity>
+                        <View style={{ justifyContent: 'space-between', height: 80, top: -5 }}>
+                            <View style={{ height: 15, width: 15, borderRadius: 15 / 2, backgroundColor: '#FFFFFF', }} />
+                            <View style={{ height: 15, width: 15, borderRadius: 15 / 2, backgroundColor: '#FFFFFF', }} />
+                        </View>
+                        <View style={{ justifyContent: 'center' }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>NAME COUPON</Text>
+                        </View>
+                    </View>
+                </LinearGradient>
+                {/* อันที่ห้า */}
+                <LinearGradient
+                    colors={['#018A18', '#61D562', '#018A18',]}
+                    start={{ x: 0, y: 0.5 }} end={{ x: 0.8, y: 0 }}
+                    style={{ width: 180, margin: 10, height: 70, }}>
+                    <View style={{ height: 40 }}>
+                        <Text>NAME COUPON</Text>
+                    </View>
+                    <View style={{ justifyContent: 'space-between', flexDirection: 'row', width: '100%' }}>
+                        <View style={{ height: 15, width: 15, borderRadius: 15 / 2, backgroundColor: '#FFFFFF', }} />
+                        <Dash style={{ width: '85%',justifyContent: 'center' }} />
+                        <View style={{ height: 15, width: 15, borderRadius: 15 / 2, backgroundColor: '#FFFFFF', }} />
+                    </View>
+                </LinearGradient>
+                {/* อันที่หก */}
+                <LinearGradient
+                    colors={['#DAA520', '#FEE45A', '#DAA520',]}
+                    start={{ x: 0, y: 0.5 }} end={{ x: 0.8, y: 0 }}
+                    style={{ width: 180, margin: 10, height: 70, }}>
+                    <View>
 
                     </View>
                 </LinearGradient>
-                <LinearGradient colors={['#DFA700', '#FBD563', '#DFA700',]}
-                    start={{ x: 0, y: 0.5 }} end={{ x: 1, y: 0 }}
-                    style={[stylesMain.ItemCenter, { width: 50, borderRadius: 10 }]}>
-                    <TouchableOpacity>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>เก็บ</Text>
-                    </TouchableOpacity>
-                </LinearGradient>
-            </View>
+            </ScrollView>
         </View>
     )
 }

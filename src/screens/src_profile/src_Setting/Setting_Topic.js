@@ -13,6 +13,7 @@ export const { width, height } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import DatePicker from 'react-native-datepicker';
 import RNFetchBlob from 'rn-fetch-blob'
+import DateTimePicker from '@react-native-community/datetimepicker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -51,28 +52,28 @@ function Setting_Topic(props) {
     switch (selectedIndex) {
       case 0:
         return <Edit_Profile {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
+      // แก้ไขโปรไฟล์ เข้าจาก หน้า Setting ของ Profile
       case 1:
         return <Edit_Address {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
+      // แก้ไขที่อยู่ เข้าจาก หน้า Setting ของ Profile
       case 2:
         return <Edit_Chat {...props} />;
+      // แก้ไขแชท เข้าจาก หน้า Setting ของ Profile
       case 3:
-        return <View>
-          <Edit_Bell {...props} />
-        </View>;
+        return <Edit_Bell {...props} />;
+      // แก้ไขแการแจ้งเตือน เข้าจากหน้า Setting ของ Profile
       case 4:
-        return <View>
-          <Language_Screen {...props} />
-        </View>;
+        return <Language_Screen {...props} />;
+      // แก้ไขภาษา เข้าจากหน้า Setting ของ Profile
       case 5:
-        return <View>
-          <Edit_Setting_Bell {...props} />
-        </View>;
+        return <Edit_Setting_Bell {...props} />;
+      // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือน
       case 6:
-        return <View>
-          <Edit_Setting_Email {...props} />
-        </View>;
+        return <Edit_Setting_Email {...props} />;
+      // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือนทาง E-mail
       case 7:
         return <Edit_Pass {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
+      // แก้ไขรหัสผ่าน เข้าจากหน้า Setting ของ Profile
     };
   };
   return <SafeAreaView style={[stylesMain.SafeAreaView]}>
@@ -88,7 +89,7 @@ export let Edit_Profile = (props) => {
   const [activeNow, setActiveNow] = useState(0);
   const [checked, setChecked] = useState(true);
   const [dataBody2, setDataBody2] = useState(undefined);
-  // const [date, setDate] = useState(undefined);
+  const [date, setDate] = useState(new Date());
   const [dataDay, setDataDay] = useState(undefined);
   const [dataMo, setDataMo] = useState(undefined);
   const [dataYear, setDataYear] = useState(undefined);
@@ -107,7 +108,6 @@ export let Edit_Profile = (props) => {
   const [path, setPath] = useState(undefined);
   const [mode, setMode] = useState('date');
   const [show, setShow] = useState(false);
-  const [date, setDate] = useState(new Date());
   const nameSheetRef = useRef(null);
   const genderSheetRef = useRef(null);
   const birthdaySheetRef = useRef(null);
@@ -115,12 +115,6 @@ export let Edit_Profile = (props) => {
   var dataBody = { id_customer: currentUser?.id_customer ?? '', };
   var uri = `${finip}/profile/profile_mobile`;
   var uri2 = `${finip}/profile/update_profile_mobile`;
-  let onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-  };
-  let showMode = currentMode => { setShow(true); setMode(currentMode); };
   let getDataYear = () => {
     var dates = new Date().getFullYear();
     var box = [];
@@ -205,18 +199,25 @@ export let Edit_Profile = (props) => {
     </TouchableOpacity>
   </>;
   let birthdaySheetBody = () => {
-    // currentUser.map((item) => {
-    //   activeNow < 2 ?
-    //     this.setState({ activeNow: activeNow + 1, birth_day: item.date_of_birth }) :
-    //     null
-    // })
+    let onChange = (event, selectedDate) => {
+      const currentDate = selectedDate || date;
+      setShow(Platform.OS === 'ios');
+      setDate(currentDate);
+    };
+    let showMode = currentMode => { setShow(true); setMode(currentMode); };
+    console.log(dataSevice)
+    !birth_day && dataSevice?.list_profile?.map((value) => {
+      setDate(value?.date_of_birth)
+    })
+    // console.log('birthdaySheetBody')
+    // console.log(date)
     // const { date, } = this.state;
     // let DataDay = dataDays()
     // let DataMo = dataMos()
     // let DataYear = dataYears()
-    // var day = new Date(date).getDate()
-    // var month = new Date(date).getMonth();
-    // var year = new Date(date).getFullYear();
+    var day = new Date(date).getDate()
+    var month = new Date(date).getMonth();
+    var year = new Date(date).getFullYear();
     return <>
       <View style={stylesProfileTopic.Edit_Profile}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>วันเกิด</Text>
@@ -224,13 +225,13 @@ export let Edit_Profile = (props) => {
           <View>
             <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
               <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-              { borderWidth: 2, width: '60%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
+              { borderWidth: 2, width: '100%', borderRadius: 5, paddingVertical: 5, borderColor: '#C5C5C5' }]}>
                 <IconFontAwesome name='calendar' size={20} color='rgb(29, 70, 204)' />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
-                  {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                  {`${day}-${month + 1}-${year}`}</Text>
               </View>
             </TouchableOpacity>
-            {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
+            {show && <DateTimePicker testID="dateTimePicker" value={new Date(date)} mode={mode} is24Hour={true} display="spinner"
               onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
           </View>
           {/* <DatePicker style={{ width: 300 }} date={inputBirth_day} mode="date" placeholder="select date" format="DD-MM-YYYY"
@@ -470,8 +471,8 @@ export let Edit_Address = (props) => {
   var dataBody = type == 'select' ?
     { id_customer: currentUser?.id_customer, no_invoice: no_invoice, } : { id_customer: currentUser?.id_customer, };
   var uri = `${finip}/${(type == 'select' ? 'bill/bill_list' : 'profile/my_address')}`;
-  getData = (value) => { setActiveReset(false); setDataService(value); };
-  getData2 = (value) => { setActiveReset(true); setDataService2(value); };
+  let getData = (value) => { setActiveReset(false); setDataService(value); };
+  let getData2 = (value) => { setActiveReset(true); setDataService2(value); };
   useEffect(() => {
     currentUser && cokie && currentUser.id_customer && activeReset &&
       GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: (value) => getData(value) });

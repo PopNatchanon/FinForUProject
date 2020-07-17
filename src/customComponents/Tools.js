@@ -841,14 +841,14 @@ export function GetCoupon(props) {
                 //         0.4 :
                 //         null,
                 flexDirection: 'row',
-                // justifyContent:
-                //     flexRow ?
-                //         null :
-                //         'flex-end',
-                // marginBottom:
-                //     codeList != 'available' ?
-                //         -70 :
-                //         null,
+                justifyContent:
+                    flexRow ?
+                        null :
+                        'flex-end',
+                marginBottom:
+                    codeList != 'available' ?
+                        -100 :
+                        null,
             }}>
                 <View style={{ width: width * 0.31, height: 60, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>

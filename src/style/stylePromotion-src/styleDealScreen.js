@@ -67,7 +67,6 @@ export default StyleSheet.create({
     },
     BoxText_T: {
         width: 140,
-        height: 30,
         borderBottomEndRadius: 180,
     },
     Deal_Calendar_Box: {
@@ -84,7 +83,7 @@ export default StyleSheet.create({
     },
     Deal_Today_Box: {
         backgroundColor: '#FFFFFF',
-        height:115,
+        height: 115,
     },
     Deal_Today_BoxImage: {
         height: 80,
@@ -210,16 +209,13 @@ export default StyleSheet.create({
         flexDirection: 'row',
         backgroundColor: 'white',
         width: '100%',
-        height: 60,
     },
     CampaignBody_BoxText: {
-        width: '64%',
+        width: width * 0.60,
         marginLeft: 10,
     },
     CampaignBody_Icon_Button: {
         flexDirection: 'row',
-        padding: 5,
-        width: '36%',
         // marginLeft: 50,
     },
     CampaignBody_Icon: {
@@ -232,11 +228,11 @@ export default StyleSheet.create({
     },
     CampaignBody_Button: {
         backgroundColor: mainColor,
-        width: 80,
+        width: 60,
         alignItems: 'center',
         borderRadius: 4,
         marginLeft: 2,
-        height: 35,
+        height: 30,
     },
     CampaignBody_ButtonText: {
         justifyContent: 'center',

@@ -137,9 +137,9 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/ดีลเด็ด7.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้ามาใหม่4.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/สินค้าขายดี3.jpg`;
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/03.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/02.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/06.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:
@@ -447,14 +447,14 @@ export let TicketLine = (props) => {
     }, [activeGetServices && cokie]);
     let getTicketLine = <View key='getTicketLine' style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
         <ScrollView horizontal>
-            <TouchableOpacity onPress={() => NavigationNavigate({
+            {/* <TouchableOpacity onPress={() => NavigationNavigate({
                 goScreen: 'Post_Feed', setData: {
                     selectedIndex: 28,
                 }, navigation
             })}
                 style={[stylesMain.ItemCenter, { height: 80, width: 80, backgroundColor: '#1A3263', borderRadius: 10 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>คูปอง</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
             {dataService?.coupon?.length > 0 ?
                 dataService?.coupon.map((value, index) => <GetCoupon flexRow codeList={value.my_coupon == 'no' ? 'available' : ''}
                     getCoupon={values => getCoupon(values)} key={index} saveCoupon

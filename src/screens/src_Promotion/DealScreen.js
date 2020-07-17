@@ -372,7 +372,7 @@ export let ProDed_New_Store = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>{' '}</Text>
     </View>
   </View>)
-  return <View style={[stylesMain.FrameBackground, { backgroundColor: '#2a69ae', width: '100%', paddingTop: 6 }]}>
+  return <LinearGradient colors={['#302b63', '#2a69ae']} style={[stylesMain.FrameBackground, { width: '100%' }]}>
     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginVertical: 5 }]}>ดีลสุดฟินร้านใหม่</Text>
     <View style={{ paddingLeft: 10 }}>
       <ScrollView horizontal>
@@ -391,7 +391,7 @@ export let ProDed_New_Store = (props) => {
         }) : emptyBox}
       </ScrollView>
     </View>
-  </View>
+  </LinearGradient>
     // <LinearGradient colors={['#0f0c29','#302b63','#24243e']}>
     //   <View style={{ height: 100 }}>
 

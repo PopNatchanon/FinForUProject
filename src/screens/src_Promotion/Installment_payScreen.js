@@ -15,8 +15,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, Slide, } from '../MainScreen';
-import { Button_Bar, } from './DealScreen';
+import { ExitAppModule, } from '../MainScreen';
+import { Button_Bar, Slide, } from './DealScreen';
 import { CategoryProduct } from '../MainScreen';
 import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
 import { AppBar } from '../../customComponents';
@@ -39,9 +39,9 @@ function Installment_payScreen(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar {...props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
     <ScrollView>
-      <Slide {...props} banner={dataService?.banner} />
+    <Slide {...props} dataService={dataService?.banner} />
       <Head_Image />
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
+      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 180 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
       </View>
       <CategoryProduct_pay {...props} dataService={dataService?.category} />

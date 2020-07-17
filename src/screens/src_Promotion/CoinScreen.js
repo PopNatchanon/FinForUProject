@@ -19,7 +19,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, } from '../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../../customComponents/Tools';
 import { AppBar } from '../../customComponents';
@@ -52,12 +52,12 @@ function CoinScreen(props) {
         <AppBar {...props} titleHead={'FIN COINS'} backArrow searchBar chatBar />
         <ScrollView>
             <Slide dataService={dataService?.banner} />
-            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100, marginTop: 10 }]}>
+            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100, marginVertical: 3 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN COIN</Text>
             </View>
             <CoinCollect currentUser={currentUser} cokie={cokie} />
-            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160, marginTop: 10 }]}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN เพิ่ม</Text>
+            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160, marginVertical: 3 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN</Text>
             </View>
             <TodayProduct {...props} noTitle loadData={dataService?.product_pro_coin} />
         </ScrollView>

@@ -262,7 +262,6 @@ export default StyleSheet.create({
         padding: 4,
     },
     CoinCollect: {
-        marginTop: 10,
         backgroundColor: '#11B7DC',
         height: 110,
         width

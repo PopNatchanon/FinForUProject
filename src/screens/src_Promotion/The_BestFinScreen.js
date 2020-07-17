@@ -16,8 +16,8 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, Second_product, Slide } from '../MainScreen';
-import { Button_Bar, } from './DealScreen';
+import { ExitAppModule, Second_product } from '../MainScreen';
+import { Button_Bar, Slide } from './DealScreen';
 import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
 import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -39,7 +39,8 @@ function The_BestFinScreen(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar {...props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
     <ScrollView>
-      <Slide {...props} banner={dataService?.banner} isOutData />
+      <Slide {...props} dataService={dataService?.banner} />
+      {/* <Slide {...props} banner={dataService?.banner} isOutData /> */}
       <Fin_sale {...props} dataService={dataService?.product_discount80} />
       <Store_Sale {...props} dataService={dataService ?? undefined} />
       <Product_Cool {...props} dataService={dataService?.product_cool} />
@@ -61,7 +62,7 @@ export let Fin_sale = (props) => {
   const { dataService } = props;
   return <>
     <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 180 }]}>
+      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 200 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
       </View>
       <View style={stylesDeal.Fin_sale_BoxHead}>

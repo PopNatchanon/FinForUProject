@@ -15,8 +15,8 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, Slide, } from '../MainScreen';
-import { Button_Bar, } from './DealScreen';
+import {  ExitAppModule,  } from '../MainScreen';
+import { Button_Bar, Slide } from './DealScreen';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -46,7 +46,8 @@ function CampaignScreen(props) {
     {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
     <AppBar {...props} titleHead={'แคมเปญ'} backArrow searchBar chatBar />
     <ScrollView>
-      <Slide {...props} banner={dataService?.banner} isOutData />
+    <Slide {...props} dataService={dataService?.banner} />
+      {/* <Slide {...props} banner={dataService?.banner} isOutData /> */}
       <Campaign_tag {...props} dataService={dataService ?? undefined} currentUser={currentUser} />
     </ScrollView>
     <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>

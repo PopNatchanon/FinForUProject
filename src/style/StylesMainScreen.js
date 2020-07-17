@@ -452,7 +452,6 @@ export default StyleSheet.create({
   },
   FrameBackgroundTextStart: {
     marginLeft: 10,
-    textAlign: 'center',
     textAlignVertical: 'center',
   },
   FrameBackgroundTextEnd: {

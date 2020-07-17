@@ -430,20 +430,19 @@ export let Category = (props) => {
         </View>
         <View style={{ height: 25 }}></View>
     </View>);
-    let dataCategory = dataService?.category ?
-        dataService?.category.map((item, index) => {
-            if (index < dataService?.category.length) {
-                var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
-                return <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.Category} onPress={() =>
-                    NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation })}>
-                    <FastImage source={{ uri: dataMySQL, }} style={stylesMain.Category_box} resizeMode={FastImage.resizeMode.cover} />
-                    <View style={{ height: 25 }}>
-                        <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
-                            {item.name}</Text>
-                    </View>
-                </TouchableOpacity>;
-            }
-        }) : boxEmpty;
+    let dataCategory = dataService?.category ? dataService?.category.map((item, index) => {
+        if (index < dataService?.category.length) {
+            var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
+            return <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.Category} onPress={() =>
+                NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation })}>
+                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.Category_box} resizeMode={FastImage.resizeMode.cover} />
+                <View style={{ height: 25 }}>
+                    <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
+                        {item.name}</Text>
+                </View>
+            </TouchableOpacity>;
+        }
+    }) : boxEmpty;
     return <View style={stylesMain.FrameBackground2}>
         <ScrollView horizontal>
             <View style={stylesMain.category_A}>
@@ -507,7 +506,7 @@ export let Trend_Hit = (props) => {
             <Carousel renderItem={_renderItem} data={item} autoplay autoplayInterval={4000} />
         </View>
         <View style={stylesMain.FrameBackground2}>
-            <View style={stylesMain.FrameBackgroundTextBox}>
+            <View style={[stylesMain.FrameBackgroundTextBox]}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>เทรนฮิต</Text>
                 <TouchableOpacity>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyBold]}>
@@ -606,7 +605,7 @@ export let Recommend_Brand = (props) => {
         </TouchableOpacity>;
     }) : boxEmpty;
     return <View style={[stylesMain.FrameBackground2, { paddingBottom: 0, }]}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>แบรนด์แนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
@@ -636,7 +635,7 @@ export let Popular_store = (props) => {
         </TouchableOpacity>;
     }) : boxEmpty;
     return <View style={stylesMain.FrameBackground2}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านที่ใช่อยากให้ช้อป</Text>
         </View>
         <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between', paddingHorizontal: 5 }]}>
@@ -670,7 +669,7 @@ export let Popular_product = (props) => {
     }) : boxEmpty;
     return <View>
         <View style={[stylesMain.FrameBackground2]}>
-            <View style={stylesMain.FrameBackgroundTextBox}>
+            <View style={[stylesMain.FrameBackgroundTextBox]}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สินค้ายอดนิยม</Text>
             </View>
             <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.6, }]}>
@@ -798,13 +797,13 @@ export let FlashSale = (props) => {
     }, [curTime])
     return getFetchData['flash_timer']?.data ?
         <View style={stylesMain.FrameBackground2}>
-            <View style={stylesMain.FrameBackgroundTextBox}>
-                <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
+            <View style={[stylesMain.FrameBackgroundTextBox]}>
+                <View style={[stylesMain.FlexRow, { flex: 70 }]}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize4,
                     { color: '#dc3545', flex: 34 }]}>FLASH SALE</Text>
-                    <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
+                    <View style={[stylesMain.FlexRow, { flex: 66, alignContent: 'center', alignItems: 'center' }]}>
                         <IconFontAwesome name='clock-o' size={30} />
-                        <View style={{ flexDirection: 'row', flex: 70, paddingTop: 6 }}>
+                        <View style={{ flexDirection: 'row', flex: 70, }}>
                             <View style={[stylesMain.Time_FlashSale_TimeBox,]}>
                                 <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                     {hours < 10 ? hours <= 0 ? '00' : '0' + hours : hours}</Text>
@@ -821,7 +820,7 @@ export let FlashSale = (props) => {
                     </View>
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'FlashSaleScreen', navigation })}>
-                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30 }]}>
+                    <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText, { flex: 30, }]}>
                         ดูทั้งหมด</Text>
                 </TouchableOpacity>
             </View>
@@ -830,13 +829,13 @@ export let FlashSale = (props) => {
                 nameFlatProduct='FlashSaleProduct' nameSize={11} priceSize={12} dispriceSize={12} />}
         </View> :
         <View style={stylesMain.FrameBackground2}>
-            <View style={stylesMain.FrameBackgroundTextBox}>
-                <View style={[stylesMain.FlexRow, { marginTop: 5, flex: 70 }]}>
+            <View style={[stylesMain.FrameBackgroundTextBox]}>
+                <View style={[stylesMain.FlexRow, { flex: 70 }]}>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBoldBold, stylesFont.FontSize4,
                     { color: '#dc3545', flex: 34 }]}>FLASH SALE</Text>
-                    <View style={[stylesMain.FlexRow, { marginTop: 4, flex: 66 }]}>
+                    <View style={[stylesMain.FlexRow, { flex: 66, alignContent: 'center', alignItems: 'center' }]}>
                         <IconFontAwesome name='clock-o' size={30} />
-                        <View style={{ flexDirection: 'row', flex: 70, paddingTop: 6 }}>
+                        <View style={{ flexDirection: 'row', flex: 70, }}>
                             <View style={[stylesMain.Time_FlashSale_TimeBox, stylesMain.ItemCenter]}>
                                 <Text style={[stylesMain.Time_FlashSale_TimeText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                     00</Text>
@@ -898,7 +897,7 @@ export let PromotionPopular = (props) => {
         </TouchableOpacity>;
     }) : boxEmpty;
     return <View style={stylesMain.FrameBackground2}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ลายแทงร้านค้าแนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
@@ -921,7 +920,7 @@ export let Product_for_you = (props) => {
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
     return <View style={[stylesMain.FrameBackground2]}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 FIN คัดมาเพื่อคุณ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() =>
@@ -948,7 +947,7 @@ export let Highlight = (props) => {
         <View style={{ height: 40, paddingHorizontal: 3 }} />
     </View>);
     return <View style={stylesMain.FrameBackground2}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ไฮไลท์ประจำสัปดาห์</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'HighlightScreen', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}> ดูทั้งหมด</Text>
@@ -978,7 +977,7 @@ export let NewStore = (props) => {
         </TouchableOpacity>;
     }) : boxEmpty;
     return <View style={stylesMain.FrameBackground2}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านค้าห้ามพลาด!!่</Text>
         </View>
         <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, justifyContent: 'space-between', paddingHorizontal: 5 }]}>
@@ -996,7 +995,7 @@ export let Exclusive = (props) => {
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
     return <View style={stylesMain.FrameBackground2}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 สินค้าสุด Exclusive</Text>
             <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
@@ -1256,7 +1255,7 @@ export let Second_product = (props) => {
         </View>
     </View>;
     let Second_Storebody = <View key={'Header_Second'} style={stylesMain.Second_StoreFin}>
-        <View style={stylesMain.Second_StoreFin_BoxHead}>
+        <View style={[stylesMain.FrameBackgroundTextBox, stylesMain.Second_StoreFin_BoxHead]}>
             {Header_Second ?
                 <View>
                     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
@@ -1369,7 +1368,7 @@ export let Fin_Mall = (props) => {
                     </View>}
             </View>
         </View>
-        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
+        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF' }}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 สินค้าสุด Exclusive</Text>
             <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
@@ -1449,7 +1448,7 @@ export let FIN_Supermarket = (props) => {
             <FastImage style={stylesMain.Banner_Bar_image} resizeMode={FastImage.resizeMode.stretch}
                 source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg` }} />
         </View>
-        <View style={stylesMain.FrameBackgroundTextBox}>
+        <View style={[stylesMain.FrameBackgroundTextBox]}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>แบรนด์แนะนำ</Text>
             <TouchableOpacity>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>

@@ -1572,7 +1572,10 @@ export let Botton_PopUp_FIN = (props) => {
                     <FastImage source={require('../../icon/PopUP.png')} resizeMode={FastImage.resizeMode.cover}
                         style={[stylesMain.Botton_PopUp_Image, { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 }]} />
                     <TouchableOpacity onPress={() => setActiveShow(!activeShow)} style={{ width: 20, height: 20, left: 30, bottom: 28 }}>
-                        <IconAntDesign name='closecircle' size={20} style={{ elevation: 1, color: 'red' }} />
+                        <View style={{ backgroundColor: 'transparent', borderWidth: 0, elevation: 0, }}>
+                            <IconAntDesign name='closecircle' size={20}
+                                style={{ backgroundColor: '#fff', borderRadius: 20, color: 'red', }} />
+                        </View>
                     </TouchableOpacity>
                 </TouchableOpacity>
             </Animated.View>

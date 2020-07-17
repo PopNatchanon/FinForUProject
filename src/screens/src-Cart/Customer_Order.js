@@ -29,7 +29,7 @@ import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../MainScreen';
 import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -52,16 +52,17 @@ function Customer_Order(props) {
     const [dataBody2, setDataBody2] = useState(undefined);
     const [dataService, setDataService] = useState(undefined);
     const [dataService2, setDataService2] = useState(undefined);
+    console
     var dataBody = {
-        id_customer: currentUser && currentUser.id_customer,
+        id_customer: currentUser?.id_customer,
         no_invoice,
     };
-    var uri2 = `${finip}/bill/update_bill_address`;
     var uri = `${finip}/bill/bill_list`;
+    var uri2 = `${finip}/bill/update_bill_address`;
     let getData = (value) => { setActiveReset(false); setDataService(value); };
     let getData2 = (id_address) => {
         setActiveIdAddress(true);
-        setDataBody2({ id_customer: currentUser && currentUser.id_customer, id_address, no_invoice, });
+        setDataBody2({ id_customer: currentUser?.id_customer, id_address, no_invoice, });
     };
     let getData3 = (value) => { setActiveIdAddress(false); setActiveReset(true); setDataService2(value); };
     let getSource = (value) => {
@@ -71,23 +72,24 @@ function Customer_Order(props) {
         activeGetSource && GetData({ getCokie: true, getSource: value => getSource(value), getUser: true });
     }, [activeGetSource]);
     useEffect(() => {
-        activeIdAddress && cokie && GetServices({
+        !activeGetSource && activeIdAddress && cokie && currentUser && GetServices({
             uriPointer: uri2, dataBody: dataBody2, Authorization: cokie, showConsole: 'update_bill_address',
             getDataSource: value => getData3(value)
         });
-    }, [activeIdAddress]);
+    }, [!activeGetSource && activeIdAddress && cokie && currentUser]);
     useEffect(() => {
-        activeReset &&
-            GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value), });
-    }, [activeReset]);
+        !activeGetSource && activeReset && cokie && currentUser && GetServices({
+            uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: value => getData(value),
+        });
+    }, [!activeGetSource && activeReset && cokie && currentUser]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         <AppBar {...props} backArrow titleHead='สั่งซื้อสินค้า' />
         <ScrollView>
-            {dataService && <Account {...props} dataService={dataService} getData={value => getData2(value)} />}
-            {dataService && dataService.list_cart.map((value, index) => { return <Order dataService={value} key={index} /> })}
-            {dataService && <Option_payment {...props} dataService={dataService} />}
+            <Account {...props} dataService={dataService ?? undefined} getData={value => getData2(value)} />
+            {dataService?.list_cart?.map((value, index) => <Order dataService={value} key={index} />)}
+            <Option_payment {...props} dataService={dataService ?? undefined} />
         </ScrollView>
-        {dataService && <Bar_payment {...props} currentUser={currentUser} dataService={dataService} no_invoice={no_invoice} />}
+        <Bar_payment {...props} currentUser={currentUser} dataService={dataService ?? undefined} no_invoice={no_invoice} />
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };
@@ -95,7 +97,7 @@ function Customer_Order(props) {
 export let Account = (props) => {
     const { dataService, getData, navigation } = props;
     var data;
-    dataService.bill_data.map((value) => { return data = value });
+    dataService?.bill_data?.map((value) => { return data = value });
     return <View style={stylesCustomerOrder.Account}>
         <View style={stylesCustomerOrder.Account_Box}>
             <View style={{ flexDirection: 'row', flex: 1, }}>
@@ -112,8 +114,7 @@ export let Account = (props) => {
             </View>
             <TouchableOpacity onPress={() => NavigationNavigate({
                 goScreen: 'Setting_Topic', setData: {
-                    selectedIndex: 1, type: 'select', updateData: value => getData(value),
-                    no_invoice: data.no_invoice
+                    selectedIndex: 1, type: 'select', updateData: value => getData(value), no_invoice: data.no_invoice
                 }, navigation
             })}>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
@@ -144,7 +145,7 @@ export let Order = (props) => {
                 </View>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 4, width: '70%' }]}>
                     {dataService.product}</Text>
-                <View style={[stylesCustomerOrder.Order_product_Boxprice, { marginLeft: -100 }]}>
+                <View style={[stylesCustomerOrder.Order_product_Boxprice, { marginLeft: -45 * (width / 120) }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right' }]}>x {dataService.quantity}</Text>
                     <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
@@ -173,7 +174,7 @@ export let Option_payment = (props) => {
     const [path1, setPath1] = useState(0);
     const [item1, setItem1] = useState(false);
     var data;
-    dataService.bill_data.map((value) => { return data = value });
+    dataService?.bill_data?.map((value) => { return data = value });
     let setModalVisibles = (value) => { setModalVisible(value); };
     let setStateItem1 = () => { setItem1(!item1); };
     let getDatas = (value) => { getData(value); };
@@ -225,6 +226,8 @@ export let Option_payment = (props) => {
                 </View>;
         };
     };
+    console.log('Option_payment')
+    console.log(dataService)
     return <>
         {/* <BottomSheet
                     ref={ref => {
@@ -345,7 +348,7 @@ export let Option_payment = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ค่าจัดส่ง</Text>
             </View>
             <View>
-                <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
+                <NumberFormat value={dataService?.bill_data[0]?.total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
                     renderText={value => <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor }]}>
                         {value}</Text>} />
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: mainColor, textAlign: 'right' }]}>Free</Text>
@@ -401,11 +404,11 @@ export let Bar_payment = (props) => {
     }}>
         <Modal animationType="fade" transparent={true} visible={modalVisible} onRequestClose={value => setModalVisible(!modalVisible)}>
             <OmiseBox {...props} currentUser={currentUser} dataService={dataService} getData={value => setModalVisible(value)}
-                no_invoice={no_invoice} total={dataService.bill_data[0].total} />
+                no_invoice={no_invoice} total={dataService?.bill_data[0]?.total} />
         </Modal>
         <View style={{ width: 200, justifyContent: 'center', alignItems: 'center' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รวมการสั่งซื้อ</Text>
-            <NumberFormat value={dataService.bill_data[0].total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
+            <NumberFormat value={dataService?.bill_data[0]?.total} displayType={'text'} thousandSeparator={true} prefix={'฿'}
                 renderText={value => <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: mainColor, }]}>
                     {value}</Text>} />
         </View>

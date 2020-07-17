@@ -12,6 +12,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetData } from '../Tools';
 import LinearGradient from 'react-native-linear-gradient';
+import { LinearTextGradient } from "react-native-text-gradient";
 import { NavigationNavigate } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> Toolbar
@@ -35,68 +36,55 @@ function Toolbar(props) {
         currentUser.name &&
             (u_name = currentUser.name)
     }
-    var routeSelcet = route.name
+    let genText = (routeSelcet, nameRoute, value) => <LinearTextGradient
+        colors={[routeSelcet == nameRoute ? '#001666' : '#111', routeSelcet == nameRoute ? '#284d8fff' : '#111']}
+        useViewFrame={true} locations={[0.2, 0.8]}
+        style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text', }}>
+        {value}
+    </LinearTextGradient>;
+    var routeSelcet = route.name;
     return <View style={stylesMain.Toolbar}>
         <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'MainScreen' ?
             NavigationNavigate({ goScreen: 'MainScreen', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                <IconAntDesign name="home" size={25} color={routeSelcet == 'MainScreen' ? mainColor : '#111'} />
-                <Text style={{
-                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'MainScreen' ? mainColor : '#111'
-                }}>Home</Text>
+                {genText(routeSelcet, 'MainScreen', <IconAntDesign name="home" size={25} />)}
+                {genText(routeSelcet, 'MainScreen', <Text>Home</Text>)}
             </View>
-            {routeSelcet == 'MainScreen' && <LinearGradient
-                start={{ x: 0.0, y: 0.0 }}
-                end={{ x: 1.0, y: 0.0 }}
-                locations={[0.0, 1.0]}
-                colors={['#ffffff00', '#ffffffa0']} //<-- last 2 chars from color control the opacity
-                useViewFrame={false}
-                style={{ position: 'absolute', top: 0, left: 16, right: 0, bottom: 0, width: 40 }} />}
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'FeedScreen' ?
             NavigationNavigate({ goScreen: 'FeedScreen', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                <IconAntDesign name="tagso" size={25} color={routeSelcet == 'FeedScreen' ? mainColor : '#111'} />
-                <Text style={{
-                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'FeedScreen' ? mainColor : '#111'
-                }}> Feed</Text>
+                {genText(routeSelcet, 'FeedScreen', <IconAntDesign name="tagso" size={25} />)}
+                {genText(routeSelcet, 'FeedScreen', <Text>Feed</Text>)}
             </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'NewsScreen' ?
             NavigationNavigate({ goScreen: 'NewsScreen', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                <IconAntDesign name="notification" size={25} color={routeSelcet == 'NewsScreen' ? mainColor : '#111'} />
-                <Text style={{
-                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'NewsScreen' ? mainColor : '#111'
-                }}>News</Text>
+                {genText(routeSelcet, 'NewsScreen', <IconAntDesign name="notification" size={25} />)}
+                {genText(routeSelcet, 'NewsScreen', <Text>News</Text>)}
             </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'BellScreen' ?
             NavigationNavigate({ goScreen: 'BellScreen', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                <IconAntDesign name="bells" size={25} color={routeSelcet == 'BellScreen' ? mainColor : '#111'} />
-                <Text style={{
-                    fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'BellScreen' ? mainColor : '#111'
-                }}>เตือน</Text>
+                {genText(routeSelcet, 'BellScreen', <IconAntDesign name="bells" size={25} />)}
+                {genText(routeSelcet, 'BellScreen', <Text>เตือน</Text>)}
             </View>
         </TouchableOpacity>
         {currentUser == null ?
             <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'LoginScreen' ?
                 NavigationNavigate({ goScreen: 'LoginScreen', navigation, noPush: true }) : null}>
                 <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                    <IconAntDesign name="user" size={25} color={routeSelcet == 'LoginScreen' ? mainColor : '#111'} />
-                    <Text style={{
-                        fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'LoginScreen' ? mainColor : '#111'
-                    }}>ฉัน</Text>
+                    {genText(routeSelcet, 'LoginScreen', <IconAntDesign name="user" size={25} />)}
+                    {genText(routeSelcet, 'LoginScreen', <Text>ฉัน</Text>)}
                 </View>
             </TouchableOpacity> :
             <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'ProfileScreen' ?
                 NavigationNavigate({ goScreen: 'ProfileScreen', navigation, noPush: true }) : null}>
                 <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                    <IconAntDesign name="user" size={25} color={routeSelcet == 'ProfileScreen' ? mainColor : '#111'} />
-                    <Text numberOfLines={1} style={{
-                        fontSize: 13, fontFamily: 'SukhumvitSet-Text', color: routeSelcet == 'ProfileScreen' ? mainColor : '#111'
-                    }}>ฉัน</Text>
+                    {genText(routeSelcet, 'ProfileScreen', <IconAntDesign name="user" size={25} />)}
+                    {genText(routeSelcet, 'ProfileScreen', <Text>ฉัน</Text>)}
                 </View>
             </TouchableOpacity>}
     </View>;

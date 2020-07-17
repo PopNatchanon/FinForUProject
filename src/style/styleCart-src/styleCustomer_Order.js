@@ -47,9 +47,9 @@ export default StyleSheet.create({
         borderColor: '#E9E9E9',
         borderWidth: 1,
         flexDirection: 'row',
-        height: 130,
+        height: 'auto',
         width: '100%',
-        padding: 8,
+        padding: 4,
     },
     Order_product_Box: {
         height: 100,

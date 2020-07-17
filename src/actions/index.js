@@ -243,11 +243,10 @@ export const cartListCheckCoupon = (props) => {
     }
 }
 export const cartListDelete = (props) => {
-    const { amount, cokie, list_order, id_customer } = props
+    const { cokie, list_order, id_customer } = props
     return async (dispatch) => {
         let error, rawData, processData;
         const dataBody = {
-            amount: amount,
             id_customer: id_customer,
             list_order: list_order,
         };

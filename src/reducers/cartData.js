@@ -53,7 +53,7 @@ export default (state = initialState, action) => {
             return { ...state, coupon: action.payload, isOtherCoupon: action.other, isResult: false };
         case CART_DATA_DELETE:
             console.log(`=======================cartData=======>${action.type}`)
-            return { ...state, isDelete: true };
+            return { ...state, buttomDelete: false, coupon: [], isDelete: true, isOtherCoupon: false, };
         case CART_DATA_END:
             console.log(`=======================cartData=======>${action.type}`)
             return { ...state, data: action.payload, isActive: true, isRefresh: false, isResult: false };

@@ -169,7 +169,8 @@ class AppNoSearchBar extends React.Component {
         if (colorSet) {
             colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         };
-        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar, stylesMain.FlexRow, {
+        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar,
+        stylesMain.FlexRow, {
             width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1], justifyContent: 'space-between',
             borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
         }]}>
@@ -196,7 +197,8 @@ class AppNoSearchBar extends React.Component {
                         textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
                         stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
                         dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        dropdownStyle={[stylesMain.ItemCenter, { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
+                        dropdownStyle={[stylesMain.ItemCenter,
+                        { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
                     </ModalDropdown>
                 </View>}
             </View>
@@ -237,8 +239,8 @@ class AppNoSearchBar extends React.Component {
                     <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
                     stylesFont.FontSize4, { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}
-                {deleteBar && <TouchableOpacity key={'deleteBar'} onPress={() => cartListButtomDelete()} style={[stylesMain.ItemCenter,
-                { width: 60 }]}>
+                {deleteBar && this.props.cartDataList.length > 0 && <TouchableOpacity key={'deleteBar'} onPress={() =>
+                    cartListButtomDelete()} style={[stylesMain.ItemCenter, { width: 60 }]}>
                     <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
                     { width: 60, textAlign: 'center' }]}>{cartData.buttomDelete ? 'เสร็จสิ้น' : 'ลบ'}</Text>
                 </TouchableOpacity>}
@@ -248,8 +250,7 @@ class AppNoSearchBar extends React.Component {
 };
 function AppBar(props) {
     const AnimatableAppBar = props.enableSearch ?
-        Animatable.createAnimatableComponent(AppSearchBar) :
-        Animatable.createAnimatableComponent(AppNoSearchBar);;
+        Animatable.createAnimatableComponent(AppSearchBar) : Animatable.createAnimatableComponent(AppNoSearchBar);
     return <AnimatableAppBar {...props} />
 }
 AppBar.propTypes = {

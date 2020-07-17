@@ -414,7 +414,7 @@ export let Conpon = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Selector
 export let Selector = (props) => {
-  const { buyProduct, cokie, currentUser, dataService, navigation, sendBuyProduct, setFetchToStart, } = props;
+  const { activeCartList, buyProduct, cokie, currentUser, dataService, navigation, sendBuyProduct, } = props;
   const [activeSelect, setActiveSelect] = useState(true);
   const [activeSelect2, setActiveSelect2] = useState(false);
   const [activeSelect3, setActiveSelect3] = useState(false);
@@ -429,7 +429,7 @@ export let Selector = (props) => {
   let fsendDataCart = (buyProduct, sendDataCart) => { setSendDataCart(sendDataCart); setActiveSelect3(true); setBuyProduct2(buyProduct); };
   let getData3 = (value) => {
     setActiveSelect3(false);
-    setFetchToStart({ name: 'cart_mobile' });
+    activeCartList({ id_customer: currentUser.id_customer });
     selectorSheet.current.close();
     buyProduct2 == 'gocart' &&
       navigation.push('CartScreen');

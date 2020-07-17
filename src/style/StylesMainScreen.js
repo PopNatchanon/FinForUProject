@@ -281,7 +281,7 @@ export default StyleSheet.create({
   BoxProduct5Box: {
     backgroundColor: '#FFFFFF', width: 85,
     borderColor: '#ECECEC', borderWidth: 1,
-    marginTop: 6, marginBottom: 4,
+    marginTop: 3, marginBottom: 4,
     marginLeft: 4,
   },
   BoxProduct5ImageofLines: {
@@ -445,16 +445,20 @@ export default StyleSheet.create({
     // marginBottom: -75,
   },
   FrameBackgroundTextBox: {
+    alignContent: 'center',
+    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   FrameBackgroundTextStart: {
     marginLeft: 10,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   FrameBackgroundTextEnd: {
     color: mainColor,
     marginRight: 8,
-    marginTop: 4,
+    textAlignVertical: 'center',
   },
   FrameBackgroundTextEnd2: {
     color: '#fff',
@@ -555,8 +559,8 @@ export default StyleSheet.create({
   category_A: {
     flexDirection: 'column',
     flexWrap: 'wrap',
-    height: 195,
-    paddingBottom: 6,
+    height: 192,
+    paddingBottom: 4,
     paddingTop: 4,
     justifyContent: 'space-between',
   },

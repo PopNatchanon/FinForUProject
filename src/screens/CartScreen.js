@@ -38,9 +38,7 @@ import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const getCartDataList = (cartData) => {
     const cartDataList = [];
-    cartData?.map((value) => value.product.map((value2) => {
-        if (value2.checked) return cartDataList.push(value2.id_cartdetail);
-    }));
+    cartData?.map((value) => value.product.map((value2) => { if (value2.checked) return cartDataList.push(value2.id_cartdetail); }));
     return cartDataList;
 };
 const mapStateToProps = (state) => ({
@@ -70,7 +68,7 @@ function CartScreen(props) {
         cartListResult({
             cokie: cokie, id_customer: currentUser.id_customer, list_order: cartDataList.join(','),
             id_coupon: !cartData?.isOtherCoupon && cartData?.coupon ? cartData.coupon.id_coupon : '',
-            text_coupon: cartData?.isOtherCoupon && cartData?.coupon ? cartData.coupon.id_coupon : ''
+            text_coupon: cartData?.isOtherCoupon && cartData?.coupon ? cartData.coupon.id_coupon : '',
         })
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         {/* {reduxDataBody?.isActive || reduxDataBody?.isRefresh && <LoadingScreen />} */}
@@ -98,19 +96,19 @@ export let Product_Cart = (props) => {
     let renderItem = (data) => <TouchableOpacity activeOpacity={1}
         style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
         <View style={{ flexDirection: 'row', }}>
-            <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]} textStyle={14}
-                fontFamily={'SukhumvitSet-Text'} checked={data.item.checked} onPress={() => {
+            <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
+                textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={data.item.checked} onPress={() => {
                     cartListChecked(data.item.id_cartdetail, data.item.id_store, cartDataList); setActiveReload(!activeReload);
                 }} />
             <View style={{
-                backgroundColor: '#fffffe', width: normalize(100), height: 'auto', aspectRatio: 1, marginVertical: 3,
-                borderColor: '#ECECEC', borderWidth: 1
+                aspectRatio: 1, backgroundColor: '#fffffe', borderColor: '#ECECEC', borderWidth: 1, height: 'auto', marginBottom: 2,
+                marginTop: data.index == 0 ? 2 : 0, overflow: 'hidden', width: normalize(88),
             }}>
                 <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]} resizeMode={FastImage.resizeMode.contain}
                     source={{ uri: `${finip}/${data.item.path_product}/${data.item.image_product}`, }} />
             </View>
-            <View style={[stylesMain.ItemCenterVertical, { marginLeft: 20 }]}>
-                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: width * 0.38 }]}>
+            <View style={[stylesMain.ItemCenterVertical, { marginLeft: 12 }]}>
+                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: 62 * (width / 120) }]}>
                     {data.item.product_name}</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{`${data.item.detail_1} ${data.item.detail_2}`}</Text>
                 <NumberFormat value={data.item.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
@@ -158,7 +156,7 @@ export let Product_Cart = (props) => {
             alignItems: 'center', bottom: 0, justifyContent: 'center', position: 'absolute', top: 0, width: 75, backgroundColor: 'red',
             right: 0, borderColor: '#ECECEC', borderTopWidth: 1, borderBottomWidth: 1,
         }]} onPress={() => [cartListDelete({
-            amount: (data.item.quantity * 1) + 1, cokie, list_order: data.item.id_cartdetail, id_customer: currentUser.id_customer
+            cokie, list_order: data.item.id_cartdetail, id_customer: currentUser.id_customer
         }), setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450)]}>
             <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
         </TouchableOpacity>
@@ -173,7 +171,8 @@ export let Product_Cart = (props) => {
                 return <View style={{ marginBottom: 3, backgroundColor: '#fff' }} key={index_n}>
                     <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row', }}>
-                            <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, }]}
+                            <CheckBox containerStyle={[stylesMain.ItemCenterVertical,
+                            { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
                                 textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={item_n.checked} onPress={() => {
                                     cartListCheckedStore(item_n.id_store, cartDataList); setActiveReload(!activeReload);
                                 }} />
@@ -183,7 +182,7 @@ export let Product_Cart = (props) => {
                                     source={{ uri: dataMySQL_n, }} resizeMode={FastImage.resizeMode.contain} />
                             </View>
                             <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontSize5,
-                            { marginLeft: 16, }]}>{item_n.name}</Text>
+                            { marginLeft: 14, }]}>{item_n.name}</Text>
                         </View>
                     </View>
                     <View>
@@ -210,152 +209,21 @@ export let Product_Like = (props) => <View>
 export let Buy_bar = (props) => {
     const {
         activeCheck, checkedAll, couponList, currentUser, dataService2, deleteAction, cokie, cartData, cartDataList, cartListCheckedAll,
-        cartListSelectCoupon, navigation, sendCheck,
+        cartListSelectCoupon, cartListDelete, navigation, sendCheck,
     } = props;
     const [createBill, setCreateBill] = useState(false);
     const [errorService3, setErrorService3] = useState(false);
     const [text, setText] = useState(undefined);
     const ConponSheetRef = useRef(null);
-    // const {
-    //      Coupon, dataBody2, dataBody3, dataBody4, dataService3, dataService4, dataService5, errorService3,
-    //     otherCoupon, savelist_Order, Service3, text,
-    // } = this.state;
-    // constructor(props) {
-    //     super(props);
-    //     this.state = {
-    //         create_bill: false,
-    //         check_coupon: false,
-    //         check_coupon2: true,
-    //         Coupon: true,
-    //         dataService: [],
-    //         errorService3: false,
-    //         otherCoupon: false,
-    //         Service3: false,
-    //         text: '',
-    //     };
-    //     this.springValue = new Animated.Value(0);;
-    //     this.transformValue = new Animated.Value(100);
-    // };
-    // _spring = () => {
-    //     this.setState({ errorService3: true }, () => {
-    //         Animated.sequence([
-    //             Animated.timing(
-    //                 this.transformValue,
-    //                 {
-    //                     toValue: -.08 * height,
-    //                     friction: 5,
-    //                     duration: 300,
-    //                     useNativeDriver: true,
-    //                 }
-    //             ),
-    //             Animated.timing(
-    //                 this.springValue,
-    //                 {
-    //                     toValue: 1,
-    //                     duration: 300,
-    //                     useNativeDriver: true,
-    //                 }
-    //             ),
-    //             Animated.timing(
-    //                 this.springValue,
-    //                 {
-    //                     toValue: 1,
-    //                     duration: 700,
-    //                     useNativeDriver: true,
-    //                 }
-    //             ),
-    //             Animated.timing(
-    //                 this.springValue,
-    //                 {
-    //                     toValue: 0,
-    //                     duration: 300,
-    //                     useNativeDriver: true,
-    //                 }
-    //             ),
-    //             Animated.timing(
-    //                 this.transformValue,
-    //                 {
-    //                     toValue: 100,
-    //                     duration: 300,
-    //                     useNativeDriver: true,
-    //                 }
-    //             ),
-    //         ]).start(() => this.setState({ errorService3: false }));
-    //     });
-    // };
-    // componentDidMount() { this.setStateCancel(); };
-    // StateBox = () => { const { checkedAll, getCheckedAll, } = this.props; getCheckedAll(!checkedAll); };
-    // DeleteAction = () => {
-    //     deleteAction({
-    //         id_customer: currentUser.id_customer,
-    //         list_order
-    //     });
-    // };
-    // getData = (dataService) => {
-    //     this.setState({ dataService, Coupon: false, });
-    // };
-    // getData2 = (dataService3) => {
-    //     const { text, } = this.state;
-    //     var dataBody3 = {
-    //         id_customer: currentUser?.id_customer,
-    //         list_order: cartDataList.join(','),
-    //         use_coupon: '',
-    //         other_coupon: text,
-    //     };
-    //     var dataBody4 = {
-    //         id_customer: currentUser?.id_customer,
-    //         id_cartdetail: cartDataList.join(','),
-    //         use_coupon: '',
-    //         other_coupon: text,
-    //         buy_now: "cart",
-    //     };
-    //     dataService3 && dataService3.coupon_message !== 'เงื่อนไขส่วนลดไม่ถูกต้อง' ?
-    //         this.setState({
-    //             dataBody3, dataBody4, dataService3, otherCoupon: false, Service3: true, check_coupon: true,
-    //         }) :
-    //         this.setState({ errorService3: true, otherCoupon: false, text: '' });
-    // };
-    // setStateCoupon2 = (dataService4) => {
-    //     var dataBody3 = {
-    //         id_customer: currentUser?.id_customer,
-    //         list_order: cartDataList.join(','),
-    //         use_coupon: dataService4.id_coupon,
-    //         other_coupon: '',
-    //     };
-    //     var dataBody4 = {
-    //         id_customer: currentUser?.id_customer,
-    //         id_cartdetail: cartDataList.join(','),
-    //         use_coupon: dataService4.id_coupon,
-    //         other_coupon: '',
-    //         buy_now: "cart",
-    //     };
-    //     this.setState({ dataBody3, dataBody4, dataService4, check_coupon: true });
-    //     ConponSheetRef..close();
-    // };
-    // getData3 = (dataService5) => {
-    //     const { check_coupon2 } = this.state;
-    //     sendCheck(false);
-    //     this.setState({
-    //         dataService5, check_coupon: false, Service3: check_coupon2 ? false : true, check_coupon2: false
-    //     });
-    // };
-    // getData4 = (dataService6) => {
-    //     NavigationNavigate({ goScreen: 'Customer_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
-    // };
-    // setStateText = (text) => this.setState({ text });
+    let getData4 = (dataService6) => {
+        NavigationNavigate({ goScreen: 'Customer_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
+    };
     let setStateCancel = () => {
         cartListSelectCoupon({ coupon: [], other: false })
     };
     let setStateCoupon = (value) => {
         cartListSelectCoupon({ coupon: value, other: false });
     };
-    console.log('==================================>>>>>cartDataList');
-    console.log(cartDataList);
-    console.log('==================================>>>>>cartData');
-    console.log(cartData);
-    console.log('==================================>>>>>couponList');
-    console.log(couponList);
-    console.log(couponList.length);
     let ConponSheetBody = () => <View style={{ flex: 1, paddingHorizontal: 15 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { textAlign: 'center' }]}>ส่วนลด</Text>
         <ScrollView>
@@ -366,30 +234,22 @@ export let Buy_bar = (props) => {
     </View>;
     let ConponSheetButtom = () => ConponSheetRef.current.open();
     let setStateBill = () => setCreateBill(true);
-    // StateBox = () => { };
     var uri = `${finip}/cart/check_coupon`;
     var dataBody = {
         id_customer: currentUser?.id_customer,
         list_order: cartDataList.join(',')
     };
-    var uri2 = `${finip}/coupon/get_other_coupon`;
-    // var uri3 = `${finip}/cart/track_data`;
     var uri4 = `${finip}/bill/create_bill`;
     errorService3 && _spring();
-    // Coupon && cokie && dataBody.id_customer && dataBody.list_order && GetServices({
-    //     uriPointer: uri, Authorization: cokie, dataBody: dataBody, getDataSource: (value) => getData(value)
-    // });
-    // otherCoupon && cokie && dataBody2.id_customer && dataBody2.list_order && GetServices({
-    //     uriPointer: uri2, showConsole: 'get_other_coupon', Authorization: cokie, dataBody: dataBody2,
-    //     getDataSource: (value) => getData2(value)
-    // });
-    // (activeCheck || check_coupon) && cokie && dataBody3.id_customer && dataBody3.list_order && GetServices({
-    //     uriPointer: uri3, showConsole: 'track_data', Authorization: cokie, dataBody: dataBody3, getDataSource: (value) => getData3(value),
-    //     showConsole: 'track_data'
-    // });
-    // create_bill && cokie && dataBody4.id_customer && dataBody4.list_order && GetServices({
-    //     uriPointer: uri4, showConsole: 'create_bill', Authorization: cokie, dataBody: dataBody4, getDataSource: (value) => getData4(value)
-    // });
+    createBill && cokie && currentUser?.id_customer && GetServices({
+        uriPointer: uri4, showConsole: 'create_bill', Authorization: cokie, dataBody: {
+            id_customer: currentUser?.id_customer,
+            id_cartdetail: cartDataList.join(','),
+            use_coupon: !cartData?.isOtherCoupon && cartData?.coupon?.id_coupon ? cartData?.coupon?.id_coupon : '',
+            other_coupon: '',
+            buy_now: "cart",
+        }, getDataSource: (value) => getData4(value)
+    });
     var checkedMain = cartData.data.every((value) => { return value.checked == true });
     return <>
         {/* <Animatable.View style={[stylesMain.animatedView, { opacity: springValue, transform: [{ translateY: transformValue }] }]}>
@@ -440,9 +300,11 @@ export let Buy_bar = (props) => {
                         renderText={value => <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText,
                         { marginLeft: 4, color: mainColor }]}>{value}</Text>} />
                 </View>}
-                <TouchableOpacity activeOpacity={1} onPress={() => cartData.buttomDelete ? DeleteAction() : setCreateBill(true)}>
+                <TouchableOpacity activeOpacity={1} onPress={() => cartData.buttomDelete ? cartListDelete({
+                    cokie, list_order: cartDataList.join(','), id_customer: currentUser.id_customer
+                }) : setCreateBill(true)}>
                     <View style={[stylesCart.BOX_Buy, stylesMain.ItemCenterVertical, {
-                        backgroundColor: !cartData.buttomDelete ? cartDataList.length > 0 ? mainColor : '#ECECEC' : '#ECECEC'
+                        backgroundColor: !cartData.buttomDelete ? cartDataList.length > 0 ? mainColor : '#ECECEC' : mainColor
                     }]}>
                         <Text style={[stylesCart.BOX_Buy_Text, stylesFont.FontFamilyText, stylesFont.FontSize6,
                         stylesMain.ItemCenterVertical]}>{cartData.buttomDelete ? 'ลบ' : 'ชำระเงิน'}</Text>

@@ -658,7 +658,7 @@ export let Popular_product = (props) => {
         return index < 2 && <View style={{ width: width * 0.22 }} key={index}>
             <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#FFFFFF', padding: 5, borderRadius: 5 }]}>
                 <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL, }}
-                    resizeMode={FastImage.resizeMode.stretch} />
+                    resizeMode={FastImage.resizeMode.contain} />
             </View>
             <View style={[stylesMain.ItemCenter, { width: width * 0.20, }]}>
                 <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{item.name}</Text>

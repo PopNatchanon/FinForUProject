@@ -94,7 +94,7 @@ export let Slide = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export let Button_Bar = (props) => {
   const { navigation } = props;
-  return <View style={[stylesDeal.Button_Bar, { bottom: '7%', }]}>
+  return <View style={[stylesDeal.Button_Bar, /*{ bottom: '7%', }*/]}>
     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation, noPush: true })}>
       <View style={[stylesDeal.Button_Bar_Box]}>
         <FastImage style={stylesMain.Button_Bar_icon} source={require('../../../icon/Icon_Deal/01.jpg')} resizeMode={FastImage.resizeMode.contain} />

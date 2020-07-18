@@ -29,7 +29,7 @@ export default StyleSheet.create({
         margin: 10,
     },
     Button_Bar: {
-        marginBottom: -20,
+        // marginBottom: -20,
         width: '100%',
         flexDirection: 'row',
     },
@@ -211,7 +211,7 @@ export default StyleSheet.create({
         width: '100%',
     },
     CampaignBody_BoxText: {
-        width: width * 0.60,
+        width: width * 0.65,
         marginLeft: 10,
     },
     CampaignBody_Icon_Button: {
@@ -364,7 +364,7 @@ export default StyleSheet.create({
         // backgroundColor: '#fff',
     },
     Coupon_BOX_A: {
-        height: 70,
+        height: 68,
         width: 45,
         alignItems: 'center',
         justifyContent: 'center',
@@ -373,7 +373,6 @@ export default StyleSheet.create({
         borderBottomRightRadius: 4,
     },
     Coupon_BOX_A2: {
-        height: 69,
         width: 45,
         alignItems: 'center',
         justifyContent: 'center',

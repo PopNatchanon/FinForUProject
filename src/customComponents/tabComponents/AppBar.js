@@ -1,10 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useEffect, useState, } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {
-    Dimensions,
-    // ScrollView, 
-    Text, TextInput, TouchableOpacity, View,
+    Dimensions, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
@@ -19,11 +17,11 @@ import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain, { color_up, mainColor, appBarColor, } from '../../style/StylesMainScreen';
+import stylesMain from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetData, } from '../Tools';
-import { NavigationNavigate, Rgba2hex } from '..';
+import { NavigationNavigate } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>>
@@ -35,26 +33,24 @@ class AppSearchBar extends React.Component {
             cartMobile: 0,
             currentUser: undefined,
             text: undefined,
-        }
-    }
+        };
+    };
     componentDidMount() {
         const { activeGetCurrentUser } = this.state;
         activeGetCurrentUser && GetData({
-            getCokie: true, getUser: true, getSource: value => {
-                this.setState({ activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser });
-            },
+            getCokie: true, getSource: value => this.setState({
+                activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser
+            }), getUser: true,
         });
     };
     render() {
         const {
             activeCartList, AIColor, backArrow, borderBottomColor, cartBar, cartData, cartDataCount, chatBar, colorSet, filterBar,
-            getFetchData, navigation, otherBar, searchBar, SearchText,
+            navigation, otherBar, searchBar, SearchText,
         } = this.props;
-        const { cokie, currentUser, text } = this.state;
-        let setSubmit = () => {
-            text != undefined && text != ' ' &&
-                NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
-        };
+        const { cokie, currentUser, text, } = this.state;
+        let setSubmit = () => text != undefined && text != ' ' &&
+            NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
         const AIconAntDesign = Animatable.createAnimatableComponent(IconAntDesign);
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -66,38 +62,34 @@ class AppSearchBar extends React.Component {
         filterBar && (allWidth -= 30);
         otherBar && (allWidth -= 30);
         const colors = [];
-        if (colorSet) {
-            colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
-        };
+        if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         !cartData?.isActive && !cartData?.isRefresh && cartData.data.length == 0 && cokie && currentUser?.id_customer &&
             activeCartList({ cokie: cokie, id_customer: currentUser?.id_customer })
-        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end}
-            style={[stylesMain.Appbar, stylesMain.FlexRow, {
-                width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
-                borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
-            }]}>
-            {/* <AStatusBar backgroundColor={ABGColor ?? mainColor} translucent /> */}
+        return <LinearGradient colors={colors} end={this.props.end} start={this.props.start} style={[stylesMain.Appbar, stylesMain.FlexRow, {
+            width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
+            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
+        }]}>
             {backArrow && <View key={'backarrow'}>
                 <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
-                    onPress={() => { NavigationNavigate({ goScreen: 'goBack', navigation }); }}>
+                    onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}>
                     <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>
             </View>}
             {searchBar ?
                 <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }}>
-                    <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical, { height: 30, }]}>
+                    <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
+                    { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
-                            <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
-                            stylesFont.FontCenter]} placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() =>
-                                setSubmit()} onChangeText={value => this.setState({ text: value })} />
+                            <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}
+                                placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() => setSubmit()}
+                                onChangeText={value => this.setState({ text: value })} />
                         </View>
                         <AIconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                     </View>
                 </TouchableOpacity> :
-                <TouchableOpacity key={'searchBar'} activeOpacity={1}
-                    style={{ marginRight: 3 }} onPress={() => NavigationNavigate({
-                        goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                    })}>
+                <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }} onPress={() => NavigationNavigate({
+                    goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
+                })}>
                     <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
                     { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
@@ -108,12 +100,12 @@ class AppSearchBar extends React.Component {
                     </View>
                 </TouchableOpacity>}
             {<View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
-                {filterBar && <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
+                {filterBar && <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
+                    onPress={null/*() => navigation.push('CartScreen')*/}>
                     <AIconFeather name="filter" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {otherBar && <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
+                {otherBar && <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
+                    onPress={null/*() => navigation.push('CartScreen')*/}>
                     <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
                 {chatBar && <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
@@ -127,8 +119,7 @@ class AppSearchBar extends React.Component {
                         NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
                         NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
                     {((cartData?.isError) || cartDataCount <= 0) ?
-                        <></> :
-                        <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
+                        <></> : <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                             backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
                             textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
                             borderColor: AIColor, borderWidth: 1,
@@ -151,48 +142,37 @@ class AppNoSearchBar extends React.Component {
     componentDidMount() {
         const { activeGetCurrentUser } = this.state;
         activeGetCurrentUser && GetData({
-            getCokie: true, getSource: value => {
-                this.setState({ activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser });
-            }, getUser: true,
+            getCokie: true, getSource: value => this.setState({
+                activeGetCurrentUser: false, cokie: value.keycokie, currentUser: value.currentUser
+            }), getUser: true,
         });
     };
     render() {
         const {
             AIColor, backArrow, backNavigation, borderBottomColor, cartData, cartListButtomDelete, chatBar, colorSet, deleteBar,
-            getActivePost, goToTop, navigation, propsFunction, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar,
-            selectshare,
+            getActivePost, goToTop, navigation, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
         } = this.props;
-        const { cokie, currentUser } = this.state;
-        console.log('colorSet')
-        console.log(colorSet)
+        const { currentUser } = this.state;
         const colors = [];
-        if (colorSet) {
-            colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
-        };
+        if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar,
         stylesMain.FlexRow, {
             width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1], justifyContent: 'space-between',
             borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
         }]}>
-            {/* <AStatusBar backgroundColor={mainColor} /> */}
             <View style={stylesMain.FlexRow}>
                 {backArrow && <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
-                    activeOpacity={1} onPress={() => goToTop ?
-                        NavigationNavigate({ goScreen: 'popToTop', navigation }) :
-                        backNavigation ?
-                            [route.params.backNavigation('goBack'),
-                            NavigationNavigate({ goScreen: 'goBack', navigation })] :
-                            NavigationNavigate({ goScreen: 'goBack', navigation })}>
+                    activeOpacity={1} onPress={() => goToTop ? NavigationNavigate({ goScreen: 'popToTop', navigation }) : backNavigation ?
+                        [route.params.backNavigation('goBack'), NavigationNavigate({ goScreen: 'goBack', navigation })] :
+                        NavigationNavigate({ goScreen: 'goBack', navigation })}>
                     <IconEntypo style={[stylesStore.Icon_appbar, { color: AIColor }]} name="chevron-left" size={30} />
                 </TouchableOpacity>}
                 <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical,
                 { marginLeft: backArrow ? 4 : 24, }]}>{titleHead ?? ''}</Text>
                 {selectshare && <View style={{ marginVertical: 5 }}>
-                    <ModalDropdown
-                        options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']}
-                        defaultValue={
-                            <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                            stylesMain.ItemCenterVertical]}>แชร์ไปยัง
+                    <ModalDropdown options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']} defaultValue={
+                        <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
+                        stylesMain.ItemCenterVertical]}>แชร์ไปยัง
                             <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>}
                         textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
                         stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
@@ -222,8 +202,8 @@ class AppNoSearchBar extends React.Component {
                 </TouchableOpacity>}
                 {storeBar && <TouchableOpacity key={'storeBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
                     NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
-                    <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar,
-                    stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
+                    <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { marginRight: 8 }]} />
                 </TouchableOpacity>}
                 {postBar && <TouchableOpacity key={'postBar'} style={[stylesMain.ItemCenter, { width: 60 }]} onPress={() =>
                     getActivePost(true)}>

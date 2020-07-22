@@ -20,7 +20,7 @@ import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topi
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, GetFetch, NavigationNavigate, } from '../../customComponents';
 import { ExitAppModule } from '../MainScreen';
-import { GetData, GetServices, LoadingScreen, TabBar, } from '../../customComponents/Tools';
+import { GetData, LoadingScreen, TabBar, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -38,13 +38,13 @@ function Total_Order(props) {
     const [isLoading, setIsLoading] = useState(true);
     let getDataSource = value => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
     useEffect(() => {
-        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getDataSource(value) });
+        activeGetSource && GetData({ getCokie: true, getSource: value => getDataSource(value), getUser: true, });
     }, [activeGetSource]);
     return <SafeAreaView style={[stylesMain.SafeAreaView, { height: 'auto' }]}>
         {isLoading && <LoadingScreen />}
         <AppBar {...props} backArrow titleHead='การสั่งซื้อของฉัน' />
-        <Button_bar {...props} currentUser={currentUser} cokie={cokie} setLoading={value => setIsLoading(value)}
-            setFSelectedIndex={selectedIndex * 1} />
+        <Button_bar {...props} cokie={cokie} currentUser={currentUser} setFSelectedIndex={selectedIndex * 1} setLoading={value =>
+            setIsLoading(value)} />
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };

@@ -792,7 +792,7 @@ export function RenderProduct(props) {
         }]}>
             <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3_all' ?
                 stylesMain.BoxProduct2ImageofLines : mode == 'row2_all' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
-                    stylesMain.BoxProduct1ImageofLines2 : stylesMain.BoxProduct1ImageofLines
+                    stylesMain.BoxProduct1ImageofLines2 : mode == 'row3_new2' ? { width: '100%' } : stylesMain.BoxProduct1ImageofLines
             ]}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
                     borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,

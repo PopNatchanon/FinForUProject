@@ -22,7 +22,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
+import { ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
 import {
   GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
 } from '../../customComponents/Tools';
@@ -131,6 +131,7 @@ export let Deal_Calendar = (props) => {
   </View>);
   return <>
     <View style={[stylesMain.FrameBackground, /* { backgroundColor: '#B5F5D1', width: '100%' } */]}>
+      {/* <LinearGradient colors={['#BB9C00', '#FBD100','#BB9C00']}> */}
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ดีลเด็ดตามปฏิทิน</Text>
       <View style={stylesDeal.Deal_Calendar_Box}>
         {dataService?.length > 0 ? dataService?.map((value, index) => {
@@ -140,6 +141,7 @@ export let Deal_Calendar = (props) => {
           </View>
         }) : emptyBox}
       </View>
+      {/* </LinearGradient> */}
     </View>
   </>;
 };
@@ -207,7 +209,7 @@ export let Deal_Today = (props) => {
       </TouchableOpacity>
     </View>
   </View>);
-  return <View style={[stylesMain.FrameBackground,/*{ backgroundColor: '#AF5F92', }*/]}>
+  return <View style={[stylesMain.FrameBackground, { paddingBottom: 0 }/*{ backgroundColor: '#AF5F92', }*/]}>
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ดีลเด็ดประจำวัน</Text>
       <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 0 }, navigation })}>
@@ -215,14 +217,14 @@ export let Deal_Today = (props) => {
       </TouchableOpacity>
     </View>
     <View style={stylesDeal.Deal_Today_Box}>
-      <View style={{ borderColor: '#0A55A6', borderTopWidth: 3, marginHorizontal: 5 }}>
+      <View style={{ borderColor: '#001666', borderTopWidth: 3, marginHorizontal: 5 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#00adb5' }]}> คูปองส่วนลดจาก FIN</Text>
       </View>
       <ScrollView horizontal>
         <View style={stylesDeal.Deal_Today_BoxImage}>
           {dataService?.coupon?.length > 0 ?
             dataService.coupon.map((value, index) => {
-              return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF' couponText={value.name}
+              return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#007bff' couponText={value.name}
                 getCoupon={value => getCoupon(value)} key={index} saveCoupon marginL={3} textDetail={value.detail}
                 timeOut={value.end_period} setDataService={{ list: 'fin', id_promotion: value.id_promotion }} />
             }) : emptyBox}
@@ -231,7 +233,7 @@ export let Deal_Today = (props) => {
     </View>
     <View>
       <View style={stylesDeal.Deal_Today_Box}>
-        <View style={{ borderColor: '#0A55A6', borderTopWidth: 3, marginHorizontal: 5, marginTop: 5 }}>
+        <View style={{ borderColor: '#001666', borderTopWidth: 3, marginHorizontal: 5, }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#00adb5' }]}> คูปองส่วนลดจากร้าน</Text>
         </View>
         <ScrollView horizontal>
@@ -259,11 +261,11 @@ export let Deal_Exclusive = (props) => {
     <View style={{ height: 55, paddingHorizontal: 3 }} />
   </View>);
   return <LinearGradient
-    colors={['#890A00', '#E41100']}
+    colors={['#750404', '#F94040']}
     style={[stylesMain.FrameBackground, { width: '100%' }]}>
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#8E1006', width: '100%' }]}> */}
     <View style={stylesDeal.BoxText_Row}>
-      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ดีลสุด Exclusive</Text>
+      <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 5 }]}>ดีลสุด Exclusive</Text>
       <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 1 }, navigation })}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
@@ -272,10 +274,10 @@ export let Deal_Exclusive = (props) => {
       <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3'
         nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} /> :
       <View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={stylesMain.FlexRow}>
           {emptyBox}
         </View>
-        <View style={{ flexDirection: 'row' }}>
+        <View style={stylesMain.FlexRow}>
           {emptyBox}
         </View>
       </View>}
@@ -348,7 +350,7 @@ export let ProDed_Store = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8]}>ร้าน AVIRA ลดกว่า 80% ฉลองต้อนรับเทศกาลปีใหม่!</Text>
     </View>;
   }) : emptyBox;
-  return <LinearGradient colors={['#691f50', '#BD3790']} style={[stylesMain.FrameBackground, { width: '100%' }]}>
+  return <LinearGradient colors={['#58003A', '#D1008A']} style={[stylesMain.FrameBackground, { width: '100%' }]}>
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#691f50', width: '100%' }]}> */}
     <View style={stylesDeal.BoxText_Row}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginTop: 10 }]}>ร้านนี้มีดีล</Text>
@@ -372,9 +374,9 @@ export let ProDed_New_Store = (props) => {
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>{' '}</Text>
     </View>
   </View>)
-  return <LinearGradient colors={['#302b63', '#2a69ae']} style={[stylesMain.FrameBackground, { width: '100%' }]}>
+  return <LinearGradient colors={['#2D014F', '#00C0D2',]} /*colors={['#302b63', '#2a69ae']}*/ style={[stylesMain.FrameBackground, { width: '100%' }]}>
     <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginVertical: 5 }]}>ดีลสุดฟินร้านใหม่</Text>
-    <View style={{ paddingLeft: 10 }}>
+    <View style={{ paddingLeft: 5 }}>
       <ScrollView horizontal>
         {dataService?.length > 0 ? dataService.map((item, index) => {
           var dataMySQL = `${finip}/${item.store_path}/${item.image_store}`;
@@ -383,9 +385,9 @@ export let ProDed_New_Store = (props) => {
               <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch} />
             </View>
             <TouchableOpacity>
-              <View style={stylesDeal.ProDed_New_Store_Button}>
+              <LinearGradient colors={['#10162d', '#284d8f']} style={stylesDeal.ProDed_New_Store_Button}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#FFFFFF' }]}>เข้าชมร้าน</Text>
-              </View>
+              </LinearGradient>
             </TouchableOpacity>
           </View>
         }) : emptyBox}

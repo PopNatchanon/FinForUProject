@@ -17,8 +17,9 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesFont from '../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_TWO, ExitAppModule, Slide, TodayProduct, } from './MainScreen';
+import { BannerBar_TWO, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
+import { Slide } from '../screens/src_Promotion/DealScreen'
 import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -83,7 +84,7 @@ function CategoryScreen(props) {
         {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
         <AppBar {...props} backArrow cartBar enableSearch />
         <ScrollView stickyHeaderIndices={[5]}>
-            <Slide {...props} banner={dataService?.banner} />
+            <Slide {...props} dataService={dataService?.banner} />
             <Recommend_Store {...props} recommend={dataService?.recommend} />
             <Product_Brand {...props} loadData={dataService?.product_popular_brand} />
             <BannerBar_TWO />
@@ -99,27 +100,28 @@ function CategoryScreen(props) {
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
-    let boxEmpty = [0, 1,].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box,
-    { backgroundColor: '#ECECEC' }]}>
+    let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, {
+        width: width * 0.40, backgroundColor: '#ECECEC',borderRadius: 5 
+    }]}>
         <ActivityIndicator size={50} color={mainColor} />
     </View>);
     let dataPromotionPopular = recommend?.length > 0 ?
         recommend.map((item, index) => {
             var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
             return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
-                <View style={stylesMain.BoxStore1Box}>
-                    <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
+                <View style={[stylesMain.BoxStore1Box, { width: width * 0.40, }]}>
+                    <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore1Image, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
                 </View>
             </TouchableOpacity>;
         }) : boxEmpty;
     return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ร้านค้าที่แนะนำ</Text>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ร้านค้าที่แนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
-        <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4, }]}>
+        <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4.2, }]}>
             <ScrollView horizontal>
                 {dataPromotionPopular}
             </ScrollView>
@@ -141,7 +143,7 @@ export let Product_Brand = (props) => {
         </View>);
     return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>สินค้าแบรนด์ดัง</Text>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สินค้าแบรนด์ดัง</Text>
         </View>
         {loadData?.length > 0 ?
             <FlatProduct {...props} dataService={loadData} numberOfColumn={1} radiusBox={5} nameFlatProduct='Product_Brand' mode='row3_new'

@@ -471,6 +471,25 @@ export let TicketLine = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> DealTop
 export let DealTop = (props) => {
     const { activeGetServices, H_Banner, dataService, titlename } = props;
+    const dataService2 = [{
+        image_path: 'MySQL/uploads/petchchompoo', image: '1.jpg', id_product: 0,
+        last_price: '200000', name_product: 'เพชร1', type: 'local'
+    }, {
+        image_path: 'MySQL/uploads/petchchompoo', image: '2.jpg', id_product: 1,
+        last_price: '200000', name_product: 'เพชร2', type: 'local'
+    }, {
+        image_path: 'MySQL/uploads/petchchompoo', image: '3.jpg', id_product: 2,
+        last_price: '200000', name_product: 'เพชร3', type: 'local'
+    }, {
+        image_path: 'MySQL/uploads/petchchompoo', image: '4.jpg', id_product: 3,
+        last_price: '200000', name_product: 'เพชร4', type: 'local'
+    }, {
+        image_path: 'MySQL/uploads/petchchompoo', image: '9.jpg', id_product: 4,
+        last_price: '200000', name_product: 'เพชร5', type: 'local'
+    }, {
+        image_path: 'MySQL/uploads/petchchompoo', image: '10.jpg', id_product: 5,
+        last_price: '200000', name_product: 'เพชร6', type: 'local'
+    },]
     return <View style={[stylesMain.FrameBackground, { paddingBottom: 5, backgroundColor: 'transparent' }]}>
         <FastImage
             style={{ height: 45, width: '100%', }}
@@ -484,8 +503,8 @@ export let DealTop = (props) => {
             </View>
         </LinearGradient> */}
         {dataService && !activeGetServices ?
-            <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService} mode='row3_new' nameFlatProduct='DealTop'
-                nameSize={14} priceSize={15} dispriceSize={15} /> :
+            <FlatProduct {...props} custumNavigation='DetailScreen' dataService={dataService2} mode='row3_new2' nameFlatProduct='DealTop'
+                nameSize={14} priceSize={15} dispriceSize={15} onShow /> :
             <View style={[stylesMain.ItemCenter, { width, height: 115 + 55 }]}>
                 <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
             </View>}

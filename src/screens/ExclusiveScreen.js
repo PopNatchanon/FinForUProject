@@ -79,7 +79,7 @@ function ExclusiveScreen(props) {
     {(activeGetSource || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
     <AppBar {...props} titleHead={'สินค้าสุด Exclusive'} backArrow searchBar chatBar />
     <ScrollView stickyHeaderIndices={[2]}>
-      <Slide dataService={dataService && dataService.banner} />
+      <Slide {...props} dataService={dataService?.banner} />
       <View style={{ marginBottom: 10 }}></View>
       <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSlider(value)}
         getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />

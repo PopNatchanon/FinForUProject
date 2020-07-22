@@ -127,20 +127,22 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     Second_Store_SlideA: {
-        height: 160,
-        marginTop: 10,
-        width: width * 0.90,
+        height: 150,
+        width: '100%',
+        marginTop: 5,
+        paddingHorizontal: 3
     },
     Second_Store_SlideB: {
-        height: 120,
-        width: '90%',
-        marginTop: 10,
+        height: 160,
+        width: '100%',
+        marginTop: 3,
+        paddingHorizontal: 3,
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
     Second_Store_SlideB_Box: {
         height: '100%',
-        width: '49%',
+        width: '49.6%',
     },
     Second_Store_Slide_BoxText: {
         height: '20%',
@@ -158,8 +160,8 @@ export default StyleSheet.create({
         borderColor: '#C4C4C4',
         backgroundColor: '#FFFFFF',
         padding: 10,
-        marginVertical: 10,
-        marginLeft: 10,
+        marginVertical: 5,
+        marginLeft: 5,
         borderRadius: 5,
     },
     ProDed_New_Store: {
@@ -174,14 +176,13 @@ export default StyleSheet.create({
     ProDed_New_Store_Boximage: {
         backgroundColor: '#FFFFFF',
         borderRadius: 5,
-        width: width * 0.2,
-        marginRight: 10,
-        marginBottom: 10,
+        width: width * 0.22,
+        marginRight: 5,
+        marginBottom: 3,
         alignItems: 'center',
         padding: 10,
     },
     ProDed_New_Store_Button: {
-        backgroundColor: mainColor,
         height: 20,
         width: 60,
         marginTop: 5,
@@ -253,7 +254,7 @@ export default StyleSheet.create({
         marginBottom: 10,
     },
     Store_Sale: {
-        height: 180,
+        height: 170,
         width: '100%',
         marginTop: 3,
         alignItems: 'center',
@@ -358,7 +359,7 @@ export default StyleSheet.create({
     Coupon_BOX2: {
         margin: 4,
         height: 70,
-        // borderColor: '#E9E9E9',
+        // borderColor: '#FFDF00',
         borderWidth: 1,
         borderRadius: 5,
         // backgroundColor: '#fff',
@@ -374,6 +375,7 @@ export default StyleSheet.create({
     },
     Coupon_BOX_A2: {
         width: 45,
+        height: 68,
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: 5,

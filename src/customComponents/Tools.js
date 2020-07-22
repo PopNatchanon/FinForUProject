@@ -868,7 +868,7 @@ export function GetCoupon(props) {
                             backgroundColor:
                                 colorCoupon ?
                                     colorCoupon :
-                                    '#007bff',
+                                    '#1CB5E0',
                         }]}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
                             useCoupon ?
@@ -880,11 +880,11 @@ export function GetCoupon(props) {
             </View>
             {
                 codeList != 'available' &&
-                <View style={{
+                <View /*style={{
                     backgroundColor: '#C1C1C1', opacity: 0.7,
                     width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
                     alignItems: 'center'
-                }}>
+                }}*/>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
                         color: '#FFFFFF',
                     }]}>
@@ -898,7 +898,7 @@ export function GetCoupon(props) {
                     </Text>
                 </View>
             }
-        </View>
+        </View >
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
@@ -1008,14 +1008,15 @@ export function RenderProduct(props) {
         console.log('///----------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
     ]);
-    var dataMySQL = `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}_.webp`;
+    var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}${item.type == 'local' ? '' : '_.webp'}`;
     var discount;
+    onShow && console.log(dataMySQL)
     item.discount && (discount = item.discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ?
         getDataService({ id_product, name }) : NavigationNavigate({ navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product } })}>
         <View style={[stylesMain.ItemCenter, mode == 'row4' ?
             stylesMain.BoxProduct5Box : mode == 'row3' ?
-                stylesMain.BoxProduct1Box2 : mode == 'row3_new' ?
+                stylesMain.BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ?
                     stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
                         stylesMain.BoxProduct4Box : mode == 'row3_all' ?
                             stylesMain.BoxProduct2Box : mode == 'row2_all' ?
@@ -1033,7 +1034,8 @@ export function RenderProduct(props) {
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
                     borderTopLeftRadius: radiusBox ?? 0,
                     borderTopRightRadius: radiusBox ?? 0,
-                    marginVertical: height * 0.015,
+                    marginVertical: mode == 'row3_new2' ? 0 : height * 0.015,
+                    width: mode == 'row3_new2' ? '100%' : '75%',
                 }]} resizeMode={FastImage.resizeMode.contain} />
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }}>

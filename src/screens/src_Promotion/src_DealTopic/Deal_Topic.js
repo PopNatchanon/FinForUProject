@@ -27,8 +27,9 @@ import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
 import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
-import { TodayProduct, Slide,  ExitAppModule, } from '../../MainScreen';
-import { Store_Detail } from '../../Recommend_Store';
+import { TodayProduct, ExitAppModule, } from '../../MainScreen';
+import { Slide } from '../DealScreen';
+import { Store_Detail, } from '../../Recommend_Store';
 import { ProductBox } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
@@ -81,7 +82,7 @@ function Deal_Topic(props) {
                 return <View style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='ดีลสุดคุ้ม' />
                     <ScrollView>
-                        {dataService && dataService.banner && <Slide banner={dataService.banner} />}
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         {currentUser && <Deal_CuponToday {...props} currentUser={currentUser} cokie={cokie} />}
                         {<Button_Bar {...props} />}
                         {dataService && dataService.store.map((value, index) => {
@@ -94,7 +95,7 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        {dataService && dataService.banner && <Slide banner={dataService.banner} />}
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
                         {dataService2 && <Button_Bar {...props} category={dataService2.category} key='Button_Bar'
                             getUpdateIndex={(value) => getUpdateIndex(value)} />}
@@ -105,7 +106,7 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar />
                         {/* <Store_Detail /> */}
@@ -115,7 +116,7 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar {...props} />
                         {dataService ?
@@ -127,7 +128,7 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar />
                         {/* <Store_Detail /> */}

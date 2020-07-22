@@ -26,9 +26,9 @@ import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 import { Notifications } from 'react-native-notifications';
 import NumberFormat from 'react-number-format';
+import SlidingView from 'rn-sliding-view';
 import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
-import SlidingView from 'rn-sliding-view';
 import WebView from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -1368,7 +1368,7 @@ export let Fin_Mall = (props) => {
                     </View>}
             </View>
         </View>
-        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF' }}>
+        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 สินค้าสุด Exclusive</Text>
             <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>

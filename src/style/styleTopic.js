@@ -180,13 +180,9 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
     },
     Store_Pro: {
-        height: 75,
-        width: 75,
         backgroundColor: '#FFFFFF',
         borderRadius: 50,
         marginLeft: 10,
-        borderColor: '#000000',
-        borderWidth: 1,
     },
     Store_Name: {
         backgroundColor: mainColor,

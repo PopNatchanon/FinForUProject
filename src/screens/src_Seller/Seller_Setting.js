@@ -19,6 +19,7 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { NavigationNavigate, AppBar } from '../../customComponents';
+import { ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
@@ -32,6 +33,7 @@ function Seller_Setting(props) {
         <ScrollView>
             <Seller_Setting_Topic {...props} />
         </ScrollView>
+        <ExitAppModule {...props} />
     </SafeAreaView>;
 };
 ///------------------------------------------------------------------------------/// 

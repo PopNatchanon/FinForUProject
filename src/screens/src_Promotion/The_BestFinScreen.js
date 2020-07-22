@@ -10,6 +10,8 @@ import Carousel, { Pagination } from 'react-native-snap-carousel';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
+import LinearGradient from 'react-native-linear-gradient';
+
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -61,10 +63,10 @@ function The_BestFinScreen(props) {
 export let Fin_sale = (props) => {
   const { dataService } = props;
   return <>
-    <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 200 }]}>
+    <View style={stylesMain.FrameBackground}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={{ width: 200, borderBottomRightRadius: 100 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
-      </View>
+      </LinearGradient>
       <View style={stylesDeal.Fin_sale_BoxHead}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
       </View>
@@ -105,9 +107,9 @@ export let Store_Sale = (props) => {
   </View>;
   return <View>
     <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 100 }]}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 110, borderBottomRightRadius: 100 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด</Text>
-      </View>
+      </LinearGradient>
       <View style={stylesDeal.Fin_sale_BoxHead}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
       </View>
@@ -119,10 +121,10 @@ export let Store_Sale = (props) => {
 export let Product_Cool = (props) => {
   const { dataService } = props;
   return <>
-    <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 140 }]}>
+    <View style={stylesMain.FrameBackground}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 150, borderBottomRightRadius: 100 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
-      </View>
+      </LinearGradient>
       <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
       </View>
@@ -140,18 +142,24 @@ export let Second_Store = (props) => {
   dataService?.discount_sec_l?.map((value) => discount_sec_l.push(`${finip}/${value.image_path}/${value.image}`));
   dataService?.discount_sec_m?.map((value) => discount_sec_m.push(`${finip}/${value.image_path}/${value.image}`));
   dataService?.discount_sec_xl?.map((value) => discount_sec_xl = `${finip}/${value.image_path}/${value.image}`);
+  console.log('discount_sec_m')
+  console.log(discount_sec_m)
   let Second_StoreBody = <View style={stylesDeal.Second_Store}>
     <View style={stylesDeal.Second_Store_SlideA}>
-      <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: discount_sec_xl, }} resizeMode={FastImage.resizeMode.stretch} />
+      <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: discount_sec_xl, }} resizeMode={FastImage.resizeMode.cover} />
     </View>
     <View style={stylesDeal.Second_Store_SlideB}>
       {discount_sec_m && discount_sec_m.map((value, index) => <View key={index} style={stylesDeal.Second_Store_SlideB_Box}>
-        <FastImage style={stylesMain.BoxStore1Image} source={{ uri: value, }} />
+        <FastImage style={{ width: '100%', height: '80%' }} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
+        <View style={[stylesMain.ItemCenter, { height: '20%', backgroundColor: mainColor, paddingHorizontal: 5 }]}>
+          <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF' }]}>
+            โปรท้าฝน คาร์ซีทมือสอง ลดสูงสุด 5,000 บาท หมดแล้วหมดเลย อย่าช้า กดเลื่อนลงไปดูสินค้า  </Text>
+        </View>
       </View>)}
     </View>
-    <View style={{ marginVertical: 10, width: '90%', flexDirection: 'row', justifyContent: 'space-around' }}>
+    <View style={{ marginVertical: 3, flexDirection: 'row', justifyContent: 'space-around' }}>
       <ScrollView horizontal>
-        {discount_sec_l && discount_sec_l.map((value, index) => <View key={index} style={{ width: 160, height: 80, marginLeft: 5 }}>
+        {discount_sec_l && discount_sec_l.map((value, index) => <View key={index} style={{ width: 140, height: 70, marginLeft: 3 }}>
           <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: value, }} resizeMode={FastImage.resizeMode.stretch} />
         </View>)}
       </ScrollView>
@@ -159,9 +167,9 @@ export let Second_Store = (props) => {
   </View>
   return <View style={stylesMain.FrameBackground}>
     <View style={stylesDeal.BoxText_Row}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#95D370', marginLeft: -3, width: 140 }]}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 150, borderBottomRightRadius: 100 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
-      </View>
+      </LinearGradient>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: mainColor }]}>ดูทั้งหมด</Text>
     </View>
     {Second_StoreBody}

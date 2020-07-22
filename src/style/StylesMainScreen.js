@@ -707,7 +707,7 @@ export default StyleSheet.create({
     borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
-    borderRadius: 32.5,
+    borderRadius: 65 / 2,
   },
   ///------------------------------------------------------------------///
   Second_StoreFin: {

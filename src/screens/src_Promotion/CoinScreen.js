@@ -10,6 +10,7 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import BottomSheet from "react-native-raw-bottom-sheet";
+import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -52,14 +53,13 @@ function CoinScreen(props) {
         <AppBar {...props} backArrow chatBar searchBar titleHead={'FIN COINS'} />
         <ScrollView>
             <Slide dataService={dataService?.banner} />
-            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100, marginVertical: 3 }]}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN COIN</Text>
-            </View>
-            <CoinCollect cokie={cokie} currentUser={currentUser} />
-            <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160, marginVertical: 3 }]}>
+            <CoinCollect currentUser={currentUser} cokie={cokie} />
+            <LinearGradient colors={['#E21B1B', '#E65A5A']} style={{
+                marginVertical: 3, marginHorizontal: 5, borderBottomRightRadius: 50, width: 180, borderColor: '#C4C4C4', borderWidth: 1
+            }}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN</Text>
-            </View>
-            <TodayProduct {...props} loadData={dataService?.product_pro_coin} noTitle />
+            </LinearGradient>
+            <TodayProduct {...props} noTitle loadData={dataService?.product_pro_coin} />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
             <Button_Bar {...props} />

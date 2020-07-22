@@ -20,9 +20,7 @@ import stylesMain from '../style/StylesMainScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
 import { ExitAppModule, } from './MainScreen';
-import {
-    GetData, GetServices, ProductBox, LoadingScreen, FlatProduct
-} from '../customComponents/Tools';
+import { GetData, GetServices, ProductBox, LoadingScreen, FlatProduct } from '../customComponents/Tools';
 import { StarReview, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> ip
 import { finip, ip, } from '../navigator/IpConfig';
@@ -129,13 +127,13 @@ export let Store_Detail = (props) => {
     }, [activeGetServices && cokie]);
     return <View style={{ backgroundColor: '#FFFFFF', width: '100%', marginTop: 5 }}>
         <View>
-            <FastImage style={stylesTopic.Store_Image} source={{ uri: image_header }} resizeMode={FastImage.resizeMode.stretch} />
+            <FastImage style={stylesTopic.Store_Image} source={{ uri: image_header }} resizeMode={FastImage.resizeMode.cover} />
             <View style={stylesTopic.Store_Box}>
                 <TouchableOpacity onPress={() =>
                     NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
                     <View style={[stylesTopic.Store_Pro, stylesMain.ItemCenter]}>
-                        <FastImage style={{ height: '70%', width: '70%' }} source={{ uri: image_store }}
-                            resizeMode={FastImage.resizeMode.contain} />
+                        <FastImage style={{ height: 70, width: 70, borderRadius: 70 / 2, borderWidth: 1 }} source={{ uri: image_store }}
+                            resizeMode={FastImage.resizeMode.cover} />
                     </View>
                 </TouchableOpacity>
                 <View style={{ margin: 10, }}>

@@ -596,51 +596,84 @@ export async function GetServicesBlob(props) {
 export function GetCoupon(props) {
     const {
         codeList, colorCoupon, couponText, getCoupon, flexRow, marginL, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
-    } = props;
-    return <View style={[stylesDeal.Coupon_BOX2
-        // flexRow ?
-        //     stylesDeal.Coupon_BOX2  :
-        //     stylesDeal.Coupon_BOX, {
-        //     backgroundColor:
-        //         codeList != 'available' ?
-        //             '#C4C4C4' :
-        //             null,
-        //     marginLeft: marginL ?? 10
-        // }
-    ]}>
-        <View style={{
-            // opacity:
-            //     codeList != 'available' ?
-            //         0.4 :
-            //         null,
-            flexDirection: 'row',
-            justifyContent: flexRow ? null : 'flex-end',
-            marginBottom: codeList != 'available' ? -100 : null,
-        }}>
-            <View style={{ width: width * 0.31, height: 60, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>
-                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {timeOut ?? ''}</Text>
-            </View>
-            <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
-                <View style={[flexRow ?
-                    stylesDeal.Coupon_BOX_A2 : stylesDeal.Coupon_BOX_A, {
-                    backgroundColor: colorCoupon ?? '#007bff',
-                }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>
-                        {useCoupon ? 'ใช้โค้ด' : 'เก็บ'}</Text>
+    } = props
+    return (
+        <View style={[stylesDeal.Coupon_BOX2
+            // flexRow ?
+            //     stylesDeal.Coupon_BOX2  :
+            //     stylesDeal.Coupon_BOX, {
+            //     backgroundColor:
+            //         codeList != 'available' ?
+            //             '#C4C4C4' :
+            //             null,
+            //     marginLeft: marginL ?? 10
+            // }
+        ]}>
+            <View style={{
+                // opacity:
+                //     codeList != 'available' ?
+                //         0.4 :
+                //         null,
+                flexDirection: 'row',
+                justifyContent:
+                    flexRow ?
+                        null :
+                        'flex-end',
+                marginBottom:
+                    codeList != 'available' ?
+                        -100 :
+                        null,
+            }}>
+                <View style={{ width: width * 0.31, height: 60, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>
+                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
+                        timeOut ?
+                            timeOut :
+                            ''
+                    }</Text>
                 </View>
-            </TouchableOpacity>
-        </View>
-        {codeList != 'available' && <View style={{
-            backgroundColor: '#C1C1C1', opacity: 0.7, width: 0.31, height: 80, marginTop: -10, borderRadius: 5, alignItems: 'center'
-        }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, { color: '#FFFFFF', }]}>
-                {codeList == 'usedCode' ? 'ใช้แล้ว' : saveCoupon ? 'เก็บแล้ว' : 'หมดอายุ'}
-            </Text>
-        </View>}
-    </View>;
-};
+                <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
+                    <View style={[
+                        flexRow ?
+                            stylesDeal.Coupon_BOX_A2 :
+                            stylesDeal.Coupon_BOX_A, {
+                            backgroundColor:
+                                colorCoupon ?
+                                    colorCoupon :
+                                    '#1CB5E0',
+                        }]}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
+                            useCoupon ?
+                                'ใช้โค้ด' :
+                                'เก็บ'
+                        }</Text>
+                    </View>
+                </TouchableOpacity>
+            </View>
+            {
+                codeList != 'available' &&
+                <View /*style={{
+                    backgroundColor: '#C1C1C1', opacity: 0.7,
+                    width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
+                    alignItems: 'center'
+                }}*/>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
+                        color: '#FFFFFF',
+                    }]}>
+                        {
+                            codeList == 'usedCode' ?
+                                'ใช้แล้ว' :
+                                saveCoupon ?
+                                    'เก็บแล้ว' :
+                                    'หมดอายุ'
+                        }
+                    </Text>
+                </View>
+            }
+        </View >
+    )
+}
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
 export function ProductBox(props) {
     const {
@@ -738,25 +771,32 @@ export function RenderProduct(props) {
         console.log('///--------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
     ];
-    var dataMySQL =
-        `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}_.webp`;
+    var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
+        item.image_main ?? item.image)}${item.type == 'local' ? '' : '_.webp'}`;
     var discount;
+    onShow && console.log(dataMySQL)
     item.discount && (discount = item.discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ? getDataService({ id_product, name }) : NavigationNavigate({
-        navigation, goScreen: custumNavigation ?? 'DetailScreen', setData: { id_product: item.id_product }
+        navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product }
     })}>
-        <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5Box : mode == 'row3' ?
-            stylesMain.BoxProduct1Box2 : mode == 'row3_new' ? stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
-                stylesMain.BoxProduct4Box : mode == 'row3_all' ? stylesMain.BoxProduct2Box : mode == 'row2_all' ?
-                    stylesMain.BoxProduct3Box : mode == '5item' ? stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
-            marginBottom: mode == 'row3_2' ? 4 : null, borderRadius: radiusBox ?? 0
+        <View style={[stylesMain.ItemCenter, mode == 'row4' ?
+            stylesMain.BoxProduct5Box : mode == 'row3' ?
+                stylesMain.BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ?
+                    stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
+                        stylesMain.BoxProduct4Box : mode == 'row3_all' ?
+                            stylesMain.BoxProduct2Box : mode == 'row2_all' ?
+                                stylesMain.BoxProduct3Box : mode == '5item' ?
+                                    stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
+            marginBottom: mode == 'row3_2' ? 4 : null,
+            borderRadius: radiusBox ?? 0
         }]}>
             <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3_all' ?
                 stylesMain.BoxProduct2ImageofLines : mode == 'row2_all' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
                     stylesMain.BoxProduct1ImageofLines2 : stylesMain.BoxProduct1ImageofLines
             ]}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
-                    borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0, marginVertical: height * 0.015,
+                    borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
+                    marginVertical: mode == 'row3_new2' ? 0 : height * 0.015, width: mode == 'row3_new2' ? '100%' : '75%',
                 }]} resizeMode={FastImage.resizeMode.contain} />
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }}>

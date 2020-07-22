@@ -26,10 +26,11 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
-import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
-import { TodayProduct, Slide, ExitAppModule, } from '../../MainScreen';
-import { Store_Detail } from '../../Recommend_Store';
+import { ExitAppModule, TodayProduct, } from '../../MainScreen';
+import { GetCoupon, GetServices, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
 import { ProductBox } from '../../../customComponents/Tools';
+import { Slide } from '../DealScreen';
+import { Store_Detail, } from '../../Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
 import { AppBar } from '../../../customComponents';
@@ -78,7 +79,7 @@ function Deal_Topic(props) {
                 return <View style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='ดีลสุดคุ้ม' />
                     <ScrollView>
-                        {dataService && dataService.banner && <Slide banner={dataService.banner} />}
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
                         {currentUser && <Deal_CuponToday {...props} currentUser={currentUser} cokie={cokie} />}
                         {<Button_Bar {...props} />}
                         {dataService && dataService.store.map((value, index) => {
@@ -91,8 +92,8 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        {dataService && dataService.banner && <Slide banner={dataService.banner} />}
-                        <View style={{ marginBottom: 10 }} />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
+                        <View style={{ marginBottom: 10 }}></View>
                         {dataService2 && <Button_Bar {...props} category={dataService2.category} key='Button_Bar'
                             getUpdateIndex={(value) => getUpdateIndex(value)} />}
                         {dataService2 && <TodayProduct {...props} key='TodayProduct' loadData={dataService2.product} noTitle />}
@@ -102,8 +103,8 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
-                        <View style={{ marginBottom: 10 }} />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
+                        <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar />
                         {/* <Store_Detail /> */}
                     </ScrollView>
@@ -112,8 +113,8 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
-                        <View style={{ marginBottom: 10 }} />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
+                        <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar {...props} />
                         {dataService ? <TodayProduct {...props} loadData={dataService} noTitle prepath='mysql' typeip /> : null}
                     </ScrollView>
@@ -122,8 +123,8 @@ function Deal_Topic(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
-                        <Slide />
-                        <View style={{ marginBottom: 10 }} />
+                        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
+                        <View style={{ marginBottom: 10 }}></View>
                         <Button_Bar />
                         {/* <Store_Detail /> */}
                     </ScrollView>

@@ -981,7 +981,7 @@ export let Group_Image = (props) => {
             setActiveGetServices(false); setDataService(GenArray(40, itemT));
         };
     }, [activeGetServices]);
-    console.log(activeGetServices);
+    console.log(dataService);
     return <ScrollView>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
         <ImageGallery dataService={dataService} />

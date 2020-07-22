@@ -19,10 +19,10 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule } from '../MainScreen';
+import { AppBar } from '../../customComponents';
+import { ExitAppModule } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
-import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -54,7 +54,7 @@ function Return_products(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Return_products_pro
 export let Return_products_pro = (props) => <View style={stylesProfileTopic.products_pro}>
-  <IconFeather name='edit' size={50} color='#A2A2A2' />
+  <IconFeather color='#A2A2A2' name='edit' size={50} />
   <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Return_products_From
@@ -70,7 +70,7 @@ export let Return = (props) => <View style={stylesMain.FrameBackground}>
   <View style={stylesProfileTopic.Return}>
     <View style={stylesMain.FlexRow}>
       <View style={stylesProfileTopic.Order_Product_Pro}>
-        <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} />
+        <FastImage source={{ uri: `${ip}/mysql/uploads/products/2019-03-20-1553064759.jpg`, }} style={stylesMain.BoxProduct1Image} />
       </View>
       <View style={{ marginTop: 10 }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โคมไฟตกแต่งบ้าน มีหลากหลายสี</Text>
@@ -94,51 +94,52 @@ export let Return_Detail = (props) => {
   let UploadImageMultiple = () => {
     const options = { multiple: true, includeBase64: true };
     ImagePicker.openPicker(options).then(response => {
-      response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item));
-      setAvatarSource(avatarSource);
+      response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item)); setAvatarSource(avatarSource);
     });
   };
   return <View style={{ padding: 10, }}>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ยอดเงินคืน</Text>
-    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]}
-      placeholder="กรอกจำนวนยอดเงินคืน" maxLength={40} value={text} onChangeText={value => setText(value)}></TextInput>
+    <TextInput maxLength={40} onChangeText={value => setText(value)} placeholder='กรอกจำนวนยอดเงินคืน'
+      style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesProfileTopic.Return_Detail_Box]} value={text} />
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เหตุผลการคืนสินค้า</Text>
     <View style={stylesProfileTopic.Return_Detail_Box}>
-      <Picker selectedValue={language} style={{ height: 35, width: '100%' }} onValueChange={(itemValue, itemIndex) =>
-        setLanguage(itemValue)}>
-        <Picker.Item label="สินค้าผิดหรือเสียหาย" value="java" />
-        <Picker.Item label="อื่นๆ" value="js" />
+      <Picker onValueChange={(itemValue, itemIndex) => setLanguage(itemValue)} selectedValue={language}
+        style={{ height: 35, width: '100%' }}>
+        <Picker.Item label='สินค้าผิดหรือเสียหาย' value='java' />
+        <Picker.Item label='อื่นๆ' value='js' />
       </Picker>
     </View>
     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ความคิดเห็นเพิ่มเติม</Text>
     <View style={stylesProfileTopic.Return_Detail_TextInput}>
-      <TextInput fontSize={15} placeholder="แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า" multiline editable maxLength={5000} value={detail}
-        onChangeText={value => setDetail(value)} />
+      <TextInput editable fontSize={15} maxLength={5000} multiline onChangeText={value => setDetail(value)}
+        placeholder='แจ้งให้เราทราบเพิ่มเติมเกี่ยวสินค้า' value={detail} />
     </View>
-    <View style={{ width: '100%', backgroundColor: '#FFFFFF', borderColor: '#D5D5D5', borderWidth: 1, paddingVertical: 10, marginTop: 5 }}>
+    <View style={{
+      backgroundColor: '#FFFFFF', borderColor: '#D5D5D5', borderWidth: 1, marginTop: 5, paddingVertical: 10, width: '100%',
+    }}>
       <ScrollView horizontal>
         {avatarSource ?
           avatarSource.map((item, index) => <>
-            <TouchableOpacity onPress={() => UploadImageSingle(index)} key={index}>
+            <TouchableOpacity key={index} onPress={() => UploadImageSingle(index)}>
               <View style={[stylesMain.ItemCenter,
-              { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
+              { borderColor: mainColor, borderWidth: 1, height: 100, marginLeft: 10, marginTop: 10, width: 100, }]}>
                 <FastImage source={{ uri: item.path }} style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]} />
               </View>
             </TouchableOpacity>
             {avatarSource.length < 7 && <TouchableOpacity onPress={() => UploadImageMultiple()} key={'upload'}>
               <View style={[stylesMain.ItemCenter,
-              { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                  <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+              { borderColor: mainColor, borderWidth: 1, height: 100, marginLeft: 10, marginTop: 10, width: 100, }]}>
+                <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,]}>
+                  <IconAntDesign color={mainColor} name='camerao' RightItem size={35} />
                   <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                 </View>
               </View>
             </TouchableOpacity>}
           </>) : <TouchableOpacity onPress={() => UploadImageMultiple()}>
             <View style={[stylesMain.ItemCenter,
-            { marginTop: 10, marginLeft: 10, height: 100, width: 100, borderColor: mainColor, borderWidth: 1, }]}>
-              <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
-                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
+            { borderColor: mainColor, borderWidth: 1, height: 100, marginLeft: 10, marginTop: 10, width: 100, }]}>
+              <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,]}>
+                <IconAntDesign color={mainColor} name='camerao' RightItem size={35} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
               </View>
             </View>
@@ -152,7 +153,7 @@ export let Return_Detail = (props) => {
 export let Return_Alert = (props) => {
   const [show, setShow] = useState(false);
   let handle = (value) => setShow(value);
-  let _renderHeader = <IconFontAwesome name='edit' size={50} color='white' />;
+  let _renderHeader = <IconFontAwesome color='white' name='edit' size={50} />;
   return <View>
     <View style={stylesProfileTopic.Return_ButtonBox}>
       <TouchableOpacity onPress={() => handle(true)} style={stylesMain.ItemCenter}>
@@ -161,13 +162,14 @@ export let Return_Alert = (props) => {
         </View>
       </TouchableOpacity>
     </View>
-    <SCLAlert theme="success" headerIconComponent={_renderHeader} show={show} title="เปลี่ยนสินค้า" subtitle="กรุณารอการตรวจสอบจากร้านค้า"
-      titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} subtitleStyle={stylesFont.FontFamilyText} onRequestClose={() => null}>
+    <SCLAlert headerIconComponent={_renderHeader} onRequestClose={() => null} theme='success' title='เปลี่ยนสินค้า'
+      titleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize2]} show={show} subtitle='กรุณารอการตรวจสอบจากร้านค้า'
+      subtitleStyle={stylesFont.FontFamilyText}>
       <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { justifyContent: 'space-around' }]}>
-        <SCLAlertButton theme="default" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยกเลิก</SCLAlertButton>
-        <SCLAlertButton theme="success" textStyle={stylesFont.FontFamilyText} onPress={() => handle(false)}
-          containerStyle={{ padding: 10, paddingHorizontal: 40 }}>ยืนยัน</SCLAlertButton>
+        <SCLAlertButton containerStyle={{ padding: 10, paddingHorizontal: 40 }} onPress={() => handle(false)}
+          textStyle={stylesFont.FontFamilyText} theme='default'>ยกเลิก</SCLAlertButton>
+        <SCLAlertButton containerStyle={{ padding: 10, paddingHorizontal: 40 }} onPress={() => handle(false)}
+          textStyle={stylesFont.FontFamilyText} theme='success'>ยืนยัน</SCLAlertButton>
       </View>
     </SCLAlert>
   </View>;

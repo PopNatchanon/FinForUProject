@@ -21,16 +21,14 @@ function ImageGallery(props) {
         marginTop: 5, marginLeft: 5
     }}>
         <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-            <FastImage
-                style={{ width: '100%', height: '100%' }}
-                source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
+            <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
                 resizeMode={FastImage.resizeMode.cover} />
         </TouchableOpacity>
-    </View >;
+    </View>;
     let imageRow = (value, index, boxwidth, boxheight, position, setbox) => {
         if (setbox == 'row3' && cStoreIndex.indexOf(index) == -1) {
             for (var n = 0; n < 3; n++) {
-                cStoreIndex.indexOf(index + n) == -1 && cStoreIndex.push(index + n)
+                cStoreIndex.indexOf(index + n) == -1 && cStoreIndex.push(index + n);
                 cStoreIndex.indexOf(index + n) == -1 && setCStoreIndex(cStoreIndex);
             };
         };
@@ -79,7 +77,7 @@ function ImageGallery(props) {
                             randomLayout[index] == 3 ? imageRow(value, index, 3, 2, undefined) : randomLayout[index] == 4 ?
                                 imageRow(value, index, 2, 3, 'right') : randomLayout[index] == 5 ? imageRow(value, index, 2, 3, 'left') :
                                     randomLayout[index] == 6 ? imageRow(value, index, 3, 3, undefined) : randomLayout[index] == 99 ?
-                                        imageRow(value, index, 1, 1, undefined) : null
+                                        imageRow(value, index, 1, 1, undefined) : null;
                 })}
             </View>
         </> : <></>;

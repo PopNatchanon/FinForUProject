@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import { View, Text, TouchableOpacity, TextPropTypes, ViewPropTypes, ScrollView, } from "react-native"
+import { View, Text, TouchableOpacity, ViewPropTypes, ScrollView, } from "react-native"
 ///----------------------------------------------------------------------------------------------->>>> Import
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -13,8 +13,8 @@ import styleMain from '../../style/StylesMainScreen'
 function BorderBottomTabBar(props) {
     const [selected, setSelected] = useState(0);
     return <LinearGradient colors={props.colors} start={props.start} end={props.end} style={[{
-        borderBottomColor: props.borderBottomColor, borderBottomWidth: props.noBottomColor ? 0 : 2,
-        flexDirection: 'row', justifyContent: 'space-between'
+        borderBottomColor: props.borderBottomColor, borderBottomWidth: props.noBottomColor ? 0 : 2, flexDirection: 'row',
+        justifyContent: 'space-between'
     }, props.boxInStyle,]}>
         <ScrollView horizontal>
             <View style={{ flexDirection: 'row', }}>
@@ -30,14 +30,14 @@ function BorderBottomTabBar(props) {
             </View>
         </ScrollView>
         <TouchableOpacity onPress={() => {
-            props.changeSelect ? setSelected(props.data.length + 1) : undefined; props.sendDataOut(props.data.length + 1)
+            props.changeSelect ? setSelected(props.data.length + 1) : undefined; props.sendDataOut(props.data.length + 1);
         }}>
             <View style={{ paddingHorizontal: 6 }}>
                 {props.rightIcon}
             </View>
         </TouchableOpacity>
-    </LinearGradient>
-}
+    </LinearGradient>;
+};
 BorderBottomTabBar.propTypes = {
     borderBottomColor: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     borderBottomWidth: PropTypes.number,
@@ -55,7 +55,7 @@ BorderBottomTabBar.propTypes = {
     start: PropTypes.object,
     sendDataOut: PropTypes.func,
     setSelectedOut: PropTypes.number,
-}
+};
 BorderBottomTabBar.defaultProps = {
     borderBottomColor: '#ffbf00',
     borderBottomWidth: 4,
@@ -66,5 +66,5 @@ BorderBottomTabBar.defaultProps = {
     noBottomColor: false,
     noSelectBorderBottomColor: '#284d8fff',
     start: { x: 0, y: 0 },
-}
+};
 export default BorderBottomTabBar;

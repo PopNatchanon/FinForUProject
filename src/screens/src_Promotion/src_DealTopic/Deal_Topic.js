@@ -27,7 +27,7 @@ import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../HighlightScreen';
 import { GetServices, GetCoupon, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
-import { TodayProduct, Slide,  ExitAppModule, } from '../../MainScreen';
+import { TodayProduct, Slide, ExitAppModule, } from '../../MainScreen';
 import { Store_Detail } from '../../Recommend_Store';
 import { ProductBox } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -50,10 +50,7 @@ function Deal_Topic(props) {
     const [dataService, setDataService] = useState(undefined);
     const [dataService2, setDataService2] = useState(undefined);
     const [id_category, setId_Category] = useState(undefined);
-    var dataBody2 = {
-        device: 'mobile_device',
-        id_category: id_category ?? ''
-    };
+    var dataBody2 = { device: 'mobile_device', id_category: id_category ?? '' };
     var uri = `${finip}/coupon/coupon_day_mobile`;
     var uri2 = `${finip}/highlight/exclusive_deal`;
     let getData = (value) => { setActiveGetServices(false); setDataService(value); };
@@ -95,10 +92,10 @@ function Deal_Topic(props) {
                     <AppBar {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         {dataService && dataService.banner && <Slide banner={dataService.banner} />}
-                        <View style={{ marginBottom: 10 }}></View>
+                        <View style={{ marginBottom: 10 }} />
                         {dataService2 && <Button_Bar {...props} category={dataService2.category} key='Button_Bar'
                             getUpdateIndex={(value) => getUpdateIndex(value)} />}
-                        {dataService2 && <TodayProduct {...props} key='TodayProduct' noTitle loadData={dataService2.product} />}
+                        {dataService2 && <TodayProduct {...props} key='TodayProduct' loadData={dataService2.product} noTitle />}
                     </ScrollView>
                 </View>;
             case 2:
@@ -106,7 +103,7 @@ function Deal_Topic(props) {
                     <AppBar {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
-                        <View style={{ marginBottom: 10 }}></View>
+                        <View style={{ marginBottom: 10 }} />
                         <Button_Bar />
                         {/* <Store_Detail /> */}
                     </ScrollView>
@@ -116,11 +113,9 @@ function Deal_Topic(props) {
                     <AppBar {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
-                        <View style={{ marginBottom: 10 }}></View>
+                        <View style={{ marginBottom: 10 }} />
                         <Button_Bar {...props} />
-                        {dataService ?
-                            <TodayProduct {...props} noTitle loadData={dataService} typeip prepath='mysql' /> :
-                            null}
+                        {dataService ? <TodayProduct {...props} loadData={dataService} noTitle prepath='mysql' typeip /> : null}
                     </ScrollView>
                 </View>;
             case 4:
@@ -128,7 +123,7 @@ function Deal_Topic(props) {
                     <AppBar {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
                         <Slide />
-                        <View style={{ marginBottom: 10 }}></View>
+                        <View style={{ marginBottom: 10 }} />
                         <Button_Bar />
                         {/* <Store_Detail /> */}
                     </ScrollView>
@@ -151,9 +146,7 @@ export let Deal_CuponToday = (props) => {
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const [id_promotion, setId_Promotion] = useState('');
-    var dataBody = {
-        id_customer: currentUser.id_customer, device: 'mobile_device', id_promotion,
-    };
+    var dataBody = { id_customer: currentUser.id_customer, device: 'mobile_device', id_promotion, };
     var uri = `${finip}/coupon/save_coupon_fin`;
     let getCoupon = (value) => {
         const id_promo = value.id_promotion;
@@ -200,8 +193,8 @@ export let Deal_ProductToday = (props) => {
                     if (index < 3) return <View key={index} style={[stylesMain.ItemCenter,
                     { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
                         <View style={{ height: '80%', width: '100%' }}>
-                            <FastImage style={stylesMain.BoxProduct1Image} source={{ uri: image_produxt }}
-                                resizeMode={FastImage.resizeMode.contain} />
+                            <FastImage resizeMode={FastImage.resizeMode.contain} source={{ uri: image_produxt }}
+                                style={stylesMain.BoxProduct1Image} />
                         </View>
                         <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
                             {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}

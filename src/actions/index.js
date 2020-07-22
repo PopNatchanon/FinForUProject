@@ -10,93 +10,44 @@ import {
 import { finip } from '../navigator/IpConfig';
 import { promiseConnectServices, promiseProcessData } from './api';
 //==================================================>activeFetchData
-export const setStageSetDataToEnd = () => ({
-    type: SET_DATA_TO_END,
-});
-export const setStageSetDataToRefresh = () => ({
-    type: SET_DATA_TO_REFRESH,
-});
-export const setStageSetDataToStart = (data, name, other) => ({
-    name, other, payload: data,
-    type: SET_DATA_TO_START,
-});
-export const setDataEnd = () => {
-    return (dispatch) => { dispatch(setStageSetDataToEnd()); };
-};
-export const setDataRefresh = () => {
-    return (dispatch) => { dispatch(setStageSetDataToRefresh()); };
-};
-export const setDataStart = (data, name, other) => {
-    return (dispatch) => { dispatch(setStageSetDataToStart(data, name, other)); };
-};
+const setStageSetDataToEnd = () => ({ type: SET_DATA_TO_END, });
+const setStageSetDataToRefresh = () => ({ type: SET_DATA_TO_REFRESH, });
+const setStageSetDataToStart = (data, name, other) => ({ name, other, payload: data, type: SET_DATA_TO_START, });
+export const setDataEnd = () => { return (dispatch) => { dispatch(setStageSetDataToEnd()); }; };
+export const setDataRefresh = () => { return (dispatch) => { dispatch(setStageSetDataToRefresh()); }; };
+export const setDataStart = (data, name, other) => { return (dispatch) => { dispatch(setStageSetDataToStart(data, name, other)); }; };
 //========================================>cartData
-export const setStageCartData = () => ({
-    type: CART_DATA,
-});
-export const setStageCartDataButtomDelete = () => ({
-    type: CART_DATA_BUTTOM_DELETE,
-});
-export const setStageCartDataCheck = (id_cartdetail, id_store) => ({
-    id_cartdetail, id_store,
-    type: CART_DATA_CHECK,
-});
-export const setStageCartDataCheckAll = (data) => ({
-    payload: data,
-    type: CART_DATA_CHECK_ALL,
-});
-export const setStageCartDataCheckStore = (id_store) => ({
-    id_store,
-    type: CART_DATA_CHECK_STORE,
-});
-export const setStageCartDataCheckCoupon = (data) => ({
-    payload: data,
-    type: CART_DATA_CHECK_COUPON,
-});
-export const setStageCartDataCoupon = (data, other) => ({
-    other, payload: data,
-    type: CART_DATA_COUPON,
-});
-export const setStageCartDataDelete = () => ({
-    type: CART_DATA_DELETE,
-});
-export const setStageCartDataEnd = (data) => ({
-    payload: data,
-    type: CART_DATA_END,
-});
-export const setStageCartDataError = () => ({
-    type: CART_DATA_ERROR,
-});
-export const setStageCartDataResult = (data) => ({
-    payload: data,
-    type: CART_DATA_RESULT,
-});
-export const setStageCartDataStart = () => ({
-    type: CART_DATA_START,
-});
-export const setStageCartDataUpdate = (data, id_cartdetail, id_store) => ({
-    id_cartdetail, id_store, payload: data,
-    type: CART_DATA_UPDATE,
-});
+const setStageCartData = () => ({ type: CART_DATA, });
+const setStageCartDataButtomDelete = () => ({ type: CART_DATA_BUTTOM_DELETE, });
+const setStageCartDataCheck = (id_cartdetail, id_store) => ({ id_cartdetail, id_store, type: CART_DATA_CHECK, });
+const setStageCartDataCheckAll = (data) => ({ payload: data, type: CART_DATA_CHECK_ALL, });
+const setStageCartDataCheckStore = (id_store) => ({ id_store, type: CART_DATA_CHECK_STORE, });
+const setStageCartDataCheckCoupon = (data) => ({ payload: data, type: CART_DATA_CHECK_COUPON, });
+const setStageCartDataCoupon = (data, other) => ({ other, payload: data, type: CART_DATA_COUPON, });
+const setStageCartDataDelete = () => ({ type: CART_DATA_DELETE, });
+const setStageCartDataEnd = (data) => ({ payload: data, type: CART_DATA_END, });
+const setStageCartDataError = () => ({ type: CART_DATA_ERROR, });
+const setStageCartDataResult = (data) => ({ payload: data, type: CART_DATA_RESULT, });
+const setStageCartDataStart = () => ({ type: CART_DATA_START, });
+const setStageCartDataUpdate = (data, id_cartdetail, id_store) => ({ id_cartdetail, id_store, payload: data, type: CART_DATA_UPDATE, });
 export const activeCartList = (props) => {
-    const { id_customer } = props
+    const { id_customer } = props;
     return async (dispatch) => {
         dispatch(setStageCartData());
         let error, rawData, processData;
         const dataBody = { id_customer: id_customer };
         const uri = `${finip}/cart/cart_mobile`;
-        console.log('---------------------------------------------------------Get Cart')
+        console.log('---------------------------------------------------------Get Cart');
         if (id_customer) {
             console.log('Get Cart Phase 1 Start');
-            [error, rawData] = await promiseConnectServices(
-                fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(dataBody),
-                }),
-            );
+            [error, rawData] = await promiseConnectServices(fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(dataBody),
+            }));
             if (error) {
                 console.log(`'ERROR:Get Cart Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
@@ -145,40 +96,25 @@ export const activeCartList = (props) => {
                         checked: true, product: [productList]
                     });
                 } else {
-                    var subNumberList = list_store.map((value2) => value2.product).map((value3) => value3.id_cartdetail).indexOf(value.id_cartdetail);
-                    if (subNumberList == -1) {
-                        list_store[numberList].product.push(productList);
-                    };
+                    var subNumberList = list_store.map((value2) => value2.product).map((value3) => value3.id_cartdetail)
+                        .indexOf(value.id_cartdetail);
+                    if (subNumberList == -1) { list_store[numberList].product.push(productList); };
                 };
             });
             console.log('=========================?>list_store');
             console.log(list_store);
             dispatch(setStageCartDataEnd(list_store));
-        }
+        };
     };
 };
-export const cartListButtomDelete = () => {
-    return (dispatch) => {
-        dispatch(setStageCartDataButtomDelete());
-    }
-}
+export const cartListButtomDelete = () => { return (dispatch) => { dispatch(setStageCartDataButtomDelete()); }; };
 export const cartListChecked = (id_cartdetail, id_store) => {
-    return (dispatch) => {
-        dispatch(setStageCartDataCheck(id_cartdetail, id_store));
-    }
-}
-export const cartListCheckedAll = (data) => {
-    return (dispatch) => {
-        dispatch(setStageCartDataCheckAll(data));
-    }
-}
-export const cartListCheckedStore = (id_store) => {
-    return (dispatch) => {
-        dispatch(setStageCartDataCheckStore(id_store));
-    }
-}
+    return (dispatch) => { dispatch(setStageCartDataCheck(id_cartdetail, id_store)); };
+};
+export const cartListCheckedAll = (data) => { return (dispatch) => { dispatch(setStageCartDataCheckAll(data)); }; };
+export const cartListCheckedStore = (id_store) => { return (dispatch) => { dispatch(setStageCartDataCheckStore(id_store)); }; };
 export const cartListCheckCoupon = (props) => {
-    const { cokie, list_order, id_coupon, id_customer, text_coupon } = props;
+    const { cokie, list_order, id_customer, } = props;
     return async (dispatch) => {
         let error, rawData, processData;
         const uri = `${finip}/cart/check_coupon`;
@@ -186,20 +122,18 @@ export const cartListCheckCoupon = (props) => {
             id_customer: id_customer,
             list_order: list_order
         };
-        console.log('---------------------------------------------------------Check Coupon')
+        console.log('---------------------------------------------------------Check Coupon');
         if (id_customer) {
             console.log('Check Coupon Phase 1 Start');
-            [error, rawData] = await promiseConnectServices(
-                fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: cokie
-                    },
-                    body: JSON.stringify(dataBody),
-                }),
-            );
+            [error, rawData] = await promiseConnectServices(fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: cokie
+                },
+                body: JSON.stringify(dataBody),
+            }));
             if (error) {
                 console.log(`'ERROR:Check Coupon Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
@@ -214,7 +148,7 @@ export const cartListCheckCoupon = (props) => {
                 console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Check Coupon Phase 1 Complete Connect To Server');
@@ -225,7 +159,7 @@ export const cartListCheckCoupon = (props) => {
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             if (processData === undefined || processData == '404') {
@@ -233,17 +167,17 @@ export const cartListCheckCoupon = (props) => {
                 processData == '404' ? console.log(processData) : console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Complete Converting To JSON');
             console.log(processData.coupon_data);
             dispatch(setStageCartDataCheckCoupon(processData.coupon_data))
-        }
-    }
-}
+        };
+    };
+};
 export const cartListDelete = (props) => {
-    const { cokie, list_order, id_customer } = props
+    const { cokie, list_order, id_customer } = props;
     return async (dispatch) => {
         let error, rawData, processData;
         const dataBody = {
@@ -251,26 +185,24 @@ export const cartListDelete = (props) => {
             list_order: list_order,
         };
         const uri = `${finip}/cart/delete_cart`;
-        console.log('---------------------------------------------------------Delete')
+        console.log('---------------------------------------------------------Delete');
         if (id_customer) {
             console.log('Delete Phase 1 Start');
-            [error, rawData] = await promiseConnectServices(
-                fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: cokie
-                    },
-                    body: JSON.stringify(dataBody),
-                }),
-            );
+            [error, rawData] = await promiseConnectServices(fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: cokie
+                },
+                body: JSON.stringify(dataBody),
+            }));
             if (error) {
                 console.log(`'ERROR:Delete Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 if (error == 'TypeError: Network request failed') error = 'Network request failed';
                 dispatch(setStageCartDataError());
             };
@@ -279,7 +211,7 @@ export const cartListDelete = (props) => {
                 console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Delete Phase 1 Complete Connect To Server');
@@ -290,7 +222,7 @@ export const cartListDelete = (props) => {
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             if (processData === undefined || processData == '404') {
@@ -298,18 +230,18 @@ export const cartListDelete = (props) => {
                 processData == '404' ? console.log(processData) : console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Complete Converting To JSON');
             console.log(processData);
-        }
+        };
         dispatch(setStageCartDataDelete());
         dispatch(activeCartList({ id_customer }));
-    }
-}
+    };
+};
 export const cartListResult = (props) => {
-    const { cokie, list_order, id_coupon, id_customer, text_coupon } = props
+    const { cokie, list_order, id_coupon, id_customer, text_coupon } = props;
     return async (dispatch) => {
         let error, rawData, processData;
         const dataBody = {
@@ -322,23 +254,21 @@ export const cartListResult = (props) => {
         console.log('---------------------------------------------------------Result');
         if (id_customer) {
             console.log('Result Phase 1 Start');
-            [error, rawData] = await promiseConnectServices(
-                fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: cokie
-                    },
-                    body: JSON.stringify(dataBody),
-                }),
-            );
+            [error, rawData] = await promiseConnectServices(fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: cokie
+                },
+                body: JSON.stringify(dataBody),
+            }));
             if (error) {
                 console.log(`'ERROR:Result Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 if (error == 'TypeError: Network request failed') error = 'Network request failed';
                 dispatch(setStageCartDataError());
             };
@@ -347,7 +277,7 @@ export const cartListResult = (props) => {
                 console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Result Phase 1 Complete Connect To Server');
@@ -358,7 +288,7 @@ export const cartListResult = (props) => {
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             if (processData === undefined || processData == '404') {
@@ -366,7 +296,7 @@ export const cartListResult = (props) => {
                 processData == '404' ? console.log(processData) : console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             } else {
                 console.log('Complete Converting To JSON');
@@ -374,15 +304,15 @@ export const cartListResult = (props) => {
                 dispatch(setStageCartDataResult(processData));
                 dispatch(cartListCheckCoupon(props));
             };
-        }
-    }
-}
+        };
+    };
+};
 export const cartListSelectCoupon = (props) => {
     const { coupon, other } = props;
-    return async (dispatch) => { dispatch(setStageCartDataCoupon(coupon, other)) }
-}
+    return async (dispatch) => { dispatch(setStageCartDataCoupon(coupon, other)); };
+};
 export const cartListUpdate = (props) => {
-    const { amount, cokie, list_order, id_cartdetail, id_customer, id_store } = props
+    const { amount, cokie, list_order, id_cartdetail, id_customer, id_store } = props;
     return async (dispatch) => {
         let error, rawData, processData;
         const dataBody = {
@@ -392,27 +322,25 @@ export const cartListUpdate = (props) => {
             id_customer: id_customer,
         };
         const uri = `${finip}/cart/auto_save_ajax`;
-        console.log('---------------------------------------------------------Update')
+        console.log('---------------------------------------------------------Update');
         if (id_customer) {
             dispatch(setStageCartDataUpdate(amount, id_cartdetail, id_store));
             console.log('Update Phase 1 Start');
-            [error, rawData] = await promiseConnectServices(
-                fetch(uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        Authorization: cokie
-                    },
-                    body: JSON.stringify(dataBody),
-                }),
-            );
+            [error, rawData] = await promiseConnectServices(fetch(uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: cokie
+                },
+                body: JSON.stringify(dataBody),
+            }));
             if (error) {
                 console.log(`'ERROR:Update Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 if (error == 'TypeError: Network request failed') error = 'Network request failed';
                 dispatch(setStageCartDataError());
             };
@@ -421,7 +349,7 @@ export const cartListUpdate = (props) => {
                 console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Update Phase 1 Complete Connect To Server');
@@ -432,7 +360,7 @@ export const cartListUpdate = (props) => {
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             if (processData === undefined || processData == '404') {
@@ -440,90 +368,63 @@ export const cartListUpdate = (props) => {
                 processData == '404' ? console.log(processData) : console.log('No Data!');
                 console.log(uri);
                 dataBody && console.log(dataBody);
-                console.log(`Authorization => ${cokie}`)
+                console.log(`Authorization => ${cokie}`);
                 dispatch(setStageCartDataError());
             };
             console.log('Complete Converting To JSON');
             console.log(processData);
             dispatch(setStageCartDataResult(processData));
             dispatch(cartListCheckCoupon(props));
-        }
-    }
-}
+        };
+    };
+};
 //==================================================>customerData
-export const setStageCustomerData = () => ({
-    type: COSTOMER_DATA,
-});
-export const setStageCustomerDataFailure = () => ({
-    type: COSTOMER_DATA_FAILURE,
-});
-export const setStageCustomerDataSuccess = () => ({
-    type: COSTOMER_DATA_SUCCESS,
-});
-export const setStageCustomerNotLogin = () => ({
-    type: COSTOMER_NOT_LOGIN,
-});
+const setStageCustomerData = () => ({ type: COSTOMER_DATA, });
+const setStageCustomerDataFailure = () => ({ type: COSTOMER_DATA_FAILURE, });
+const setStageCustomerDataSuccess = () => ({ type: COSTOMER_DATA_SUCCESS, });
+const setStageCustomerNotLogin = () => ({ type: COSTOMER_NOT_LOGIN, });
 export const checkCustomer = () => {
     SplashScreen.hide();
     let error, result, dataCokie, dataCustomer, dataProcessCustomer;
     return async (dispatch) => {
         dispatch(setStageCustomerData());
         [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
-        if (error) {
-            dispatch(setStageCustomerDataFailure());
-        }
+        if (error) { dispatch(setStageCustomerDataFailure()); };
         console.log('checkCustomer')
         console.log(result)
         const currentUser = result[0][1];
         const autoLogin = result[1][1];
-        if (autoLogin == undefined && currentUser) {
-            dispatch(setStageCustomerDataFailure());
-        }
-        console.log('currentUser')
-        console.log(currentUser)
-        console.log('autoLogin')
-        console.log(autoLogin)
+        if (autoLogin == undefined && currentUser) { dispatch(setStageCustomerDataFailure()); };
+        console.log('currentUser');
+        console.log(currentUser);
+        console.log('autoLogin');
+        console.log(autoLogin);
         if (currentUser && autoLogin) {
-            [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
-            console.log('dataCokie')
-            console.log(dataCokie)
-            console.log('error')
-            console.log(error)
+            [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`));
+            console.log('dataCokie');
+            console.log(dataCokie);
+            console.log('error');
+            console.log(error);
             if (error) {
-                console.log(error)
-                getCokie && (value.keycokie = undefined)
+                console.log(error);
+                getCokie && (value.keycokie = undefined);
                 getUser && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             }
             if (dataCokie === undefined) {
                 console.log(`dataCokie`);
-                getCokie && (value.keycokie = undefined)
+                getCokie && (value.keycokie = undefined);
                 getUser && (value.currentUser = undefined);
                 dispatch(setStageCustomerDataFailure());
             };
-        } else {
-            dispatch(setStageCustomerNotLogin());
-        }
+        } else { dispatch(setStageCustomerNotLogin()); };
     };
-}
+};
 //==================================================>singleFetchDataFromService
-export const setStageToFetching = (name) => ({
-    name,
-    type: FETCH_DATA,
-});
-export const setStageToFailure = (name) => ({
-    name,
-    type: FETCH_DATA_FAILURE,
-});
-export const setStageToStart = (name) => ({
-    name,
-    type: FETCH_DATA_START,
-});
-export const setStageToSuccess = (data, name) => ({
-    name,
-    payload: data,
-    type: FETCH_DATA_SUCCESS,
-});
+const setStageToFetching = (name) => ({ name, type: FETCH_DATA, });
+const setStageToFailure = (name) => ({ name, type: FETCH_DATA_FAILURE, });
+const setStageToStart = (name) => ({ name, type: FETCH_DATA_START, });
+const setStageToSuccess = (data, name) => ({ name, payload: data, type: FETCH_DATA_SUCCESS, });
 export const fetchData = (props) => {
     const {
         Authorization, dataBody, name, nojson, uri, showConsole,
@@ -531,9 +432,7 @@ export const fetchData = (props) => {
     console.log(uri)
     if (showConsole) {
         console.log(showConsole);
-        Authorization && (
-            console.log(`Authorization => ${Authorization}`)
-        );
+        Authorization && console.log(`Authorization => ${Authorization}`);
         console.log(`uri => ${uri}`);
         console.log(`dataBody`);
         console.log(dataBody);
@@ -541,17 +440,15 @@ export const fetchData = (props) => {
     let error, rawData, processData;
     return async (dispatch) => {
         dispatch(setStageToFetching(name));
-        [error, rawData] = await promiseConnectServices(
-            fetch(uri, {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json',
-                    'Authorization': Authorization,
-                },
-                body: JSON.stringify(dataBody),
-            }), nojson
-        );
+        [error, rawData] = await promiseConnectServices(fetch(uri, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Authorization': Authorization,
+            },
+            body: JSON.stringify(dataBody),
+        }), nojson);
         if (error) {
             console.log(`'ERROR:Phase 1`);
             console.log(`ERROR:FETCH => ${error}`);
@@ -567,8 +464,7 @@ export const fetchData = (props) => {
             dataBody && console.log(dataBody);
             dispatch(setStageToFailure(name));
         };
-        showConsole &&
-            console.log('Complete Connect To Server');
+        showConsole && console.log('Complete Connect To Server');
         [error, processData] = await promiseProcessData(rawData);
         if (error) {
             console.log(`ERROR:Phase 2`);
@@ -599,24 +495,22 @@ export const multiFetchData = (props) => {
             // multiProcessData[value.name] = {};
             dispatch(setStageToFetching(value.name));
             let error, rawData, processData;
-            [error, rawData] = await promiseConnectServices(
-                fetch(value.uri, {
-                    method: 'POST',
-                    headers: {
-                        'Accept': 'application/json',
-                        'Content-Type': 'application/json',
-                        'Authorization': value.Authorization,
-                    },
-                    body: JSON.stringify(value.dataBody),
-                }), value.nojson
-            );
+            [error, rawData] = await promiseConnectServices(fetch(value.uri, {
+                method: 'POST',
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Authorization': value.Authorization,
+                },
+                body: JSON.stringify(value.dataBody),
+            }), value.nojson);
             if (error) {
                 console.log(`'ERROR:Phase 1`);
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(value.uri);
                 value.dataBody && console.log(value.dataBody);
                 if (error == 'TypeError: Network request failed') error = 'Network request failed';
-                // multiProcessData[value.name].error = error
+                // multiProcessData[value.name].error = error;
                 dispatch(setStageToFailure(value.name));
             };
             if (rawData === undefined) {
@@ -624,18 +518,17 @@ export const multiFetchData = (props) => {
                 console.log('No Data!');
                 console.log(value.uri);
                 value.dataBody && console.log(value.dataBody);
-                // multiProcessData[value.name].error = 'No Data'
+                // multiProcessData[value.name].error = 'No Data';
                 dispatch(setStageToFailure(value.name));
             };
-            value.showConsole &&
-                console.log('Complete Connect To Server');
+            value.showConsole && console.log('Complete Connect To Server');
             [error, processData] = await promiseProcessData(rawData);
             if (error) {
                 console.log(`ERROR:Phase 2`);
                 console.log(`ERROR:FETCH => ${error}`);
                 console.log(value.uri);
                 value.dataBody && console.log(value.dataBody);
-                // multiProcessData[value.name].error = error
+                // multiProcessData[value.name].error = error;
                 dispatch(setStageToFailure(value.name));
             };
             if (processData === undefined || processData == '404') {
@@ -643,20 +536,16 @@ export const multiFetchData = (props) => {
                 processData == '404' ? console.log(processData) : console.log('No Data!');
                 console.log(value.uri);
                 value.dataBody && console.log(value.dataBody);
-                // multiProcessData[value.name].error = processData == '404' ? processData : 'Error converting to Json.'
+                // multiProcessData[value.name].error = processData == '404' ? processData : 'Error converting to Json.';
                 dispatch(setStageToFailure(value.name));
             };
             if (value.showConsole) {
                 console.log('Complete Converting To JSON');
                 console.log(processData);
             };
-            dispatch(setStageToSuccess(processData, value.name))
-        })
-    }
-}
-export const setDataFetch = ({ name, data }) => {
-    return (dispatch) => { dispatch(setStageToSuccess(data, name)); };
-}
-export const setFetchToStart = ({ name, }) => {
-    return (dispatch) => { dispatch(setStageToStart(name)); };
+            dispatch(setStageToSuccess(processData, value.name));
+        });
+    };
 };
+export const setDataFetch = ({ name, data }) => { return (dispatch) => { dispatch(setStageToSuccess(data, name)); }; };
+export const setFetchToStart = ({ name, }) => { return (dispatch) => { dispatch(setStageToStart(name)); }; };

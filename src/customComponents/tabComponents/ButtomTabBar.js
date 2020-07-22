@@ -13,7 +13,7 @@ import styleMain from '../../style/StylesMainScreen'
 function ButtomTabBar(props) {
     const [selected, setSelected] = useState(0);
     return props.data.map((value, index) => <TouchableOpacity key={index} onPress={() => {
-        props.changeSelect ? setSelected(index) : undefined; props.sendDataOut(index)
+        props.changeSelect ? setSelected(index) : undefined; props.sendDataOut(index);
     }} style={[{
         borderColor: props.borderColor, borderRadius: props.borderRadius, borderWidth: props.borderWidth, margin: props.margin,
         overflow: 'hidden'
@@ -35,8 +35,8 @@ function ButtomTabBar(props) {
                     color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors
                 }]}>{value.name}</Text>
             </View>}
-    </TouchableOpacity>)
-}
+    </TouchableOpacity>);
+};
 ButtomTabBar.propTypes = {
     backgroundColor: PropTypes.string,
     borderColor: PropTypes.string,
@@ -60,7 +60,7 @@ ButtomTabBar.propTypes = {
     setHeightBox: PropTypes.number,
     setSelectedOut: PropTypes.number,
     setWidthBox: PropTypes.number,
-}
+};
 ButtomTabBar.defaultProps = {
     backgroundColor: '#123456',
     borderColor: '#FFAC33',
@@ -78,5 +78,5 @@ ButtomTabBar.defaultProps = {
     start: { x: 0, y: 0 },
     setHeightBox: 40,
     setWidthBox: 100,
-}
+};
 export default ButtomTabBar;

@@ -49,17 +49,17 @@ function CoinScreen(props) {
     }, [!activeGetCurrentUser && activeDataService && cokie]);
     return <SafeAreaView style={stylesMain.SafeAreaView}>
         {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-        <AppBar {...props} titleHead={'FIN COINS'} backArrow searchBar chatBar />
+        <AppBar {...props} backArrow chatBar searchBar titleHead={'FIN COINS'} />
         <ScrollView>
             <Slide dataService={dataService?.banner} />
             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 100, marginVertical: 3 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN COIN</Text>
             </View>
-            <CoinCollect currentUser={currentUser} cokie={cokie} />
+            <CoinCollect cokie={cokie} currentUser={currentUser} />
             <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', width: 160, marginVertical: 3 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN</Text>
             </View>
-            <TodayProduct {...props} noTitle loadData={dataService?.product_pro_coin} />
+            <TodayProduct {...props} loadData={dataService?.product_pro_coin} noTitle />
         </ScrollView>
         <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
             <Button_Bar {...props} />
@@ -82,7 +82,7 @@ export let CoinCollect = (props) => {
         id_promotion_voucher: id_promotion ?? ''
     };
     let getData = (value) => { setActiveGetServices(false); setDataService(value); };
-    let getPathlist = (value) => { setPathlist(value.selectedIndex); };
+    let getPathlist = (value) => setPathlist(value.selectedIndex);
     let getVoucher = (value) => { setActiveGetServices(true); setId_promotion(value); };
     useEffect(() => {
         activeGetServices && currentUser && cokie &&
@@ -95,8 +95,8 @@ export let CoinCollect = (props) => {
                 <View style={stylesProfile.CoinCollectBox}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { marginTop: 10, marginLeft: 20, }]}>FIN COIN</Text>
                     <View style={stylesMain.ItemCenter}>
-                        <NumberFormat value={dataService?.coin} displayType={'text'} thousandSeparator={true} renderText={value =>
-                            <Text style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>{value}</Text>} />
+                        <NumberFormat displayType={'text'} thousandSeparator={true} renderText={value => <Text
+                            style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>{value}</Text>} value={dataService?.coin} />
                     </View>
                 </View>
             </View>

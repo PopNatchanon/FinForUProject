@@ -1,6 +1,5 @@
-import { StyleSheet, Dimensions } from 'react-native';
-import { normalize } from './stylesFont';
-export const { width, height } = Dimensions.get('window');
+import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
+const { width, height } = Dimensions.get('window');
 
 export const mainColor = '#001666'
 export const appBarColor = '#0A3350'
@@ -27,6 +26,15 @@ export let color_up = value => {
     }
   }
   return text
+}
+export function normalize(size) {
+  const scale = width / 320;
+  const newSize = size * scale
+  if (Platform.OS === 'ios') {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize))
+  } else {
+    return Math.round(PixelRatio.roundToNearestPixel(newSize)) - 2
+  }
 }
 export default StyleSheet.create({
   ///***------------------------------------------------------------------------------------------------------***///
@@ -140,9 +148,9 @@ export default StyleSheet.create({
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 1,
-    paddingBottom: 8,
-    paddingLeft: 4,
-    paddingRight: 4,
+    paddingBottom: 3,
+    paddingLeft: 3,
+    paddingRight: 3,
   },
   BoxProduct2BoxProduct: {
     width: '110%',
@@ -151,7 +159,7 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   BoxProduct2Box: {
-    width: 155 * (width / 480),
+    width: normalize(158.4),
     backgroundColor: '#FFFFFF',
     borderColor: '#ECECEC',
     borderWidth: 0.5,

@@ -1,15 +1,13 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useEffect, useState, } from 'react';
+import React, { useEffect, useState, } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
-import { connect, useStore } from 'react-redux';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import AsyncStorage from '@react-native-community/async-storage'
-import CookieManager from '@react-native-community/cookies';
-import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -20,9 +18,9 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule } from '../MainScreen';
-import { TabBar, GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import { AppBar, GetFetch, NavigationNavigate, } from '../../customComponents';
+import { ExitAppModule } from '../MainScreen';
+import { GetData, GetServices, LoadingScreen, TabBar, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -52,14 +50,14 @@ function Total_Order(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_bar
 export let Button_bar = (props) => {
-    const { currentUser, cokie, setLoading, setFSelectedIndex } = props;
+    const { currentUser, cokie, setFSelectedIndex, setLoading, } = props;
     const [activeSelectedIndex, setActiveSelectedIndex] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const [selectedIndex, setSelectedIndex] = useState(undefined);
     const item = [{ name: 'ทั้งหมด' }, { name: 'ที่ต้องชำระ' }, { name: 'ที่ต้องได้รับ' }, { name: 'สำเร็จแล้ว' }, { name: 'ยกเลิก' }];
     var uri = `${finip}/purchase_data/view_purchase`;
     var dataBody = {
-        id_customer: currentUser && currentUser.id_customer,
+        id_customer: currentUser?.id_customer,
         type_purchase: selectedIndex == 0 ? "all" : selectedIndex == 1 ? 'wait' : selectedIndex == 2 ? 'paid' :
             selectedIndex == 3 ? 'accepted' : selectedIndex == 4 ? 'cancel' : 'all',
         device: "mobile_device",
@@ -70,97 +68,86 @@ export let Button_bar = (props) => {
     let PathList = () => {
         switch (selectedIndex) {
             case 0:
-                activeSelectedIndex && currentUser && cokie && selectedIndex == 0 && GetServices({
-                    uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+                activeSelectedIndex && cokie && currentUser && selectedIndex == 0 && GetFetch({
+                    Authorization: cokie, dataBody, getDataSource: value => getData(value), showConsole: 'view_purchase', uriPointer: uri,
                 });
                 return <>
                     {!activeSelectedIndex && selectedIndex == 0 && <>
                         <Text key={'all'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>
                             รายการคำสั่งซื้อ</Text>
-                        {dataService && dataService.purchase.length > 0 ?
-                            dataService.purchase.map((value, index) => {
-                                return <From_Order_Box {...props} dataService={value} key={index} />
-                            }) :
+                        {dataService?.purchase?.length > 0 ?
+                            dataService.purchase.map((value, index) => <From_Order_Box {...props} dataService={value} key={index} />) :
                             <View style={[stylesProfileTopic.products_pro]}>
-                                <IconFeather name='edit' size={50} color='#000000' />
+                                <IconFeather color='#000000' name='edit' size={50} />
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                     ยังไม่มีคำสั่งซื้อ</Text>
                             </View>}
                     </>}
                 </>;
             case 1:
-                activeSelectedIndex && currentUser && cokie && selectedIndex == 1 && GetServices({
-                    uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+                activeSelectedIndex && cokie && currentUser && selectedIndex == 1 && GetFetch({
+                    Authorization: cokie, dataBody, getDataSource: value => getData(value), showConsole: 'view_purchase', uriPointer: uri,
                 });
                 return <>
                     {!activeSelectedIndex && selectedIndex == 1 && <>
                         <Text key={'wait'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>
                             ที่ต้องชำระ</Text>
-                        {dataService && dataService.purchase.length > 0 ?
-                            dataService.purchase.map((value, index) => {
-                                return <From_Order_Box {...props} dataService={value} key={index} />
-                            }) :
+                        {dataService?.purchase?.length > 0 ?
+                            dataService.purchase.map((value, index) => <From_Order_Box {...props} dataService={value} key={index} />) :
                             <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                <IconFeather name='edit' size={50} color='#000000' />
+                                <IconFeather color='#000000' name='edit' size={50} />
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                     ยังไม่มีคำสั่งซื้อ</Text>
                             </View>}
                     </>}
                 </>;
             case 2:
-                activeSelectedIndex && currentUser && cokie && selectedIndex == 2 && GetServices({
-                    uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+                activeSelectedIndex && cokie && currentUser && selectedIndex == 2 && GetFetch({
+                    Authorization: cokie, dataBody, getDataSource: value => getData(value), showConsole: 'view_purchase', uriPointer: uri,
                 });
                 return <>
                     {!activeSelectedIndex && selectedIndex == 2 && <>
                         <Text key={'paid'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>
                             ที่ต้องได้รับ</Text>
-                        {dataService && dataService.purchase.length > 0 ?
-                            dataService.purchase.map((value, index) => {
-                                return <From_Order_Box {...props} dataService={value} key={index} />
-                            }) :
+                        {dataService?.purchase?.length > 0 ?
+                            dataService.purchase.map((value, index) => <From_Order_Box {...props} dataService={value} key={index} />) :
                             <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                <IconFeather name='edit' size={50} color='#000000' />
+                                <IconFeather color='#000000' name='edit' size={50} />
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                     ยังไม่มีคำสั่งซื้อ</Text>
                             </View>}
                     </>}
                 </>;
             case 3:
-                activeSelectedIndex && currentUser && cokie && selectedIndex == 3 && GetServices({
-                    uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+                activeSelectedIndex && cokie && currentUser && selectedIndex == 3 && GetFetch({
+                    Authorization: cokie, dataBody, getDataSource: value => getData(value), showConsole: 'view_purchase', uriPointer: uri,
                 });
                 return <>
                     {!activeSelectedIndex && selectedIndex == 3 && <>
                         <Text key={'accepted'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5,
                         { marginLeft: 10, marginTop: 10, }]}>สำเร็จแล้ว</Text>
-                        {dataService && dataService.purchase.length > 0 ?
-                            dataService.purchase.map((value, index) => {
-                                return <From_Order_Box {...props} dataService={value} key={index} />
-                            }) :
+                        {dataService?.purchase?.length > 0 ?
+                            dataService.purchase.map((value, index) => <From_Order_Box {...props} dataService={value} key={index} />) :
                             <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                <IconFeather name='edit' size={50} color='#000000' />
+                                <IconFeather color='#000000' name='edit' size={50} />
                                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
                                     ยังไม่มีคำสั่งซื้อ</Text>
                             </View>}
                     </>}
                 </>;
             case 4:
-                activeSelectedIndex && currentUser && cokie && selectedIndex == 4 && GetServices({
-                    uriPointer: uri, Authorization: cokie, showConsole: 'view_purchase', dataBody, getDataSource: value => getData(value),
+                activeSelectedIndex && cokie && currentUser && selectedIndex == 4 && GetFetch({
+                    Authorization: cokie, dataBody, getDataSource: value => getData(value), showConsole: 'view_purchase', uriPointer: uri,
                 });
                 return <>
                     {!activeSelectedIndex && selectedIndex == 4 && <>
                         <Text key={'cancel'} style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 10, marginTop: 10, }]}>
                             ยกเลิกสินค้า</Text>
-                        {dataService && dataService.purchase.length > 0 ?
-                            dataService.purchase.map((value, index) => {
-                                return <From_Order_Box {...props} dataService={value} key={index} />
-                            }) :
+                        {dataService?.purchase?.length > 0 ?
+                            dataService.purchase.map((value, index) => <From_Order_Box {...props} dataService={value} key={index} />) :
                             <View style={[stylesProfileTopic.products_pro, { height: height * 0.5 }]}>
-                                <IconFeather name='edit' size={50} color='#000000' />
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>
-                                    ยังไม่มีคำสั่งซื้อ</Text>
+                                <IconFeather color='#000000' name='edit' size={50} />
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#A2A2A2' }]}>ยังไม่มีคำสั่งซื้อ</Text>
                             </View>}
                     </>}
                 </>;
@@ -169,8 +156,8 @@ export let Button_bar = (props) => {
     return <>
         <View style={stylesProfileTopic.Button_bar}>
             <ScrollView horizontal>
-                <TabBar sendData={value => updateIndex(value)} item={item} SetValue={selectedIndex >= 0 ?
-                    selectedIndex : setFSelectedIndex} activeColor={'#fff'} activeFontColor={mainColor} type='tag' />
+                <TabBar activeColor={'#fff'} activeFontColor={mainColor} item={item} sendData={value => updateIndex(value)}
+                    SetValue={selectedIndex >= 0 ? selectedIndex : setFSelectedIndex} type='tag' />
             </ScrollView>
         </View>
         <ScrollView>
@@ -247,9 +234,9 @@ export let From_Order_Box = (props) => {
                             renderText={value => <Text>x {value}</Text>} />
                     </View>
                 </View>
-                <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                    renderText={value => <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,
-                    { color: mainColor, marginTop: 10, }]}>{value}</Text>} />
+                <NumberFormat value={dataService.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: mainColor, marginTop: 10, }]}>
+                        {value}</Text>} />
             </View>
             <View style={stylesProfileTopic.Order_Box_price}>
                 <View style={stylesProfileTopic.Order_Box_priceText}>
@@ -260,9 +247,7 @@ export let From_Order_Box = (props) => {
                 </View>
                 <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'payment_order'} onPress={() =>
-                        NavigationNavigate({
-                            goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation
-                        })}>
+                        NavigationNavigate({ goScreen: 'Customer_Order', setData: { no_invoice: dataService.invoice_no }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button,
                         { borderWidth: 1, borderColor: mainColor, backgroundColor: mainColor }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ดำเนินการชำระเงิน</Text>

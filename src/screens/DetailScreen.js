@@ -42,9 +42,7 @@ import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const getCartDataCount = (cartData) => {
   var cartDataCount = 0;
-  cartData?.map((value) => value.product.map((value2) => {
-    return cartDataCount += value2.quantity * 1;
-  }));
+  cartData?.map((value) => value.product.map((value2) => { return cartDataCount += value2.quantity * 1; }));
   return cartDataCount;
 };
 const mapStateToProps = (state) => ({
@@ -89,7 +87,7 @@ function DetailScreen(props) {
     },
     {
       nameComponent: 'Selector_Conpon',
-      renderComponent: currentUser && <Conpon dataService={dataService?.product_data} cokie={cokie} currentUser={currentUser} />
+      renderComponent: <Conpon dataService={dataService?.product_data} cokie={cokie} currentUser={currentUser} />
     },
     {
       nameComponent: 'Selector_Product',
@@ -183,8 +181,7 @@ export let Detail_Image = (props) => {
   };
   let id_product = dataService?.map((item, index) => {
     let dataMySQL;
-    item.gallery_image ?
-      dataMySQL = imageGallery(item.image_full_path, item.gallery_image) : dataMySQL = dataService;
+    item.gallery_image ? dataMySQL = imageGallery(item.image_full_path, item.gallery_image) : dataMySQL = dataService;
     // dataMySQL &&
     //   getActive  &&
     //   setShowImage(dataMySQL);
@@ -219,8 +216,9 @@ export let Detail_Data = (props) => {
   let getDataSource = value => { setActiveLike(false); setActiveService2(false); setDataService2(value); }
   let setStateLike = () => { setActiveLike(true); setActiveService2(true); };
   useEffect(() => {
-    dataService?.product_data && cokie && currentUser && id_product && activeService2 &&
-      GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getDataSource(value) });
+    dataService?.product_data && cokie && currentUser && id_product && activeService2 && GetServices({
+      uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getDataSource(value)
+    });
   }, [dataService?.product_data && cokie && currentUser && id_product && activeService2]);
   let body = () => {
     var dataBody;
@@ -239,49 +237,46 @@ export let Detail_Data = (props) => {
           },
           body: JSON.stringify(dataBody),
         }).then((response) => response.json()).then((responseJson) => {
-          for (var m = 0; m < responseJson.data_size.length; m++) {
-            newData.push(responseJson.data_size[m]);
-          };
+          for (var m = 0; m < responseJson.data_size.length; m++) { newData.push(responseJson.data_size[m]); };
         }).catch((error) => { console.error(error); });
       };
       setNewDataService(newData);
     };
-    return dataService?.product_data?.map((item, index) => {
-      return <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0, paddingBottom: 0, }]} key={index}>
-        <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
-          <View style={stylesDetail.Price_Text_Name_Box}>
-            <View style={[stylesMain.FlexRow, { paddingTop: 10, }]}>
-              <NumberFormat value={dataService.price_data} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>{value}</Text>} />
-              {/* <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
+    return dataService?.product_data?.map((item, index) => <View key={index} style={[stylesMain.FrameBackground2,
+    { marginTop: 0, borderTopWidth: 0, paddingBottom: 0, }]}>
+      <View style={[stylesDetail.Price_Box, { borderTopWidth: 0 }]}>
+        <View style={stylesDetail.Price_Text_Name_Box}>
+          <View style={[stylesMain.FlexRow, { paddingTop: 10, }]}>
+            <NumberFormat value={dataService.price_data} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+              <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>{value}</Text>} />
+            {/* <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>
                     {item.full_price ? null : ' - '}</Text>*/}
-              <NumberFormat value={item.maxvalue} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>{value}</Text>} />
-              {dataService?.show_discount !== '' && dataService?.show_discount !== undefined &&
-                <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
-                  <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>{dataService?.show_discount}</Text>
-                </View>}
-            </View>
-            <View style={stylesDetail.Price_Icon_Box}>
-              {dataService2 && <TouchableOpacity onPress={() => setStateLike()}>
-                <IconFontAwesome style={[stylesDetail.Price_Icon, { color: dataService2.message == 'like' ? '#ff0066' : '#111111' }]}
-                  name={dataService2.message == 'like' ? 'heart' : 'heart-o'} size={20} />
-              </TouchableOpacity>}
-              <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
-            </View>
+            <NumberFormat value={item.maxvalue} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+              <Text style={[stylesDetail.Price_Text_Int, stylesFont.FontFamilyBold, stylesFont.FontSize1]}>{value}</Text>} />
+            {dataService?.show_discount !== '' && dataService?.show_discount !== undefined &&
+              <View style={[stylesMain.Box_On_sale, { borderRadius: 20 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>{dataService?.show_discount}</Text>
+              </View>}
           </View>
-          <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-            {item.name}</Text>
-          <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
-            <View style={stylesDetail.Price_Text_IconBoxStar}>
-              {getStarReview && StarReview(getStarReview)}
-              <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
-              </Text>
-            </View>
+          <View style={stylesDetail.Price_Icon_Box}>
+            {dataService2 && <TouchableOpacity onPress={() => setStateLike()}>
+              <IconFontAwesome style={[stylesDetail.Price_Icon, { color: dataService2.message == 'like' ? '#ff0066' : '#111111' }]}
+                name={dataService2.message == 'like' ? 'heart' : 'heart-o'} size={20} />
+            </TouchableOpacity>}
+            <IconEntypo style={stylesDetail.Price_Icon} name='share' size={20} />
           </View>
         </View>
-      </View>;
-    });
+        <Text numberOfLines={2} style={[stylesDetail.Price_Text_Name, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
+          {item.name}</Text>
+        <View style={[stylesDetail.Price_Text_IconBox, stylesMain.BottomSpace]}>
+          <View style={stylesDetail.Price_Text_IconBoxStar}>
+            {getStarReview && StarReview(getStarReview)}
+            <Text style={[stylesDetail.Price_Text_RCM, stylesFont.FontFamilyText, stylesFont.FontSize5, { color: '#111' }]}>
+            </Text>
+          </View>
+        </View>
+      </View>
+    </View>);
   };
   return <View>
     {body()}
@@ -304,8 +299,9 @@ export let Store = (props) => {
   let getDataSource = value => { setActiveFollow(false); setActiveService2(false); setDataService2(value); };
   let setStateFollow = () => { setActiveFollow(true); setActiveService2(true); };
   useEffect(() => {
-    dataService?.product_data && cokie && currentUser && activeService2 &&
-      GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getDataSource(value) });
+    dataService?.product_data && cokie && currentUser && activeService2 && GetServices({
+      uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getDataSource(value)
+    });
   }, [dataService?.product_data && cokie && currentUser && activeService2]);
   let StoreBox = dataService?.product_data.map((item, index) => {
     var dataMySQL = `${finip}/${item.store_path}/${item.store_img}`;
@@ -431,8 +427,7 @@ export let Selector = (props) => {
     setActiveSelect3(false);
     activeCartList({ id_customer: currentUser.id_customer });
     selectorSheet.current.close();
-    buyProduct2 == 'gocart' &&
-      navigation.push('CartScreen');
+    buyProduct2 == 'gocart' && navigation.push('CartScreen');
   };
   let updateIndex = (value) => { setSelectedIndex(value.selectedIndex); setActiveSelect(true); };
   let updateIndex2 = (value) => { setSelectedIndex2(value.selectedIndex); setActiveSelect2(true); };
@@ -546,31 +541,29 @@ export let Selector = (props) => {
           </View>
           <View style={[stylesDetail.Selector_BottomSheet_BoxButtom,
           { justifyContent: buyProduct != 'null' ? 'center' : 'space-between' }]}>
-            {(buyProduct == 'addcart' || buyProduct == 'null') && currentUser && dataService2 &&
-              <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={() => itemCount > 0 ?
-                fsendDataCart('addcart', {
-                  id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                  size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
-                  id_customer: currentUser.id_customer, buy_now: "cart"
-                }) : null}>
-                <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: buyProduct == 'addcart' ? 320 : 160 }]}>
-                  <IconAntDesign name='shoppingcart' size={25} />
-                  <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>เพิ่มลงรถเข็น</Text>
-                </View>
-              </TouchableOpacity>}
-            {(buyProduct == 'gocart' || buyProduct == 'null') && currentUser && dataService2 &&
-              <TouchableOpacity activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={() => itemCount > 0 ?
-                fsendDataCart('gocart', {
-                  id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
-                  size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
-                  id_customer: currentUser.id_customer, buy_now: "cart"
-                }) : null}>
-                <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: buyProduct == 'gocart' ? 320 : 160 }]}>
-                  <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>ซื้อเลย</Text>
-                </View>
-              </TouchableOpacity>}
+            {(buyProduct == 'addcart' || buyProduct == 'null') && currentUser && dataService2 && <TouchableOpacity
+              activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={() => itemCount > 0 ? fsendDataCart('addcart', {
+                id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
+                id_customer: currentUser.id_customer, buy_now: "cart"
+              }) : null}>
+              <View style={[stylesDetail.Buy_bar_Iconshop, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
+              { width: buyProduct == 'addcart' ? 320 : 160 }]}>
+                <IconAntDesign name='shoppingcart' size={25} />
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontCenter, { marginLeft: 10 }]}>เพิ่มลงรถเข็น</Text>
+              </View>
+            </TouchableOpacity>}
+            {(buyProduct == 'gocart' || buyProduct == 'null') && currentUser && dataService2 && <TouchableOpacity
+              activeOpacity={itemCount > 0 ? 0.8 : 1} onPress={() => itemCount > 0 ? fsendDataCart('gocart', {
+                id_product: item.id_product, amount: itemCount, color_value: items[selectedIndex].name,
+                size_value: items2[selectedIndex2].name, feature_product: dataService?.feature_product,
+                id_customer: currentUser.id_customer, buy_now: "cart"
+              }) : null}>
+              <View style={[stylesDetail.Buy_bar_IconBuy, stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
+              { width: buyProduct == 'gocart' ? 320 : 160 }]}>
+                <Text style={[stylesDetail.Buy_bar_IconBuytext, stylesFont.FontFamilyText, stylesFont.FontCenter]}>ซื้อเลย</Text>
+              </View>
+            </TouchableOpacity>}
           </View>
         </View>
       </View>;
@@ -600,7 +593,7 @@ export let Selector = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Category
 export let Detail_Category = (props) => {
-  const { dataService } = props
+  const { dataService } = props;
   let id_store = dataService?.product_data.map((item, index) => <View style={[stylesMain.FrameBackground]} key={index}>
     <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ข้อมูลจำเพาะ</Text>
@@ -674,7 +667,9 @@ export let Reviews = (props) => {
   );
   let getDataSource = value => { getStarReview(value.rating_total); setActiveDataService2(false); setDataService2(value); };
   useEffect(() => {
-    activeDataService2 && dataService && dataBody && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getDataSource(value) });
+    activeDataService2 && dataService && dataBody && GetServices({
+      uriPointer: uri, dataBody, getDataSource: value => getDataSource(value)
+    });
   }, [activeDataService2 && dataService && dataBody]);
   let customerReviews = (review) => review && review != 'ยังไม่มีการรีวิว' ?
     review.map((item, index) => {
@@ -692,7 +687,8 @@ export let Reviews = (props) => {
             <View style={stylesDetail.Comment_R_Iconstar}>{StarReview(item.rating, 15)}
             </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{item.detail}</Text>
-            <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>{imagereview}
+            <View style={[stylesDetail.Comment_Image_A, stylesMain.BottomSpace]}>
+              {imagereview}
             </View>
             <Text style={[stylesDetail.Comment_text_day, stylesFont.FontFamilyText, stylesFont.FontSize8, stylesMain.BottomSpace]}>
               16-11-2019 15:56</Text>
@@ -928,8 +924,9 @@ export let Coupon_Detail_BottomSheet = (props) => {
     if (value.Status == 'Add Coupon Completed !') { get_id_promotion(value.Status); setActiveId_promotion(false); };
   };
   useEffect(() => {
-    dataBody && id_promotion && activeId_promotion &&
-      GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: (value) => getData(value) });
+    dataBody && id_promotion && activeId_promotion && GetServices({
+      uriPointer: uri, dataBody, Authorization: cokie, getDataSource: (value) => getData(value)
+    });
   }, [dataBody && id_promotion && activeId_promotion])
   return <View style={{
     width: '100%', height: 100, borderWidth: 1, backgroundColor: dataService.ticket_picked == 'ticket_picked' ? '#A9A9A9' : '#C0DBF9',

@@ -15,7 +15,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule,  } from '../MainScreen';
+import { ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
@@ -44,11 +44,11 @@ function CampaignScreen(props) {
   }, [!activeGetCurrentUser && activeDataService]);
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-    <AppBar {...props} titleHead={'แคมเปญ'} backArrow searchBar chatBar />
+    <AppBar {...props} backArrow chatBar searchBar titleHead={'แคมเปญ'} />
     <ScrollView>
-    <Slide {...props} dataService={dataService?.banner} />
+      <Slide {...props} dataService={dataService?.banner} />
       {/* <Slide {...props} banner={dataService?.banner} isOutData /> */}
-      <Campaign_tag {...props} dataService={dataService ?? undefined} currentUser={currentUser} />
+      <Campaign_tag {...props} currentUser={currentUser} dataService={dataService ?? undefined} />
     </ScrollView>
     <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
       <Button_Bar {...props} />

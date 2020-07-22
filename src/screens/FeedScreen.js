@@ -28,7 +28,7 @@ import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import {
   FeedBox, GetData, GetServices, TabBar, LoadingScreen,
 } from '../customComponents/Tools';
-import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab } from '../customComponents';
+import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -49,11 +49,8 @@ function FeedScreen(props) {
   const [selectedIndex, setSelectedIndex] = useState(0);
   useEffect(() => {
     GetData({
-      getCokie: true, getUser: true, getSource: value => {
-        setCurrentUser(value.currentUser);
-        setCokie(value.keycokie);
-        setActiveGetSource(false)
-      },
+      getCokie: true, getSource: value => { setCurrentUser(value.currentUser); setCokie(value.keycokie); setActiveGetSource(false); },
+      getUser: true,
     });
   }, [activeGetSource]);
   return (
@@ -62,21 +59,16 @@ function FeedScreen(props) {
           activeGetSource  &&
           <LoadingScreen key='LoadingScreen' />
         } */}
-      <AppBar {...props} titleHead='Feed' menuBar noBottomColor />
-      {
-        currentUser &&
-        <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
-          sendText={value => setSelectedIndex(value)} />
-      }
-      {
-        activeGetSource == false ?
-          <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
-            currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
-            selectedIndex={currentUser ? selectedIndex : 1} /> :
-          <View style={{ width, height: height * 0.768 }}>
-            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
-          </View>
-      }
+      <AppBar {...props} menuBar noBottomColor titleHead='Feed' />
+      {currentUser && <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
+        sendText={value => setSelectedIndex(value)} />}
+      {activeGetSource == false ?
+        <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
+          currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
+          selectedIndex={currentUser ? selectedIndex : 1} /> :
+        <View style={{ width, height: height * 0.768 }}>
+          <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+        </View>}
       <Toolbar {...props} />
       <ExitAppModule {...props} />
     </SafeAreaView>
@@ -105,16 +97,12 @@ export function Button_Bar(props) {
   const { activeSelectedIndex, currentUser, getActiveSelectedIndex, selectedIndex, navigation } = props;
   var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`
   var dataBody = {
-    id_customer: currentUser && currentUser.id_customer ? currentUser.id_customer : ''
+    id_customer: currentUser?.id_customer ?? ''
   };
   const [dataService, setDataService] = useState(null);
+  let getDataSource = (value) => { getActiveSelectedIndex(false); setDataService(value); };
   useEffect(() => {
-    GetServices({
-      uriPointer: uri, dataBody: (selectedIndex == 0 ? dataBody : undefined), getDataSource: value => {
-        getActiveSelectedIndex(false);
-        setDataService(value);
-      },
-    });
+    GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (value) => getDataSource(value), uriPointer: uri, });
   }, [selectedIndex]);
   return (
     <View style={{ flex: 1, height: '100%' }}>
@@ -122,8 +110,7 @@ export function Button_Bar(props) {
         selectedIndex == 3 ?
           <Feed_About {...props} /> :
           activeSelectedIndex == false ?
-            dataService && dataService.feed_follow &&
-            <Highlights {...props} dataService={dataService.feed_follow} Follow /> :
+            dataService?.feed_follow && <Highlights {...props} dataService={dataService.feed_follow} Follow /> :
             <View style={{ width, height: height * 0.8 }}>
               <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
             </View>

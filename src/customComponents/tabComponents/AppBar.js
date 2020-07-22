@@ -64,8 +64,9 @@ class AppSearchBar extends React.Component {
         const colors = [];
         if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         !cartData?.isActive && !cartData?.isRefresh && cartData.data.length == 0 && cokie && currentUser?.id_customer &&
-            activeCartList({ cokie: cokie, id_customer: currentUser?.id_customer })
-        return <LinearGradient colors={colors} end={this.props.end} start={this.props.start} style={[stylesMain.Appbar, stylesMain.FlexRow, {
+            activeCartList({ cokie: cokie, id_customer: currentUser?.id_customer });
+        return <LinearGradient colors={colors} end={this.props.end} start={this.props.start} style={[stylesMain.Appbar,
+        stylesMain.FlexRow, {
             width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
             borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
         }]}>
@@ -80,9 +81,9 @@ class AppSearchBar extends React.Component {
                     <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
                     { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
-                            <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter]}
-                                placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() => setSubmit()}
-                                onChangeText={value => this.setState({ text: value })} />
+                            <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                            stylesFont.FontCenter]} placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() =>
+                                setSubmit()} onChangeText={value => this.setState({ text: value })} />
                         </View>
                         <AIconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
                     </View>
@@ -100,12 +101,12 @@ class AppSearchBar extends React.Component {
                     </View>
                 </TouchableOpacity>}
             {<View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
-                {filterBar && <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                    onPress={null/*() => navigation.push('CartScreen')*/}>
+                {filterBar && <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
+                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
                     <AIconFeather name="filter" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {otherBar && <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                    onPress={null/*() => navigation.push('CartScreen')*/}>
+                {otherBar && <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
+                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
                     <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
                 {chatBar && <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
@@ -121,8 +122,8 @@ class AppSearchBar extends React.Component {
                     {((cartData?.isError) || cartDataCount <= 0) ?
                         <></> : <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
                             backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
-                            textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15,
-                            borderColor: AIColor, borderWidth: 1,
+                            textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15, borderColor: AIColor,
+                            borderWidth: 1,
                         }]}>{cartDataCount}</Animatable.Text>}
                     <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                 </TouchableOpacity>}
@@ -155,8 +156,8 @@ class AppNoSearchBar extends React.Component {
         const { currentUser } = this.state;
         const colors = [];
         if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
-        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar,
-        stylesMain.FlexRow, {
+        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar, stylesMain.FlexRow,
+        {
             width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1], justifyContent: 'space-between',
             borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
         }]}>
@@ -175,9 +176,8 @@ class AppNoSearchBar extends React.Component {
                         stylesMain.ItemCenterVertical]}>แชร์ไปยัง
                             <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>}
                         textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
-                        stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]}
-                        dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-                        dropdownStyle={[stylesMain.ItemCenter,
+                        stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]} dropdownTextStyle={[stylesFont.FontFamilyText,
+                        stylesFont.FontSize6]} dropdownStyle={[stylesMain.ItemCenter,
                         { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
                     </ModalDropdown>
                 </View>}
@@ -207,8 +207,8 @@ class AppNoSearchBar extends React.Component {
                 </TouchableOpacity>}
                 {postBar && <TouchableOpacity key={'postBar'} style={[stylesMain.ItemCenter, { width: 60 }]} onPress={() =>
                     getActivePost(true)}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
-                    stylesFont.FontSize4, { width: 60, marginRight: 8, }]}>โพสต์</Text>
+                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                    { width: 60, marginRight: 8, }]}>โพสต์</Text>
                 </TouchableOpacity>}
                 {saveBar && <TouchableOpacity key={'saveBar'} style={[stylesMain.ItemCenter, { width: 60 }]}>
                     <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
@@ -216,8 +216,8 @@ class AppNoSearchBar extends React.Component {
                 </TouchableOpacity>}
                 {UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
                     NavigationNavigate({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation })}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold,
-                    stylesFont.FontSize4, { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
+                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                    { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}
                 {deleteBar && this.props.cartDataList.length > 0 && <TouchableOpacity key={'deleteBar'} onPress={() =>
                     cartListButtomDelete()} style={[stylesMain.ItemCenter, { width: 60 }]}>
@@ -232,7 +232,7 @@ function AppBar(props) {
     const AnimatableAppBar = props.enableSearch ?
         Animatable.createAnimatableComponent(AppSearchBar) : Animatable.createAnimatableComponent(AppNoSearchBar);
     return <AnimatableAppBar {...props} />
-}
+};
 AppBar.propTypes = {
     AIColor: PropTypes.string,
     borderBottomColor: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -240,7 +240,7 @@ AppBar.propTypes = {
     end: PropTypes.object,
     noBottomColor: PropTypes.bool,
     start: PropTypes.object,
-}
+};
 AppBar.defaultProps = {
     AIColor: '#fff',
     borderBottomColor: '#ffbf00',
@@ -249,5 +249,5 @@ AppBar.defaultProps = {
     end: { x: 0, y: 1 },
     noBottomColor: false,
     start: { x: 0, y: 0 },
-}
+};
 export default AppBar;

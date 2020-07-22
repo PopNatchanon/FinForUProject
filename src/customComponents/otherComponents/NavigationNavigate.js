@@ -14,20 +14,12 @@ function NavigationNavigate(props) {
         goScreen, setConsole, passHome, navigation: { dispatch, goBack, popToTop, push, replace, }, setData, noPush
     } = props;
     const navigationActions = CommonActions.reset({
-        index: 0,
-        actions: [StackActions.replace({ routeName: goScreen, params: setData })],
+        index: 0, actions: [StackActions.replace({ routeName: goScreen, params: setData })],
     });
     console.log(goScreen);
     console.log(setData);
-    setConsole && (
-        console.log(setConsole.consolename),
-        console.log(setConsole.consolelog)
-    );
-    goScreen == 'goBack' ?
-        goBack() : passHome ?
-            dispatch(navigationActions) : goScreen == 'popToTop' ?
-                popToTop() : noPush ?
-                    replace(goScreen, setData) : push(goScreen, setData);
+    setConsole && (console.log(setConsole.consolename), console.log(setConsole.consolelog));
+    goScreen == 'goBack' ? goBack() : passHome ? dispatch(navigationActions) : goScreen == 'popToTop' ? popToTop() : noPush ?
+        replace(goScreen, setData) : push(goScreen, setData);
 };
-
 export default NavigationNavigate;

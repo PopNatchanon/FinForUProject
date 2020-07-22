@@ -23,22 +23,20 @@ const styles = StyleSheet.create({
     },
 });
 function Toolbar(props) {
-    const { navigation, route } = props
+    const { navigation, route } = props;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);
     let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); };
     useEffect(() => {
         // props?.customerData?.isChecked == false && props?.checkCustomer()
-        activeGetCurrentUser && GetData({ getSource: (value) => getSource(value), getUser: true })
-    }, [activeGetCurrentUser])
+        activeGetCurrentUser && GetData({ getSource: (value) => getSource(value), getUser: true });
+    }, [activeGetCurrentUser]);
     var u_name = null;
     if (currentUser != null) {
-        currentUser.name &&
-            (u_name = currentUser.name)
-    }
-    let genText = (routeSelcet, nameRoute, value) => <LinearTextGradient
-        colors={[routeSelcet == nameRoute ? '#001666' : '#111', routeSelcet == nameRoute ? '#284d8fff' : '#111']}
-        useViewFrame={true} locations={[0.2, 0.8]}
+        currentUser.name && (u_name = currentUser.name);
+    };
+    let genText = (routeSelcet, nameRoute, value) => <LinearTextGradient colors={[routeSelcet == nameRoute ? '#001666' : '#111',
+    routeSelcet == nameRoute ? '#284d8fff' : '#111']} useViewFrame={true} locations={[0.2, 0.8]}
         style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text', }}>
         {value}
     </LinearTextGradient>;
@@ -89,5 +87,4 @@ function Toolbar(props) {
             </TouchableOpacity>}
     </View>;
 };
-
 export default Toolbar;

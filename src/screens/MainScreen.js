@@ -1082,7 +1082,7 @@ export function CategoryProduct(props) {
         if (index < 2 /*getFetchData['category_mobile'].length*/) {
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
             var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
-            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color, paddingBottom: 3, }]}>
+            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
                         NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation, })}>

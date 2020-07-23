@@ -8,6 +8,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -39,11 +40,12 @@ function Installment_payScreen(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar {...props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
     <ScrollView>
-    <Slide {...props} dataService={dataService?.banner} />
+      <Slide {...props} dataService={dataService?.banner} />
       <Head_Image />
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#C4C4C4', marginLeft: -3, width: 180 }]}>
+      <LinearGradient colors={['#F5DE1E', '#F9EB77']}
+        style={{ borderBottomRightRadius: 100, marginTop: 3, width: 180 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้า 0 % 10 เดือน </Text>
-      </View>
+      </LinearGradient>
       <CategoryProduct_pay {...props} dataService={dataService?.category} />
     </ScrollView>
     <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>

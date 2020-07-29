@@ -820,13 +820,16 @@ export function RenderProduct(props) {
                                 thousandSeparator={true} suffix={'%'} renderText={value => value && <View style={[stylesMain.Box_On_sale,
                                 { borderRadius: 10 }]}>
                                     <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8,
-                                    { color: '#FFFFFF' }]}>{`-${value}`}</Text>
+                                    { color: '#FFFFFF' }]}>
+                                        {`-${value}`} </Text>
                                 </View>} />}
                     </View>
                     {item.price_discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
                         thousandSeparator={true} prefix={'฿'} renderText={value => <Text numberOfLines={1}
                             style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText,
-                            { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>{value}</Text>} />}
+                            { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>
+                            {value}
+                        </Text>} />}
                 </View>
             </View>
         </View>

@@ -53,7 +53,9 @@ export let Headbar = (props) => {
                 <View style={stylesProfile.HeadbarBox1}>
                     <View style={[stylesMain.FlexRow, { marginVertical: 15 }]}>
                         <View>
-                            <FastImage style={stylesProfile.HeadbarBoxImage} />
+                            <FastImage
+                                source={{ uri: `${ip}/MySQL/uploads/addmin/logo_a.jpg` }}
+                                style={stylesProfile.HeadbarBoxImage} />
                         </View>
                         <View style={{ marginLeft: 15, marginTop: '10%' }}>
                             <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ppooo</Text>

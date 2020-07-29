@@ -680,7 +680,7 @@ export default StyleSheet.create({
   Banner_Bar_image: {
     width: width,
     height: 'auto',
-    aspectRatio: 6
+    aspectRatio: 6.8
   },
   Product_for_you: {
     height: 320,
@@ -810,7 +810,7 @@ export default StyleSheet.create({
   Supermarket_Product: {
     width: '100%',
     backgroundColor: mainColor,
-    paddingVertical: 10
+    paddingVertical: 5
   },
   Supermarket_Store: {
     height: 'auto',
@@ -846,10 +846,11 @@ export default StyleSheet.create({
   Supermarket_Brand_Shop2: {
     borderColor: '#ECECEC',
     borderWidth: 1,
-    width: 110,
-    height: 50,
+    width: width * 0.30,
+    height: 60,
     borderRadius: 5,
-    marginLeft: 5
+    marginLeft: 5,
+    marginVertical: 5
   },
   ///------------------------------------------------------------------///ส่วน 
   Botton_PopUp_Image: {

@@ -14,6 +14,7 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import ModalDropdown from 'react-native-modal-dropdown';
 import NumberFormat from 'react-number-format';
 import DocumentPicker from 'react-native-document-picker';
+import DateTimePicker from '@react-native-community/datetimepicker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -42,11 +43,11 @@ function Setting_TopicStore(props) {
     let PathList = () => {
         switch (selectedIndex) {
             case 0:
-                return <View>
+                return <>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
                     <Notification {...props} />
                     {/* แก้ไขเอกสารการจดแจ้ง */}
-                </View>;
+                </>;
             case 1:
                 return <View>
                     <AppBar {...props} backArrow titleHead='เพิ่มบัญชีธนาคาร' saveBar />
@@ -272,11 +273,13 @@ export let Notification_From = (props) => {
     const [activeNow, setActiveNow] = useState(0);
     const [activeAvatarSource, setActiveAvatarSource] = useState(false);
     const [avatarSource, setAvatarSource] = useState([]);
-    const [date, setDate] = useState(new Date());
     const [checked, setChecked] = useState(true);
     const [dataDay, setDateDay] = useState(undefined);
     const [dataMo, setDateMo] = useState(undefined);
     const [dataYear, setDateYear] = useState(undefined);
+    const [date, setDate] = useState(new Date());
+    const [mode, setMode] = useState('date');
+    const [show, setShow] = useState(false);
     // activeNow < 2 ? this.setState({ activeNow: activeNow + 1, date: new Date('2000') }) : null;
     let UploadImageSingle = (index) => {
         const options = { includeBase64: true };
@@ -291,7 +294,17 @@ export let Notification_From = (props) => {
             setActiveAvatarSource(!activeAvatarSource); setAvatarSource(avatarSource);
         });
     };
-    // UploadImageData = () => {
+    let onChange = (event, selectedDate) => {
+        const currentDate = selectedDate || date;
+        setShow(Platform.OS === 'ios'); setDate(currentDate);
+    };
+    let showMode = currentMode => { setShow(true); setMode(currentMode); };
+    // let onChange = (event, selectedDate) => {
+    //     const currentDate = selectedDate || date;
+    //     setDate(currentDate); setShow(Platform.OS === 'ios');
+    // };
+    // let showMode = currentMode => { setMode(currentMode); setShow(true); };
+    // let showDatepicker = () => showMode('date');    // UploadImageData = () => {
     //     const { avatarSource } = this.state
     //     var uri = `${ip}/sql/uploadimage/updateimage.php`
     //     avatarSource && (
@@ -314,47 +327,44 @@ export let Notification_From = (props) => {
     //     this.getDataMo(new Date());
     //     this.getDataDay(new Date());
     // };
-    let getDataYear = () => {
-        var dates = new Date().getFullYear();
-        var box = [];
-        for (var min = 1950; min <= parseInt(dates); min = min + 1) { box.push(String(min)); };
-        setDate(new Date()); setDateYear(box);
-    };
-    let getDataMo = (itemValue) => {
-        if (itemValue != null) {
-            const item = String(itemValue);
-            var box = [];
-            for (var min = 0; min <= 11; min = min + 1) { box.push(String(min)); };
-            setDate(new Date(date).setFullYear(item)); setDateMo(box);
-        };
-    };
-    let getDataDay = (itemValue) => {
-        if (itemValue != null) {
-            const item = String(itemValue);
-            var box = [];
-            for (var min = 1; min <= 31; min = min + 1) { box.push(String(min)); };
-            setDate(new Date(date).setMonth(item)); setDateDay(box);
-        };
-    };
-    let dataYears = () => dataYear.map((item) => <Picker.Item label={item} value={item} key={item} />)
-    let dataMos = () => {
-        var months_thai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม",
-            "พฤศจิกายน", "ธันวาคม"];
-        var months_eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
-            'December'];
-        return dataMo.map((item) => <Picker.Item label={months_thai[item]} value={item} key={item} />);
-    };
-    let dataDays = () => dataDay.map((item) => <Picker.Item label={item} value={item} key={item} />);
-    dataYear == undefined && getDataYear();
-    dataMo == undefined && getDataMo(new Date());
-    dataDay == undefined && getDataDay(new Date());
-    let DataDay = dataDays();
-    let DataMo = dataMos();
-    let DataYear = dataYears();
-    var day = new Date(date).getDate();
-    var month = new Date(date).getMonth();
-    var year = new Date(date).getFullYear();
-    return <View>
+    // let getDataYear = () => {
+    //     var dates = new Date().getFullYear();
+    //     var box = [];
+    //     for (var min = 1950; min <= parseInt(dates); min = min + 1) { box.push(String(min)); };
+    //     setDate(new Date()); setDateYear(box);
+    // };
+    // let getDataMo = (itemValue) => {
+    //     if (itemValue != null) {
+    //         const item = String(itemValue);
+    //         var box = [];
+    //         for (var min = 0; min <= 11; min = min + 1) { box.push(String(min)); };
+    //         setDate(new Date(date).setFullYear(item)); setDateMo(box);
+    //     };
+    // };
+    // let getDataDay = (itemValue) => {
+    //     if (itemValue != null) {
+    //         const item = String(itemValue);
+    //         var box = [];
+    //         for (var min = 1; min <= 31; min = min + 1) { box.push(String(min)); };
+    //         setDate(new Date(date).setMonth(item)); setDateDay(box);
+    //     };
+    // };
+    // let dataYears = () => dataYear.map((item) => <Picker.Item label={item} value={item} key={item} />)
+    // let dataMos = () => {
+    //     var months_thai = ["มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม",
+    //         "พฤศจิกายน", "ธันวาคม"];
+    //     var months_eng = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November',
+    //         'December'];
+    //     return dataMo.map((item) => <Picker.Item label={months_thai[item]} value={item} key={item} />);
+    // };
+    // let dataDays = () => dataDay.map((item) => <Picker.Item label={item} value={item} key={item} />);
+    // dataYear == undefined && getDataYear();
+    // dataMo == undefined && getDataMo(new Date());
+    // dataDay == undefined && getDataDay(new Date());
+    // let DataDay = dataDays();
+    // let DataMo = dataMos();
+    // let DataYear = dataYears();
+    return <>
         <View style={stylesMain.FrameBackground}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'center', marginTop: 10 }]}>
                 {DetailHead ? DetailHead : 'หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า'} </Text>
@@ -394,7 +404,19 @@ export let Notification_From = (props) => {
                     *กรุณาอัพโหลดเอกสารที่เป็นปัจจุบัน หากไม่ทำรายการ เราจะทำการถอนการขายสินค้าของท่านบนเว็บของเรา</Text>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 10 }]}>โปรดระบุวันหมดอายุ</Text>
                 <View style={{ width: '100%', alignItems: 'center', }}>
-                    <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
+                    <View>
+                        <TouchableOpacity onPress={() => showMode('date')} style={stylesMain.ItemCenter}>
+                            <View style={[stylesMain.FlexRow, stylesMain.ItemCenter,
+                            { borderColor: '#C5C5C5', borderRadius: 5, borderWidth: 2, paddingVertical: 5, width: '100%' }]}>
+                                <IconFontAwesome color='rgb(29, 70, 204)' name='calendar' size={20} />
+                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+                                    {`${date.getDate()}-${date.getMonth() + 1}-${date.getFullYear()}`}</Text>
+                            </View>
+                        </TouchableOpacity>
+                        {show && <DateTimePicker display="spinner" is24Hour={true} mode={mode} onChange={(event, selectedDate) =>
+                            onChange(event, selectedDate)} testID="dateTimePicker" value={date} />}
+                    </View>
+                    {/* <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
                         <View style={stylesMain.FlexRow}>
                             <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
                                 <Picker selectedValue={String(day)} style={stylesMain.BoxProduct1Image}
@@ -418,11 +440,11 @@ export let Notification_From = (props) => {
                                 </Picker>
                             </View>
                         </View>
-                    </View>
+                    </View> */}
                 </View>
             </View>
         </View>
-    </View>;
+    </>;
 };
 ///------------------------------------------------------------------------------///
 export let Setting_Address_Store = (props) => {

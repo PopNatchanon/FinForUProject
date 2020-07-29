@@ -18,7 +18,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
-import ststylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
+import stylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { TodayProduct, ExitAppModule, } from '../MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
@@ -55,9 +55,8 @@ function CoinScreen(props) {
             <Slide dataService={dataService?.banner} />
             <CoinCollect currentUser={currentUser} cokie={cokie} />
             <LinearGradient colors={['#E21B1B', '#E65A5A']} style={{
-                marginVertical: 3, marginHorizontal: 5, borderBottomRightRadius: 50, width: 180, borderColor: '#C4C4C4', borderWidth: 1
-            }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN</Text>
+                marginVertical: 3, borderBottomRightRadius: 50, width: 180, borderColor: '#C4C4C4', borderWidth: 1
+            }}><Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>FIN จัดหนักรับ COIN</Text>
             </LinearGradient>
             <TodayProduct {...props} noTitle loadData={dataService?.product_pro_coin} />
         </ScrollView>
@@ -89,19 +88,21 @@ export let CoinCollect = (props) => {
             GetServices({ uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getData(value) });
     }, [activeGetServices && currentUser && cokie]);
     return <View>
-        <View style={stylesProfile.CoinCollect}>
+        <LinearGradient colors={['#CE2629', '#F84B4E', '#FCBCBD']}
+            start={{ x: 0, y: 0.5 }} end={{ x: 0.7, y: 1 }}
+            style={stylesProfile.CoinCollect}>
             <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, stylesMain.FlexRow, { width }]}>
                 <FastImage source={require('../../../icon/bitcoin2.png')} style={stylesProfile.CoinCollectImage} />
                 <View style={stylesProfile.CoinCollectBox}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { marginTop: 10, marginLeft: 20, }]}>FIN COIN</Text>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginTop: 10, marginLeft: 20, }]}>FIN COIN</Text>
                     <View style={stylesMain.ItemCenter}>
                         <NumberFormat displayType={'text'} thousandSeparator={true} renderText={value => <Text
-                            style={[stylesFont.FontSize4, stylesFont.FontFamilyBold]}>{value}</Text>} value={dataService?.coin} />
+                            style={[stylesFont.FontSize3, stylesFont.FontFamilyBold]}>{value}</Text>} value={dataService?.coin} />
                     </View>
                 </View>
             </View>
-        </View>
-        <View style={{ marginTop: 10 }}>
+        </LinearGradient>
+        <View style={{ marginVertical: 3 }}>
             <TabBar sendData={value => getPathlist(value)} inactiveBoxColor={'#fff'} inactiveColor={mainColor} type='box' item={item}
                 inactiveFontColor={mainColor} widthBox={98} fontSizeStyle={12} />
         </View>
@@ -132,12 +133,16 @@ export let CoinPageBody = (props) => {
     let DetailCoin = () => {
         var dataMySQL2 = `${finip}/${dataService.image_path}/${dataService.image}`;
         return <View style={{ height: '100%' }}>
-            <View style={{ width: '100%', height: 150, marginBottom: 8, }}>
+            <View style={{ width: '100%', height: 150, }}>
                 <FastImage style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]} source={{ uri: dataMySQL2, }}
                     resizeMode={FastImage.resizeMode.stretch} />
             </View>
             <ScrollView>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{dataService.detail}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
+                    {dataService.detail} ใครกำลังมองหาที่เที่ยวใกล้กรุงเทพ ค้างคืนได้ มาอัพเดต ทริปเที่ยว 2 วัน 1 คืน จาก 3 จังหวัดใกล้กรุงเทพ ซึ่งเป็นทริปเที่ยวยอดนิยม
+                ที่จัดง่าย ไปน้อยหรือแก๊งใหญ่ก็ได้ และบางทีเวลาเราไปเที่ยวใกล้กรุงก็อยากจะยกขบวนทั้งครอบครัวหรือว่าเดอะแก๊งค์ขนาดใหญ่ไปเที่ยวแบบค้างคืน
+                รวมถึงมีที่พักไซส์บิ๊กที่จุคนได้เยอะแถมมีกิจกรรมให้ทำได้แบบสนุกเพลินลืมเบื่อ เศร้า เหงา เซ็ง ไปเลย
+                </Text>
             </ScrollView>
             <View style={[stylesMain.FlexRow, { justifyContent: 'center', height: 40, paddingTop: 8, }]}>
                 <TouchableOpacity activeOpacity={1} onPress={() => DetailCoinSheet.current.close()}>
@@ -161,25 +166,26 @@ export let CoinPageBody = (props) => {
             </View>
         </View>;
     };
-    return <View style={stylesMain.FrameBackground}>
+    return <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 3, marginBottom: 3 }}>
         <View style={{ alignItems: 'center' }}>
             <View>
-                <BottomSheet ref={DetailCoinSheet} height={500} duration={250}
+                <BottomSheet ref={DetailCoinSheet} height={350} duration={250}
                     customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }}>
                     {DetailCoin()}
                 </BottomSheet>
-                <View style={ststylePromotionDeal.CampaignBody}>
+                <View style={stylePromotionDeal.CampaignBody}>
                     <TouchableOpacity activeOpacity={1} onPress={() => DetailCoinSheet.current.open()}>
-                        <View style={[ststylePromotionDeal.CampaignBody_BoxImage, { padding: 5 }]}>
-                            <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxProduct1Image} />
+                        <View style={[stylePromotionDeal.CampaignBody_BoxImage]}>
+                            <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct1Image, { borderRadius: 5 }]}
+                                resizeMode={FastImage.resizeMode.stretch} />
                         </View>
-                        <View style={[ststylePromotionDeal.CampaignBody_Box]}>
-                            <View style={[ststylePromotionDeal.CampaignBody_BoxText, { marginLeft: 4 }]}>
-                                <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
-                                    {dataService.detail}</Text>
-                                <Text numberOfLines={1} style={stylesFont.FontFamilyText}>วันหมดอายุ {dataService.end_period}</Text>
+                        <View style={[stylePromotionDeal.CampaignBody_Box]}>
+                            <View style={[stylePromotionDeal.CampaignBody_BoxText, { marginLeft: 4 }]}>
+                                <Text numberOfLines={2} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>
+                                    ได้รับการสนับสนุน จาก Fin Shoppinf Mall {dataService.detail}</Text>
+                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C4C4C4' }]}>วันหมดอายุ {dataService.end_period}</Text>
                             </View>
-                            <View style={[ststylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
+                            <View style={[stylePromotionDeal.CampaignBody_Icon_Button, stylesMain.ItemCenterVertical]}>
                                 <View style={[stylesProfile.CoinPageBodyBoxBody2Box, stylesMain.ItemCenter, {
                                     backgroundColor: dataService.my_coupon == 'yes' ? '#ECECEC' : dataService.my_coupon == 'no' ?
                                         mainColor : '#ECECEC'

@@ -11,7 +11,6 @@ export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import LinearGradient from 'react-native-linear-gradient';
-
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
@@ -64,11 +63,11 @@ export let Fin_sale = (props) => {
   const { dataService } = props;
   return <>
     <View style={stylesMain.FrameBackground}>
-      <LinearGradient colors={['#009A98', '#59D3D1']} style={{ width: 200, borderBottomRightRadius: 100 }}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
-      </LinearGradient>
-      <View style={stylesDeal.Fin_sale_BoxHead}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
+      <View style={stylesDeal.BoxText_Row}>
+        <LinearGradient colors={['#009A98', '#59D3D1']} style={{ borderBottomRightRadius: 100, paddingRight: 20 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>Fin จัดหนักลดสูงสุด 80 % </Text>
+        </LinearGradient>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
       </View>
       {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={1}
         mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
@@ -106,12 +105,12 @@ export let Store_Sale = (props) => {
     </View>
   </View>;
   return <View>
-    <View style={[stylesMain.FrameBackground, { marginTop: 10, }]}>
-      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 110, borderBottomRightRadius: 100 }]}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด</Text>
-      </LinearGradient>
-      <View style={stylesDeal.Fin_sale_BoxHead}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
+    <View style={[stylesMain.FrameBackground, { paddingTop: 3 }]}>
+      <View style={stylesDeal.BoxText_Row}>
+        <LinearGradient colors={['#009A98', '#59D3D1']} style={{ borderBottomRightRadius: 100, paddingRight: 20 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านนี้มีของลด</Text>
+        </LinearGradient>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
       </View>
       {Store_Sale_Box}
     </View>
@@ -121,12 +120,12 @@ export let Store_Sale = (props) => {
 export let Product_Cool = (props) => {
   const { dataService } = props;
   return <>
-    <View style={stylesMain.FrameBackground}>
-      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 150, borderBottomRightRadius: 100 }]}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
-      </LinearGradient>
-      <View style={[stylesDeal.Fin_sale_BoxHead, { marginTop: -10 }]}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ดูทั้งหมด</Text>
+    <View style={[stylesMain.FrameBackground, { paddingTop: 3 }]}>
+      <View style={stylesDeal.BoxText_Row}>
+        <LinearGradient colors={['#009A98', '#59D3D1']} style={{ borderBottomRightRadius: 100, paddingRight: 20 }}>
+          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>สินค้าราคาโคตรคูล </Text>
+        </LinearGradient>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
       </View>
       {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={2}
         mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
@@ -165,19 +164,19 @@ export let Second_Store = (props) => {
       </ScrollView>
     </View>
   </View>
-  return <View style={stylesMain.FrameBackground}>
+  return <View style={[stylesMain.FrameBackground, { paddingTop: 3 }]}>
     <View style={stylesDeal.BoxText_Row}>
-      <LinearGradient colors={['#009A98', '#59D3D1']} style={[stylesDeal.BoxText_T, { width: 150, borderBottomRightRadius: 100 }]}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={{ borderBottomRightRadius: 100, paddingRight: 20 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
       </LinearGradient>
-      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: mainColor }]}>ดูทั้งหมด</Text>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
     </View>
     {Second_StoreBody}
     <View style={stylesDeal.BoxText_Row}>
-      <View style={[stylesDeal.BoxText_T, { backgroundColor: '#E43333', marginLeft: -3, width: 140 }]}>
+      <LinearGradient colors={['#009A98', '#59D3D1']} style={{ borderBottomRightRadius: 100, paddingRight: 20 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesDeal.Text_Head]}>ร้านมือสองลดราคา </Text>
-      </View>
-      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndB, { color: mainColor }]}>ดูทั้งหมด</Text>
+      </LinearGradient>
+      <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
     </View>
     {dataService?.product_sec && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService.product_sec}
       mode='row3_new' numberOfColumn={2} nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}

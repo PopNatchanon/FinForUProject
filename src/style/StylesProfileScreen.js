@@ -262,23 +262,20 @@ export default StyleSheet.create({
         padding: 4,
     },
     CoinCollect: {
-        backgroundColor: '#11B7DC',
-        height: 110,
-        width
+        height: 100,
     },
     CoinCollectImage: {
-        width: 60,
-        height: 60,
+        width: 70,
+        height: 70,
         borderRadius: 30,
     },
     CoinCollectBox: {
         marginLeft: 40,
         borderRadius: 40,
         borderWidth: 1,
-        borderColor: mainColor,
-        width: 160,
-        height: 60,
-        backgroundColor: 'white'
+        width: 140,
+        height: 80,
+        backgroundColor: '#FFFFFF'
     },
     CoinPageBody: {
         marginTop: 10,
@@ -286,25 +283,23 @@ export default StyleSheet.create({
         height: 200,
         borderWidth: 1,
         borderColor: '#EAEAEA',
-        backgroundColor: 'white'
+        backgroundColor: '#FFFFFF'
     },
     CoinPageBodyBox: {
         width: '100%',
         height: 60,
-        backgroundColor: 'white'
+        backgroundColor: '#FFFFFF'
     },
     CoinPageBodyBoxBody1: {
         flex: 2,
         padding: 4,
         width,
         height,
-        // backgroundColor: '#456789'
     },
     CoinPageBodyBoxBody2: {
         flex: 1,
         width: '10%',
         height,
-        // backgroundColor: '#456123'
     },
     CoinPageBodyBoxBody2Box: {
         backgroundColor: mainColor,

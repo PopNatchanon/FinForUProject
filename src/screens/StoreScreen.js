@@ -137,9 +137,9 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/03.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/02.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/06.jpg`;
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:
@@ -377,23 +377,23 @@ export let Banner = (props) => {
         <View style={stylesStore.BannerBox} key={index}>
             <FastImage source={{
                 uri:
-                    // `${ip}/${item.image_path}/${item.image}`,
-                    item.image,
-            }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
+                    `${ip}/${item.image_path}/${item.image}`,
+                // item.image,
+            }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.stretch} />
         </View>;
     let getDetail = !activeGetServices ?
         dataService && dataService.map((value, index) => {
             // ส่วนทดสอบ banner
             const itemT = [
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'เพชร3.jpg' },
                 { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-2.jpg' },
-                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-4.jpg' },
-                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '2222.jpg' },
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'กระเป๋า1.jpg' },
             ];
             var image_banner_sub;
-            // image_banner_sub = itemT;
-            value.image_banner && (image_banner_sub = value.image_banner.split(';'));
-            value.image_banner && (image_banner_sub = image_banner_sub.map(
-                (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
+            image_banner_sub = itemT;
+            // value.image_banner && (image_banner_sub = value.image_banner.split(';'));
+            // value.image_banner && (image_banner_sub = image_banner_sub.map(
+            //     (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
             return <View key={index}>
                 <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                     <View>
@@ -472,27 +472,27 @@ export let TicketLine = (props) => {
 export let DealTop = (props) => {
     const { activeGetServices, H_Banner, dataService, titlename } = props;
     const dataService2 = [{
-        image_path: 'MySQL/uploads/petchchompoo', image: '1.jpg', id_product: 0,
-        last_price: '200000', name_product: 'เพชร1', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '12.jpg', id_product: 0,
+        last_price: '99,000', name_product: 'กำไลเพชรครึ่งหน้าเม็ดละ 10 ตัง', type: 'local'
     }, {
-        image_path: 'MySQL/uploads/petchchompoo', image: '2.jpg', id_product: 1,
-        last_price: '200000', name_product: 'เพชร2', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '16.jpg', id_product: 1,
+        last_price: '145,000', name_product: 'สร้อยมือเพชรรอบเม็ดละ 16 ตัง', type: 'local'
     }, {
-        image_path: 'MySQL/uploads/petchchompoo', image: '3.jpg', id_product: 2,
-        last_price: '200000', name_product: 'เพชร3', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '17.jpg', id_product: 2,
+        last_price: '129,000', name_product: 'กำไลเพชรห้าสายคั่นทองลายกิ่งไผ่', type: 'local'
     }, {
-        image_path: 'MySQL/uploads/petchchompoo', image: '4.jpg', id_product: 3,
-        last_price: '200000', name_product: 'เพชร4', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '18.jpg', id_product: 3,
+        last_price: '139,000', name_product: 'สร้อยมือมรกตฝังเพชร', type: 'local'
     }, {
-        image_path: 'MySQL/uploads/petchchompoo', image: '9.jpg', id_product: 4,
-        last_price: '200000', name_product: 'เพชร5', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '20.jpg', id_product: 4,
+        last_price: '119,000', name_product: 'สร้อยมือเพชรรอบ 2.52 กะรัต', type: 'local'
     }, {
-        image_path: 'MySQL/uploads/petchchompoo', image: '10.jpg', id_product: 5,
-        last_price: '200000', name_product: 'เพชร6', type: 'local'
+        image_path: 'MySQL/uploads/petchchompoo', image: '21.jpg', id_product: 5,
+        last_price: '359,000', name_product: 'สร้อยมือไพลินซีลอนสี TOP ฝังเพชรน้ำ 100', type: 'local'
     },]
-    return <View style={[stylesMain.FrameBackground, { paddingBottom: 5, backgroundColor: 'transparent' }]}>
+    return <View style={{ backgroundColor: 'transparent', }}>
         <FastImage
-            style={{ height: 45, width: '100%', }}
+            style={{ height: 45, width: '100%', marginVertical: 3 }}
             source={{
                 uri: H_Banner,
             }}

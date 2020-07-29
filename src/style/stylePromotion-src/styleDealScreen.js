@@ -191,12 +191,8 @@ export default StyleSheet.create({
     },
     ///--------------------------------CampaignScreen-----------------------------------------///
     CampaignBody: {
-        marginTop: 10,
-        width: width * 0.96,
-        height: 200,
-        borderWidth: 1,
-        borderColor: '#EAEAEA',
-        backgroundColor: 'white',
+        width: width * 0.97,
+        backgroundColor: '#FFFFFF',
     },
     CampaignBody_BoxImage: {
         width: '100%',
@@ -225,6 +221,7 @@ export default StyleSheet.create({
         backgroundColor: '#f0b912',
         height: 30,
         width: 30,
+        borderRadius: 30 / 3,
         marginTop: 3,
     },
     CampaignBody_Button: {
@@ -258,7 +255,6 @@ export default StyleSheet.create({
         width: '100%',
         marginTop: 3,
         alignItems: 'center',
-        marginBottom: 10,
     },
     Store_Sale_Image: {
         width: '100%',
@@ -296,7 +292,7 @@ export default StyleSheet.create({
     ///--------------------------------Installment_payScreen-----------------------------------------///
     Head_BoxImage: {
         height: 120,
-        marginTop: 10,
+        marginTop: 3,
     },
     Head_Image: {
         width: '100%',

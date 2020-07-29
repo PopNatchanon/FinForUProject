@@ -6,9 +6,11 @@ import Feeds from './FeedsComponents/Feeds'
 import GenArray from './otherComponents/GenArrayNumber';
 import GetFetch from './otherComponents/GetFetch';
 import ImageGallery from './imageComponents/ImageGallery';
+import ImageList from './imageComponents/ImageList';
 import NavigationNavigate from './otherComponents/NavigationNavigate';
 import StarReview from './otherComponents/StarReview';
 import Toolbar from './tabComponents/Toolbar';
 export {
-    AppBar, BorderBottomTab, BorderLRBar, ButtomTab, Feeds, GenArray, GetFetch, ImageGallery, NavigationNavigate, StarReview, Toolbar,
+    AppBar, BorderBottomTab, BorderLRBar, ButtomTab, Feeds, GenArray, GetFetch, ImageGallery, ImageList, NavigationNavigate, StarReview,
+    Toolbar,
 };

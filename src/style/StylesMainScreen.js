@@ -547,7 +547,7 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------------------------------///
   child: {
-    width: width * 1.05,
+    width: width,
     height: 'auto',
     aspectRatio: 2.0850,
   },
@@ -780,8 +780,8 @@ export default StyleSheet.create({
   },
   ///------------------------------------------------------------------/// ส่วนลด เปอร์เซ็น
   Box_On_sale: {
-    alignItems: 'center',
-    justifyContent: 'center',
+    // alignItems: 'center',
+    // justifyContent: 'center',
     backgroundColor: '#fb3449',
     paddingHorizontal: 5,
     marginLeft: 5

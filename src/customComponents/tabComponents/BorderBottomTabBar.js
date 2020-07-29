@@ -12,7 +12,7 @@ import styleMain from '../../style/StylesMainScreen'
 ///----------------------------------------------------------------------------------------------->>>> BorderBottomTabBar
 function BorderBottomTabBar(props) {
     const [selected, setSelected] = useState(0);
-    return <LinearGradient colors={props.colors} start={props.start} end={props.end} style={[{
+    return <LinearGradient colors={props.colors} end={props.end} start={props.start} style={[{
         borderBottomColor: props.borderBottomColor, borderBottomWidth: props.noBottomColor ? 0 : 2, flexDirection: 'row',
         justifyContent: 'space-between'
     }, props.boxInStyle,]}>
@@ -52,9 +52,9 @@ BorderBottomTabBar.propTypes = {
     noBottomColor: PropTypes.bool,
     noSelectBorderBottomColor: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
     rightIcon: PropTypes.object,
-    start: PropTypes.object,
     sendDataOut: PropTypes.func,
     setSelectedOut: PropTypes.number,
+    start: PropTypes.object,
 };
 BorderBottomTabBar.defaultProps = {
     borderBottomColor: '#ffbf00',

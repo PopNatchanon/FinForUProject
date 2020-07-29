@@ -83,114 +83,114 @@ function App() {
         // 'FeedScreen'
         // 'StoreScreen'
       }>
-        <Stack.Screen name='MainScreen' component={MainScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='FeedScreen' component={FeedScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='NewsScreen' component={NewsScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='BellScreen' component={BellScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='LoginScreen' component={LoginScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='ProfileScreen' component={ProfileScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='DetailScreen' component={DetailScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='StoreScreen' component={StoreScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='CartScreen' component={CartScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='RegisterScreen' component={RegisterScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Recommend_Brand' component={Recommend_Brand}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='FlashSaleScreen' component={FlashSaleScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='SettingScreen' component={SettingScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='HighlightScreen' component={HighlightScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Popular_productScreen' component={Popular_productScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Recommend_Store' component={Recommend_Store}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='ExclusiveScreen' component={ExclusiveScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Product_for_youScreen' component={Product_for_youScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='CategoryScreen' component={CategoryScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='FinMallScreen' component={FinMallScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='FINSupermarket' component={FINSupermarket}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Reviews_score' component={Reviews_score}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Profile_Topic' component={Profile_Topic}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen name='CancelScreen' component={CancelScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Return_products' component={Return_products}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Total_Order' component={Total_Order}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Order_Detail' component={Order_Detail}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Setting_Topic' component={Setting_Topic}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Business' component={Business}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='SellerScreen' component={SellerScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Totel_Order' component={Seller_Totel_Order}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Topic' component={Seller_Topic}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Setting' component={Seller_Setting}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Profile_Edit' component={Seller_Profile_Edit}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Up_Product' component={Seller_Up_Product}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Return' component={Seller_Return}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Setting_TopicStore' component={Setting_TopicStore}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Seller_Detail_Order' component={Seller_Detail_Order}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Customer_account' component={Customer_account}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Customer_Order' component={Customer_Order}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Customer_Complete_Order' component={Customer_Complete_Order}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Deal_Topic' component={Deal_Topic}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='DealScreen' component={DealScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='CoinScreen' component={CoinScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='CampaignScreen' component={CampaignScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='The_BestFinScreen' component={The_BestFinScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Installment_payScreen' component={Installment_payScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Detail_Campaign' component={Detail_Campaign}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Same_StoreScreen' component={Same_StoreScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='SecondScreen' component={SecondScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='SearchScreen' component={SearchScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Detail_Pro' component={Detail_Pro}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='Post_Feed' component={Post_Feed}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen name='FeedsScreen' component={FeedsScreen}
-          options={{ headerShown: false, cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
+        <Stack.Screen component={MainScreen} name='MainScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={FeedScreen} name='FeedScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={NewsScreen} name='NewsScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={BellScreen} name='BellScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={LoginScreen} name='LoginScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={ProfileScreen} name='ProfileScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={DetailScreen} name='DetailScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={StoreScreen} name='StoreScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={CartScreen} name='CartScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={RegisterScreen} name='RegisterScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Recommend_Brand} name='Recommend_Brand'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={FlashSaleScreen} name='FlashSaleScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={SettingScreen} name='SettingScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={HighlightScreen} name='HighlightScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Popular_productScreen} name='Popular_productScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Recommend_Store} name='Recommend_Store'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={ExclusiveScreen} name='ExclusiveScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Product_for_youScreen} name='Product_for_youScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={CategoryScreen} name='CategoryScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={FinMallScreen} name='FinMallScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={FINSupermarket} name='FINSupermarket'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Reviews_score} name='Reviews_score'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Profile_Topic} name='Profile_Topic'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, headerShown: false, }} />
+        <Stack.Screen component={CancelScreen} name='CancelScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Return_products} name='Return_products'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Total_Order} name='Total_Order'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Order_Detail} name='Order_Detail'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Setting_Topic} name='Setting_Topic'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Business} name='Business'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={SellerScreen} name='SellerScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Totel_Order} name='Seller_Totel_Order'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Topic} name='Seller_Topic'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Setting} name='Seller_Setting'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Profile_Edit} name='Seller_Profile_Edit'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Up_Product} name='Seller_Up_Product'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Return} name='Seller_Return'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Setting_TopicStore} name='Setting_TopicStore'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Seller_Detail_Order} name='Seller_Detail_Order'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Customer_account} name='Customer_account'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Customer_Order} name='Customer_Order'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Customer_Complete_Order} name='Customer_Complete_Order'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Deal_Topic} name='Deal_Topic'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={DealScreen} name='DealScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={CoinScreen} name='CoinScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={CampaignScreen} name='CampaignScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={The_BestFinScreen} name='The_BestFinScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Installment_payScreen} name='Installment_payScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Detail_Campaign} name='Detail_Campaign'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Same_StoreScreen} name='Same_StoreScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={SecondScreen} name='SecondScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={SearchScreen} name='SearchScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Detail_Pro} name='Detail_Pro'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={Post_Feed} name='Post_Feed'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
+        <Stack.Screen component={FeedsScreen} name='FeedsScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, headerShown: false, }} />
       </Stack.Navigator>
     </NavigationContainer>
   </Provider>

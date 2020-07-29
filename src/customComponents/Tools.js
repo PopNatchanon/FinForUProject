@@ -691,18 +691,24 @@ export function ProductBox(props) {
                 `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() => noNavigation ?
                 getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
-                NavigationNavigate({ goScreen: pointerUrl, setData: (pointerid_store ? { id_product: item.id_product } : null), navigation })}>
+                NavigationNavigate({
+                    goScreen: pointerUrl, navigation, setData: (pointerid_store ? { id_product: item.id_product } : null),
+                })}>
                 <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5Box : mode == 'row3col2' ?
                     stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ? stylesMain.BoxProduct4Box : mode == 'row3colall' ?
                         stylesMain.BoxProduct2Box : mode == 'row2colall' ? stylesMain.BoxProduct3Box : mode == '5item' ?
-                            stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
-                    marginBottom: mode == 'row3col2_2' ? 4 : null, borderRadius: radiusBox ?? 0
-                }]}>
+                            stylesDeal.Deal_Exclusive_Box : mode == 'row3colall_new' ? {
+                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.33,
+                            } : stylesMain.BoxProduct1Box,
+                { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
                     <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3colall' ?
                         stylesMain.BoxProduct2ImageofLines : mode == 'row2colall' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
-                            stylesMain.BoxProduct1ImageofLines2 : stylesMain.BoxProduct1ImageofLines]}>
+                            mode == 'row3colall_new' ? { flex: 1, width: '100%', } : stylesMain.BoxProduct1ImageofLines2 :
+                            stylesMain.BoxProduct1ImageofLines]}>
                         <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
-                            borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0, marginVertical: height * 0.015
+                            borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
+                            marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
+                            width: mode == 'row3colall_new' ? '100%' : '75%',
                         }]} resizeMode={FastImage.resizeMode.contain} />
                     </View>
                     <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3 }}>
@@ -777,16 +783,12 @@ export function RenderProduct(props) {
     onShow && console.log(dataMySQL)
     item.discount && (discount = item.discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ? getDataService({ id_product, name }) : NavigationNavigate({
-        navigation, goScreen: custumNavigation ? custumNavigation : 'DetailScreen', setData: { id_product: item.id_product }
+        goScreen: custumNavigation ? custumNavigation : 'DetailScreen', navigation, setData: { id_product: item.id_product }
     })}>
-        <View style={[stylesMain.ItemCenter, mode == 'row4' ?
-            stylesMain.BoxProduct5Box : mode == 'row3' ?
-                stylesMain.BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ?
-                    stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
-                        stylesMain.BoxProduct4Box : mode == 'row3_all' ?
-                            stylesMain.BoxProduct2Box : mode == 'row2_all' ?
-                                stylesMain.BoxProduct3Box : mode == '5item' ?
-                                    stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
+        <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5Box : mode == 'row3' ?
+            stylesMain.BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ? stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
+                stylesMain.BoxProduct4Box : mode == 'row3_all' ? stylesMain.BoxProduct2Box : mode == 'row2_all' ?
+                    stylesMain.BoxProduct3Box : mode == '5item' ? stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
             marginBottom: mode == 'row3_2' ? 4 : null,
             borderRadius: radiusBox ?? 0
         }]}>
@@ -799,7 +801,7 @@ export function RenderProduct(props) {
                     marginVertical: mode == 'row3_new2' ? 0 : height * 0.015, width: mode == 'row3_new2' ? '100%' : '75%',
                 }]} resizeMode={FastImage.resizeMode.contain} />
             </View>
-            <View style={{ height: 55, paddingHorizontal: 3 }}>
+            <View style={{ height: 55, paddingHorizontal: 3, width: '100%', }}>
                 <View style={[stylesMain.BoxProduct1NameofLines]}>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>
                         {item.name_product ?? item.name}</Text>

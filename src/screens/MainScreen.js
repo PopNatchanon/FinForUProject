@@ -48,7 +48,7 @@ import stylesTopic from '../style/styleTopic';
 import {
     FlatComponent, FlatProduct, GetServices, GetData, ProductBox,
 } from '../customComponents/Tools';
-import { AppBar as AAppBar, Toolbar, NavigationNavigate, } from '../customComponents';
+import { AppBar as AAppBar, Toolbar, NavigationNavigate, ImageList, } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -353,6 +353,8 @@ export let ExitAppModule = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
+    const [active, setActive] = useState(false);
+    active == true && setTimeout(() => setActive(false), 1000);
     let _renderItem = (item, index) => {
         var dataMySQL;
         banner ?
@@ -364,11 +366,13 @@ export let Slide = (props) => {
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
+            // <ImageList activeScroll={active} data={banner ?? getFetchData['home_mobile']?.data} />
             <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
                 pagination={PaginationLight} /> :
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
+        <TouchableOpacity onPress={() => setActive(true)}><Text>Enter</Text></TouchableOpacity>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
@@ -963,8 +967,8 @@ export let Product_for_you = (props) => {
         </View>
         {/* dataService.for_you */}
         {dataService?.for_you.length > 0 ?
-            <FlatProduct {...props} dataService={dataService2} numberOfColumn={2} nameFlatProduct='Product_for_you' mode='row3_new2'
-                nameSize={14} priceSize={15} dispriceSize={15} /> :
+            <FlatProduct {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Product_for_you'
+                nameSize={14} numberOfColumn={2} priceSize={15} /> :
             <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
                 {boxEmpty}
             </View>}
@@ -1001,8 +1005,8 @@ export let Highlight = (props) => {
         </View>
         {/* dataService.hi_week */}
         {dataService ?
-            <FlatProduct {...props} dataService={dataService2} numberOfColumn={1} nameFlatProduct='Second_product' mode='row3_new2'
-                nameSize={14} priceSize={15} dispriceSize={15} /> :
+            <FlatProduct {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product'
+                nameSize={14} numberOfColumn={1} priceSize={15} /> :
             <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>}
     </View>;
 };
@@ -1169,7 +1173,7 @@ export let CategoryProductSubProduct = (props) => {
     </View>);
     return <>
         {dataService.length > 0 ?
-            <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new' nameSize={14} priceSize={15}
+            <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new2' nameSize={14} priceSize={15}
                 dispriceSize={13} noMarginTop /> :
             <View>
                 <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
@@ -1294,7 +1298,7 @@ export let Second_product = (props) => {
                     }]}></View>}
             {dataService?.product_second ?
                 <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
-                    nameFlatProduct='Second_product' mode='row3_new' nameSize={14} priceSize={15} dispriceSize={15} /> :
+                    nameFlatProduct='Second_product' mode='row3_new2' nameSize={14} priceSize={15} dispriceSize={15} /> :
                 <View>
                     <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
                     <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
@@ -1560,7 +1564,7 @@ export let TodayProduct = (props) => {
         {noTitle ? null : <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             สินค้าคัดสรรเพื่อคุณ</Text>}
         <View style={stylesMain.BoxProduct2BoxProduct}>
-            {loadData && <ProductBox {...props} dataService={loadData} typeip={typeip ? 'ip' : 'fin'} mode='row3colall'
+            {loadData && <ProductBox {...props} dataService={loadData} typeip={typeip ? 'ip' : 'fin'} mode='row3colall_new'
                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} prepath={prepath ?? null} />}
         </View>
     </View>;

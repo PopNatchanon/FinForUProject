@@ -15,19 +15,19 @@ import stylesFont from '../../style/stylesFont';
 function BorderBottomTabBar(props) {
     const [actionIndex, setActionIndex] = useState(0);
     const [selected, setSelected] = useState(0);
-    return <LinearGradient colors={props.colors} start={props.start} end={props.end}>
+    return <LinearGradient colors={props.colors} end={props.end} start={props.start}>
         <View style={[styleMain.ItemCenter, {
-            borderColor: props.borderBottomColor, borderWidth: props.noBottomColor ? 0 : 2, width: '100%', flex: 1, flexDirection: 'row',
-            alignContent: 'center',
+            alignContent: 'center', borderColor: props.borderBottomColor, borderWidth: props.noBottomColor ? 0 : 2, flex: 1,
+            flexDirection: 'row', width: '100%',
         }, props.boxInStyle,]}>
             {props.leftIcon && <View style={{ borderRightWidth: 2, }}>
                 <TouchableOpacity activeOpacity={props.noOpacityLeftIcon ? 1 : 0.2} onPress={() => {
                     props.changeSelectLeft ? setSelected(props.data.length) : undefined; props.sendDataOut(props.data.length)
                 }}>
                     <View style={{
-                        paddingHorizontal: 6,
-                        marginTop: props.leftType == 'text' ? props.borderBottomWidth + 1.5 : props.borderBottomWidth - 2,
                         marginBottom: props.leftType == 'text' ? props.borderBottomWidth + 1.5 : props.borderBottomWidth - 2,
+                        marginTop: props.leftType == 'text' ? props.borderBottomWidth + 1.5 : props.borderBottomWidth - 2,
+                        paddingHorizontal: 6,
                     }}>
                         {props.leftIcon}
                     </View>
@@ -37,8 +37,7 @@ function BorderBottomTabBar(props) {
                 <View style={{ flexDirection: 'row' }}>
                     {props.data.map((value, index) => <View key={index} style={[styleMain.ItemCenter, {
                         borderLeftWidth: index == 0 ? props.leftIcon ? 0 : 2 : 1,
-                        borderRightWidth: index == props.data.length - 1 ? props.rightIcon ? 0 : 2 : 1,
-                        paddingLeft: 2, paddingRight: 2
+                        borderRightWidth: index == props.data.length - 1 ? props.rightIcon ? 0 : 2 : 1, paddingLeft: 2, paddingRight: 2
                     }]}>
                         <TouchableOpacity onPress={() => {
                             props.changeSelect ? setSelected(index) : undefined;
@@ -49,11 +48,9 @@ function BorderBottomTabBar(props) {
                         }} style={[styleMain.ItemCenter, {
                             borderBottomColor: props.noSelectBottomColor ? props.noSelectBorderBottomColor :
                                 props.typeActive == 'bottom' && selected == index ? props.activeColor : props.noSelectBorderBottomColor,
-                            borderBottomWidth: props.borderBottomWidth,
-                            borderTopColor: props.noSelectBorderBottomColor,
-                            borderTopWidth: props.borderBottomWidth,
+                            borderBottomWidth: props.borderBottomWidth, borderTopColor: props.noSelectBorderBottomColor,
+                            borderTopWidth: props.borderBottomWidth, flexDirection: props.colunmItem ? 'column' : 'row',
                             paddingHorizontal: 8,
-                            flexDirection: props.colunmItem ? 'column' : 'row',
                         }, props.boxOutStyle,]}>
                             {value.icon && <Text style={[props.fontStyle, { color: props.fontColors, marginRight: 4, }]}>{value.icon}</Text>}
                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, props.fontStyle, {
@@ -72,11 +69,10 @@ function BorderBottomTabBar(props) {
                         props.changeSelectRight ? setSelected(props.data.length + 1) : undefined; props.sendDataOut(props.data.length + 1)
                     }}>
                         <View style={{
-                            paddingHorizontal: 6,
                             marginTop: props.typeActive == 'bottom' ? props.rightType == 'text' ? props.borderBottomWidth + 1.5 :
                                 props.borderBottomWidth - 2 : 0,
                             marginBottom: props.typeActive == 'bottom' ? props.rightType == 'text' ? props.borderBottomWidth + 1.5 :
-                                props.borderBottomWidth - 2 : 0,
+                                props.borderBottomWidth - 2 : 0, paddingHorizontal: 6,
                         }}>
                             {props.rightType == 'mix' ?
                                 <View style={styleMain.ItemCenter}>

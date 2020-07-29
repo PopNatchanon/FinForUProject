@@ -32,12 +32,10 @@ function Toolbar(props) {
         activeGetCurrentUser && GetData({ getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     var u_name = null;
-    if (currentUser != null) {
-        currentUser.name && (u_name = currentUser.name);
-    };
+    if (currentUser != null) { currentUser.name && (u_name = currentUser.name); };
     let genText = (routeSelcet, nameRoute, value) => <LinearTextGradient colors={[routeSelcet == nameRoute ? '#001666' : '#111',
-    routeSelcet == nameRoute ? '#284d8fff' : '#111']} useViewFrame={true} locations={[0.2, 0.8]}
-        style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text', }}>
+    routeSelcet == nameRoute ? '#284d8fff' : '#111']} locations={[0.2, 0.8]} style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text', }}
+        useViewFrame={true}>
         {value}
     </LinearTextGradient>;
     var routeSelcet = route.name;

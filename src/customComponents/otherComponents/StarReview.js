@@ -14,11 +14,11 @@ function StarReview(star, starSize) {
     let starBox = []
     for (var n = 0; n < 5; n++) {
         if (star > n) {
-            starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20}
-                color='#FFAC33' />);
+            starBox.push(<IconFontAwesome color='#FFAC33' key={n} name='star' size={starSize ?? 20}
+                style={stylesDetail.Price_IconStar} />);
         } else {
-            starBox.push(<IconFontAwesome style={stylesDetail.Price_IconStar} key={n} name='star' size={starSize ?? 20}
-                color='#E9E9E9' />);
+            starBox.push(<IconFontAwesome color='#E9E9E9' key={n} name='star' size={starSize ?? 20}
+                style={stylesDetail.Price_IconStar} />);
         };
     };
     return starBox;

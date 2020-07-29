@@ -208,8 +208,8 @@ export let Business_Profile = (props) => <>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginRight: 10 }]}>ระยะเวลา</Text>
         <View style={{ alignItems: 'center', borderColor: '#EAEAEA', borderWidth: 1, width: '60%', }}>
           <ModalDropdown defaultValue={'All'} dropdownStyle={{ borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, width: '43%', }}
-            dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
-            options={['All', 'Today', 'Last 7 Days', 'This Month']} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]} />
+            dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]} options={['All', 'Today',
+              'Last 7 Days', 'This Month']} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]} />
         </View>
       </View>
     </View>

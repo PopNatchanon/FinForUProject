@@ -7,5 +7,6 @@ export const ip = 'http://192.168.1.18';
 
 
 export const finip = 'http://www.mmnie.live';
+// export const finip = 'http://3.25.71.203/';
 // export const finip = 'http://finshoppingmall.com/enter_site';
 

@@ -137,9 +137,9 @@ function StoreScreen(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((value) => { image_header = `${finip}/${value.image_head_path}/${value.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/ดีล4.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/ดีล8.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/ดีล9.jpg`;
+    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
+    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
+    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
     let ViewSide = () => {
         switch (selectedIndex) {
             case 0:
@@ -377,23 +377,23 @@ export let Banner = (props) => {
         <View style={stylesStore.BannerBox} key={index}>
             <FastImage source={{
                 uri:
-                    // `${ip}/${item.image_path}/${item.image}`,
-                    item.image,
-            }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
+                    `${ip}/${item.image_path}/${item.image}`,
+                // item.image,
+            }} style={[stylesStore.BannerSlide, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.stretch} />
         </View>;
     let getDetail = !activeGetServices ?
         dataService && dataService.map((value, index) => {
             // ส่วนทดสอบ banner
             const itemT = [
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'เพชร3.jpg' },
                 { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-2.jpg' },
-                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-4.jpg' },
-                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '2222.jpg' },
+                { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'กระเป๋า1.jpg' },
             ];
             var image_banner_sub;
-            // image_banner_sub = itemT;
-            value.image_banner && (image_banner_sub = value.image_banner.split(';'));
-            value.image_banner && (image_banner_sub = image_banner_sub.map(
-                (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
+            image_banner_sub = itemT;
+            // value.image_banner && (image_banner_sub = value.image_banner.split(';'));
+            // value.image_banner && (image_banner_sub = image_banner_sub.map(
+            //     (value2) => { return { image: `${finip}/${value.image_banner_path}/${value2}` } }));
             return <View key={index}>
                 <View style={[stylesStore.Banner, { borderLeftWidth: 0, paddingLeft: 0 }]}>
                     <View>

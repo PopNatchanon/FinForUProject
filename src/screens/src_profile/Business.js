@@ -89,7 +89,7 @@ function Business(props) {
   };
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     {PathList()}
-    <ExitAppModule />
+    {/* <ExitAppModule /> */}
   </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>

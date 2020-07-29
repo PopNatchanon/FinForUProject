@@ -16,21 +16,21 @@ import {
     setDataRefresh, setDataStart, setFetchToStart
 } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import ActionButton from 'react-native-action-button';
-import * as Animatable from 'react-native-animatable';
-import BottomSheet from "react-native-raw-bottom-sheet";
-import Carousel, { PaginationLight } from 'react-native-x-carousel';
-import Dash from 'react-native-dash';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import LinearGradient from 'react-native-linear-gradient';
-import { Notifications } from 'react-native-notifications';
 import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import SkeletonContent from "react-native-skeleton-content-nonexpo";
 import SplashScreen from 'react-native-splash-screen';
 import WebView from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';
+import BottomSheet from "react-native-raw-bottom-sheet";
+import Dash from 'react-native-dash';
+import LinearGradient from 'react-native-linear-gradient';
+import { Notifications } from 'react-native-notifications';
+import ActionButton from 'react-native-action-button';
+import * as Animatable from 'react-native-animatable';
+import Carousel, { PaginationLight } from 'react-native-x-carousel';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -910,6 +910,18 @@ export let PromotionPopular = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export let Product_for_you = (props) => {
+    const dataService2 = [
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '99,000', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '145,000', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '129,000', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '139,000', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '119,000', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '359,000', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '359,000', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '359,000', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '359,000', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '359,000', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+    ]
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => <View key={index} style={[stylesMain.ItemCenter,
     stylesMain.BoxProduct1Box2]}>
@@ -928,8 +940,9 @@ export let Product_for_you = (props) => {
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
+        {/* dataService.for_you */}
         {dataService?.for_you.length > 0 ?
-            <FlatProduct {...props} dataService={dataService.for_you} numberOfColumn={2} nameFlatProduct='Product_for_you' mode='row3_new'
+            <FlatProduct {...props} dataService={dataService2} numberOfColumn={2} nameFlatProduct='Product_for_you' mode='row3_new2'
                 nameSize={14} priceSize={15} dispriceSize={15} /> :
             <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
                 {boxEmpty}
@@ -938,6 +951,18 @@ export let Product_for_you = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlight
 export let Highlight = (props) => {
+    const dataService2 = [
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '99,000', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145,000', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129,000', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139,000', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119,000', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359,000', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359,000', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359,000', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359,000', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359,000', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+    ]
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2, 3].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
@@ -953,8 +978,9 @@ export let Highlight = (props) => {
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}> ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
+        {/* dataService.hi_week */}
         {dataService ?
-            <FlatProduct {...props} dataService={dataService.hi_week} numberOfColumn={1} nameFlatProduct='Second_product' mode='row3_new'
+            <FlatProduct {...props} dataService={dataService2} numberOfColumn={1} nameFlatProduct='Second_product' mode='row3_new2'
                 nameSize={14} priceSize={15} dispriceSize={15} /> :
             <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>}
     </View>;
@@ -1400,21 +1426,64 @@ export let Fin_Mall = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
 export let FIN_Supermarket = (props) => {
     const { dataService, navigation, } = props;
+    // Banner ใหญ่ตรง Supermaket
     const item = [
         { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg` },
         { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg` },
         { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg` },
         { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg` },]
-    let _renderItem = (item, index) => <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, marginBottom: 10 }}>
+    // สินค้าใน Supermaket
+    const Supermarketitem = [
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A1.jpg', id_product: 0, last_price: '85', name_product: 'อิควลสารให้ความหวานแทนน้ำตาลจากหญ้าหวาน 2กรัม แพค 40ซอง', type: 'local' },
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A2.jpg', id_product: 1, last_price: '149', name_product: 'แสนดีข้าวขาวหอมคัดพิเศษ 5กก', type: 'local' },
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A3.jpg', id_product: 2, last_price: '45', name_product: 'ชิกเก้นออฟเดอะซีปลาทูน่ารสน้ำมันมะกอกและพริก 80กรัม', type: 'local' },
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A4.jpg', id_product: 3, last_price: '21', name_product: 'ชาวเกาะกะทิยูเอชที 250มล', type: 'local' },
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A5.jpg', id_product: 4, last_price: '23.50', name_product: 'มะลินมข้นหวาน 380กรัม', type: 'local' },
+        { image_path: 'MySQL/uploads/Supermarket', image: 'A6.jpg', id_product: 5, last_price: '7', name_product: 'ปรุงทิพย์เกลือป่น 500กรัม', type: 'local' },]
+    // แบรนด์แนะนำอันแรก
+    const Brand_Supermaket = [
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, name: 'LOOKS', Detall: 'สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ' },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, name: 'Betagro', Detall: 'เบทาโกร' },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, name: 'Exclusive Brands', Detall: 'สินค้าคุณภาพ คุ้มค่า คุ้มราคา' },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, name: 'Ole', Detall: 'หวานสดใสหอมติดผิว' },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, name: 'LOOKS', Detall: 'หวานสดใสหอมติดผิว' },]
+    // แบรนด์แนะนำอันที่สอง
+    const Brand_Supermaket2 = [
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, },
+        { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, },]
+    // ---------------------------------------------------------------------------
+    let SupermaketBox = Brand_Supermaket.map((value, index) =>
+        <View key={index} style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
+            <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
+                source={{ uri: value.image }} />
+            <View style={[stylesMain.ItemCenter]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.name}</Text>
+                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>
+                    {value.Detall}</Text>
+            </View>
+        </View>);
+    // ---------------------------------------------------------------------------
+    let SupermaketBox2 = Brand_Supermaket2.map((value, index) =>
+        <View key={index} style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
+            <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
+                source={{ uri: value.image, }} />
+        </View>);
+    // --------------------------------------------------------------------------
+    let _renderItem = (item, index) => <View key={index} style={{ width, height: 'auto', aspectRatio: 2.5, }}>
         <Image source={{ uri: item.image, }} style={{ height: '100%', width: '100%' }} resizeMode='cover' resizeMethod='resize' />
     </View>;
-    return <View style={stylesMain.FrameBackground2}>
+    // --------------------------------------------------------------------------
+    return <View style={{ backgroundColor: '#FFFFFF' }}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>FIN Supermarket</Text>
         <View>
             <Carousel renderItem={_renderItem} data={item} loop autoplay autoplayInterval={4000} pagination={PaginationLight} />
         </View>
         <View style={stylesMain.Supermarket_Product}>
-            {dataService && <FlatProduct {...props} dataService={dataService.product_hit} numberOfColumn={1} radiusBox={5}
+            {/* dataService.product_hit */}
+            {dataService && <FlatProduct {...props} dataService={Supermarketitem} numberOfColumn={1} radiusBox={5}
                 nameFlatProduct='FIN_Supermarket' mode='row3' nameSize={14} priceSize={15} dispriceSize={15} />}
         </View>
         <View style={[stylesMain.FlexRow, stylesMain.Supermarket_Store]}>
@@ -1455,74 +1524,10 @@ export let FIN_Supermarket = (props) => {
             </TouchableOpacity>
         </View>
         <ScrollView horizontal>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
-                <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, }} />
-                <View style={[stylesMain.ItemCenter]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>LOOKS</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>
-                        สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ</Text>
-                </View>
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
-                <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }} />
-                <View style={[stylesMain.ItemCenter]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Betagro</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>เบทาโกร</Text>
-                </View>
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
-                <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, }} />
-                <View style={[stylesMain.ItemCenter]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Exclusive Brands</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>สินค้าคุณภาพ คุ้มค่า คุ้มราคา</Text>
-                </View>
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
-                <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }} />
-                <View style={[stylesMain.ItemCenter]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
-                </View>
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop]}>
-                <FastImage style={{ height: 50, width: 100 }} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }} />
-                <View style={[stylesMain.ItemCenter]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>Ole</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]} numberOfLines={1}>หวานสดใสหอมติดผิว</Text>
-                </View>
-            </View>
+            {SupermaketBox}
         </ScrollView>
         <ScrollView horizontal>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, }} />
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, }} />
-
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, }} />
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, }} />
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand06.jpg`, }} />
-            </View>
-            <View style={[stylesMain.ItemCenter, stylesMain.Supermarket_Brand_Shop2]}>
-                <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
-                    source={{ uri: `${ip}/MySQL/uploads/Image_FinMall/market_brand07.jpg`, }} />
-            </View>
+            {SupermaketBox2}
         </ScrollView>
     </View>;
 };

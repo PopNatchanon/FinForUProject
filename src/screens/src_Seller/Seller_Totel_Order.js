@@ -10,16 +10,13 @@ import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import Icons from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  } from '../MainScreen';
+import { } from '../MainScreen';
 import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

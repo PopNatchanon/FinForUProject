@@ -1,4 +1,4 @@
-export const ip = 'http://192.168.1.18';
+export const ip = 'http://192.168.1.19';
 // export const ip = 'http://192.168.2.132';
 // export const ip = 'http://10.100.200.126';
 // export const ip = 'http://192.168.1.39';

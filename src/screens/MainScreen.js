@@ -143,26 +143,32 @@ function MainScreen(props) {
         {
             nameComponent: 'Slide',
             renderComponent: <Slide {...props} />
+            // แบรนเนอร์ใหญ่
         },
         {
             nameComponent: 'Guarantee',
             renderComponent: <Guarantee  {...props} />
+            // รับประกัน
         },
         {
             nameComponent: 'Category',
             renderComponent: <Category {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // หมวดหมู่
         },
         {
             nameComponent: 'Trend_Hit',
             renderComponent: <Trend_Hit  {...props} />
+            // เทรนฮิต
         },
         {
             nameComponent: 'Button_Bar',
             renderComponent: <Button_Bar {...props} />
+            // ปุ่มเข้าดีล โปรโมชั่น
         },
         {
             nameComponent: 'FlashSale',
             renderComponent: <FlashSale {...props} />
+            // สินค้าลดพิเศษ
         },
         // {
         //     nameComponent: 'Fin_Service',
@@ -171,62 +177,77 @@ function MainScreen(props) {
         {
             nameComponent: 'Recommend_Brand',
             renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // แบรน์แนะนำ
         },
         {
             nameComponent: 'BannerBar_TWO',
             renderComponent: <BannerBar_TWO />
+            // แบรนด์เนอร์โฆษณา 2
         },
         {
             nameComponent: 'NewStore',
             renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ร้านนี้ห้ามพลาด
         },
         {
             nameComponent: 'Fin_Mall',
             renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+            // ฟินมอล กับ Exclusive
         },
         {
             nameComponent: 'BannerBar_ONE',
             renderComponent: <BannerBar_ONE />
+            // แบรนด์เนอร์โฆษณา 1
         },
         {
             nameComponent: 'Highlight',
             renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ไฮไลท์ประจำสัปดาห์
         },
         {
             nameComponent: 'PromotionPopular',
             renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ลายแทงร้านค้าแนะนำ
         },
         {
             nameComponent: 'Popular_store',
             renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ร้านที่ใช่อยากให้ช๊อป
         },
         {
             nameComponent: 'Popular_product',
             renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // สินค้ายอดนิยม
         },
         {
             nameComponent: 'Product_for_you',
             renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ฟินคัดมาเพื่อคุณ
         },
         {
             nameComponent: 'CategoryProduct',
             renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         },
         {
             nameComponent: 'Second_product',
             renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // สินค้า และร้านค้า มือสอง
         },
         {
             nameComponent: 'BannerBar_THREE',
             renderComponent: <BannerBar_THREE />
+            // แบรนด์เนอร์โฆษณา 3
         },
         {
             nameComponent: 'FIN_Supermarket',
             renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ฟินซุปเปอร์มาเก็ต
         },
         {
             nameComponent: 'TodayProduct',
             renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile']?.data?.for_you2} />
+            // สินค้าคัดสรรมาเพื่อคุณ
         },
         /////--------------------------------------------->>>End
     ];

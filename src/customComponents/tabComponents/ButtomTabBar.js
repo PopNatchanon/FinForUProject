@@ -19,21 +19,18 @@ function ButtomTabBar(props) {
         overflow: 'hidden'
     }, props.boxOutStyle,]}>
         {props.linearGradient ?
-            <LinearGradient colors={index == selected ? value.colors ?? props.colors : props.notSelectColors}
-                start={props.start} end={props.end} style={[styleMain.ItemCenter, {
-                    width: props.setWidthBox, height: props.setHeightBox,
-                }, props.boxInStyle,]}>
-                <Text style={[props.fontStyle, {
-                    color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors
-                }]}>{value.name}</Text>
+            <LinearGradient colors={index == selected ? value.colors ?? props.colors : props.notSelectColors} end={props.end}
+                start={props.start} style={[styleMain.ItemCenter, { width: props.setWidthBox, height: props.setHeightBox, },
+                props.boxInStyle,]}>
+                <Text style={[props.fontStyle,
+                { color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors }]}>{value.name}</Text>
             </LinearGradient> :
             <View style={[styleMain.ItemCenter, {
-                width: props.setWidthBox, height: props.setHeightBox,
-                backgroundColor: index == selected ? value.backgroundColor ?? props.backgroundColor : props.notBackgroundColor
+                backgroundColor: index == selected ? value.backgroundColor ?? props.backgroundColor : props.notBackgroundColor,
+                height: props.setHeightBox, width: props.setWidthBox,
             }, props.boxInStyle,]}>
-                <Text style={[props.fontStyle, {
-                    color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors
-                }]}>{value.name}</Text>
+                <Text style={[props.fontStyle,
+                { color: index == selected ? value.fontColors ?? props.fontColors : props.notSelectFontColors }]}>{value.name}</Text>
             </View>}
     </TouchableOpacity>);
 };

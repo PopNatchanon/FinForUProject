@@ -23,7 +23,7 @@ import stylesStore from '../../style/StylesStoreScreen';
 import { GetData, } from '../Tools';
 import { NavigationNavigate } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>>
 class AppSearchBar extends React.Component {
     constructor(props) {
@@ -50,7 +50,7 @@ class AppSearchBar extends React.Component {
         } = this.props;
         const { cokie, currentUser, text, } = this.state;
         let setSubmit = () => text != undefined && text != ' ' &&
-            NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
+            NavigationNavigate({ goScreen: 'SearchScreen', navigation, setData: { SearchText: text }, });
         const AIconAntDesign = Animatable.createAnimatableComponent(IconAntDesign);
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -67,63 +67,63 @@ class AppSearchBar extends React.Component {
             activeCartList({ cokie: cokie, id_customer: currentUser?.id_customer });
         return <LinearGradient colors={colors} end={this.props.end} start={this.props.start} style={[stylesMain.Appbar,
         stylesMain.FlexRow, {
-            width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1],
-            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
+            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor, borderBottomWidth: 2,
+            borderColor: colors[colors.length - 1], borderWidth: 0, width,
         }]}>
             {backArrow && <View key={'backarrow'}>
-                <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]} activeOpacity={1}
-                    onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>
             </View>}
             {searchBar ?
-                <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }}>
-                    <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
-                    { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
+                <TouchableOpacity activeOpacity={1} key={'searchBar'} style={{ marginRight: 3 }}>
+                    <View style={[stylesMain.AppbarBody, stylesMain.FlexRow, stylesMain.ItemCenterVertical,
+                    { borderColor: '#ffbf00', borderWidth: 1, height: 30, }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: allWidth, }]}>
-                            <TextInput style={[stylesMain.TextInput, stylesFont.FontFamilyText, stylesFont.FontSize5,
-                            stylesFont.FontCenter]} placeholder="ค้นหาสินค้า/ร้านค้า" value={text} maxLength={30} onSubmitEditing={() =>
-                                setSubmit()} onChangeText={value => this.setState({ text: value })} />
+                            <TextInput style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5,
+                            stylesMain.TextInput,]} maxLength={30} onChangeText={value => this.setState({ text: value })}
+                                onSubmitEditing={() => setSubmit()} placeholder="ค้นหาสินค้า/ร้านค้า" value={text} />
                         </View>
-                        <AIconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute' }]} />
+                        <AIconAntDesign name="search1" size={18} style={[{ left: allWidth - 25, position: 'absolute', top: 4, }]} />
                     </View>
                 </TouchableOpacity> :
-                <TouchableOpacity key={'searchBar'} activeOpacity={1} style={{ marginRight: 3 }} onPress={() => NavigationNavigate({
-                    goScreen: SearchText ? 'goBack' : 'SearchScreen', setData: { modeStore: false }, navigation
-                })}>
-                    <View style={[stylesMain.FlexRow, stylesMain.AppbarBody, stylesMain.ItemCenterVertical,
-                    { height: 30, borderWidth: 1, borderColor: '#ffbf00', }]}>
+                <TouchableOpacity activeOpacity={1} key={'searchBar'} onPress={() => NavigationNavigate({
+                    goScreen: SearchText ? 'goBack' : 'SearchScreen', navigation, setData: { modeStore: false },
+                })} style={{ marginRight: 3 }}>
+                    <View style={[stylesMain.AppbarBody, stylesMain.FlexRow, stylesMain.ItemCenterVertical,
+                    { borderColor: '#ffbf00', borderWidth: 1, height: 30, }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 30, width: allWidth, }]}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesFont.FontCenter,
+                            <Text style={[stylesFont.FontCenter, stylesFont.FontFamilyText, stylesFont.FontSize5,
                             stylesMain.ItemCenterVertical]}>{SearchText ?? 'ค้นหาสินค้า/ร้านค้า'}</Text>
                         </View>
-                        <AIconAntDesign name="search1" size={18} style={[{ top: 4, left: allWidth - 25, position: 'absolute', }]} />
+                        <AIconAntDesign name="search1" size={18} style={[{ left: allWidth - 25, position: 'absolute', top: 4, }]} />
                     </View>
                 </TouchableOpacity>}
-            {<View key={'storebar'} style={[stylesMain.ItemCenter, stylesMain.FlexRow, stylesMain.ItemCenterVertical]}>
-                {filterBar && <TouchableOpacity key='filterBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
+            {<View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
+                {filterBar && <TouchableOpacity key='filterBar' onPress={null/*() => navigation.push('CartScreen')*/}
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconFeather name="filter" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {otherBar && <TouchableOpacity key='otherBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical,
-                { width: 30, }]} onPress={null/*() => navigation.push('CartScreen')*/}>
+                {otherBar && <TouchableOpacity key='otherBar' onPress={null/*() => navigation.push('CartScreen')*/}
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {chatBar && <TouchableOpacity key='chatBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                    onPress={() => currentUser ?
-                        NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                        NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                {chatBar && <TouchableOpacity key='chatBar' onPress={() => currentUser ?
+                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconAntDesign name="message1" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {cartBar && <TouchableOpacity key='cartBar' style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}
-                    onPress={() => currentUser ?
-                        NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
-                        NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
+                {cartBar && <TouchableOpacity key='cartBar' onPress={() => currentUser ?
+                    NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    stylesMain.ItemCenterVertical, { width: 30, }]}>
                     {((cartData?.isError) || cartDataCount <= 0) ?
                         <></> : <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
-                            backgroundColor: 'red', color: '#fff', width: 17, height: 17, borderRadius: 15, textAlign: 'center',
-                            textAlignVertical: 'center', position: 'absolute', elevation: 1, left: 18, bottom: 15, borderColor: AIColor,
-                            borderWidth: 1,
+                            backgroundColor: 'red', borderColor: AIColor, borderRadius: 15, borderWidth: 1, bottom: 15, color: '#fff',
+                            elevation: 1, height: 17, left: 18, position: 'absolute', textAlign: 'center', textAlignVertical: 'center',
+                            width: 17,
                         }]}>{cartDataCount}</Animatable.Text>}
                     <IconAntDesign name="shoppingcart" size={25} style={{ color: '#fff' }} />
                 </TouchableOpacity>}
@@ -151,78 +151,80 @@ class AppNoSearchBar extends React.Component {
     render() {
         const {
             AIColor, backArrow, backNavigation, borderBottomColor, cartData, cartListButtomDelete, chatBar, colorSet, deleteBar,
-            getActivePost, goToTop, navigation, postBar, saveBar, searchBar, settingBar, storeBar, titleHead, UpBankBar, selectshare,
+            getActivePost, goToTop, navigation, postBar, saveBar, searchBar, selectshare, storeBar, settingBar, titleHead, UpBankBar,
         } = this.props;
         const { currentUser } = this.state;
         const colors = [];
         if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
-        return <LinearGradient colors={colors} start={this.props.start} end={this.props.end} style={[stylesMain.Appbar, stylesMain.FlexRow,
+        return <LinearGradient colors={colors} end={this.props.end} start={this.props.start} style={[stylesMain.Appbar, stylesMain.FlexRow,
         {
-            width, borderWidth: 0, borderBottomWidth: 2, borderColor: colors[colors.length - 1], justifyContent: 'space-between',
-            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor,
+            borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor, borderBottomWidth: 2,
+            borderColor: colors[colors.length - 1], borderWidth: 0, justifyContent: 'space-between', width,
         }]}>
             <View style={stylesMain.FlexRow}>
-                {backArrow && <TouchableOpacity style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, height: 50 }]}
-                    activeOpacity={1} onPress={() => goToTop ? NavigationNavigate({ goScreen: 'popToTop', navigation }) : backNavigation ?
-                        [route.params.backNavigation('goBack'), NavigationNavigate({ goScreen: 'goBack', navigation })] :
-                        NavigationNavigate({ goScreen: 'goBack', navigation })}>
-                    <IconEntypo style={[stylesStore.Icon_appbar, { color: AIColor }]} name="chevron-left" size={30} />
+                {backArrow && <TouchableOpacity activeOpacity={1} onPress={() => goToTop ?
+                    NavigationNavigate({ goScreen: 'popToTop', navigation }) : backNavigation ? [route.params.backNavigation('goBack'),
+                    NavigationNavigate({ goScreen: 'goBack', navigation })] : NavigationNavigate({ goScreen: 'goBack', navigation })}
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { height: 50, width: 40, }]}>
+                    <IconEntypo name="chevron-left" size={30} style={[stylesStore.Icon_appbar, { color: AIColor }]} />
                 </TouchableOpacity>}
-                <Text style={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold, stylesMain.ItemCenterVertical,
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, stylesStore.Text_appbar,
                 { marginLeft: backArrow ? 4 : 24, }]}>{titleHead ?? ''}</Text>
                 {selectshare && <View style={{ marginVertical: 5 }}>
-                    <ModalDropdown options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']} defaultValue={
-                        <Text style={[stylesStore.Text_appbar, stylesFont.FontSize6, stylesFont.FontFamilyBold,
-                        stylesMain.ItemCenterVertical]}>แชร์ไปยัง
+                    <ModalDropdown defaultValue={<Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
+                    stylesMain.ItemCenterVertical, stylesStore.Text_appbar,]}>แชร์ไปยัง
                             <IconEntypo name='chevron-down' size={25} style={{ color: '#FFFFFF' }} /></Text>}
-                        textStyle={[stylesStore.Text_appbar, stylesFont.FontSize4, stylesFont.FontFamilyBold,
-                        stylesMain.ItemCenterVertical, { color: '#FFFFFF' }]} dropdownTextStyle={[stylesFont.FontFamilyText,
-                        stylesFont.FontSize6]} dropdownStyle={[stylesMain.ItemCenter,
-                        { borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, width: 100, height: 90 }]}>
-                    </ModalDropdown>
+                        dropdownStyle={[stylesMain.ItemCenter, {
+                            borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, height: 90, width: 100,
+                        }]} dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
+                        options={['แชร์ไปยัง FIN', 'แชร์ไปยัง กลุ่ม']} textStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize4,
+                        stylesMain.ItemCenterVertical, stylesStore.Text_appbar, { color: '#FFFFFF' }]} />
                 </View>}
             </View>
             <View style={stylesMain.FlexRow}>
-                {searchBar && <TouchableOpacity key={'searchBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'SearchScreen', setData: { modeStore: false }, navigation })}>
-                    <IconAntDesign RightItem name="search1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                {searchBar && <TouchableOpacity key={'searchBar'} onPress={() => NavigationNavigate({
+                    goScreen: 'SearchScreen', navigation, setData: { modeStore: false },
+                })} style={[stylesMain.ItemCenter, { width: 40 }]}>
+                    <IconAntDesign name="search1" RightItem size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />
                 </TouchableOpacity>}
-                {settingBar && <TouchableOpacity key={'settingBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Seller_Setting', navigation })}>
+                {settingBar && <TouchableOpacity key={'settingBar'} onPress={() => NavigationNavigate({
+                    goScreen: 'Seller_Setting', navigation
+                })} style={[stylesMain.ItemCenter, { width: 40 }]}>
                     <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar,
                     stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
                 </TouchableOpacity>}
-                {chatBar && <TouchableOpacity key={'chatBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                    currentUser ?
-                        NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                        NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })}>
-                    <IconAntDesign RightItem name="message1" size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                {chatBar && <TouchableOpacity key={'chatBar'} onPress={() => currentUser ?
+                    NavigationNavigate({ goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 1 }, }) :
+                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    { width: 40 }]}>
+                    <IconAntDesign name="message1" RightItem size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />
                 </TouchableOpacity>}
-                {storeBar && <TouchableOpacity key={'storeBar'} style={[stylesMain.ItemCenter, { width: 40 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
-                    <IconFontAwesome5 RightItem name="store" size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                {storeBar && <TouchableOpacity key={'storeBar'} onPress={() => NavigationNavigate({
+                    goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 3 },
+                })} style={[stylesMain.ItemCenter, { width: 40 }]}>
+                    <IconFontAwesome5 name="store" RightItem size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />
                 </TouchableOpacity>}
-                {postBar && <TouchableOpacity key={'postBar'} style={[stylesMain.ItemCenter, { width: 60 }]} onPress={() =>
-                    getActivePost(true)}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
-                    { width: 60, marginRight: 8, }]}>โพสต์</Text>
+                {postBar && <TouchableOpacity key={'postBar'} onPress={() => getActivePost(true)} style={[stylesMain.ItemCenter,
+                { width: 60 }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { marginRight: 8, width: 60, }]}>โพสต์</Text>
                 </TouchableOpacity>}
                 {saveBar && <TouchableOpacity key={'saveBar'} style={[stylesMain.ItemCenter, { width: 60 }]}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
-                    { width: 60, marginRight: 8, }]}>บันทึก</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { marginRight: 8, width: 60, }]}>บันทึก</Text>
                 </TouchableOpacity>}
                 {UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Setting_TopicStore', setData: { selectedIndex: 1 }, navigation })}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
-                    { width: 80, marginRight: 8, }]}>เพิ่มบัญชี</Text>
+                    NavigationNavigate({ goScreen: 'Setting_TopicStore', navigation, setData: { selectedIndex: 1 }, })}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { marginRight: 8, width: 80, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}
                 {deleteBar && this.props.cartDataList.length > 0 && <TouchableOpacity key={'deleteBar'} onPress={() =>
                     cartListButtomDelete()} style={[stylesMain.ItemCenter, { width: 60 }]}>
-                    <Text style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold, stylesFont.FontSize4,
-                    { width: 60, textAlign: 'center' }]}>{cartData.buttomDelete ? 'เสร็จสิ้น' : 'ลบ'}</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { textAlign: 'center', width: 60, }]}>{cartData.buttomDelete ? 'เสร็จสิ้น' : 'ลบ'}</Text>
                 </TouchableOpacity>}
             </View>
         </LinearGradient>;

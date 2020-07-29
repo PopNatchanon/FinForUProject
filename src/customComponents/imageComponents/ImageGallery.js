@@ -17,12 +17,12 @@ function ImageGallery(props) {
     const [cStoreIndex, setCStoreIndex] = useState([]);
     const [randomLayout, setRandomLayout] = useState({});
     let imageColumn = (value, index, boxwidth, boxheight) => <View key={index} style={{
-        width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5),
-        marginTop: 5, marginLeft: 5
+        height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginLeft: 5, marginTop: 5,
+        width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5),
     }}>
         <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-            <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                resizeMode={FastImage.resizeMode.cover} />
+            <FastImage resizeMode={FastImage.resizeMode.cover} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
+                style={{ height: '100%', width: '100%', }} />
         </TouchableOpacity>
     </View>;
     let imageRow = (value, index, boxwidth, boxheight, position, setbox) => {
@@ -49,12 +49,12 @@ function ImageGallery(props) {
                     imageColumn(value2.listdata, value2.index, 1, 1))}
             </View>}
             <View style={{
-                width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5), height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5),
-                marginTop: 5, marginLeft: 5
+                height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginLeft: 5, marginTop: 5,
+                width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5),
             }}>
                 <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-                    <FastImage style={{ width: '100%', height: '100%' }} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                        resizeMode={FastImage.resizeMode.cover} />
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
+                        style={{ height: '100%', width: '100%', }} />
                 </TouchableOpacity>
             </View>
             {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>

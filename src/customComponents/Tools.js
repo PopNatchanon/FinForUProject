@@ -697,9 +697,9 @@ export function ProductBox(props) {
                 <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5Box : mode == 'row3col2' ?
                     stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ? stylesMain.BoxProduct4Box : mode == 'row3colall' ?
                         stylesMain.BoxProduct2Box : mode == 'row2colall' ? stylesMain.BoxProduct3Box : mode == '5item' ?
-                            mode == 'row3colall_new' ? {
-                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: 400,
-                            } : stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box,
+                            stylesDeal.Deal_Exclusive_Box : mode == 'row3colall_new' ? {
+                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.33,
+                            } : stylesMain.BoxProduct1Box,
                 { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
                     <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3colall' ?
                         stylesMain.BoxProduct2ImageofLines : mode == 'row2colall' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?

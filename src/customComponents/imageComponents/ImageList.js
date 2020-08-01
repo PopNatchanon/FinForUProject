@@ -171,8 +171,8 @@ export default class Carousel extends Component {
         });
     }
     defaultPropsDots = {
-        activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10,
-        inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10,
+        activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10, borderRadius: 20, borderWidth: 3,
+        height: null, inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10, marginHorizontal: 4, width: null,
     }
     renderPaginationDots = () => {
         const { data, dotsStyle, paginationPosition, paginationType, } = this.props
@@ -196,17 +196,22 @@ export default class Carousel extends Component {
                     const borderColor = index == currentPage - 1 ?
                         dotsStyle.activeBorderColor ? dotsStyle.activeBorderColor : this.defaultPropsDots.activeBorderColor :
                         dotsStyle.inactiveBorderColor ? dotsStyle.inactiveBorderColor : this.defaultPropsDots.inactiveBorderColor;
+                    const borderRadius = dotsStyle.borderRadius ? dotsStyle.borderRadius : this.defaultPropsDots.borderRadius;
+                    const borderWidth = dotsStyle.borderWidth ? dotsStyle.borderWidth : this.defaultPropsDots.borderWidth;
                     const heightBox = dotsStyle.height ? dotsStyle.height : index == currentPage - 1 ?
                         dotsStyle.activeHeight ? dotsStyle.activeHeight : this.defaultPropsDots.activeHeight :
                         dotsStyle.inactiveHeight ? dotsStyle.inactiveHeight : this.defaultPropsDots.inactiveHeight;
+                    const marginHorizontal = dotsStyle.marginHorizontal ? dotsStyle.marginHorizontal :
+                        this.defaultPropsDots.marginHorizontal;
                     const widthBox = dotsStyle.width ? dotsStyle.width : index == currentPage - 1 ?
                         dotsStyle.activeWidth ? dotsStyle.activeWidth : this.defaultPropsDots.activeWidth :
                         dotsStyle.inactiveWidth ? dotsStyle.inactiveWidth : this.defaultPropsDots.inactiveWidth;
                     return <TouchableOpacity activeOpacity={1} key={index} style={{
-                        zIndex: 1, backgroundColor: bgColor, borderColor: borderColor, borderRadius: 20, borderWidth: 3, height: heightBox,
-                        marginHorizontal: 4, marginLeft: paginationPosition == 'down-left' && index == 0 ? 8 : 4,
-                        marginRight: paginationPosition == 'down-right' && index == data.length - 1 ? 8 : 4,
-                        transform: [{ translateY: translateY }], width: widthBox,
+                        zIndex: 1, backgroundColor: bgColor, borderColor: borderColor, borderRadius: borderRadius,
+                        borderWidth: borderWidth, height: heightBox, marginHorizontal: marginHorizontal,
+                        marginLeft: paginationPosition == 'down-left' && index == 0 ? 4 + marginHorizontal : marginHorizontal,
+                        marginRight: paginationPosition == 'down-right' && index == data.length - 1 ? 4 + marginHorizontal :
+                            marginHorizontal, transform: [{ translateY: translateY }], width: widthBox,
                     }} onPress={() => {
                         this.scrollView.current.scrollTo({ x: (index + loopOffset) * childWidth, animated: true, });
                         this.setState({ currentPage: index + 1, });

@@ -790,10 +790,8 @@ export default StyleSheet.create({
   FinMall_Box: {
     width,
     justifyContent: 'space-between',
-    height: 'auto',
-    aspectRatio: 2.3,
     marginTop: 3,
-    paddingHorizontal: 5,
+    paddingHorizontal: 3,
   },
   FinMall_Box_Image: {
     width: width * 0.50,

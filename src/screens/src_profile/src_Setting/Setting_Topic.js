@@ -554,28 +554,30 @@ export let Edit_Bell = (props) => <SafeAreaView>
 ///----------------------------------------------------------------------------------------------->>>> Language_Screen
 export let Language_Screen = (props) => {
   const [settingLanguage, setSettingLanguage] = useState('th');
-  return <SafeAreaView>
+  return <>
     <AppBar {...props} backArrow titleHead='ภาษา' />
-    <View style={stylesProfileTopic.BoxTopic}>
+    <ScrollView>
+      <View>
+        {/* <View style={stylesProfileTopic.BoxTopic}>
       <View style={stylesMain.FlexRow}>
         <CheckBox checked={settingLanguage == 'en'} onPress={() => setSettingLanguage('en')} />
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>English</Text>
       </View>
-    </View>
-    <View style={stylesProfileTopic.BoxTopic}>
-      <View style={stylesMain.FlexRow}>
-        <CheckBox checked={settingLanguage == 'th'} onPress={() => setSettingLanguage('th')} />
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>ไทย</Text>
-      </View>
-    </View>
-    <View style={{ alignItems: 'center', height: 620, justifyContent: 'flex-end', }}>
-      <TouchableOpacity>
-        <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-          <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
+    </View> */}
+        <View style={stylesProfileTopic.BoxTopic}>
+          <View style={stylesMain.FlexRow}>
+            <CheckBox checked={settingLanguage == 'th'} onPress={() => setSettingLanguage('th')} />
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10, }]}>ไทย</Text>
+          </View>
         </View>
-      </TouchableOpacity>
-    </View>
-  </SafeAreaView>;
+      </View>
+    </ScrollView>
+    <TouchableOpacity>
+      <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึกการเปลี่ยนแปลง</Text>
+      </View>
+    </TouchableOpacity>
+  </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Edit_Setting_Bell
 export let Edit_Setting_Bell = (props) => {

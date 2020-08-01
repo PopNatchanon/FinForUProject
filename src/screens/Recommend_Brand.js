@@ -56,10 +56,8 @@ export let Recommend_Brand_Store = (props) => {
     return <View style={stylesMain.FrameBackground}>
         <FastImage source={{ uri: image_header, }} style={stylesTopic.Brand_ImageBackground} resizeMode={FastImage.resizeMode.stretch} />
         <View style={stylesTopic.Recommend_Brand_StoreBoxPro}>
-            <View style={stylesTopic.Recommend_Brand_Pro}>
-                <FastImage style={stylesTopic.Recommend_Brand_Proimage} source={{ uri: image_store, }}
-                    resizeMode={FastImage.resizeMode.contain} />
-            </View>
+                <FastImage style={stylesTopic.Recommend_Brand_Pro} source={{ uri: image_store, }}
+                    resizeMode={FastImage.resizeMode.cover} />
             <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: 23 }, navigation })}>
                 <View style={[stylesTopic.Recommend_Brand_ProButton]}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เข้าดูร้าน</Text>

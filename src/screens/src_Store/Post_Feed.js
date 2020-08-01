@@ -710,16 +710,16 @@ export let Select_TagProduct = (props) => {
 ///----------------------------------------------------------------------------------------------->>>
 export let Feed_comment = (props) => {
     const [data, setData] = useState([
-        { id: 1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ" },
-        { id: 2, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ" },
-        { id: 3, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "March SoulLaComa", comment: "ยังมีสินค้าอยู่ไหมคะ" },
-        { id: 4, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "Finn DoRemiFaso", comment: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ" },
-        { id: 5, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name: "Maria More More", comment: "สินค้าราคาเท่าไหรครับ" },
-        { id: 6, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name: "Clark June Boom!", comment: "ส่งของวันไหนครับ" },
-        { id: 7, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 8, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "DoRemiFaso", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ" },
+        { id: 1, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ" },
+        { id: 2, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ" },
+        { id: 3, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "March SoulLaComa", comment: "ยังมีสินค้าอยู่ไหมคะ" },
+        { id: 4, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Finn DoRemiFaso", comment: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ" },
+        { id: 5, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Maria More More", comment: "สินค้าราคาเท่าไหรครับ" },
+        { id: 6, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Clark June Boom!", comment: "ส่งของวันไหนครับ" },
+        { id: 7, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
+        { id: 8, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "DoRemiFaso", comment: "ยังไม่ได้สินค้าเลยครับ" },
+        { id: 9, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
+        { id: 10, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ" },
     ])
     return <FlatList style={stylesTopic.root} data={data} extraData={this.state} ItemSeparatorComponent={() =>
         <View style={stylesTopic.separator} />} keyExtractor={(item) => item.id} renderItem={(item) => {

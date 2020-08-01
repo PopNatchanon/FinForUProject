@@ -77,21 +77,21 @@ export let Seller_Setting_Topic = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>การตั้งค่า</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 2 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแชท</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ตั้งค่าการแจ้งเตือน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ภาษา</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />

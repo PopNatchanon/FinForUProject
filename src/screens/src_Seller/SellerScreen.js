@@ -24,6 +24,7 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
+import { TodayProduct } from '../MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -38,7 +39,7 @@ function SellerScreen(props) {
                 <Headbar {...props} />
                 <Menubar {...props} />
                 <ListMenu {...props} />
-                <Seller_Product />
+                <Seller_Product {...props} />
             </View>
         </ScrollView>
     </SafeAreaView>;
@@ -252,11 +253,7 @@ export let Seller_Product = (props) => <View style={stylesMain.FrameBackground}>
     <View style={{ padding: 10 }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายการสินค้าของฉัน</Text>
     </View>
-    <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
-        <Seller_Product_Box />
-        <Seller_Product_Box />
-        <Seller_Product_Box />
-    </View>
+    <TodayProduct {...props} noTitle />
 </View>;
 ///--------------------------------------------------------------------------///
 export let Seller_Product_Box = (props) => <TouchableOpacity style={{ width: '30%', borderColor: '#ECECEC', borderWidth: 1, padding: 10 }}>

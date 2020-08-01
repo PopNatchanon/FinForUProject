@@ -686,9 +686,8 @@ export function ProductBox(props) {
         if (index < (numberOfItem ?? dataService.length)) {
             var discount;
             item.discount && (discount = item.discount.replace("%", ""));
-            var dataMySQL = typeip == 'ip' ? `${ip}/${(prepath ? postpath ? `${prepath}/${item.image_path}/${postpath}` :
-                `${prepath}/${item.image_path}` : postpath ? `${item.image_path}/${postpath}` : `${item.image_path}`)}` :
-                `${finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ?? item.image_main ?? item.image)}`;
+            var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
+                item.image_main ?? item.image)}${item.type == 'local' ? '' : '_.webp'}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() => noNavigation ?
                 getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
                 NavigationNavigate({
@@ -698,13 +697,13 @@ export function ProductBox(props) {
                     stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ? stylesMain.BoxProduct4Box : mode == 'row3colall' ?
                         stylesMain.BoxProduct2Box : mode == 'row2colall' ? stylesMain.BoxProduct3Box : mode == '5item' ?
                             stylesDeal.Deal_Exclusive_Box : mode == 'row3colall_new' ? {
-                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.33,
+                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.327,
                             } : stylesMain.BoxProduct1Box,
                 { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
                     <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3colall' ?
                         stylesMain.BoxProduct2ImageofLines : mode == 'row2colall' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
-                            mode == 'row3colall_new' ? { flex: 1, width: '100%', } : stylesMain.BoxProduct1ImageofLines2 :
-                            stylesMain.BoxProduct1ImageofLines]}>
+                            stylesMain.BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { flex: 1, width: '100%', aspectRatio: 1 } :
+                                stylesMain.BoxProduct1ImageofLines]}>
                         <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
                             borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
                             marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
@@ -824,7 +823,7 @@ export function RenderProduct(props) {
                                         {`-${value}`} </Text>
                                 </View>} />}
                     </View>
-                    {item.price_discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
+                    {item.discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
                         thousandSeparator={true} prefix={'฿'} renderText={value => <Text numberOfLines={1}
                             style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText,
                             { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>

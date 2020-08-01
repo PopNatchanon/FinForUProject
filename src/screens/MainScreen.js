@@ -21,7 +21,7 @@ import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import SkeletonContent from "react-native-skeleton-content-nonexpo";
-import SplashScreen from 'react-native-splash-screen';
+import SplashScreen from 'react-native-splash-screen';                    
 import WebView from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -224,11 +224,11 @@ function MainScreen(props) {
             renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
             // ฟินคัดมาเพื่อคุณ
         },
-        {
-            nameComponent: 'CategoryProduct',
-            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-            // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-        },
+        // {
+        //     nameComponent: 'CategoryProduct',
+        //     renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+        //     // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+        // },
         {
             nameComponent: 'Second_product',
             renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -372,7 +372,6 @@ export let Slide = (props) => {
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
             </View>}
-        <TouchableOpacity onPress={() => setActive(true)}><Text>Enter</Text></TouchableOpacity>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
@@ -493,7 +492,8 @@ export let Trend_Hit = (props) => {
     }, [dataBody]);
     let _renderItem = (item, index) => <View key={index} style={{ width: width * 0.48 }}>
         <View style={{ height: '88%', }}>
-            <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch} source={{ uri: item.image, }} />
+            <FastImage style={stylesMain.BoxProduct1Image} resizeMode={FastImage.resizeMode.stretch}
+                source={{ uri: item.image, }} />
         </View>
         <View style={{ alignItems: 'center' }}>
             <TouchableOpacity style={{ height: 25, width: 90, marginTop: -15 }}>
@@ -504,14 +504,14 @@ export let Trend_Hit = (props) => {
     </View>;
     let Trend_Box = () => dataService && dataService?.error == undefined && dataService?.map((item, index) => {
         var dataMySQL = `${ip}/mysql/${item.image_path}/${item.image}`;
-        return <View key={index} style={[stylesMain.ItemCenter,
+        return <TouchableOpacity key={index} style={[stylesMain.ItemCenter,
         { width: width * 0.32, borderWidth: 1, flexDirection: 'row', borderColor: '#ECECEC', borderRadius: 5, }]}>
-            <FastImage style={{ height: 40, width: 40 }} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
+            <FastImage style={{ height: 50, width: 50, marginRight: 5, borderRadius: 5 }} source={{ uri: dataMySQL, }} resizeMode={FastImage.resizeMode.contain} />
             <View>
-                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8]}>{item.name}</Text>
-                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>37K products</Text>
+                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{item.name}</Text>
+                <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize8, { color: '#CACACA' }]}>38K products</Text>
             </View>
-        </View>;
+        </TouchableOpacity>;
     });
     return <>
         <View style={[stylesMain.FlexRow,
@@ -936,16 +936,16 @@ export let PromotionPopular = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Product_for_you
 export let Product_for_you = (props) => {
     const dataService2 = [
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '99,000', name_product: 'Yamaha T-max530 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '145,000', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '129,000', name_product: 'X ADV | Red Vs Blu', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '139,000', name_product: 'Honda X-ADV 2017', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '119,000', name_product: 'Miku Max', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '359,000', name_product: 'Yamaha 04GEN', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '359,000', name_product: 'AXM-4 Scooter', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '359,000', name_product: 'Classic luxury rickshaw', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '359,000', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '359,000', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '5250', price: '99000', discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '6250', price: '99000', discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '7250', price: '99000', discount: '25', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '850', price: '99000', discount: '25', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '9250', price: '99000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '350', price: '99000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '5550', price: '99000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '2250', price: '99000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '29550', price: '99000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
     ]
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => <View key={index} style={[stylesMain.ItemCenter,
@@ -977,20 +977,20 @@ export let Product_for_you = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Highlight
 export let Highlight = (props) => {
     const dataService2 = [
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '99,000', name_product: 'Yamaha T-max530 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145,000', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129,000', name_product: 'X ADV | Red Vs Blu', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139,000', name_product: 'Honda X-ADV 2017', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119,000', name_product: 'Miku Max', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359,000', name_product: 'Yamaha 04GEN', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359,000', name_product: 'AXM-4 Scooter', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359,000', name_product: 'Classic luxury rickshaw', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359,000', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359,000', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '74250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145000', price: '155000', discount: '10', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129000', price: '139000', discount: '10', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139000', price: '149000', discount: '50', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119000', price: '129000', discount: '10', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
     ]
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2, 3].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
-        <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
+        <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 113 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.010, }]}>
             </View>
         </View>
@@ -1248,6 +1248,16 @@ export let CategoryProductSubPromotion = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Second_product
 export let Second_product = (props) => {
     const { dataService, Header_Second, navigation, } = props;
+    const dataService2 = [
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '1.jpg', id_product: 0, last_price: '169000', name_product: 'ขาย Ford Fiesta 1.6 5d ปี 11', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '2.jpg', id_product: 1, last_price: '30', name_product: 'สินค้ามือสองสภาพดีราคาไม่แพงราคาถูกๆ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '3.jpg', id_product: 2, last_price: '50', name_product: 'สินค้ามือสอง [Second Hand] กล่องใส่ SD Card สภาพนางฟ้า 💥💥 ถ่ายจากของจริง', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '4.jpg', id_product: 3, last_price: '780', name_product: '(สินค้ามือสอง✌🏻) กระเป๋าสตางค์ Charles&Keith Classic Zipped Wallet', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '5.jpg', id_product: 4, last_price: '3200', name_product: 'Ipad2 WiFi 16 GB สินค้ามือสองคุณภาพดี ราคาแบ่งปัน', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '6.jpg', id_product: 5, last_price: '4599', name_product: '【HOT】Second hand ไอโพน6plus แท้100% อุปกรณ์ครบชุด สภาพใหม่ มือสอง[สินค้าที่มีอยู่ มือสอง]', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '7.jpg', id_product: 5, last_price: '3999', name_product: 'สินค้าที่มีอยู่ มือสอง】มือสอง Apple 6 plus iPhone 6 plus ในสภาพที่ดีอุปกรณ์ของแท้ ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Second_product', image: '8.jpg', id_product: 5, last_price: '1850', name_product: 'Lighting L116T SMART LED Video Light สินค้ามือสอง', type: 'local' },
+    ]
     let renderItem1 = dataService?.list_store2_1 ? dataService.list_store2_1.map((item, index) => {
         var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return <View key={index} style={{ width: width * 0.64, height: 196 }}>
@@ -1297,7 +1307,7 @@ export let Second_product = (props) => {
                         borderColor: '#DCDCDC', borderWidth: 1, borderBottomWidth: 0.5, marginTop: 0, backgroundColor: '#ECECEC'
                     }]}></View>}
             {dataService?.product_second ?
-                <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
+                <FlatProduct {...props} dataService={dataService2} numberOfColumn={2} noMarginTop
                     nameFlatProduct='Second_product' mode='row3_new2' nameSize={14} priceSize={15} dispriceSize={15} /> :
                 <View>
                     <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
@@ -1374,12 +1384,19 @@ export let Second_product = (props) => {
 ///----------------------------------------------------------------------------------------------->>>>
 export let Fin_Mall = (props) => {
     const { dataService, navigation, } = props;
-    let productFinmail = (type) => type.map((item, index) => {
+    let productFinmail = (type, n) => type.map((item, index) => {
         if (index < 2) {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            return <View style={{ width: width * 0.22, marginTop: 5, paddingLeft: 2.5 }} key={index}>
-                <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#FFFFFF', padding: 5 }}>
-                    <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL, }}
+            // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            var dataMySQL = n == 0 ?
+                index == 0 ?
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` :
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` :
+                index == 0 ?
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
+            return <View style={{ width: width * 0.226, marginTop: 5, paddingLeft: 2.5 }} key={index}>
+                <View style={{ height: 'auto', width: width * 0.20, aspectRatio: 1, backgroundColor: '#FFFFFF', }}>
+                    <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL }}
                         resizeMode={FastImage.resizeMode.contain} />
                 </View>
                 <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
@@ -1393,14 +1410,15 @@ export let Fin_Mall = (props) => {
         };
     });
     return <View style={[stylesMain.FlexRow, stylesMain.FinMall_Box]}>
-        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>Fin Mall</Text>
-            <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between' }}>
+        <View style={{ width: width * 0.485, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+                Fin Mall</Text>
+            <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between', marginBottom: 3, }}>
                 {dataService ?
                     <TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
                         NavigationNavigate({ goScreen: 'FinMallScreen', navigation })}>
                         <View style={stylesMain.FlexRow}>
-                            {productFinmail(dataService.product_hit)}
+                            {productFinmail(dataService.product_hit, 0)}
                         </View>
                     </TouchableOpacity> :
                     <View style={stylesMain.FlexRow}>
@@ -1419,7 +1437,7 @@ export let Fin_Mall = (props) => {
                     </View>}
             </View>
         </View>
-        <View style={{ width: width * 0.48, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
+        <View style={{ width: width * 0.485, backgroundColor: '#FFFFFF', paddingHorizontal: 5 }}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
                 สินค้าสุด Exclusive</Text>
             <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
@@ -1427,7 +1445,7 @@ export let Fin_Mall = (props) => {
                     <TouchableOpacity key={'exclusive'} activeOpacity={1} onPress={() =>
                         NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
                         <View style={stylesMain.FlexRow}>
-                            {productFinmail(dataService.exclusive)}
+                            {productFinmail(dataService.exclusive, 1)}
                         </View>
                     </TouchableOpacity> :
                     <View style={stylesMain.FlexRow}>
@@ -1559,12 +1577,24 @@ export let FIN_Supermarket = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export let TodayProduct = (props) => {
     const { loadData, noTitle, onShow, prepath, typeip, } = props;
+    const dataService2 = [
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '74250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145000', price: '155000', discount: '10', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129000', price: '139000', discount: '10', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139000', price: '149000', discount: '50', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119000', price: '129000', discount: '10', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+    ]
     onShow && console.log(onShow);
     return <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>
         {noTitle ? null : <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
             สินค้าคัดสรรเพื่อคุณ</Text>}
         <View style={stylesMain.BoxProduct2BoxProduct}>
-            {loadData && <ProductBox {...props} dataService={loadData} typeip={typeip ? 'ip' : 'fin'} mode='row3colall_new'
+            {dataService2 && <ProductBox {...props} dataService={dataService2} typeip={ip} mode='row3colall_new'
                 pointerUrl='DetailScreen' pointerid_store nameSize={14} priceSize={15} dispriceSize={15} prepath={prepath ?? null} />}
         </View>
     </View>;

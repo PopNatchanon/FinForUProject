@@ -61,3 +61,4 @@ buck-out/
 android/app/release/output.json
 *.hprof
 android/app/release/output-metadata.json
+src/navigator/IpConfig.js

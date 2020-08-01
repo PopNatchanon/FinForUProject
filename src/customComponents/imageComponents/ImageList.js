@@ -1,50 +1,296 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useRef, useState, useEffect } from 'react';
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
-    Dimensions, ScrollView, View,
+    Animated, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity,
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { GenArray } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../navigator/IpConfig';
-///----------------------------------------------------------------------------------------------->>>> Main
-function imageList(props) {
-    const [indexScroll, setIndexScroll] = useState(1);
-    const ScrollViewRef = useRef(null);
-    console.log(`==--===-=>index-=>{${indexScroll}}<=--=>maxIndex-=>{${props.data.length}}<=-===--==`);
-    console.log(indexScroll);
-    console.log(`00==>=======>{==}<====>==========>{==}<==00`);
-    useEffect(() => {
-        props.data.length > 1 && setTimeout(() => {
-            const interval = setInterval(() => {
-                console.log(`==---==-=>index-=>{${indexScroll}}<=--=>maxIndex-=>{${props.data.length}}<=-==---==`);
-                console.log(indexScroll);
-                console.log(`88==>=======>{==}<====>==========>{==}<==88`);
-                console.log(indexScroll == props.data.length);
-                setIndexScroll(indexScroll + 1);
-                if (indexScroll == props.data.length) { setIndexScroll(1); };
-            }, 3000);
-            return () => clearInterval(interval);
-        }, 1000);
-    }, []);
-    return <ScrollView bounces={false} horizontal={true} onContentSizeChange={() =>
-        ScrollViewRef.current.scrollTo({ x: indexScroll * width, y: 0, animated: true })} ref={ScrollViewRef} scrollEnabled={false}
-        showsHorizontalScrollIndicator={false}>
-        {props.data.map((value, index) => {
-            var dataMySQL;
-            props.banner ?
-                (dataMySQL = `${finip}/${value.image_path}/${value.image}`) :
-                (dataMySQL = index % 2 == 0 ?
-                    `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-            return <View key={index}>
-                <FastImage resizeMethod='resize' resizeMode='contain' source={{ uri: dataMySQL }} style={stylesMain.child} />
+///----------------------------------------------------------------------------------------------->>>>
+const NUM_OF_DUP = 3;
+const approximatelyEqualTo = (a, b, epsilon = 0.01) => Math.abs(a - b) < epsilon;
+export default class Carousel extends Component {
+    scrollView = React.createRef();
+    state = {
+        aNextPage: 0,
+        animatedNextPage: new Animated.Value(0),
+        aPrevPage: 0,
+        currentPage: 1,
+        childHeight: 0,
+        childWidth: 0,
+    }
+    componentWillUnmount() {
+        this.setAutoPlay(false);
+    }
+    isLooped = () => {
+        const { data, loop } = this.props;
+        return loop && data.length > 1;
+    }
+    setAutoPlay = (start) => {
+        if (start) {
+            this.setAutoPlay(false);
+            const { data, autoplayInterval } = this.props;
+            this.autoplayTimeout = setTimeout(() => {
+                const isLooped = this.isLooped();
+                const { childWidth, currentPage } = this.state;
+                const isLastPage = data.length === currentPage;
+                // compute new scroll x
+                let scrollX;
+                if (isLooped) {
+                    const loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
+                    scrollX = childWidth * (currentPage + loopOffset);
+                } else {
+                    scrollX = isLastPage ? 0 : childWidth * currentPage;
+                }
+
+                this.scrollView.current.scrollTo({
+                    x: scrollX,
+                    animated: true,
+                });
+            }, autoplayInterval);
+        } else {
+            clearTimeout(this.autoplayTimeout);
+        }
+    }
+    onScroll = ({
+        nativeEvent: { contentOffset: { x } },
+    }) => {
+        this.setAutoPlay(false);
+        const { data, autoplay } = this.props;
+        const { animatedNextPage, currentPage: prevPage, childWidth } = this.state;
+        const isLooped = this.isLooped();
+        // compute loop offset
+        let loopOffset = 0;
+        if (isLooped) {
+            loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
+        }
+        // raw float page number
+        const rawCurrentPage = x / childWidth;
+        // rounded page number
+        const roundCurrentPage = Math.round(rawCurrentPage);
+        // cut front dup
+        const normalizedPage = roundCurrentPage - loopOffset;
+        // normalize page number
+        let currentPage = normalizedPage + 1;
+        if (normalizedPage < 0) {
+            currentPage = data.length + normalizedPage + 1;
+        } else if (normalizedPage >= data.length) {
+            currentPage = (normalizedPage % data.length) + 1;
+        }
+        const isScrollEnd = approximatelyEqualTo(rawCurrentPage, roundCurrentPage);
+        // reset loop offset
+        if (
+            isLooped
+            && isScrollEnd
+            && (
+                normalizedPage < 0
+                || normalizedPage >= data.length
+            )
+        ) {
+            this.scrollView.current.scrollTo({
+                x: (currentPage - 1 + loopOffset) * childWidth,
+                animated: false,
+            });
+        }
+        // restart autoplay
+        if (isScrollEnd && autoplay) {
+            this.setAutoPlay(true);
+        }
+        // page number changes
+        if (currentPage !== prevPage) {
+            this.setState({
+                currentPage,
+            });
+            const { onPage } = this.props;
+            onPage({
+                prev: prevPage,
+                current: currentPage,
+            });
+        }
+    }
+    onContentSizeChange = (contentWidth, contentHeight) => {
+        const { data, autoplay } = this.props;
+        const isLooped = this.isLooped();
+        const loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
+        // compute total number of children
+        const childrenNum = isLooped ? data.length + loopOffset * 2 : data.length;
+        this.setState({
+            childHeight: contentHeight, childWidth: contentWidth / childrenNum,
+        }, () => {
+            // set loop initial offset
+            if (isLooped) {
+                const { childWidth } = this.state;
+                this.scrollView.current.scrollTo({
+                    x: childWidth * loopOffset,
+                    animated: false,
+                });
+            }
+            if (autoplay) {
+                this.setAutoPlay(true);
+            }
+        });
+    }
+    renderItems = () => {
+        const {
+            data,
+            renderItem,
+        } = this.props;
+        let normalizedData = data;
+        const isLooped = this.isLooped();
+        let loopOffset = 0;
+        if (isLooped) {
+            const frontDup = data.slice(-NUM_OF_DUP);
+            const endDup = data.slice(0, NUM_OF_DUP);
+            loopOffset = frontDup.length;
+            normalizedData = frontDup.concat(data, endDup);
+        }
+        return normalizedData.map((item, index) => {
+            const normalizedIndex = index - loopOffset;
+            // renderIndex should be within the range of [0, data.length - 1]
+            let renderIndex = normalizedIndex % data.length;
+            renderIndex = renderIndex < 0 ? data.length + renderIndex : renderIndex;
+            const renderedItem = renderItem(item, renderIndex);
+            // avoid duplicated keys
+            let { key } = renderedItem;
+            if (normalizedIndex < 0) {
+                key = `${key}-front-dup`;
+            } else if (normalizedIndex >= data.length) {
+                key = `${key}-end-dup`;
+            }
+            return (
+                <React.Fragment key={key}>
+                    {renderedItem}
+                </React.Fragment>
+            );
+        });
+    }
+    defaultPropsDots = {
+        activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10,
+        inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10,
+    }
+    renderPaginationDots = () => {
+        const { data, dotsStyle, paginationPosition, paginationType, } = this.props
+        const { aNextPage, animatedNextPage, aPrevPage, animatedPrevPage, childHeight, childWidth, currentPage, prevPage, } = this.state;
+        const isLooped = this.isLooped();
+        let loopOffset = 0;
+        if (isLooped) {
+            loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
+        };
+        const translateY = childHeight - 40;
+        if (paginationType == 'dots' && childHeight != 0) {
+            return <View style={{
+                flexDirection: 'row', position: 'absolute', width, height: 50, alignContent: 'center', alignItems: 'center',
+                justifyContent: paginationPosition == 'down' ? 'center' : paginationPosition == 'down-left' ? 'flex-start' :
+                    paginationPosition == 'down-right' ? 'flex-end' : 'center'
+            }}>
+                {GenArray(data.length).map((value, index) => {
+                    const bgColor = index == currentPage - 1 ?
+                        dotsStyle.activeBGColor ? dotsStyle.activeBGColor : this.defaultPropsDots.activeBGColor :
+                        dotsStyle.inactiveBGColor ? dotsStyle.inactiveBGColor : this.defaultPropsDots.inactiveBGColor;
+                    const borderColor = index == currentPage - 1 ?
+                        dotsStyle.activeBorderColor ? dotsStyle.activeBorderColor : this.defaultPropsDots.activeBorderColor :
+                        dotsStyle.inactiveBorderColor ? dotsStyle.inactiveBorderColor : this.defaultPropsDots.inactiveBorderColor;
+                    const heightBox = dotsStyle.height ? dotsStyle.height : index == currentPage - 1 ?
+                        dotsStyle.activeHeight ? dotsStyle.activeHeight : this.defaultPropsDots.activeHeight :
+                        dotsStyle.inactiveHeight ? dotsStyle.inactiveHeight : this.defaultPropsDots.inactiveHeight;
+                    const widthBox = dotsStyle.width ? dotsStyle.width : index == currentPage - 1 ?
+                        dotsStyle.activeWidth ? dotsStyle.activeWidth : this.defaultPropsDots.activeWidth :
+                        dotsStyle.inactiveWidth ? dotsStyle.inactiveWidth : this.defaultPropsDots.inactiveWidth;
+                    return <TouchableOpacity activeOpacity={1} key={index} style={{
+                        zIndex: 1, backgroundColor: bgColor, borderColor: borderColor, borderRadius: 20, borderWidth: 3, height: heightBox,
+                        marginHorizontal: 4, marginLeft: paginationPosition == 'down-left' && index == 0 ? 8 : 4,
+                        marginRight: paginationPosition == 'down-right' && index == data.length - 1 ? 8 : 4,
+                        transform: [{ translateY: translateY }], width: widthBox,
+                    }} onPress={() => {
+                        this.scrollView.current.scrollTo({ x: (index + loopOffset) * childWidth, animated: true, });
+                        this.setState({ currentPage: index + 1, });
+                        console.log('selectIndex'); console.log(index);
+                    }}></TouchableOpacity>
+                })
+                }
             </View>
-        })}
-    </ScrollView>;
+        };
+    }
+    renderPaginationNumber = () => {
+        const { data, paginationPosition, paginationType } = this.props
+        const { childHeight, childWidth, currentPage, } = this.state;
+        const translateX = paginationPosition == 'down' ? (childWidth * 0.5) - 22.5 :
+            paginationPosition == 'down-left' ? 5 : paginationPosition == 'down-right' ? childWidth * 0.875 :
+                paginationPosition == 'left' ? 5 : paginationPosition == 'right' ? childWidth * 0.875 :
+                    paginationPosition == 'up' ? (childWidth * 0.5) - 22.5 : paginationPosition == 'up-left' ? 5 :
+                        paginationPosition == 'up-right' ? childWidth * 0.875 : (childWidth * 0.5) - 22.5;
+        const translateY = paginationPosition == 'down' ? childHeight - 30 : paginationPosition == 'down-left' ? childHeight - 30 :
+            paginationPosition == 'down-right' ? childHeight - 30 : paginationPosition == 'left' ? (childHeight * 0.5) - 12.5 :
+                paginationPosition == 'right' ? (childHeight * 0.5) - 12.5 : paginationPosition == 'up' ? childHeight * 0.025 :
+                    paginationPosition == 'up-left' ? childHeight * 0.025 : paginationPosition == 'up-right' ? childHeight * 0.025 :
+                        childHeight - 30;
+        if (paginationType == 'number' && childHeight != 0) {
+            return <View style={{
+                position: 'absolute', transform: [{ translateX: translateX }, { translateY: translateY }],
+            }}>
+                <Text style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize6, {
+                    backgroundColor: '#fff', borderRadius: 20, height: 25, textAlign: 'center', textAlignVertical: 'center',
+                    width: 45
+                }]}>
+                    {`${currentPage}/${data.length}`}</Text>
+            </View>
+        };
+    }
+    render = () => {
+        const { pagination, paginationType } = this.props
+        const { childWidth, } = this.state;
+        return <View>
+            <ScrollView
+                ref={this.scrollView}
+                style={[styles.scrollView, { width: childWidth },]}
+                pagingEnabled
+                horizontal
+                showsHorizontalScrollIndicator={false}
+                showsVerticalScrollIndicator={false}
+                bounces={false}
+                // iOS & Android should have used onMomentumScrollEnd
+                // the issue https://github.com/facebook/react-native/issues/21718
+                // onMomentumScrollEnd={this.onMomentumScrollEnd}
+                onScrollEndDrag={this.onScrollEndDrag}
+                scrollEventThrottle={16}
+                onScroll={this.onScroll}
+                onContentSizeChange={this.onContentSizeChange}>
+                {this.renderItems()}
+            </ScrollView>
+            {pagination && paginationType == 'dots' ? this.renderPaginationDots() : this.renderPaginationNumber()}
+        </View>;
+    };
+}
+const styles = StyleSheet.create({
+    scrollView: {
+        flexGrow: 0,
+    },
+});
+Carousel.propTypes = {
+    renderItem: PropTypes.func.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({})),
+    loop: PropTypes.bool,
+    autoplay: PropTypes.bool,
+    autoplayInterval: PropTypes.number,
+    onPage: PropTypes.func,
+    pagination: PropTypes.bool,
+    paginationPosition: PropTypes.oneOf(['down', 'down-left', 'down-right', 'left', 'right', 'up', 'up-left', 'up-right',]),
+    paginationType: PropTypes.oneOf(['number', 'dots']),
 };
-export default imageList;
+Carousel.defaultProps = {
+    data: [],
+    dotsStyle: {},
+    loop: false,
+    autoplay: false,
+    autoplayInterval: 3000,
+    onPage: () => { },
+    pagination: false,
+    paginationPosition: 'down',
+    paginationType: 'dots',
+};

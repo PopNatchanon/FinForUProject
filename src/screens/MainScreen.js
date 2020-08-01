@@ -332,27 +332,50 @@ export let ExitAppModule = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
-    const [active, setActive] = useState(false);
-    active == true && setTimeout(() => setActive(false), 1000);
+    const [position, setPosition] = useState('down')
+    const [type, setType] = useState('dots')
+    let listPosition = ['down', 'down-left', 'down-right', 'left', 'right', 'up', 'up-left', 'up-right',];
+    let listType = ['dots', 'number',];
     let _renderItem = (item, index) => {
         var dataMySQL;
         banner ?
-            (dataMySQL = `${finip}/${item.image_path}/${item.image}`) :
-            (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        return <View style={stylesMain.child} key={item.id}>
+            (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
+            : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
+        return <View style={stylesMain.child} key={index}>
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
         </View>;
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            // <ImageList activeScroll={active} data={banner ?? getFetchData['home_mobile']?.data} />
-            <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
-                pagination={PaginationLight} /> :
+            <ImageList autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 20, height: 20 }} loop pagination
+                paginationPosition={position} paginationType={type} renderItem={_renderItem} /> :
+            // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
+            //     pagination={PaginationLight} /> :
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
                 <ActivityIndicator size='large' color={mainColor} />
-            </View>}
-        <TouchableOpacity onPress={() => setActive(true)}><Text>Enter</Text></TouchableOpacity>
-    </View>;
+            </View>
+        }
+        <Text>Type</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', width }}>
+            {listType.map((value, index) => {
+                return <TouchableOpacity key={index} onPress={() => setType(value)} style={{ backgroundColor: '#564897', margin: 2 }}>
+                    <Text style={{
+                        zIndex: 1, color: '#fff', margin: 5
+                    }}>{value}</Text>
+                </TouchableOpacity>
+            })}
+        </View>
+        <Text>Position</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', width }}>
+            {listPosition.map((value, index) => {
+                return <TouchableOpacity key={index} onPress={() => setPosition(value)} style={{ backgroundColor: '#564897', margin: 2 }}>
+                    <Text style={{
+                        zIndex: 1, color: '#fff', margin: 5
+                    }}>{value}</Text>
+                </TouchableOpacity>
+            })}
+        </View>
+    </View >;
 };
 ///----------------------------------------------------------------------------------------------->>>> Guarantee
 export let Guarantee = (props) => {

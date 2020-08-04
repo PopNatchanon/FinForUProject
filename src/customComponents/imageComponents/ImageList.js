@@ -138,7 +138,7 @@ export default class Carousel extends Component {
         });
     }
     renderItems = () => {
-        const { activeZoom, data, navigation, renderItem, } = this.props;
+        const { activeZoom, data, navigation, renderItem, zoom } = this.props;
         const { childHeight, childWidth, currentPage, zoomModal } = this.state;
         const translationXRef = new Animated.Value(0);
         const translationYRef = new Animated.Value(0);
@@ -180,7 +180,7 @@ export default class Carousel extends Component {
                 key = `${key}-end-dup`;
             }
             return <React.Fragment key={key}>
-                <PanGestureHandler onGestureEvent={_onGestureEvent} onHandlerStateChange={_onHandlerStateChange}>
+                <PanGestureHandler enabled={zoom} onGestureEvent={_onGestureEvent} onHandlerStateChange={_onHandlerStateChange}>
                     <Animated.View style={{
                         overflow: 'hidden', transform: [{ translateX: translationXRef }, { translateY: translationYRef }]
                     }}>
@@ -343,6 +343,7 @@ Carousel.propTypes = {
     pagination: PropTypes.bool,
     paginationPosition: PropTypes.oneOf(['down', 'down-left', 'down-right', 'left', 'right', 'up', 'up-left', 'up-right',]),
     paginationType: PropTypes.oneOf(['number', 'dots']),
+    zoom: PropTypes.bool,
 };
 Carousel.defaultProps = {
     data: [],
@@ -354,4 +355,5 @@ Carousel.defaultProps = {
     pagination: false,
     paginationPosition: 'down',
     paginationType: 'dots',
+    zoom: false,
 };

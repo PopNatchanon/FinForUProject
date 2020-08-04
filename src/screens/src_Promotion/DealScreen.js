@@ -252,6 +252,18 @@ export let Deal_Today = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Deal_Exclusive
 export let Deal_Exclusive = (props) => {
   const { dataService, navigation } = props;
+  const dataService2 = [
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '5250', price: '99000', discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '6250', price: '99000', discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '7250', price: '99000', discount: '25', name_product: 'Honda X-ADV 2017', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '850', price: '99000', discount: '25', name_product: 'Miku Max', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '9250', price: '99000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '350', price: '99000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '5550', price: '99000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '2250', price: '99000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '29550', price: '99000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+]
   let emptyBox = GenArray(3).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2,
   { overflow: 'hidden' }]}>
     <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
@@ -270,8 +282,8 @@ export let Deal_Exclusive = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, stylesDeal.Text_EndW]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
-    {dataService?.length > 0 ?
-      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService} numberOfColumn={2} mode='row3'
+    {dataService2 ?.length > 0 ?
+      <FlatProduct {...props} custumNavigation='Deal_Exclusive' dataService={dataService2} numberOfColumn={2} mode='row3_new2'
         nameFlatProduct='Deal_Exclusive' nameSize={14} priceSize={15} dispriceSize={15} /> :
       <View>
         <View style={stylesMain.FlexRow}>

@@ -112,7 +112,7 @@ function Post_Feed(props) {
                 return <>
                     {/* หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น */}
                     <AppBar {...props} backArrow titleHead='คอมเมนท์' chatBar />
-                    <Feed_comment />
+                    <Feed_Comment />
                 </>
             case 10:
                 return <>
@@ -708,41 +708,56 @@ export let Select_TagProduct = (props) => {
     </>;
 }
 ///----------------------------------------------------------------------------------------------->>>
-export let Feed_comment = (props) => {
-    const [data, setData] = useState([
-        { id: 1, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ" },
-        { id: 2, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ" },
-        { id: 3, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "March SoulLaComa", comment: "ยังมีสินค้าอยู่ไหมคะ" },
-        { id: 4, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Finn DoRemiFaso", comment: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ" },
-        { id: 5, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Maria More More", comment: "สินค้าราคาเท่าไหรครับ" },
-        { id: 6, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Clark June Boom!", comment: "ส่งของวันไหนครับ" },
-        { id: 7, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 8, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "DoRemiFaso", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 9, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ" },
-        { id: 10, image: `${ip}/MySQL/uploads/addmin/ProfileCom/1.jpg`, name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ" },
-    ])
-    return <FlatList style={stylesTopic.root} data={data} extraData={this.state} ItemSeparatorComponent={() =>
-        <View style={stylesTopic.separator} />} keyExtractor={(item) => item.id} renderItem={(item) => {
-            const Notification = item.item;
-            return <View style={stylesTopic.container}>
+export let Feed_Comment = (props) => {
+
+    const CommentData = [
+        { id: 1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ", Time: "30 นาที" },
+        { id: 2, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ", Time: "3 ชม." },
+        { id: 3, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name: "March SoulLaComa", comment: "ยังมีสินค้าอยู่ไหมคะ", Time: "10 ชม." },
+        { id: 4, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name: "Finn DoRemiFaso", comment: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ", Time: "15 ชม." },
+        { id: 5, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name: "Maria More More", comment: "สินค้าราคาเท่าไหรครับ", Time: "20 ชม." },
+        { id: 6, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "Clark June Boom!", comment: "ส่งของวันไหนครับ", Time: "21 ชม." },
+        { id: 7, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "1 วัน" },
+        { id: 8, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "DoRemiFaso", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "3 วัน" },
+        { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "5 วัน" },
+        { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "1 W" },
+    ]
+    
+    let CommentBox = CommentData.map((value, index) =>
+        <>
+            <View style={stylesTopic.container} key={index}>
                 {/* กดรูปโปร */}
                 <TouchableOpacity onPress={() => { }}>
-                    <Image style={stylesTopic.image} source={{ uri: Notification.image }} />
+                    <Image style={stylesTopic.image} source={{ uri: value.image }} />
                 </TouchableOpacity>
                 <View style={stylesTopic.content}>
-                    <View style={stylesTopic.contentHeader}>
-                        <Text style={stylesTopic.name}>{Notification.name}</Text>
-                        <Text style={stylesTopic.time}> 9:58 am</Text>
-                    </View>
-                    <Text rkType='primary3 mediumLine'>{Notification.comment}</Text>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'flex-end', width: '50%' }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ถูกใจ</Text>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>ตอบกลับ</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name}</Text>
+                    <Text rkType='primary3 mediumLine' style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} >{value.comment}</Text>
+                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', width: '55%' }]}>
+                        <View style={{ width: 60 }}>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}> {value.Time}</Text>
+                        </View>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ถูกใจ</Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity>
+                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ตอบกลับ</Text>
+                        </TouchableOpacity>
                     </View>
                 </View>
-            </View>;
-        }} />;
+            </View>
+            <View>
+
+            </View>
+        </>);
+
+    return (
+        <ScrollView>
+            {CommentBox}
+        </ScrollView>
+    )
 }
+
 ///----------------------------------------------------------------------------------------------->>>>
 export let New_Group = (props) => {
     const { ImageGroup, navigation } = props;

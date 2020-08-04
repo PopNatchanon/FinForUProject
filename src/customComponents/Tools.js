@@ -1008,7 +1008,7 @@ export class FeedBox extends React.Component {
                                 ถูกใจ</Text>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={1} onPress={() =>
-                            NavigationNavigate({ goScreen: 'Deal_Topic', setData: { selectedIndex: 9 }, navigation })}>
+                            NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 3 }, navigation })}>
                             <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>

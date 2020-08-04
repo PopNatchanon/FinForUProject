@@ -161,7 +161,7 @@ class AppNoSearchBar extends React.Component {
             borderBottomColor: this.props.noBottomColor ? colors[colors.length - 1] : borderBottomColor, borderBottomWidth: 2,
             borderColor: colors[colors.length - 1], borderWidth: 0, justifyContent: 'space-between', width,
         }]}>
-            <View style={stylesMain.FlexRow}>
+            <View style={[stylesMain.FlexRow, { alignContent: 'center' }]}>
                 {backArrow && <TouchableOpacity activeOpacity={1} onPress={() => goToTop ?
                     NavigationNavigate({ goScreen: 'popToTop', navigation }) : backNavigation ? [route.params.backNavigation('goBack'),
                     NavigationNavigate({ goScreen: 'goBack', navigation })] : NavigationNavigate({ goScreen: 'goBack', navigation })}
@@ -169,7 +169,7 @@ class AppNoSearchBar extends React.Component {
                     <IconEntypo name="chevron-left" size={30} style={[stylesStore.Icon_appbar, { color: AIColor }]} />
                 </TouchableOpacity>}
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, stylesStore.Text_appbar,
-                { marginLeft: backArrow ? 4 : 24, }]}>{titleHead ?? ''}</Text>
+                { marginTop: 'auto', marginLeft: backArrow ? 4 : 24, }]}>{titleHead ?? ''}</Text>
                 {selectshare && <View style={{ marginVertical: 5 }}>
                     <ModalDropdown defaultValue={<Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,
                     stylesMain.ItemCenterVertical, stylesStore.Text_appbar,]}>แชร์ไปยัง

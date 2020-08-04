@@ -2,21 +2,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
-    Animated, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity,
+    Animated, Dimensions, View, ScrollView, StyleSheet, Text, TouchableOpacity, Modal, Image, PanResponder,
 } from 'react-native';
+import { PanGestureHandler, State, gestureHandlerRootHOC } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import Animateds from 'react-native-reanimated';
+const { cond, eq, add, set, Value, event } = Animateds;
 export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
+import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GenArray } from '..';
+import { GenArray, NavigationNavigate } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>>
 const NUM_OF_DUP = 3;
 const approximatelyEqualTo = (a, b, epsilon = 0.01) => Math.abs(a - b) < epsilon;
 export default class Carousel extends Component {
-    scrollView = React.createRef();
+    scrollView1 = React.createRef();
+    scrollView2 = React.createRef();
+    translationXRef = new Animated.Value(0);
+    translationYRef = new Animated.Value(0);
     state = {
         aNextPage: 0,
         animatedNextPage: new Animated.Value(0),
@@ -24,7 +31,10 @@ export default class Carousel extends Component {
         currentPage: 1,
         childHeight: 0,
         childWidth: 0,
-    }
+        zoomActiveAnimated: false,
+        zoomModal: false,
+        zoomUpdate: false,
+    };
     componentWillUnmount() {
         this.setAutoPlay(false);
     }
@@ -38,7 +48,7 @@ export default class Carousel extends Component {
             const { data, autoplayInterval } = this.props;
             this.autoplayTimeout = setTimeout(() => {
                 const isLooped = this.isLooped();
-                const { childWidth, currentPage } = this.state;
+                const { childWidth, currentPage, zoomModal } = this.state;
                 const isLastPage = data.length === currentPage;
                 // compute new scroll x
                 let scrollX;
@@ -48,11 +58,7 @@ export default class Carousel extends Component {
                 } else {
                     scrollX = isLastPage ? 0 : childWidth * currentPage;
                 }
-
-                this.scrollView.current.scrollTo({
-                    x: scrollX,
-                    animated: true,
-                });
+                this.scrollView1.current.scrollTo({ x: scrollX, animated: true, });
             }, autoplayInterval);
         } else {
             clearTimeout(this.autoplayTimeout);
@@ -63,7 +69,7 @@ export default class Carousel extends Component {
     }) => {
         this.setAutoPlay(false);
         const { data, autoplay } = this.props;
-        const { animatedNextPage, currentPage: prevPage, childWidth } = this.state;
+        const { animatedNextPage, currentPage: prevPage, childWidth, zoomModal } = this.state;
         const isLooped = this.isLooped();
         // compute loop offset
         let loopOffset = 0;
@@ -93,13 +99,10 @@ export default class Carousel extends Component {
                 || normalizedPage >= data.length
             )
         ) {
-            this.scrollView.current.scrollTo({
-                x: (currentPage - 1 + loopOffset) * childWidth,
-                animated: false,
-            });
+            this.scrollView1.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
         }
         // restart autoplay
-        if (isScrollEnd && autoplay) {
+        if (isScrollEnd && autoplay && !zoomModal) {
             this.setAutoPlay(true);
         }
         // page number changes
@@ -116,6 +119,7 @@ export default class Carousel extends Component {
     }
     onContentSizeChange = (contentWidth, contentHeight) => {
         const { data, autoplay } = this.props;
+        const { zoomModal } = this.state;
         const isLooped = this.isLooped();
         const loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
         // compute total number of children
@@ -126,21 +130,33 @@ export default class Carousel extends Component {
             // set loop initial offset
             if (isLooped) {
                 const { childWidth } = this.state;
-                this.scrollView.current.scrollTo({
-                    x: childWidth * loopOffset,
-                    animated: false,
-                });
+                this.scrollView1.current.scrollTo({ x: childWidth * loopOffset, animated: false, });
             }
-            if (autoplay) {
+            if (autoplay && !zoomModal) {
                 this.setAutoPlay(true);
             }
         });
     }
     renderItems = () => {
-        const {
-            data,
-            renderItem,
-        } = this.props;
+        const { activeZoom, data, navigation, renderItem, } = this.props;
+        const { childHeight, childWidth, currentPage, zoomModal } = this.state;
+        const translationXRef = new Animated.Value(0);
+        const translationYRef = new Animated.Value(0);
+        const _lastOffset = { x: 0, y: 0 };
+        const _onGestureEvent = Animated.event(
+            [{ nativeEvent: { translationX: translationXRef, translationY: translationYRef, }, },],
+            { useNativeDriver: false }
+        );
+        let _onHandlerStateChange = event => {
+            if (event.nativeEvent.oldState === State.ACTIVE) {
+                _lastOffset.x += event.nativeEvent.translationX;
+                _lastOffset.y += event.nativeEvent.translationY;
+                translationXRef.setOffset(_lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
+                translationXRef.setValue(0);
+                translationYRef.setOffset(_lastOffset.y > 0 ? 0 : _lastOffset.y < -(height - 215) ? -(height - 215) : _lastOffset.y);
+                translationYRef.setValue(0);
+            };
+        };
         let normalizedData = data;
         const isLooped = this.isLooped();
         let loopOffset = 0;
@@ -163,11 +179,20 @@ export default class Carousel extends Component {
             } else if (normalizedIndex >= data.length) {
                 key = `${key}-end-dup`;
             }
-            return (
-                <React.Fragment key={key}>
-                    {renderedItem}
-                </React.Fragment>
-            );
+            return <React.Fragment key={key}>
+                <PanGestureHandler onGestureEvent={_onGestureEvent} onHandlerStateChange={_onHandlerStateChange}>
+                    <Animated.View style={{
+                        overflow: 'hidden', transform: [{ translateX: translationXRef }, { translateY: translationYRef }]
+                    }}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => {
+                            activeZoom ? NavigationNavigate({ goScreen: 'ImageZoom', setData: { currentPage, data }, navigation, }) :
+                                console.log(key);
+                        }}>
+                            {renderedItem}
+                        </TouchableOpacity>
+                    </Animated.View>
+                </PanGestureHandler>
+            </React.Fragment>
         });
     }
     defaultPropsDots = {
@@ -176,14 +201,16 @@ export default class Carousel extends Component {
     }
     renderPaginationDots = () => {
         const { data, dotsStyle, paginationPosition, paginationType, } = this.props
-        const { aNextPage, animatedNextPage, aPrevPage, animatedPrevPage, childHeight, childWidth, currentPage, prevPage, } = this.state;
+        const {
+            aNextPage, animatedNextPage, aPrevPage, animatedPrevPage, childHeight, childWidth, currentPage, prevPage, zoomModal
+        } = this.state;
         const isLooped = this.isLooped();
         let loopOffset = 0;
         if (isLooped) {
             loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
         };
         const translateY = childHeight - 40;
-        if (paginationType == 'dots' && childHeight != 0) {
+        if (childHeight != 0) {
             return <View style={{
                 flexDirection: 'row', position: 'absolute', width, height: 50, alignContent: 'center', alignItems: 'center',
                 justifyContent: paginationPosition == 'down' ? 'center' : paginationPosition == 'down-left' ? 'flex-start' :
@@ -213,17 +240,17 @@ export default class Carousel extends Component {
                         marginRight: paginationPosition == 'down-right' && index == data.length - 1 ? 4 + marginHorizontal :
                             marginHorizontal, transform: [{ translateY: translateY }], width: widthBox,
                     }} onPress={() => {
-                        this.scrollView.current.scrollTo({ x: (index + loopOffset) * childWidth, animated: true, });
+                        this.scrollView1.current.scrollTo({ x: (index + loopOffset) * childWidth, animated: true, });
                         this.setState({ currentPage: index + 1, });
                         console.log('selectIndex'); console.log(index);
-                    }}></TouchableOpacity>
+                    }} />
                 })
                 }
             </View>
         };
     }
     renderPaginationNumber = () => {
-        const { data, paginationPosition, paginationType } = this.props
+        const { data, paginationPosition, } = this.props
         const { childHeight, childWidth, currentPage, } = this.state;
         const translateX = paginationPosition == 'down' ? (childWidth * 0.5) - 22.5 :
             paginationPosition == 'down-left' ? 5 : paginationPosition == 'down-right' ? childWidth * 0.875 :
@@ -235,7 +262,7 @@ export default class Carousel extends Component {
                 paginationPosition == 'right' ? (childHeight * 0.5) - 12.5 : paginationPosition == 'up' ? childHeight * 0.025 :
                     paginationPosition == 'up-left' ? childHeight * 0.025 : paginationPosition == 'up-right' ? childHeight * 0.025 :
                         childHeight - 30;
-        if (paginationType == 'number' && childHeight != 0) {
+        if (childHeight != 0) {
             return <View style={{
                 position: 'absolute', transform: [{ translateX: translateX }, { translateY: translateY }],
             }}>
@@ -248,12 +275,41 @@ export default class Carousel extends Component {
         };
     }
     render = () => {
-        const { pagination, paginationType } = this.props
-        const { childWidth, } = this.state;
+        const { activeZoom, data, pagination, paginationType, } = this.props
+        const { childHeight, childWidth, currentPage, zoomActiveAnimated, zoomModal, zoomUpdate, } = this.state;
+        const translationXRef = new Animated.Value(0);
+        const translationYRef = new Animated.Value(0);
+        const _lastOffset = { x: 0, y: 0 };
+        const _onGestureEvent = Animated.event(
+            [{ nativeEvent: { translationX: translationXRef, translationY: translationYRef, }, },],
+            { useNativeDriver: false }
+        );
+        let _onHandlerStateChange = event => {
+            if (event.nativeEvent.oldState === State.ACTIVE) {
+                _lastOffset.x += event.nativeEvent.translationX;
+                _lastOffset.y += event.nativeEvent.translationY;
+                translationXRef.setOffset(_lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
+                translationXRef.setValue(0);
+                translationYRef.setOffset(_lastOffset.y > 0 ? 0 : _lastOffset.y < -(height - 215) ? -(height - 215) : _lastOffset.y);
+                translationYRef.setValue(0);
+            };
+        };
+        const isLooped = this.isLooped();
+        let loopOffset = 0;
+        if (isLooped) {
+            loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
+        };
+        if (activeZoom && zoomUpdate) {
+            setTimeout(() => {
+                !zoomModal && this.scrollView1.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
+                // zoomModal && this.scrollView2.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
+                this.setState({ zoomUpdate: zoomActiveAnimated });
+            }, zoomModal ? 1 : 0);
+        };
         return <View>
             <ScrollView
-                ref={this.scrollView}
-                style={[styles.scrollView, { width: childWidth },]}
+                ref={this.scrollView1}
+                style={[styles.scrollView1, { width: childWidth },]}
                 pagingEnabled
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -268,12 +324,12 @@ export default class Carousel extends Component {
                 onContentSizeChange={this.onContentSizeChange}>
                 {this.renderItems()}
             </ScrollView>
-            {pagination && paginationType == 'dots' ? this.renderPaginationDots() : this.renderPaginationNumber()}
+            {pagination && (paginationType == 'dots' ? this.renderPaginationDots() : this.renderPaginationNumber())}
         </View>;
     };
 }
 const styles = StyleSheet.create({
-    scrollView: {
+    scrollView1: {
         flexGrow: 0,
     },
 });

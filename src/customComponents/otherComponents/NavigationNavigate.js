@@ -11,7 +11,7 @@ import { CommonActions, StackActions, } from '@react-navigation/native';
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigate
 function NavigationNavigate(props) {
     const {
-        goScreen, navigation: { dispatch, goBack, popToTop, push, replace, }, noPush, passHome, setConsole, setData,
+        goScreen, navigation, noPush, passHome, setConsole, setData,
     } = props;
     const navigationActions = CommonActions.reset({
         index: 0, actions: [StackActions.replace({ routeName: goScreen, params: setData })],
@@ -19,7 +19,7 @@ function NavigationNavigate(props) {
     console.log(goScreen);
     console.log(setData);
     setConsole && (console.log(setConsole.consolename), console.log(setConsole.consolelog));
-    goScreen == 'goBack' ? goBack() : passHome ? dispatch(navigationActions) : goScreen == 'popToTop' ? popToTop() : noPush ?
-        replace(goScreen, setData) : push(goScreen, setData);
+    goScreen == 'goBack' ? navigation.goBack() : passHome ? navigation.dispatch(navigationActions) : goScreen == 'popToTop' ?
+        navigation.popToTop() : noPush ? navigation.replace(goScreen, setData) : navigation.push(goScreen, setData);
 };
 export default NavigationNavigate;

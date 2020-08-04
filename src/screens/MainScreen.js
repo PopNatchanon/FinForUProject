@@ -355,17 +355,17 @@ export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
     let _renderItem = (item, index) => {
         var dataMySQL;
-        banner ?
-            (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
-            : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
+        // banner ?
+        (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
+        // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return <View style={stylesMain.child} key={index}>
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
         </View>;
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 20, height: 20 }} loop pagination
-                paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
+            <ImageList {...props} activeZoom /*autoplay*/ data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 20, height: 20 }} /*loop*/
+                pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
             //     pagination={PaginationLight} /> :
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>

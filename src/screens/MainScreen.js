@@ -5,11 +5,7 @@ import {
     // ScrollView, 
     Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid
 } from 'react-native';
-import {
-    PanGestureHandler,
-    ScrollView,
-    State,
-} from 'react-native-gesture-handler';
+import { PanGestureHandler, ScrollView, State, } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -364,7 +360,7 @@ export let Slide = (props) => {
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 20, height: 20 }} loop pagination
+            <ImageList autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} loop pagination
                 paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
             //     pagination={PaginationLight} /> :
@@ -769,12 +765,25 @@ export let BannerBar_THREE = (props) => <View style={stylesMain.Banner_Bar}>
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
 export let FlashSale = (props) => {
     const { getFetchData, navigation, setFetchToStart, } = props;
+    const dataService2 = [
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '5250', price: '99000', discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '6250', price: '99000', discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '7250', price: '99000', discount: '25', name_product: 'Honda X-ADV 2017', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '850', price: '99000', discount: '25', name_product: 'Miku Max', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '9250', price: '99000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '350', price: '99000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '5550', price: '99000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '2250', price: '99000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '29550', price: '99000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+    ]
     const [curTime, setCurTime] = useState(new Date());
     const [endTime, setEndTime] = useState(undefined);
     const [saveTime, setSaveTime] = useState(undefined);
     const [hours, setHours] = useState(0);
     const [minutes, setMinutes] = useState(0);
     const [seconds, setSeconds] = useState(0);
+
     useEffect(() => {
         let intervalID = setInterval(() => {
             setCurTime(new Date());
@@ -881,13 +890,16 @@ export let FlashSale = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={{ flexDirection: 'row' }}>
-                {[0, 1, 2, 3, 4].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct5Box]}>
+                {dataService2 &&
+                    <FlatProduct {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product'
+                        nameSize={14} numberOfColumn={1} priceSize={15} />}
+                {/* {[0, 1, 2, 3, 4].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct5Box]}>
                     <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct5ImageofLines, { backgroundColor: '#ECECEC' }]}>
                         <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
                     <View style={{ height: 55, paddingHorizontal: 3 }} />
-                </View>)}
+                </View>)} */}
             </View>
         </View>;
 };
@@ -1393,7 +1405,7 @@ export let Fin_Mall = (props) => {
                 index == 0 ?
                     `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
                     `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
-            return <View style={{ width: width * 0.226, marginTop: 5, paddingLeft: 2.5 }} key={index}>
+            return <View style={{ width: width * 0.228, marginTop: 5, paddingLeft: 2.5 }} key={index}>
                 <View style={{ height: 'auto', width: width * 0.20, aspectRatio: 1, backgroundColor: '#FFFFFF', }}>
                     <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL }}
                         resizeMode={FastImage.resizeMode.contain} />
@@ -1421,7 +1433,7 @@ export let Fin_Mall = (props) => {
                         </View>
                     </TouchableOpacity> :
                     <View style={stylesMain.FlexRow}>
-                        {[0, 1].map((_, index) => <View style={{ width: width * 0.22, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                        {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
                                 <View style={stylesMain.Popular_image_Box} />
                             </View>
@@ -1448,7 +1460,7 @@ export let Fin_Mall = (props) => {
                         </View>
                     </TouchableOpacity> :
                     <View style={stylesMain.FlexRow}>
-                        {[0, 1].map((_, index) => <View style={{ width: width * 0.22, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                        {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
                                 <View style={stylesMain.Popular_image_Box} />
                             </View>
@@ -1577,16 +1589,24 @@ export let FIN_Supermarket = (props) => {
 export let TodayProduct = (props) => {
     const { loadData, noTitle, onShow, prepath, typeip, } = props;
     const dataService2 = [
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '74250', price: '99000', discount: '25', name_product: 'Yamaha T-max530 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145000', price: '155000', discount: '10', name_product: 'HONDA INTEGRA 750 ', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129000', price: '139000', discount: '10', name_product: 'X ADV | Red Vs Blu', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139000', price: '149000', discount: '50', name_product: 'Honda X-ADV 2017', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119000', price: '129000', discount: '10', name_product: 'Miku Max', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Yamaha 04GEN', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'AXM-4 Scooter', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Classic luxury rickshaw', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local' },
-        { image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359000', price: '359000', discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '1.jpg', id_product: 0, last_price: '4250', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '2.jpg', id_product: 1, last_price: '145000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '3.jpg', id_product: 2, last_price: '129000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '4.jpg', id_product: 3, last_price: '139000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '5.jpg', id_product: 4, last_price: '119000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '6.jpg', id_product: 5, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '7.jpg', id_product: 6, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product', image: '8.jpg', id_product: 7, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '9.jpg', id_product: 8, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '10.jpg', id_product: 9, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '11.jpg', id_product: 10, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '12.jpg', id_product: 11, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '13.jpg', id_product: 12, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '14.jpg', id_product: 13, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '15.jpg', id_product: 14, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '16.jpg', id_product: 15, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '17.jpg', id_product: 16, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
+        { image_path: 'MySQL/uploads/Test_Product/Deal', image: '18.jpg', id_product: 17, last_price: '359000', name_product: 'Hydrating Hand Sanitizer', type: 'local' },
     ]
     onShow && console.log(onShow);
     return <View style={[stylesMain.BoxProduct2, { backgroundColor: 'transparent' }]}>

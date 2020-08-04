@@ -171,7 +171,7 @@ export default class Carousel extends Component {
         });
     }
     defaultPropsDots = {
-        activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10,
+        activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10, height: null, width: null,
         inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10,
     }
     renderPaginationDots = () => {

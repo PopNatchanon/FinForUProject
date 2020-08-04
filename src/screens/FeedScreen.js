@@ -22,7 +22,7 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import { normalize } from '../style/stylesFont';
 import stylesFont from '../style/stylesFont';
-import stylesDetail from '../style/StylesDetailScreen'
+import stylesDetail from '../style/StylesDetailScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import {
@@ -114,8 +114,7 @@ export function Button_Bar(props) {
             <View style={{ width, height: height * 0.8 }}>
               <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
             </View>
-      }
-      {
+      }{
         selectedIndex == 0 &&
         <ActionButton buttonColor={mainColor} size={50}
           onPress={() => NavigationNavigate({

@@ -1,9 +1,9 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useEffect, useState, useRef, useReducer } from 'react';
-import {
+import ReactNative, {
     Animated, BackHandler, Dimensions, SafeAreaView,
     // ScrollView, 
-    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid
+    Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid,
 } from 'react-native';
 import { PanGestureHandler, ScrollView, State, } from 'react-native-gesture-handler';
 import { connect } from 'react-redux';
@@ -360,7 +360,7 @@ export let Slide = (props) => {
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} loop pagination
+            <ImageList {...props} activeZoom data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} pagination
                 paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
             //     pagination={PaginationLight} /> :

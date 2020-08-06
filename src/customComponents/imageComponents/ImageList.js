@@ -277,23 +277,6 @@ export default class Carousel extends Component {
     render = () => {
         const { activeZoom, data, pagination, paginationType, } = this.props
         const { childHeight, childWidth, currentPage, zoomActiveAnimated, zoomModal, zoomUpdate, } = this.state;
-        const translationXRef = new Animated.Value(0);
-        const translationYRef = new Animated.Value(0);
-        const _lastOffset = { x: 0, y: 0 };
-        const _onGestureEvent = Animated.event(
-            [{ nativeEvent: { translationX: translationXRef, translationY: translationYRef, }, },],
-            { useNativeDriver: false }
-        );
-        let _onHandlerStateChange = event => {
-            if (event.nativeEvent.oldState === State.ACTIVE) {
-                _lastOffset.x += event.nativeEvent.translationX;
-                _lastOffset.y += event.nativeEvent.translationY;
-                translationXRef.setOffset(_lastOffset.x < -(width * 0.5) ? -(width - 126) : 0);
-                translationXRef.setValue(0);
-                translationYRef.setOffset(_lastOffset.y > 0 ? 0 : _lastOffset.y < -(height - 215) ? -(height - 215) : _lastOffset.y);
-                translationYRef.setValue(0);
-            };
-        };
         const isLooped = this.isLooped();
         let loopOffset = 0;
         if (isLooped) {

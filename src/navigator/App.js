@@ -70,7 +70,7 @@ import Detail_Campaign from '../screens/src_Promotion/Detail_Campaign';
 // src store
 import Post_Feed from '../screens/src_Store/Post_Feed';
 import FeedsScreen from '../customComponents/FeedsComponents/Feeds';
-import ImageZoom from '../customComponents/imageComponents/ImageZoom'
+import ImageZoom from '../customComponents/imageComponents/ImageZoom/ImageZoom'
 ///----------------------------------------------------------------------------------------------->>>>
 // const store = useStore(configureStore);
 const Stack = createStackNavigator();

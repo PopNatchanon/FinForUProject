@@ -34,28 +34,33 @@ function ImageZoom(props) {
     const data = route.params?.data;
     const [isDragging, setIsDragging] = useState(false)
     const [selectedPhoto, setSelectedPhoto] = useState(false)
+    // const gesturePosition = useRef(new Animated.ValueXY());d
     const scrollValue = useRef(new Animated.Value(0));
     let getScrollPosition = () => { return scrollValue.current.__getValue(); }
     let onScroll = Animated.event([
         { nativeEvent: { contentOffset: { y: scrollValue.current } } },
     ], { useNativeDriver: false });
+    // let animatedStyle = {
+    //     transform: gesturePosition.current.getTranslateTransform(),
+    // };
+    // animatedStyle.transform.push({
+    //     scale: getScrollPosition(),
+    // });
+
+    let initialStyle = {
+        transform: [
+            { translateY: selectedPhoto.y - getScrollPosition() }
+        ],
+    };
     return <SafeAreaView style={{ backgroundColor: '#000' }}>
         <StatusBar backgroundColor='#000' />
         <ScrollView onScroll={onScroll} scrollEventThrottle={16} scrollEnable={!isDragging}>
             {data.map((value, index) => {
-                return <Imageout dataIndex={index} dataValue={value} isDragging={isDragging}
+                return <Imageout key={index} dataIndex={index} dataValue={value} isDragging={isDragging}
                     onGestureStart={(value) => { setSelectedPhoto(value); setIsDragging(true) }}
                     onGestureRelease={() => setIsDragging(false)} scrollValue={{ y: getScrollPosition() }} />
             })}
         </ScrollView>
-        {/* {isDragging ?
-            <Animated.View
-                style={[{
-                    position: 'absolute', zIndex: 10, width: selectedPhoto.w, height: selectedPhoto.h,
-                }, animatedStyle]}>
-                <SelectedImage selectedPhotoMeasurement={selectedPhoto} />
-            </Animated.View>
-            : null} */}
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };

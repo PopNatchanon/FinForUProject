@@ -29,28 +29,28 @@ import SelectedImage from './SelectedImage';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>>
-
 const RESTORE_ANIMATION_DURATION = 200;
-
+///----------------------------------------------------------------------------------------------->>>>
 export default function Imageout(props) {
-    const { dataIndex, dataValue, scrollValue } = props;
+    const { dataIndex, dataValue, isDragging, onGestureRelease, onGestureStart, scrollValue, selectIndex } = props;
+    const [activeScale, setActiveScale] = useState(false);
     const [selectedPhotoMeasurement, setSelectedPhotoMeasurement] = useState(false);
     const [_initialTouches, set_initialTouches] = useState(undefined);
-    const [isDragging, setIsDragging] = useState(false);
+    const gesturePosition = useRef(new Animated.ValueXY());
+    const scaleValue = useRef(new Animated.Value(1));
+    const _lastOffset = { x: 0, y: 0 };
     const _parent = useRef(null);
     const _photoComponent = useRef(null);
-    const gesturePosition = useRef(new Animated.ValueXY());
     let animatedStyle = {
         transform: gesturePosition.current.getTranslateTransform(),
     };
     animatedStyle.transform.push({
-        scale: scrollValue.y,
+        scale: scaleValue.current,
     });
-    let initialStyle = {
-        transform: [
-            { translateY: selectedPhotoMeasurement.y - getScrollPosition() }
-        ],
-    };
+    console.log('selectedPhotoMeasurement.y')
+    console.log(selectedPhotoMeasurement.y)
+    console.log('scrollValue.y')
+    console.log(scrollValue.y)
     async function _measureSelectedPhoto() {
         let parent = ReactNative.findNodeHandle(_parent.current);
         let photoComponent = ReactNative.findNodeHandle(_photoComponent.current);
@@ -69,78 +69,114 @@ export default function Imageout(props) {
             h: photoMeasurement.h,
         };
     }
-    function _onGestureStart(event, gestureState) {
+    async function _onGestureStart(event, gestureState) {
         let { touches } = event.nativeEvent;
+        let selectedPhotoMeasurement = await _measureSelectedPhoto();
+        console.log('-------------------------------selectedPhotoMeasurement')
+        console.log(dataIndex)
+        console.log(selectedPhotoMeasurement)
+        console.log('-------------------------------------------------------')
+        setSelectedPhotoMeasurement({ ...selectedPhotoMeasurement, dataMySQL, index: dataIndex })
+        onGestureStart(selectedPhotoMeasurement);
+        // set initial touches
+        set_initialTouches(touches);
         gesturePosition.current.setOffset({
             x: 0,
-            y: selectedPhotoMeasurement.y - getScrollPosition(),
+            y: /*selectedPhotoMeasurement.y - scrollValue.y*/0,
         });
         gesturePosition.current.setValue({
             x: 0,
             y: 0,
         }); // to clear animation
-        setIsDragging(true)
-        // set initial touches
-        set_initialTouches(touches);
     }
     function _onGestureMove(event: Event, gestureState: GestureState) {
         let { touches } = event.nativeEvent;
-        if (touches.length < 2) {
-            // Trigger a realease(event, gestureState);
-            return Animated.event([null, {
-                dx: gesturePosition.current.x,
-                dy: gesturePosition.current.y,
-            }], { useNativeDriver: false })(event, gestureState);
-        }
-        // for moving photo around
         let { dx, dy } = gestureState;
-        gesturePosition.current.x.setValue(dx);
-        gesturePosition.current.y.setValue(dy);
-        // for scaling photo
-        let currentDistance = getDistance(touches);
-        let initialDistance = getDistance(_initialTouches);
-        let newScale = getScale(currentDistance, initialDistance);
-        console.log(newScale)
-        scrollValue.y.setValue(newScale < 1 ? 1 : newScale);
-    }
+        console.log('------------------------------------_onGestureMove');
+        console.log(gestureState);
+        console.log('------------------------------------_onGestureMove');
+        if (activeScale) {
+            if (touches.length < 2) {
+                gesturePosition.current.x.setValue(dx);
+                gesturePosition.current.y.setValue(dy);
+                return;
+            } else {
+                if (_initialTouches && _initialTouches.length < 2) {
+                    set_initialTouches(touches);
+                    return;
+                };
+                let currentDistance = getDistance(touches);
+                let initialDistance = getDistance(_initialTouches);
+                console.log('currentDistance');
+                console.log(currentDistance);
+                console.log('initialDistance');
+                console.log(initialDistance);
+                let newScale = getScale(currentDistance, initialDistance);
+                newScale != 1 && setActiveScale(true);
+                if (newScale < 1) { newScale = 1; setActiveScale(false); };
+                scaleValue.current.setValue(newScale);
+            };
+        } else {
+            if (touches.length < 2) {
+                return;
+            } else {
+                if (_initialTouches && _initialTouches.length < 2) {
+                    set_initialTouches(touches);
+                    return;
+                };
+                let currentDistance = getDistance(touches);
+                let initialDistance = getDistance(_initialTouches);
+                console.log('currentDistance');
+                console.log(currentDistance);
+                console.log('initialDistance');
+                console.log(initialDistance);
+                let newScale = getScale(currentDistance, initialDistance);
+                newScale != 1 && setActiveScale(true);
+                if (newScale < 1) { newScale = 1; setActiveScale(false); };
+                scaleValue.current.setValue(newScale);
+            };
+        };
+    };
     function _onGestureRelease(event, gestureState) {
-        Animated.parallel([
-            Animated.timing(gesturePosition.current.x, {
-                toValue: 0,
-                duration: RESTORE_ANIMATION_DURATION,
-                easing: Easing.ease,
-                useNativeDriver: false,
-            }),
-            Animated.timing(gesturePosition.current.y, {
-                toValue: 0,
-                duration: RESTORE_ANIMATION_DURATION,
-                easing: Easing.ease,
-                useNativeDriver: false,
-            }),
-            Animated.timing(scrollValue.y, {
-                toValue: 1,
-                duration: RESTORE_ANIMATION_DURATION,
-                easing: Easing.ease,
-                useNativeDriver: false,
-            }),
-        ]).start(() => {
-            gesturePosition.current.setOffset({
-                x: 0,
-                y: selectedPhotoMeasurement.y - getScrollPosition(),
-            });
-            setIsDragging(false);
-            set_initialTouches(undefined);
+        // Animated.parallel([
+        //     Animated.timing(gesturePosition.current.x, {
+        //         toValue: 0,
+        //         duration: RESTORE_ANIMATION_DURATION,
+        //         easing: Easing.ease,
+        //         useNativeDriver: false,
+        //     }),
+        //     Animated.timing(gesturePosition.current.y, {
+        //         toValue: 0,
+        //         duration: RESTORE_ANIMATION_DURATION,
+        //         easing: Easing.ease,
+        //         useNativeDriver: false,
+        //     }),
+        //     Animated.timing(scaleValue.current, {
+        //         toValue: 1,
+        //         duration: RESTORE_ANIMATION_DURATION,
+        //         easing: Easing.ease,
+        //         useNativeDriver: false,
+        //     }),
+        // ]).start(() => {
+        //     gesturePosition.current.setOffset({
+        //         x: 0,
+        //         y: /*selectedPhotoMeasurement.y - scrollValue.y*/0,
+        //     });
+        //     onGestureRelease();
+        //     set_initialTouches(undefined);
+        // });
+        gesturePosition.current.setOffset({
+            x: 0,
+            y: /*selectedPhotoMeasurement.y - scrollValue.y*/0,
         });
+        onGestureRelease();
+        set_initialTouches(undefined);
     }
     let gestureHandler = PanResponder.create({
         onStartShouldSetResponderCapture: () => true,
-        onStartShouldSetPanResponderCapture: (event: Event) => {
-            return event.nativeEvent.touches.length === 2;
-        },
+        onStartShouldSetPanResponderCapture: () => true,
         onMoveShouldSetResponderCapture: () => true,
-        onMoveShouldSetPanResponderCapture: (event: Event) => {
-            return event.nativeEvent.touches.length === 2;
-        },
+        onMoveShouldSetPanResponderCapture: () => true,
         onPanResponderGrant: _onGestureStart,
         onPanResponderMove: _onGestureMove,
         onPanResponderRelease: _onGestureRelease,
@@ -150,17 +186,20 @@ export default function Imageout(props) {
     (dataMySQL = `${finip}/${dataValue.image_path}/${dataValue.image}`)
     // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` :
     //  `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-    return <TouchableOpacity ref={_parent} key={dataIndex} onPress={async () => {
-        let selectedPhotoMeasurement = await _measureSelectedPhoto();
-        console.log('-------------------------------selectedPhotoMeasurement')
-        console.log(index)
-        console.log(selectedPhotoMeasurement)
-        console.log('-------------------------------------------------------')
-        setSelectedPhotoMeasurement({ ...selectedPhotoMeasurement, dataMySQL })
-    }}>
-        <Animated.View {...gestureHandler.panHandlers} ref={_photoComponent} style={[stylesMain.child,]}>
+    return <Animated.View ref={_parent} key={dataIndex}>
+        <Animated.View {...gestureHandler.panHandlers} ref={_photoComponent}
+            style={[stylesMain.child, (isDragging || activeScale) ? animatedStyle : null,
+            { elevation: (isDragging || activeScale) ? 10 : null, zIndex: (isDragging || activeScale) ? 10 : null, }]}>
             <Animated.Image source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode='contain'
                 resizeMethod='resize' />
         </Animated.View>
-    </TouchableOpacity>
+        {/* {isDragging ?
+            <Animated.View style={[{
+                    position: 'absolute', zIndex: 10, width: selectedPhoto.w, height: selectedPhoto.h,
+                }, isDragging ? animatedStyle : initialStyle]}
+                >
+                <SelectedImage selectedPhotoMeasurement={selectedPhoto} />
+            </Animated.View>
+            : null} */}
+    </Animated.View >
 }

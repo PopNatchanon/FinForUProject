@@ -351,16 +351,16 @@ export let Slide = (props) => {
     const { isOutData, banner, getFetchData, } = props;
     let _renderItem = (item, index) => {
         var dataMySQL;
-        // banner ?
-        (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
-        // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
+        banner ?
+            (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
+            : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return <View style={stylesMain.child} key={index}>
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
         </View>;
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList {...props} activeZoom data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} pagination
+            <ImageList {...props} activeZoom /*autoplay*/ data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} /*loop*/ pagination
                 paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
             //     pagination={PaginationLight} /> :
@@ -439,6 +439,7 @@ export let Guarantee = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
 export let Category = (props) => {
     const { dataService, navigation } = props;
+
     let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,].map((_, index) => <View key={index}
         style={{ width: width * 0.199, justifyContent: 'center', alignItems: 'center', padding: 2, }}>
         <View style={{
@@ -451,10 +452,11 @@ export let Category = (props) => {
     </View>);
     let dataCategory = dataService?.category ? dataService?.category.map((item, index) => {
         if (index < dataService?.category.length) {
-            var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
+            // var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
+            var dataMySQL = `${ip}/MySQL/uploads/Image Home/3.Category/แบบที่ 1/${item.image_head}`;
             return <TouchableOpacity activeOpacity={1} key={index} style={stylesMain.Category} onPress={() =>
                 NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation })}>
-                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.Category_box} resizeMode={FastImage.resizeMode.cover} />
+                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.Category_box} resizeMode={FastImage.resizeMode.stretch} />
                 <View style={{ height: 25 }}>
                     <Text numberOfLines={2} style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize8, stylesFont.FontCenter]}>
                         {item.name}</Text>

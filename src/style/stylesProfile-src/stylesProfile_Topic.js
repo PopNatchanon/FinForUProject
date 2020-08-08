@@ -13,23 +13,22 @@ export default StyleSheet.create({
     },
     Chat_Tag: {
         backgroundColor: '#FFFFFF',
-        width: '100%',
-        padding: 10,
         flexDirection: 'row',
         justifyContent: 'space-between',
         borderColor: '#ECECEC',
         borderWidth: 1,
-        marginTop: 5,
+        padding: 5,
+        paddingHorizontal: 10,
     },
     Chat_Tag_image: {
-        height: 60,
-        width: 60,
-        // marginTop: 10,
-        borderRadius: 40,
+        height: 50,
+        width: 50,
+        borderRadius: 50 / 2,
+        borderWidth: 1,
     },
     Chat_Tag_online: {
-        height: 20,
-        width: 60,
+        height: 25,
+        width: 55,
         alignItems: 'flex-end',
         marginTop: -20
     },
@@ -39,13 +38,9 @@ export default StyleSheet.create({
         backgroundColor: '#1BE72F',
         borderRadius: 10,
     },
-    Chat_Tag_text: {
-        marginLeft: 10,
-        marginTop: 10,
-    },
     Chat_Tag_icon: {
+        alignItems: 'center',
         flexDirection: 'row',
-        marginTop: 10,
     },
     Chat_Detail: {
         flex: 1,

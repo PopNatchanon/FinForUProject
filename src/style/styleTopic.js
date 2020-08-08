@@ -267,19 +267,6 @@ export default StyleSheet.create({
         backgroundColor: "#ffffff",
         marginTop: 10,
     },
-    container: {
-        paddingLeft: 10,
-        paddingRight: 16,
-        paddingVertical: 12,
-        flexDirection: 'row',
-        alignItems: 'flex-start',
-        backgroundColor: '#FFFFFF',
-        marginTop: 5,
-    },
-    content: {
-        marginLeft: 16,
-        flex: 1,
-    },
     separator: {
         height: 2,
         backgroundColor: "#CCCCCC"
@@ -288,7 +275,6 @@ export default StyleSheet.create({
         width: 45,
         height: 45,
         borderRadius: 45 / 2,
-        marginLeft: 10,
         borderColor: '#808080',
         borderWidth: 1,
     },

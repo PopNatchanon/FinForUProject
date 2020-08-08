@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef, createRef } from 'react';
 import {
     ActivityIndicator, Animated, Dimensions, Modal, ScrollView, Text, TextInput, TouchableOpacity, View, Share, Image, FlatList,
     StyleSheet, Platform, PixelRatio,
@@ -16,8 +16,9 @@ import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
 import RNFetchBlob from 'rn-fetch-blob'
 import SplashScreen from 'react-native-splash-screen';
-import BottomSheet from "react-native-raw-bottom-sheet";
+import BottomSheet from 'react-native-raw-bottom-sheet';
 import { CommonActions, StackActions, } from '@react-navigation/native';
+import { Modalize } from 'react-native-modalize';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
@@ -872,7 +873,7 @@ export class FeedBox extends React.Component {
     getDataSource = (activeRef) => { const { getDataSource } = this.props; getDataSource(activeRef); };
     get FeedBoxRender() {
         const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props;
-        const { like, } = this.state;
+        const { like } = this.state;
         // const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
         var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
         var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
@@ -1003,11 +1004,13 @@ export class FeedBox extends React.Component {
                         <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                             stylesMain.BoxProduct4ComBoxIcon}>
                             <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20}
-                                style={{ color: like ? '#ff0066' : '#111111' }} />
-                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                ถูกใจ</Text>
+                                style={{ color: like ? '#ff0066' : '#111111', }} >
+                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
+                                    ถูกใจ</Text>
+                            </IconFontAwesome>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={1} onPress={() =>
+                            /*this.props.activeModalize(true)*/
                             NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 3 }, navigation })}>
                             <View style={stylesMain.BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />

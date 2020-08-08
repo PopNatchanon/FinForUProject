@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useEffect, useState, } from 'react';
+import React, { useEffect, useState, useRef, } from 'react';
 import {
-  Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Button
+  Dimensions, SafeAreaView, Text, View, FlatList, TouchableOpacity, ActivityIndicator, ScrollView, Button,
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
@@ -12,6 +12,7 @@ import {
 import ActionButton from 'react-native-action-button';
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
+import { Modalize } from 'react-native-modalize';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -23,11 +24,10 @@ import stylesStore from '../style/StylesStoreScreen';
 import { normalize } from '../style/stylesFont';
 import stylesFont from '../style/stylesFont';
 import stylesDetail from '../style/StylesDetailScreen';
+import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
-import {
-  FeedBox, GetData, GetServices, TabBar, LoadingScreen,
-} from '../customComponents/Tools';
+import { FeedBox, GetData, GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
 import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
@@ -116,7 +116,8 @@ export function Button_Bar(props) {
             </View>
       }{
         selectedIndex == 0 &&
-        <ActionButton buttonColor={mainColor} size={50}
+        <ActionButton
+          buttonColor={mainColor} size={50}
           onPress={() => NavigationNavigate({
             goScreen: 'Post_Feed', setData: {
               selectedIndex: 1,
@@ -129,7 +130,9 @@ export function Button_Bar(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export function Highlights(props) {
+  
   const { dataService, selectedIndex, } = props;
+  const [activeModalize, setActiveModalize] = useState(false);
   function headerStoryList() {
     return (
       selectedIndex == 1 &&
@@ -173,8 +176,7 @@ export function Highlights(props) {
                     </View>
                   </View>
                 )
-              })
-            }
+              })}
           </View>
         </ScrollView>
       </View>
@@ -182,23 +184,21 @@ export function Highlights(props) {
   }
   return (
     <View style={stylesMain.FrameBackground, stylesMain.BackgroundAreaView}>
-      <View>
-        {
-          dataService &&
-          <FlatList
-            scrollEnabled={true}
-            initialNumToRender={10}
-            data={dataService}
-            keyExtractor={(value, index) => `Feed${index}`}
-            ListHeaderComponent={() => headerStoryList()}
-            renderItem={(value) => {
-              return <>
-                <FeedBox {...props} dataService={value.item} Header Follow={selectedIndex == 1 ? false : true} />
-              </>
-            }}
-          />
-        }
-      </View>
+      {
+        dataService &&
+        <FlatList
+          scrollEnabled={true}
+          initialNumToRender={10}
+          data={dataService}
+          keyExtractor={(value, index) => `Feed${index}`}
+          ListHeaderComponent={() => headerStoryList()}
+          renderItem={(value) => {
+            return <>
+              <FeedBox {...props} activeModalize={(value) => setActiveModalize(value)} dataService={value.item} Header Follow={selectedIndex == 1 ? false : true} />
+            </>
+          }}
+        />
+      }
     </View>
   );
 };
@@ -247,32 +247,18 @@ export function Feed_Login(props) {
 ///----------------------------------------------------------------------------------------------->>>> Feed_About
 export function Feed_About(props) {
   const { navigation } = props;
-  const item_Store = [{
-    image: `${ip}/MySQL/uploads/Group_image/Walmart.png`,
-    name: 'BP World',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/central.png`,
-    name: 'Ducati',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`,
-    name: 'GUCCI',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/10.jpg`,
-    name: 'LACOSTE',
-  }]
-  const item_Group = [{
-    image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`,
-    name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/con7.jpg`,
-    name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/HomePro.png`,
-    name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน',
-  }, {
-    image: `${ip}/MySQL/uploads/Group_image/con1.jpg`,
-    name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี',
-  }]
+  const item_Store = [
+    { image: `${ip}/MySQL/uploads/Group_image/Walmart.png`, name: 'BP World', },
+    { image: `${ip}/MySQL/uploads/Group_image/central.png`, name: 'Ducati', },
+    { image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`, name: 'GUCCI', },
+    { image: `${ip}/MySQL/uploads/Group_image/10.jpg`, name: 'LACOSTE', }
+  ]
+  const item_Group = [
+    { image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี', },
+    { image: `${ip}/MySQL/uploads/Group_image/con7.jpg`, name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย', },
+    { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน', },
+    { image: `${ip}/MySQL/uploads/Group_image/con1.jpg`, name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี', }
+  ]
   let StoreItem = (
     item_Store.map((value, index) => {
       return <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>
@@ -296,8 +282,7 @@ export function Feed_About(props) {
         goScreen: 'Post_Feed', setData: {
           selectedIndex: 12,
         }, navigation
-      })}
-        style={[stylesMain.FlexRow, { marginTop: 2, padding: 5 }]}>
+      })} style={[stylesMain.FlexRow, { marginTop: 2, padding: 5 }]}>
         <View style={stylesMain.FlexRow}>
           <FastImage
             style={{ height: 50, width: 50, borderRadius: 25, borderWidth: 1 }}

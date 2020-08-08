@@ -709,7 +709,6 @@ export let Select_TagProduct = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>
 export let Feed_Comment = (props) => {
-
     const CommentData = [
         { id: 1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", comment: "สอบถามขนาดสินค้าหน่อยครับ", Time: "30 นาที" },
         { id: 2, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "John DoeLink", comment: "สั่งของไปยังไม่ได้ของเลยครับ", Time: "3 ชม." },
@@ -722,39 +721,64 @@ export let Feed_Comment = (props) => {
         { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "The googler", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "5 วัน" },
         { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "Maria More More", comment: "ยังไม่ได้สินค้าเลยครับ", Time: "1 W" },
     ]
-    
     let CommentBox = CommentData.map((value, index) =>
-        <>
-            <View style={stylesTopic.container} key={index}>
-                {/* กดรูปโปร */}
+        <View key={index} style={{ backgroundColor: '#FFFFFF' }}>
+            <View style={[stylesMain.FlexRow, { paddingHorizontal: 10, marginVertical: 3 }]}>{/* กดรูปโปร */}
                 <TouchableOpacity onPress={() => { }}>
-                    <Image style={stylesTopic.image} source={{ uri: value.image }} />
+                    <FastImage style={stylesTopic.image} source={{ uri: value.image }} />
                 </TouchableOpacity>
-                <View style={stylesTopic.content}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{value.name}</Text>
-                    <Text rkType='primary3 mediumLine' style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} >{value.comment}</Text>
-                    <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', width: '55%' }]}>
-                        <View style={{ width: 60 }}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}> {value.Time}</Text>
-                        </View>
-                        <TouchableOpacity>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ถูกใจ</Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ตอบกลับ</Text>
-                        </TouchableOpacity>
+                <View style={{ marginLeft: 5 }}>
+                    <View style={{ backgroundColor: '#ECECEC', borderRadius: width * 0.03, paddingHorizontal: 10, maxWidth: width * 0.80, padding: 5 }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
+                            {value.name}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+                            {value.comment}</Text>
                     </View>
                 </View>
             </View>
-            <View>
-
+            <View style={[stylesMain.FlexRow, { marginLeft: '20%' }]}>
+                <View style={{ width: 50 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>{value.Time}</Text>
+                </View>
+                <TouchableOpacity style={{ width: 40 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ถูกใจ</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{ width: 60 }}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#BABABA' }]}>ตอบกลับ</Text>
+                </TouchableOpacity>
             </View>
-        </>);
-
+        </View>);
+    let header = <View style={[stylesMain.FlexRow, { padding: 10, borderBottomWidth: 2, justifyContent: 'space-between' }]}>
+        <View style={stylesMain.FlexRow}>
+            <IconFontAwesome name='heart' size={20} color='#ff0066' style={{ marginRight: 10 }} />
+            <View style={{ width: '70%' }}>
+                <Text numberOfLines={1} style={[stylesFont.FontSize6, stylesFont.FontFamilyText]}>Frank Odalthh และอีก2562คน</Text>
+            </View>
+        </View>
+        <IconFontAwesome name='heart-o' size={20} style={{ marginRight: 10 }} />
+    </View>
     return (
-        <ScrollView>
-            {CommentBox}
-        </ScrollView>
+        <>
+            {header}
+            <ScrollView>
+                {CommentBox}
+            </ScrollView>
+            <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', borderTopWidth: 2, padding: 5, }]}>
+                <View style={{ backgroundColor: '#ECECEC', maxHeight: 100, width: '90%', borderRadius: 10, marginRight: 5 }}>
+                    <TextInput
+                        style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}
+                        placeholder="เขียนคอมเมนท์"
+                        multiline
+                        editable maxLength={5000} >
+                    </TextInput>
+                </View>
+                <View style={[stylesMain.FlexRow, { alignItems: 'flex-end' }]}>
+                    <TouchableOpacity>
+                        <IconFontAwesome name='paper-plane-o' size={30} color='#001666' style={{ marginVertical: 5 }} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </>
     )
 }
 

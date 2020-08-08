@@ -143,16 +143,53 @@ export let AppbarChat = (props) => <View style={stylesProfileTopic.AppbarChat}>
     </View>
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> ChatScreen
-export let ChatScreen = (props) => <ScrollView>
-    <TouchableOpacity onPress={() =>
-        NavigationNavigate({ goScreen: 'Profile_Topic', navigation: props.navigation, setData: { selectedIndex: 6 }, })}>
-        <Chat_Tag />
-    </TouchableOpacity>
-    <TouchableOpacity onPress={() =>
-        NavigationNavigate({ goScreen: 'Profile_Topic', navigation: props.navigation, setData: { selectedIndex: 6 }, })}>
-        <Chat_Tag />
-    </TouchableOpacity>
-</ScrollView>;
+export let ChatScreen = (props) => {
+    const ChatData = [
+        { id: 1, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", Chat: "สอบถามขนาดสินค้าหน่อยครับ สอบถามขนาดสินค้าหน่อยครับ", DayTime: "8-7-2020 08:23" },
+        { id: 2, image: "https://bootdey.com/img/Content/avatar/avatar2.png", name: "John DoeLink", Chat: "สั่งของไปยังไม่ได้ของเลยครับ สั่งของไปยังไม่ได้ของเลยครับ", DayTime: "6-7-2020 08:30" },
+        { id: 3, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name: "March SoulLaComa", Chat: "ยังมีสินค้าอยู่ไหมคะ ", DayTime: "6-7-2020 08:42" },
+        { id: 4, image: "https://bootdey.com/img/Content/avatar/avatar4.png", name: "Finn DoRemiFaso", Chat: "สินค้ามีปัญหาเปลี่ยนได้ทางไหนครับ ", DayTime: "6-7-2020 08:00" },
+        { id: 5, image: "https://bootdey.com/img/Content/avatar/avatar5.png", name: "Maria More More", Chat: "สินค้าราคาเท่าไหรครับ ", DayTime: "4-7-2020 09:02" },
+        { id: 6, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "Clark June Boom!", Chat: "ส่งของวันไหนครับ ส่งของวันไหนครับ", DayTime: "1-7-2020 11:02" },
+        { id: 7, image: "https://bootdey.com/img/Content/avatar/avatar7.png", name: "The googler", Chat: "ยังไม่ได้สินค้าเลยครับ ยังไม่ได้สินค้าเลยครับ", DayTime: "15-6-2020 15:02" },
+        { id: 8, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "DoRemiFaso", Chat: "ยังไม่ได้สินค้าเลยครับ ", DayTime: "2-6-2020 05:06" },
+        { id: 9, image: "https://bootdey.com/img/Content/avatar/avatar6.png", name: "Clark June Boom!", Chat: "ส่งของวันไหนครับ ส่งของวันไหนครับ", DayTime: "25-5-2020 12:02" },
+        { id: 10, image: "https://bootdey.com/img/Content/avatar/avatar3.png", name: "March SoulLaComa", Chat: "ยังมีสินค้าอยู่ไหมคะ ยังมีสินค้าอยู่ไหมคะ", DayTime: "18-5-2020 16:35" },
+        { id: 11, image: "https://bootdey.com/img/Content/avatar/avatar1.png", name: "Frank Odalthh", Chat: "สอบถามขนาดสินค้าหน่อยครับ ", DayTime: "12-5-2020 18:55" },
+        { id: 12, image: "https://bootdey.com/img/Content/avatar/avatar8.png", name: "DoRemiFaso", Chat: "ยังไม่ได้สินค้าเลยครับ ยังไม่ได้สินค้าเลยครับ", DayTime: "06-4-2020 13:41" },
+    ]
+    let ChatBox = ChatData.map((value, index) =>
+        <TouchableOpacity key={index} onPress={() =>
+            NavigationNavigate({ goScreen: 'Profile_Topic', navigation: props.navigation, setData: { selectedIndex: 6 }, })}>
+            <View style={stylesProfileTopic.Chat_Tag}>
+                <View style={stylesMain.FlexRow}>
+                    <View style={stylesMain.ItemCenterVertical}>
+                        <FastImage source={{ uri: value.image, }}
+                            style={stylesProfileTopic.Chat_Tag_image} />
+                        <View style={stylesProfileTopic.Chat_Tag_online}>
+                            <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
+                        </View>
+                    </View>
+                    <View style={{ justifyContent: 'center', marginLeft: 10, width: '60%' }}>
+                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{value.name}</Text>
+                        <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>{value.Chat}</Text>
+                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#BCBCBC' }]}>{value.DayTime}</Text>
+                    </View>
+                </View>
+                <View style={stylesProfileTopic.Chat_Tag_icon}>
+                    <TouchableOpacity>
+                        <IconFontAwesome5 name='bell' size={25} />
+                    </TouchableOpacity>
+                    <TouchableOpacity>
+                        <IconFontAwesome name='trash-o' size={25} style={{ marginLeft: 10 }} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </TouchableOpacity>);
+    return (<ScrollView>
+        {ChatBox}
+    </ScrollView>)
+}
 ///----------------------------------------------------------------------------------------------->>>> Chat_Box
 // class Chat_Cutomer extends React.Component {
 //     state = {
@@ -292,8 +329,9 @@ class Chat_Cutomer extends React.Component {
     renderMessageImage = props => <FastImage {...props} />;
     render() {
         return <View style={{ backgroundColor: '#FFFFFF', height: '96%', width: '100%', }}>
-            <GiftedChat messages={this.state.messages} onSend={messages => this.onSend(messages)} renderSend={this.renderSend}
-                textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6} user={{ _id: '10', }} />
+            <Text>แชท</Text>
+            {/* <GiftedChat messages={this.state.messages} onSend={messages => this.onSend(messages)} renderSend={this.renderSend}
+                textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6} user={{ _id: '10', }} /> */}
             {/* <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
@@ -322,28 +360,6 @@ class Chat_Cutomer extends React.Component {
         </View>;
     };
 };
-///----------------------------------------------------------------------------------------------->>>> Chat_Box
-export let Chat_Tag = (props) => <View>
-    <View style={stylesProfileTopic.Chat_Tag}>
-        <View style={stylesMain.FlexRow}>
-            <View style={stylesMain.ItemCenterVertical}>
-                <FastImage source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }}
-                    style={stylesProfileTopic.Chat_Tag_image} />
-                <View style={stylesProfileTopic.Chat_Tag_online}>
-                    <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
-                </View>
-            </View>
-            <View style={stylesProfileTopic.Chat_Tag_text}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ppooooo</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>สินค้าได้ถูกขายแล้วค่ะ</Text>
-            </View>
-        </View>
-        <View style={stylesProfileTopic.Chat_Tag_icon}>
-            <IconFontAwesome5 name='bell' size={25} />
-            <IconFontAwesome name='trash-o' size={25} style={{ marginLeft: 10, }} />
-        </View>
-    </View>
-</View>;
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen
 export let InterestedScreen = (props) => <ScrollView>
     <TodayProduct {...props} loadData={props.dataSevice} noTitle onShow='InterestedScreen' />

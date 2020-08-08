@@ -577,11 +577,11 @@ export default StyleSheet.create({
   },
   Category_box: {
     backgroundColor: '#FFFFFF',
-    borderColor: '#ECECEC',
-    borderWidth: 1,
-    borderRadius: 8,
+    // borderColor: '#ECECEC',
+    // borderWidth: 1,
+    // borderRadius: 8,
     height: 60,
-    width: 60,
+    width: 65,
     justifyContent: 'center',
     alignItems: 'center'
   },

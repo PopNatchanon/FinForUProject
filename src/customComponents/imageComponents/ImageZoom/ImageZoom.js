@@ -25,7 +25,7 @@ import Imageout from './Image'
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>>
 const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
+    
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ImageZoom);
@@ -54,11 +54,14 @@ function ImageZoom(props) {
     };
     return <SafeAreaView style={{ backgroundColor: '#000' }}>
         <StatusBar backgroundColor='#000' />
-        <ScrollView onScroll={onScroll} scrollEventThrottle={16} scrollEnable={!isDragging}>
+        <ScrollView horizontal onScroll={onScroll} scrollEventThrottle={16} scrollEnable={!isDragging}
+            style={{ height: '100%', }}>
             {data.map((value, index) => {
-                return <Imageout key={index} dataIndex={index} dataValue={value} isDragging={isDragging}
-                    onGestureStart={(value) => { setSelectedPhoto(value); setIsDragging(true) }}
-                    onGestureRelease={() => setIsDragging(false)} scrollValue={{ y: getScrollPosition() }} />
+                return <View style={{ justifyContent: 'center', alignContent: 'center', alignItems: 'center' }}>
+                    <Imageout key={index} dataIndex={index} dataValue={value} isDragging={isDragging}
+                        onGestureStart={(value) => { setSelectedPhoto(value); setIsDragging(true) }}
+                        onGestureRelease={() => setIsDragging(false)} scrollValue={{ y: getScrollPosition() }} />
+                </View>
             })}
         </ScrollView>
         <ExitAppModule {...props} />

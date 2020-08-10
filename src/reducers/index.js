@@ -4,6 +4,7 @@ import cartData from './cartData';
 import customerData from './customerData';
 // import multifetchDataFromService from './multifetchDataFromService';
 import singleFetchDataFromService from './singleFetchDataFromService';
+import ZoomImage from './zoomImageData';
 
 export default combineReducers({
     activeFetchData,
@@ -11,4 +12,5 @@ export default combineReducers({
     customerData,
     // multifetchDataFromService,s
     singleFetchDataFromService,
+    ZoomImage,
 })

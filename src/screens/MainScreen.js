@@ -1142,14 +1142,17 @@ export function CategoryProduct(props) {
             promo2Item.push(value2) : null));
         dataService.cate_shop.map((value) => value.map((value2) => value2.id_type == item.id_type ? shopItem.push(value2) : null));
         var mix_color = color_up(item.bg_m);
-        var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
-        if (index < 0 /*getFetchData['category_mobile'].length*/) {
+        var bmix_color = [
+            '#5E7DAF', '#afa093', '#9197cb', '#e1ac25', '#d3bd6a', '#e29a8d', '#b0c9e3', '#e88c34', '#db9fc0', '#a4bae1',
+            '#e1cdaa', '#adcac2', '#aecfe5', '#90cfe6', '#9fdae0', '#c087bc', '#ce6969', '#b9cb77', '#7bcdcd', '#bcbec4'];
+        if (index < 20 /*getFetchData['category_mobile'].length*/) {
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
             // console.log('CategoryProduct')
             // console.log(dataMySQL)
+            // item.bg_m
             var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Header_Cate/${item.image_menu}`;
             // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
-            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
+            return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color[index], paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
                         NavigationNavigate({ goScreen: 'CategoryScreen', setData: { id_type: item.id_type }, navigation, })}>
@@ -1192,8 +1195,8 @@ export let CategoryProductSubProduct = (props) => {
             <FlatProduct {...props} numberOfColumn={2} nameFlatProduct='CategoryProduct' mode='row3_new2' nameSize={14} priceSize={15}
                 dispriceSize={13} noMarginTop /> :
             <View>
-                <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
-                <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>
+                <View style={stylesMain.FlexRow}>{boxEmpty}</View>
+                <View style={stylesMain.FlexRow}>{boxEmpty}</View>
             </View>}
     </>;
 };
@@ -1201,8 +1204,8 @@ export let CategoryProductSubProduct = (props) => {
 export let CategoryProductSubStore = (props) => {
     const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
-        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
-        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+        // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+        var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_S/${value.image}`;
         return <TouchableOpacity activeOpacity={1} key={value.id}>
             <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
                 <Image source={{ uri: dataMySQL, }} style={[stylesMain.CategoryProductStoreImage, { backgroundColor: mix_color }]}
@@ -1227,10 +1230,10 @@ export let CategoryProductSubPromotion = (props) => {
         <View style={stylesMain.BoxProduct1Image} />
     </View>;
     let dataCategoryProductSubPromotionSmall = promo_2 ? promo_2.map((value, index) => {
-        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+        var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_M/${value.image}`;
         // console.log('CategoryProductSubPromotion')
         // console.log(dataMySQL)
-        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
+        // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
         return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
             {value &&
                 <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}

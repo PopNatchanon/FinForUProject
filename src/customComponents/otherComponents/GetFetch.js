@@ -31,7 +31,7 @@ async function GetServices(props) {
             dataBody && console.log(`dataBody`);
             dataBody && console.log(dataBody);
             abortController && abortController.abort();
-            if (error == 'TypeError: Network request failed') return getDataSource({ error: 'Network request failed' })
+            if (error == 'TypeError: Network request failed') return getDataSource({ error: 'Network request failed' });
             return getDataSource({ error });
         };
         if (rawData === undefined) {
@@ -43,8 +43,7 @@ async function GetServices(props) {
             abortController && abortController.abort();
             return getDataSource({ data: 'No Data' });
         };
-        showConsole &&
-            console.log('Complete Connect To Server');
+        showConsole && console.log('Complete Connect To Server');
         [error, processData] = await promiseProcessData(rawData);
         if (error) {
             console.log(`${(showConsole ? nameFunction ? `${showConsole}|${nameFunction}` : showConsole : nameFunction)}':Phase 2(0/2)`);

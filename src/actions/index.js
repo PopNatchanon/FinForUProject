@@ -6,7 +6,7 @@ import {
     CART_DATA_COUPON, CART_DATA_DELETE, CART_DATA_END, CART_DATA_ERROR, CART_DATA_RESULT, CART_DATA_START, CART_DATA_UPDATE, COSTOMER_DATA,
     COSTOMER_DATA_FAILURE, COSTOMER_DATA_SUCCESS, COSTOMER_GET_DATA_TOKEN, COSTOMER_NOT_LOGIN, FETCH_DATA, FETCH_DATA_FAILURE,
     FETCH_DATA_START, FETCH_DATA_SUCCESS, IMAGE_IS_DRAGGING, IMAGE_IS_SCALING, IMAGE_LOAD_DATA, IMAGE_OFFSET_GESTURE_POSITION,
-    IMAGE_VALUE_GESTURE_POSITION, IMAGE_VALUE_SCALE_VALUE, IMAGE_ZOOM, SET_DATA_TO_END, SET_DATA_TO_REFRESH, SET_DATA_TO_START,
+    IMAGE_SELECT, IMAGE_VALUE_GESTURE_POSITION, IMAGE_VALUE_SCALE_VALUE, SET_DATA_TO_END, SET_DATA_TO_REFRESH, SET_DATA_TO_START,
 } from '../actions/constants';
 import { finip } from '../navigator/IpConfig';
 import { promiseConnectServices, promiseProcessData } from './api';
@@ -557,12 +557,9 @@ const setStageIMAGE_LOAD_DATA = (data) => ({ payload: data, type: IMAGE_LOAD_DAT
 const setStageIMAGE_OFFSET_GESTURE_POSITION = (data) => ({ payload: data, type: IMAGE_OFFSET_GESTURE_POSITION, });
 const setStageIMAGE_VALUE_GESTURE_POSITION = (x, y) => ({ type: IMAGE_VALUE_GESTURE_POSITION, x, y });
 const setStageIMAGE_VALUE_SCALE_VALUE = (data) => ({ payload: data, type: IMAGE_VALUE_SCALE_VALUE, });
-const setStageIMAGE_ZOOM = (data) => ({ payload: data, type: IMAGE_ZOOM, });
+const setStageIMAGE_SELECT = (data) => ({ payload: data, type: IMAGE_SELECT, });
 export const setImageDragging = (isDragging) => {
     return (dispatch) => { dispatch(setStageIMAGE_IS_DRAGGING(isDragging)); };
-};
-export const setImageScaling = (isScaling) => {
-    return (dispatch) => { dispatch(setStageIMAGE_IS_SCALING(isScaling)); };
 };
 export const setImageList = (data) => {
     return (dispatch) => { dispatch(setStageIMAGE_LOAD_DATA(data)); };
@@ -570,12 +567,15 @@ export const setImageList = (data) => {
 export const setImageOffsetGP = (data) => {
     return (dispatch) => { dispatch(setStageIMAGE_OFFSET_GESTURE_POSITION(data)); };
 };
+export const setImageScaling = (isScaling) => {
+    return (dispatch) => { dispatch(setStageIMAGE_IS_SCALING(isScaling)); };
+};
+export const setImageSelect = (data) => {
+    return (dispatch) => { dispatch(setStageIMAGE_SELECT(data)); };
+};
 export const setImageValueGP = (x, y) => {
     return (dispatch) => { dispatch(setStageIMAGE_VALUE_GESTURE_POSITION(x, y)); };
 };
 export const setImageValueSV = (data) => {
     return (dispatch) => { dispatch(setStageIMAGE_VALUE_SCALE_VALUE(data)); };
-};
-export const setImageValueSV = (data) => {
-    return (dispatch) => { dispatch(setStageIMAGE_ZOOM(data)); };
 };

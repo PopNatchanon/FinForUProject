@@ -30,7 +30,8 @@ import { finip, ip, } from '../../../navigator/IpConfig';
 const RESTORE_ANIMATION_DURATION = 200;
 
 export default function SetectedImage(props) {
-    const { selectedPhotoMeasurement } = props;
+    const { ImageZ, setImageDragging, } = props;
+    const selectedPhotoMeasurement = ImageZ.selectedData;
     return <Image source={{ uri: selectedPhotoMeasurement.dataMySQL }} style={[stylesMain.child]} resizeMode='contain'
         resizeMethod='resize' />;
 }

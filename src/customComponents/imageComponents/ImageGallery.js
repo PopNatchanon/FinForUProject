@@ -37,7 +37,7 @@ function ImageGallery(props) {
             aStoreIndex[index] = {};
             for (var n = 1; n <= boxheight; n++) {
                 indexbox.push({ index: index + n, listdata: dataService[index + n] });
-                bStoreIndex.indexOf(index + n) == -1 && bStoreIndex.push(index + n)
+                bStoreIndex.indexOf(index + n) == -1 && bStoreIndex.push(index + n);
                 bStoreIndex.indexOf(index + n) == -1 && setBStoreIndex(bStoreIndex);
             };
             aStoreIndex[index].data = indexbox;

@@ -37,11 +37,11 @@ export default class Carousel extends Component {
     };
     componentWillUnmount() {
         this.setAutoPlay(false);
-    }
+    };
     isLooped = () => {
         const { data, loop } = this.props;
         return loop && data.length > 1;
-    }
+    };
     setAutoPlay = (start) => {
         if (start) {
             this.setAutoPlay(false);
@@ -57,13 +57,13 @@ export default class Carousel extends Component {
                     scrollX = childWidth * (currentPage + loopOffset);
                 } else {
                     scrollX = isLastPage ? 0 : childWidth * currentPage;
-                }
+                };
                 this.scrollView1.current.scrollTo({ x: scrollX, animated: true, });
             }, autoplayInterval);
         } else {
             clearTimeout(this.autoplayTimeout);
-        }
-    }
+        };
+    };
     onScroll = ({
         nativeEvent: { contentOffset: { x } },
     }) => {
@@ -75,7 +75,7 @@ export default class Carousel extends Component {
         let loopOffset = 0;
         if (isLooped) {
             loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
-        }
+        };
         // raw float page number
         const rawCurrentPage = x / childWidth;
         // rounded page number
@@ -88,7 +88,7 @@ export default class Carousel extends Component {
             currentPage = data.length + normalizedPage + 1;
         } else if (normalizedPage >= data.length) {
             currentPage = (normalizedPage % data.length) + 1;
-        }
+        };
         const isScrollEnd = approximatelyEqualTo(rawCurrentPage, roundCurrentPage);
         // reset loop offset
         if (
@@ -100,11 +100,11 @@ export default class Carousel extends Component {
             )
         ) {
             this.scrollView1.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
-        }
+        };
         // restart autoplay
         if (isScrollEnd && autoplay && !zoomModal) {
             this.setAutoPlay(true);
-        }
+        };
         // page number changes
         if (currentPage !== prevPage) {
             this.setState({
@@ -115,8 +115,8 @@ export default class Carousel extends Component {
                 prev: prevPage,
                 current: currentPage,
             });
-        }
-    }
+        };
+    };
     onContentSizeChange = (contentWidth, contentHeight) => {
         const { data, autoplay } = this.props;
         const { zoomModal } = this.state;
@@ -134,9 +134,9 @@ export default class Carousel extends Component {
             }
             if (autoplay && !zoomModal) {
                 this.setAutoPlay(true);
-            }
+            };
         });
-    }
+    };
     renderItems = () => {
         const { activeZoom, data, navigation, renderItem, zoom } = this.props;
         const { childHeight, childWidth, currentPage, zoomModal } = this.state;
@@ -165,7 +165,7 @@ export default class Carousel extends Component {
             const endDup = data.slice(0, NUM_OF_DUP);
             loopOffset = frontDup.length;
             normalizedData = frontDup.concat(data, endDup);
-        }
+        };
         return normalizedData.map((item, index) => {
             const normalizedIndex = index - loopOffset;
             // renderIndex should be within the range of [0, data.length - 1]
@@ -178,7 +178,7 @@ export default class Carousel extends Component {
                 key = `${key}-front-dup`;
             } else if (normalizedIndex >= data.length) {
                 key = `${key}-end-dup`;
-            }
+            };
             return <React.Fragment key={key}>
                 <PanGestureHandler enabled={zoom} onGestureEvent={_onGestureEvent} onHandlerStateChange={_onHandlerStateChange}>
                     <Animated.View style={{
@@ -194,11 +194,11 @@ export default class Carousel extends Component {
                 </PanGestureHandler>
             </React.Fragment>
         });
-    }
+    };
     defaultPropsDots = {
         activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10, borderRadius: 20, borderWidth: 3,
         height: null, inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10, marginHorizontal: 4, width: null,
-    }
+    };
     renderPaginationDots = () => {
         const { data, dotsStyle, paginationPosition, paginationType, } = this.props
         const {
@@ -244,13 +244,12 @@ export default class Carousel extends Component {
                         this.setState({ currentPage: index + 1, });
                         console.log('selectIndex'); console.log(index);
                     }} />
-                })
-                }
+                })}
             </View>
         };
     }
     renderPaginationNumber = () => {
-        const { data, paginationPosition, } = this.props
+        const { data, paginationPosition, } = this.props;
         const { childHeight, childWidth, currentPage, } = this.state;
         const translateX = paginationPosition == 'down' ? (childWidth * 0.5) - 22.5 :
             paginationPosition == 'down-left' ? 5 : paginationPosition == 'down-right' ? childWidth * 0.875 :
@@ -269,8 +268,7 @@ export default class Carousel extends Component {
                 <Text style={[stylesFont.FontFamilySemiBold, stylesFont.FontSize6, {
                     backgroundColor: '#fff', borderRadius: 20, height: 25, textAlign: 'center', textAlignVertical: 'center',
                     width: 45
-                }]}>
-                    {`${currentPage}/${data.length}`}</Text>
+                }]}>{`${currentPage}/${data.length}`}</Text>
             </View>
         };
     }
@@ -310,7 +308,7 @@ export default class Carousel extends Component {
             {pagination && (paginationType == 'dots' ? this.renderPaginationDots() : this.renderPaginationNumber())}
         </View>;
     };
-}
+};
 const styles = StyleSheet.create({
     scrollView1: {
         flexGrow: 0,

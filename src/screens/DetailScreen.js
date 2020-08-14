@@ -36,7 +36,7 @@ import { ExitAppModule } from './MainScreen';
 import {
   GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, LoadingScreen,
 } from '../customComponents/Tools';
-import { StarReview, NavigationNavigate, AppBar } from '../customComponents';
+import { StarReview, NavigationNavigate, AppBar, ImageList } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -173,7 +173,7 @@ export let Detail_Image = (props) => {
   let _renderItem = (item, index) => {
     var dataMySQL = `${finip}/${item.image_full_path}/${item.image}`;
     return <TouchableOpacity activeOpacity={1} key={index} onPress={() => sendShowImage()}>
-      <View style={{ width: width * 1, height: width * 0.8, /*backgroundColor: '#d9d9d9'*/ }}>
+      <View style={{ width: width, height: height / 2, maxHeight: height, /*backgroundColor: '#d9d9d9'*/ }}>
         <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
           resizeMode={FastImage.resizeMode.contain} />
       </View>
@@ -187,12 +187,9 @@ export let Detail_Image = (props) => {
     //   setShowImage(dataMySQL);
     return <View style={[stylesMain.FrameBackground2, { marginTop: 0, borderTopWidth: 0 }]} key={index}>
       <View>
-        <Carousel onPage={value => setCurrentImage(value.current)} renderItem={_renderItem} data={dataMySQL} />
-        <View style={{ flex: 1, }}>
-          <View style={[stylesMain.ItemCenter, stylesDetail.ImageSlide]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>{currentImage}/{imageLength}</Text>
-          </View>
-        </View>
+        <ImageList {...props} activeZoom data={dataMySQL} dotsStyle={{ width: 10, height: 10 }}
+          pagination paginationPosition='down-right' paginationType='number' renderItem={_renderItem} />
+        {/* <Carousel onPage={value => setCurrentImage(value.current)} renderItem={_renderItem} data={dataMySQL} /> */}
       </View>
     </View>;
   });
@@ -303,7 +300,7 @@ export let Store = (props) => {
       uriPointer: uri, dataBody, Authorization: cokie, getDataSource: value => getDataSource(value)
     });
   }, [dataService?.product_data && cokie && currentUser && activeService2]);
-  let StoreBox = dataService?.product_data.map((item, index) => {
+  let StoreBox = dataService?.product_data?.map((item, index) => {
     var dataMySQL = `${finip}/${item.store_path}/${item.store_img}`;
     return <View style={[stylesMain.FrameBackground, stylesMain.BottomSpace]} key={index}>
       <View style={stylesDetail.Store_Box1}>
@@ -435,10 +432,10 @@ export let Selector = (props) => {
   let getDataSource2 = value => { setDataService3(value); setActiveSelect2(false); setItemCount(value.amount_data < 1 ? 0 : 1); }
   let SelectorSheetBody = () => {
     var items = [];
-    dataService?.detail_product.map((item) => items.push({ name: item.detail_1, price: item.price }));
+    dataService?.detail_product?.map((item) => items.push({ name: item.detail_1, price: item.price }));
     var items2 = [];
-    dataService2?.data_size.map((item) => items2.push({ name: item.detail_2, amount: item.amount, price: item.price }));
-    return dataService?.product_data.map((item, index) => {
+    dataService2?.data_size?.map((item) => items2.push({ name: item.detail_2, amount: item.amount, price: item.price }));
+    return dataService?.product_data?.map((item, index) => {
       var uri;
       var dataBody;
       item && items && (
@@ -594,7 +591,7 @@ export let Selector = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Detail_Category
 export let Detail_Category = (props) => {
   const { dataService } = props;
-  let id_store = dataService?.product_data.map((item, index) => <View style={[stylesMain.FrameBackground]} key={index}>
+  let id_store = dataService?.product_data?.map((item, index) => <View style={[stylesMain.FrameBackground]} key={index}>
     <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ข้อมูลจำเพาะ</Text>
     </View>
@@ -627,7 +624,7 @@ export let Detail = (props) => {
   const { dataService } = props;
   const [activeText, setActiveText] = useState(false);
   const [showMoreButton, setShowMoreButton] = useState(false);
-  let id_store = dataService?.product_data.map((item, index) => <View style={stylesMain.FrameBackground} key={index}>
+  let id_store = dataService?.product_data?.map((item, index) => <View style={stylesMain.FrameBackground} key={index}>
     <View style={[stylesMain.FrameBackgroundTextBox, stylesDetail.BottomTitle, stylesMain.MarginBottomTitle]}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>รายละเอียดสินค้า</Text>
     </View>
@@ -738,7 +735,7 @@ export let Same_Store = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService?.product_data.map((item) => {
+  dataService?.product_data?.map((item) => {
     id_type = item.id_type
     id_store = item.id_store
     dataBody = {
@@ -774,7 +771,7 @@ export let Similar_Product = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService?.product_data.map((item) => {
+  dataService?.product_data?.map((item) => {
     id_type = item.id_type
     id_store = item.id_store
     dataBody = {
@@ -810,7 +807,7 @@ export let Might_like = (props) => {
   var dataBody;
   var id_type;
   var id_store;
-  dataService?.product_data.map((item) => {
+  dataService?.product_data?.map((item) => {
     id_type = item.id_type;
     id_store = item.id_store;
     dataBody = {
@@ -844,7 +841,7 @@ export let Might_like = (props) => {
 export let Buy_bar = (props) => {
   const { currentUser, sendBuyProduct, dataService, navigation, } = props;
   let BuyProductTab = (typeSelect) => sendBuyProduct(typeSelect);
-  let dataServicesTab = dataService?.product_data.map((item, index) => <View style={stylesDetail.Buy_bar} key={index}>
+  let dataServicesTab = dataService?.product_data?.map((item, index) => <View style={stylesDetail.Buy_bar} key={index}>
     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
       <TouchableOpacity activeOpacity={1} onPress={() => currentUser ?
         NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :

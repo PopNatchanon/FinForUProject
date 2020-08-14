@@ -63,7 +63,7 @@ function ImageZoom(props) {
         setImageDragging(true);
         // set initial touches
         set_initialTouches(touches);
-        setImageOffsetGP({ x: JSON.stringify(gesturePosition.x) * 1, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+        setImageOffsetGP({ x: JSON.stringify(gesturePosition.x) * 1, y: JSON.stringify(gesturePosition.y) * 1, });
         setImageValueGP(0, 0);
     };
     function _onGestureMove(event: Event, gestureState: GestureState) {
@@ -72,66 +72,78 @@ function ImageZoom(props) {
         if (isScaling) {
             if (touches.length < 2) {
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
-                let procressDx = ((width * ((JSON.stringify(scaleValue) * 1) - 1)) / 2);
-                console.log('---------->Dx<----------')
-                console.log(newDx)
-                console.log('---------->Dx<----------')
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * (JSON.stringify(scaleValue) * 1)) - width) / 2);
+                let procressDy = (((selectedData.h * (JSON.stringify(scaleValue) * 1)) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
                 newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
-                console.log('---------->procress<----------')
-                console.log(procressDx)
-                console.log('---------->procress<----------')
-                console.log('---------->newDx<----------')
-                console.log(newDx)
-                console.log('---------->newDx<----------')
-                setImageOffsetGP({ x: newDx, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
                 return;
             } else {
+                let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
-                let newScale = getScale(currentDistance, initialDistance);
+                let newScale = getScale(currentDistance, initialDistance) - 1;
+                newScale = newScale > 0.25 ? 0.25 : newScale < -0.25 ? -0.25 : newScale;
+                console.log('-----------------------newScale-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale-----------------------')
+                console.log('-----------------------scale-----------------------')
+                console.log(scale)
+                console.log('-----------------------scale-----------------------')
+                newScale = newScale + scale;
+                console.log('-----------------------newScale2-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale2-----------------------')
                 newScale != 1 && setImageScaling(true);
                 if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 4) { newScale = 4; };
+                if (newScale > 7) { newScale = 7; };
                 setImageValueSV(newScale);
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
-                let procressDx = ((width * (newScale - 1)) / 2);
-                console.log('---------->Dx<----------')
-                console.log(newDx)
-                console.log('---------->Dx<----------')
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * newScale) - width) / 2);
+                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
                 newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
-                console.log('---------->procress<----------')
-                console.log(procressDx)
-                console.log('---------->procress<----------')
-                console.log('---------->newDx<----------')
-                console.log(newDx)
-                console.log('---------->newDx<----------')
-                setImageOffsetGP({ x: newDx, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
             };
         } else {
             if (touches.length < 2) { return; }
             else {
+                let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
-                let newScale = getScale(currentDistance, initialDistance);
+                let newScale = getScale(currentDistance, initialDistance) - 1;
+                newScale = newScale > 0.25 ? 0.25 : newScale < -0.25 ? -0.25 : newScale;
+                console.log('-----------------------newScale-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale-----------------------')
+                console.log('-----------------------scale-----------------------')
+                console.log(scale)
+                console.log('-----------------------scale-----------------------')
+                newScale = newScale + scale;
+                console.log('-----------------------newScale2-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale2-----------------------')
                 newScale != 1 && setImageScaling(true);
                 if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 4) { newScale = 4; };
+                if (newScale > 7) { newScale = 7; };
                 setImageValueSV(newScale);
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
-                let procressDx = ((width * (newScale - 1)) / 2);
-                console.log('---------->Dx<----------')
-                console.log(newDx)
-                console.log('---------->Dx<----------')
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * newScale) - width) / 2);
+                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
                 newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
-                console.log('---------->procress<----------')
-                console.log(procressDx)
-                console.log('---------->procress<----------')
-                console.log('---------->newDx<----------')
-                console.log(newDx)
-                console.log('---------->newDx<----------')
-                setImageOffsetGP({ x: newDx, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
             };
         };
     };

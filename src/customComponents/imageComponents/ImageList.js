@@ -185,8 +185,9 @@ export default class Carousel extends Component {
                         overflow: 'hidden', transform: [{ translateX: translationXRef }, { translateY: translationYRef }]
                     }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => {
-                            activeZoom ? NavigationNavigate({ goScreen: 'ImageZoom', setData: { currentPage, data }, navigation, }) :
-                                console.log(key);
+                            activeZoom ? NavigationNavigate({
+                                goScreen: 'ImageZoom', setData: { currentPage, data, h: childHeight, w: childWidth }, navigation,
+                            }) : console.log(key);
                         }}>
                             {renderedItem}
                         </TouchableOpacity>

@@ -31,9 +31,11 @@ import { finip, ip, } from '../../../navigator/IpConfig';
 const RESTORE_ANIMATION_DURATION = 200;
 ///----------------------------------------------------------------------------------------------->>>>
 export default function Imageout(props) {
-    const { dataIndex, dataValue, scrollValue, selectIndex } = props;
+    const { dataIndex, dataValue, route, scrollValue, selectIndex } = props;
     const { ImageZ, setImageDragging, setImageOffsetGP, setImageScaling, setImageSelect, setImageValueGP, setImageValueSV, } = props;
     const { gesturePosition, isDragging, isScaling, scaleValue, selectedData, } = ImageZ;
+    const imageH = route.params?.h;
+    const imageW = route.params?.w;
     const [activeScale, setActiveScale] = useState(false);
     const [selectedPhotoMeasurement, setSelectedPhotoMeasurement] = useState(false);
     const [_initialTouches, set_initialTouches] = useState(undefined);
@@ -44,11 +46,6 @@ export default function Imageout(props) {
     const _photoComponent = useRef(null);
     // let animatedStyle = { transform: gesturePosition.current.getTranslateTransform(), };
     // animatedStyle.transform.push({ scale: scaleValue.current, });
-    console.log('------------------------------------>ImageZ<------------------------------------');
-    console.log(ImageZ);
-    console.log('------------------------------------>ImageZ<------------------------------------');
-    console.log(width);
-    console.log('------------------------------------>ImageZ<------------------------------------');
     async function _measureSelectedPhoto() {
         let parent = ReactNative.findNodeHandle(_parent.current);
         let photoComponent = ReactNative.findNodeHandle(_photoComponent.current);
@@ -75,16 +72,27 @@ export default function Imageout(props) {
         let { dx, dy } = gestureState;
         if (ImageZ.isScaling) {
             if (touches.length < 2) {
-                setImageValueGP(dx, 0);
                 return;
             } else {
+                let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
-                let newScale = getScale(currentDistance, initialDistance);
+                let newScale = getScale(currentDistance, initialDistance) - 1;
+                newScale = newScale > 0.25 ? 0.25 : newScale < -0.25 ? -0.25 : newScale;
+                console.log('-----------------------newScale-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale-----------------------')
+                console.log('-----------------------scale-----------------------')
+                console.log(scale)
+                console.log('-----------------------scale-----------------------')
+                newScale = newScale + scale;
+                console.log('-----------------------newScale2-----------------------')
+                console.log(newScale)
+                console.log('-----------------------newScale2-----------------------')
                 newScale != 1 && setImageScaling(true);
                 if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 4) { newScale = 4; };
+                if (newScale > 7) { newScale = 7; };
                 setImageValueSV(newScale);
             };
         } else {
@@ -96,7 +104,7 @@ export default function Imageout(props) {
                 let newScale = getScale(currentDistance, initialDistance);
                 newScale != 1 && setImageScaling(true);
                 if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 4) { newScale = 4; };
+                if (newScale > 5) { newScale = 5; };
                 setImageValueSV(newScale);
             };
         };
@@ -142,13 +150,13 @@ export default function Imageout(props) {
         onPanResponderRelease: _onGestureRelease,
     });
     var dataMySQL;
-    dataMySQL = `${finip}/${dataValue.image_path}/${dataValue.image}`;
+    dataMySQL = `${finip}/${dataValue.image_full_path ?? dataValue.image_path}/${dataValue.image}`;
     // banner ? dataMySQL = `${finip}/${dataValue.image_path}/${dataValue.image}` :
     //     (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
     return <Animated.View ref={_parent} key={dataIndex}>
-        <Animated.View {...gestureHandler.panHandlers} ref={_photoComponent} style={[stylesMain.child, {
-            opacity: isScaling && dataIndex == selectedData.index ? 0 : 1
-        }]}>
+        <Animated.View {...gestureHandler.panHandlers} ref={_photoComponent} style={{
+            height: imageH, opacity: isScaling && dataIndex == selectedData.index ? 0 : 1, width: imageW,
+        }}>
             <Animated.Image source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode='contain'
                 resizeMethod='resize' />
         </Animated.View>

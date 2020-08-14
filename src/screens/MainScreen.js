@@ -360,8 +360,8 @@ export let Slide = (props) => {
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList {...props} activeZoom /*autoplay*/ data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} /*loop*/ pagination
-                paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
+            <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ width: 10, height: 10 }} loop
+                pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             // <Carousel renderItem={_renderItem} data={banner ?? getFetchData['home_mobile']?.data} loop autoplay autoplayInterval={3000}
             //     pagination={PaginationLight} /> :
             <View style={[stylesMain.child, stylesMain.ItemCenter, { backgroundColor: '#fff' }]}>
@@ -1143,7 +1143,7 @@ export function CategoryProduct(props) {
         dataService.cate_shop.map((value) => value.map((value2) => value2.id_type == item.id_type ? shopItem.push(value2) : null));
         var mix_color = color_up(item.bg_m);
         var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
-        if (index < 20 /*getFetchData['category_mobile'].length*/) {
+        if (index < 0 /*getFetchData['category_mobile'].length*/) {
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
             // console.log('CategoryProduct')
             // console.log(dataMySQL)

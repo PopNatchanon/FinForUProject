@@ -328,11 +328,12 @@ class Chat_Cutomer extends React.Component {
     renderBubble = props => <Bubble {...props} wrapperStyle={{ left: { backgroundColor: '#f0f0f0', }, }} />;
     renderMessageImage = props => <FastImage {...props} />;
     render() {
-        return <View style={{ backgroundColor: '#FFFFFF', height: '96%', width: '100%', }}>
-            <Text>แชท</Text>
-            {/* <GiftedChat messages={this.state.messages} onSend={messages => this.onSend(messages)} renderSend={this.renderSend}
+        return <ScrollView>
+            <View style={{ backgroundColor: '#FFFFFF', height: '96%', width: '100%', }}>
+                <Text>แชท</Text>
+                {/* <GiftedChat messages={this.state.messages} onSend={messages => this.onSend(messages)} renderSend={this.renderSend}
                 textStyle={stylesFont.FontFamilyText, stylesFont.FontSize6} user={{ _id: '10', }} /> */}
-            {/* <GiftedChat
+                {/* <GiftedChat
                     messages={this.state.messages}
                     onSend={messages => this.onSend(messages)}
                     loadEarlier={this.state.loadEarlier}
@@ -357,7 +358,11 @@ class Chat_Cutomer extends React.Component {
                     renderQuickReplySend={this.renderQuickReplySend}
                     timeTextStyle={{ left: { color: 'red' }, right: { color: 'yellow' } }} 
                 /> */}
-        </View>;
+            </View>
+            <View>
+                <Text>คุณกำลังคิดอะไร</Text>
+            </View>
+        </ScrollView>;
     };
 };
 ///----------------------------------------------------------------------------------------------->>>> InterestedScreen

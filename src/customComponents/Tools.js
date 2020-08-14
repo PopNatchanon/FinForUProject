@@ -1157,9 +1157,8 @@ export class SlideTab extends React.Component {
                             </ScrollView>}
                         {item.subtitle.length > 4 && <TouchableOpacity onPress={() => this.setStateActiveText(!activeText)}>
                             <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, { borderTopWidth: null, }]}>
-                                <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, {
-                                    fontFamily: 'SukhumvitSet-Text',
-                                }]}>{activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
+                                <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold]}>
+                                    {activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
                                 <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
                             </View>
                         </TouchableOpacity>}

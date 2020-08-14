@@ -220,11 +220,11 @@ function MainScreen(props) {
             renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
             // ฟินคัดมาเพื่อคุณ
         },
-        // {
-        //     nameComponent: 'CategoryProduct',
-        //     renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-        //     // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-        // },
+        {
+            nameComponent: 'CategoryProduct',
+            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+        },
         {
             nameComponent: 'Second_product',
             renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -1143,9 +1143,12 @@ export function CategoryProduct(props) {
         dataService.cate_shop.map((value) => value.map((value2) => value2.id_type == item.id_type ? shopItem.push(value2) : null));
         var mix_color = color_up(item.bg_m);
         var bmix_color = item.name == 'เครื่องประดับ' ? '#800c0a' : '#151d3f';
-        if (index < 2 /*getFetchData['category_mobile'].length*/) {
+        if (index < 20 /*getFetchData['category_mobile'].length*/) {
             // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
-            var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
+            // console.log('CategoryProduct')
+            // console.log(dataMySQL)
+            var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Header_Cate/${item.image_menu}`;
+            // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
             return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: item.bg_m, paddingBottom: 3, }]}>
                 <>
                     {<TouchableOpacity onPress={() =>
@@ -1224,10 +1227,10 @@ export let CategoryProductSubPromotion = (props) => {
         <View style={stylesMain.BoxProduct1Image} />
     </View>;
     let dataCategoryProductSubPromotionSmall = promo_2 ? promo_2.map((value, index) => {
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
-        console.log('CategoryProductSubPromotion')
-        console.log(dataMySQL)
-        // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
+        // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
+        // console.log('CategoryProductSubPromotion')
+        // console.log(dataMySQL)
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
         return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
             {value &&
                 <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}
@@ -1238,9 +1241,7 @@ export let CategoryProductSubPromotion = (props) => {
         <View style={stylesMain.BoxProduct1Image} />
     </View>;
     let dataCategoryProductSubPromotionBig = promo_1 ? promo_1.map((value, index) => {
-        var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${value.image}`;
-        console.log('CategoryProductSubPromotion')
-        console.log(dataMySQL)
+        var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_L/${value.image}`;
         // var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
         return <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
             {value && <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}

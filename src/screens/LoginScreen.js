@@ -105,14 +105,14 @@ export let Login = (props) => {
         <TextValidator name="email" label="text" validators={['required']} errorMessages={['กรุณากรอกอีเมล']} type="text"
           keyboardType="email-address" value={user.email} onChangeText={(value) => EmailInput(value)} style={[stylesFont.FontFamilyText,
           stylesFont.FontSize6]} errorStyle={{
-            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'SukhumvitSet-Text', },
+            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
             underlineValidColor: 'gray', underlineInvalidColor: 'red'
           }} />
         <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสผ่าน</Text>
         <TextValidator name="pass" label="text" type="text" validators={['required']} errorMessages={['กรุณารหัสผ่าน']}
           value={user.password} secureTextEntry={eye} onChangeText={(value) => PassInput(value)}
           style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} errorStyle={{
-            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'SukhumvitSet-Text', },
+            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
             underlineValidColor: 'gray', underlineInvalidColor: 'red'
           }} />
         <TouchableOpacity style={stylesLogin.eyestyle} onPress={() => setStateEye(!eye)}>

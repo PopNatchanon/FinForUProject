@@ -130,8 +130,19 @@ export function Button_Bar(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
 export function Highlights(props) {
-  
   const { dataService, selectedIndex, } = props;
+  const dataService2 = [
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', name_store: 'StoreA', follow_store: '202', score_store:'54.2'  },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', name_store: 'StoreB', follow_store: '533', score_store:'33.8' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', name_store: 'StoreC', follow_store: '52', score_store:'65.1' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', name_store: 'StoreD', follow_store: '665', score_store:'55' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', name_store: 'StoreE', follow_store: '82', score_store:'' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', name_store: 'StoreF', follow_store: '65', score_store:'' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', name_store: 'StoreG', follow_store: '22', score_store:'' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', name_store: 'StoreH', follow_store: '855', score_store:'' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', name_store: 'StoreI', follow_store: '78', score_store:'' },
+    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', name_store: 'StoreJ', follow_store: '91', score_store:'' },
+  ]
   const [activeModalize, setActiveModalize] = useState(false);
   function headerStoryList() {
     return (

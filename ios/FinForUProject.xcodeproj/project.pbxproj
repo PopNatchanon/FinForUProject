@@ -18,7 +18,8 @@
 		2DCD954D1E0B4F2C00145EB5 /* FinForUProjectTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* FinForUProjectTests.m */; };
 		78902B8A2F8205D331727FB5 /* libPods-FinForUProject.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3562A811A9BC625618C30280 /* libPods-FinForUProject.a */; };
 		7DF481F409789926C3DCD0FD /* libPods-FinForUProject-FinForUProjectTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6014F1309293F7B9483BA43C /* libPods-FinForUProject-FinForUProjectTests.a */; };
-		84CEDD642463B9BC008AB947 /* ThaiSansNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD522463B9B9008AB947 /* ThaiSansNeue-Bold.ttf */; };
+		84424A2524E4F186003E905B /* ThaiSansNeue-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84424A2324E4F186003E905B /* ThaiSansNeue-BoldItalic.ttf */; };
+		84424A2624E4F186003E905B /* ThaiSansNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84424A2424E4F186003E905B /* ThaiSansNeue-Bold.ttf */; };
 		84CEDD652463B9BC008AB947 /* ThaiSansNeue-UltraLightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD532463B9B9008AB947 /* ThaiSansNeue-UltraLightItal.ttf */; };
 		84CEDD662463B9BC008AB947 /* ThaiSansNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD542463B9B9008AB947 /* ThaiSansNeue-Regular.ttf */; };
 		84CEDD672463B9BC008AB947 /* ThaiSansNeue-ExtraBoldItali.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD552463B9BA008AB947 /* ThaiSansNeue-ExtraBoldItali.ttf */; };
@@ -30,7 +31,6 @@
 		84CEDD6D2463B9BC008AB947 /* ThaiSansNeue-UltraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD5B2463B9BB008AB947 /* ThaiSansNeue-UltraLight.ttf */; };
 		84CEDD6E2463B9BC008AB947 /* ThaiSansNeue-ExtraBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD5C2463B9BB008AB947 /* ThaiSansNeue-ExtraBold.ttf */; };
 		84CEDD6F2463B9BC008AB947 /* ThaiSansNeue-Black.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD5D2463B9BB008AB947 /* ThaiSansNeue-Black.ttf */; };
-		84CEDD702463B9BC008AB947 /* ThaiSansNeue-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD5E2463B9BB008AB947 /* ThaiSansNeue-BoldItalic.ttf */; };
 		84CEDD712463B9BC008AB947 /* ThaiSansNeue-BlackItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD5F2463B9BB008AB947 /* ThaiSansNeue-BlackItalic.ttf */; };
 		84CEDD722463B9BC008AB947 /* ThaiSansNeue-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD602463B9BB008AB947 /* ThaiSansNeue-Italic.ttf */; };
 		84CEDD732463B9BC008AB947 /* ThaiSansNeue-ExtraLightItal.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 84CEDD612463B9BC008AB947 /* ThaiSansNeue-ExtraLightItal.ttf */; };
@@ -84,7 +84,8 @@
 		6014F1309293F7B9483BA43C /* libPods-FinForUProject-FinForUProjectTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-FinForUProject-FinForUProjectTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		614540EB179F32A37ACC233F /* Pods-FinForUProject-FinForUProjectTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FinForUProject-FinForUProjectTests.debug.xcconfig"; path = "Target Support Files/Pods-FinForUProject-FinForUProjectTests/Pods-FinForUProject-FinForUProjectTests.debug.xcconfig"; sourceTree = "<group>"; };
 		70EEB854E9CC4E91BD703F26 /* MaterialCommunityIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = MaterialCommunityIcons.ttf; path = "../node_modules/native-base/Fonts/MaterialCommunityIcons.ttf"; sourceTree = "<group>"; };
-		84CEDD522463B9B9008AB947 /* ThaiSansNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-Bold.ttf"; path = "../fonts/ThaiSansNeue-Bold.ttf"; sourceTree = "<group>"; };
+		84424A2324E4F186003E905B /* ThaiSansNeue-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-BoldItalic.ttf"; path = "../../android/app/src/main/assets/fonts/ThaiSansNeue-BoldItalic.ttf"; sourceTree = "<group>"; };
+		84424A2424E4F186003E905B /* ThaiSansNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-Bold.ttf"; path = "../../android/app/src/main/assets/fonts/ThaiSansNeue-Bold.ttf"; sourceTree = "<group>"; };
 		84CEDD532463B9B9008AB947 /* ThaiSansNeue-UltraLightItal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-UltraLightItal.ttf"; path = "../fonts/ThaiSansNeue-UltraLightItal.ttf"; sourceTree = "<group>"; };
 		84CEDD542463B9B9008AB947 /* ThaiSansNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-Regular.ttf"; path = "../fonts/ThaiSansNeue-Regular.ttf"; sourceTree = "<group>"; };
 		84CEDD552463B9BA008AB947 /* ThaiSansNeue-ExtraBoldItali.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-ExtraBoldItali.ttf"; path = "../fonts/ThaiSansNeue-ExtraBoldItali.ttf"; sourceTree = "<group>"; };
@@ -96,7 +97,6 @@
 		84CEDD5B2463B9BB008AB947 /* ThaiSansNeue-UltraLight.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-UltraLight.ttf"; path = "../fonts/ThaiSansNeue-UltraLight.ttf"; sourceTree = "<group>"; };
 		84CEDD5C2463B9BB008AB947 /* ThaiSansNeue-ExtraBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-ExtraBold.ttf"; path = "../fonts/ThaiSansNeue-ExtraBold.ttf"; sourceTree = "<group>"; };
 		84CEDD5D2463B9BB008AB947 /* ThaiSansNeue-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-Black.ttf"; path = "../fonts/ThaiSansNeue-Black.ttf"; sourceTree = "<group>"; };
-		84CEDD5E2463B9BB008AB947 /* ThaiSansNeue-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-BoldItalic.ttf"; path = "../fonts/ThaiSansNeue-BoldItalic.ttf"; sourceTree = "<group>"; };
 		84CEDD5F2463B9BB008AB947 /* ThaiSansNeue-BlackItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-BlackItalic.ttf"; path = "../fonts/ThaiSansNeue-BlackItalic.ttf"; sourceTree = "<group>"; };
 		84CEDD602463B9BB008AB947 /* ThaiSansNeue-Italic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-Italic.ttf"; path = "../fonts/ThaiSansNeue-Italic.ttf"; sourceTree = "<group>"; };
 		84CEDD612463B9BC008AB947 /* ThaiSansNeue-ExtraLightItal.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = "ThaiSansNeue-ExtraLightItal.ttf"; path = "../fonts/ThaiSansNeue-ExtraLightItal.ttf"; sourceTree = "<group>"; };
@@ -272,8 +272,8 @@
 			children = (
 				84CEDD5D2463B9BB008AB947 /* ThaiSansNeue-Black.ttf */,
 				84CEDD5F2463B9BB008AB947 /* ThaiSansNeue-BlackItalic.ttf */,
-				84CEDD522463B9B9008AB947 /* ThaiSansNeue-Bold.ttf */,
-				84CEDD5E2463B9BB008AB947 /* ThaiSansNeue-BoldItalic.ttf */,
+				84424A2424E4F186003E905B /* ThaiSansNeue-Bold.ttf */,
+				84424A2324E4F186003E905B /* ThaiSansNeue-BoldItalic.ttf */,
 				84CEDD5C2463B9BB008AB947 /* ThaiSansNeue-ExtraBold.ttf */,
 				84CEDD552463B9BA008AB947 /* ThaiSansNeue-ExtraBoldItali.ttf */,
 				84CEDD562463B9BA008AB947 /* ThaiSansNeue-ExtraLight.ttf */,
@@ -401,14 +401,16 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = 2WM99H4C8U;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = 958VD889T6;
+						DevelopmentTeam = 2WM99H4C8U;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
+						DevelopmentTeam = 2WM99H4C8U;
 						ProvisioningStyle = Automatic;
 					};
 					2D02E48F1E0B4A5D006451C7 = {
@@ -451,7 +453,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				84CEDD642463B9BC008AB947 /* ThaiSansNeue-Bold.ttf in Resources */,
 				84CEDD652463B9BC008AB947 /* ThaiSansNeue-UltraLightItal.ttf in Resources */,
 				84CEDD662463B9BC008AB947 /* ThaiSansNeue-Regular.ttf in Resources */,
 				84CEDD672463B9BC008AB947 /* ThaiSansNeue-ExtraBoldItali.ttf in Resources */,
@@ -463,12 +464,13 @@
 				84CEDD6D2463B9BC008AB947 /* ThaiSansNeue-UltraLight.ttf in Resources */,
 				84CEDD6E2463B9BC008AB947 /* ThaiSansNeue-ExtraBold.ttf in Resources */,
 				84CEDD6F2463B9BC008AB947 /* ThaiSansNeue-Black.ttf in Resources */,
-				84CEDD702463B9BC008AB947 /* ThaiSansNeue-BoldItalic.ttf in Resources */,
+				84424A2624E4F186003E905B /* ThaiSansNeue-Bold.ttf in Resources */,
 				84CEDD712463B9BC008AB947 /* ThaiSansNeue-BlackItalic.ttf in Resources */,
 				84CEDD722463B9BC008AB947 /* ThaiSansNeue-Italic.ttf in Resources */,
 				84CEDD732463B9BC008AB947 /* ThaiSansNeue-ExtraLightItal.ttf in Resources */,
 				84CEDD742463B9BC008AB947 /* ThaiSansNeue-SemiBoldItalic.ttf in Resources */,
 				84CEDD752463B9BC008AB947 /* ThaiSansNeue-UltraBold.ttf in Resources */,
+				84424A2524E4F186003E905B /* ThaiSansNeue-BoldItalic.ttf in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */,
 			);
@@ -821,6 +823,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -846,6 +849,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				INFOPLIST_FILE = FinForUProjectTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -870,15 +874,15 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 958VD889T6;
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"$(inherited)",
 					"FB_SONARKIT_ENABLED=1",
 				);
 				INFOPLIST_FILE = FinForUProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
@@ -905,10 +909,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 958VD889T6;
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				INFOPLIST_FILE = FinForUProject/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)",
 					"$(inherited)",
@@ -930,13 +934,13 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A2DAA32C9A5B47EAB02924ED /* Pods-FinForUProject-tvOS.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				ENABLE_TESTABILITY = YES;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "FinForUProject-tvOS/Info.plist";
@@ -958,7 +962,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0246F295BED4AAE24B7C0E32 /* Pods-FinForUProject-tvOS.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
@@ -966,6 +969,7 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 2WM99H4C8U;
 				GCC_NO_COMMON_BLOCKS = YES;
 				INFOPLIST_FILE = "FinForUProject-tvOS/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";

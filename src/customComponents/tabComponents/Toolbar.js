@@ -9,6 +9,7 @@ export const { width, height } = Dimensions.get('window');
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetData } from '../Tools';
 import LinearGradient from 'react-native-linear-gradient';
@@ -34,7 +35,7 @@ function Toolbar(props) {
     var u_name = null;
     if (currentUser != null) { currentUser.name && (u_name = currentUser.name); };
     let genText = (routeSelcet, nameRoute, value) => <LinearTextGradient colors={[routeSelcet == nameRoute ? '#001666' : '#111',
-    routeSelcet == nameRoute ? '#284d8fff' : '#111']} locations={[0.2, 0.8]} style={{ fontSize: 13, fontFamily: 'SukhumvitSet-Text', }}
+    routeSelcet == nameRoute ? '#284d8fff' : '#111']} locations={[0.2, 0.8]} style={[stylesFont.FontFamilyBold,{ fontSize: 13, }]}
         useViewFrame={true}>
         {value}
     </LinearTextGradient>;

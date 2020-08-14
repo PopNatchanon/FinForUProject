@@ -97,7 +97,7 @@ export let Product_Cart = (props) => {
         style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
         <View style={{ flexDirection: 'row', }}>
             <CheckBox containerStyle={[stylesMain.ItemCenterVertical, { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
-                textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={data.item.checked} onPress={() => {
+                textStyle={14} fontFamily={stylesFont.FontFamilyBold} checked={data.item.checked} onPress={() => {
                     cartListChecked(data.item.id_cartdetail, data.item.id_store, cartDataList); setActiveReload(!activeReload);
                 }} />
             <View style={{
@@ -173,7 +173,7 @@ export let Product_Cart = (props) => {
                         <View style={{ flexDirection: 'row', }}>
                             <CheckBox containerStyle={[stylesMain.ItemCenterVertical,
                             { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
-                                textStyle={14} fontFamily={'SukhumvitSet-Text'} checked={item_n.checked} onPress={() => {
+                                textStyle={14} fontFamily={stylesFont.FontFamilyBold} checked={item_n.checked} onPress={() => {
                                     cartListCheckedStore(item_n.id_store, cartDataList); setActiveReload(!activeReload);
                                 }} />
                             <View style={[stylesMain.ItemCenterVertical,
@@ -291,7 +291,7 @@ export let Buy_bar = (props) => {
             <View style={[stylesCart.Bar_Buy]}>
                 <View>
                     <CheckBox title='เลือกทั้งหมด' containerStyle={[stylesMain.ItemCenterVertical,
-                    { backgroundColor: '#fff', borderWidth: 0, marginTop: -0.5, }]} textStyle={14} fontFamily={'SukhumvitSet-Text'}
+                    { backgroundColor: '#fff', borderWidth: 0, marginTop: -0.5, }]} textStyle={14} fontFamily={stylesFont.FontFamilyBold}
                         checked={checkedMain} onPress={() => cartListCheckedAll(!checkedMain)} />
                 </View>
                 {!cartData.buttomDelete && <View style={[stylesCart.Bar_Buy_price, { marginLeft: -20 }]}>

@@ -43,7 +43,7 @@ import { finip, ip, } from '../navigator/IpConfig';
 const getCartDataCount = (cartData) => {
   var cartDataCount = 0;
   cartData?.map((value) => value.product.map((value2) => { return cartDataCount += value2.quantity * 1; }));
-  return cartDataCount;
+  return cartDataCount
 };
 const mapStateToProps = (state) => ({
   cartData: state.cartData, cartDataCount: getCartDataCount(state.cartData.data), customerData: state.customerData,
@@ -635,12 +635,12 @@ export let Detail = (props) => {
       <View style={[{ paddingHorizontal: 6, maxHeight: activeText == false ? 94 : '100%', overflow: 'hidden', }]}
         onLayout={({ nativeEvent: { layout: { height } } }) => setShowMoreButton(height >= normalize(94))}>
         <WebView source={{ html: '<h1>Hello world</h1>' }} />
-        {/* <HTML html={item.detail} baseFontStyle={{ fontFamily: 'SukhumvitSet-Text', }}
+        {/* <HTML html={item.detail} baseFontStyle={{ fontFamily: 'ThaiSansNeue-Bold', }}
                   imagesMaxWidth={Dimensions.get('window').width} /> */}
       </View>
       {showMoreButton && <TouchableOpacity onPress={() => setActiveText(!activeText)}>
         <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter]}>
-          <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, { fontFamily: 'SukhumvitSet-Text', }]}>
+          <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold]}>
             {activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
           <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
         </View>

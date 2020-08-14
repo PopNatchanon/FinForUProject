@@ -38,7 +38,7 @@
 		</dict>
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string/>
+	<string></string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>Enabling Face ID allows you quick and secure access to your account.</string>
 	<key>UILaunchStoryboardName</key>
@@ -76,6 +76,24 @@
 		<string>Roboto_medium.ttf</string>
 		<string>Roboto.ttf</string>
 		<string>rubicon-icon-font.ttf</string>
+		<string>ThaiSansNeue-Black.ttf</string>
+		<string>ThaiSansNeue-BlackItalic.ttf</string>
+		<string>ThaiSansNeue-Bold.ttf</string>
+		<string>ThaiSansNeue-BoldItalic.ttf</string>
+		<string>ThaiSansNeue-ExtraBold.ttf</string>
+		<string>ThaiSansNeue-ExtraBoldItali.ttf</string>
+		<string>ThaiSansNeue-ExtraLight.ttf</string>
+		<string>ThaiSansNeue-ExtraLightItal.ttf</string>
+		<string>ThaiSansNeue-Italic.ttf</string>
+		<string>ThaiSansNeue-Light.ttf</string>
+		<string>ThaiSansNeue-LightItalic.ttf</string>
+		<string>ThaiSansNeue-Regular.ttf</string>
+		<string>ThaiSansNeue-SemiBold.ttf</string>
+		<string>ThaiSansNeue-SemiBoldItalic.ttf</string>
+		<string>ThaiSansNeue-UltraBold.ttf</string>
+		<string>ThaiSansNeue-UltraBoldItali.ttf</string>
+		<string>ThaiSansNeue-UltraLight.ttf</string>
+		<string>ThaiSansNeue-UltraLightItal.ttf</string>
 	</array>
 </dict>
 </plist>

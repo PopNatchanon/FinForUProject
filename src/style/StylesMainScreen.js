@@ -594,13 +594,12 @@ export default StyleSheet.create({
     flexWrap: 'wrap',
   },
   Brand_image_Box: {
-    height: 40,
+    height: 60,
     width: width * 0.40,
-    borderColor: '#ECECEC',
+    borderColor: '#E7B841',
     borderWidth: 1,
     marginLeft: 2,
     marginTop: 2,
-    padding: 3,
   },
   Brand_image_RCM: {
     height: '100%',
@@ -621,7 +620,6 @@ export default StyleSheet.create({
   Popular_Box_D: {
     height: height * 0.11,
     width: width * 0.20,
-    padding: 5,
   },
   Popular_image_Box: {
     height: '100%',
@@ -702,12 +700,12 @@ export default StyleSheet.create({
     paddingHorizontal: 2
   },
   Button_Bar_icon: {
-    height: 65,
-    width: 65,
+    height: 70,
+    width: 70,
     borderColor: '#FFFFFF',
     borderWidth: 2,
     resizeMode: 'stretch',
-    borderRadius: 65 / 2,
+    borderRadius: 70 / 2,
   },
   ///------------------------------------------------------------------///
   Second_StoreFin: {

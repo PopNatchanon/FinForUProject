@@ -711,7 +711,7 @@ export function ProductBox(props) {
                             width: mode == 'row3colall_new' ? '100%' : '75%',
                         }]} resizeMode={FastImage.resizeMode.contain} />
                     </View>
-                    <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3 }}>
+                    <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%', }}>
                         <View style={[stylesMain.BoxProduct1NameofLines]}>
                             <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>
                                 {item.name_product ?? item.name}</Text>

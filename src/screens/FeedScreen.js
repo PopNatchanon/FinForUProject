@@ -20,9 +20,9 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
-import stylesStore from '../style/StylesStoreScreen';
-import { normalize } from '../style/stylesFont';
 import stylesFont from '../style/stylesFont';
+import { normalize } from '../style/stylesFont';
+import stylesStore from '../style/StylesStoreScreen';
 import stylesDetail from '../style/StylesDetailScreen';
 import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
@@ -66,9 +66,11 @@ function FeedScreen(props) {
         <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
           currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
           selectedIndex={currentUser ? selectedIndex : 1} /> :
-        <View style={{ width, height: height * 0.768 }}>
-          <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
-        </View>}
+        <ScrollView>
+          <View style={{ width, height: height }}>
+            <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+          </View>
+        </ScrollView>}
       <Toolbar {...props} />
       <ExitAppModule {...props} />
     </SafeAreaView>
@@ -132,63 +134,60 @@ export function Button_Bar(props) {
 export function Highlights(props) {
   const { dataService, selectedIndex, } = props;
   const dataService2 = [
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', name_store: 'StoreA', follow_store: '202', score_store:'54.2'  },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', name_store: 'StoreB', follow_store: '533', score_store:'33.8' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', name_store: 'StoreC', follow_store: '52', score_store:'65.1' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', name_store: 'StoreD', follow_store: '665', score_store:'55' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', name_store: 'StoreE', follow_store: '82', score_store:'' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', name_store: 'StoreF', follow_store: '65', score_store:'' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', name_store: 'StoreG', follow_store: '22', score_store:'' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', name_store: 'StoreH', follow_store: '855', score_store:'' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', name_store: 'StoreI', follow_store: '78', score_store:'' },
-    { image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', name_store: 'StoreJ', follow_store: '91', score_store:'' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_a.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_a.jpg`, name_store: 'StoreA', follow_store: '202', score_store: '54.2' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_b.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_b.jpg`, name_store: 'StoreB', follow_store: '533', score_store: '33.8' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_c.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_c.jpg`, name_store: 'StoreC', follow_store: '52', score_store: '65.1' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_d.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_d.jpg`, name_store: 'StoreE', follow_store: '82', score_store: '51.2' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_a.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_a.jpg`, name_store: 'StoreF', follow_store: '65', score_store: '63.2' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_b.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_b.jpg`, name_store: 'StoreG', follow_store: '22', score_store: '88.6' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_c.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_c.jpg`, name_store: 'StoreH', follow_store: '855', score_store: '99.6' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_d.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_d.jpg`, name_store: 'StoreI', follow_store: '78', score_store: '33.5' },
+    { image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_a.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_a.jpg`, name_store: 'StoreJ', follow_store: '91', score_store: '66.2' },
   ]
   const [activeModalize, setActiveModalize] = useState(false);
+  let Highlights_Store = dataService2.map((value, index) =>
+    <View key={index} style={{
+      width: 150, marginRight: 5,
+      borderColor: '#C4C4C4', borderWidth: 1.5,
+    }}>
+      <View style={{ height: 60 }}>
+        <FastImage
+          style={stylesMain.BoxProduct1Image}
+          source={{
+            uri: value.image_BG,
+          }}
+          resizeMode={FastImage.resizeMode.cover} />
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <FastImage
+          style={{ height: 60, width: 60, borderWidth: 1, borderRadius: width / 2, marginTop: -30, backgroundColor: '#FFFFFF', borderColor: '#C4C4C4' }}
+          source={{
+            uri: value.image_Pro,
+          }}
+          resizeMode={FastImage.resizeMode.cover} />
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>{value.name_store}</Text>
+        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>ผู้ติดตาม {value.follow_store} คน</Text>
+        <View style={stylesMain.FlexRow}>{StarReview(5, 15)}</View>
+        <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{value.score_store}(46.9 พันคะแนน) </Text>
+        <TouchableOpacity>
+          <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: width * 0.20, borderRadius: 10, marginVertical: 5 }]}>
+            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
+    </View>);
+
   function headerStoryList() {
     return (
       selectedIndex == 1 &&
-      <View style={[stylesMain.FrameBackground, { marginTop: -5 }]}>
+      <View style={[stylesMain.FrameBackground]}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>ร้านค้ายอดนิยม</Text>
         <ScrollView horizontal>
-          <View style={{ paddingLeft: 10, flexDirection: 'row', aspectRatio: 3, height: 'auto', marginBottom: 5 }}>
-            {
-              [0, 1, 2, 3, 4].map((_, index) => {
-                return (
-                  <View key={index} style={{
-                    width: '21%', marginRight: 10,
-                    borderColor: '#C4C4C4', borderWidth: 1.5,
-                  }}>
-                    <View style={{ height: '30%' }}>
-                      <FastImage
-                        style={stylesMain.BoxProduct1Image}
-                        source={{
-                          uri: `${ip}/MySQL/uploads/slide/NewStore/luxury_shop3.jpg`,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                      <FastImage
-                        style={{ height: 50, width: 50, borderWidth: 1, borderRadius: 25, marginTop: -20, backgroundColor: '#FFFFFF', borderColor: '#C4C4C4' }}
-                        source={{
-                          uri: `${ip}/MySQL/uploads/addmin/1212.png`,
-                        }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                      <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>PPoo</Text>
-                      <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>ผู้ติดตาม 20.2 พัน</Text>
-                      <View style={stylesMain.FlexRow}>{StarReview(5, 15)}</View>
-                      <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>4.8 จาก 5 (46.9 พันคะแนน)</Text>
-                      <TouchableOpacity>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: '#0A55A6', width: width * 0.20, borderRadius: 10, marginTop: 5, }]}>
-                          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
-                        </View>
-                      </TouchableOpacity>
-                    </View>
-                  </View>
-                )
-              })}
-          </View>
+          <TouchableOpacity style={{ paddingLeft: 10, flexDirection: 'row', marginBottom: 5 }}>
+            {Highlights_Store}
+          </TouchableOpacity>
         </ScrollView>
       </View>
     )
@@ -262,14 +261,12 @@ export function Feed_About(props) {
     { image: `${ip}/MySQL/uploads/Group_image/Walmart.png`, name: 'BP World', },
     { image: `${ip}/MySQL/uploads/Group_image/central.png`, name: 'Ducati', },
     { image: `${ip}/MySQL/uploads/Group_image/paradise.jpg`, name: 'GUCCI', },
-    { image: `${ip}/MySQL/uploads/Group_image/10.jpg`, name: 'LACOSTE', }
-  ]
+    { image: `${ip}/MySQL/uploads/Group_image/10.jpg`, name: 'LACOSTE', }]
   const item_Group = [
     { image: `${ip}/MySQL/uploads/Group_image/AMARIN.jpg`, name: 'เสื้อผ้าคุณผู้หญิง Less is more เสื้อผ้าคุณผู้หญิง Less is more เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี', },
     { image: `${ip}/MySQL/uploads/Group_image/con7.jpg`, name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย', },
     { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน', },
-    { image: `${ip}/MySQL/uploads/Group_image/con1.jpg`, name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี', }
-  ]
+    { image: `${ip}/MySQL/uploads/Group_image/con1.jpg`, name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี', }]
   let StoreItem = (
     item_Store.map((value, index) => {
       return <View key={index} style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>

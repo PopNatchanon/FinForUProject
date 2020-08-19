@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import {
   activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
-  setDataRefresh, setDataStart, setFetchToStart
+  setDataRefresh, setDataStart, setFetchToStart, setImageClearSelect, setImageList,
 } from '../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
@@ -51,7 +51,7 @@ const mapStateToProps = (state) => ({
 });
 const mapDispatchToProps = ({
   activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
-  setDataRefresh, setDataStart, setFetchToStart
+  setDataRefresh, setDataStart, setFetchToStart, setImageClearSelect, setImageList,
 });
 export default connect(mapStateToProps, mapDispatchToProps)(DetailScreen)
 function DetailScreen(props) {
@@ -172,12 +172,10 @@ export let Detail_Image = (props) => {
   let sendShowImage = () => { };
   let _renderItem = (item, index) => {
     var dataMySQL = `${finip}/${item.image_full_path}/${item.image}`;
-    return <TouchableOpacity activeOpacity={1} key={index} onPress={() => sendShowImage()}>
-      <View style={{ width: width, height: height / 2, maxHeight: height, /*backgroundColor: '#d9d9d9'*/ }}>
-        <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
-          resizeMode={FastImage.resizeMode.contain} />
-      </View>
-    </TouchableOpacity>;
+    return <View key={index} style={{ width: width, height: 'auto', aspectRatio: 0.985 /*backgroundColor: '#d9d9d9'*/ }}>
+      <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct1Image, { opacity: 0.9 }]}
+        resizeMode={FastImage.resizeMode.contain} />
+    </View>;
   };
   let id_product = dataService?.map((item, index) => {
     let dataMySQL;

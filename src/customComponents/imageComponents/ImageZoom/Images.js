@@ -29,23 +29,24 @@ import SelectedImage from './SelectedImage';
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>>
 const RESTORE_ANIMATION_DURATION = 200;
+const ZOOM_SCALE_MIN = 1;
+const ZOOM_SCALE_MAX = 6;
+const ZOOM_SCALE_SPEED = 0.15;
+const ZOOM_SCALE_LIMIT = 0.10;
 ///----------------------------------------------------------------------------------------------->>>>
 export default function Imageout(props) {
-    const { dataIndex, dataValue, route, scrollValue, selectIndex } = props;
-    const { ImageZ, setImageDragging, setImageOffsetGP, setImageScaling, setImageSelect, setImageValueGP, setImageValueSV, } = props;
-    const { gesturePosition, isDragging, isScaling, scaleValue, selectedData, } = ImageZ;
-    const imageH = route.params?.h;
-    const imageW = route.params?.w;
-    const [activeScale, setActiveScale] = useState(false);
-    const [selectedPhotoMeasurement, setSelectedPhotoMeasurement] = useState(false);
+    const { dataIndex, dataValue, route, scrollValue, scrollView1, selectIndex } = props;
+    const {
+        ImageZ, setImageClearSelect, setImageDragging, setImageIsGesture, setImageOffsetGP, setImageScaling, setImageSelect,
+        setImageValueGP, setImageValueSV,
+    } = props;
+    const { gesturePosition, isDragging, isGesture, isScaling, scaleValue, selectedData, } = ImageZ;
+    const [imageHeight, setImageHeight] = useState(0);
+    const [imageWidth, setImageWidth] = useState(0);
     const [_initialTouches, set_initialTouches] = useState(undefined);
-    // const gesturePosition = useRef(new Animated.ValueXY());
-    // const scaleValue = useRef(new Animated.Value(1));
-    const _lastOffset = { x: 0, y: 0 };
+    const [edge, setEdge] = useState(false);
     const _parent = useRef(null);
     const _photoComponent = useRef(null);
-    // let animatedStyle = { transform: gesturePosition.current.getTranslateTransform(), };
-    // animatedStyle.transform.push({ scale: scaleValue.current, });
     async function _measureSelectedPhoto() {
         let parent = ReactNative.findNodeHandle(_parent.current);
         let photoComponent = ReactNative.findNodeHandle(_photoComponent.current);
@@ -64,14 +65,28 @@ export default function Imageout(props) {
         setImageDragging(true);
         // set initial touches
         set_initialTouches(touches);
-        setImageOffsetGP({ x: 0, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+        setImageOffsetGP({ x: JSON.stringify(gesturePosition.x) * 1, y: JSON.stringify(gesturePosition.y) * 1, });
         setImageValueGP(0, 0);
     };
     function _onGestureMove(event: Event, gestureState: GestureState) {
         let { touches } = event.nativeEvent;
         let { dx, dy } = gestureState;
-        if (ImageZ.isScaling) {
+        if (isScaling) {
             if (touches.length < 2) {
+                let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * (JSON.stringify(scaleValue) * 1)) - width) / 2);
+                let procressDy = (((selectedData.h * (JSON.stringify(scaleValue) * 1)) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
+                edge && (newDx >= procressDx ?
+                    setImageIsGesture(true) :
+                    newDx <= -procressDx ?
+                        setImageIsGesture(true) :
+                        setImageIsGesture(false));
+                newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
                 return;
             } else {
                 let scale = (JSON.stringify(scaleValue) * 1);
@@ -79,33 +94,55 @@ export default function Imageout(props) {
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
                 let newScale = getScale(currentDistance, initialDistance) - 1;
-                newScale = newScale > 0.25 ? 0.25 : newScale < -0.25 ? -0.25 : newScale;
-                console.log('-----------------------newScale-----------------------')
-                console.log(newScale)
-                console.log('-----------------------newScale-----------------------')
-                console.log('-----------------------scale-----------------------')
-                console.log(scale)
-                console.log('-----------------------scale-----------------------')
+                newScale = newScale > ZOOM_SCALE_LIMIT ? ZOOM_SCALE_SPEED : newScale < -ZOOM_SCALE_LIMIT ? -ZOOM_SCALE_SPEED : newScale;
                 newScale = newScale + scale;
-                console.log('-----------------------newScale2-----------------------')
-                console.log(newScale)
-                console.log('-----------------------newScale2-----------------------')
                 newScale != 1 && setImageScaling(true);
-                if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 7) { newScale = 7; };
+                if (newScale < ZOOM_SCALE_MIN) { newScale = 1; setImageScaling(false); };
+                if (newScale > ZOOM_SCALE_MAX) { newScale = ZOOM_SCALE_MAX; };
                 setImageValueSV(newScale);
+                let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * newScale) - width) / 2);
+                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
+                edge && (newDx >= procressDx ?
+                    setImageIsGesture(true) :
+                    newDx <= -procressDx ?
+                        setImageIsGesture(true) :
+                        setImageIsGesture(false));
+                newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
             };
         } else {
             if (touches.length < 2) { return; }
             else {
+                let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
-                let newScale = getScale(currentDistance, initialDistance);
+                let newScale = getScale(currentDistance, initialDistance) - 1;
+                newScale = newScale > ZOOM_SCALE_LIMIT ? ZOOM_SCALE_SPEED : newScale < -ZOOM_SCALE_LIMIT ? -ZOOM_SCALE_SPEED : newScale;
+                newScale = newScale + scale;
                 newScale != 1 && setImageScaling(true);
-                if (newScale < 1) { newScale = 1; setImageScaling(false); };
-                if (newScale > 5) { newScale = 5; };
+                if (newScale < ZOOM_SCALE_MIN) { newScale = 1; setImageScaling(false); };
+                if (newScale > ZOOM_SCALE_MAX) { newScale = ZOOM_SCALE_MAX; };
                 setImageValueSV(newScale);
+                let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
+                let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
+                let procressDx = (((selectedData.w * newScale) - width) / 2);
+                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                procressDx = procressDx < 0 ? 0 : procressDx;
+                procressDy = procressDy < 0 ? 0 : procressDy;
+                edge && (newDx >= procressDx ?
+                    setImageIsGesture(true) :
+                    newDx <= -procressDx ?
+                        setImageIsGesture(true) :
+                        setImageIsGesture(false));
+                newDx = newDx > procressDx ? procressDx : newDx < -procressDx ? -procressDx : newDx;
+                newDy = newDy > procressDy ? procressDy : newDy < -procressDy ? -procressDy : newDy;
+                setImageOffsetGP({ x: newDx, y: newDy, });
             };
         };
     };
@@ -136,29 +173,46 @@ export default function Imageout(props) {
         //     });
         //     set_initialTouches(undefined);
         // });
-        setImageOffsetGP({ x: 0, y: /*selectedPhotoMeasurement.y - scrollValue.y*/0, });
+        let newDx = (JSON.stringify(gesturePosition.x) * 1);
+        let procressDx = (((selectedData.w * (JSON.stringify(scaleValue) * 1)) - width) / 2);
+        newDx >= procressDx ? setEdge(true) : newDx <= -procressDx ? setEdge(true) : setEdge(false);
+        if (JSON.stringify(scaleValue) * 1 == 1) { setImageScaling(false); };
+        setImageValueGP(0, 0);
         setImageDragging(false);
         set_initialTouches(undefined);
     };
     let gestureHandler = PanResponder.create({
         onStartShouldSetResponderCapture: () => true,
-        onStartShouldSetPanResponderCapture: () => true,
+        onStartShouldSetPanResponderCapture: (event: Event) => {
+            return (isScaling && !isGesture) || event.nativeEvent.touches.length === 2;
+        },
         onMoveShouldSetResponderCapture: () => true,
-        onMoveShouldSetPanResponderCapture: () => true,
+        onMoveShouldSetPanResponderCapture: (event: Event) => {
+            return (isScaling && !isGesture) || event.nativeEvent.touches.length === 2;
+        },
         onPanResponderGrant: _onGestureStart,
         onPanResponderMove: _onGestureMove,
         onPanResponderRelease: _onGestureRelease,
     });
     var dataMySQL;
     dataMySQL = `${finip}/${dataValue.image_full_path ?? dataValue.image_path}/${dataValue.image}`;
+    Image.getSize(dataMySQL, (width, height) => { setImageHeight(height); setImageWidth(width); });
+    // console.log('---------------------------------==============================================')
+    // console.log(dataIndex)
+    // console.log(imageHeight)
+    // console.log(imageWidth)
+    // console.log(dataMySQL)
+    // console.log('---------------------------------==============================================')
     // banner ? dataMySQL = `${finip}/${dataValue.image_path}/${dataValue.image}` :
     //     (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-    return <Animated.View ref={_parent} key={dataIndex}>
-        <Animated.View {...gestureHandler.panHandlers} ref={_photoComponent} style={{
-            height: imageH, opacity: isScaling && dataIndex == selectedData.index ? 0 : 1, width: imageW,
-        }}>
+    let animatedStyle = { transform: gesturePosition.getTranslateTransform(), };
+    animatedStyle.transform.push({ scale: scaleValue, });
+    return imageHeight > 0 && imageWidth > 0 && <View {...gestureHandler.panHandlers} ref={_parent} key={dataIndex}>
+        <Animated.View ref={_photoComponent} style={[{
+            height: (imageHeight * width) / imageWidth, opacity: /*isScaling && dataIndex == selectedData.index ? 0 :*/ 1, width: width,
+        }, isScaling && dataIndex == selectedData.index ? animatedStyle : null]}>
             <Animated.Image source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode='contain'
                 resizeMethod='resize' />
         </Animated.View>
-    </Animated.View>;
+    </View>;
 };

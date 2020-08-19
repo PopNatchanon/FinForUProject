@@ -58,6 +58,8 @@ export default class Carousel extends Component {
                 } else {
                     scrollX = isLastPage ? 0 : childWidth * currentPage;
                 };
+                console.log('setAutoPlay')
+                console.log(scrollX)
                 this.scrollView1.current.scrollTo({ x: scrollX, animated: true, });
             }, autoplayInterval);
         } else {
@@ -99,6 +101,8 @@ export default class Carousel extends Component {
                 || normalizedPage >= data.length
             )
         ) {
+            console.log('onScroll')
+            console.log((currentPage - 1 + loopOffset) * childWidth)
             this.scrollView1.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
         };
         // restart autoplay
@@ -130,6 +134,8 @@ export default class Carousel extends Component {
             // set loop initial offset
             if (isLooped) {
                 const { childWidth } = this.state;
+                console.log('onContentSizeChange')
+                console.log(childWidth * loopOffset)
                 this.scrollView1.current.scrollTo({ x: childWidth * loopOffset, animated: false, });
             }
             if (autoplay && !zoomModal) {
@@ -138,7 +144,7 @@ export default class Carousel extends Component {
         });
     };
     renderItems = () => {
-        const { activeZoom, data, navigation, renderItem, zoom } = this.props;
+        const { activeZoom, data, navigation, renderItem, setImageClearSelect, setImageList, zoom } = this.props;
         const { childHeight, childWidth, currentPage, zoomModal } = this.state;
         const translationXRef = new Animated.Value(0);
         const translationYRef = new Animated.Value(0);
@@ -185,9 +191,9 @@ export default class Carousel extends Component {
                         overflow: 'hidden', transform: [{ translateX: translationXRef }, { translateY: translationYRef }]
                     }}>
                         <TouchableOpacity activeOpacity={1} onPress={() => {
-                            activeZoom ? NavigationNavigate({
-                                goScreen: 'ImageZoom', setData: { currentPage, data, h: childHeight, w: childWidth }, navigation,
-                            }) : console.log(key);
+                            activeZoom ? [setImageList(data), setImageClearSelect(), NavigationNavigate({
+                                goScreen: 'ImageZoom', setData: { currentPage, data, }, navigation,
+                            })] : console.log(key);
                         }}>
                             {renderedItem}
                         </TouchableOpacity>

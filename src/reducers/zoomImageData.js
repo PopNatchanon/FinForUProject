@@ -1,13 +1,14 @@
 import { Animated } from 'react-native';
 import {
-    IMAGE_IS_DRAGGING, IMAGE_IS_SCALING, IMAGE_LOAD_DATA, IMAGE_OFFSET_GESTURE_POSITION, IMAGE_SELECT, IMAGE_VALUE_GESTURE_POSITION,
-    IMAGE_VALUE_SCALE_VALUE,
+    IMAGE_IS_DRAGGING, IMAGE_IS_SCALING, IMAGE_IS_GESTURE, IMAGE_LOAD_DATA, IMAGE_OFFSET_GESTURE_POSITION, IMAGE_SELECT,
+    IMAGE_SELECT_CLEAR, IMAGE_VALUE_GESTURE_POSITION, IMAGE_VALUE_SCALE_VALUE,
 } from '../actions/constants';
 
 const initialState = {
     data: [],
     isActiveData: false,
     isDragging: false,
+    isGesture: false,
     isScaling: false,
     gesturePosition: new Animated.ValueXY(),
     scaleValue: new Animated.Value(1),
@@ -20,6 +21,10 @@ export default (state = initialState, action) => {
             console.log(`===================================================${action.type}`)
             console.log(action.payload)
             return { ...state, isDragging: action.payload };
+        case IMAGE_IS_GESTURE:
+            console.log(`===================================================${action.type}`)
+            console.log(action.payload)
+            return { ...state, isGesture: action.payload };
         case IMAGE_IS_SCALING:
             console.log(`===================================================${action.type}`)
             console.log(action.payload)
@@ -37,6 +42,14 @@ export default (state = initialState, action) => {
             console.log(`===================================================${action.type}`)
             console.log(action.payload)
             return { ...state, selectedData: action.payload };
+        case IMAGE_SELECT_CLEAR:
+            gesturePosition.x.setValue(0);
+            gesturePosition.y.setValue(0);
+            scaleValue.setValue(1);
+            return {
+                ...state, isDragging: false, isGesture: false, isScaling: false, gesturePosition: gesturePosition, scaleValue: scaleValue,
+                selectedData: {}
+            };
         case IMAGE_VALUE_GESTURE_POSITION:
             console.log(`===================================================${action.type}`)
             console.log(action.x)

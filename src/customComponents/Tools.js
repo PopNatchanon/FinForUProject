@@ -100,7 +100,7 @@ export class TabBar extends React.Component {
         } = this.props;
         const { PassSetValue, pathlist, pathlist2 } = this.state;
         const countItem = item.length;
-        SetValue && console.log(`SetValue = > ${SetValue}`);
+        SetValue && console.log(`SetValue => ${SetValue}`);
         SetValue >= 0 && SetValue != pathlist && this.setSelectTab(SetValue);
         return item.map((item, index) => <TouchableOpacity key={index} activeOpacity={type == 'box' ? 0.2 : 1} onPress={NoSelectTab ?
             pathlist == index ?
@@ -672,7 +672,7 @@ export function GetCoupon(props) {
                     </Text>
                 </View>
             }
-        </View >
+        </View>
     )
 }
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
@@ -1004,7 +1004,7 @@ export class FeedBox extends React.Component {
                         <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
                             stylesMain.BoxProduct4ComBoxIcon}>
                             <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20}
-                                style={{ color: like ? '#ff0066' : '#111111', }} >
+                                style={{ color: like ? '#ff0066' : '#111111', }}>
                                 <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                                     ถูกใจ</Text>
                             </IconFontAwesome>
@@ -1080,7 +1080,7 @@ export class SlideTab2 extends React.Component {
         const { filter } = this.state;
         return <SlidingView disableDrag componentVisible={sliderVisible} changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
             containerStyle={{ backgroundColor: null, justifyContent: 'center', alignContent: 'stretch', width: '100%' }}
-            position="right" >
+            position="right">
             <View style={stylesMain.FlexRow}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.setStateSliderVisible()}>
                     <View style={stylesTopic.BackgroundLeft}></View>

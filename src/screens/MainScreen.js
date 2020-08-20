@@ -180,22 +180,22 @@ function MainScreen(props) {
             renderComponent: <BannerBar_TWO />
             // แบรนด์เนอร์โฆษณา 2
         },
+        // {
+        //     nameComponent: 'NewStore',
+        //     renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
+        //     // renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
+        //     // ร้านนี้ห้ามพลาด
+        // },
         {
-            nameComponent: 'NewStore',
-            renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
-            // renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
-            // ร้านนี้ห้ามพลาด
+            nameComponent: 'Fin_Mall',
+            renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
+            // ฟินมอล กับ Exclusive
         },
-        // {
-        //     nameComponent: 'Fin_Mall',
-        //     renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile'] && getFetchData['publish_mobile'].data} />
-        //     // ฟินมอล กับ Exclusive
-        // },
-        // {
-        //     nameComponent: 'BannerBar_ONE',
-        //     renderComponent: <BannerBar_ONE />
-        //     // แบรนด์เนอร์โฆษณา 1
-        // },
+        {
+            nameComponent: 'BannerBar_ONE',
+            renderComponent: <BannerBar_ONE />
+            // แบรนด์เนอร์โฆษณา 1
+        },
         {
             nameComponent: 'Highlight',
             renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -206,11 +206,11 @@ function MainScreen(props) {
             renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile']?.data} />
             // ลายแทงร้านค้าแนะนำ
         },
-        // {
-        //     nameComponent: 'Popular_store',
-        //     renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile']?.data} />
-        //     // ร้านที่ใช่อยากให้ช๊อป
-        // },
+        {
+            nameComponent: 'Popular_store',
+            renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile']?.data} />
+            // ร้านที่ใช่อยากให้ช๊อป
+        },
         {
             nameComponent: 'Popular_product',
             renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -353,7 +353,7 @@ export let Slide = (props) => {
     let _renderItem = (item, index) => {
         var dataMySQL;
         // banner ?
-        (dataMySQL = `${finip}/${item.image_path}/${item.image}`)
+        (dataMySQL = `${finip}/${item.image_path}/mobile/${item.image}_.webp`)
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return <View style={stylesMain.child} key={index}>
             <Image source={{ uri: dataMySQL }} style={stylesMain.child} resizeMode='contain' resizeMethod='resize' />
@@ -608,8 +608,8 @@ export let Recommend_Brand = (props) => {
         <View style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]} />
     </View>);
     let recommendBrand = dataService?.brand && item_1 ? item_1.map((item, index) => {
-        var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
-        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
             NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
             <View style={stylesMain.Brand_image_Box}>
@@ -695,7 +695,7 @@ export let Popular_product = (props) => {
             <View style={[stylesMain.FrameBackgroundTextBox]}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>สินค้ายอดนิยม</Text>
             </View>
-            <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.6, }]}>
+            <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 2.5, }]}>
                 <ScrollView horizontal>
                     {<TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
                         NavigationNavigate({ goScreen: 'Popular_productScreen', setData: { id_item: 0, }, navigation })}>
@@ -985,7 +985,7 @@ export let Product_for_you = (props) => {
         </View>
         {/* dataService.for_you */}
         {dataService?.for_you.length > 0 ?
-            <FlatProduct {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Product_for_you'
+            <FlatProduct {...props} dataService={dataService.for_you} dispriceSize={15} mode='row3_new2' nameFlatProduct='Product_for_you'
                 nameSize={14} numberOfColumn={2} priceSize={15} /> :
             <View style={{ flexDirection: 'column', flexWrap: 'wrap', height: (115 + 55) * 2, }}>
                 {boxEmpty}
@@ -1023,7 +1023,7 @@ export let Highlight = (props) => {
         </View>
         {/* dataService.hi_week */}
         {dataService ?
-            <FlatProduct {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product'
+            <FlatProduct {...props} dataService={dataService.hi_week} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product'
                 nameSize={14} numberOfColumn={1} priceSize={15} /> :
             <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>}
     </View>;
@@ -1336,7 +1336,7 @@ export let CategoryProductSubProduct = (props) => {
 export let CategoryProductSubStore = (props) => {
     const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
-        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}_.webp`;
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_S/${value.image}`;
         return <TouchableOpacity activeOpacity={1} key={value.id}>
             <View style={{ width: width * 0.56, height: 57.8, marginLeft: 5, backgroundColor: mix_color }}>
@@ -1365,7 +1365,7 @@ export let CategoryProductSubPromotion = (props) => {
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_M/${value.image}`;
         // console.log('CategoryProductSubPromotion')
         // console.log(dataMySQL)
-        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}_.webp`
         return <View style={[stylesMain.BoxStore1Box3, { width: '100%', marginTop: 3, height: 66, }]} key={index} >
             {value &&
                 <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}
@@ -1377,7 +1377,7 @@ export let CategoryProductSubPromotion = (props) => {
     </View>;
     let dataCategoryProductSubPromotionBig = promo_1 ? promo_1.map((value, index) => {
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_L/${value.image}`;
-        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}`;
+        var dataMySQL = `${finip}/${value.image_path}/mobile/${value.image}_.webp`;
         return <View style={[stylesMain.BoxStore1Box2, { borderWidth: 0, marginTop: 3, marginBottom: 3, }]} key={index}>
             {value && <Image source={{ uri: dataMySQL, }} resizeMode='cover' resizeMethod='resize' style={stylesMain.BoxProduct1Image} />}
         </View>;
@@ -1535,14 +1535,14 @@ export let Fin_Mall = (props) => {
     const { dataService, navigation, } = props;
     let productFinmail = (type, n) => type.map((item, index) => {
         if (index < 2) {
-            // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            var dataMySQL = n == 0 ?
-                index == 0 ?
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` :
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` :
-                index == 0 ?
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
+            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            // var dataMySQL = n == 0 ?
+            //     index == 0 ?
+            //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` :
+            //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` :
+            //     index == 0 ?
+            //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
+            //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
             return <View style={{ width: width * 0.228, marginTop: 5, paddingLeft: 2.5 }} key={index}>
                 <View style={{ height: 'auto', width: width * 0.20, aspectRatio: 1, backgroundColor: '#FFFFFF', }}>
                     <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL }}

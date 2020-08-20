@@ -44,7 +44,7 @@ import stylesTopic from '../style/styleTopic';
 import {
     FlatComponent, FlatProduct, GetServices, GetData, ProductBox,
 } from '../customComponents/Tools';
-import { AppBar as AAppBar, Toolbar, NavigationNavigate, ImageList, } from '../customComponents';
+import { AppBar as AAppBar, Toolbar, NavigationNavigate, ImageList, GenArray, } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -438,20 +438,33 @@ export let Guarantee = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
 export let Category = (props) => {
-    const { dataService, navigation } = props;
-
+    const { dataService, fetchData, getFetchData, multiFetchData, navigation } = props;
+    let FetchDataCate = (id_type) => {
+        fetchData({
+            dataBody: { id_category: id_type }, name: `category_product|${id_type}`, uri: `${finip}/home/product_mobile`,
+            showConsole: `category_product|${id_type}`
+        })
+    };
     let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9,].map((_, index) => <View key={index}
         style={{ width: width * 0.199, justifyContent: 'center', alignItems: 'center', padding: 2, }}>
         <View style={{
             backgroundColor: '#ECECEC', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 8, height: 60, width: 60,
             justifyContent: 'center', alignItems: 'center'
         }}>
-            <ActivityIndicator style={stylesMain.ItemCenterVertical} color={mainColor} size='large' />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
         </View>
         <View style={{ height: 25 }}></View>
     </View>);
     let dataCategory = dataService?.category ? dataService?.category.map((item, index) => {
         if (index < dataService?.category.length) {
+            useEffect(() => {
+                (getFetchData[`category_product|${item.id_type}`] == undefined ||
+                    (getFetchData[`category_product|${item.id_type}`]?.isFetching)) &&
+                    FetchDataCate(item.id_type);
+            }, [(getFetchData[`category_product|${item.id_type}`] == undefined ||
+                (getFetchData[`category_product|${item.id_type}`]?.isFetching))]);
+            console.log(item.name)
+            console.log(item.id_type)
             // var dataMySQL = `${finip}/${item.image_path}/menu/mobile/${item.image_head}`;
             // console.log('Category')
             // console.log(dataMySQL)
@@ -605,7 +618,9 @@ export let Recommend_Brand = (props) => {
     };
     let boxEmpty = [0, 1, 2, 3, 4, 5].map((_, index) => <View key={index} style={[stylesMain.Brand_image_Box,
     { backgroundColor: '#ECECEC' }]}>
-        <View style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]} />
+        <View style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}>
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+        </View>
     </View>);
     let recommendBrand = dataService?.brand && item_1 ? item_1.map((item, index) => {
         var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
@@ -648,7 +663,9 @@ export let Recommend_Brand = (props) => {
 export let Popular_store = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={stylesMain.BoxStore1Box}>
-        <View style={[stylesMain.BoxStore1Image, { backgroundColor: '#ECECEC' }]} />
+        <View style={[stylesMain.BoxStore1Image, { backgroundColor: '#ECECEC' }]} >
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+        </View>
     </View>);
     let PopularStoreItem = dataService?.store_good ? dataService.store_good.map((item, index) => {
         var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
@@ -673,7 +690,9 @@ export let Popular_product = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={{ width: width * 0.22 }}>
         <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#ECECEC', borderRadius: 5, }]}>
-            <View style={stylesMain.Popular_image_Box} />
+            <View style={stylesMain.Popular_image_Box}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            </View>
         </View>
     </View>);
     let productCate = (type) => type ? type.map((item, index) => {
@@ -914,7 +933,9 @@ export let FlashSale = (props) => {
 export let PromotionPopular = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.BoxStore2Box2]}>
-        <View style={[stylesMain.BoxStore2Image2, { backgroundColor: '#ECECEC' }]}></View>
+        <View style={[stylesMain.BoxStore2Image2, { backgroundColor: '#ECECEC' }]}>
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+        </View>
         <View style={{
             paddingHorizontal: 4, padding: 1, backgroundColor: mainColor, borderBottomLeftRadius: 8, borderBottomRightRadius: 8
         }}>
@@ -970,6 +991,7 @@ export let Product_for_you = (props) => {
     stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -1010,6 +1032,7 @@ export let Highlight = (props) => {
     let boxEmpty = [0, 1, 2, 3].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 113 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.010, }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
             </View>
         </View>
         <View style={{ height: 40, paddingHorizontal: 3 }} />
@@ -1032,7 +1055,9 @@ export let Highlight = (props) => {
 export let NewStore = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
-        <View style={stylesMain.BoxStore1Image} />
+        <View style={stylesMain.BoxStore1Image}>
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+        </View>
     </View>);
     let dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((item, index) => {
         var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
@@ -1059,7 +1084,9 @@ export let Exclusive = (props) => {
     const { loadData, navigation } = props;
     let boxEmpty = [0, 1, 2, 3, 4, 5].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
-            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}></View>
+            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
@@ -1133,14 +1160,15 @@ export function CategoryProduct_new(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export function CategoryProduct(props) {
-    const { dataService, navigation, NoStoreReCom, } = props;
+    const { dataService, getFetchData, navigation, NoStoreReCom, } = props;
     let dataCategory = dataService?.category?.map((item, index) => {
         let productItem = []
         let promo1Item = []
         let promo2Item = []
         let shopItem = []
-        dataService.product.map((value) => value.product.map((value2) => value2.id_type == item.id_type ?
-            productItem.push(value2) : null));
+        getFetchData[`category_product|${item.id_type}`]?.data?.product?.map((value) => {
+            productItem.push(value)
+        });
         dataService.cate_promotions_1.map((value) => value.map((value2) => value2.id_type == item.id_type ?
             promo1Item.push(value2) : null));
         dataService.cate_promotions_2.map((value) => value.map((value2) => value2.id_type == item.id_type ?
@@ -1151,11 +1179,11 @@ export function CategoryProduct(props) {
             '#5E7DAF', '#afa093', '#9197cb', '#e1ac25', '#d3bd6a', '#e29a8d', '#b0c9e3', '#e88c34', '#db9fc0', '#a4bae1',
             '#e1cdaa', '#adcac2', '#aecfe5', '#90cfe6', '#9fdae0', '#c087bc', '#ce6969', '#b9cb77', '#7bcdcd', '#bcbec4'];
         if (index < 20 /*getFetchData['category_mobile'].length*/) {
-            // var dataMySQL = `${finip}/${item.image_path}/${item.image_menu}`;
+            var dataMySQL = `${finip}/${item.image_path}/head_mobile/${item.image_menu}`;
             // console.log('CategoryProduct')
             // console.log(dataMySQL)
             // item.bg_m
-            var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Header_Cate/${item.image_menu}`;
+            // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Header_Cate/${item.image_menu}`;
             // var dataMySQL = `${ip}/MySQL/uploads/Category_Total/Promo_Cate/New/${item.image_menu}`;
             return <View key={index} style={[stylesMain.FrameBackground2, { backgroundColor: bmix_color[index], paddingBottom: 3, }]}>
                 <>
@@ -1188,10 +1216,12 @@ export function CategoryProduct(props) {
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export let CategoryProductSubProduct = (props) => {
     const { dataService, id_type, } = props;
-    let boxEmpty = [0, 1, 2,].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
+    let boxEmpty = GenArray(4).map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
     { borderColor: '#DCDCDC' }]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
-            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}></View>
+            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
+            </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
@@ -1290,7 +1320,9 @@ export let Second_product = (props) => {
         </View>;
     let boxEmptyBody = [0, 1,].map((_, index) => <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
         <View style={{ width: width * 0.32, height: 130 }}>
-            <View style={[stylesMain.litleSlideImage, { backgroundColor: '#ECECEC' }]}></View>
+            <View style={[stylesMain.litleSlideImage, { backgroundColor: '#ECECEC' }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            </View>
         </View>
     </View>);
     let renderItem2 = dataService?.list_store2_2 ? dataService.list_store2_2.map((item, index) => {
@@ -1304,7 +1336,9 @@ export let Second_product = (props) => {
     let boxEmptyHeader = [0, 1, 2, 3].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new,
     { borderColor: '#DCDCDC' }]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
-            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}></View>
+            <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
     </View>);
@@ -1365,7 +1399,9 @@ export let Second_product = (props) => {
         </View>
     </View>;
     let boxEmptyFooter = [0, 1].map((_, index) => <View key={index} style={[stylesMain.CategoryProductStoreBox]}>
-        <View style={[stylesMain.CategoryProductStoreImage, { backgroundColor: '#ECECEC' }]}></View>
+        <View style={[stylesMain.CategoryProductStoreImage, { backgroundColor: '#ECECEC' }]}>
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+        </View>
     </View>);
     let _renderFooter = (item, index) => {
         var dataMySQL = `${finip}/${item.item.image_path}/${item.item.image}`;
@@ -1446,7 +1482,9 @@ export let Fin_Mall = (props) => {
                     <View style={stylesMain.FlexRow}>
                         {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
-                                <View style={stylesMain.Popular_image_Box} />
+                                <View style={stylesMain.Popular_image_Box}>
+                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                                </View>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
                                 <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
@@ -1473,7 +1511,9 @@ export let Fin_Mall = (props) => {
                     <View style={stylesMain.FlexRow}>
                         {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
-                                <View style={stylesMain.Popular_image_Box} />
+                                <View style={stylesMain.Popular_image_Box}>
+                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                                </View>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
                                 <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,

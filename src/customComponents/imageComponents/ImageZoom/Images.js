@@ -47,6 +47,13 @@ export default function Imageout(props) {
     const [edge, setEdge] = useState(false);
     const _parent = useRef(null);
     const _photoComponent = useRef(null);
+    var dataMySQL;
+    dataMySQL = `${finip}/${dataValue.image_full_path ?? dataValue.image_path}/${dataValue.image}`;
+    Image.getSize(dataMySQL, (width, height) => { setImageHeight(height); setImageWidth(width); });
+    const heightV = (imageHeight * width) / imageWidth;
+    const widthV = (imageWidth * height) / imageHeight;
+    const hV = heightV < height ? heightV : height;
+    const wV = widthV < width ? widthV : width;
     async function _measureSelectedPhoto() {
         let parent = ReactNative.findNodeHandle(_parent.current);
         let photoComponent = ReactNative.findNodeHandle(_photoComponent.current);
@@ -75,8 +82,8 @@ export default function Imageout(props) {
             if (touches.length < 2) {
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
                 let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
-                let procressDx = (((selectedData.w * (JSON.stringify(scaleValue) * 1)) - width) / 2);
-                let procressDy = (((selectedData.h * (JSON.stringify(scaleValue) * 1)) - height) / 2);
+                let procressDx = (((wV * (JSON.stringify(scaleValue) * 1)) - width) / 2);
+                let procressDy = (((hV * (JSON.stringify(scaleValue) * 1)) - height) / 2);
                 procressDx = procressDx < 0 ? 0 : procressDx;
                 procressDy = procressDy < 0 ? 0 : procressDy;
                 edge && (newDx >= procressDx ?
@@ -91,6 +98,9 @@ export default function Imageout(props) {
             } else {
                 let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
+                console.log('typeof touches')
+                console.log(typeof touches)
+                console.log(typeof touches == Object)
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
                 let newScale = getScale(currentDistance, initialDistance) - 1;
@@ -102,8 +112,8 @@ export default function Imageout(props) {
                 setImageValueSV(newScale);
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
                 let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
-                let procressDx = (((selectedData.w * newScale) - width) / 2);
-                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                let procressDx = (((wV * newScale) - width) / 2);
+                let procressDy = (((hV * newScale) - height) / 2);
                 procressDx = procressDx < 0 ? 0 : procressDx;
                 procressDy = procressDy < 0 ? 0 : procressDy;
                 edge && (newDx >= procressDx ?
@@ -131,8 +141,8 @@ export default function Imageout(props) {
                 setImageValueSV(newScale);
                 let newDx = (JSON.stringify(gesturePosition.x) * 1) + dx;
                 let newDy = (JSON.stringify(gesturePosition.y) * 1) + dy;
-                let procressDx = (((selectedData.w * newScale) - width) / 2);
-                let procressDy = (((selectedData.h * newScale) - height) / 2);
+                let procressDx = (((wV * newScale) - width) / 2);
+                let procressDy = (((hV * newScale) - height) / 2);
                 procressDx = procressDx < 0 ? 0 : procressDx;
                 procressDy = procressDy < 0 ? 0 : procressDy;
                 edge && (newDx >= procressDx ?
@@ -174,7 +184,7 @@ export default function Imageout(props) {
         //     set_initialTouches(undefined);
         // });
         let newDx = (JSON.stringify(gesturePosition.x) * 1);
-        let procressDx = (((selectedData.w * (JSON.stringify(scaleValue) * 1)) - width) / 2);
+        let procressDx = (((wV * (JSON.stringify(scaleValue) * 1)) - width) / 2);
         newDx >= procressDx ? setEdge(true) : newDx <= -procressDx ? setEdge(true) : setEdge(false);
         if (JSON.stringify(scaleValue) * 1 == 1) { setImageScaling(false); };
         setImageValueGP(0, 0);
@@ -194,9 +204,6 @@ export default function Imageout(props) {
         onPanResponderMove: _onGestureMove,
         onPanResponderRelease: _onGestureRelease,
     });
-    var dataMySQL;
-    dataMySQL = `${finip}/${dataValue.image_full_path ?? dataValue.image_path}/${dataValue.image}`;
-    Image.getSize(dataMySQL, (width, height) => { setImageHeight(height); setImageWidth(width); });
     // console.log('---------------------------------==============================================')
     // console.log(dataIndex)
     // console.log(imageHeight)
@@ -209,7 +216,7 @@ export default function Imageout(props) {
     animatedStyle.transform.push({ scale: scaleValue, });
     return imageHeight > 0 && imageWidth > 0 && <View {...gestureHandler.panHandlers} ref={_parent} key={dataIndex}>
         <Animated.View ref={_photoComponent} style={[{
-            height: (imageHeight * width) / imageWidth, opacity: /*isScaling && dataIndex == selectedData.index ? 0 :*/ 1, width: width,
+            height: hV, opacity: 1, width: wV,
         }, isScaling && dataIndex == selectedData.index ? animatedStyle : null]}>
             <Animated.Image source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode='contain'
                 resizeMethod='resize' />

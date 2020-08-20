@@ -452,7 +452,7 @@ export let Category = (props) => {
             backgroundColor: '#ECECEC', borderColor: '#ECECEC', borderWidth: 1, borderRadius: 8, height: 60, width: 60,
             justifyContent: 'center', alignItems: 'center'
         }}>
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
         <View style={{ height: 25 }}></View>
     </View>);
@@ -617,7 +617,7 @@ export let Recommend_Brand = (props) => {
     let boxEmpty = [0, 1, 2, 3, 4, 5].map((_, index) => <View key={index} style={[stylesMain.Brand_image_Box,
     { backgroundColor: '#ECECEC' }]}>
         <View style={[stylesMain.Brand_image_RCM, stylesMain.ItemCenterVertical]}>
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
     </View>);
     let recommendBrand = dataService?.brand && item_1 ? item_1.map((item, index) => {
@@ -662,7 +662,7 @@ export let Popular_store = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={stylesMain.BoxStore1Box}>
         <View style={[stylesMain.BoxStore1Image, { backgroundColor: '#ECECEC' }]} >
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
     </View>);
     let PopularStoreItem = dataService?.store_good ? dataService.store_good.map((item, index) => {
@@ -689,7 +689,7 @@ export let Popular_product = (props) => {
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={{ width: width * 0.22 }}>
         <View style={[stylesMain.Popular_Box_D, { backgroundColor: '#ECECEC', borderRadius: 5, }]}>
             <View style={stylesMain.Popular_image_Box}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
     </View>);
@@ -932,7 +932,7 @@ export let PromotionPopular = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.BoxStore2Box2]}>
         <View style={[stylesMain.BoxStore2Image2, { backgroundColor: '#ECECEC' }]}>
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
         <View style={{
             paddingHorizontal: 4, padding: 1, backgroundColor: mainColor, borderBottomLeftRadius: 8, borderBottomRightRadius: 8
@@ -989,7 +989,7 @@ export let Product_for_you = (props) => {
     stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -1030,7 +1030,7 @@ export let Highlight = (props) => {
     let boxEmpty = [0, 1, 2, 3].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 113 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.010, }]}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
         <View style={{ height: 40, paddingHorizontal: 3 }} />
@@ -1091,7 +1091,7 @@ export let Fin_LuxuryShop = (props) => {
             </View>;
         };
     });
-    return <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 3 ,backgroundColor:'#FFFFFF' }]}>
+    return <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 3, backgroundColor: '#FFFFFF' }]}>
         <View style={{ width: '49.9%', padding: 3 }}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>FIN Luxury Shop!!</Text>
             <View>
@@ -1181,7 +1181,7 @@ export let NewStore = (props) => {
     const { dataService, navigation, } = props;
     let boxEmpty = [0, 1].map((_, index) => <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
         <View style={stylesMain.BoxStore1Image}>
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
     </View>);
     let dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((item, index) => {
@@ -1210,7 +1210,7 @@ export let Exclusive = (props) => {
     let boxEmpty = [0, 1, 2, 3, 4, 5].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -1446,7 +1446,7 @@ export let Second_product = (props) => {
     let boxEmptyBody = [0, 1,].map((_, index) => <View key={index} style={stylesMain.Second_StoreFin_ImageB_T}>
         <View style={{ width: width * 0.32, height: 130 }}>
             <View style={[stylesMain.litleSlideImage, { backgroundColor: '#ECECEC' }]}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
     </View>);
@@ -1462,7 +1462,7 @@ export let Second_product = (props) => {
     { borderColor: '#DCDCDC' }]}>
         <View style={[stylesMain.ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
             <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -1525,7 +1525,7 @@ export let Second_product = (props) => {
     </View>;
     let boxEmptyFooter = [0, 1].map((_, index) => <View key={index} style={[stylesMain.CategoryProductStoreBox]}>
         <View style={[stylesMain.CategoryProductStoreImage, { backgroundColor: '#ECECEC' }]}>
-            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+            <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
         </View>
     </View>);
     let _renderFooter = (item, index) => {
@@ -1608,7 +1608,7 @@ export let Fin_Mall = (props) => {
                         {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
                                 <View style={stylesMain.Popular_image_Box}>
-                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
                                 </View>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
@@ -1637,7 +1637,7 @@ export let Fin_Mall = (props) => {
                         {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
                             <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
                                 <View style={stylesMain.Popular_image_Box}>
-                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} />
+                                    <Image source={require('../../images/icon.png')} style={{ height: '100%', opacity: 0.15, width: '100%' }} resizeMode='contain' />
                                 </View>
                             </View>
                             <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>

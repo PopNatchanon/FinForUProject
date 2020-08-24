@@ -557,7 +557,7 @@ export default StyleSheet.create({
     aspectRatio: 2.0850,
   },
   ///------------------------------------------------------------------------------------------///
-  Category: {
+  Categorys: {
     width: width * 0.199,
     justifyContent: 'center',
     alignItems: 'center',

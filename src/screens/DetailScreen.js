@@ -17,7 +17,6 @@ export const { width, height } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
-import SmartGallery from "react-native-smart-gallery";
 import WebView from 'react-native-webview';
 import HTML from 'react-native-render-html';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -873,33 +872,6 @@ export let Buy_bar = (props) => {
   </View>);
   return dataServicesTab;
 };
-///----------------------------------------------------------------------------------------------->>>> Show_Image
-// export let Show_Image = (props) => {
-//   const { showItem, showImage } = props;
-//   var dataMySQL = () => {
-//     var dataArrayMySQL = new Array();
-//     showItem &&
-//       showItem.map((item) => {
-//         var items = { uri: `${finip}/${item.image_full_path}/${item.image}` };
-//         dataArrayMySQL.push(items);
-//       });
-//     return dataArrayMySQL;
-//   };
-//   return (
-//     <Modal
-//       animationType='fade'
-//       transparent={true}
-//       visible={true}
-//       onRequestClose={() => {
-//         showImage(false);
-//       }}>
-//       <View style={[{ height, width }]}>
-//         <SmartGallery
-//           images={dataMySQL()} />
-//       </View>
-//     </Modal>
-//   );
-// };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Coupon_Detail_BottomSheet = (props) => {
   const { dataService, cokie, currentUser, get_id_promotion, } = props;

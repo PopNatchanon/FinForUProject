@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useEffect, useState, useRef, useReducer } from 'react';
 import ReactNative, {
-    Animated, BackHandler, Dimensions, SafeAreaView,
+    Animated, BackHandler, Dimensions, Platform, SafeAreaView,
     // ScrollView, 
     Text, TextInput, TouchableOpacity, View, YellowBox, Image, ActivityIndicator, StatusBar, ToastAndroid,
 } from 'react-native';
@@ -55,7 +55,15 @@ const {
     FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8,
 } = stylesFont;
 const {
-    animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Banner_Bar_image, bigSlideImage, Botton_PopUp_Box, Botton_PopUp_Image, Botton_PopUp_Text, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1Image, BoxProduct1ImagePrice, BoxProduct2, BoxProduct2Image, BoxProduct2BoxProduct, BoxStore1Box, BoxStore1Box2, BoxStore1Box3, BoxStore1Image, BoxStore2Box2, BoxStore2Image2, Brand_image_Box, Brand_image_RCM, Button_Bar_Box, Button_Bar_icon, Categorys, CategoryProductImageHead, CategoryProductStoreBox, CategoryProductStoreImage, category_A, Category_box, child, exitTitleText, FinMall_Box, FlexRow, FrameBackgroundTextBox, FrameBackgroundTextEnd, FrameBackgroundTextStart, FrameBackground2, ItemCenter, ItemCenterVertical, litleSlideImage, PopularText_A, Popular_Box_B, Popular_Box_D, Popular_image_Box, SafeAreaViewNB, Second_StoreFin, Second_StoreFin_BoxHead, Second_StoreFin_Image, Second_StoreFin_ImageA, Second_StoreFin_ImageB, Second_StoreFin_ImageB_T, Second_Storefooter, Supermarket_BrandBox, Supermarket_Brand_Image, Supermarket_Brand_Shop, Supermarket_Brand_Shop2, Supermarket_Image, Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText,
+    animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Banner_Bar_image, bigSlideImage, Botton_PopUp_Box, Botton_PopUp_Image,
+    Botton_PopUp_Text, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1Image, BoxProduct1ImagePrice, BoxProduct2, BoxProduct2Image,
+    BoxProduct2BoxProduct, BoxStore1Box, BoxStore1Box2, BoxStore1Box3, BoxStore1Image, BoxStore2Box2, BoxStore2Image2, Brand_image_Box,
+    Brand_image_RCM, Button_Bar_Box, Button_Bar_icon, Categorys, CategoryProductImageHead, CategoryProductStoreBox, CategoryProductStoreImage,
+    category_A, Category_box, child, exitTitleText, FinMall_Box, FlexRow, FrameBackgroundTextBox, FrameBackgroundTextEnd,
+    FrameBackgroundTextStart, FrameBackground2, ItemCenter, ItemCenterVertical, litleSlideImage, PopularText_A, Popular_Box_B, Popular_Box_D,
+    Popular_image_Box, SafeAreaViewNB, Second_StoreFin, Second_StoreFin_BoxHead, Second_StoreFin_Image, Second_StoreFin_ImageA,
+    Second_StoreFin_ImageB, Second_StoreFin_ImageB_T, Second_Storefooter, Supermarket_BrandBox, Supermarket_Brand_Image, Supermarket_Brand_Shop,
+    Supermarket_Brand_Shop2, Supermarket_Image, Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText,
 } = stylesMain; // 
 let Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
@@ -76,9 +84,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(MainScreen)
 function MainScreen(props) {
     const { fetchData, getFetchData, multiFetchData } = props;
     const [activeTime, setActiveTime] = useState(true);
-    // const { browerProps, mode } = route.params;
     const scrollY = new Animated.Value(0);
-    // const AFlatComponent = Animatable.createAnimatableComponent(FlatComponent);
     const maxheight = 55;
     const ViewStyle = {
         zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
@@ -314,8 +320,10 @@ export let Slide = (props) => {
     let _renderItem = (item, index) => {
         var uriSlide;
         // banner ?
-        (uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}_.webp`, })
+        (uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, })
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
+        console.log('uriSlide')
+        console.log(uriSlide)
         return <View style={child} key={index}>
             <Image source={uriSlide} style={child} resizeMode='contain' resizeMethod='resize' />
         </View>;
@@ -430,7 +438,7 @@ export let Category = (props) => {
                 activeOpacity: 1, key: index, style: Categorys,
                 onPress: () => Navi({ goScreen: 'CategoryScreen', navigation, setData: { id_type: id_type }, })
             };
-            const uriCate = { uri: `${finip}/${image_path}/menu/${image_head}_.webp`, };
+            const uriCate = { uri: `${finip}/${image_path}/menu/${image_head}${Platform.OS == 'android' ? '_.webp' : ''}`, };
             return <TouchableOpacity {...TOProps}>
                 <FastImage source={uriCate} style={Category_box} resizeMode={stretch} />
                 <View style={{ height: 25 }}>
@@ -1157,7 +1165,7 @@ export function CategoryProduct(props) {
         dataService.cate_promotions_2.map((value2) => value2.map((value3) => value3.id_type == id_type ? promo2Item.push(value3) : null));
         dataService.cate_shop.map((value2) => value2.map((value3) => value3.id_type == id_type ? shopItem.push(value3) : null));
         if (index < 20 /*getFetchData['category_mobile'].length*/) {
-            const uriImageHead = { uri: `${finip}/${image_path}/head_mobile/${image_menu}_.webp` };
+            const uriImageHead = { uri: `${finip}/${image_path}/head_mobile/${image_menu}${Platform.OS == 'android' ? '_.webp' : ''}` };
             const mix_color = color_up(mobile_bg);
             const SubProProps = { ...props, mix_color: mix_color, promo_1: promo1Item, promo_2: promo2Item, shop: shopItem, };
             return <View key={index} style={[FrameBackground2, { backgroundColor: mobile_bg, paddingBottom: 3, }]}>
@@ -1212,7 +1220,7 @@ export let CategoryProductSubProduct = (props) => {
 export let CategoryProductSubStore = (props) => {
     const { getFetchData, mix_color, shop } = props;
     let _renderBanner = function (value) {
-        const uriSubStore = { uri: `${finip}/${value.image_path}/mobile/${value.image}_.webp` };
+        const uriSubStore = { uri: `${finip}/${value.image_path}/mobile/${value.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
         const SubStoreStyle = [CategoryProductStoreImage, { backgroundColor: mix_color }];
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_S/${value.image}`;
         return <TouchableOpacity activeOpacity={1} key={value.id}>
@@ -1241,7 +1249,7 @@ export let CategoryProductSubPromotion = (props) => {
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_M/${value.image}`;
         // console.log('CategoryProductSubPromotion')
         // console.log(dataMySQL)
-        const uriPromoSmall = { uri: `${finip}/${value.image_path}/mobile/${value.image}_.webp` };
+        const uriPromoSmall = { uri: `${finip}/${value.image_path}/mobile/${value.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
         return <View style={[BoxStore1Box3, { height: 66, marginTop: 3, width: '100%', }]} key={index}>
             {value && <Image resizeMethod='resize' resizeMode='cover' source={uriPromoSmall} style={BoxProduct1Image} />}
         </View>;
@@ -1253,7 +1261,7 @@ export let CategoryProductSubPromotion = (props) => {
     </View>;
     let dataCategoryProductSubPromotionBig = promo_1 ? promo_1.map((value, index) => {
         // var dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_L/${value.image}`;
-        const uriPromoBig = { uri: `${finip}/${value.image_path}/mobile/${value.image}_.webp` };
+        const uriPromoBig = { uri: `${finip}/${value.image_path}/mobile/${value.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
         return <View style={[BoxStore1Box2, { borderWidth: 0, marginBottom: 3, marginTop: 3, }]} key={index}>
             {value && <Image resizeMethod='resize' resizeMode='cover' source={uriPromoBig} style={BoxProduct1Image} />}
         </View>;

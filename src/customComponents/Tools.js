@@ -688,7 +688,7 @@ export function ProductBox(props) {
             var discount;
             item.discount && (discount = item.discount.replace("%", ""));
             var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
-                item.image_main ?? item.image)}${item.type == 'local' ? '' : '_.webp'}`;
+                item.image_main ?? item.image)}${item.type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() => noNavigation ?
                 getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
                 NavigationNavigate({
@@ -778,7 +778,7 @@ export function RenderProduct(props) {
         console.log(item)
     ];
     var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
-        item.image_main ?? item.image)}${item.type == 'local' ? '' : '_.webp'}`;
+        item.image_main ?? item.image)}${item.type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`;
     var discount;
     onShow && console.log(dataMySQL)
     item.discount && (discount = item.discount.replace("%", ""));

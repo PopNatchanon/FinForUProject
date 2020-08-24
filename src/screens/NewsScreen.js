@@ -71,8 +71,8 @@ export let Blog = (props) => {
         { image: `${ip}/MySQL/uploads/Group_image/7.jpg`, TitleBlog: 'ชิงโชค (Lucky Draw)', Detall: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ  โปรโมชั่นของแถม (Premium)ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', }]
     let BlogItem = (
         item_Blog.map((value, index) => {
-            return <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 3, paddingHorizontal: 10 }]} key={index}>
-                <FastImage style={{ height: 100, width: 130, borderRadius: 8 }}
+            return <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 3, paddingHorizontal: 10, paddingVertical: 5 }]} key={index}>
+                <FastImage style={{ height: 'auto', width: '40%', borderRadius: 8 }}
                     source={{ uri: value.image }}
                     resizeMode={FastImage.resizeMode.cover} />
                 <View style={{ justifyContent: 'space-between', marginHorizontal: 3, width: '60%' }}>
@@ -117,7 +117,7 @@ export let Blog = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Blog
 export let News = (props) => {
     const item_Blog = [
-        { image: `${ip}/MySQL/uploads/Group_image/1.jpg`, TitleBlog: 'โปรโมชั่นของแถม (Premium)', Detall: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ  โปรโมชั่นของแถม (Premium) ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', },
+        { image: `${ip}/MySQL/uploads/Group_image/1.jpg`, TitleBlog: 'โปรโมชั่นของแถม (Premium)', Detall: 'อสังหาริมทรัพย์เป็นธุรกิจที่ได้รับผลกระทบจากวิกฤตโควิด-19 และเศรษฐกิจโลกที่ชะลอตัวเช่นกัน แต่ในการลงทุนไม่ควรมองแบบเหมารวม เพราะลักษณะการประกอบธุรกิจมีความแตกต่างกัน จึงได้รับผลกระทบไม่เท่ากัน ซึ่งท่ามกลางสถานการณ์ที่เกิดขึ้นเช่นนี้ มองว่าจะมีอสังหาริมทรัพย์ที่ได้รับประโยชน์และเติบโตสอดรับไปกับการเปลี่ยนแปลงสู่ชีวิตวิถีใหม่ (New Normal) มี 3 ประเภท', },
         { image: `${ip}/MySQL/uploads/Group_image/2.jpg`, TitleBlog: 'โปรโมชั่นลดราคา (Price off)', Detall: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ  โปรโมชั่นของแถม (Premium) ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', },
         { image: `${ip}/MySQL/uploads/Group_image/3.jpg`, TitleBlog: 'โปรโมชั่นยิ่งซื้อมาก ยิ่งประหยัดมาก', Detall: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ  โปรโมชั่นของแถม (Premium)ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', },
         { image: `${ip}/MySQL/uploads/Group_image/4.jpg`, TitleBlog: 'โปรโมชั่นสร้างโปรแกรมสำหรับลูกค้าประจำ', Detall: 'โปรโมชั่นลดราคา (Price off) ไม่ว่าจะเป็น ลดราคาเป็นเปอร์เซ็นต์ หรือลดราคาเป็นบาท เช่น ลด 10% หรือ ลดราคา 100 บาท  โปรโมชั่นของแถม (Premium)ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', },
@@ -126,17 +126,17 @@ export let News = (props) => {
         { image: `${ip}/MySQL/uploads/Group_image/7.jpg`, TitleBlog: 'ชิงโชค (Lucky Draw)', Detall: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ  โปรโมชั่นของแถม (Premium)ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', }]
     let BlogItem = (
         item_Blog.map((value, index) => {
-            return <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 3, padding: 5 }]} key={index}>
-                <FastImage style={{ height: 100, width: 130, borderRadius: 8 }}
+            return <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 3, paddingHorizontal: 10, paddingVertical: 5 }]} key={index}>
+                <FastImage style={{ height: 'auto', width: '40%', borderRadius: 8 }}
                     source={{ uri: value.image }}
                     resizeMode={FastImage.resizeMode.cover} />
-                <View style={{ justifyContent: 'space-between', marginHorizontal: 3, width: width * 0.64 }}>
+                <View style={{ justifyContent: 'space-between', marginHorizontal: 3, width: '60%' }}>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7]}>{value.TitleBlog}</Text>
                     <Text numberOfLines={3} style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>
                         {value.Detall}</Text>
                     <View style={{ alignItems: 'flex-end', }}>
                         <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: width / 2, marginTop: 3 }]}>
-                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFF' }]}>อ่านบทความเพื่อเติม</Text>
+                            <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFF' }]}>อ่านข่าวสารเพื่อเติม</Text>
                         </TouchableOpacity>
                     </View>
                 </View>

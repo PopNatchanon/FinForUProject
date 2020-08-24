@@ -221,11 +221,11 @@ function MainScreen(props) {
             renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
             // ฟินคัดมาเพื่อคุณ
         },
-        {
-            nameComponent: 'CategoryProduct',
-            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-            // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-        },
+        // {
+        //     nameComponent: 'CategoryProduct',
+        //     renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+        //     // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+        // },
         {
             nameComponent: 'Second_product',
             renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -632,8 +632,8 @@ export let Recommend_Brand = (props) => {
         </TouchableOpacity>;
     }) : boxEmpty;
     let recommendBrand2 = dataService?.brand && item_2 ? item_2.map((item, index) => {
-        var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
-        // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        // var dataMySQL = `${ip}/MySQL/uploads/Brand_R/${item.image}`;
+        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
         return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
             NavigationNavigate({ goScreen: 'Recommend_Brand', navigation })}>
             <View style={stylesMain.Brand_image_Box}>
@@ -1050,132 +1050,7 @@ export let Highlight = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export let Fin_LuxuryShop = (props) => {
-    const { dataService, navigation, } = props;
-    let boxEmpty = [0, 1].map((_, index) => <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
-        <View style={stylesMain.BoxStore1Image} />
-    </View>);
-    let dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((item, index) => {
-        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-        return <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigate({
-            goScreen: 'Recommend_Store', setData: { id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total' },
-            navigation
-        })}>
-            <View style={[stylesMain.BoxStore1Box, { marginLeft: 0 }]}>
-                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
-            </View>
-        </TouchableOpacity>;
-    }) : boxEmpty;
-    let productFinmail = (type, n) => type.map((item, index) => {
-        if (index < 2) {
-            // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-            var dataMySQL = n == 0 ?
-                index == 0 ?
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` :
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` :
-                index == 0 ?
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
-                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
-            return <View style={{ width: width * 0.228, marginTop: 5, paddingLeft: 2.5 }} key={index}>
-                <View style={{ height: 'auto', width: width * 0.20, aspectRatio: 1, backgroundColor: '#FFFFFF', }}>
-                    <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL }}
-                        resizeMode={FastImage.resizeMode.contain} />
-                </View>
-                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
-                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
-                        {item.name}</Text>
-                    <NumberFormat value={item.full_price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
-                        { color: '#FFFFFF' }]}>{value}</Text>} />
-                </View>
-            </View>;
-        };
-    });
-    return <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 3, backgroundColor: '#FFFFFF' }]}>
-        <View style={{ width: '49.9%', padding: 3 }}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>FIN Luxury Shop!!</Text>
-            <View>
-                <View style={{ width: '100%', height: 100 }}>
-                    <FastImage style={{ height: '100%' }}
-                        source={{ uri: `${ip}/MySQL/uploads/bannerTEST/banner/banner_ร้านที่ใช่อยากให้ช้อป/ร้านที่ใช้อยากให้ช้อป-01.jpg` }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                </View>
-                <View style={{ marginTop: 3 }}>
-                    <FastImage style={{ height: 40 }}
-                        source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                </View>
-            </View>
-            <View style={{ width: width * 0.485, paddingHorizontal: 5, backgroundColor: '#FFFFFF' }}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-                    Fin Mall</Text>
-                <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between', marginBottom: 3, }}>
-                    {dataService ?
-                        <TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
-                            NavigationNavigate({ goScreen: 'FinMallScreen', navigation })}>
-                            <View style={stylesMain.FlexRow}>
-                                {productFinmail(dataService.product_hit, 0)}
-                            </View>
-                        </TouchableOpacity> :
-                        <View style={stylesMain.FlexRow}>
-                            {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
-                                <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
-                                    <View style={stylesMain.Popular_image_Box} />
-                                </View>
-                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
-                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
-                                    { color: '#691F50' }]}>NaN</Text>
-                                    <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
-                                        { color: '#691F50' }]}>{value}</Text>} />
-                                </View>
-                            </View>)}
-                        </View>}
-                </View>
-            </View>
-        </View>
-        <View style={{ width: '49.9%', padding: 3 }}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านค้าห้ามพลาด!!</Text>
-            <View>
-                <View style={{ width: '100%', height: 100 }}>
-                    <FastImage style={{ height: '100%' }}
-                        source={{ uri: `${ip}/MySQL/uploads/bannerTEST/banner/banner_ร้านที่ใช่อยากให้ช้อป/ร้านที่ใช้อยากให้ช้อป-02.jpg` }}
-                        resizeMode={FastImage.resizeMode.cover} />
-                </View>
-            </View>
-            <View style={{ width: width * 0.485, paddingHorizontal: 5, backgroundColor: '#FFFFFF' }}>
-                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
-                    สินค้าสุด Exclusive</Text>
-                <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
-                    {dataService ?
-                        <TouchableOpacity key={'exclusive'} activeOpacity={1} onPress={() =>
-                            NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
-                            <View style={stylesMain.FlexRow}>
-                                {productFinmail(dataService.exclusive, 1)}
-                            </View>
-                        </TouchableOpacity> :
-                        <View style={stylesMain.FlexRow}>
-                            {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
-                                <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
-                                    <View style={stylesMain.Popular_image_Box} />
-                                </View>
-                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
-                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
-                                    { color: '#19508B' }]}>NaN</Text>
-                                    <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
-                                        { color: '#19508B' }]}>{value}</Text>} />
-                                </View>
-                            </View>)}
-                        </View>}
-                </View>
-            </View>
-            <View style={{ backgroundColor: 'blue', marginTop: 3 }}>
-                <FastImage style={{ height: 40 }} source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }} />
-            </View>
-        </View>
-    </View>;
-};
+
 ///----------------------------------------------------------------------------------------------->>>> NewStore
 export let NewStore = (props) => {
     const { dataService, navigation, } = props;
@@ -1488,11 +1363,11 @@ export let Second_product = (props) => {
                         borderColor: '#DCDCDC', borderWidth: 1, borderBottomWidth: 0.5, marginTop: 0, backgroundColor: '#ECECEC'
                     }]}></View>}
             {dataService?.product_second ?
-                <FlatProduct {...props} dataService={dataService2} numberOfColumn={2} noMarginTop
+                <FlatProduct {...props} dataService={dataService.product_second} numberOfColumn={2} noMarginTop
                     nameFlatProduct='Second_product' mode='row3_new2' nameSize={14} priceSize={15} dispriceSize={15} /> :
                 <View>
-                    <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
-                    <View style={{ flexDirection: 'row' }}>{boxEmptyHeader}</View>
+                    <View style={stylesMain.FlexRow}>{boxEmptyHeader}</View>
+                    <View style={stylesMain.FlexRow}>{boxEmptyHeader}</View>
                 </View>}
         </View>
     </View>;
@@ -1890,5 +1765,130 @@ export let Not_Internet = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-
+export let Fin_LuxuryShop = (props) => {
+    const { dataService, navigation, } = props;
+    let boxEmpty = [0, 1].map((_, index) => <View key={index} style={[stylesMain.BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
+        <View style={stylesMain.BoxStore1Image} />
+    </View>);
+    let dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((item, index) => {
+        var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+        return <TouchableOpacity activeOpacity={1} key={index} onPress={() => NavigationNavigate({
+            goScreen: 'Recommend_Store', setData: { id_slide: item.id, uri_path: 'publish_store/store_total', name_path: 'store_total' },
+            navigation
+        })}>
+            <View style={[stylesMain.BoxStore1Box, { marginLeft: 0 }]}>
+                <FastImage source={{ uri: dataMySQL, }} style={stylesMain.BoxStore1Image} resizeMode={FastImage.resizeMode.contain} />
+            </View>
+        </TouchableOpacity>;
+    }) : boxEmpty;
+    let productFinmail = (type, n) => type.map((item, index) => {
+        if (index < 2) {
+            // var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            var dataMySQL = n == 0 ?
+                index == 0 ?
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` :
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` :
+                index == 0 ?
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` :
+                    `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
+            return <View style={{ width: width * 0.228, marginTop: 5, paddingLeft: 2.5 }} key={index}>
+                <View style={{ height: 'auto', width: width * 0.20, aspectRatio: 1, backgroundColor: '#FFFFFF', }}>
+                    <FastImage style={stylesMain.Popular_image_Box} source={{ uri: dataMySQL }}
+                        resizeMode={FastImage.resizeMode.contain} />
+                </View>
+                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
+                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
+                        {item.name}</Text>
+                    <NumberFormat value={item.full_price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                        { color: '#FFFFFF' }]}>{value}</Text>} />
+                </View>
+            </View>;
+        };
+    });
+    return <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 3, backgroundColor: '#FFFFFF' }]}>
+        <View style={{ width: '49.9%', padding: 3 }}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>FIN Luxury Shop!!</Text>
+            <View>
+                <View style={{ width: '100%', height: 100 }}>
+                    <FastImage style={{ height: '100%' }}
+                        source={{ uri: `${ip}/MySQL/uploads/bannerTEST/banner/banner_ร้านที่ใช่อยากให้ช้อป/ร้านที่ใช้อยากให้ช้อป-01.jpg` }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                </View>
+                <View style={{ marginTop: 3 }}>
+                    <FastImage style={{ height: 40 }}
+                        source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                </View>
+            </View>
+            <View style={{ width: width * 0.485, paddingHorizontal: 5, backgroundColor: '#FFFFFF' }}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+                    Fin Mall</Text>
+                <View style={{ backgroundColor: '#691F50', borderRadius: 5, padding: 3, justifyContent: 'space-between', marginBottom: 3, }}>
+                    {dataService ?
+                        <TouchableOpacity key={'product_hit'} activeOpacity={1} onPress={() =>
+                            NavigationNavigate({ goScreen: 'FinMallScreen', navigation })}>
+                            <View style={stylesMain.FlexRow}>
+                                {productFinmail(dataService.product_hit, 0)}
+                            </View>
+                        </TouchableOpacity> :
+                        <View style={stylesMain.FlexRow}>
+                            {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                                <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
+                                    <View style={stylesMain.Popular_image_Box} />
+                                </View>
+                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
+                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                    { color: '#691F50' }]}>NaN</Text>
+                                    <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                        { color: '#691F50' }]}>{value}</Text>} />
+                                </View>
+                            </View>)}
+                        </View>}
+                </View>
+            </View>
+        </View>
+        <View style={{ width: '49.9%', padding: 3 }}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านค้าห้ามพลาด!!</Text>
+            <View>
+                <View style={{ width: '100%', height: 100 }}>
+                    <FastImage style={{ height: '100%' }}
+                        source={{ uri: `${ip}/MySQL/uploads/bannerTEST/banner/banner_ร้านที่ใช่อยากให้ช้อป/ร้านที่ใช้อยากให้ช้อป-02.jpg` }}
+                        resizeMode={FastImage.resizeMode.cover} />
+                </View>
+            </View>
+            <View style={{ width: width * 0.485, paddingHorizontal: 5, backgroundColor: '#FFFFFF' }}>
+                <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
+                    สินค้าสุด Exclusive</Text>
+                <View style={{ backgroundColor: '#19508B', padding: 3, borderRadius: 5, justifyContent: 'space-between' }}>
+                    {dataService ?
+                        <TouchableOpacity key={'exclusive'} activeOpacity={1} onPress={() =>
+                            NavigationNavigate({ goScreen: 'ExclusiveScreen', navigation })}>
+                            <View style={stylesMain.FlexRow}>
+                                {productFinmail(dataService.exclusive, 1)}
+                            </View>
+                        </TouchableOpacity> :
+                        <View style={stylesMain.FlexRow}>
+                            {[0, 1].map((_, index) => <View style={{ width: width * 0.225, marginTop: 10, paddingLeft: 2.5 }} key={index}>
+                                <View style={{ height: height * 0.115, width: width * 0.20, backgroundColor: '#ECECEC', padding: 5 }}>
+                                    <View style={stylesMain.Popular_image_Box} />
+                                </View>
+                                <View style={[stylesMain.ItemCenter, { width: width * 0.20 }]}>
+                                    <Text numberOfLines={1} style={[stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                    { color: '#19508B' }]}>NaN</Text>
+                                    <NumberFormat value={0} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                                        <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontSize8, stylesFont.FontFamilyBold,
+                                        { color: '#19508B' }]}>{value}</Text>} />
+                                </View>
+                            </View>)}
+                        </View>}
+                </View>
+            </View>
+            <View style={{ backgroundColor: 'blue', marginTop: 3 }}>
+                <FastImage style={{ height: 40 }} source={{ uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` }} />
+            </View>
+        </View>
+    </View>;
+};
 

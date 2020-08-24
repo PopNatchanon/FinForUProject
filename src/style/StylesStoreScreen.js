@@ -251,36 +251,23 @@ export default StyleSheet.create({
     flexDirection: 'row',
   },
   ///-------------------------------------------------------------------------///
-  header_News: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginTop: 10,
-  },
-  header_image: {
-    height: 300,
-    width: width - 50,
-  },
   header_icon_Box: {
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    marginTop: 25,
   },
   header_icon: {
     marginLeft: 5,
   },
   header_Box: {
-    justifyContent: 'flex-start',
     alignItems: 'center',
-    padding: 10,
-    width: width - 20,
     backgroundColor: '#ffff',
+    marginHorizontal: 3,
   },
   body_Box: {
-    padding: 10,
-    height: 120,
-    width: width - 20,
     backgroundColor: '#FFF',
-    marginTop: 10,
+    marginTop: 3,
+    marginHorizontal: 3,
+    padding: 5,
   },
   body_Box_A: {
     flexDirection: 'row',
@@ -289,10 +276,8 @@ export default StyleSheet.create({
   body_image: {
     height: 100,
     width: width * 0.35,
-  },
-  body_Text: {
-    width: (width - 20) * 0.57,
-    paddingLeft: 6,
-    paddingRight: 2,
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+    backgroundColor: '#ECECEC'
   },
 })

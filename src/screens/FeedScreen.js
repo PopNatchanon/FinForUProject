@@ -146,48 +146,49 @@ export function Highlights(props) {
   ]
   const [activeModalize, setActiveModalize] = useState(false);
   let Highlights_Store = dataService2.map((value, index) =>
-    <View key={index} style={{
-      width: 150, marginRight: 5,
-      borderColor: '#C4C4C4', borderWidth: 1.5,
-    }}>
-      <View style={{ height: 60 }}>
-        <FastImage
-          style={stylesMain.BoxProduct1Image}
-          source={{
-            uri: value.image_BG,
-          }}
-          resizeMode={FastImage.resizeMode.cover} />
+    <TouchableOpacity>
+      <View key={index} style={{
+        width: 150, marginRight: 5,
+        borderColor: '#C4C4C4', borderWidth: 1.5,
+      }}>
+        <View style={{ height: 60 }}>
+          <FastImage
+            style={stylesMain.BoxProduct1Image}
+            source={{
+              uri: value.image_BG,
+            }}
+            resizeMode={FastImage.resizeMode.cover} />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <FastImage
+            style={{ height: 60, width: 60, borderWidth: 1, borderRadius: width / 2, marginTop: -30, backgroundColor: '#FFFFFF', borderColor: '#C4C4C4' }}
+            source={{
+              uri: value.image_Pro,
+            }}
+            resizeMode={FastImage.resizeMode.cover} />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>{value.name_store}</Text>
+          <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>ผู้ติดตาม {value.follow_store} คน</Text>
+          <View style={stylesMain.FlexRow}>{StarReview(5, 15)}</View>
+          <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{value.score_store}(46.9 พันคะแนน) </Text>
+          <TouchableOpacity>
+            <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: width * 0.20, borderRadius: 10, marginVertical: 5 }]}>
+              <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
-      <View style={{ alignItems: 'center' }}>
-        <FastImage
-          style={{ height: 60, width: 60, borderWidth: 1, borderRadius: width / 2, marginTop: -30, backgroundColor: '#FFFFFF', borderColor: '#C4C4C4' }}
-          source={{
-            uri: value.image_Pro,
-          }}
-          resizeMode={FastImage.resizeMode.cover} />
-      </View>
-      <View style={{ alignItems: 'center' }}>
-        <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold]}>{value.name_store}</Text>
-        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText]}>ผู้ติดตาม {value.follow_store} คน</Text>
-        <View style={stylesMain.FlexRow}>{StarReview(5, 15)}</View>
-        <Text style={[stylesFont.FontSize8, stylesFont.FontFamilyText]}>{value.score_store}(46.9 พันคะแนน) </Text>
-        <TouchableOpacity>
-          <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: width * 0.20, borderRadius: 10, marginVertical: 5 }]}>
-            <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>ติดตาม</Text>
-          </View>
-        </TouchableOpacity>
-      </View>
-    </View>);
-
+      </TouchableOpacity>);
   function headerStoryList() {
     return (
       selectedIndex == 1 &&
       <View style={[stylesMain.FrameBackground]}>
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize4, stylesFont.FontFamilyBold]}>ร้านค้ายอดนิยม</Text>
         <ScrollView horizontal>
-          <TouchableOpacity style={{ paddingLeft: 10, flexDirection: 'row', marginBottom: 5 }}>
+          <View style={{ paddingLeft: 10, flexDirection: 'row', marginBottom: 5 }}>
             {Highlights_Store}
-          </TouchableOpacity>
+          </View>
         </ScrollView>
       </View>
     )

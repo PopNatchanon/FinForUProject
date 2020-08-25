@@ -213,8 +213,8 @@ function MainScreen(props) {
         },
         {
             // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-            // nameComponent: 'CategoryProduct',
-            // renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+            nameComponent: 'CategoryProduct',
+            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
         },
         {
             // สินค้า และร้านค้า มือสอง
@@ -322,8 +322,6 @@ export let Slide = (props) => {
         // banner ?
         (uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, })
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        console.log('uriSlide')
-        console.log(uriSlide)
         return <View style={child} key={index}>
             <Image source={uriSlide} style={child} resizeMode='contain' resizeMethod='resize' />
         </View>;

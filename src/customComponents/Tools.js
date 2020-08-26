@@ -37,6 +37,25 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 import { NavigationNavigate } from '.';
+///----------------------------------------------------------------------------------------------->>>> set value
+const LOADING_ICON = require('../../images/icon.png');
+const LOADING_ICON_STYLE = { height: '100%', opacity: 0.15, width: '100%' };
+const { contain, cover } = FastImage.resizeMode;
+const { Coupon_BOX2, Coupon_BOX_A, Coupon_BOX_A2, Deal_Exclusive_Box, } = stylesDeal;
+const { Detail_Box, Detail_Text_A, } = stylesDetail;
+const {
+    FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8,
+} = stylesFont;
+const {
+    BoxProduct1Box, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1ImageofLines, BoxProduct1ImageofLines2, BoxProduct1ImagePrice,
+    BoxProduct1ImagePriceThrough, BoxProduct1NameofLines, BoxProduct1PriceofLines, BoxProduct2Box, BoxProduct2Image, BoxProduct2ImageofLines,
+    BoxProduct3Box, BoxProduct3ImageofLines, BoxProduct4Box, BoxProduct4ComBox, BoxProduct4ComBoxIcon, BoxProduct4ComBoxIconText,
+    BoxProduct4ComBox2, BoxProduct4Image, BoxProduct4PlusButtonBox, BoxProduct4PlusButtonFollow, BoxProduct4PlusButtonFollowText,
+    BoxProduct4PlusImage, BoxProduct4PlusImageText, BoxProduct4PlusHeader, BoxProduct5Box, BoxProduct5ImageofLines, Box_On_sale,
+    CategoryProductStoreBox, CategoryProductStoreImage, FlexRow, ItemCenter, ItemCenterVertical, SafeAreaViewNB,
+} = stylesMain;
+const { BackgroundLeft, BackgroundRight, BoxReset, maxMinValue, } = stylesTopic;
+const Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> TabBar
 export class TabBar extends React.Component {
     constructor(props) {
@@ -109,66 +128,15 @@ export class TabBar extends React.Component {
                     () => this.setSelectTab(index + '', undefined, 'set') : () => this.setSelectTab(index + '')
         }>
             {pathlist == index ?
-                <View style={[stylesMain.ItemCenterVertical, {
-                    width: type == 'box' ?
-                        noSpace ?
-                            null : noLimit ?
-                                numberBox ?
-                                    '100%' : numberofBox ?
-                                        width * (1 / numberofBox) : width * (1 / 4) : width * (1 / countItem) : noSpace ?
-                            widthBox ?? width * (1 / countItem) : noLimit ?
-                                numberofBox ?
-                                    width * (1 / numberofBox) : width * (1 / 4.2) : limitBox ?
-                                    limitBox * (1 / countItem) : width * (1 / countItem),
-                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
-                    alignContent: 'center',
-                    alignItems: 'center',
+                <View style={[ItemCenterVertical, {
+                    alignContent: 'center', alignItems: 'center',
                     borderBottomColor: type == 'box' ? null : activeColor ?? mainColor,
                     borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
-                    alignContent: 'center', alignItems: 'center',
+                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
+                    paddingHorizontal: setHorizontal ?? null,
                     paddingLeft: numberBox ? width * (1 / 60) : null,
                     paddingVertical: setVertical ?? null,
-                    paddingHorizontal: setHorizontal ?? null
-                }]}>
-                    <View style={[
-                        stylesMain.ItemCenterVertical,
-                        type == 'box' ? {
-                            width: noLimit ?
-                                numberBox ?
-                                    width * (1 / 3) : width * (1 / 4.2) : numberofBox ?
-                                    width * (1 / numberofBox) : widthBox >= 0 ?
-                                        widthBox <= 100 ?
-                                            width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) : width * (1 / (countItem * 1.2)) :
-                                        width * (1 / (countItem * 1.2)),
-                            padding: 6,
-                            borderLeftWidth: noSpace ? 0.5 : null,
-                            borderRightWidth: noSpace ? 0.5 : null,
-                            borderWidth: 1,
-                            borderColor: activeColor ?? mainColor,
-                            backgroundColor: activeColor ?? mainColor,
-                            alignContent: 'center',
-                            alignItems: 'center',
-                            borderRadius: radiusBox ?? 0,
-                        } : { flexDirection: 'row' }]}>
-                        <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
-                            fontSize: fontSizeStyle ?? 16,
-                            color: type == 'box' ? activeFontColor ?? fontColor ?? 'white' : activeFontColor ?? fontColor ?? 'black',
-                            textAlignVertical: 'center'
-                        }]}>
-                            {item.name}
-                        </Text>
-                        {item.nameline2 && <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
-                            fontSize: fontSizeStyle ?? 16,
-                            color: type == 'box' ? activeFontColor ?? fontColor ?? 'white' : activeFontColor ?? fontColor ?? 'black',
-                            textAlignVertical: 'center'
-                        }]}>
-                            {item.nameline2}
-                        </Text>}
-                        {item.actionItem && item.actionItem[item.actionList[pathlist2]]}
-                    </View>
-                </View> :
-                <View style={[stylesMain.ItemCenterVertical, {
                     width: type == 'box' ?
                         noSpace ?
                             null : noLimit ?
@@ -179,17 +147,16 @@ export class TabBar extends React.Component {
                                 numberofBox ?
                                     width * (1 / numberofBox) : width * (1 / 4.2) : limitBox ?
                                     limitBox * (1 / countItem) : width * (1 / countItem),
-                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
-                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
-                    borderBottomColor: type == 'box' ? null : spaceColor ?? '#fff',
-                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
-                    alignContent: 'center', alignItems: 'center',
-                    paddingLeft: numberBox ? width * (1 / 60) : null,
-                    paddingVertical: setVertical ?? null,
-                    paddingHorizontal: setHorizontal ?? null
                 }]}>
-                    <View style={[stylesMain.ItemCenterVertical,
-                    type == 'box' ? {
+                    <View style={[ItemCenterVertical, type == 'box' ? {
+                        alignContent: 'center', alignItems: 'center',
+                        borderColor: activeColor ?? mainColor,
+                        borderLeftWidth: noSpace ? 0.5 : null,
+                        borderRadius: radiusBox ?? 0,
+                        borderRightWidth: noSpace ? 0.5 : null,
+                        borderWidth: 1,
+                        backgroundColor: activeColor ?? mainColor,
+                        padding: 6,
                         width: noLimit ?
                             numberBox ?
                                 width * (1 / 3) : width * (1 / 4.2) : numberofBox ?
@@ -197,72 +164,103 @@ export class TabBar extends React.Component {
                                     widthBox <= 100 ?
                                         width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) : width * (1 / (countItem * 1.2)) :
                                     width * (1 / (countItem * 1.2)),
-                        padding: 6,
-                        borderLeftWidth: noSpace ? 0.5 : null,
-                        borderRightWidth: noSpace ? 0.5 : null,
-                        borderWidth: 1,
+                    } : { flexDirection: 'row' }]}>
+                        <Text numberOfLines={numberOfLines} style={[FontFamilySemiBold, {
+                            color: type == 'box' ? activeFontColor ?? fontColor ?? 'white' : activeFontColor ?? fontColor ?? 'black',
+                            fontSize: fontSizeStyle ?? 16,
+                            textAlignVertical: 'center'
+                        }]}>{item.name}</Text>
+                        {item.nameline2 && <Text numberOfLines={numberOfLines} style={[FontFamilySemiBold, {
+                            color: type == 'box' ? activeFontColor ?? fontColor ?? 'white' : activeFontColor ?? fontColor ?? 'black',
+                            fontSize: fontSizeStyle ?? 16,
+                            textAlignVertical: 'center'
+                        }]}>{item.nameline2}</Text>}
+                        {item.actionItem && item.actionItem[item.actionList[pathlist2]]}
+                    </View>
+                </View> :
+                <View style={[ItemCenterVertical, {
+                    alignContent: 'center', alignItems: 'center',
+                    borderBottomColor: type == 'box' ? null : spaceColor ?? '#fff',
+                    borderBottomWidth: type == 'tag' ? null : type == 'box' ? null : 4,
+                    borderLeftWidth: type == 'tag' ? index == 0 ? null : 0.5 : null,
+                    borderRightWidth: type == 'tag' ? index == countItem - 1 ? null : 0.5 : null,
+                    paddingHorizontal: setHorizontal ?? null,
+                    paddingLeft: numberBox ? width * (1 / 60) : null,
+                    paddingVertical: setVertical ?? null,
+                    width: type == 'box' ?
+                        noSpace ?
+                            null : noLimit ?
+                                numberBox ?
+                                    '100%' : numberofBox ?
+                                        width * (1 / numberofBox) : width * (1 / 4) : width * (1 / countItem) : noSpace ?
+                            widthBox ?? width * (1 / countItem) : noLimit ?
+                                numberofBox ?
+                                    width * (1 / numberofBox) : width * (1 / 4.2) : limitBox ?
+                                    limitBox * (1 / countItem) : width * (1 / countItem),
+                }]}>
+                    <View style={[ItemCenterVertical, type == 'box' ? {
+                        alignContent: 'center', alignItems: 'center',
                         backgroundColor: inactiveBoxColor ?? null,
                         borderColor: inactiveColor ?? 'black',
-                        alignContent: 'center',
-                        alignItems: 'center',
+                        borderLeftWidth: noSpace ? 0.5 : null,
                         borderRadius: radiusBox ?? 0,
+                        borderRightWidth: noSpace ? 0.5 : null,
+                        borderWidth: 1,
+                        padding: 6,
+                        width: noLimit ?
+                            numberBox ?
+                                width * (1 / 3) : width * (1 / 4.2) : numberofBox ?
+                                width * (1 / numberofBox) : widthBox >= 0 ?
+                                    widthBox <= 100 ?
+                                        width * (1 / (countItem * (1 + ((100 - widthBox) / 100)))) : width * (1 / (countItem * 1.2)) :
+                                    width * (1 / (countItem * 1.2)),
                     } : { flexDirection: 'row' }]}>
-                        <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
-                            fontSize: fontSizeStyle ?? 16,
+                        <Text numberOfLines={numberOfLines} style={[FontFamilySemiBold, {
                             color: inactiveFontColor ?? fontColor ?? 'black',
-                            textAlignVertical: 'center'
-                        }]}>
-                            {item.name}
-                        </Text>
-                        {item.nameline2 && <Text numberOfLines={numberOfLines} style={[stylesFont.FontFamilySemiBold, {
                             fontSize: fontSizeStyle ?? 16,
+                            textAlignVertical: 'center',
+                        }]}>{item.name}</Text>
+                        {item.nameline2 && <Text numberOfLines={numberOfLines} style={[FontFamilySemiBold, {
                             color: inactiveFontColor ?? fontColor ?? 'black',
-                            textAlignVertical: 'center'
-                        }]}>
-                            {item.nameline2}
-                        </Text>}
+                            fontSize: fontSizeStyle ?? 16,
+                            textAlignVertical: 'center',
+                        }]}>{item.nameline2}</Text>}
                         {item.actionItem && item.actionItem[0]}
                     </View>
-                </View>
-            }{item.subname && <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8, {
+                </View>}
+            {item.subname && <View style={[ItemCenter, { width: '100%' }]}>
+                <Text style={[FontFamilyText, FontSize8, {
                     borderBottomColor: tagBottom ? pathlist == index ? tagBottom : tagBottomColor ?? '#fff' : null,
-                    borderBottomWidth: tagBottom ? 4 : null, width: '90%', textAlign: 'center'
-                }]}>
-                    {item.subname}
-                </Text>
+                    borderBottomWidth: tagBottom ? 4 : null, textAlign: 'center', width: '90%',
+                }]}>{item.subname}</Text>
             </View>
-            }{tagBottomColor && item.subname ? null : <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
+            }{tagBottomColor && item.subname ? null : <View style={[ItemCenter, { width: '100%' }]}>
                 <View style={[{
                     borderBottomColor: tagBottom ? pathlist == index ? tagBottomColor ?? mainColor : '#fff' : null,
-                    borderBottomWidth: tagBottom ? 4 : null, width: '90%', textAlign: 'center'
-                }]}></View>
+                    borderBottomWidth: tagBottom ? 4 : null, textAlign: 'center', width: '90%',
+                }]} />
             </View>
             }
         </TouchableOpacity>);
     };
     render() {
-        const {
-            alignBox, bottomColor, direction, noLimit, noSpace, numberBox, numberofBox, spaceColor, type,
-        } = this.props;
+        const { alignBox, bottomColor, direction, noLimit, noSpace, numberBox, numberofBox, spaceColor, type, } = this.props;
         return numberBox ?
-            (this.tab) : <View style={[
-                stylesMain.ItemCenterVertical,
-                type == 'box' ? {
-                    borderLeftWidth: noSpace ? 0.5 : null,
-                    borderRightWidth: noSpace ? 0.5 : null,
+            (this.tab) : <View style={[ItemCenterVertical, type == 'box' ? {
+                borderLeftWidth: noSpace ? 0.5 : null,
+                borderRightWidth: noSpace ? 0.5 : null,
+                flexDirection: direction == 'column' ? 'column' : 'row',
+                flexWrap: numberofBox ? 'wrap' : 'nowrap',
+                justifyContent: alignBox == 'center' ? 'center' : alignBox == 'right' ? 'flex-end' : 'flex-start',
+                width: noLimit ? null : '100%',
+            } : {
+                    backgroundColor: spaceColor ?? null,
+                    borderColor: type == 'tag' ? null : spaceColor ?? '#ECECEC',
+                    borderBottomColor: bottomColor ?? spaceColor ?? '#ECECEC',
+                    borderWidth: type == 'tag' ? null : noSpace ? null : 1,
                     flexDirection: direction == 'column' ? 'column' : 'row',
-                    justifyContent: alignBox == 'center' ? 'center' : alignBox == 'right' ? 'flex-end' : 'flex-start',
                     width: noLimit ? null : '100%',
-                    flexWrap: numberofBox ? 'wrap' : 'nowrap'
-                } : {
-                        borderWidth: type == 'tag' ? null : noSpace ? null : 1,
-                        backgroundColor: spaceColor ?? null,
-                        borderColor: type == 'tag' ? null : spaceColor ?? '#ECECEC',
-                        borderBottomColor: bottomColor ?? spaceColor ?? '#ECECEC',
-                        flexDirection: direction == 'column' ? 'column' : 'row',
-                        width: noLimit ? null : '100%',
-                    }
+                }
             ]}>
                 {this.tab}
             </View>;
@@ -276,102 +274,6 @@ function promiseConnectServices(promise, nojson) {
 function promiseProcessData(promise) {
     return promise.then(data => { return [null, data] }).catch(err => [err]);
 };
-///----------------------------------------------------------------------------------------------->>>> GetData_new
-export async function GetData_new(props) {
-    SplashScreen.hide();
-    const { getCokie, getSource, getUser, } = props;
-    const [cokie, setCokie] = useState(getCokie ? getCokie : false);
-    const [user, setUser] = useState(getUser ? getUser : false);
-    const [value, setValue] = useState(undefined);
-    const [error, setError] = useState(undefined);
-    const [result, setResult] = useState(undefined);
-    const [dataCokie, setDataCokie] = useState(undefined);
-    const [dataCustomer, setDataCustomer] = useState(undefined);
-    const [dataProcessCustomer, setDataProcessCustomer] = useState(undefined);
-    useEffect(() => {
-        [setError, setResult] = promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']))
-    });
-    console.log('error')
-    console.log(error)
-    console.log('result')
-    console.log(result)
-    // [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
-    // if (error) {
-    //     console.log(error)
-    //     getCokie  && (value.keycokie = undefined)
-    //     getUser  && (value.currentUser = undefined);
-    //     return getSource(value)
-    // }
-    // if (result[1][1] === undefined) {
-    //     console.log(result[1][1])
-    //     getCokie  && (value.keycokie = undefined)
-    //     getUser  && (value.currentUser = undefined);
-    //     return getSource(value)
-    // }
-    // const currentUser = result[0][1];
-    // const autoLogin = result[1][1];
-    // if (currentUser && autoLogin) {
-    //     [error, dataCokie] = await promiseProcessData(CookieManager.get(`${finip}/auth/login_customer`))
-    //     if (error) {
-    //         console.log(error)
-    //         getCokie  && (value.keycokie = undefined)
-    //         getUser  && (value.currentUser = undefined);
-    //         return getSource(value)
-    //     }
-    //     if (dataCokie === undefined) {
-    //         console.log(`dataCokie`);
-    //         getCokie  && (value.keycokie = undefined)
-    //         getUser  && (value.currentUser = undefined);
-    //         return getSource(value)
-    //     };
-    //     var keycokie = dataCokie.token
-    //     if (keycokie === undefined && autoLogin) {
-    //         [error, dataCustomer] = await promiseConnectServices(
-    //             fetch(`${finip}/auth/login_customer`, {
-    //                 method: 'POST',
-    //                 headers: {
-    //                     'Accept': 'application/json',
-    //                     'Content-Type': 'application/json',
-    //                     signal: abortController ? abortController.signal : undefined
-    //                 },
-    //                 body: autoLogin,
-    //             })
-    //         );
-    //         if (error) {
-    //             console.log(`AutoLogin:Phase 1`);
-    //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie  && (value.keycokie = undefined)
-    //             getUser  && (value.currentUser = undefined);
-    //             return getSource(value)
-    //         };
-    //         if (dataCustomer === undefined) {
-    //             console.log(`AutoLogin':Phase 1`);
-    //             console.log('No Data!');
-    //             getCokie  && (value.keycokie = undefined)
-    //             getUser  && (value.currentUser = undefined);
-    //             return getSource(value)
-    //         };
-    //         [error, dataProcessCustomer] = await promiseProcessData(dataCustomer)
-    //         if (error) {
-    //             console.log(`AutoLogin:Phase 2`);
-    //             console.log(`ERROR:FETCH => ${error}`);
-    //             getCokie  && (value.keycokie = undefined)
-    //             getUser  && (value.currentUser = undefined);
-    //             return getSource(value)
-    //         };
-    //         if (dataProcessCustomer === undefined) {
-    //             console.log(`AutoLogin':Phase 2`);
-    //             console.log('No Data!');
-    //             getCokie  && (value.keycokie = undefined)
-    //             getUser  && (value.currentUser = undefined);
-    //             return getSource(value)
-    //         };
-    //     }
-    //     getCokie  && (value.keycokie = dataCokie.token)
-    //     getUser  && (value.currentUser = JSON.parse(currentUser));
-    //     return getSource(value)
-    // }
-}
 ///----------------------------------------------------------------------------------------------->>>> GetData
 export async function GetData(props) {
     SplashScreen.hide();
@@ -599,79 +501,31 @@ export function GetCoupon(props) {
         codeList, colorCoupon, couponText, getCoupon, flexRow, marginL, saveCoupon, setDataService, textDetail, timeOut, useCoupon,
     } = props
     return (
-        <View style={[stylesDeal.Coupon_BOX2
-            // flexRow ?
-            //     stylesDeal.Coupon_BOX2  :
-            //     stylesDeal.Coupon_BOX, {
-            //     backgroundColor:
-            //         codeList != 'available' ?
-            //             '#C4C4C4' :
-            //             null,
-            //     marginLeft: marginL ?? 10
-            // }
-        ]}>
+        <View style={[Coupon_BOX2]}>
             <View style={{
-                // opacity:
-                //     codeList != 'available' ?
-                //         0.4 :
-                //         null,
                 flexDirection: 'row',
-                justifyContent:
-                    flexRow ?
-                        null :
-                        'flex-end',
-                marginBottom:
-                    codeList != 'available' ?
-                        -100 :
-                        null,
+                justifyContent: flexRow ? null : 'flex-end',
+                marginBottom: codeList != 'available' ? -100 : null,
             }}>
-                <View style={{ width: width * 0.31, height: 60, marginLeft: 5, paddingHorizontal: 2, justifyContent: 'center' }}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>{couponText}</Text>
-                    <Text numberOfLines={1} style={[stylesFont.FontFamilyText, stylesFont.FontSize9,]}>{textDetail}</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize8,]}>ใช้ได้ก่อน {
-                        timeOut ?
-                            timeOut :
-                            ''
-                    }</Text>
+                <View style={{ height: 60, justifyContent: 'center', marginLeft: 5, paddingHorizontal: 2, width: width * 0.31, }}>
+                    <Text style={[FontFamilyBold, FontSize6,]}>{couponText}</Text>
+                    <Text numberOfLines={1} style={[FontFamilyText, FontSize9,]}>{textDetail}</Text>
+                    <Text style={[FontFamilyText, FontSize8,]}>ใช้ได้ก่อน {timeOut ? timeOut : ''}</Text>
                 </View>
                 <TouchableOpacity onPress={() => { getCoupon(setDataService) }}>
-                    <View style={[
-                        flexRow ?
-                            stylesDeal.Coupon_BOX_A2 :
-                            stylesDeal.Coupon_BOX_A, {
-                            backgroundColor:
-                                colorCoupon ?
-                                    colorCoupon :
-                                    '#1CB5E0',
-                        }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{
-                            useCoupon ?
-                                'ใช้โค้ด' :
-                                'เก็บ'
-                        }</Text>
+                    <View style={[flexRow ? Coupon_BOX_A2 : Coupon_BOX_A, { backgroundColor: colorCoupon ?? '#1CB5E0', }]}>
+                        <Text style={[FontFamilyBold, FontSize5, { color: '#FFFFFF' }]}>{useCoupon ? 'ใช้โค้ด' : 'เก็บ'}</Text>
                     </View>
                 </TouchableOpacity>
             </View>
-            {
-                codeList != 'available' &&
-                <View /*style={{
+            {codeList != 'available' && <View /*style={{
                     backgroundColor: '#C1C1C1', opacity: 0.7,
                     width: 0.31, height: 80, marginTop: -10, borderRadius: 5,
                     alignItems: 'center'
                 }}*/>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenterVertical, {
-                        color: '#FFFFFF',
-                    }]}>
-                        {
-                            codeList == 'usedCode' ?
-                                'ใช้แล้ว' :
-                                saveCoupon ?
-                                    'เก็บแล้ว' :
-                                    'หมดอายุ'
-                        }
-                    </Text>
-                </View>
-            }
+                <Text style={[FontFamilyBold, FontSize4, ItemCenterVertical, { color: '#FFFFFF', }]}>
+                    {codeList == 'usedCode' ? 'ใช้แล้ว' : saveCoupon ? 'เก็บแล้ว' : 'หมดอายุ'}</Text>
+            </View>}
         </View>
     )
 }
@@ -683,60 +537,59 @@ export function ProductBox(props) {
     } = props;
     onShow && [console.log('ProductBoxRender'), console.log(dataService)];
     return dataService.map((item, index) => {
+        const {
+            discount, discount_tag, full_price, id_product, image, image_main, image_path, image_product, last_price, name, name_product,
+            path_image_product, price, price_discount, type
+        } = item;
         onShow && ([console.log('ProductBoxRender|||map'), console.log(item)]);
         if (index < (numberOfItem ?? dataService.length)) {
-            var discount;
-            item.discount && (discount = item.discount.replace("%", ""));
-            var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
-                item.image_main ?? item.image)}${item.type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`;
+            var discounts;
+            discount && (discounts = discount.replace("%", ""));
+            const uriImage = {
+                uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${
+                    type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
+            };
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() => noNavigation ?
-                getDataService({ id_product: item.id_product, name: item.name_product ?? item.name }) :
-                NavigationNavigate({
-                    goScreen: pointerUrl, navigation, setData: (pointerid_store ? { id_product: item.id_product } : null),
-                })}>
-                <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5Box : mode == 'row3col2' ?
-                    stylesMain.BoxProduct1Box2 : mode == 'row3col2_2' ? stylesMain.BoxProduct4Box : mode == 'row3colall' ?
-                        stylesMain.BoxProduct2Box : mode == 'row2colall' ? stylesMain.BoxProduct3Box : mode == '5item' ?
-                            stylesDeal.Deal_Exclusive_Box : mode == 'row3colall_new' ? {
+                getDataService({ id_product: id_product, name: name_product ?? name }) :
+                Navi({ goScreen: pointerUrl, navigation, setData: (pointerid_store ? { id_product: id_product } : null), })}>
+                <View style={[ItemCenter, mode == 'row4col1' ? BoxProduct5Box : mode == 'row3col2' ?
+                    BoxProduct1Box2 : mode == 'row3col2_2' ? BoxProduct4Box : mode == 'row3colall' ?
+                        BoxProduct2Box : mode == 'row2colall' ? BoxProduct3Box : mode == '5item' ?
+                            Deal_Exclusive_Box : mode == 'row3colall_new' ? {
                                 backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.327,
-                            } : stylesMain.BoxProduct1Box,
-                { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
-                    <View style={[stylesMain.ItemCenter, mode == 'row4col1' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3colall' ?
-                        stylesMain.BoxProduct2ImageofLines : mode == 'row2colall' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
-                            stylesMain.BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { flex: 1, width: '100%', aspectRatio: 1 } :
-                                stylesMain.BoxProduct1ImageofLines]}>
-                        <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
+                            } : BoxProduct1Box, { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
+                    <View style={[ItemCenter, mode == 'row4col1' ? BoxProduct5ImageofLines : mode == 'row3colall' ?
+                        BoxProduct2ImageofLines : mode == 'row2colall' ? BoxProduct3ImageofLines : mode == '5item' ?
+                            BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { aspectRatio: 1, flex: 1, width: '100%', } :
+                                BoxProduct1ImageofLines]}>
+                        <FastImage resizeMode={contain} source={uriImage} style={[BoxProduct2Image, {
                             borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
                             marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
                             width: mode == 'row3colall_new' ? '100%' : '75%',
-                        }]} resizeMode={FastImage.resizeMode.contain} />
+                        }]} />
                     </View>
                     <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%', }}>
-                        <View style={[stylesMain.BoxProduct1NameofLines]}>
-                            <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>
-                                {item.name_product ?? item.name}</Text>
+                        <View style={[BoxProduct1NameofLines]}>
+                            <Text numberOfLines={1} style={[FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>{name_product ?? name}</Text>
                         </View>
-                        <View style={[stylesMain.BoxProduct1PriceofLines,]}>
-                            <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                                <NumberFormat value={item.last_price ?? item.price_discount ?? item.full_price ?? item.price}
-                                    fixedDecimalScale decimalScale={0} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                                    renderText={value => <Text style={[stylesMain.BoxProduct1ImagePrice, stylesFont.FontFamilyBoldBold,
-                                    { fontSize: priceSize ?? 14, }]}>{value}</Text>} />
-                                {item.discount_tag ?
-                                    <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8,
-                                        { color: '#FFFFFF' }]}>{`-${item.discount_tag}`}</Text>
-                                    </View> : discount > 0 && <NumberFormat value={item.discount && item.discount} displayType={'text'}
-                                        thousandSeparator={true} suffix={'%'} renderText={value =>
-                                            value && <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
-                                                    {`-${value}`}</Text>
-                                            </View>} />}
+                        <View style={[BoxProduct1PriceofLines,]}>
+                            <View style={[FlexRow, { paddingVertical: 2 }]}>
+                                <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'} renderText={value => <Text
+                                    style={[BoxProduct1ImagePrice, FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>{value}</Text>}
+                                    thousandSeparator={true} value={last_price ?? price_discount ?? full_price ?? price} />
+                                {discount_tag ?
+                                    <View style={[Box_On_sale, { borderRadius: 10 }]}>
+                                        <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>
+                                            {`-${discount_tag}`}</Text>
+                                    </View> : discount > 0 && <NumberFormat displayType={'text'} renderText={value => value && <View
+                                        style={[Box_On_sale, { borderRadius: 10 }]}>
+                                        <Text style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>{`-${value}`}</Text>
+                                    </View>} suffix={'%'} thousandSeparator={true} value={discount && discount} />}
                             </View>
-                            {item.price_discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0}
-                                displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
-                                    <Text style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText,
-                                    { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>{value}</Text>} />}
+                            {price_discount && <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'}
+                                renderText={value => <Text style={[BoxProduct1ImagePriceThrough, FontFamilyText,
+                                    { fontSize: dispriceSize ?? 14, marginTop: -4, }]}>{value}</Text>} thousandSeparator={true}
+                                value={price} />}
                         </View>
                     </View>
                 </View>
@@ -749,10 +602,10 @@ export function FlatComponent(props) {
     const { animatedView, component, componentPage, } = props;
     const AFlatList = Animatable.createAnimatableComponent(FlatList);
     return component && animatedView ?
-        <Animated.FlatList {...props} scrollEnabled={true} data={component} keyExtractor={(value, index) =>
-            `Component:${componentPage ?? index}_${value.nameComponent}`} renderItem={(value) => value.item.renderComponent} /> :
-        <FlatList {...props} scrollEnabled={true} data={component} keyExtractor={(value, index) =>
-            `Component:${componentPage ?? index}_${value.nameComponent}`} renderItem={(value) => value.item.renderComponent} />;
+        <Animated.FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${
+            componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} /> :
+        <FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${
+            componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} />;
 };
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct
 export function FlatProduct(props) {
@@ -760,8 +613,8 @@ export function FlatProduct(props) {
     var itemT = [];
     if (numberOfColumn == 2 && dataService && dataService.length > 0)
         for (var n = 0; n < dataService.length; n += 2) { itemT.push({ item: dataService[n], item2: dataService[n + 1] }); };
-    return <FlatList horizontal scrollEnabled={true} initialNumToRender={10} data={numberOfColumn == 2 ? itemT : dataService}
-        keyExtractor={(value, index) => (nameFlatProduct ?? 'Product') + index} ListHeaderComponentStyle={{ flexDirection: 'column' }}
+    return <FlatList data={numberOfColumn == 2 ? itemT : dataService} horizontal initialNumToRender={10} keyExtractor={(value, index) =>
+        (nameFlatProduct ?? 'Product') + index} ListHeaderComponentStyle={{ flexDirection: 'column' }} scrollEnabled={true}
         renderItem={(value) => <View style={{ height: 'auto', marginTop: noMarginTop != true && numberOfColumn == 2 ? 3 : undefined, }}>
             {(numberOfColumn == 2 ? value.item.item : value.item) && <RenderProduct {...props}
                 item={numberOfColumn == 2 ? value.item.item : value.item} />}
@@ -773,63 +626,59 @@ export function RenderProduct(props) {
     const {
         custumNavigation, item, dispriceSize, getDataService, mode, navigation, nameSize, noNavigation, priceSize, radiusBox, onShow,
     } = props;
+    const {
+        discount, discount_tag, full_price, id_product, image, image_main, image_path, image_product, last_price, name, name_product,
+        path_image_product, price, price_discount, type
+    } = item;
     onShow && [
         console.log('///--------------------------------------------------------------------------------------------->>>> RenderProduct'),
         console.log(item)
     ];
-    var dataMySQL = `${item.type == 'local' ? ip : finip}/${(item.path_image_product ?? item.image_path)}/${(item.image_product ??
-        item.image_main ?? item.image)}${item.type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`;
-    var discount;
-    onShow && console.log(dataMySQL)
-    item.discount && (discount = item.discount.replace("%", ""));
-    return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ? getDataService({ id_product, name }) : NavigationNavigate({
-        goScreen: custumNavigation ? custumNavigation : 'DetailScreen', navigation, setData: { id_product: item.id_product }
-    })}>
-        <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5Box : mode == 'row3' ?
-            stylesMain.BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ? stylesMain.BoxProduct1Box2new : mode == 'row3_2' ?
-                stylesMain.BoxProduct4Box : mode == 'row3_all' ? stylesMain.BoxProduct2Box : mode == 'row2_all' ?
-                    stylesMain.BoxProduct3Box : mode == '5item' ? stylesDeal.Deal_Exclusive_Box : stylesMain.BoxProduct1Box, {
-            marginBottom: mode == 'row3_2' ? 4 : null,
-            borderRadius: radiusBox ?? 0
-        }]}>
-            <View style={[stylesMain.ItemCenter, mode == 'row4' ? stylesMain.BoxProduct5ImageofLines : mode == 'row3_all' ?
-                stylesMain.BoxProduct2ImageofLines : mode == 'row2_all' ? stylesMain.BoxProduct3ImageofLines : mode == '5item' ?
-                    stylesMain.BoxProduct1ImageofLines2 : mode == 'row3_new2' ? { width: '100%' } : stylesMain.BoxProduct1ImageofLines
+    const uriImage = {
+        uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${
+            type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
+    };
+    var discounts;
+    onShow && console.log(uriImage)
+    discount && (discounts = discount.replace("%", ""));
+    return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ? getDataService({ id_product, name }) :
+        Navi({ goScreen: custumNavigation ?? 'DetailScreen', navigation, setData: { id_product: id_product } })}>
+        <View style={[ItemCenter, mode == 'row4' ? BoxProduct5Box : mode == 'row3' ?
+            BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ? BoxProduct1Box2new : mode == 'row3_2' ?
+                BoxProduct4Box : mode == 'row3_all' ? BoxProduct2Box : mode == 'row2_all' ?
+                    BoxProduct3Box : mode == '5item' ? Deal_Exclusive_Box : BoxProduct1Box, {
+                borderRadius: radiusBox ?? 0,
+                marginBottom: mode == 'row3_2' ? 4 : null,
+            }]}>
+            <View style={[ItemCenter, mode == 'row4' ? BoxProduct5ImageofLines : mode == 'row3_all' ?
+                BoxProduct2ImageofLines : mode == 'row2_all' ? BoxProduct3ImageofLines : mode == '5item' ?
+                    BoxProduct1ImageofLines2 : mode == 'row3_new2' ? { width: '100%' } : BoxProduct1ImageofLines
             ]}>
-                <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxProduct2Image, {
+                <FastImage resizeMode={contain} source={uriImage} style={[BoxProduct2Image, {
                     borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
                     marginVertical: mode == 'row3_new2' ? 0 : height * 0.015, width: mode == 'row3_new2' ? '100%' : '75%',
-                }]} resizeMode={FastImage.resizeMode.contain} />
+                }]} />
             </View>
             <View style={{ height: 55, paddingHorizontal: 3, width: '100%', }}>
-                <View style={[stylesMain.BoxProduct1NameofLines]}>
-                    <Text numberOfLines={1} style={[stylesFont.FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>
-                        {item.name_product ?? item.name}</Text>
+                <View style={[BoxProduct1NameofLines]}>
+                    <Text numberOfLines={1} style={[FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>{name_product ?? name}</Text>
                 </View>
-                <View style={[stylesMain.BoxProduct1PriceofLines,]}>
-                    <View style={[stylesMain.FlexRow, { paddingVertical: 2 }]}>
-                        <NumberFormat value={item.last_price ?? item.price_discount ?? item.full_price ?? item.price}
-                            fixedDecimalScale decimalScale={0} displayType={'text'} thousandSeparator={true} prefix={'฿'}
-                            renderText={value => <Text numberOfLines={1} style={[stylesMain.BoxProduct1ImagePrice,
-                            stylesFont.FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>{value}</Text>} />
-                        {item.discount_tag ?
-                            <View style={[stylesMain.Box_On_sale, { borderRadius: 10 }]}>
-                                <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF' }]}>
-                                    {`-${item.discount_tag}`}</Text>
-                            </View> : discount > 0 && <NumberFormat value={item.discount && item.discount} displayType={'text'}
-                                thousandSeparator={true} suffix={'%'} renderText={value => value && <View style={[stylesMain.Box_On_sale,
-                                { borderRadius: 10 }]}>
-                                    <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize8,
-                                    { color: '#FFFFFF' }]}>
-                                        {`-${value}`} </Text>
-                                </View>} />}
+                <View style={[BoxProduct1PriceofLines,]}>
+                    <View style={[FlexRow, { paddingVertical: 2 }]}>
+                        <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'} renderText={value => <Text
+                            numberOfLines={1} style={[BoxProduct1ImagePrice, FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>
+                            {value}</Text>} thousandSeparator={true} value={last_price ?? price_discount ?? full_price ?? price} />
+                        {discount_tag ?
+                            <View style={[Box_On_sale, { borderRadius: 10 }]}>
+                                <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>{`-${discount_tag}`}</Text>
+                            </View> : discount > 0 && <NumberFormat displayType={'text'} renderText={value => value && <View
+                                style={[Box_On_sale, { borderRadius: 10 }]}>
+                                <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>{`-${value}`}</Text>
+                            </View>} suffix={'%'} thousandSeparator={true} value={discount && discount} />}
                     </View>
-                    {item.discount && <NumberFormat value={item.price} fixedDecimalScale decimalScale={0} displayType={'text'}
-                        thousandSeparator={true} prefix={'฿'} renderText={value => <Text numberOfLines={1}
-                            style={[stylesMain.BoxProduct1ImagePriceThrough, stylesFont.FontFamilyText,
-                            { marginTop: -4, fontSize: dispriceSize ?? 14 }]}>
-                            {value}
-                        </Text>} />}
+                    {discount && <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'} renderText={value =>
+                        <Text numberOfLines={1} style={[BoxProduct1ImagePriceThrough, FontFamilyText,
+                            { fontSize: dispriceSize ?? 14, marginTop: -4, }]}>{value}</Text>} thousandSeparator={true} value={price} />}
                 </View>
             </View>
         </View>
@@ -838,10 +687,10 @@ export function RenderProduct(props) {
 ///----------------------------------------------------------------------------------------------->>>> RenderSubStore
 export function RenderSubStore(props) {
     const { item } = props;
-    var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
-    return <TouchableOpacity activeOpacity={1} style={stylesMain.FlexRow}>
-        <View style={[stylesMain.CategoryProductStoreBox]}>
-            <Image source={{ uri: dataMySQL, }} style={stylesMain.CategoryProductStoreImage} resizeMode='cover' resizeMethod='resize' />
+    const uriStore = { uri: `${finip}/${item.image_path}/${item.image}` };
+    return <TouchableOpacity activeOpacity={1} style={FlexRow}>
+        <View style={[CategoryProductStoreBox]}>
+            <Image resizeMethod='resize' resizeMode='cover' source={uriStore} style={CategoryProductStoreImage} />
         </View>
     </TouchableOpacity>;
 };
@@ -864,113 +713,107 @@ export class FeedBox extends React.Component {
     setStateButton_Like_heart = () => { const { like, } = this.state; this.setState({ like: !like, activeFeed: true }); };
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props;
-        userOwner && selected == 0 && NavigationNavigate({
-            goScreen: 'Post_Feed', setData: {
-                selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this)
-            }, navigation
+        userOwner && selected == 0 && Navi({
+            goScreen: 'Post_Feed', navigation,
+            setData: { selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this) },
         });
     };
     getDataSource = (activeRef) => { const { getDataSource } = this.props; getDataSource(activeRef); };
     get FeedBoxRender() {
-        const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner } = this.props;
+        const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner, } = this.props;
+        const { detail, id_store, image, image_path, p_id_store, store_image, store_name, store_path, } = dataService;
         const { like } = this.state;
+        const LOGO_ICON = { height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 };
+        const Styles1 = { container: { alignItems: 'center', borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingHorizontal: 25, } };
+        const uriLogo = { uri: `${ip}/MySQL/uploads/Icon_shareBox/iconlogo.png`, };
+        const uriLogoFace = { uri: `${ip}/MySQL/uploads/Icon_shareBox/facebook.jpg`, };
+        const uriLogoLine = { uri: `${ip}/MySQL/uploads/Icon_shareBox/line.png`, };
+        const uriLogoIg = { uri: `${ip}/MySQL/uploads/Icon_shareBox/Ig.png`, };
+        const uriLogoTw = { uri: `${ip}/MySQL/uploads/Icon_shareBox/Tw.png`, };
         // const options = userOwner ? ['แก้ไข', 'ลบ'] : ['รายงานความไม่เหมาะสม']
-        var dataMySQL_p = `${finip}/${dataService.image_path}/${dataService.image}`;
-        var dataMySQL_s = `${finip}/${dataService.store_path}/${dataService.store_image}`;
-        // console.log(dataService)
+        const uriPost = { uri: `${finip}/${image_path}/${image}` };
+        const uriStore = { uri: `${finip}/${store_path}/${store_image}`, };
         return <>
-            <BottomSheet ref={ref => { this.Setting_Sheet = ref; }} height={230} customStyles={{
-                container: { paddingHorizontal: 25, borderTopLeftRadius: 10, borderTopRightRadius: 10, }
-            }}>
+            <BottomSheet customStyles={{ container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, paddingHorizontal: 25, } }}
+                height={230} ref={ref => { this.Setting_Sheet = ref; }}>
                 <View>
-                    <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                    <TouchableOpacity style={[FlexRow, { marginTop: 10 }]}>
                         <IconMaterialCommunityIcons name='bookmark-outline' size={25} />
                         <View style={{ marginLeft: 20 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>บันทึกโพสต์</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เพิ่มสิ่งนี้ลงในรายการที่บันทึกไว้ของคุณ</Text>
+                            <Text style={[FontFamilyText, FontSize5]}>บันทึกโพสต์</Text>
+                            <Text style={[FontFamilyText, FontSize7]}>เพิ่มสิ่งนี้ลงในรายการที่บันทึกไว้ของคุณ</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                    <TouchableOpacity style={[FlexRow, { marginTop: 10 }]}>
                         <IconAntDesign name='warning' size={25} />
                         <View style={{ marginLeft: 20 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>รายงานโพสต์</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ฉันกังวลเกี่ยวกับโพสต์นี้</Text>
+                            <Text style={[FontFamilyText, FontSize5]}>รายงานโพสต์</Text>
+                            <Text style={[FontFamilyText, FontSize7]}>ฉันกังวลเกี่ยวกับโพสต์นี้</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                    <TouchableOpacity style={[FlexRow, { marginTop: 10 }]}>
                         <IconFontAwesome name='bell-o' size={25} />
                         <View style={{ marginLeft: 20 }}>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>การแจ้งเตือน</Text>
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>เปิดการแจ้งเตือนสำหรับโพสต์นี้</Text>
+                            <Text style={[FontFamilyText, FontSize5]}>การแจ้งเตือน</Text>
+                            <Text style={[FontFamilyText, FontSize7]}>เปิดการแจ้งเตือนสำหรับโพสต์นี้</Text>
                         </View>
                     </TouchableOpacity>
-                    <TouchableOpacity style={[stylesMain.FlexRow, { marginTop: 10 }]}>
+                    <TouchableOpacity style={[FlexRow, { marginTop: 10 }]}>
                         <IconEntypo name='link' size={25} />
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginLeft: 20 }]}>คัดลอกลิงก์</Text>
+                        <Text style={[FontFamilyText, FontSize5, { marginLeft: 20 }]}>คัดลอกลิงก์</Text>
                     </TouchableOpacity>
                 </View>
             </BottomSheet>
-            <BottomSheet ref={ref => { this.share_Feed = ref; }} height={280} duration={250} customStyles={{
-                container: { paddingHorizontal: 25, borderTopLeftRadius: 10, borderTopRightRadius: 10, alignItems: 'center', }
-            }}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>ตัวเลือกการแชร์</Text>
+            <BottomSheet customStyles={Styles1} duration={250} height={280} ref={ref => { this.share_Feed = ref; }}>
+                <Text style={[FontFamilyText, FontSize4]}>ตัวเลือกการแชร์</Text>
                 <View style={{ width: '95%' }}>
                     <View>
                         <TouchableOpacity onPress={() => {
-                            NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 24, }, navigation });
+                            Navi({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 24, }, });
                             this.share_Feed.close();
-                        }}
-                            style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <FastImage style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
-                                source={{ uri: `${ip}/MySQL/uploads/Icon_shareBox/iconlogo.png`, }}
-                                resizeMode={FastImage.resizeMode.cover} />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>FIN</Text>
+                        }} style={[FlexRow, { alignItems: 'center' }]}>
+                            <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogo} />
+                            <Text style={[FontFamilyText, FontSize5]}>FIN</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <FastImage style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
-                                source={{ uri: `${ip}/MySQL/uploads/Icon_shareBox/facebook.jpg`, }} resizeMode={FastImage.resizeMode.cover} />
+                        <TouchableOpacity style={[FlexRow, { alignItems: 'center' }]}>
+                            <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogoFace} />
                             <Text>Facebook</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <FastImage style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
-                                source={{ uri: `${ip}/MySQL/uploads/Icon_shareBox/line.png`, }} resizeMode={FastImage.resizeMode.cover} />
+                        <TouchableOpacity style={[FlexRow, { alignItems: 'center' }]}>
+                            <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogoLine} />
                             <Text>Line</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <FastImage style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
-                                source={{ uri: `${ip}/MySQL/uploads/Icon_shareBox/Ig.png`, }} resizeMode={FastImage.resizeMode.cover} />
+                        <TouchableOpacity style={[FlexRow, { alignItems: 'center' }]}>
+                            <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogoIg} />
                             <Text>instagram</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <FastImage style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }}
-                                source={{ uri: `${ip}/MySQL/uploads/Icon_shareBox/Tw.png`, }} resizeMode={FastImage.resizeMode.cover} />
+                        <TouchableOpacity style={[FlexRow, { alignItems: 'center' }]}>
+                            <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogoTw} />
                             <Text>twitter</Text>
                         </TouchableOpacity>
-                        <TouchableOpacity style={[stylesMain.FlexRow, { alignItems: 'center' }]}>
-                            <IconEntypo name='link' size={25}
-                                style={{ height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 }} />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>คัดลอกลิงค์</Text>
+                        <TouchableOpacity style={[FlexRow, { alignItems: 'center' }]}>
+                            <IconEntypo name='link' size={25} style={LOGO_ICON} />
+                            <Text style={[FontFamilyText, FontSize5]}>คัดลอกลิงค์</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </BottomSheet>
-            <View style={stylesMain.BoxProduct4Box}>
-                {Header && <View style={stylesMain.BoxProduct4PlusHeader}>
-                    <TouchableOpacity onPress={() => atStore ? undefined : NavigationNavigate({
-                        goScreen: 'StoreScreen', setData: { id_store: dataService.id_store ?? dataService.p_id_store }, navigation
-                    })}>
-                        <View style={stylesMain.FlexRow}>
-                            <FastImage style={stylesMain.BoxProduct4PlusImage} source={{ uri: dataMySQL_s, }} />
-                            <Text style={[stylesMain.BoxProduct4PlusImageText, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>
-                                {dataService.store_name}</Text>
+            <View style={BoxProduct4Box}>
+                {Header && <View style={BoxProduct4PlusHeader}>
+                    <TouchableOpacity onPress={() => atStore ? undefined :
+                        Navi({ goScreen: 'StoreScreen', navigation, setData: { id_store: id_store ?? p_id_store }, })}>
+                        <View style={FlexRow}>
+                            <View style={[{ backgroundColor: store_image ? '#FFF' : '#ECECEC' }, BoxProduct4PlusImage]}>
+                                <FastImage source={store_image ? uriStore : LOADING_ICON}
+                                    style={[store_image ? null : LOADING_ICON_STYLE, BoxProduct4PlusImage]} />
+                            </View>
+                            <Text style={[BoxProduct4PlusImageText, FontFamilyBold, FontSize5]}>{store_name}</Text>
                         </View>
                     </TouchableOpacity>
-                    <View style={stylesMain.BoxProduct4PlusButtonBox}>
+                    <View style={BoxProduct4PlusButtonBox}>
                         {Follow ? null : <TouchableOpacity onPress={() => undefined}>
-                            <View style={stylesMain.BoxProduct4PlusButtonFollow}>
-                                <Text style={[
-                                    stylesMain.BoxProduct4PlusButtonFollowText, stylesFont.FontFamilyText, stylesFont.FontSize6
-                                ]}>ติดตาม</Text>
+                            <View style={BoxProduct4PlusButtonFollow}>
+                                <Text style={[BoxProduct4PlusButtonFollowText, FontFamilyText, FontSize6]}>ติดตาม</Text>
                             </View>
                         </TouchableOpacity>}
                         <TouchableOpacity activeOpacity={1} onPress={() => { this.Setting_Sheet.open(); }}>
@@ -986,42 +829,36 @@ export class FeedBox extends React.Component {
                     </View>
                 </View>}
                 <View>
-                    <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                        <FastImage source={{ uri: dataMySQL_p, }} style={stylesMain.BoxProduct4Image}
-                            resizeMode={FastImage.resizeMode.contain} />
-                    </View>
-                    <View style={stylesMain.BoxProduct4ComBox}>
-                        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{dataService.detail}</Text>
-                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: mainColor }]}>ที่สุดสำหรับคุณ</Text>
-                        {/* <View style={stylesMain.FlexRow}>
+                    {image ? <View style={[ItemCenter, { backgroundColor: store_image ? '#FFF' : '#ECECEC', width: '100%' }]}>
+                        <FastImage resizeMode={contain} source={image ? uriPost : LOADING_ICON}
+                            style={[image ? null : LOADING_ICON_STYLE, BoxProduct4Image,]} />
+                    </View> : null}
+                    <View style={BoxProduct4ComBox}>
+                        <Text style={[FontFamilyText, FontSize7]}>{detail}</Text>
+                        <Text style={[FontFamilyText, FontSize7, { color: mainColor }]}>ที่สุดสำหรับคุณ</Text>
+                        {/* <View style={FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     เมื่อ 3 วันที่ผ่านมา</Text>
                             </View> */}
                     </View>
-                    <View style={stylesMain.BoxProduct4ComBox2}>
-                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={
-                            stylesMain.BoxProduct4ComBoxIcon}>
-                            <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20}
-                                style={{ color: like ? '#ff0066' : '#111111', }}>
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
-                                    ถูกใจ</Text>
+                    <View style={BoxProduct4ComBox2}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={BoxProduct4ComBoxIcon}>
+                            <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20} style={{ color: like ? '#ff0066' : '#111111', }}>
+                                <Text style={[FontFamilyText, FontSize5, BoxProduct4ComBoxIconText,]}>ถูกใจ</Text>
                             </IconFontAwesome>
                         </TouchableOpacity>
-                        <TouchableOpacity activeOpacity={1} onPress={() =>
-                            /*this.props.activeModalize(true)*/
-                            NavigationNavigate({ goScreen: 'Post_Feed', setData: { selectedIndex: 3 }, navigation })}>
-                            <View style={stylesMain.BoxProduct4ComBoxIcon}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => /*this.props.activeModalize(true)*/
+                            Navi({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 3 }, })}>
+                            <View style={BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />
-                                <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                    แสดงความคิดเห็น</Text>
+                                <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>แสดงความคิดเห็น</Text>
                             </View>
                         </TouchableOpacity>
-                        <TouchableOpacity style={stylesMain.BoxProduct4ComBoxIcon} onPress={() => this.share_Feed.open()}>
+                        <TouchableOpacity onPress={() => this.share_Feed.open()} style={BoxProduct4ComBoxIcon}>
                             <IconEntypo name='share' size={20} />
-                            <Text style={[stylesMain.BoxProduct4ComBoxIconText, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                                แชร์</Text>
+                            <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>แชร์</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
@@ -1039,12 +876,12 @@ export class LoadingScreen extends React.Component {
     setModalVisible = (visible) => { this.setState({ modalVisible: visible }); };
     render() {
         const { modalVisible } = this.state;
-        return <Modal animationType="fade" transparent={true} visible={modalVisible}
-            onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)}>
-            <View style={[stylesMain.ItemCenter, { height, width }]}>
-                <View style={{ height, width, backgroundColor: '#555555', opacity: 0.5, position: 'absolute' }}></View>
-                <View style={[stylesMain.ItemCenterVertical, { height: 80, width: 80, borderRadius: 8, backgroundColor: '#ECECEC' }]}>
-                    <ActivityIndicator style={stylesMain.ItemCenterVertical} color='#1A3263' size='large' />
+        return <Modal animationType="fade" onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)} transparent={true}
+            visible={modalVisible}>
+            <View style={[ItemCenter, { height, width }]}>
+                <View style={{ backgroundColor: '#555555', height, opacity: 0.5, position: 'absolute', width, }}></View>
+                <View style={[ItemCenterVertical, { backgroundColor: '#ECECEC', borderRadius: 8, height: 80, width: 80, }]}>
+                    <ActivityIndicator style={ItemCenterVertical} color='#1A3263' size='large' />
                 </View>
             </View>
         </Modal>;
@@ -1078,31 +915,27 @@ export class SlideTab2 extends React.Component {
     render() {
         const { data, filterValue, sliderVisible } = this.props;
         const { filter } = this.state;
-        return <SlidingView disableDrag componentVisible={sliderVisible} changeVisibilityCallback={this.setStateSliderVisible.bind(this)}
-            containerStyle={{ backgroundColor: null, justifyContent: 'center', alignContent: 'stretch', width: '100%' }}
+        return <SlidingView changeVisibilityCallback={this.setStateSliderVisible.bind(this)} componentVisible={sliderVisible}
+            containerStyle={{ alignContent: 'stretch', backgroundColor: null, justifyContent: 'center', width: '100%' }} disableDrag
             position="right">
-            <View style={stylesMain.FlexRow}>
+            <View style={FlexRow}>
                 <TouchableOpacity activeOpacity={1} onPress={() => this.setStateSliderVisible()}>
-                    <View style={stylesTopic.BackgroundLeft}></View>
+                    <View style={BackgroundLeft} />
                 </TouchableOpacity>
-                <View style={[stylesMain.ItemCenter, stylesTopic.BackgroundRight, stylesMain.SafeAreaViewNB]}>
+                <View style={[BackgroundRight, ItemCenter, SafeAreaViewNB]}>
                     <View>
                         <ScrollView>
-                            {data && data.map((item, index) => <SlideTab filterValue={this.filterValue.bind(this)} item={item}
-                                listIndex={index} key={index} />)}
+                            {data && data.map((item, index) => <SlideTab filterValue={this.filterValue.bind(this)} item={item} key={index}
+                                listIndex={index} />)}
                             <PricesSlide filterValue={this.filterValue.bind(this)} />
                         </ScrollView>
-                        <View style={[stylesMain.FlexRow, { height: 70 }]}>
-                            <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset]}>
-                                <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                    color: mainColor
-                                }]}>รีเซ็ต</Text>
+                        <View style={[FlexRow, { height: 70 }]}>
+                            <View style={[BoxReset, ItemCenter,]}>
+                                <Text style={[FontFamilyText, FontSize6, ItemCenterVertical, { color: mainColor }]}>รีเซ็ต</Text>
                             </View>
                             <TouchableOpacity onPress={() => { filterValue(filter) }}>
-                                <View style={[stylesMain.ItemCenter, stylesTopic.BoxReset, { backgroundColor: mainColor }]}>
-                                    <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize6, stylesFont.FontFamilyText, {
-                                        color: '#fff'
-                                    }]}>เสร็จสิ้น</Text>
+                                <View style={[BoxReset, ItemCenter, { backgroundColor: mainColor }]}>
+                                    <Text style={[FontFamilyText, FontSize6, ItemCenterVertical, { color: '#fff' }]}>เสร็จสิ้น</Text>
                                 </View>
                             </TouchableOpacity>
                         </View>
@@ -1134,38 +967,32 @@ export class SlideTab extends React.Component {
     setStateActiveText = (activeText) => { this.setState({ activeTabBar: true, activeText }); };
     dataItem(item) {
         const { activeTabBar, selectedIndex } = this.state;
-        return <View style={[stylesMain.FlexRow, { width: '100%', flexWrap: 'wrap' }]}>
-            <TabBar sendData={this.updateIndex.bind(this)} item={item} type='box' noLimit numberBox radiusBox={4}
-                SetValue={activeTabBar ? selectedIndex != null ? selectedIndex : -1 : undefined} />
+        return <View style={[FlexRow, { flexWrap: 'wrap', width: '100%', }]}>
+            <TabBar item={item} noLimit numberBox radiusBox={4} sendData={this.updateIndex.bind(this)}
+                SetValue={activeTabBar ? selectedIndex != null ? selectedIndex : -1 : undefined} type='box' />
         </View>;
     };
-    dataContainer(item) {
+    dataContainer(value) {
         const { activeText } = this.state;
+        const VStyles1 = { width: '100%', height: activeText ? 85 + ((Math.ceil(value.subtitle.length / 2) - 1) * 35) : 85 + (35 * 1), };
+        const VStyles2 = { backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC', borderBottomWidth: 3, width: '80%', };
         return <View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
-                marginLeft: 8, marginTop: 8,
-            }]}>{item.title}</Text>
-            <View style={stylesMain.SafeAreaViewNB}>
+            <Text style={[FontFamilyBold, FontSize5, ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>{value.title}</Text>
+            <View style={SafeAreaViewNB}>
                 <View style={{ width: '100%' }}>
-                    <View style={{
-                        width: '100%',
-                        height: activeText ? 85 + ((Math.ceil(item.subtitle.length / 2) - 1) * 35) : 85 + (35 * 1)
-                    }}>
+                    <View style={VStyles1}>
                         {activeText ?
-                            this.dataItem(item.subtitle) : <ScrollView scrollEnabled={false}>
-                                {this.dataItem(item.subtitle)}
+                            this.dataItem(value.subtitle) : <ScrollView scrollEnabled={false}>
+                                {this.dataItem(value.subtitle)}
                             </ScrollView>}
-                        {item.subtitle.length > 4 && <TouchableOpacity onPress={() => this.setStateActiveText(!activeText)}>
-                            <View style={[stylesDetail.Detail_Box, stylesMain.ItemCenter, { borderTopWidth: null, }]}>
-                                <Text style={[stylesDetail.Detail_Text_A, stylesMain.ItemCenterVertical, stylesFont.FontFamilyBold]}>
-                                    {activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
-                                <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={25} color={mainColor} />
+                        {value.subtitle.length > 4 && <TouchableOpacity onPress={() => this.setStateActiveText(!activeText)}>
+                            <View style={[Detail_Box, ItemCenter, { borderTopWidth: null, }]}>
+                                <Text style={[Detail_Text_A, ItemCenterVertical, FontFamilyBold]}>{activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
+                                <IconEntypo color={mainColor} name={activeText ? 'chevron-up' : 'chevron-down'} size={25} />
                             </View>
                         </TouchableOpacity>}
-                        <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
-                            <View style={{
-                                width: '80%', backgroundColor: '#fff', marginTop: 8, borderBottomColor: '#DCDCDC', borderBottomWidth: 3,
-                            }}></View>
+                        <View style={[ItemCenter, { width: '100%' }]}>
+                            <View style={VStyles2} />
                         </View>
                     </View>
                 </View>
@@ -1197,18 +1024,15 @@ export class PricesSlide extends React.Component {
     };
     render() {
         return <View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, stylesMain.ItemCenterVertical, {
-                marginLeft: 8, marginTop: 8,
-            }]}>ราคา</Text>
-            <View style={stylesMain.SafeAreaViewNB}>
+            <Text style={[FontFamilyBold, FontSize5, ItemCenterVertical, { marginLeft: 8, marginTop: 8, }]}>ราคา</Text>
+            <View style={SafeAreaViewNB}>
                 <View style={{ width: '100%' }}>
-                    <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { width: '100%', height: 80 }]}>
-                        <TextInput placeholder='ต่ำสุด' style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText,
-                        stylesFont.FontCenter, stylesFont.FontSize6, stylesTopic.maxMinValue]} onChangeText={
-                            this.setStateMin.bind(this)} />
-                        <Text style={[stylesMain.ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
-                        <TextInput placeholder='สูงสุด' style={[stylesMain.ItemCenterVertical, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesFont.FontSize6, stylesTopic.maxMinValue]} onChangeText={
-                            this.setStateMax.bind(this)} />
+                    <View style={[ItemCenter, FlexRow, { height: 80, width: '100%', }]}>
+                        <TextInput onChangeText={this.setStateMin.bind(this)} placeholder='ต่ำสุด'
+                            style={[FontCenter, FontFamilyText, FontSize6, ItemCenterVertical, maxMinValue]} />
+                        <Text style={[ItemCenterVertical, { fontSize: 28, marginHorizontal: 8 }]}>-</Text>
+                        <TextInput onChangeText={this.setStateMax.bind(this)} placeholder='สูงสุด'
+                            style={[FontCenter, FontFamilyText, FontSize6, ItemCenterVertical, maxMinValue]} />
                     </View>
                 </View>
             </View>

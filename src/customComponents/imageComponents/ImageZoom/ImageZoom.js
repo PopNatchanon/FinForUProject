@@ -119,13 +119,11 @@ function ImageZoom(props) {
     <ScrollView bounces={false} horizontal pagingEnabled onScroll={onScroll} onScrollEndDrag={onScrollEndDrag} ref={scrollView1}
       scrollEnabled={isGesture || !isScaling} scrollEventThrottle={16} showsHorizontalScrollIndicator={false}
       showsVerticalScrollIndicator={false} style={{ flexGrow: 0, height: '100%' }}>
-      {ImageZ.data.map((value, index) => (
-        <View key={index}
-          style={{ alignContent: 'center', alignItems: 'center', height, justifyContent: 'center', width, overflow: 'hidden', }}>
-          <Images {...props} dataIndex={index} dataValue={value} scrollValue={{ x: getScrollPosition() }}
-            scrollView1={scrollView1.current} />
-        </View>
-      ))}
+      {ImageZ.data.map((value, index) => <View key={index}
+        style={{ alignContent: 'center', alignItems: 'center', height, justifyContent: 'center', overflow: 'hidden', width, }}>
+        <Images {...props} dataIndex={index} dataValue={value} scrollValue={{ x: getScrollPosition() }}
+          scrollView1={scrollView1.current} />
+      </View>)}
     </ScrollView>
     {/* {(isScaling) ?
             <View style={{ alignContent: 'center', alignItems: 'center', height, justifyContent: 'center', position: 'absolute', width }}>

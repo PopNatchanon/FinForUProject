@@ -48,7 +48,7 @@ import { AppBar as AAppBar, Toolbar, NavigationNavigate, ImageList, GenArray, } 
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
 const LOADING_ICON = require('../../images/icon.png');
-const LOADING_ICON_STYLE = { height: '100%', opacity: 0.15, width: '100%' };
+const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
 const {
@@ -64,7 +64,7 @@ const {
     Popular_image_Box, SafeAreaViewNB, Second_StoreFin, Second_StoreFin_BoxHead, Second_StoreFin_Image, Second_StoreFin_ImageA,
     Second_StoreFin_ImageB, Second_StoreFin_ImageB_T, Second_Storefooter, Supermarket_BrandBox, Supermarket_Brand_Image, Supermarket_Brand_Shop,
     Supermarket_Brand_Shop2, Supermarket_Image, Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText,
-} = stylesMain; // 
+} = stylesMain;
 let Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const getCartDataCount = (cartData) => {
@@ -86,9 +86,6 @@ function MainScreen(props) {
     const [activeTime, setActiveTime] = useState(true);
     const scrollY = new Animated.Value(0);
     const maxheight = 55;
-    const ViewStyle = {
-        zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1, marginTop: -(maxheight),
-    };
     const onScroll = Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false, });
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
@@ -240,11 +237,13 @@ function MainScreen(props) {
     ];
     const colors = [AnimatedHeadbg, AnimatedHeadbg2];
     return <SafeAreaView style={[BackgroundAreaView, SafeAreaViewNB,]}>
-        <Animated.View style={ViewStyle}>
+        <Animated.View style={{
+            zIndex: 1, backgroundColor: 'transparent', elevation: 1, height: maxheight, marginTop: -(maxheight), top: maxheight, width,
+        }}>
             <AAppBar {...props} borderBottomColor={AnimatedBorderBottom} cartBar chatBar colorSet={colors} enableAnimated={AnimatedHeadbg}
                 enableSearch />
         </Animated.View>
-        <FlatComponent animatedView attachNativeEvent componentPage='MainScreen' component={itemT} initialNumToRender={10} onScroll={onScroll}
+        <FlatComponent animatedView attachNativeEvent component={itemT} componentPage='MainScreen' initialNumToRender={10} onScroll={onScroll}
             scrollEventThrottle={8} showsVerticalScrollIndicator={false} />
         <Botton_PopUp_FIN />
         <Toolbar {...props} style={{ flex: 5, }} />
@@ -313,17 +312,17 @@ export let Slide = (props) => {
     let _renderItem = (item, index) => {
         var uriSlide;
         // banner ?
-        (uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, })
+        uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return <View style={child} key={index}>
-            <Image source={uriSlide} style={child} resizeMode='contain' resizeMethod='resize' />
+            <Image loadingIndicatorSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriSlide}
+                style={[LOADING_ICON_STYLE, { opacity: 1 }]} />
         </View>;
     };
     return <View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList {...props} activeZoom autoplay data={banner ?? getFetchData['home_mobile']?.data}
-                dotsStyle={{ height: 10, width: 10, }} loop pagination paginationPosition='down' paginationType='dots'
-                renderItem={_renderItem} /> :
+            <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ height: 10, width: 10, }} loop
+                pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             <View style={[child, ItemCenter, { backgroundColor: '#fff' }]}>
                 <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
             </View>}
@@ -358,8 +357,7 @@ export let Guarantee = (props) => {
     };
     return <>
         <View style={{
-            aspectRatio: 4.5, flexDirection: 'row', height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5,
-            width: '100%',
+            aspectRatio: 4.5, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5, width: '100%',
         }}>
             <View style={{ width: '54%', }}>
                 <FastImage resizeMode={cover} source={uriGuaran1} style={[BoxProduct1Image, { borderRadius: 5 }]} />
@@ -369,15 +367,15 @@ export let Guarantee = (props) => {
                     <View style={{ height: '60%', width: width * 0.13 }}>
                         <FastImage resizeMode={cover} source={uriGuaran2} style={BoxProduct1Image} />
                     </View>
-                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }}>
-                        <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
+                    <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
+                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={TOStyles}>
                     <View style={{ height: '60%', width: width * 0.13 }}>
                         <FastImage resizeMode={cover} source={uriGuaran3} style={BoxProduct1Image} />
                     </View>
-                    <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: 8, marginTop: 10 }}>
+                    <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
                         <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
@@ -390,7 +388,7 @@ export let Guarantee = (props) => {
             <View style={[ItemCenter, { borderColor: '#ffbf00', borderRadius: 5, borderWidth: 1, width: '30%', }]}>
                 <FastImage resizeMode={cover} source={uriGuaran4} style={[BoxProduct1Image, { borderRadius: 4 }]} />
             </View>
-            <View style={{ width: '30%', justifyContent: 'center' }}>
+            <View style={{ justifyContent: 'center', width: '30%', }}>
                 <Carousel renderItem={_renderItem} data={item} autoplay autoplayInterval={5000} />
             </View>
         </View>
@@ -422,12 +420,12 @@ export let Category = (props) => {
         if (index < dataService?.category.length) {
             useEffect(() => {
                 (getFetchData[`category_product|${id_type}`] == undefined || (getFetchData[`category_product|${id_type}`]?.isFetching)) &&
-                    setTimeout(() => { FetchDataCate(id_type) }, 2 * (index + 1));
+                    FetchDataCate(id_type);
             }, [(getFetchData[`category_product|${id_type}`] == undefined || (getFetchData[`category_product|${id_type}`]?.isFetching))]);
             const uriCate = { uri: `${finip}/${image_path}/menu/${image_head}${Platform.OS == 'android' ? '_.webp' : ''}`, };
             return <TouchableOpacity activeOpacity={1} key={index} style={Categorys} onPress={() =>
                 Navi({ goScreen: 'CategoryScreen', navigation, setData: { id_type: id_type }, })}>
-                <FastImage source={uriCate} style={Category_box} resizeMode={stretch} />
+                <FastImage loadingIndicatorSource={LOADING_ICON} source={uriCate} style={Category_box} resizeMode={stretch} />
                 <View style={{ height: 25 }}>
                     <Text numberOfLines={2} style={[FontFamilySemiBold, FontSize8, FontCenter]}>{name}</Text>
                 </View>
@@ -448,15 +446,15 @@ export let Trend_Hit = (props) => {
     const [dataService, setDataService] = useState(undefined);
     const item = [
         { uriTrend: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`, } },
-        { uriTrend: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` },
+        { uriTrend: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` } },
     ]
     const dataBody = { type: 'Trend_Hit', };
-    const uri = `${ip}/mysql/DataServiceMain.php`;
+    const uriService = `${ip}/mysql/DataServiceMain.php`;
     const uriTrend1 = { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`, };
     const uriTrend2 = { uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop.gif`, };
     useEffect(() => {
         activeDataService && GetServices({
-            uriPointer: uri, dataBody, getDataSource: value => { setActiveDataService(false); setDataService(value); },
+            uriPointer: uriService, dataBody, getDataSource: value => { setActiveDataService(false); setDataService(value); },
         });
     }, [dataBody]);
     let _renderItem = (value, index) => {

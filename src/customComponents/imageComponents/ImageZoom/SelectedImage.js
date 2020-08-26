@@ -25,8 +25,6 @@ const RESTORE_ANIMATION_DURATION = 200;
 export default function SetectedImage(props) {
   const { ImageZ, setImageDragging } = props;
   const selectedPhotoMeasurement = ImageZ.selectedData;
-  return (
-    <Image source={{ uri: selectedPhotoMeasurement.dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode="contain"
-      resizeMethod="resize" />
-  );
-}
+  return <Image resizeMethod="resize" resizeMode="contain" source={{ uri: selectedPhotoMeasurement.dataMySQL }}
+    style={{ height: '100%', width: '100%' }} />;
+};

@@ -16,16 +16,19 @@ function ImageGallery(props) {
     const [bStoreIndex, setBStoreIndex] = useState([]);
     const [cStoreIndex, setCStoreIndex] = useState([]);
     const [randomLayout, setRandomLayout] = useState({});
-    let imageColumn = (value, index, boxwidth, boxheight) => <View key={index} style={{
-        height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginLeft: 5, marginTop: 5,
-        width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5),
-    }}>
-        <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-            <FastImage resizeMode={FastImage.resizeMode.cover} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                style={{ height: '100%', width: '100%', }} />
-        </TouchableOpacity>
-    </View>;
+    let imageColumn = (value, index, boxwidth, boxheight) => {
+        const uriImage = { uri: `${ip}/${value?.image_path}/${value?.image}`, };
+        return <View key={index} style={{
+            height: (height * 0.15 * boxheight) + ((boxheight - 1) * 5), marginLeft: 5, marginTop: 5,
+            width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5),
+        }}>
+            <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
+                <FastImage resizeMode={FastImage.resizeMode.cover} source={uriImage} style={{ height: '100%', width: '100%', }} />
+            </TouchableOpacity>
+        </View>;
+    };
     let imageRow = (value, index, boxwidth, boxheight, position, setbox) => {
+        const uriImage = { uri: `${ip}/${value?.image_path}/${value?.image}`, };
         if (setbox == 'row3' && cStoreIndex.indexOf(index) == -1) {
             for (var n = 0; n < 3; n++) {
                 cStoreIndex.indexOf(index + n) == -1 && cStoreIndex.push(index + n);
@@ -53,8 +56,7 @@ function ImageGallery(props) {
                 width: (width * 0.315 * boxwidth) + ((boxwidth - 1) * 5),
             }}>
                 <TouchableOpacity onPress={() => console.log(`click => ${index} boxwidth => ${boxwidth} boxheight => ${boxheight}`)}>
-                    <FastImage resizeMode={FastImage.resizeMode.cover} source={{ uri: `${ip}/${value?.image_path}/${value?.image}`, }}
-                        style={{ height: '100%', width: '100%', }} />
+                    <FastImage resizeMode={FastImage.resizeMode.cover} source={uriImage} style={{ height: '100%', width: '100%', }} />
                 </TouchableOpacity>
             </View>
             {position != 'left' && boxwidth < 3 && boxheight > 1 && <View>

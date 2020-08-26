@@ -16,6 +16,9 @@ import stylesFont from '../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GenArray, NavigationNavigate } from '..';
 ///----------------------------------------------------------------------------------------------->>>> Ip
+///----------------------------------------------------------------------------------------------->>>> set value
+const LOADING_ICON = require('../../../images/icon.png');
+const LOADING_ICON_STYLE = { height: '100%', opacity: 0.15, width: '100%' };
 ///----------------------------------------------------------------------------------------------->>>>
 const NUM_OF_DUP = 3;
 const approximatelyEqualTo = (a, b, epsilon = 0.01) => Math.abs(a - b) < epsilon;
@@ -58,8 +61,6 @@ export default class Carousel extends Component {
                 } else {
                     scrollX = isLastPage ? 0 : childWidth * currentPage;
                 };
-                console.log('setAutoPlay')
-                console.log(scrollX)
                 this.scrollView1.current.scrollTo({ x: scrollX, animated: true, });
             }, autoplayInterval);
         } else {
@@ -204,7 +205,8 @@ export default class Carousel extends Component {
     };
     defaultPropsDots = {
         activeBGColor: '#ffffff66', activeBorderColor: '#ffffffff', activeHeight: 10, activeWidth: 10, borderRadius: 20, borderWidth: 3,
-        height: null, inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10, marginHorizontal: 4, width: null,
+        height: null, inactiveBGColor: '#99999966', inactiveBorderColor: '#999999ff', inactiveHeight: 10, inactiveWidth: 10,
+        marginHorizontal: 4, width: null,
     };
     renderPaginationDots = () => {
         const { data, dotsStyle, paginationPosition, paginationType, } = this.props
@@ -317,9 +319,7 @@ export default class Carousel extends Component {
     };
 };
 const styles = StyleSheet.create({
-    scrollView1: {
-        flexGrow: 0,
-    },
+    scrollView1: { flexGrow: 0, },
 });
 Carousel.propTypes = {
     renderItem: PropTypes.func.isRequired,

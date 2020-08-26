@@ -147,8 +147,8 @@ export function
   let Highlights_Store = dataService2.map((value, index) => {
     const uri1 = { uri: value.image_BG, };
     const uri2 = { uri: value.image_Pro, };
-    return <TouchableOpacity>
-      <View key={index} style={{ borderColor: '#C4C4C4', borderWidth: 1.5, marginRight: 5, width: 150, }}>
+    return <TouchableOpacity key={index}>
+      <View style={{ borderColor: '#C4C4C4', borderWidth: 1.5, marginRight: 5, width: 150, }}>
         <View style={{ height: 60 }}>
           <FastImage resizeMode={cover} source={uri1} style={BoxProduct1Image} />
         </View>

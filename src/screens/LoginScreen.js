@@ -166,21 +166,21 @@ export let Register = (props) => {
       ช่องทางอื่น</Text>
     <View style={{ width: width * 0.90 }}>
       <TouchableOpacity>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#d34836', borderRadius: 5, paddingLeft: 10, paddingVertical: 3 }]}>
+        <View style={[stylesMain.FlexRow, { backgroundColor: '#d34836', borderRadius: 5, paddingLeft: 5, paddingVertical: 5 }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='google-plus' size={20} color='#d34836' />
           </View>
-          <View style={[stylesMain.ItemCenter, { width: '80%' }]}>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>เข้าสู่ระบบด้วย Gmail</Text>
           </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#3b5998', borderRadius: 5, paddingLeft: 10, paddingVertical: 3, marginTop: 5 }]}>
+        <View style={[stylesMain.FlexRow, { backgroundColor: '#3b5998', borderRadius: 5, paddingLeft: 5, paddingVertical: 5, marginTop: 8 }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='facebook' size={20} color='#3b5998' />
           </View>
-          <View style={[stylesMain.ItemCenter, { width: '80%' }]}>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Facebook</Text>
           </View>
         </View>

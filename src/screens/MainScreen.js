@@ -247,6 +247,7 @@ function MainScreen(props) {
             scrollEventThrottle={8} showsVerticalScrollIndicator={false} />
         <Botton_PopUp_FIN />
         <Toolbar {...props} style={{ flex: 5, }} />
+
         <ExitAppModule {...props} />
     </SafeAreaView>;
 };
@@ -315,7 +316,7 @@ export let Slide = (props) => {
         uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
         return <View style={child} key={index}>
-            <Image loadingIndicatorSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriSlide}
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriSlide}
                 style={[LOADING_ICON_STYLE, { opacity: 1 }]} />
         </View>;
     };
@@ -425,7 +426,7 @@ export let Category = (props) => {
             const uriCate = { uri: `${finip}/${image_path}/menu/${image_head}${Platform.OS == 'android' ? '_.webp' : ''}`, };
             return <TouchableOpacity activeOpacity={1} key={index} style={Categorys} onPress={() =>
                 Navi({ goScreen: 'CategoryScreen', navigation, setData: { id_type: id_type }, })}>
-                <FastImage loadingIndicatorSource={LOADING_ICON} source={uriCate} style={Category_box} resizeMode={stretch} />
+                <FastImage defaultSource={LOADING_ICON} source={uriCate} style={Category_box} resizeMode={stretch} />
                 <View style={{ height: 25 }}>
                     <Text numberOfLines={2} style={[FontFamilySemiBold, FontSize8, FontCenter]}>{name}</Text>
                 </View>

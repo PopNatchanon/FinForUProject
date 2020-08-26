@@ -215,11 +215,9 @@ export default function Imageout(props) {
     let animatedStyle = { transform: gesturePosition.getTranslateTransform(), };
     animatedStyle.transform.push({ scale: scaleValue, });
     return imageHeight > 0 && imageWidth > 0 && <View {...gestureHandler.panHandlers} ref={_parent} key={dataIndex}>
-        <Animated.View ref={_photoComponent} style={[{
-            height: hV, opacity: 1, width: wV,
-        }, isScaling && dataIndex == selectedData.index ? animatedStyle : null]}>
-            <Animated.Image source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} resizeMode='contain'
-                resizeMethod='resize' />
+        <Animated.View ref={_photoComponent} style={[{ height: hV, opacity: 1, width: wV, }, isScaling && dataIndex == selectedData.index ?
+            animatedStyle : null]}>
+            <Animated.Image resizeMethod='resize' resizeMode='contain' source={{ uri: dataMySQL }} style={{ height: '100%', width: '100%' }} />
         </Animated.View>
     </View>;
 };

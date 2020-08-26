@@ -28,7 +28,7 @@ function BellScreen(props) {
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <AppBar titleHead='การแจ้งเตือน' />
         <ScrollView>
-            <Popular_store {...props} />
+            {/* <Popular_store {...props} /> */}
             <Pro_for_U {...props} />
             <Update_buy {...props} />
         </ScrollView>
@@ -61,20 +61,20 @@ export let Popular_store = (props) => {
             // var dataMySQL = `${ip}/mysql/uploads/slide/${item.image}`;
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() =>
                 NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: item.id_store }, navigation })}>
-                <View style={stylesMain.BoxStore3Box}>
-                    <FastImage source={{ uri: value.image }} style={stylesMain.BoxStore3Image} />
-                    <Text numberOfLines={3} style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyText, stylesFont.FontSize7,
-                    { height: height * 0.15 }]}>{value.name}</Text>
+                <View style={{ width: width * 0.33, height: 'auto', marginHorizontal: 2.5, borderRadius: 5, borderColor: '#ECECEC', borderWidth: 1, aspectRatio: 0.65, }}>
+                    <FastImage source={{ uri: value.image }} style={{ width: '100%', height: height * 0.18, borderRadius: 5 }} />
+                    <View style={{ paddingHorizontal: 3 }}>
+                        <Text numberOfLines={3} style={[stylesMain.BoxStore3Text, stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>{value.name}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>;
         }));
-    return <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView]}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ร้านเด็ด</Text>
-            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดูทั้งหมด</Text>
+    return <View style={stylesMain.FrameBackground}>
+        <View style={[stylesMain.FrameBackgroundTextBox, { paddingTop: 3 }]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ร้านเด็ด</Text>
+            <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ดูทั้งหมด</Text>
         </View>
         <ScrollView horizontal>
-
             {dataNewStore}
         </ScrollView>
     </View>;
@@ -87,37 +87,37 @@ export let Pro_for_U = (props) => {
         { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },
         { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, name: 'โปรโมชั่นยิ่งซื้อมาก ยิ่งประหยัดมาก (Buy more save more) จะช่วยให้ลูกค้าเพิ่มปริมาณการซื้อ เช่น ซื้อ 2 ชิ้นลด 50 บาท, ซื้อ 3 กล่องประหยัดทันที 100 บาท', },
         { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop4.jpg`, name: 'โปรโมชั่นสร้างโปรแกรมสำหรับลูกค้าประจำ (Loyalty Program) ลูกค้าขาจรกลายเป็นลูกค้าประจำได้ง่ายๆ เพียงแค่เราสร้างระบบสมาชิก หรือโปรแกรมสะสมแต้มรับส่วนลด แลกของรางวัล', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop5.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop6.jpg`, name: 'โปรโมชั่นแลกซื้อ (Redeem Offer) เช่น ซื้อสินค้าครบ 500 บาท', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop5.jpg`, name: 'ชิงโชค (Lucky Draw) ส่งชิงโชคเพื่อแลกของรางวัลใหญ่ เช่น ตั๋วเครื่องบิน ที่พัก ฯลฯ หลักการง่ายๆ คือ ของรางวัลต้องมีมูลค่า และต้องโดนใจลูกค้าสุดๆ', },]
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop5.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },]
     let for_U_Item = (
         for_U_Store.map((value, index) => {
-            return <TouchableOpacity activeOpacity={1} onPress={() =>
+            return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
                 NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
-                <View style={[stylesMain.FlexRow, { marginTop: 5, backgroundColor: '#FFFFFF', padding: 5, marginHorizontal: 3 }]}>
-                    <FastImage style={stylesMain.BoxStore4Image}
-                        source={{ uri: value.image }} />
-                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 5, width: width * 0.70 }]}>
+                <View style={[stylesMain.FlexRow, { marginTop: 3, marginHorizontal: 3, borderColor: '#ECECEC', borderWidth: 1, }]}>
+                    <FastImage style={{ height: 80, width: '30%',}} source={{ uri: value.image }} />
+                    <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 5, width: '68%' }]}>
                         {value.name}</Text>
                 </View>
             </TouchableOpacity>
         }))
-    return <View>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                โปรเด็ดที่คัดมาเพื่อคุณ</Text>
+    return <View style={stylesMain.FrameBackground}>
+        <View style={[stylesMain.FrameBackgroundTextBox, { paddingTop: 3 }]}>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>โปรเด็ดที่คัดมาเพื่อคุณ</Text>
         </View>
-        <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView,]}>
-            {for_U_Item}
-        </View>
+        {for_U_Item}
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Pro_for_U
 export let Update_buy = (props) => {
     const { navigation } = props;
+    const Updateitem = [
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, name: 'โปรโมชั่นลดราคา (Price off) ไม่ว่าจะเป็น ลดราคาเป็นเปอร์เซ็นต์ หรือลดราคาเป็นบาท เช่น ลด 10% หรือ ลดราคา 100 บาท', },
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, name: 'โปรโมชั่นยิ่งซื้อมาก ยิ่งประหยัดมาก (Buy more save more) จะช่วยให้ลูกค้าเพิ่มปริมาณการซื้อ เช่น ซื้อ 2 ชิ้นลด 50 บาท, ซื้อ 3 กล่องประหยัดทันที 100 บาท', },
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop4.jpg`, name: 'โปรโมชั่นสร้างโปรแกรมสำหรับลูกค้าประจำ (Loyalty Program) ลูกค้าขาจรกลายเป็นลูกค้าประจำได้ง่ายๆ เพียงแค่เราสร้างระบบสมาชิก หรือโปรแกรมสะสมแต้มรับส่วนลด แลกของรางวัล', },
+        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop5.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },]
     return <View>
         <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>อัพเดทคำสั่งซื้อ</Text>
+            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>อัพเดทคำสั่งซื้อ</Text>
         </View>
         <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
             <TouchableOpacity activeOpacity={1} onPress={() =>

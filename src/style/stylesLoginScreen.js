@@ -23,8 +23,8 @@ export default StyleSheet.create({
         height: 'auto',
     },
     Logo: {
-        height: 180,
-        width: 280,
+        height: 100,
+        width: 200,
     },
     ///--------------------------------------------------------------------------///
     Login_Box: {
@@ -34,12 +34,8 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     Login_BoxA: {
-        height: 250,
-        width: '80%',
-        backgroundColor: '#FFFFFF',
-        borderRadius: 10,
-        paddingTop: 20,
-        paddingRight: 10,
+        height: 180,
+        // backgroundColor: 'red',
     },
     Login_Box_Text: {
         marginTop: 10,
@@ -60,22 +56,14 @@ export default StyleSheet.create({
         color: mainColor,
     },
     Login_Box_Text_B: {
-        paddingHorizontal: 50,
         height: 40,
-        backgroundColor: '#17a2b8',
-        borderRadius: 10,
-    },
-    Login__Text: {
-        color: '#FFF',
-        textAlign: 'center',
+        // backgroundColor: mainColor,
+        backgroundColor: '#C4C4C4',
+        borderRadius: 5,
     },
     ///--------------------------------------------------------------------------///
     Register_Box: {
-        justifyContent: 'center',
         alignItems: 'center',
-    },
-    Register_Box_A: {
-        width: '80%',
     },
     Register_Box_Button: {
         marginTop: 5,
@@ -146,11 +134,5 @@ export default StyleSheet.create({
         marginRight: 'auto',
         margin: 2,
         color: '#FFF',
-    },
-    eyestyle: {
-        marginTop: -48,
-        paddingBottom: 2,
-        padding: 10,
-        marginLeft: '86%',
     },
 })

@@ -14,10 +14,13 @@ import { Form, TextValidator, } from 'react-native-validator-form';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
+import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen'
 import { Toolbar, NavigationNavigate } from '../customComponents';
@@ -30,7 +33,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 function LoginScreen(props) {
-  return <SafeAreaView style={{ backgroundColor: '#071727', flex: 1 }}>
+  return <SafeAreaView style={{ backgroundColor: '#FFFFFF', flex: 1, }}>
     <ScrollView>
       <Logo />
       <Login {...props} />
@@ -41,12 +44,13 @@ function LoginScreen(props) {
   </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Logo
-export let Logo = (props) => <>
-  <ImageBackground style={stylesLogin.Logo_Box} source={{ uri: `${ip}/MySQL/uploads/icon_5/sign-in-bg02.jpg`, }}
-    resizeMode={FastImage.resizeMode.stretch}>
-    <FastImage style={stylesLogin.Logo} source={require('../../images/add_cart_fin.png')} resizeMode={FastImage.resizeMode.contain} />
-  </ImageBackground>
-</>;
+export let Logo = (props) => <View style={{ alignItems: 'center', marginTop: 20 }}>
+  {/* <ImageBackground style={stylesLogin.Logo_Box} 
+  source={{ uri: `${ip}/MySQL/uploads/icon_5/sign-in-bg02.jpg`, }}
+    resizeMode={FastImage.resizeMode.stretch}> */}
+  <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font2.png')} resizeMode={FastImage.resizeMode.contain} />
+  {/* </ImageBackground> */}
+</View>;
 ///----------------------------------------------------------------------------------------------->>>> Login
 export let Login = (props) => {
   const { navigation } = props
@@ -98,41 +102,46 @@ export let Login = (props) => {
   let PassInput = (value) => { user.password = value; setUser(user); setActiveUser(!activeUser); };
   let setStateEye = (value) => setEye(value);
   return <View style={stylesLogin.Login_Box}>
-    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', margin: 5 }]}>เข้าสู่ระบบ</Text>
+    {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { margin: 5 }]}>เข้าสู่ระบบ</Text> */}
     <View style={stylesLogin.Login_BoxA}>
       <Form ref={FormLoginRef} onSubmit={(value) => getData(value)}>
-        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>อีเมล</Text>
-        <TextValidator name="email" label="text" validators={['required']} errorMessages={['กรุณากรอกอีเมล']} type="text"
-          keyboardType="email-address" value={user.email} onChangeText={(value) => EmailInput(value)} style={[stylesFont.FontFamilyText,
-          stylesFont.FontSize6]} errorStyle={{
-            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
-            underlineValidColor: 'gray', underlineInvalidColor: 'red'
-          }} />
-        <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสผ่าน</Text>
-        <TextValidator name="pass" label="text" type="text" validators={['required']} errorMessages={['กรุณารหัสผ่าน']}
-          value={user.password} secureTextEntry={eye} onChangeText={(value) => PassInput(value)}
-          style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} errorStyle={{
-            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
-            underlineValidColor: 'gray', underlineInvalidColor: 'red'
-          }} />
-        <TouchableOpacity style={stylesLogin.eyestyle} onPress={() => setStateEye(!eye)}>
-          <View>
-            <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} style={{ marginTop: 5 }} />
-          </View>
-        </TouchableOpacity>
-        <View style={{ marginTop: 4 }}>
-          <Text style={[stylesLogin.Login_Box_Text_L, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ลืมรหัสผ่าน?</Text>
+        <View style={[stylesMain.FlexRow, /*{ borderBottomWidth: 1, borderBottomColor: '#C4C4C4' }*/]} >
+          <IconSimpleLineIcons name='user' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+          {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>อีเมล</Text> */}
+          <TextValidator name="email" label="text" validators={['required']} placeholder='Please enter your email address' errorMessages={['กรุณากรอกอีเมล']} type="text"
+            keyboardType="email-address" value={user.email} onChangeText={(value) => EmailInput(value)}
+            style={[stylesFont.FontFamilyText, { width: width * 0.80, left: 5, fontSize: 15 }]} errorStyle={{
+              container: { top: 45, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+              underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+            }} />
         </View>
-        <View style={[stylesMain.ItemCenter]}>
-          <TouchableOpacity onPress={() => handleSubmit()}>
-            <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
-              <Text style={[
-                stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize4, stylesMain.ItemCenterVertical
-              ]}>เข้าสู่ระบบ</Text>
-            </View>
-          </TouchableOpacity>
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสผ่าน</Text> */}
+        <View style={[stylesMain.FlexRow, { top: 15 }]}>
+          <IconSimpleLineIcons name='lock' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+          <TextValidator name="pass" label="text" type="text" placeholder='Please enter your password' validators={['required']} errorMessages={['กรุณารหัสผ่าน']}
+            value={user.password} secureTextEntry={eye} onChangeText={(value) => PassInput(value)}
+            style={[stylesFont.FontFamilyText, { width: width * 0.53, left: 5, fontSize: 15 }]} errorStyle={{
+              container: { top: 45, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+              underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+            }} />
+          <View style={[stylesMain.FlexRow, { top: 15, width: width * 0.25, justifyContent: 'space-between', left: 5 }]}>
+            <TouchableOpacity onPress={() => setStateEye(!eye)}>
+              <IconFeather RightItem name={eye == false ? "eye" : "eye-off"} size={20} />
+            </TouchableOpacity>
+            <Text style={[stylesFont.FontSize7, { color: '#C4C4C4' }]}>|</Text>
+            <TouchableOpacity>
+              <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>ลืมรหัสผ่าน?</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </Form>
+      <View style={{ top: 40 }}>
+        <TouchableOpacity onPress={() => handleSubmit()}>
+          <View style={[stylesLogin.Login_Box_Text_B, stylesMain.ItemCenter]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesMain.ItemCenter, { color: '#FFFF' }]}>เข้าสู่ระบบ</Text>
+          </View>
+        </TouchableOpacity>
+      </View>
     </View>
     <SCLAlert theme="danger" show={showErrorMessage} subtitle={errorMessage && errorMessage.message}
       subtitleStyle={[stylesFont.FontFamilyBold, stylesFont.FontSize4]} titleContainerStyle={{ marginBottom: -40 }}
@@ -147,31 +156,35 @@ export let Login = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Register
 export let Register = (props) => {
   const { navigation } = props;
-  return <View style={stylesLogin.Register_Box}>
-    <View style={stylesLogin.Register_Box_A}>
-      <View style={{ alignItems: 'flex-end' }}>
-        <TouchableOpacity style={{ width: 120, }} onPress={() => NavigationNavigate({ goScreen: 'RegisterScreen', navigation })}>
-          <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginTop: 10, color: '#f5df89', }]}>สมัครสมาชิกใหม่</Text>
-        </TouchableOpacity>
-      </View>
-      <View>
-        <Text style={[stylesFont.FontCenter, stylesFont.FontSize4, stylesFont.FontFamilyText, { margin: 10, color: '#FFFFFF' }]}>
-          เข้าสู่ระบบด้วยช่องทางอื่น</Text>
-      </View>
-      <View style={stylesLogin.Register_Box_Button}>
-        <TouchableOpacity>
-          <View style={{ marginLeft: 10, width: 140, height: 50 }}>
-            <FastImage style={stylesLogin.Register_Box_image} source={require('../../icon/logoutappfacebook.png')}
-              resizeMode={FastImage.resizeMode.contain} />
+  return <View style={{ alignItems: 'center' }}>
+    <View style={{ alignItems: 'flex-end', width: '85%' }}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'RegisterScreen', navigation })}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, color: mainColor, }]}>สมัครสมาชิกใหม่</Text>
+      </TouchableOpacity>
+    </View>
+    <Text style={[stylesFont.FontCenter, stylesFont.FontSize4, stylesFont.FontFamilyText, { margin: 10, }]}>
+      ช่องทางอื่น</Text>
+    <View style={{ width: width * 0.90 }}>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, { backgroundColor: '#d34836', borderRadius: 5, paddingLeft: 10, paddingVertical: 3 }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='google-plus' size={20} color='#d34836' />
           </View>
-        </TouchableOpacity>
-        <TouchableOpacity>
-          <View style={{ marginLeft: 10, width: 140, height: 50 }}>
-            <FastImage style={stylesLogin.Register_Box_image} source={require('../../icon/logoutapp14.png')}
-              resizeMode={FastImage.resizeMode.contain} />
+          <View style={[stylesMain.ItemCenter, { width: '80%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>เข้าสู่ระบบด้วย Gmail</Text>
           </View>
-        </TouchableOpacity>
-      </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, { backgroundColor: '#3b5998', borderRadius: 5, paddingLeft: 10, paddingVertical: 3, marginTop: 5 }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='facebook' size={20} color='#3b5998' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '80%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Facebook</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
     </View>
   </View>;
 };

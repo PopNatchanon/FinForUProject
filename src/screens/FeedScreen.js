@@ -179,7 +179,7 @@ export function Highlights(props) {
           </TouchableOpacity>
         </View>
       </View>
-      </TouchableOpacity>);
+    </TouchableOpacity>);
   function headerStoryList() {
     return (
       selectedIndex == 1 &&
@@ -243,9 +243,7 @@ export function Feed_Login(props) {
           { borderColor: '#0A55A6', borderWidth: 1, borderRadius: 20, padding: 5, width: width * 0.60, marginTop: 10 }]}>
             <FastImage
               style={{ height: 40, width: 40, borderRadius: 25, borderWidth: 1 }}
-              source={{
-                uri: `${ip}/MySQL/uploads/addmin/1212.png`,
-              }}
+              source={{ uri: `${ip}/MySQL/uploads/addmin/1212.png`, }}
               resizeMode={FastImage.resizeMode.cover} />
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 10 }]}>Store A</Text>
           </View>

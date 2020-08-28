@@ -17,6 +17,7 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
@@ -48,7 +49,7 @@ export let Logo = (props) => <View style={{ alignItems: 'center', marginTop: 20 
   {/* <ImageBackground style={stylesLogin.Logo_Box} 
   source={{ uri: `${ip}/MySQL/uploads/icon_5/sign-in-bg02.jpg`, }}
     resizeMode={FastImage.resizeMode.stretch}> */}
-  <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font2.png')} resizeMode={FastImage.resizeMode.contain} />
+  <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font1.png')} resizeMode={FastImage.resizeMode.contain} />
   {/* </ImageBackground> */}
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Login
@@ -106,7 +107,7 @@ export let Login = (props) => {
     <View style={stylesLogin.Login_BoxA}>
       <Form ref={FormLoginRef} onSubmit={(value) => getData(value)}>
         <View style={[stylesMain.FlexRow, /*{ borderBottomWidth: 1, borderBottomColor: '#C4C4C4' }*/]} >
-          <IconSimpleLineIcons name='user' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+          <IconSimpleLineIcons name='user' size={25} style={{ top: 5, color: '#C4C4C4' }} />
           {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>อีเมล</Text> */}
           <TextValidator name="email" label="text" validators={['required']} placeholder='Please enter your email address' errorMessages={['กรุณากรอกอีเมล']} type="text"
             keyboardType="email-address" value={user.email} onChangeText={(value) => EmailInput(value)}
@@ -117,7 +118,7 @@ export let Login = (props) => {
         </View>
         {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสผ่าน</Text> */}
         <View style={[stylesMain.FlexRow, { top: 15 }]}>
-          <IconSimpleLineIcons name='lock' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+          <IconSimpleLineIcons name='lock' size={25} style={{ top: 5, color: '#C4C4C4' }} />
           <TextValidator name="pass" label="text" type="text" placeholder='Please enter your password' validators={['required']} errorMessages={['กรุณารหัสผ่าน']}
             value={user.password} secureTextEntry={eye} onChangeText={(value) => PassInput(value)}
             style={[stylesFont.FontFamilyText, { width: width * 0.53, left: 5, fontSize: 15 }]} errorStyle={{
@@ -162,11 +163,11 @@ export let Register = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginTop: 10, color: mainColor, }]}>สมัครสมาชิกใหม่</Text>
       </TouchableOpacity>
     </View>
-    <Text style={[stylesFont.FontCenter, stylesFont.FontSize4, stylesFont.FontFamilyText, { margin: 10, }]}>
+    <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { color: '#C4C4C4', margin: 10 }]}>
       ช่องทางอื่น</Text>
     <View style={{ width: width * 0.90 }}>
       <TouchableOpacity>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#d34836', borderRadius: 5, paddingLeft: 5, paddingVertical: 5 }]}>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#d34836', }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='google-plus' size={20} color='#d34836' />
           </View>
@@ -176,12 +177,32 @@ export let Register = (props) => {
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#3b5998', borderRadius: 5, paddingLeft: 5, paddingVertical: 5, marginTop: 8 }]}>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#3b5998', }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='facebook' size={20} color='#3b5998' />
           </View>
           <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Facebook</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#00C300', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontisto name='line' size={20} color='#00C300' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Line</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#24201c', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='apple' size={20} color='#24201c' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Apple ID</Text>
           </View>
         </View>
       </TouchableOpacity>

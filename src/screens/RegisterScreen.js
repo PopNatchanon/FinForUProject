@@ -13,8 +13,12 @@ import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
 import ModalDropdown from 'react-native-modal-dropdown';
 import RadioButtonRN from 'radio-buttons-react-native';
+import DateTimePicker from '@react-native-community/datetimepicker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
+import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontisto from 'react-native-vector-icons/Fontisto';
+import IconSimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesLogin from '../style/stylesLoginScreen';
@@ -30,7 +34,7 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Register_OTPScreen);
 function Register_OTPScreen(props) {
-  return <SafeAreaView style={{ flex: 1, backgroundColor: '#071727' }}>
+  return <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
     <ScrollView>
       <Logo />
       <Login {...props} />
@@ -40,16 +44,15 @@ function Register_OTPScreen(props) {
   </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Logo
-export let Logo = (props) => <View>
-  <ImageBackground style={stylesLogin.Logo_Box} source={{ uri: `${ip}/MySQL/uploads/icon_5/11111-10.jpg`, }}
-    resizeMode={FastImage.resizeMode.stretch}>
-    <FastImage style={stylesLogin.Logo} source={require('../../icon/unicorn-fin-logoaaaa.png')}
-      resizeMode={FastImage.resizeMode.contain} />
-  </ImageBackground>
+export let Logo = (props) => <View style={{ alignItems: 'center', marginTop: 20 }}>
+  <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font1.png')}
+    resizeMode={FastImage.resizeMode.contain} />
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Login
 export let Login = (props) => {
   const { navigation, } = props;
+  const [checked, setChecked] = useState(new Date());
+  const [activeDate, setActiveDate] = useState(false);
   const [activeNow, setActiveNow] = useState(0);
   const [date, setDate] = useState(new Date());
   const [dataDay, setDataDay] = useState(undefined);
@@ -57,8 +60,15 @@ export let Login = (props) => {
   const [dataYear, setDataYear] = useState(undefined);
   const [item1, setItem1] = useState(false);
   const [show, setShow] = useState(false);
+  const [mode, setMode] = useState('date');
   const [user, setUser] = useState({});
   const FormLoginRef = useRef(null)
+  let onChange = (event, selectedDate) => {
+    const currentDate = selectedDate || date;
+    setShow(Platform.OS === 'ios'); setDate(currentDate);
+    setActiveDate(true);
+  };
+  let showMode = currentMode => { setShow(true); setMode(currentMode); };
   useEffect(() => {
     Form.addValidationRule('isPasswordMatch', (value) => {
       if (value !== user?.password) { return false; };
@@ -66,98 +76,98 @@ export let Login = (props) => {
     });
     return Form.removeValidationRule('isPasswordMatch');
   });
-  let getDataYear = () => {
-    var dates = new Date().getFullYear();
-    var box = [];
-    for (var min = 1950; min <= parseInt(dates); min = min + 1) { box.push(String(min)); };
-    setDataYear(box);
-    setDate(new Date());
-  };
-  let getDataMo = (itemValue) => {
-    if (itemValue != null) {
-      const item = String(itemValue);
-      var box = [];
-      for (var min = 0; min <= 11; min = min + 1) { box.push(String(min)); };
-      setDataMo(box);
-      setDate(new Date(date).setFullYear(item));
-    };
-  };
-  let getDataDaySet = (itemValue) => {
-    if (itemValue != null) {
-      const item = String(itemValue);
-      setDate(new Date(date).setDate(item));
-    };
-  };
-  let getDataDay = (itemValue) => {
-    var months_thai = [
-      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-    var value = months_thai.lastIndexOf(itemValue);
-    if (value != null) {
-      const item = String(value);
-      var box = [];
-      for (var min = 1; min <= 31; min = min + 1) { box.push(String(min)); };
-      setDate(new Date(date).setMonth(item));
-      setDataDay(box);
-    };
-  };
-  let dataYears = () => dataYear?.map((item) => { return (item); });
-  let dataMos = () => {
-    var months_thai = [
-      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
-    var months_eng = [
-      'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
-    ];
-    return dataMo?.map((item) => { return (months_thai[item]); });
-  };
-  let dataDays = () => dataDay?.map((item) => { return (item); });
-  let getData = () => {
-    user.birth_date = new Date(date).getDate();
-    user.birth_mon = new Date(date).getMonth() + 1;
-    user.birth_year = new Date(date).getFullYear();
-    setUser(user);
-    fetch(`${finip}/auth/register_customer`, {
-      method: 'POST',
-      headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(user),
-    }).then((response) => response.json()).then((responseJson) => {
-      if (responseJson.result == 'Complete') {
-        fetch(`${finip}/auth/login_customer`, {
-          method: 'POST',
-          headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify({ email: user?.email, password: user?.password }),
-        }).then((response) => response.json()).then((responseJson) => {
-          var userser = {};
-          responseJson.map((item) => {
-            userser.id_customer = item.id_customer;
-            userser.name = item.name;
-            userser.email = item.email;
-            userser.telphone = item.telphone;
-            userser.image = item.image;
-            userser.image_path = item.image_path;
-            userser.gender = item.gender;
-            userser.address = item.address;
-          });
-          clearAll();
-          storeData(userser);
-          if (userser.address != null) {
-            navigation.goBack();
-            navigation.replace('MainScreen');
-          } else {
-            navigation.goBack();
-            navigation.replace('MainScreen');
-          };
-        }).catch((error) => { console.error(error); });
-      } else { alert(responseJson.result) };
-    }).catch((error) => { console.error(error); });
-  };
+  // let getDataYear = () => {
+  //   var dates = new Date().getFullYear();
+  //   var box = [];
+  //   for (var min = 1950; min <= parseInt(dates); min = min + 1) { box.push(String(min)); };
+  //   setDataYear(box);
+  //   setDate(new Date());
+  // };
+  // let getDataMo = (itemValue) => {
+  //   if (itemValue != null) {
+  //     const item = String(itemValue);
+  //     var box = [];
+  //     for (var min = 0; min <= 11; min = min + 1) { box.push(String(min)); };
+  //     setDataMo(box);
+  //     setDate(new Date(date).setFullYear(item));
+  //   };
+  // };
+  // let getDataDaySet = (itemValue) => {
+  //   if (itemValue != null) {
+  //     const item = String(itemValue);
+  //     setDate(new Date(date).setDate(item));
+  //   };
+  // };
+  // let getDataDay = (itemValue) => {
+  //   var months_thai = [
+  //     "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+  //   ];
+  //   var value = months_thai.lastIndexOf(itemValue);
+  //   if (value != null) {
+  //     const item = String(value);
+  //     var box = [];
+  //     for (var min = 1; min <= 31; min = min + 1) { box.push(String(min)); };
+  //     setDate(new Date(date).setMonth(item));
+  //     setDataDay(box);
+  //   };
+  // };
+  // let dataYears = () => dataYear?.map((item) => { return (item); });
+  // let dataMos = () => {
+  //   var months_thai = [
+  //     "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+  //   ];
+  //   var months_eng = [
+  //     'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'
+  //   ];
+  //   return dataMo?.map((item) => { return (months_thai[item]); });
+  // };
+  // let dataDays = () => dataDay?.map((item) => { return (item); });
+  // let getData = () => {
+  //   user.birth_date = new Date(date).getDate();
+  //   user.birth_mon = new Date(date).getMonth() + 1;
+  //   user.birth_year = new Date(date).getFullYear();
+  //   setUser(user);
+  //   fetch(`${finip}/auth/register_customer`, {
+  //     method: 'POST',
+  //     headers: {
+  //       'Accept': 'application/json',
+  //       'Content-Type': 'application/json',
+  //     },
+  //     body: JSON.stringify(user),
+  //   }).then((response) => response.json()).then((responseJson) => {
+  //     if (responseJson.result == 'Complete') {
+  //       fetch(`${finip}/auth/login_customer`, {
+  //         method: 'POST',
+  //         headers: {
+  //           'Accept': 'application/json',
+  //           'Content-Type': 'application/json',
+  //         },
+  //         body: JSON.stringify({ email: user?.email, password: user?.password }),
+  //       }).then((response) => response.json()).then((responseJson) => {
+  //         var userser = {};
+  //         responseJson.map((item) => {
+  //           userser.id_customer = item.id_customer;
+  //           userser.name = item.name;
+  //           userser.email = item.email;
+  //           userser.telphone = item.telphone;
+  //           userser.image = item.image;
+  //           userser.image_path = item.image_path;
+  //           userser.gender = item.gender;
+  //           userser.address = item.address;
+  //         });
+  //         clearAll();
+  //         storeData(userser);
+  //         if (userser.address != null) {
+  //           navigation.goBack();
+  //           navigation.replace('MainScreen');
+  //         } else {
+  //           navigation.goBack();
+  //           navigation.replace('MainScreen');
+  //         };
+  //       }).catch((error) => { console.error(error); });
+  //     } else { alert(responseJson.result) };
+  //   }).catch((error) => { console.error(error); });
+  // };
   let handleSubmit = () => { FormLoginRef.current.submit(); };
   let emailInput = (event) => {
     user.email = event;
@@ -191,45 +201,62 @@ export let Login = (props) => {
   let setStateItem1 = () => {
     setItem1(!item1);
   };
-  dataYear == undefined && getDataYear()
-  dataMo == undefined && getDataMo(new Date())
-  dataDay == undefined && getDataDay(new Date())
+  // dataYear == undefined && getDataYear()
+  // dataMo == undefined && getDataMo(new Date())
+  // dataDay == undefined && getDataDay(new Date())
   let FormBody = () => {
     // activeNow < 2 && setState({ activeNow: activeNow + 1, date: new Date('2000') });
-    let DataDay = dataDays();
-    let DataMo = dataMos();
-    let DataYear = dataYears();
-    var day = new Date(date).getDate();
-    var month = new Date(date).getMonth();
-    var year = new Date(date).getFullYear();
-    var months_thai = [
-      "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
-    ];
+    // let DataDay = dataDays();
+    // let DataMo = dataMos();
+    // let DataYear = dataYears();
+    // var day = new Date(date).getDate();
+    // var month = new Date(date).getMonth();
+    // var year = new Date(date).getFullYear();
+    // var months_thai = [
+    //   "มกราคม", "กุมภาพันธ์", "มีนาคม", "เมษายน", "พฤษภาคม", "มิถุนายน", "กรกฎาคม", "สิงหาคม", "กันยายน", "ตุลาคม", "พฤศจิกายน", "ธันวาคม"
+    // ];
     const data = [{ label: 'ชาย', value: 'male', }, { label: 'หญิง', value: 'female', }];
     return <Form ref={FormLoginRef} onSubmit={(value) => getData(value)}>
-      <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>อีเมล</Text>
-      <TextValidator name="email" label="text" validators={['required']} errorMessages={['กรุณากรอกอีเมล']} type="text"
-        keyboardType="email-address" value={user?.email} onChangeText={(value) => emailInput(value)} style={[stylesFont.FontFamilyText,
-        stylesFont.FontSize6]} errorStyle={{
-          container: { bottom: -10, left: 4, position: 'absolute' }, ext: { color: 'red' }, underlineValidColor: 'gray',
-          underlineInvalidColor: 'red'
-        }} />
-      <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสยืนยันผ่านอีเมล</Text>
-      <TextValidator name="pass" label="text" type="text" value={user?.passmail} maxLength={6} onChangeText={(value) =>
-        PassMailInput(value)} style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} errorStyle={{
-          container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red' }, underlineValidColor: 'gray',
-          underlineInvalidColor: 'red'
-        }} />
-      <View style={stylesLogin.Countdownstyle}>
-        <Text style={[stylesLogin.CountdownstyleSubmit, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>ส่ง</Text>
+      <View style={stylesMain.FlexRow}>
+        <IconFontisto name='email' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>อีเมล</Text> */}
+        <TextValidator name="email" label="text" validators={['required']} placeholder='example@mail.com' errorMessages={['กรุณากรอกอีเมล']} type="text"
+          keyboardType="email-address" value={user?.email} onChangeText={(value) => emailInput(value)} style={[stylesFont.FontFamilyText,
+          stylesFont.FontSize7, { width: width * 0.8, left: 5 }]} errorStyle={{
+            container: { bottom: -10, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+            underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+          }} />
       </View>
-      <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>ชื่อ</Text>
-      <TextValidator name="name" label="text" validators={['required', 'isString']} type="text" value={user?.name}
-        errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']} onChangeText={(value) => unameInput(value)}
-        style={[stylesFont.FontFamilyText, stylesFont.FontSize6]} errorStyle={{
-          container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red' }, underlineValidColor: 'gray',
-          underlineInvalidColor: 'red'
-        }} />
+      <View style={stylesMain.FlexRow}>
+        <IconSimpleLineIcons name='lock' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสผ่าน</Text> */}
+        <TextValidator name="pass" label="text" type="text" placeholder='Please enter your password' value={user?.passmail} validators={['required']} errorMessages={['กรุณากรอกรหัสผ่าน']}
+          maxLength={6} onChangeText={(value) => PassMailInput(value)} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.8, left: 5 }]}
+          errorStyle={{
+            container: { bottom: -10, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+            underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+          }} />
+      </View>
+      <View style={stylesMain.FlexRow}>
+        <IconSimpleLineIcons name='lock' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>รหัสยืนยันผ่านอีกครั้ง</Text> */}
+        <TextValidator name="pass" label="text" type="text" placeholder='Please enter your password' value={user?.passmail} maxLength={6} validators={['required']}
+          onChangeText={(value) => PassMailInput(value)} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.8, left: 5 }]} errorMessages={['กรุณากรอกรหัสผ่านอีกครั้ง']}
+          errorStyle={{
+            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+            underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+          }} />
+      </View>
+      <View style={stylesMain.FlexRow}>
+        <IconSimpleLineIcons name='user' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>ชื่อ</Text> */}
+        <TextValidator name="name" label="text" validators={['required', 'isString']} placeholder='Please enter your name ' type="text" value={user?.name}
+          errorMessages={['กรุณากรอกชื่อ', 'กรุณากรอกชื่อให้ถูกต้อง']} onChangeText={(value) => unameInput(value)}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.8, left: 5 }]} errorStyle={{
+            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+            underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+          }} />
+      </View>
       {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>
           รหัสผ่าน</Text>
         <TextValidator
@@ -278,14 +305,30 @@ export let Login = (props) => {
             underlineValidColor: 'gray',
             underlineInvalidColor: 'red'
           }} /> */}
-      <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>หมายเลขโทรศัพท์</Text>
-      <TextValidator name="telphone" label="text" validators={['required',]} errorMessages={['กรุณากรอกหมายเลขโทรศัพท์',]} type="text"
-        value={user?.telphone} onChangeText={(value) => telphoneInput(value)} style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}
-        errorStyle={{
-          container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red' }, underlineValidColor: 'gray',
-          underlineInvalidColor: 'red'
-        }} />
-      <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
+      <View style={stylesMain.FlexRow}>
+        <IconSimpleLineIcons name='phone' size={25} style={{ top: 10, color: '#C4C4C4' }} />
+        {/* <Text style={[stylesLogin.Login_Box_Textlabel, stylesFont.FontSize5, stylesFont.FontFamilyBold]}>หมายเลขโทรศัพท์</Text> */}
+        <TextValidator name="telphone" label="text" validators={['required',]} placeholder='Please enter number phone' errorMessages={['กรุณากรอกหมายเลขโทรศัพท์',]} type="text"
+          value={user?.telphone} onChangeText={(value) => telphoneInput(value)}
+          style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.8, left: 5 }]}
+          errorStyle={{
+            container: { bottom: -12, left: 4, position: 'absolute' }, text: { color: 'red', fontFamily: 'ThaiSansNeue-Bold', },
+            underlineValidColor: '#C4C4C4', underlineInvalidColor: 'red'
+          }} />
+      </View>
+      <View>
+        <TouchableOpacity onPress={() => showMode('date')}>
+          <View style={[stylesMain.FlexRow, { paddingVertical: 10, }]}>
+            <IconFontAwesome color='#C4C4C4' name='calendar' size={25} />
+            {activeDate ? <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { marginLeft: 10 }]}>
+              {`${date.getDate()} / ${date.getMonth() + 1} / ${date.getFullYear()}`}</Text> :
+              <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { marginHorizontal: 10 }]}>Choose a birthday</Text>}
+          </View>
+        </TouchableOpacity>
+        {show && <DateTimePicker display="spinner" is24Hour={true} mode={mode} onChange={(event, selectedDate) =>
+          onChange(event, selectedDate)} testID="dateTimePicker" value={date} />}
+      </View>
+      {/* <View style={[stylesLogin.DateBox, stylesMain.ItemCenter]}>
         <View style={stylesMain.FlexRow}>
           <View style={[stylesLogin.DateBoxBody, { width: 70, }]}>
             <ModalDropdown options={DataDay} style={[stylesMain.ItemCenterVertical]} dropdownTextStyle={[stylesFont.FontFamilyText,
@@ -318,11 +361,11 @@ export let Login = (props) => {
             </ModalDropdown>
           </View>
         </View>
-      </View>
+      </View> */}
       <View style={stylesLogin.DataGenderBox}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text>
-        <View style={{ marginTop: -10, }}>
-          <RadioButtonRN data={data} initial={1} style={{ flexDirection: 'row', }} box={false} boxStyle={{ width: 70, }} textStyle={[
+        {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เพศ</Text> */}
+        <View >
+          <RadioButtonRN data={data} initial={1} style={{ flexDirection: 'row', marginLeft: 20 }} box={false} boxStyle={{ width: 70, }} textStyle={[
             stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 12, }]} activeColor='#111' circleSize={15}
             selectedBtn={(value) => genderInput(value)} />
         </View>
@@ -337,15 +380,14 @@ export let Login = (props) => {
       <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
         <TouchableOpacity activeOpacity={item1 ? 0.2 : 1} onPress={() => item1 ? handleSubmit() : null}>
           <View style={[stylesLogin.Login_Box_Text_B, { backgroundColor: item1 ? mainColor : '#ECECEC' }]}>
-            <Text style={[stylesLogin.Login__Text, stylesFont.FontFamilyText, stylesFont.FontSize5,
-            stylesMain.ItemCenterVertical]}>สมัครสมาชิก</Text>
+            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesMain.ItemCenterVertical]}>สมัครสมาชิก</Text>
           </View>
         </TouchableOpacity>
       </View>
     </Form>;
   };
   return <View style={stylesLogin.Login_Box}>
-    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, { color: '#FFFFFF', }]}>สมัครสมาชิก</Text>
+    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3,]}>สมัครสมาชิก</Text>
     <View style={stylesLogin.RegisterScreen_Box_Login}>
       {FormBody()}
     </View>
@@ -357,27 +399,54 @@ export let Register = (props) => {
   return <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
     <View style={[stylesMain.FlexRow, { marginTop: 10, }]}>
       <View style={{ height: 50, width: 250, marginTop: 20, marginLeft: 20, }}>
-        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
+        <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
           ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
       </View>
       <CheckBox size={30} checkedIcon='toggle-on' checkedColor='#95F29F' uncheckedIcon='toggle-off' checked={item1} onPress={() =>
         setItem1(!item1)} />
     </View>
     <View>
-      <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText,
-      { color: '#FFFFFF', marginTop: -10 }]}>---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
+      <Text style={[stylesFont.FontCenter, stylesFont.FontSize5, stylesFont.FontFamilyText, { marginTop: -10 }]}>---------- สมัครสมาชิกด้วยช่องทางอื่น ----------</Text>
     </View>
-    <View style={stylesLogin.Register_Box_Button}>
+    <View style={{ width: width * 0.90 }}>
       <TouchableOpacity>
-        <View style={{ marginLeft: 10, width: 140, height: 50 }}>
-          <FastImage style={stylesLogin.Register_Box_image} source={require('../../icon/logoutappfacebook.png')}
-            resizeMode={FastImage.resizeMode.contain} />
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#d34836', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='google-plus' size={20} color='#d34836' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', }]}>เข้าสู่ระบบด้วย Gmail</Text>
+          </View>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
-        <View style={{ marginLeft: 10, width: 140, height: 50 }}>
-          <FastImage style={stylesLogin.Register_Box_image} source={require('../../icon/logoutapp14.png')}
-            resizeMode={FastImage.resizeMode.contain} />
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#3b5998', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='facebook' size={20} color='#3b5998' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Facebook</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#00C300', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontisto name='line' size={20} color='#00C300' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Line</Text>
+          </View>
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity>
+        <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#24201c', }]}>
+          <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
+            <IconFontAwesome name='apple' size={20} color='#24201c' />
+          </View>
+          <View style={[stylesMain.ItemCenter, { width: '90%' }]}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Apple ID</Text>
+          </View>
         </View>
       </TouchableOpacity>
     </View>

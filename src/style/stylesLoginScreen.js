@@ -82,15 +82,6 @@ export default StyleSheet.create({
         textAlign: 'center',
         color: '#FF0000',
     },
-    RegisterScreen_CheckBox: {
-        flexDirection: 'row',
-        width: 300,
-        marginTop: 8,
-    },
-    RegisterScreen_Check_Box: {
-        width: 230,
-        marginTop: 5,
-    },
     RegisterScreen_Box_Login: {
         width: '90%',
     },
@@ -105,10 +96,6 @@ export default StyleSheet.create({
         borderWidth: 1,
         marginHorizontal: 2,
         backgroundColor: '#fff'
-    },
-    DataGenderBox: {
-        flexDirection: 'row',
-        marginTop: 14
     },
     ///--------------------------------------------------------------------------///
     Countdownstyle: {

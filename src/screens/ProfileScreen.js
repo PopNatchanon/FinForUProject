@@ -208,7 +208,8 @@ export let Listbar = (props) => {
             <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation })}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
-                        <IconMaterialCommunityIcons name='octagram-outline' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
+                        <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
+                        {/* <IconMaterialCommunityIcons name='octagram-outline' size={40} style={stylesProfile.ListbarMainRadiusIcon} /> */}
                     </View>
                     <Text style={[stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6,
                     stylesFont.FontCenter]}>โปรโมชัน</Text>

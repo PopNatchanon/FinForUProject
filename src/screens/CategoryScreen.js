@@ -46,6 +46,7 @@ function CategoryScreen(props) {
     const id_type = route.params?.id_type;
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [dataService, setDataService] = useState(undefined);
+    const [dataService2, setDataService2] = useState(undefined);
     const [filterValue, setFilterValue] = useState({});
     const [sliderVisible, setSliderVisible] = useState(false);
     var dataBody = {
@@ -56,10 +57,9 @@ function CategoryScreen(props) {
         lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
     };
     var uri = `${finip}/category/category_mobile`;
+    let getDataSource = (value) => { setActiveGetServices(false); setDataService(value); !dataService2 && setDataService2(value); }
     useEffect(() => {
-        activeGetServices && GetServices({
-            uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); },
-        });
+        activeGetServices && GetServices({ uriPointer: uri, dataBody, getDataSource: value => getDataSource(value), });
     }, [activeGetServices]);
     let setStatefilterValue = (value) => {
         filterValue.minvalue = value.minvalue ?? '';
@@ -79,12 +79,11 @@ function CategoryScreen(props) {
         { name: 'กระเป๋าใส่นามบัตร' }, { name: 'กระเป๋าใส่เหรียญ' }, { name: 'กระเป๋าถือ' }, { name: 'อื่นๆ' }]
     }, { title: 'แบรนด์', subtitle: [{ name: 'BP world' }, { name: 'Tokyo boy' }, { name: 'JJ' }, { name: 'ETONWEAG' }] }];
     return <SafeAreaView style={[stylesMain.SafeAreaView]}>
-        {activeGetServices && <LoadingScreen key={'LoadingScreen'} />}
         <AppBar {...props} backArrow cartBar enableSearch />
         <ScrollView stickyHeaderIndices={[5]}>
-            <Slide {...props} dataService={dataService?.banner} />
-            <Recommend_Store {...props} recommend={dataService?.recommend} />
-            <Product_Brand {...props} loadData={dataService?.product_popular_brand} />
+            <Slide {...props} dataService={dataService2?.banner} />
+            <Recommend_Store {...props} recommend={dataService2?.recommend} />
+            <Product_Brand {...props} loadData={dataService2?.product_popular_brand} />
             <BannerBar_TWO />
             <View style={{ marginBottom: 2 }}></View>
             <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)} />
@@ -99,7 +98,7 @@ function CategoryScreen(props) {
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
     let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, {
-        width: width * 0.40, backgroundColor: '#ECECEC',borderRadius: 5 
+        width: width * 0.40, backgroundColor: '#ECECEC', borderRadius: 5
     }]}>
         <ActivityIndicator size={50} color={mainColor} />
     </View>);

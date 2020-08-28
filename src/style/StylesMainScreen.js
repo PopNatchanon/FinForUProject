@@ -233,13 +233,11 @@ export default StyleSheet.create({
   BoxProduct4ComBox: {
     marginLeft: 10,
     padding: 8,
-    flex: 1,
     borderTopColor: '#ECECEC',
     borderTopWidth: 1,
   },
   BoxProduct4ComBox2: {
     padding: 8,
-    flex: 1,
     borderTopColor: '#ECECEC',
     borderTopWidth: 1,
     flexDirection: 'row',

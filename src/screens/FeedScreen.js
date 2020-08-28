@@ -28,10 +28,12 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import { FeedBox, GetData, GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
-import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch } from '../customComponents';
+import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch, GenArray } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
+const LOADING_ICON = require('../../images/icon.png');
+const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
 const { contain, cover } = FastImage.resizeMode;
 const { FontFamilyBold, FontFamilySemiBold, FontFamilyText, FontSize3, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
 const {
@@ -67,10 +69,10 @@ function FeedScreen(props) {
         } */}
       <AppBar {...props} menuBar noBottomColor titleHead='Feed' />
       {currentUser && <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
-        sendText={value => setSelectedIndex(value)} />}
+        sendText={value => { setSelectedIndex(value); setActiveSelectedIndex(true); }} />}
       <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
         currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
-        selectedIndex={currentUser ? selectedIndex : 1} />
+        selectedIndex={currentUser ? selectedIndex : -1} />
       <Toolbar {...props} />
       <ExitAppModule {...props} />
     </SafeAreaView>
@@ -97,23 +99,58 @@ export function Button_Bar(props) {
   const [dataService, setDataService] = useState(null);
   let getDataSource = (value) => { getActiveSelectedIndex(false); setDataService(value); };
   useEffect(() => {
-    GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (value) => getDataSource(value), uriPointer: uri, });
-  }, [selectedIndex]);
+    activeSelectedIndex &&
+      GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (value) => getDataSource(value), uriPointer: uri, });
+  }, [activeSelectedIndex || selectedIndex]);
+  let Highlights_Store = GenArray(4).map((_, index) => {
+    return <TouchableOpacity key={index}>
+      <View style={{ borderColor: '#C4C4C4', borderWidth: 1.5, marginRight: 5, width: 150, }}>
+        <View style={{ backgroundColor: '#ECECEC', height: 60, }}>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <FastImage resizeMode={contain} source={LOADING_ICON} style={{
+            backgroundColor: '#ECECEC', borderColor: '#C4C4C4', borderWidth: 1, borderRadius: width / 2, height: 60, marginTop: -30, width: 60,
+          }} />
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Text style={[FontFamilyBold, FontSize6,]}>Store</Text>
+          <Text style={[FontFamilyText, FontSize7]}>ผู้ติดตาม 0 คน</Text>
+          <View style={FlexRow}>{StarReview(0, 15)}</View>
+          <Text style={[FontFamilyText, FontSize8,]}>0(0 คะแนน)</Text>
+          <TouchableOpacity>
+            <View style={[ItemCenter, { backgroundColor: '#ECECEC', borderRadius: 10, marginVertical: 5, width: width * 0.20, }]}>
+              <Text style={[FontFamilyText, FontSize6, { color: '#FFFFFF' }]}>ติดตาม</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </TouchableOpacity>
+  });
+  function headerStoryList() {
+    return selectedIndex == 1 && <View style={[FrameBackground]}>
+      <Text style={[FontFamilyBold, FontSize4, FrameBackgroundTextStart,]}>ร้านค้ายอดนิยม</Text>
+      <View style={{ flexDirection: 'row', marginBottom: 5, paddingLeft: 10, }}>
+        {Highlights_Store}
+      </View>
+    </View>
+  }
   return <View style={{ flex: 1, height: '100%' }}>
     {selectedIndex == 3 ?
       <Feed_About {...props} /> :
       activeSelectedIndex == false ?
         <Highlights {...props} dataService={dataService?.feed_follow} Follow /> :
         <View style={{ height: height * 0.8, width, }}>
-          <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow={true} Header />
+          {headerStoryList()}
+          {GenArray(2).map((_, index) => {
+            return <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow={true} Header key={index} nodata />
+          })}
         </View>}
     {selectedIndex == 0 && <ActionButton buttonColor={mainColor} size={50} onPress={() =>
       NavigationNavigate({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 1, }, })} />}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
-export function
-  Highlights(props) {
+export function Highlights(props) {
   const { dataService, selectedIndex, } = props;
   const dataService2 = [{
     image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_a.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_a.jpg`,

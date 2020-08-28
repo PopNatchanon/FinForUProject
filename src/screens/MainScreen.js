@@ -315,18 +315,19 @@ export let Slide = (props) => {
         // banner ?
         uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        console.log(index)
-        console.log(uriSlide)
         return <View style={[child]} key={index}>
             <FastImage resizeMethod='resize' resizeMode={contain} source={uriSlide} style={[LOADING_ICON_STYLE]} />
         </View>;
     };
     return <View style={{ backgroundColor: '#fff' }}>
+        <View style={[child, ItemCenter, { position: 'absolute' }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
+        </View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
             <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ height: 10, width: 10, }} loop
                 pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             <View style={[child, ItemCenter]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
+                {/* <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} /> */}
             </View>}
     </View>;
 };
@@ -1276,10 +1277,12 @@ export let Second_product = (props) => {
     let renderItem1 = dataService?.list_store2_1 ? dataService.list_store2_1.map((value, index) => {
         const uriStore2 = { uri: `${finip}/${value.image_path}/${value.image}`, };
         return <View key={index} style={{ height: 196, width: width * 0.64, }}>
-            <Image resizeMethod='resize' resizeMode='cover' source={uriStore2} style={bigSlideImage} />
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={uriStore2} style={bigSlideImage} />
         </View>;
     }) : <View style={{ height: 196, width: width * 0.64, }}>
-            <View style={[bigSlideImage, { backgroundColor: '#ECECEC' }]} />
+            <View style={[bigSlideImage, { backgroundColor: '#ECECEC' }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
+            </View>
         </View>;
     let boxEmptyBody = GenArray(10).map((_, index) => {
         return <View key={index} style={Second_StoreFin_ImageB_T}>
@@ -1294,7 +1297,7 @@ export let Second_product = (props) => {
         const uriStore2 = { uri: `${finip}/${value.image_path}/${value.image}`, };
         return <View key={index} style={Second_StoreFin_ImageB_T}>
             <View style={{ height: 130, width: width * 0.32, }}>
-                <Image resizeMethod='resize' resizeMode='stretch' source={uriStore2} style={litleSlideImage} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={uriStore2} style={litleSlideImage} />
             </View>
         </View>;
     }) : boxEmptyBody;
@@ -1321,7 +1324,8 @@ export let Second_product = (props) => {
                 dataService?.mobile_bar ?
                     <TouchableOpacity {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2'
                         nameFlatProduct='Second_product' nameSize={14} noMarginTop numberOfColumn={2} priceSize={15}>
-                        <Image resizeMethod='resize' resizeMode='cover' source={header_url} style={[CategoryProductImageHead, VStyle]} />
+                        <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={header_url}
+                            style={[CategoryProductImageHead, VStyle]} />
                     </TouchableOpacity> :
                     <View style={[CategoryProductImageHead, MobileBarStyle]} />}
             {dataService?.product_second ?
@@ -1368,10 +1372,12 @@ export let Second_product = (props) => {
         const uriFooter2 = item.item2 ? { uri: `${finip}/${item.item2.image_path}/${item.item2.image}` } : undefined;
         return <TouchableOpacity activeOpacity={1} key={index} style={FlexRow}>
             <View style={[CategoryProductStoreBox]}>
-                <Image resizeMethod='resize' resizeMode='cover' source={uriFooter1} style={CategoryProductStoreImage} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={uriFooter1}
+                    style={CategoryProductStoreImage} />
             </View>
             <View style={[CategoryProductStoreBox]}>
-                <Image resizeMethod='resize' resizeMode='cover' source={uriFooter2} style={CategoryProductStoreImage} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={uriFooter2}
+                    style={CategoryProductStoreImage} />
             </View>
         </TouchableOpacity>;
     };
@@ -1412,7 +1418,8 @@ export let Fin_Mall = (props) => {
             //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
             return <View style={{ marginTop: 5, paddingLeft: 2.5, width: width * 0.228, }} key={index}>
                 <View style={{ aspectRatio: 1, backgroundColor: '#FFFFFF', height: 'auto', width: width * 0.20, }}>
-                    <FastImage resizeMode={contain} source={uriImage} style={Popular_image_Box} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriImage}
+                        style={Popular_image_Box} />
                 </View>
                 <View style={[ItemCenter, { width: width * 0.20 }]}>
                     <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>{name}</Text>
@@ -1529,7 +1536,7 @@ export let FIN_Supermarket = (props) => {
     let SupermaketBox = Brand_Supermaket.map((value, index) => {
         const uriSuper = { uri: value.image, };
         return <View key={index} style={[ItemCenter, Supermarket_Brand_Shop]}>
-            <FastImage resizeMode={stretch} source={uriSuper} style={{ height: 50, width: 100 }} />
+            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={uriSuper} style={{ height: 50, width: 100 }} />
             <View style={[ItemCenter]}>
                 <Text style={[FontFamilyBold, FontSize7]}>{value.name}</Text>
                 <Text numberOfLines={1} style={[FontFamilyText, FontSize7]}>{value.Detall}</Text>
@@ -1540,14 +1547,15 @@ export let FIN_Supermarket = (props) => {
     let SupermaketBox2 = Brand_Supermaket2.map((value, index) => {
         const uriSuper = { uri: value.image, };
         return <View key={index} style={[ItemCenter, Supermarket_Brand_Shop2]}>
-            <FastImage resizeMode={stretch} source={uriSuper} style={BoxProduct1Image} />
+            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={uriSuper} style={BoxProduct1Image} />
         </View>;
     });
     // --------------------------------------------------------------------------
     let _renderItem = (value, index) => {
         const uriRender = { uri: value.image, };
         return <View key={index} style={{ aspectRatio: 2.5, height: 'auto', width, }}>
-            <Image resizeMethod='resize' resizeMode='cover' source={uriRender} style={{ height: '100%', width: '100%' }} />
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={uriRender}
+                style={{ height: '100%', width: '100%' }} />
         </View>;
     };
     // --------------------------------------------------------------------------
@@ -1563,14 +1571,16 @@ export let FIN_Supermarket = (props) => {
         </View>
         <View style={[FlexRow, Supermarket_Store]}>
             <TouchableOpacity onPress={() => Navi({ goScreen: 'FINSupermarket', navigation })} style={NaviStyle}>
-                <Image resizeMethod='resize' resizeMode='stretch' source={uriFood1} style={BoxProduct1Image} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={uriFood1} style={BoxProduct1Image} />
             </TouchableOpacity>
             <View style={{ justifyContent: 'space-between', width: width * 0.36, }}>
                 <View style={Supermarket_Image}>
-                    <Image resizeMethod='resize' resizeMode='stretch' source={uriFood1_1} style={BoxProduct1Image} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={uriFood1_1}
+                        style={BoxProduct1Image} />
                 </View>
                 <View style={Supermarket_Image}>
-                    <Image resizeMethod='resize' resizeMode='stretch' source={uriFood4} style={BoxProduct1Image} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={uriFood4}
+                        style={BoxProduct1Image} />
                 </View>
             </View>
         </View>

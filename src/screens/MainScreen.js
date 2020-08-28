@@ -1671,8 +1671,9 @@ export let TodayProduct = (props) => {
     return <View style={[BoxProduct2, { backgroundColor: 'transparent' }]}>
         {noTitle ? null : <Text style={[FrameBackgroundTextStart, FontFamilyBold, FontSize5]}>สินค้าคัดสรรเพื่อคุณ</Text>}
         <View style={BoxProduct2BoxProduct}>
-            {loadData && <ProductBox {...props} dataService={loadData} dispriceSize={15} mode='row3colall_new' nameSize={14}
-                pointerid_store={true} pointerUrl='DetailScreen' prepath={prepath ?? null} priceSize={15} />}
+            {loadData ? <ProductBox {...props} dataService={loadData} dispriceSize={15} mode='row3colall_new' nameSize={14}
+                pointerid_store={true} pointerUrl='DetailScreen' prepath={prepath ?? null} priceSize={15} /> :
+                <ProductBox dataService={GenArray(3)} mode='row3colall_new' nodata />}
         </View>
     </View>;
 };

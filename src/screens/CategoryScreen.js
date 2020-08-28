@@ -24,6 +24,11 @@ import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from 
 import { NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> set value
+const LOADING_ICON = require('../../images/icon.png');
+const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
+const { cacheOnly, } = FastImage.cacheControl;
+const { contain, cover, stretch, } = FastImage.resizeMode;
 ///----------------------------------------------------------------------------------------------->>>> Main
 const getCartDataCount = (cartData) => {
     var cartDataCount = 0;
@@ -65,6 +70,7 @@ function CategoryScreen(props) {
         filterValue.minvalue = value.minvalue ?? '';
         filterValue.maxvalue = value.maxvalue ?? '';
         setActiveGetServices(true);
+        setDataService(undefined);
         setFilterValue(filterValue);
         setSliderVisible(false);
     };
@@ -72,6 +78,7 @@ function CategoryScreen(props) {
         filterValue.lastest = value == 2 ? 'lastest' : '';
         filterValue.sort_by = value == 3 ? value.actionReturn : '';
         setActiveGetServices(true);
+        setDataService(undefined);
         setFilterValue(filterValue);
     };
     const data = [{
@@ -97,17 +104,19 @@ function CategoryScreen(props) {
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
+    const [activeScroll, setActiveScroll] = useState(false);
     let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, {
         width: width * 0.40, backgroundColor: '#ECECEC', borderRadius: 5
     }]}>
-        <ActivityIndicator size={50} color={mainColor} />
+        <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
     </View>);
     let dataPromotionPopular = recommend?.length > 0 ?
         recommend.map((item, index) => {
-            var dataMySQL = `${finip}/${item.image_path}/${item.image}`;
+            const uriRecomStore = { uri: `${finip}/${item.image_path}/${item.image}` };
+            !activeScroll && setActiveScroll(true);
             return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
                 <View style={[stylesMain.BoxStore1Box, { width: width * 0.40, }]}>
-                    <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore1Image, { borderRadius: 5 }]} resizeMode={FastImage.resizeMode.cover} />
+                    <FastImage source={uriRecomStore} style={[stylesMain.BoxStore1Image, { borderRadius: 5 }]} resizeMode={cover} />
                 </View>
             </TouchableOpacity>;
         }) : boxEmpty;
@@ -119,7 +128,7 @@ export let Recommend_Store = (props) => {
             </TouchableOpacity>
         </View>
         <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4.2, }]}>
-            <ScrollView horizontal>
+            <ScrollView horizontal scrollEnabled={activeScroll}>
                 {dataPromotionPopular}
             </ScrollView>
         </View>
@@ -133,7 +142,7 @@ export let Product_Brand = (props) => {
             <View style={[stylesMain.ItemCenter,
             { backgroundColor: '#ECECEC', width: 119, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC' }]}>
                 <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                    <ActivityIndicator size={50} color={mainColor} />
+                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
                 </View>
             </View>
             <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -145,7 +154,7 @@ export let Product_Brand = (props) => {
         {loadData?.length > 0 ?
             <FlatProduct {...props} dataService={loadData} numberOfColumn={1} radiusBox={5} nameFlatProduct='Product_Brand' mode='row3_new'
                 custumNavigation='DetailScreen' nameSize={14} priceSize={15} dispriceSize={15} /> :
-            <ScrollView horizontal>
+            <ScrollView horizontal scrollEnabled={false}>
                 {boxEmpty}
             </ScrollView>}
     </View>;

@@ -532,8 +532,8 @@ export function GetCoupon(props) {
 ///----------------------------------------------------------------------------------------------->>>> ProductBox
 export function ProductBox(props) {
     const {
-        dataService, dispriceSize, mode, navigation, nameSize, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store, postpath,
-        prepath, priceSize, radiusBox, typeip, getDataService,
+        dataService, dispriceSize, mode, navigation, nameSize, nodata, noNavigation, numberOfItem, onShow, pointerUrl, pointerid_store,
+        postpath, prepath, priceSize, radiusBox, typeip, getDataService,
     } = props;
     onShow && [console.log('ProductBoxRender'), console.log(dataService)];
     return dataService.map((item, index) => {
@@ -556,28 +556,33 @@ export function ProductBox(props) {
                     BoxProduct1Box2 : mode == 'row3col2_2' ? BoxProduct4Box : mode == 'row3colall' ?
                         BoxProduct2Box : mode == 'row2colall' ? BoxProduct3Box : mode == '5item' ?
                             Deal_Exclusive_Box : mode == 'row3colall_new' ? {
-                                backgroundColor: '#FFFFFF', borderColor: '#ECECEC', borderWidth: 0.5, width: width * 0.327,
+                                backgroundColor: '#FFFFFF', borderColor: nodata ? '#C4C4C4' : '#ECECEC', borderWidth: 0.5,
+                                width: width * 0.327,
                             } : BoxProduct1Box, { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
                     <View style={[ItemCenter, mode == 'row4col1' ? BoxProduct5ImageofLines : mode == 'row3colall' ?
                         BoxProduct2ImageofLines : mode == 'row2colall' ? BoxProduct3ImageofLines : mode == '5item' ?
                             BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { aspectRatio: 1, flex: 1, width: '100%', } :
                                 BoxProduct1ImageofLines]}>
-                        <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriImage}
-                            style={[BoxProduct2Image, {
-                                borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
-                                marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
+                        <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain'
+                            source={nodata ? LOADING_ICON : uriImage} style={[BoxProduct2Image, {
+                                backgroundColor: nodata ? '#ECECEC' : '#FFFFFF', borderTopLeftRadius: radiusBox ?? 0,
+                                borderTopRightRadius: radiusBox ?? 0, marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
                                 width: mode == 'row3colall_new' ? '100%' : '75%',
                             }]} />
                     </View>
-                    <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%', }}>
+                    <View style={{
+                        borderTopColor: nodata ? '#C4C4C4' : null, borderTopWidth: nodata ? 1 : 0,
+                        height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%',
+                    }}>
                         <View style={[BoxProduct1NameofLines]}>
-                            <Text numberOfLines={1} style={[FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>{name_product ?? name}</Text>
+                            <Text numberOfLines={1} style={[FontFamilySemiBold, { fontSize: nameSize ?? 16, }]}>
+                                {name_product ?? name ?? ''}</Text>
                         </View>
                         <View style={[BoxProduct1PriceofLines,]}>
                             <View style={[FlexRow, { paddingVertical: 2 }]}>
                                 <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'} renderText={value => <Text
                                     style={[BoxProduct1ImagePrice, FontFamilyBoldBold, { fontSize: priceSize ?? 14, }]}>{value}</Text>}
-                                    thousandSeparator={true} value={last_price ?? price_discount ?? full_price ?? price} />
+                                    thousandSeparator={true} value={last_price ?? price_discount ?? full_price ?? price ?? ''} />
                                 {discount_tag ?
                                     <View style={[Box_On_sale, { borderRadius: 10 }]}>
                                         <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>
@@ -585,7 +590,7 @@ export function ProductBox(props) {
                                     </View> : discount > 0 && <NumberFormat displayType={'text'} renderText={value => value && <View
                                         style={[Box_On_sale, { borderRadius: 10 }]}>
                                         <Text style={[FontFamilyBold, FontSize8, { color: '#FFFFFF' }]}>{`-${value}`}</Text>
-                                    </View>} suffix={'%'} thousandSeparator={true} value={discount && discount} />}
+                                    </View>} suffix={'%'} thousandSeparator={true} value={discount ?? ''} />}
                             </View>
                             {price_discount && <NumberFormat decimalScale={0} displayType={'text'} fixedDecimalScale prefix={'฿'}
                                 renderText={value => <Text style={[BoxProduct1ImagePriceThrough, FontFamilyText,

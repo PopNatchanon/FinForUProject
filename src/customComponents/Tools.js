@@ -39,7 +39,7 @@ import { finip, ip, } from '../navigator/IpConfig';
 import { NavigationNavigate } from '.';
 ///----------------------------------------------------------------------------------------------->>>> set value
 const LOADING_ICON = require('../../images/icon.png');
-const LOADING_ICON_STYLE = { height: '100%', opacity: 0.15, width: '100%' };
+const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
 const { contain, cover } = FastImage.resizeMode;
 const { Coupon_BOX2, Coupon_BOX_A, Coupon_BOX_A2, Deal_Exclusive_Box, } = stylesDeal;
 const { Detail_Box, Detail_Text_A, } = stylesDetail;
@@ -562,11 +562,12 @@ export function ProductBox(props) {
                         BoxProduct2ImageofLines : mode == 'row2colall' ? BoxProduct3ImageofLines : mode == '5item' ?
                             BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { aspectRatio: 1, flex: 1, width: '100%', } :
                                 BoxProduct1ImageofLines]}>
-                        <FastImage resizeMode={contain} source={uriImage} style={[BoxProduct2Image, {
-                            borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
-                            marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
-                            width: mode == 'row3colall_new' ? '100%' : '75%',
-                        }]} />
+                        <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriImage}
+                            style={[BoxProduct2Image, {
+                                borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
+                                marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
+                                width: mode == 'row3colall_new' ? '100%' : '75%',
+                            }]} />
                     </View>
                     <View style={{ height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%', }}>
                         <View style={[BoxProduct1NameofLines]}>
@@ -645,8 +646,8 @@ export function RenderProduct(props) {
         Navi({ goScreen: custumNavigation ?? 'DetailScreen', navigation, setData: { id_product: id_product } })}>
         <View style={[ItemCenter, mode == 'row4' ? BoxProduct5Box : mode == 'row3' ?
             BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ? BoxProduct1Box2new : mode == 'row3_2' ?
-                BoxProduct4Box : mode == 'row3_all' ? BoxProduct2Box : mode == 'row2_all' ?
-                    BoxProduct3Box : mode == '5item' ? Deal_Exclusive_Box : BoxProduct1Box, {
+                BoxProduct4Box : mode == 'row3_all' ? BoxProduct2Box : mode == 'row2_all' ? BoxProduct3Box : mode == '5item' ?
+                    Deal_Exclusive_Box : BoxProduct1Box, {
                 borderRadius: radiusBox ?? 0,
                 marginBottom: mode == 'row3_2' ? 4 : null,
             }]}>
@@ -654,10 +655,17 @@ export function RenderProduct(props) {
                 BoxProduct2ImageofLines : mode == 'row2_all' ? BoxProduct3ImageofLines : mode == '5item' ?
                     BoxProduct1ImageofLines2 : mode == 'row3_new2' ? { width: '100%' } : BoxProduct1ImageofLines
             ]}>
-                <FastImage resizeMode={contain} source={uriImage} style={[BoxProduct2Image, {
+                <FastImage resizeMode={contain} source={LOADING_ICON} style={[BoxProduct2Image, {
                     borderTopLeftRadius: radiusBox ?? 0, borderTopRightRadius: radiusBox ?? 0,
                     marginVertical: mode == 'row3_new2' ? 0 : height * 0.015, width: mode == 'row3_new2' ? '100%' : '75%',
+                    position: 'absolute',
                 }]} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain'
+                    source={uriImage} style={[BoxProduct2Image, {
+                        backgroundColor: '#ffffffff', borderTopLeftRadius: radiusBox ?? 0,
+                        borderTopRightRadius: radiusBox ?? 0, marginVertical: mode == 'row3_new2' ? 0 : height * 0.015,
+                        width: mode == 'row3_new2' ? '100%' : '75%',
+                    }]} />
             </View>
             <View style={{ height: 55, paddingHorizontal: 3, width: '100%', }}>
                 <View style={[BoxProduct1NameofLines]}>
@@ -720,7 +728,7 @@ export class FeedBox extends React.Component {
     };
     getDataSource = (activeRef) => { const { getDataSource } = this.props; getDataSource(activeRef); };
     get FeedBoxRender() {
-        const { atStore, dataService, Follow, Header, navigation, postpath, prepath, typeip, userOwner, } = this.props;
+        const { atStore, dataService, Follow, Header, navigation, nodata, postpath, prepath, typeip, userOwner, } = this.props;
         const { detail, id_store, image, image_path, p_id_store, store_image, store_name, store_path, } = dataService;
         const { like } = this.state;
         const LOGO_ICON = { height: 40, width: 40, borderRadius: 20, marginRight: 10, padding: 5 };
@@ -829,13 +837,12 @@ export class FeedBox extends React.Component {
                     </View>
                 </View>}
                 <View>
-                    {image ? <View style={[ItemCenter, { backgroundColor: store_image ? '#FFF' : '#ECECEC', width: '100%' }]}>
-                        <FastImage resizeMode={contain} source={image ? uriPost : LOADING_ICON}
-                            style={[image ? null : LOADING_ICON_STYLE, BoxProduct4Image,]} />
+                    {nodata || image ? <View style={[ItemCenter, { backgroundColor: store_image ? '#FFF' : '#ECECEC', width: '100%' }]}>
+                        <FastImage resizeMode={contain} source={image ? uriPost : LOADING_ICON} style={BoxProduct4Image} />
                     </View> : null}
                     <View style={BoxProduct4ComBox}>
-                        <Text style={[FontFamilyText, FontSize7]}>{detail}</Text>
-                        <Text style={[FontFamilyText, FontSize7, { color: mainColor }]}>ที่สุดสำหรับคุณ</Text>
+                        <Text style={[FontFamilyText, FontSize7]}>{!nodata ? detail : ' '}</Text>
+                        <Text style={[FontFamilyText, FontSize7, { color: mainColor }]}>{!nodata ? 'ที่สุดสำหรับคุณ' : ' '}</Text>
                         {/* <View style={FlexRow}>
                                 <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#9F9C9C' }]}>
                                     200 การเข้าชม</Text>
@@ -843,7 +850,7 @@ export class FeedBox extends React.Component {
                                     เมื่อ 3 วันที่ผ่านมา</Text>
                             </View> */}
                     </View>
-                    <View style={BoxProduct4ComBox2}>
+                    <View style={[BoxProduct4ComBox2]}>
                         <TouchableOpacity activeOpacity={1} onPress={() => this.setStateButton_Like_heart()} style={BoxProduct4ComBoxIcon}>
                             <IconFontAwesome name={like ? 'heart' : 'heart-o'} size={20} style={{ color: like ? '#ff0066' : '#111111', }}>
                                 <Text style={[FontFamilyText, FontSize5, BoxProduct4ComBoxIconText,]}>ถูกใจ</Text>

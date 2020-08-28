@@ -28,7 +28,7 @@ import stylesTopic from '../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, Botton_PopUp_FIN } from './MainScreen';
 import { FeedBox, GetData, GetServices, TabBar, LoadingScreen, } from '../customComponents/Tools';
-import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch } from '../customComponents';
+import { Toolbar, StarReview, NavigationNavigate, AppBar, BorderBottomTab, GetFetch, GenArray } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
@@ -67,7 +67,7 @@ function FeedScreen(props) {
         } */}
       <AppBar {...props} menuBar noBottomColor titleHead='Feed' />
       {currentUser && <MenuBar getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
-        sendText={value => setSelectedIndex(value)} />}
+        sendText={value => { setSelectedIndex(value); setActiveSelectedIndex(true); }} />}
       <Button_Bar {...props} activeSelectedIndex={activeSelectedIndex}
         currentUser={currentUser} getActiveSelectedIndex={value => setActiveSelectedIndex(value)}
         selectedIndex={currentUser ? selectedIndex : 1} />
@@ -97,23 +97,25 @@ export function Button_Bar(props) {
   const [dataService, setDataService] = useState(null);
   let getDataSource = (value) => { getActiveSelectedIndex(false); setDataService(value); };
   useEffect(() => {
-    GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (value) => getDataSource(value), uriPointer: uri, });
-  }, [selectedIndex]);
+    activeSelectedIndex &&
+      GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (value) => getDataSource(value), uriPointer: uri, });
+  }, [activeSelectedIndex || selectedIndex]);
   return <View style={{ flex: 1, height: '100%' }}>
     {selectedIndex == 3 ?
       <Feed_About {...props} /> :
       activeSelectedIndex == false ?
         <Highlights {...props} dataService={dataService?.feed_follow} Follow /> :
         <View style={{ height: height * 0.8, width, }}>
-          <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow={true} Header />
+          {GenArray(2).map((_, index) => {
+            return <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow={true} Header key={index} nodata />
+          })}
         </View>}
     {selectedIndex == 0 && <ActionButton buttonColor={mainColor} size={50} onPress={() =>
       NavigationNavigate({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 1, }, })} />}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
-export function
-  Highlights(props) {
+export function Highlights(props) {
   const { dataService, selectedIndex, } = props;
   const dataService2 = [{
     image_BG: `${ip}/MySQL/uploads/Store/BG_Store/shop_a.png`, image_Pro: `${ip}/MySQL/uploads/Store/Pro_Store/logo_a.jpg`,

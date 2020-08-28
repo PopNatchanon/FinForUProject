@@ -102,8 +102,6 @@ export default class Carousel extends Component {
                 || normalizedPage >= data.length
             )
         ) {
-            console.log('onScroll')
-            console.log((currentPage - 1 + loopOffset) * childWidth)
             this.scrollView1.current.scrollTo({ x: (currentPage - 1 + loopOffset) * childWidth, animated: false, });
         };
         // restart autoplay
@@ -123,7 +121,7 @@ export default class Carousel extends Component {
         };
     };
     onContentSizeChange = (contentWidth, contentHeight) => {
-        const { data, autoplay } = this.props;
+        const { activeConsole, data, autoplay } = this.props;
         const { zoomModal } = this.state;
         const isLooped = this.isLooped();
         const loopOffset = data.length >= NUM_OF_DUP ? NUM_OF_DUP : data.length;
@@ -135,8 +133,10 @@ export default class Carousel extends Component {
             // set loop initial offset
             if (isLooped) {
                 const { childWidth } = this.state;
-                console.log('onContentSizeChange')
-                console.log(childWidth * loopOffset)
+                if (activeConsole) {
+                    console.log('onContentSizeChange')
+                    console.log(childWidth * loopOffset)
+                };
                 this.scrollView1.current.scrollTo({ x: childWidth * loopOffset, animated: false, });
             }
             if (autoplay && !zoomModal) {
@@ -209,7 +209,7 @@ export default class Carousel extends Component {
         marginHorizontal: 4, width: null,
     };
     renderPaginationDots = () => {
-        const { data, dotsStyle, paginationPosition, paginationType, } = this.props
+        const { activeConsole, data, dotsStyle, paginationPosition, paginationType, } = this.props
         const {
             aNextPage, animatedNextPage, aPrevPage, animatedPrevPage, childHeight, childWidth, currentPage, prevPage, zoomModal
         } = this.state;
@@ -251,7 +251,7 @@ export default class Carousel extends Component {
                     }} onPress={() => {
                         this.scrollView1.current.scrollTo({ x: (index + loopOffset) * childWidth, animated: true, });
                         this.setState({ currentPage: index + 1, });
-                        console.log('selectIndex'); console.log(index);
+                        if (activeConsole) { console.log('selectIndex'); console.log(index); }
                     }} />
                 })}
             </View>

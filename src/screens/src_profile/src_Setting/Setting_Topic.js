@@ -165,7 +165,6 @@ export let Edit_Profile = (props) => {
       setDate(currentDate); setShow(Platform.OS === 'ios');
     };
     let showMode = currentMode => { setMode(currentMode); setShow(true); };
-    console.log(dataSevice);
     !birth_day && dataSevice?.list_profile?.map((value) => { setDate(value?.date_of_birth); });
     // console.log('birthdaySheetBody')
     // console.log(date)

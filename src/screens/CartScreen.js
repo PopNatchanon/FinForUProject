@@ -165,8 +165,6 @@ export let Product_Cart = (props) => {
         {active && <LoadingScreen />}
         {cartData && cartData.data.length > 0 ?
             cartData.data.map((item_n, index_n) => {
-                console.log('item_n')
-                console.log(item_n)
                 var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
                 return <View style={{ marginBottom: 3, backgroundColor: '#fff' }} key={index_n}>
                     <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>

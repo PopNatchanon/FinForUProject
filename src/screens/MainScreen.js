@@ -315,16 +315,17 @@ export let Slide = (props) => {
         // banner ?
         uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        return <View style={child} key={index}>
-            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={uriSlide}
-                style={[LOADING_ICON_STYLE, { opacity: 1 }]} />
+        console.log(index)
+        console.log(uriSlide)
+        return <View style={[child]} key={index}>
+            <FastImage resizeMethod='resize' resizeMode={contain} source={uriSlide} style={[LOADING_ICON_STYLE]} />
         </View>;
     };
-    return <View>
+    return <View style={{ backgroundColor: '#fff' }}>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
             <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ height: 10, width: 10, }} loop
                 pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
-            <View style={[child, ItemCenter, { backgroundColor: '#fff' }]}>
+            <View style={[child, ItemCenter]}>
                 <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
             </View>}
     </View>;
@@ -399,10 +400,7 @@ export let Guarantee = (props) => {
 export let Category = (props) => {
     const { dataService, fetchData, getFetchData, navigation } = props;
     let FetchDataCate = (id_type) => {
-        fetchData({
-            dataBody: { id_category: id_type }, name: `category_product|${id_type}`, uri: `${finip}/home/product_mobile`,
-            showConsole: `category_product|${id_type}`
-        })
+        fetchData({ dataBody: { id_category: id_type }, name: `category_product|${id_type}`, uri: `${finip}/home/product_mobile`, })
     };
     let boxEmpty = GenArray(10).map((_, index) => {
         const ViewStyle = {
@@ -413,7 +411,7 @@ export let Category = (props) => {
             <View style={ViewStyle}>
                 <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
             </View>
-            <View style={{ height: 25 }}></View>
+            <View style={{ height: 25 }} />
         </View>
     });
     let dataCategory = dataService?.category ? dataService?.category.map((value, index) => {
@@ -462,11 +460,12 @@ export let Trend_Hit = (props) => {
         const uriShop = { uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`, };
         return <View key={index} style={{ width: width * 0.48 }}>
             <View style={{ height: '88%', }}>
-                <FastImage resizeMode={stretch} source={value.uriTrend} style={BoxProduct1Image} />
+                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={value.uriTrend} style={BoxProduct1Image} />
             </View>
             <View style={{ alignItems: 'center' }}>
                 <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
-                    <FastImage resizeMode={stretch} source={uriShop} style={[BoxProduct1Image, { borderRadius: 8 }]} />
+                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={uriShop} style={[BoxProduct1Image,
+                        { borderRadius: 8 }]} />
                 </TouchableOpacity>
             </View>
         </View>
@@ -475,7 +474,8 @@ export let Trend_Hit = (props) => {
         const uriTrend = { uri: `${ip}/mysql/${value.image_path}/${value.image}`, };
         return <TouchableOpacity key={index} style={[ItemCenter,
             { borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, flexDirection: 'row', width: width * 0.325, }]}>
-            <FastImage resizeMode={contain} source={uriTrend} style={{ height: 50, width: 50, marginRight: 5, borderRadius: 5 }} />
+            <FastImage defaultSource={LOADING_ICON} resizeMode={contain} source={uriTrend}
+                style={{ height: 50, width: 50, marginRight: 5, borderRadius: 5 }} />
             <View>
                 <Text numberOfLines={1} style={[FontFamilyBold, FontSize7]}>{value.name}</Text>
                 <Text numberOfLines={1} style={[FontFamilyText, FontSize8, { color: '#CACACA' }]}>38K products</Text>
@@ -486,11 +486,11 @@ export let Trend_Hit = (props) => {
         <View style={[FlexRow, { aspectRatio: 5, justifyContent: 'space-between', marginTop: 3, paddingHorizontal: 5, width, }]}>
             <View style={{ width: width * 0.48 }}>
                 <View style={{ height: '88%' }}>
-                    <FastImage resizeMode={stretch} source={uriTrend1} style={BoxProduct1Image} />
+                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={uriTrend1} style={BoxProduct1Image} />
                 </View>
                 <View style={{ alignItems: 'center' }}>
                     <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
-                        <FastImage resizeMode={stretch} source={uriTrend2} style={BoxProduct1Image} />
+                        <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={uriTrend2} style={BoxProduct1Image} />
                     </TouchableOpacity>
                 </View>
             </View>

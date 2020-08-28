@@ -226,8 +226,6 @@ export let Option_payment = (props) => {
                 </View>;
         };
     };
-    console.log('Option_payment')
-    console.log(dataService)
     return <>
         {/* <BottomSheet
                     ref={ref => {

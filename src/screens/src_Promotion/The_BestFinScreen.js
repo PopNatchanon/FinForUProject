@@ -141,8 +141,6 @@ export let Second_Store = (props) => {
   dataService?.discount_sec_l?.map((value) => discount_sec_l.push(`${finip}/${value.image_path}/${value.image}`));
   dataService?.discount_sec_m?.map((value) => discount_sec_m.push(`${finip}/${value.image_path}/${value.image}`));
   dataService?.discount_sec_xl?.map((value) => discount_sec_xl = `${finip}/${value.image_path}/${value.image}`);
-  console.log('discount_sec_m')
-  console.log(discount_sec_m)
   let Second_StoreBody = <View style={stylesDeal.Second_Store}>
     <View style={stylesDeal.Second_Store_SlideA}>
       <FastImage style={stylesDeal.Store_Sale_Image} source={{ uri: discount_sec_xl, }} resizeMode={FastImage.resizeMode.cover} />

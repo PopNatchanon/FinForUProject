@@ -56,8 +56,6 @@ function CategoryScreen(props) {
         lastest: filterValue && filterValue.lastest ? filterValue.lastest : '',
     };
     var uri = `${finip}/category/category_mobile`;
-    console.log('dataBody|category_mobile')
-    console.log(dataBody)
     useEffect(() => {
         activeGetServices && GetServices({
             uriPointer: uri, dataBody, getDataSource: value => { setActiveGetServices(false); setDataService(value); },

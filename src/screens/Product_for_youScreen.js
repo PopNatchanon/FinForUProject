@@ -49,8 +49,6 @@ function Product_for_youScreen(props) {
     min_price: filterValue?.minvalue ? Number(filterValue.minvalue) : '',
     max_price: filterValue?.maxvalue ? Number(filterValue.maxvalue) : '',
   };
-  console.log('dataBody|foryou_mobile')
-  console.log(dataBody)
   var uri = `${finip}/publish_store/foryou_mobile`;
   let setSlider = (value) => setSliderVisible(value);;
   let getData = (value) => { setActiveGetServices(false); setDataService(value); };

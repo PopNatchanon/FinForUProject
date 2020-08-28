@@ -98,9 +98,6 @@ export default function Imageout(props) {
             } else {
                 let scale = (JSON.stringify(scaleValue) * 1);
                 if (_initialTouches && _initialTouches.length < 2) { set_initialTouches(touches); return; };
-                console.log('typeof touches')
-                console.log(typeof touches)
-                console.log(typeof touches == Object)
                 let currentDistance = getDistance(touches);
                 let initialDistance = getDistance(_initialTouches);
                 let newScale = getScale(currentDistance, initialDistance) - 1;
@@ -204,12 +201,6 @@ export default function Imageout(props) {
         onPanResponderMove: _onGestureMove,
         onPanResponderRelease: _onGestureRelease,
     });
-    // console.log('---------------------------------==============================================')
-    // console.log(dataIndex)
-    // console.log(imageHeight)
-    // console.log(imageWidth)
-    // console.log(dataMySQL)
-    // console.log('---------------------------------==============================================')
     // banner ? dataMySQL = `${finip}/${dataValue.image_path}/${dataValue.image}` :
     //     (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
     let animatedStyle = { transform: gesturePosition.getTranslateTransform(), };

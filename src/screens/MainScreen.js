@@ -315,8 +315,6 @@ export let Slide = (props) => {
         // banner ?
         uriSlide = { uri: `${finip}/${item.image_path}/mobile/${item.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = index % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        console.log(index)
-        console.log(uriSlide)
         return <View style={[child]} key={index}>
             <FastImage resizeMethod='resize' resizeMode={contain} source={uriSlide} style={[LOADING_ICON_STYLE]} />
         </View>;

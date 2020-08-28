@@ -18,9 +18,6 @@ export default StyleSheet.create({
     },
     Logo_Box: {
         alignItems: 'center',
-        paddingTop: 15,
-        width,
-        height: 'auto',
     },
     Logo: {
         height: 100,
@@ -29,7 +26,6 @@ export default StyleSheet.create({
     ///--------------------------------------------------------------------------///
     Login_Box: {
         width,
-        marginTop: 10,
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -57,8 +53,8 @@ export default StyleSheet.create({
     },
     Login_Box_Text_B: {
         height: 40,
-        // backgroundColor: mainColor,
-        backgroundColor: '#C4C4C4',
+        backgroundColor: mainColor,
+        // backgroundColor: '#E7B841',
         borderRadius: 5,
     },
     ///--------------------------------------------------------------------------///
@@ -66,10 +62,10 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     Register_Box_Button: {
-        marginTop: 5,
-        marginBottom: 20,
-        flexDirection: 'row',
-        justifyContent: 'center',
+        borderRadius: 5,
+        paddingLeft: 5,
+        paddingVertical: 5,
+        marginTop: 8,
     },
     Register_Box_image: {
         height: '100%',
@@ -96,12 +92,7 @@ export default StyleSheet.create({
         marginTop: 5,
     },
     RegisterScreen_Box_Login: {
-        // height: 350,
-        width: '80%',
-        backgroundColor: '#F3F3F3',
-        borderRadius: 10,
-        paddingTop: 20,
-        paddingRight: 10,
+        width: '90%',
     },
     DateBox: {
         marginTop: 14,
@@ -117,7 +108,6 @@ export default StyleSheet.create({
     },
     DataGenderBox: {
         flexDirection: 'row',
-        justifyContent: 'space-evenly',
         marginTop: 14
     },
     ///--------------------------------------------------------------------------///

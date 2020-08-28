@@ -398,8 +398,6 @@ export let Score_store = (props) => {
         nameline2: `(${dataService?.rate_1 ?? '0'})`,
     }];
     var uri = `${finip}/store/score_data`;
-    console.log('render|dataService2')
-    console.log(dataService2)
     let updateIndex = (value) => {
         var score = value.selectedIndex == 0 ? '' :
             value.selectedIndex == 1 ? '5' :
@@ -1020,7 +1018,6 @@ export let Group_Image = (props) => {
             setActiveGetServices(false); setDataService(GenArray(40, itemT));
         };
     }, [activeGetServices]);
-    console.log(dataService);
     return <ScrollView>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginLeft: 10 }]}>รูปภาพในกลุ่ม</Text>
         <ImageGallery dataService={dataService} />

@@ -118,9 +118,6 @@ export let Button_Bar = (props) => {
     text: <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>ตัวกรอง</Text>
   }
   let updateIndex = (value, value2) => {
-    console.log('------------------------------------->updateIndex');
-    console.log(value);
-    console.log(value2);
     value == 5 && setSliderVisible(true);
     (value != selectedIndex || value2 != 0) && value != 4 && value != 5 && filterValue({ actionReturn: value2, selectedIndex: value });
     value != selectedIndex && value != 4 && value != 5 && setSelectedIndex(value);

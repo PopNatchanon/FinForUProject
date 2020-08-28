@@ -119,7 +119,7 @@ export class TabBar extends React.Component {
         } = this.props;
         const { PassSetValue, pathlist, pathlist2 } = this.state;
         const countItem = item.length;
-        SetValue && console.log(`SetValue => ${SetValue}`);
+        // SetValue && console.log(`SetValue => ${SetValue}`);
         SetValue >= 0 && SetValue != pathlist && this.setSelectTab(SetValue);
         return item.map((item, index) => <TouchableOpacity key={index} activeOpacity={type == 'box' ? 0.2 : 1} onPress={NoSelectTab ?
             pathlist == index ?
@@ -281,7 +281,7 @@ export async function GetData(props) {
     var activeLogin;
     var value = {};
     let error, result, dataCokie, dataCustomer, dataProcessCustomer;
-    abortController && console.log('GetData');
+    // abortController && console.log('GetData');
     [error, result] = await promiseProcessData(AsyncStorage.multiGet(['@MyKey', '@MyLongin']));
     if (error) {
         console.log(error);

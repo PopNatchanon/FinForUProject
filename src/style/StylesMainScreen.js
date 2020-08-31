@@ -516,7 +516,7 @@ export default StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 5,
   },
-  SafeAreaView: {
+  SafeAreaViews: {
     flex: 1,
     backgroundColor: '#E9E9E9',
   },

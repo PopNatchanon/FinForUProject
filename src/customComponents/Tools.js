@@ -45,6 +45,7 @@ const { Coupon_BOX2, Coupon_BOX_A, Coupon_BOX_A2, Deal_Exclusive_Box, } = styles
 const { Detail_Box, Detail_Text_A, } = stylesDetail;
 const {
     FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8,
+    FontSize9,
 } = stylesFont;
 const {
     BoxProduct1Box, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1ImageofLines, BoxProduct1ImageofLines2, BoxProduct1ImagePrice,

@@ -102,10 +102,12 @@ function CategoryScreen(props) {
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
+const { FontFamilyBold, FontSize4 } = stylesFont;
+const { BoxProduct1Box2new, BoxProduct2Image, FrameBackground, FrameBackgroundTextBox, FrameBackgroundTextStart, ItemCenter, } = stylesMain;
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
     const [activeScroll, setActiveScroll] = useState(false);
-    let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxStore1Box, {
+    let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[ItemCenter, stylesMain.BoxStore1Box, {
         width: width * 0.40, backgroundColor: '#ECECEC', borderRadius: 5
     }]}>
         <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
@@ -137,19 +139,19 @@ export let Recommend_Store = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
 export let Product_Brand = (props) => {
     const { loadData, } = props;
-    let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) =>
-        <View key={index} style={[stylesMain.ItemCenter, stylesMain.BoxProduct1Box2new, { borderColor: '#DCDCDC' }]}>
-            <View style={[stylesMain.ItemCenter,
-            { backgroundColor: '#ECECEC', width: 119, borderBottomWidth: 0.5, borderBottomColor: '#DCDCDC' }]}>
-                <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
-                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
-                </View>
+    let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => <View key={index} style={[BoxProduct1Box2new, ItemCenter,
+        { borderColor: '#DCDCDC' }]}>
+        <View style={[ItemCenter,
+            { backgroundColor: '#ECECEC', borderBottomColor: '#DCDCDC', borderBottomWidth: 0.5, width: 119, }]}>
+            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
             </View>
-            <View style={{ height: 55, paddingHorizontal: 3 }} />
-        </View>);
-    return <View style={stylesMain.FrameBackground}>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>สินค้าแบรนด์ดัง</Text>
+        </View>
+        <View style={{ height: 55, paddingHorizontal: 3 }} />
+    </View>);
+    return <View style={FrameBackground}>
+        <View style={FrameBackgroundTextBox}>
+            <Text style={[FontFamilyBold, FontSize4, FrameBackgroundTextStart,]}>สินค้าแบรนด์ดัง</Text>
         </View>
         {loadData?.length > 0 ?
             <FlatProduct {...props} dataService={loadData} numberOfColumn={1} radiusBox={5} nameFlatProduct='Product_Brand' mode='row3_new'

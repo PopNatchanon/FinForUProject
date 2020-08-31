@@ -100,7 +100,7 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none" initialRouteName={
         'MainScreen'
-        // 'FeedScreen'
+        // 'DealScreen'
         // 'StoreScreen'
       }>
         <Stack.Screen component={MainScreen} name='MainScreen'

@@ -261,7 +261,7 @@ export default StyleSheet.create({
         borderRadius: 4,
         padding: 4,
     },
-    CoinCollect: {
+    CoinCollects: {
         height: 100,
     },
     CoinCollectImage: {

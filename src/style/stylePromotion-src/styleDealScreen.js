@@ -28,7 +28,7 @@ export default StyleSheet.create({
         marginTop: 5,
         margin: 10,
     },
-    Button_Bar: {
+    Button_Bars: {
         // marginBottom: -20,
         width: '100%',
         flexDirection: 'row',

@@ -21,7 +21,7 @@ import { BannerBar_TWO, ExitAppModule, TodayProduct, } from './MainScreen';
 import { Button_Bar, } from './ExclusiveScreen';
 import { Slide } from '../screens/src_Promotion/DealScreen'
 import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../customComponents';
+import { NavigationNavigate, AppBar, GenArray } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
@@ -103,13 +103,15 @@ function CategoryScreen(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Recommend_Store
 const { FontFamilyBold, FontSize4 } = stylesFont;
-const { BoxProduct1Box2new, BoxProduct2Image, FrameBackground, FrameBackgroundTextBox, FrameBackgroundTextStart, ItemCenter, } = stylesMain;
+const {
+    BoxProduct1Box2new, BoxProduct2Image, BoxStore1Box, BoxStore1Image, FrameBackground, FrameBackgroundTextBox, FrameBackgroundTextStart,
+    ItemCenter,
+} = stylesMain;
 export let Recommend_Store = (props) => {
     const { navigation, recommend } = props;
     const [activeScroll, setActiveScroll] = useState(false);
-    let boxEmpty = [0, 1, 2].map((_, index) => <View key={index} style={[ItemCenter, stylesMain.BoxStore1Box, {
-        width: width * 0.40, backgroundColor: '#ECECEC', borderRadius: 5
-    }]}>
+    let boxEmpty = [0, 1, 2].map((_, i) => <View key={i} style={[BoxStore1Box, ItemCenter,
+        { width: width * 0.40, backgroundColor: '#ECECEC', borderRadius: 5 }]}>
         <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={LOADING_ICON_STYLE} />
     </View>);
     let dataPromotionPopular = recommend?.length > 0 ?
@@ -117,8 +119,8 @@ export let Recommend_Store = (props) => {
             const uriRecomStore = { uri: `${finip}/${item.image_path}/${item.image}` };
             !activeScroll && setActiveScroll(true);
             return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
-                <View style={[stylesMain.BoxStore1Box, { width: width * 0.40, }]}>
-                    <FastImage source={uriRecomStore} style={[stylesMain.BoxStore1Image, { borderRadius: 5 }]} resizeMode={cover} />
+                <View style={[BoxStore1Box, { width: width * 0.40, }]}>
+                    <FastImage source={uriRecomStore} style={[BoxStore1Image, { borderRadius: 5 }]} resizeMode={cover} />
                 </View>
             </TouchableOpacity>;
         }) : boxEmpty;
@@ -130,17 +132,14 @@ export let Recommend_Store = (props) => {
             </TouchableOpacity>
         </View>
         <View style={[stylesMain.FlexRow, { height: 'auto', aspectRatio: 4.2, }]}>
-            <ScrollView horizontal scrollEnabled={activeScroll}>
-                {dataPromotionPopular}
-            </ScrollView>
+            <ScrollView horizontal scrollEnabled={activeScroll}>{dataPromotionPopular}</ScrollView>
         </View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Brand
 export let Product_Brand = (props) => {
     const { loadData, } = props;
-    let boxEmpty = [0, 1, 2, 3, 4, 5, 6, 7].map((_, index) => <View key={index} style={[BoxProduct1Box2new, ItemCenter,
-        { borderColor: '#DCDCDC' }]}>
+    let boxEmpty = GenArray(8).map((_, index) => <View key={index} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC' }]}>
         <View style={[ItemCenter,
             { backgroundColor: '#ECECEC', borderBottomColor: '#DCDCDC', borderBottomWidth: 0.5, width: 119, }]}>
             <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
@@ -154,10 +153,8 @@ export let Product_Brand = (props) => {
             <Text style={[FontFamilyBold, FontSize4, FrameBackgroundTextStart,]}>สินค้าแบรนด์ดัง</Text>
         </View>
         {loadData?.length > 0 ?
-            <FlatProduct {...props} dataService={loadData} numberOfColumn={1} radiusBox={5} nameFlatProduct='Product_Brand' mode='row3_new'
-                custumNavigation='DetailScreen' nameSize={14} priceSize={15} dispriceSize={15} /> :
-            <ScrollView horizontal scrollEnabled={false}>
-                {boxEmpty}
-            </ScrollView>}
+            <FlatProduct {...props} custumNavigation='DetailScreen' dataService={loadData} dispriceSize={15} mode='row3_new'
+                nameFlatProduct='Product_Brand' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} /> :
+            <ScrollView horizontal scrollEnabled={false}>{boxEmpty}</ScrollView>}
     </View>;
 };

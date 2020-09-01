@@ -37,6 +37,7 @@ const { FontFamilyBold, FontFamilySemiBold, FontFamilyText, FontSize3, FontSize4
 const {
   BackgroundAreaView, BoxProduct1Image, FlexRow, FrameBackground, FrameBackgroundTextStart, ItemCenter, SafeAreaViewNB,
 } = stylesMain;
+const Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -78,7 +79,7 @@ export function MenuBar(props) {
   const item = [
     { icon: <IconFontAwesome5 name='grin-hearts' size={20} />, name: <Text style={FontSize6}>กำลังติดตาม</Text> },
     { icon: <IconFontAwesome5 name='hotjar' size={20} />, name: <Text style={FontSize6}>ฮไลท์</Text> }];
-  let rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#FFFF' }} />;
+  const rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#FFFF' }} />;
   return <View>
     <BorderBottomTab data={item} fontStyle={[FontFamilySemiBold, FontSize6]} sendDataOut={(v) => sendText(v)} rightIcon={rigthItem} />
   </View>;
@@ -86,15 +87,15 @@ export function MenuBar(props) {
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export function Button_Bar(props) {
   const { activeSelectedIndex, currentUser, getActiveSelectedIndex, selectedIndex, } = props;
-  var uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`;
-  var dataBody = { id_customer: currentUser?.id_customer ?? '' };
+  const uri = `${finip}/${(selectedIndex == 0 ? 'brand/feed_store_follow' : 'brand/feed_highlight')}`;
+  const dataBody = { id_customer: currentUser?.id_customer ?? '' };
   const [dataService, setDataService] = useState(null);
-  let getDataSource = (v) => { getActiveSelectedIndex(false); setDataService(v); };
+  const getDataSource = (v) => { getActiveSelectedIndex(false); setDataService(v); };
   useEffect(() => {
     activeSelectedIndex &&
       GetFetch({ dataBody: selectedIndex == 0 ? dataBody : undefined, getDataSource: (v) => getDataSource(v), uriPointer: uri, });
   }, [activeSelectedIndex || selectedIndex]);
-  let Highlights_Store = GenArray(4).map((_, i) => <TouchableOpacity key={i}>
+  const Highlights_Store = GenArray(4).map((_, i) => <TouchableOpacity key={i}>
     <View style={{ borderColor: '#C4C4C4', borderWidth: 1.5, marginRight: 5, width: 150, }}>
       <View style={{ backgroundColor: '#ECECEC', height: 60, }}>
       </View>
@@ -133,7 +134,7 @@ export function Button_Bar(props) {
             nodata />)}
         </View>}
     {selectedIndex == 0 && <ActionButton buttonColor={mainColor} size={50} onPress={() =>
-      NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, })} />}
+      Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 1, }, })} />}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
@@ -168,16 +169,16 @@ export function Highlights(props) {
     name_store: 'StoreJ', follow_store: '91', score_store: '66.2'
   }];
   const [activeModalize, setActiveModalize] = useState(false);
-  let Highlights_Store = dataService2.map((v, i) => {
-    const image1 = { uri: v.image_BG, };
-    const image2 = { uri: v.image_Pro, };
+  const Highlights_Store = dataService2.map((v, i) => {
+    const Image1 = { uri: v.image_BG, };
+    const Image2 = { uri: v.image_Pro, };
     return <TouchableOpacity key={i}>
       <View style={{ borderColor: '#C4C4C4', borderWidth: 1.5, marginRight: 5, width: 150, }}>
         <View style={{ height: 60 }}>
-          <FastImage resizeMode={cover} source={image1} style={BoxProduct1Image} />
+          <FastImage resizeMode={cover} source={Image1} style={BoxProduct1Image} />
         </View>
         <View style={{ alignItems: 'center' }}>
-          <FastImage resizeMode={cover} source={image2} style={{
+          <FastImage resizeMode={cover} source={Image2} style={{
             backgroundColor: '#FFFFFF', borderColor: '#C4C4C4', borderWidth: 1, borderRadius: width / 2, height: 60, marginTop: -30, width: 60,
           }} />
         </View>
@@ -204,31 +205,31 @@ export function Highlights(props) {
     </View>;
   };
   return <View style={FrameBackground, BackgroundAreaView}>
-    {dataService && <FlatList data={dataService} initialNumToRender={10} keyExtractor={(_, i) => `Feed${i}`}
-      ListHeaderComponent={() => headerStoryList()} renderItem={(v) => <FeedBox {...props} activeModalize={(v) => setActiveModalize(v)}
-        dataService={v.item} Follow={selectedIndex == 1 ? false : true} Header />} scrollEnabled={true} />}
+    {dataService && <FlatList data={dataService} initialNumToRender={10} keyExtractor={(_, i) => `Feed${i}`} ListHeaderComponent={() =>
+      headerStoryList()} renderItem={(v) => <FeedBox {...props} activeModalize={(v) => setActiveModalize(v)} dataService={v.item}
+        Follow={selectedIndex == 1 ? false : true} Header />} scrollEnabled={true} />}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Feed_Login
 export function Feed_Login(props) {
   const { currentUser, } = props;
-  const image1 = require('../../images/iconlogo.png');
-  const image2 = { uri: `${ip}/MySQL/uploads/addmin/1212.png`, };
-  const uriImageUser = { uri: `${finip}/${currentUser.image_path}/${currentUser.image}` };
+  const Image1 = require('../../images/iconlogo.png');
+  const Image2 = { uri: `${ip}/MySQL/uploads/addmin/1212.png`, };
+  const ImageUser = { uri: `${finip}/${currentUser.image_path}/${currentUser.image}` };
   return <View style={{ backgroundColor: '#1A1555', flex: 1, marginTop: -6, alignItems: 'center' }}>
-    <FastImage resizeMode={contain} source={image1} style={{ height: height * 0.30, width: width * 0.60, marginTop: 20 }} />
+    <FastImage resizeMode={contain} source={Image1} style={{ height: height * 0.30, width: width * 0.60, marginTop: 20 }} />
     <Text style={[FontFamilyBold, FontSize3, { color: '#FFFFFF' }]}>ลงชื่อเข้าฟีด</Text>
     <View style={[ItemCenter, { backgroundColor: '#FFFFFF', padding: 10, borderRadius: 10, width: width * 0.75 }]}>
       <TouchableOpacity>
         <View style={[FlexRow, { borderColor: '#0A55A6', borderWidth: 1, borderRadius: 20, padding: 5, width: width * 0.60, }]}>
-          <FastImage style={{ height: 40, width: 40, borderRadius: 25, borderWidth: 1 }} source={uriImageUser} resizeMode={cover} />
+          <FastImage style={{ height: 40, width: 40, borderRadius: 25, borderWidth: 1 }} source={ImageUser} resizeMode={cover} />
           <Text style={[FontFamilyBold, FontSize5, { margin: 10 }]}>{currentUser.name}</Text>
         </View>
       </TouchableOpacity>
       <TouchableOpacity>
         <View style={[FlexRow,
           { borderColor: '#0A55A6', borderRadius: 20, borderWidth: 1, marginTop: 10, padding: 5, width: width * 0.60, }]}>
-          <FastImage resizeMode={cover} source={image2} style={{ height: 40, width: 40, borderRadius: 25, borderWidth: 1 }} />
+          <FastImage resizeMode={cover} source={Image2} style={{ height: 40, width: 40, borderRadius: 25, borderWidth: 1 }} />
           <Text style={[FontFamilyBold, FontSize5, { margin: 10 }]}>Store A</Text>
         </View>
       </TouchableOpacity>
@@ -237,8 +238,8 @@ export function Feed_Login(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> Feed_About
 export function Feed_About(props) {
-  const image1 = { uri: `${ip}/MySQL/uploads/Group_image/woman.png`, };
-  const image2 = { uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`, };
+  const Image1 = { uri: `${ip}/MySQL/uploads/Group_image/woman.png`, };
+  const Image2 = { uri: `${ip}/MySQL/uploads/Resize/Promotion/002.jpg`, };
   const item_Store = [
     { image: `${ip}/MySQL/uploads/Group_image/Walmart.png`, name: 'BP World', },
     { image: `${ip}/MySQL/uploads/Group_image/central.png`, name: 'Ducati', },
@@ -252,11 +253,11 @@ export function Feed_About(props) {
     name: 'Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย Sneaker อินเทรนด์หนักๆ สาย',
   }, { image: `${ip}/MySQL/uploads/Group_image/HomePro.png`, name: 'ชวนชาว FIN มาต่อจิ๊กซอว์กัน ชวนชาว FIN มาต่อจิ๊กซอว์กัน', },
   { image: `${ip}/MySQL/uploads/Group_image/con1.jpg`, name: 'เข้าซูเปอร์มาเก็ตกับพี่หมี เข้าซูเปอร์มาเก็ตกับพี่หมี ', }];
-  let StoreItem = item_Store.map((v, i) => {
-    const imageStore = { uri: v.image, };
+  const StoreItem = item_Store.map((v, i) => {
+    const ImageStore = { uri: v.image, };
     return <View key={i} style={[FlexRow, { justifyContent: 'space-between', marginTop: 2, padding: 10 }]}>
       <View style={FlexRow}>
-        <FastImage style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} source={imageStore} resizeMode={cover} />
+        <FastImage style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} source={ImageStore} resizeMode={cover} />
         <Text style={[FontFamilyText, FontSize6, { margin: 10 }]}>{v.name}</Text>
       </View>
       <TouchableOpacity style={[ItemCenter,
@@ -265,46 +266,46 @@ export function Feed_About(props) {
       </TouchableOpacity>
     </View>;
   });
-  let GroupItem = item_Group.map((v, i) => {
-    const imageGroup = { uri: v.image, };
-    return <TouchableOpacity key={i} onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 12, }, })}
+  const GroupItem = item_Group.map((v, i) => {
+    const ImageGroup = { uri: v.image, };
+    return <TouchableOpacity key={i} onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 12, }, })}
       style={[FlexRow, { marginTop: 2, padding: 5 }]}>
       <View style={FlexRow}>
-        <FastImage resizeMode={cover} source={imageGroup} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
+        <FastImage resizeMode={cover} source={ImageGroup} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
         <Text numberOfLines={2} style={[FontFamilyText, FontSize6, { margin: 10, width: '80%' }]}>{v.name}</Text>
       </View>
     </TouchableOpacity>;
   });
   return <ScrollView>
     <View style={{ backgroundColor: '#FFFFFF', flex: 1, padding: 10 }}>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 22, }, })}
-        style={[FlexRow, { backgroundColor: '#E0EFFF', borderRadius: 5, padding: 10, }]}>
-        <FastImage resizeMode={cover} source={image1} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
+      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 22, }, })} style={[FlexRow,
+        { backgroundColor: '#E0EFFF', borderRadius: 5, padding: 10, }]}>
+        <FastImage resizeMode={cover} source={Image1} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
       </TouchableOpacity>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 16, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 16, }, })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>บันทึกกิจกรรมของฉัน</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 17, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 17, }, })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>รายการที่บันทึกไว้</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 18, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 18, }, })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>กลุ่มทั้งหมด</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 19, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 19, }, })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>การแจ้งเตือน</Text>
         </TouchableOpacity>
       </View>
       <View style={[FlexRow, { backgroundColor: '#E0EFFF', borderRadius: 5, marginTop: 10, padding: 10, }]}>
         <View style={{ height: 100, width: 170, }}>
-          <FastImage resizeMode={cover} source={image2} style={BoxProduct1Image} />
+          <FastImage resizeMode={cover} source={Image2} style={BoxProduct1Image} />
         </View>
         <View style={{ paddingHorizontal: 10, width: '50%', }}>
           <Text style={[FontFamilyBold, FontSize5, { color: '#0A55A6' }]}>J&W Jewery</Text>
@@ -318,7 +319,7 @@ export function Feed_About(props) {
         <IconEntypo name='chevron-down' size={25} />
       </TouchableOpacity>
       <Text style={[FontFamilyBold, FontSize4, { margin: 5 }]}>กลุ่มของคุณ</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 11, }, })}>
+      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Post_Feed', setData: { selectedIndex: 11, }, })}>
         <View style={[FlexRow, { borderRadius: 5, marginBottom: 15, padding: 5, }]}>
           <View style={[ItemCenter, { borderRadius: 25, borderWidth: 1, height: 50, width: 50, }]}>
             <IconAntDesign name='plus' size={30} />

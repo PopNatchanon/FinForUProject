@@ -13,9 +13,11 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
+import IconFoundation from 'react-native-vector-icons/Foundation';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
+import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
@@ -103,8 +105,9 @@ export let Headbar = (props) => {
                 </View>
                 <View style={{ flexDirection: 'row', padding: 8 }}>
                     <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'SettingScreen', navigation })}>
-                        <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25}
-                            color='#FFFFFF' />
+                        <IconFeather name='settings' size={25} style={{ marginRight: 6, color: '#FFFFFF' }} />
+                        {/* <IconMaterialCommunityIcons RightItem name="settings-outline" style={{ marginRight: 6 }} size={25}
+                            color='#FFFFFF' /> */}
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'CartScreen', navigation })}>
                         <IconFeather RightItem name="shopping-cart" size={25} color='#FFFFFF' />
@@ -208,7 +211,7 @@ export let Listbar = (props) => {
             <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({ goScreen: 'DealScreen', navigation })}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#128BCE' }]}>
-                        <IconAntDesign name='home' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
+                        <IconFoundation name='burst' size={40} style={[stylesMain.ItemCenterVertical, { color: '#fff' }]} />
                         {/* <IconMaterialCommunityIcons name='octagram-outline' size={40} style={stylesProfile.ListbarMainRadiusIcon} /> */}
                     </View>
                     <Text style={[stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6,
@@ -218,7 +221,7 @@ export let Listbar = (props) => {
             <TouchableOpacity activeOpacity={0.9} onPress={() => setPathlist(2)}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#0A55A6' }]}>
-                        <IconMaterialCommunityIcons name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
+                        <IconFontAwesome name='ticket' size={40} style={stylesProfile.ListbarMainRadiusIcon} />
                     </View>
                     <Text style={[stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6,
                     stylesFont.FontCenter]}>โค้ดส่วนลด</Text>
@@ -305,7 +308,7 @@ export let ListMenu = (props) => {
                 NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 4 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialCommunityIcons RightItem name="star-box" size={35} color='#EAD295'
+                        <IconFontAwesome RightItem name="star" size={35} color='#EAD295'
                             style={stylesProfile.ListMenuListSubIcon} />
                         <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
                         stylesFont.FontCenter]}>รีวิวของฉัน</Text>

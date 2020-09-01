@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../customComponents';
 import { ExitAppModule } from '../MainScreen';
@@ -31,7 +31,7 @@ function Detail_Pro(props) {
             case 0:
                 return <View>
                     <AppBar {...props} backArrow titleHead='รายละเอียดโปรโมชัน' />
-                    <Detail_Promotion {...props} />
+                    <Detail_Promotion {...props}  />
                 </View>;
             case 1:
                 return <View>

@@ -159,7 +159,7 @@ export let ListMenu = (props) => {
                 NavigationNavigate({ goScreen: 'Seller_Totel_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialCommunityIcons name="car-estate" size={35} color='#9E9E9E'
+                        <IconsFontAwesome5 name="car-side" size={30} color='#9E9E9E'
                             style={stylesProfile.ListMenuListSubIcon} />
                         <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             การจัดส่งของฉัน</Text>
@@ -215,7 +215,7 @@ export let ListMenu = (props) => {
                 NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialCommunityIcons RightItem name="star" size={35} color='#FFAC33'
+                        <IconsFontAwesome RightItem name="star" size={35} color='#FFAC33'
                             style={stylesProfile.ListMenuListSubIcon} />
                         <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                             คะแนนของฉัน</Text>

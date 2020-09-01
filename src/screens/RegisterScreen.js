@@ -27,6 +27,7 @@ import stylesMain, { mainColor } from '../style/StylesMainScreen';
 import { ExitAppModule } from './MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
+import { AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -35,6 +36,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(Register_OTPScreen);
 function Register_OTPScreen(props) {
   return <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
+    <AppBar {...props} backArrow  titleHead='สมัครสมาชิก' helpkBar />
     <ScrollView>
       <Logo />
       <Login {...props} />
@@ -44,7 +46,7 @@ function Register_OTPScreen(props) {
   </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Logo
-export let Logo = (props) => <View style={{ alignItems: 'center', marginTop: 20 }}>
+export let Logo = (props) => <View style={{ alignItems: 'center',  }}>
   <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font1.png')}
     resizeMode={FastImage.resizeMode.contain} />
 </View>;
@@ -175,7 +177,7 @@ export let Login = (props) => {
       <View style={stylesMain.FlexRow}>
         <View style={stylesMain.FlexRow}>
           <IconFontisto name='male' size={20} color='#C4C4C4' style={{ marginTop: 13 }} />
-          <CheckBox size={20} title='ชาย' />
+          <CheckBox size={20} title='ชาย'/>
         </View>
         <View style={stylesMain.FlexRow}>
           <IconFontisto name='female' size={20} color='#C4C4C4' style={{ marginTop: 13 }} />
@@ -197,7 +199,7 @@ export let Login = (props) => {
     </Form>;
   };
   return <View style={stylesLogin.Login_Box}>
-    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3,]}>สมัครสมาชิก</Text>
+    {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3,]}>สมัครสมาชิก</Text> */}
     <View style={stylesLogin.RegisterScreen_Box_Login}>
       {FormBody()}
     </View>
@@ -206,9 +208,9 @@ export let Login = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Register
 export let Register = (props) => {
   const [item1, setItem1] = useState(false)
-  return <View style={[stylesMain.ItemCenter, { marginBottom: 10 }]}>
+  return <View style={[stylesMain.ItemCenter, { marginBottom: 10, top: -20 }]}>
     <View style={[stylesMain.FlexRow, { marginTop: 10, }]}>
-      <View style={{ height: 50, marginTop: 20,  }}>
+      <View style={{ height: 50, marginTop: 20, }}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>
           ฉันต้องการรับข้อเสนอและโปรโมชันสุดพิเศษจาก FIN</Text>
       </View>
@@ -249,7 +251,7 @@ export let Register = (props) => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#24201c', }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='apple' size={20} color='#24201c' />
@@ -258,7 +260,7 @@ export let Register = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Apple ID</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   </View>;
 };

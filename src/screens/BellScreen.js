@@ -11,7 +11,7 @@ import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
+import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from './MainScreen';
 import { GetServices } from '../customComponents/Tools';
@@ -91,9 +91,9 @@ export let Pro_for_U = (props) => {
     let for_U_Item = (
         for_U_Store.map((value, index) => {
             return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0, }, navigation })}>
                 <View style={[stylesMain.FlexRow, { marginTop: 3, marginHorizontal: 3, borderColor: '#ECECEC', borderWidth: 1, }]}>
-                    <FastImage style={{ height: 80, width: '30%',}} source={{ uri: value.image }} />
+                    <FastImage style={{ height: 80, width: '30%', }} source={{ uri: value.image }} />
                     <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 5, width: '68%' }]}>
                         {value.name}</Text>
                 </View>
@@ -110,40 +110,29 @@ export let Pro_for_U = (props) => {
 export let Update_buy = (props) => {
     const { navigation } = props;
     const Updateitem = [
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, name: 'โปรโมชั่นลดราคา (Price off) ไม่ว่าจะเป็น ลดราคาเป็นเปอร์เซ็นต์ หรือลดราคาเป็นบาท เช่น ลด 10% หรือ ลดราคา 100 บาท', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, name: 'โปรโมชั่นยิ่งซื้อมาก ยิ่งประหยัดมาก (Buy more save more) จะช่วยให้ลูกค้าเพิ่มปริมาณการซื้อ เช่น ซื้อ 2 ชิ้นลด 50 บาท, ซื้อ 3 กล่องประหยัดทันที 100 บาท', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop4.jpg`, name: 'โปรโมชั่นสร้างโปรแกรมสำหรับลูกค้าประจำ (Loyalty Program) ลูกค้าขาจรกลายเป็นลูกค้าประจำได้ง่ายๆ เพียงแค่เราสร้างระบบสมาชิก หรือโปรแกรมสะสมแต้มรับส่วนลด แลกของรางวัล', },
-        { image: `${ip}/mysql/uploads/slide/NewStore/luxury_shop5.jpg`, name: 'โปรโมชั่นของแถม (Premium) อาจจะเป็นสินค้าตัวมันเอง สินค้าอื่น หรือเป็นของแถมอื่นๆ ก็ได้ เช่น ถุง แก้ว กระเป๋า กล่อง ฯลฯ', },]
-    return <View>
-        <View style={stylesMain.FrameBackgroundTextBox}>
-            <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>อัพเดทคำสั่งซื้อ</Text>
-        </View>
-        <View style={[stylesMain.FrameBackground, stylesMain.BackgroundAreaView, stylesMain.ItemCenter]}>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1 }, navigation })}>
-                <View style={stylesMain.BoxStore4Box}>
-                    <FastImage style={stylesMain.BoxStore4Image}
-                        source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
-                    <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                        คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง</Text>
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B1.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', Detall: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B2.jpg`, name: 'ยินดีต้อนรับร้านค้าใหม่', Detall: 'ยินดีด้วยกับร้านใหม่ นี่คือวิธีการใช้บริการส่งฟรี และ 5 ขั้นตอนแสนง่าย สำหรับการค้าขายใน FinshoppingMall คลิกอ่านเพิ่มเติมเลย' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B3.jpg`, name: 'ให้คะแนนสินค้า', Detall: 'ได้ให้คะแนนคุณจากคำสั่งซื้อ 20062817WD5TNY กรุณาให้คะแนนผู้ขายภายใน 18-07-2020' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B4.jpg`, name: 'สินค้าถูกจัดส่งแล้ว', Detall: 'พัสดุหมายเลข ะ้206409951024B ของคำสั่งซื้อ 200519ด4ไ0ก87ี จัดส่งสำเร็จแล้ว' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B5.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', Detall: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },]
+    let Updatebuy = (
+        Updateitem.map((value, index) => {
+            return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
+                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1, }, navigation })}>
+                <View style={[stylesMain.FlexRow, { marginHorizontal: 3, borderColor: '#ECECEC', borderWidth: 1, marginVertical: 2.5 }]}>
+                    <FastImage style={{ width: width * 0.30, height: 80 }}
+                        source={{ uri: value.image, }} />
+                    <View style={{ marginLeft: 5, }}>
+                        <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>{value.name}</Text>
+                        <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.65, color: '#B9B9B9' }]}>{value.Detall}</Text>
+                    </View>
                 </View>
             </TouchableOpacity>
-            <View style={stylesMain.BoxStore4Box}>
-                <FastImage style={stylesMain.BoxStore4Image} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
-                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
-            </View>
-            <View style={stylesMain.BoxStore4Box}>
-                <FastImage style={stylesMain.BoxStore4Image} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
-                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    คุณให้คะแนนเรทติ้งการสั่งซื้อแล้วรึยัง??</Text>
-            </View>
-            <View style={stylesMain.BoxStore4Box}>
-                <FastImage style={stylesMain.BoxStore4Image} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop1.jpg`, }} />
-                <Text numberOfLines={4} style={[stylesMain.BoxStore4Text, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
-                    กรุณาชำระเงิน ........ บาท สำหรับคำสั่งซื้อ ภายในวันที่ 19-12-2019 </Text>
-            </View>
+        }))
+    return <View style={stylesMain.FrameBackground}>
+        <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5]}>อัพเดทคำสั่งซื้อ</Text>
+        <View>
+            {Updatebuy}
         </View>
     </View>;
 };

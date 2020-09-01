@@ -205,11 +205,11 @@ function MainScreen(props) {
             nameComponent: 'Product_for_you',
             renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
         },
-        {
-            // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-            nameComponent: 'CategoryProduct',
-            renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
+        // {
+        //     // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+        //     nameComponent: 'CategoryProduct',
+        //     renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+        // },
         {
             // สินค้า และร้านค้า มือสอง
             nameComponent: 'Second_product',

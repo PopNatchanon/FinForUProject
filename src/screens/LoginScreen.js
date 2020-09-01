@@ -24,7 +24,7 @@ import stylesLogin from '../style/stylesLoginScreen';
 import stylesMain, { mainColor } from '../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from './MainScreen'
-import { Toolbar, NavigationNavigate } from '../customComponents';
+import { Toolbar, NavigationNavigate, AppBar } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -35,6 +35,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(LoginScreen);
 function LoginScreen(props) {
   return <SafeAreaView style={{ backgroundColor: '#FFFFFF', flex: 1, }}>
+    <AppBar {...props} titleHead='เข้าสู่ระบบ' helpkBar />
     <ScrollView>
       <Logo />
       <Login {...props} />
@@ -196,7 +197,7 @@ export let Register = (props) => {
           </View>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity>
+      {/* <TouchableOpacity>
         <View style={[stylesMain.FlexRow, stylesLogin.Register_Box_Button, { backgroundColor: '#24201c', }]}>
           <View style={[stylesMain.ItemCenter, { height: 30, width: 30, backgroundColor: '#FFFFFF', borderRadius: 15 }]}>
             <IconFontAwesome name='apple' size={20} color='#24201c' />
@@ -205,7 +206,7 @@ export let Register = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เข้าสู่ระบบด้วย Apple ID</Text>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   </View>;
 };

@@ -151,7 +151,7 @@ class AppNoSearchBar extends React.Component {
     render() {
         const {
             AIColor, backArrow, backNavigation, borderBottomColor, cartData, cartListButtomDelete, chatBar, colorSet, deleteBar,
-            getActivePost, goToTop, navigation, postBar, saveBar, searchBar, selectshare, storeBar, settingBar, titleHead, UpBankBar,
+            getActivePost, goToTop, navigation, postBar, saveBar, searchBar, selectshare, storeBar, settingBar, titleHead, UpBankBar, helpkBar,
         } = this.props;
         const { currentUser } = this.state;
         const colors = [];
@@ -220,6 +220,11 @@ class AppNoSearchBar extends React.Component {
                     NavigationNavigate({ goScreen: 'Setting_TopicStore', navigation, setData: { selectedIndex: 1 }, })}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8, width: 80, }]}>เพิ่มบัญชี</Text>
+                </TouchableOpacity>}
+                {helpkBar && <TouchableOpacity key={'helpkBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
+                    NavigationNavigate({ goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 8 }, })}>
+                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
+                    { marginRight: 8, width: 80, }]}>ช่วยเหลือ</Text>
                 </TouchableOpacity>}
                 {deleteBar && this.props.cartDataList.length > 0 && <TouchableOpacity key={'deleteBar'} onPress={() =>
                     cartListButtomDelete()} style={[stylesMain.ItemCenter, { width: 60 }]}>

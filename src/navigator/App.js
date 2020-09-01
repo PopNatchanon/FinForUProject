@@ -71,6 +71,7 @@ import Detail_Campaign from '../screens/src_Promotion/Detail_Campaign';
 import Post_Feed from '../screens/src_Store/Post_Feed';
 import FeedsScreen from '../customComponents/FeedsComponents/Feeds';
 import ImageZoom from '../customComponents/imageComponents/ImageZoom/ImageZoom'
+import { BrowerScreen } from '../customComponents';
 ///----------------------------------------------------------------------------------------------->>>>
 // const store = useStore(configureStore);
 const Stack = createStackNavigator();
@@ -212,6 +213,7 @@ function App() {
         <Stack.Screen component={FeedsScreen} name='FeedsScreen'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={ImageZoom} name='ImageZoom' options={{ ...opacityTransition }} />
+        <Stack.Screen component={BrowerScreen} name='BrowerScreen' options={{ ...opacityTransition }} />
       </Stack.Navigator>
     </NavigationContainer>
   </Provider>

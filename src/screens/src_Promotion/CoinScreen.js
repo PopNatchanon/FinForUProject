@@ -133,18 +133,17 @@ export let CoinPageBody = (props) => {
         device: "mobile_device",
         id_promotion_voucher: id_promotion ?? ''
     };
-    const dataMySQL = `${finip}/${image_path}/${image}`;
-    const ImageVoucher = { uri: `${finip}/coupon/show_voucher`, };
+    const ImageVoucher = { uri: `${finip}/${image_path}/${image}`, };
+    const uri = `${finip}/coupon/show_voucher`;
     const getData = (v) => { setActiveGetServices(false); setDataService2(v); };
     useEffect(() => {
         activeGetServices && cokie && currentUser &&
             GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [activeGetServices && cokie && currentUser]);
     const DetailCoin = () => {
-        const ImageDetail = { uri: `${finip}/${image_path}/${image}`, };
         return <View style={{ height: '100%' }}>
             <View style={{ width: '100%', height: 150, }}>
-                <FastImage resizeMode={stretch} source={ImageDetail} style={[BoxProduct1Image, { borderRadius: 5, }]} />
+                <FastImage resizeMode={stretch} source={ImageVoucher} style={[BoxProduct1Image, { borderRadius: 5, }]} />
             </View>
             <ScrollView>
                 <Text style={[FontFamilyText, FontSize6]}>{detail} ใครกำลังมองหาที่เที่ยวใกล้กรุงเทพ ค้างคืนได้ มาอัพเดต ทริปเที่ยว 2 วัน 1 คืน จาก 3 จังหวัดใกล้กรุงเทพ ซึ่งเป็นทริปเที่ยวยอดนิยม

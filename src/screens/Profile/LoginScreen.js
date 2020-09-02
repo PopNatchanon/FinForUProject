@@ -23,7 +23,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesLogin from '../../style/stylesLoginScreen';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, } from '../MainScreen'
+import { ExitAppModule, } from '../Main/MainScreen'
 import { Toolbar, NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -50,7 +50,7 @@ export let Logo = (props) => <View style={{ alignItems: 'center', marginTop: 20 
   {/* <ImageBackground style={stylesLogin.Logo_Box} 
   source={{ uri: `${ip}/MySQL/uploads/icon_5/sign-in-bg02.jpg`, }}
     resizeMode={FastImage.resizeMode.stretch}> */}
-  <FastImage style={stylesLogin.Logo} source={require('../../images/logoFin_Font1.png')} resizeMode={FastImage.resizeMode.contain} />
+  <FastImage style={stylesLogin.Logo} source={require('../../../images/logoFin_Font1.png')} resizeMode={FastImage.resizeMode.contain} />
   {/* </ImageBackground> */}
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Login

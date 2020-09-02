@@ -16,7 +16,7 @@ import NumberFormat from 'react-number-format';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, TodayProduct, } from '../MainScreen';
+import {  ExitAppModule, TodayProduct, } from '../Main/MainScreen';
 import { GetServices } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

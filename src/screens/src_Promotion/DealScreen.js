@@ -22,7 +22,7 @@ import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
 import stylesMain from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, Second_product, TodayProduct, } from '../../screens/MainScreen';
+import { ExitAppModule, Second_product, TodayProduct, } from '../../screens/Main/MainScreen';
 import {
   GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
 } from '../../customComponents/Tools';

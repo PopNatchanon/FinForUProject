@@ -23,7 +23,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, } from '../MainScreen';
+import { ExitAppModule, } from '../Main/MainScreen';
 import { GetCoupon, GetData, TabBar, GetServices, LoadingScreen } from '../../customComponents/Tools';
 import { Toolbar, NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -74,7 +74,7 @@ export let Headbar = (props) => {
             goScreen: 'Setting_Topic', setData: { selectedIndex: 0, getDataSource: (value) => getDataSources(value) }, navigation
         })}>
             <View style={{ backgroundColor: '#4a4a4a', }}>
-                <ImageBackground source={require('../../icon/bgprofile.jpg')} style={stylesProfile.HeadbarImage} />
+                <ImageBackground source={require('../../../icon/bgprofile.jpg')} style={stylesProfile.HeadbarImage} />
             </View>
         </TouchableOpacity>
         <View style={stylesProfile.HeadbarA}>
@@ -141,28 +141,28 @@ export let MenubarSub = (props) => {
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
                 NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 1 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                    <FastImage source={require('../../icon/two-money-cards.png')} style={stylesProfile.MenubarSubLine1Image} />
+                    <FastImage source={require('../../../icon/two-money-cards.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รอจ่ายเงิน</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
                 NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                    <FastImage source={require('../../icon/month-calendar.png')} style={stylesProfile.MenubarSubLine1Image} />
+                    <FastImage source={require('../../../icon/month-calendar.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ที่ต้องได้รับ</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
                 NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 2 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                    <FastImage source={require('../../icon/truck-facing-right.png')} style={stylesProfile.MenubarSubLine1Image} />
+                    <FastImage source={require('../../../icon/truck-facing-right.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>ดำเนินการส่ง</Text>
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={0.9} onPress={() =>
                 NavigationNavigate({ goScreen: 'Total_Order', setData: { selectedIndex: 3 }, navigation })}>
                 <View style={[stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
-                    <FastImage source={require('../../icon/rating.png')} style={stylesProfile.MenubarSubLine1Image} />
+                    <FastImage source={require('../../../icon/rating.png')} style={stylesProfile.MenubarSubLine1Image} />
                     <Text style={[stylesProfile.MenubarSubLine1Name, stylesFont.FontFamilyText, stylesFont.FontSize6]}>รีวิวสินค้า</Text>
                 </View>
             </TouchableOpacity>
@@ -171,7 +171,7 @@ export let MenubarSub = (props) => {
             <TouchableOpacity onPress={() =>
                 NavigationNavigate({ goScreen: 'Return_products', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
-                    <FastImage source={require('../../icon/repeat.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
+                    <FastImage source={require('../../../icon/repeat.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                         คืนสินค้า/คืนเงิน</Text>
                 </View>
@@ -179,7 +179,7 @@ export let MenubarSub = (props) => {
             <TouchableOpacity onPress={() =>
                 NavigationNavigate({ goScreen: 'CancelScreen', setData: { selectedIndex: 0 }, navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
-                    <FastImage source={require('../../icon/box.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
+                    <FastImage source={require('../../../icon/box.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
                         ยกเลิกสินค้า</Text>
                 </View>
@@ -230,7 +230,7 @@ export let Listbar = (props) => {
             <TouchableOpacity activeOpacity={0.9} onPress={() => NavigationNavigate({ goScreen: 'CoinScreen', navigation })}>
                 <View style={[stylesMain.FlexColumn, stylesMain.ItemCenter, { width: width * (1 / 4) }]}>
                     <View style={[stylesMain.ItemCenter, stylesProfile.ListbarMainRadius, { backgroundColor: '#fadf2d' }]}>
-                        <FastImage source={require('../../icon/bitcoin2.png')} style={stylesProfile.ListbarBoxImage} />
+                        <FastImage source={require('../../../icon/bitcoin2.png')} style={stylesProfile.ListbarBoxImage} />
                     </View>
                     <Text style={[stylesProfile.ListbarBoxText, stylesFont.FontFamilyText, stylesFont.FontSize6,
                     stylesFont.FontCenter]}>Fin coin ของฉัน</Text>

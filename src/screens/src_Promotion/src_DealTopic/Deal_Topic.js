@@ -26,11 +26,11 @@ import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { Button_Bar } from '../../Main/Highlight/HighlightScreen';
-import { ExitAppModule, TodayProduct, } from '../../MainScreen';
+import { ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
 import { GetCoupon, GetServices, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
 import { ProductBox } from '../../../customComponents/Tools';
 import { Slide } from '../DealScreen';
-import { Store_Detail, } from '../../Recommend_Store';
+import { Store_Detail, } from '../../Main/RecommendStore/Recommend_Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
 import { AppBar } from '../../../customComponents';

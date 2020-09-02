@@ -24,7 +24,7 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, GetFetch, } from '../../../customComponents';
-import { ExitAppModule, } from '../../MainScreen';
+import { ExitAppModule, } from '../../Main/MainScreen';
 import { GetData, GetServicesBlob } from '../../../customComponents/Tools';
 import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip

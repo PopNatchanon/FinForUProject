@@ -12,7 +12,7 @@ export const { width, height } = Dimensions.get('window');
 import { mainColor } from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule } from '../../MainScreen';
+import { TodayProduct, ExitAppModule } from '../../Main/MainScreen';
 import { Button_Bar } from '../../Main/Highlight/HighlightScreen';
 import { GetServices } from '../../../customComponents/Tools';
 import { Slide } from '../../src_Promotion/DealScreen';

@@ -29,10 +29,10 @@ import stylesCart from '../../style/stylesCartScreen';
 import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../Main/MainScreen';
 import { GetServices, GetData, LoadingScreen } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
-import { PopularProduct } from './StoreScreen';
+import { PopularProduct } from '../Store/StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

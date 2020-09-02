@@ -19,7 +19,7 @@ import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { NavigationNavigate, AppBar } from '../../customComponents';
-import { ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({

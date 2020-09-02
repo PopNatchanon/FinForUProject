@@ -14,7 +14,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, } from './MainScreen';
+import { ExitAppModule, } from '../MainScreen';
 import { ProductBox, LoadingScreen, GetData, GetServices, FlatProduct, } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

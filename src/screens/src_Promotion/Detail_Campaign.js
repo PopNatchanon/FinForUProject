@@ -16,7 +16,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import StylesMainScreen from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../Main/MainScreen';
 import { Button_Bar } from '../Main/Highlight/HighlightScreen';
 import { Store_Sale } from './The_BestFinScreen';
 import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';

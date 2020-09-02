@@ -29,7 +29,7 @@ import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
 import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../Main/MainScreen';
 import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

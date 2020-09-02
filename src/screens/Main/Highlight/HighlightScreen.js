@@ -16,8 +16,8 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../../MainScreen';
-import { FlashSale_Product } from '../../FlashSaleScreen';
+import { ExitAppModule } from '../MainScreen';
+import { FlashSale_Product } from '../FlashSale/FlashSaleScreen';
 import { Slide } from '../../src_Promotion/DealScreen';
 import { GetServices, TabBar } from '../../../customComponents/Tools';
 import { AppBar } from '../../../customComponents';

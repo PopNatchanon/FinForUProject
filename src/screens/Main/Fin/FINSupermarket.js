@@ -18,7 +18,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../../MainScreen';
+import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../../Main/MainScreen';
 import { Slide, } from '../../src_Promotion/DealScreen';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/ExclusiveScreen';

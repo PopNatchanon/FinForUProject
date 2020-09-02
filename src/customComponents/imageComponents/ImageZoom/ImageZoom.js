@@ -23,7 +23,7 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { color_up, mainColor, appBarColor, } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../../../screens/MainScreen';
+import { ExitAppModule } from '../../../screens/Main/MainScreen';
 import Images from './Images';
 import SelectedImage from './SelectedImage';
 import getDistance from './helpers/getDistance';

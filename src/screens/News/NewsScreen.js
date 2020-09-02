@@ -4,23 +4,22 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../style/stylesFont';
-import stylesMain, { mainColor } from '../style/StylesMainScreen';
-import stylesStore from '../style/StylesStoreScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from './MainScreen';
-import { TabBar } from '../customComponents/Tools';
-import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate } from '../customComponents';
+import { ExitAppModule } from '../Main/MainScreen';
+import { TabBar } from '../../customComponents/Tools';
+import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../navigator/IpConfig';
-import { color } from 'react-native-reanimated';
+import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

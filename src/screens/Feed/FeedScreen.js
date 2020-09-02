@@ -26,13 +26,13 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Botton_PopUp_FIN, ExitAppModule, } from '../MainScreen';
+import { Botton_PopUp_FIN, ExitAppModule, } from '../Main/MainScreen';
 import { GetData, GetServices, FeedBox, LoadingScreen, TabBar, } from '../../customComponents/Tools';
 import { AppBar, Toolbar, StarReview, NavigationNavigate, BorderBottomTab, GetFetch, GenArray } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
-const LOADING_ICON = require('../../images/icon.png');
+const LOADING_ICON = require('../../../images/icon.png');
 const { contain, cover } = FastImage.resizeMode;
 const { FontFamilyBold, FontFamilySemiBold, FontFamilyText, FontSize3, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
 const { FullLayout } = stylesLayout;
@@ -215,7 +215,7 @@ export function Highlights(props) {
 ///----------------------------------------------------------------------------------------------->>>> Feed_Login
 export function Feed_Login(props) {
   const { currentUser, } = props;
-  const Image1 = require('../../images/iconlogo.png');
+  const Image1 = require('../../../images/iconlogo.png');
   const Image2 = { uri: `${ip}/MySQL/uploads/addmin/1212.png`, };
   const ImageUser = { uri: `${finip}/${currentUser.image_path}/${currentUser.image}`, };
   return <View style={{ backgroundColor: '#1A1555', flex: 1, marginTop: -6, alignItems: 'center', }}>

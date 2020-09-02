@@ -24,7 +24,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesDetail from '../../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, Not_Internet, } from '../MainScreen';
+import { ExitAppModule, Not_Internet, } from '../Main/MainScreen';
 import {
     FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, FlatProduct,
 } from '../../customComponents/Tools';

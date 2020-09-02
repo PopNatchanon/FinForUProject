@@ -31,7 +31,7 @@ import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont, { normalize } from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../Main/MainScreen';
 import {
   GetServices, ProductBox, TabBar, FlatComponent, GetData, FlatProduct, LoadingScreen,
 } from '../../customComponents/Tools';

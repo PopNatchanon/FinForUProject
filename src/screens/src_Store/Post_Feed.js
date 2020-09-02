@@ -43,8 +43,8 @@ import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
 } from '../../customComponents/Tools';
 import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../customComponents';
-import { TodayProduct, Slide, ExitAppModule } from '../MainScreen';
-import { Store_Detail } from '../Recommend_Store';
+import { TodayProduct, Slide, ExitAppModule } from '../Main/MainScreen';
+import { Store_Detail } from '../Main/RecommendStore/Recommend_Store';
 import Dash from 'react-native-dash';
 import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip

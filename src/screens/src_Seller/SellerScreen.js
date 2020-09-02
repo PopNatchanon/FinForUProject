@@ -24,7 +24,7 @@ import stylesProfile from '../../style/StylesProfileScreen';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { ip } from '../../navigator/IpConfig';
-import { TodayProduct } from '../MainScreen';
+import { TodayProduct } from '../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

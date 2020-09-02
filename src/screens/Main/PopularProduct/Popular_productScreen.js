@@ -12,7 +12,7 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, TodayProduct, } from '../../MainScreen';
+import {  ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
 import { Slide } from '../../src_Promotion/DealScreen';
 import { TabBar, GetServices } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip

@@ -15,7 +15,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, } from '../MainScreen';
+import { ExitAppModule, } from '../Main/MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';

@@ -17,7 +17,7 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_THREE, ExitAppModule, TodayProduct, } from '../../MainScreen';
+import { BannerBar_THREE, ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
 import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
 import { GetData, GetServices, SlideTab2, } from '../../../customComponents/Tools'
 import { NavigationNavigate, AppBar } from '../../../customComponents';

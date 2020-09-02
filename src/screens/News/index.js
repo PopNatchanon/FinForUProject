@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Screen
-import FeedScreen from './FeedScreen';
+import NewsScreen from './NewsScreen';
 ///----------------------------------------------------------------------------------------------->>>>
 export default [
-    { component: FeedScreen, name: 'FeedScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }];
+    { component: NewsScreen, name: 'NewsScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }];

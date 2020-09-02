@@ -19,7 +19,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { ExitAppModule, } from '../../MainScreen';
+import { ExitAppModule, } from '../../Main/MainScreen';
 import { GetData, GetServices, ProductBox, LoadingScreen, FlatProduct } from '../../../customComponents/Tools';
 import { StarReview, NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> ip

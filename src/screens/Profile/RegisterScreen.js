@@ -24,7 +24,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesLogin from '../../style/stylesLoginScreen';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../MainScreen';
+import { ExitAppModule } from '../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 import { AppBar } from '../../customComponents';

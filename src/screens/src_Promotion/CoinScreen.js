@@ -20,7 +20,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../Main/MainScreen';
 import { Button_Bar, Slide } from './DealScreen';
 import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../../customComponents/Tools';
 import { AppBar } from '../../customComponents';

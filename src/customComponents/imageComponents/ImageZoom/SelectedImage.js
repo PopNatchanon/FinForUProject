@@ -12,7 +12,7 @@ export const { width, height } = Dimensions.get('window');
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../../../screens/MainScreen';
+import { ExitAppModule } from '../../../screens/Main/MainScreen';
 import { Toolbar, NavigationNavigate, AppBar, GenArray, ImageList } from '../..';
 import getDistance from './helpers/getDistance';
 import getScale from './helpers/getScale';

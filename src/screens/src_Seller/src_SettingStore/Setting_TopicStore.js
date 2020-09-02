@@ -30,7 +30,7 @@ import { GetServices } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { finip } from '../../../navigator/IpConfig';
-import { ExitAppModule } from '../../MainScreen';
+import { ExitAppModule } from '../../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

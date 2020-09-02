@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import SlidingView from 'rn-sliding-view';
@@ -13,19 +13,19 @@ import FastImage from 'react-native-fast-image';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
-import stylesFont from '../style/stylesFont';
-import stylesMain from '../style/StylesMainScreen';
-import stylesTopic from '../style/styleTopic';
+import stylesDeal from '../../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain from '../../../style/StylesMainScreen';
+import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from './MainScreen';
-import { Slide, } from './src_Promotion/DealScreen';
-import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../customComponents/Tools';
-import { Button_Bar, PricesSlide, SlideTab, } from './Main/Exclusive/ExclusiveScreen';
-import { AppBar } from '../customComponents';
+import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../MainScreen';
+import { Slide, } from '../../src_Promotion/DealScreen';
+import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
+import { Button_Bar, PricesSlide, SlideTab, } from '../../Main/Exclusive/ExclusiveScreen';
+import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../navigator/IpConfig';
-import { Might_like_Store } from './src_profile/Profile_Topic';
+import { ip, finip } from '../../../navigator/IpConfig';
+import { Might_like_Store } from '../../src_profile/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

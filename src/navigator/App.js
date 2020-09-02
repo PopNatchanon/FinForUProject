@@ -9,17 +9,15 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider, useStore } from 'react-redux';
 import { fetchData } from '../actions'
 ///----------------------------------------------------------------------------------------------->>>> Main
+import Bell from '../screens/Bell'
 import Cart from '../screens/Cart';
 import Detail from '../screens/Detail';
 import Feed from '../screens/Feed';
 import Main from '../screens/Main';
+import News from '../screens/News';
 import Profile from '../screens/Profile';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>>
-import MainScreen from '../screens/MainScreen';
-import FeedScreen from '../screens/Feed/FeedScreen';
-import NewsScreen from '../screens/NewsScreen';
-import BellScreen from '../screens/BellScreen';
 import News_Detail from '../screens/์NewScreen/News_Detail';
 // src_Bell
 import Detail_Pro from '../screens/src_Bell/Detail_Pro';
@@ -77,7 +75,7 @@ const opacityTransition: object = {
     cardStyle: { opacity: current.progress, }, // updates the opacity depending on the transition progress value of the current screen
   }),
 };
-const setScreen = [...Cart, ...Detail, ...Feed, ...Main, ...Profile, ...Store];
+const setScreen = [...Bell, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Store];
 function App() {
   return <Provider store={store}>
     <NavigationContainer>
@@ -87,14 +85,6 @@ function App() {
         // 'StoreScreen'
       }>
         {setScreen.map(({ component, name, options }, i) => <Stack.Screen component={component} key={i} name={name} options={options} />)}
-        <Stack.Screen component={MainScreen} name='MainScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={FeedScreen} name='FeedScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={NewsScreen} name='NewsScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={BellScreen} name='BellScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
         <Stack.Screen component={SettingScreen} name='SettingScreen'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Profile_Topic} name='Profile_Topic'

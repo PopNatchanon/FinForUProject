@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Screen
-import FeedScreen from './FeedScreen';
+import BellScreen from './BellScreen';
 ///----------------------------------------------------------------------------------------------->>>>
 export default [
-    { component: FeedScreen, name: 'FeedScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }];
+    { component: BellScreen, name: 'BellScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }];

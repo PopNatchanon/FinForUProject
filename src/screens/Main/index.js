@@ -7,6 +7,7 @@ import FinMallScreen from './Fin/FinMallScreen';
 import FINSupermarket from './Fin/FINSupermarket';
 import FlashSaleScreen from './FlashSale/FlashSaleScreen';
 import HighlightScreen from './Highlight/HighlightScreen';
+import MainScreen from './MainScreen';
 import Popular_productScreen from './PopularProduct/Popular_productScreen';
 import Product_for_youScreen from './ProductForYou/Product_for_youScreen';
 import Recommend_Brand from './RecommendBrand/Recommend_Brand';
@@ -23,7 +24,7 @@ export default [
     { component: HighlightScreen, name: 'HighlightScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }, {
         component: Popular_productScreen, name: 'Popular_productScreen',
         options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, {
+    }, { component: MainScreen, name: 'MainScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }, {
         component: Product_for_youScreen, name: 'Product_for_youScreen',
         options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
     }, { component: Recommend_Brand, name: 'Recommend_Brand', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },

@@ -15,7 +15,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../MainScreen';
 import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Slide, } from '../../src_Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip

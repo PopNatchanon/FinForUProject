@@ -11,7 +11,7 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../../Main/MainScreen';
 import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
 import { GetData, GetServices, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Slide } from '../../src_Promotion/DealScreen';

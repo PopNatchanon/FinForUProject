@@ -9,7 +9,7 @@ import { connect } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
-} from '../actions';
+} from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
@@ -33,21 +33,21 @@ import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
-import stylesFont from '../style/stylesFont';
-import stylesLayout from '../style/stylesLayout'
-import stylesMain, { appBarColor, color_up, mainColor, } from '../style/StylesMainScreen';
-import stylesStore from '../style/StylesStoreScreen';
-import stylesTopic from '../style/styleTopic';
+import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesLayout from '../../style/stylesLayout'
+import stylesMain, { appBarColor, color_up, mainColor, } from '../../style/StylesMainScreen';
+import stylesStore from '../../style/StylesStoreScreen';
+import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     FlatComponent, FlatProduct, GetData, GetServices, ProductBox,
-} from '../customComponents/Tools';
-import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, } from '../customComponents';
+} from '../../customComponents/Tools';
+import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../navigator/IpConfig';
+import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
-const LOADING_ICON = require('../../images/icon.png');
+const LOADING_ICON = require('../../../images/icon.png');
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
 const {
@@ -439,7 +439,7 @@ export const Trend_Hit = (props) => {
         { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png` } },
         { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png` } }];
     const _renderItem = (v, i) => {
-        return <View key={i} style={[FlexRow, { width: width * 0.429, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
+        return <View key={i} style={[FRow, { width: width * 0.429, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
             <FastImage resizeMode={cover} source={v.image} style={{ height: 20, width: 20, }} />
             <Text style={[FontFamilyBold, FontSize8, { color: mainColor }]}>{v.text}</Text>
             <IconAntDesign name='checkcircle' size={13} color='#009A16' />
@@ -490,11 +490,11 @@ export const Fin_Service = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export const Button_Bar = (props) => {
     const ViewStyle = { zIndex: 1, backgroundColor: 'transparent', elevation: 1, justifyContent: 'space-around', marginTop: 3, width, };
-    const ImageBestFin = require('../../icon/Icon_Deal/04.jpg');
-    const ImageCampaign = require('../../icon/Icon_Deal/03.jpg');
-    const ImageCoin = require('../../icon/Icon_Deal/02.jpg');
-    const ImageDeal = require('../../icon/Icon_Deal/01.jpg');
-    const ImageInstallment = require('../../icon/Icon_Deal/05.jpg');
+    const ImageBestFin = require('../../../icon/Icon_Deal/04.jpg');
+    const ImageCampaign = require('../../../icon/Icon_Deal/03.jpg');
+    const ImageCoin = require('../../../icon/Icon_Deal/02.jpg');
+    const ImageDeal = require('../../../icon/Icon_Deal/01.jpg');
+    const ImageInstallment = require('../../../icon/Icon_Deal/05.jpg');
     return <>
         <View style={[FRow, ViewStyle]}>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'DealScreen', })}>
@@ -692,7 +692,7 @@ export const BannerBar_THREE = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
 export const FlashSale = (props) => {
     const { getFetchData, setFetchToStart, } = props;
-    const ImageGood = require('../../icon/goods.png');
+    const ImageGood = require('../../../icon/goods.png');
     const dataService2 = [{
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000',
         discount: '25', name_product: 'Yamaha T-max530 ', type: 'local',
@@ -1606,8 +1606,8 @@ export const Botton_PopUp_FIN = (props) => {
     const _lastOffset = { x: 0, y: 0 };
     const ImageStyle = { backfaceVisibility: 'hidden', marginBottom: -50, right: 50, };
     const SlidingStyle = { backgroundColor: null, top: '50%', width: '100%', };
-    const ImagePopUP = require('../../icon/PopUP.png');
-    const ImagePopUP2 = require('../../images/0044-03.png');
+    const ImagePopUP = require('../../../icon/PopUP.png');
+    const ImagePopUP2 = require('../../../images/0044-03.png');
     const _onGestureEvent = Animated.event(
         [{ nativeEvent: { translationX: translationXRef.current, translationY: translationYRef.current, }, }], { useNativeDriver: false, }
     );

@@ -31,7 +31,7 @@ function Detail_Pro(props) {
             case 0:
                 return <View>
                     <AppBar {...props} backArrow titleHead='รายละเอียดโปรโมชัน' />
-                    <Detail_Promotion {...props}  />
+                    <Detail_Promotion {...props} />
                 </View>;
             case 1:
                 return <View>
@@ -46,6 +46,10 @@ function Detail_Pro(props) {
                 return <View>
                     <AppBar {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                     <Detail_Product_Check />
+                </View>;
+            case 3:
+                return <View>
+                    <AppBar {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
                 </View>;
         };
     };

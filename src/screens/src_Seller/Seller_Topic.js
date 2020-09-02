@@ -148,7 +148,7 @@ function Seller_Topic(props) {
             case 18:
                 return <>
                     <AppBar {...props} deleteBar backArrow titleHead='บัญชีธนาคาร' />
-                    <Bank_detall />
+                    <Bank_detail />
                 </>;
         };
     };
@@ -1206,7 +1206,7 @@ export let Bank_Totel = (props) => {
     </TouchableOpacity>;
 };
 ///--------------------------------------------------------------------------///
-export let Bank_detall = (props) => {
+export let Bank_detail = (props) => {
     return <>
         <ScrollView>
             <View style={stylesMain.ItemCenter}>

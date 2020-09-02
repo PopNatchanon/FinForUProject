@@ -20,6 +20,7 @@ import MainScreen from '../screens/MainScreen';
 import FeedScreen from '../screens/Feed/FeedScreen';
 import NewsScreen from '../screens/NewsScreen';
 import BellScreen from '../screens/BellScreen';
+import News_Detail from '../screens/์NewScreen/News_Detail';
 // src_Bell
 import Detail_Pro from '../screens/src_Bell/Detail_Pro';
 // src_profile
@@ -153,6 +154,8 @@ function App() {
         <Stack.Screen component={Post_Feed} name='Post_Feed'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={FeedsScreen} name='FeedsScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
+        <Stack.Screen component={News_Detail} name='News_Detail'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={ImageZoom} name='ImageZoom' options={{ ...opacityTransition }} />
         <Stack.Screen component={BrowerScreen} name='BrowerScreen' options={{ ...opacityTransition }} />

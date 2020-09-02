@@ -37,7 +37,7 @@ function The_BestFinScreen(props) {
   useEffect(() => {
     activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value) });
   }, [activeGetServices]);
-  return <SafeAreaView style={stylesMain.SafeAreaViews}>
+  return <SafeAreaView>
     <AppBar {...props} titleHead={'สุดคุ้มสุดฟิน'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} dataService={dataService?.banner} />

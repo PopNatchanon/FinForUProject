@@ -25,7 +25,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import stylesTopic from '../../../style/styleTopic';
 import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Button_Bar } from '../../HighlightScreen';
+import { Button_Bar } from '../../Main/Highlight/HighlightScreen';
 import { ExitAppModule, TodayProduct, } from '../../MainScreen';
 import { GetCoupon, GetServices, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
 import { ProductBox } from '../../../customComponents/Tools';

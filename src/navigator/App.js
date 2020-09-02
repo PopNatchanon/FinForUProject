@@ -8,32 +8,18 @@ import configureStore from './configureStore';
 import { createStore, applyMiddleware } from "redux";
 import { Provider, useStore } from 'react-redux';
 import { fetchData } from '../actions'
-// Main
+///----------------------------------------------------------------------------------------------->>>> Main
+import Cart from '../screens/Cart';
+import Detail from '../screens/Detail';
+import Feed from '../screens/Feed';
+import Main from '../screens/Main';
+import Profile from '../screens/Profile';
+import Store from '../screens/Store';
+///----------------------------------------------------------------------------------------------->>>>
 import MainScreen from '../screens/MainScreen';
-import StoreScreen from '../screens/StoreScreen';
-import DetailScreen from '../screens/DetailScreen';
-import ProfileScreen from '../screens/ProfileScreen';
-import CartScreen from '../screens/CartScreen';
-import LoginScreen from '../screens/LoginScreen';
-import FeedScreen from '../screens/FeedScreen';
+import FeedScreen from '../screens/Feed/FeedScreen';
 import NewsScreen from '../screens/NewsScreen';
 import BellScreen from '../screens/BellScreen';
-import RegisterScreen from '../screens/RegisterScreen';
-import Recommend_Brand from '../screens/Recommend_Brand';
-import FlashSaleScreen from '../screens/FlashSaleScreen';
-import HighlightScreen from '../screens/HighlightScreen';
-import Recommend_Store from '../screens/Recommend_Store';
-import ExclusiveScreen from '../screens/ExclusiveScreen';
-import Product_for_youScreen from '../screens/Product_for_youScreen';
-import Popular_productScreen from '../screens/Popular_productScreen';
-import CategoryScreen from '../screens/CategoryScreen';
-import Same_StoreScreen from '../screens/Same_StoreScreen';
-import SecondScreen from '../screens/SecondScreen';
-import SearchScreen from '../screens/SearchScreen';
-import FinMallScreen from '../screens/FinMallScreen';
-import FINSupermarket from '../screens/FINSupermarket';
-// src_Detail
-import Reviews_score from '../screens/src-Detail/Reviews_score';
 // src_Bell
 import Detail_Pro from '../screens/src_Bell/Detail_Pro';
 // src_profile
@@ -80,22 +66,17 @@ const store = configureStore();
 const opacityTransition: object = {
   gestureDirection: 'horizontal', // we will swipe right if we want to close the screen;  
   transitionSpec: {
-    open: {
-      animation: 'timing',
-    },
+    open: { animation: 'timing', },
     close: {
       animation: 'timing',
-      config: {
-        duration: 300,
-      },
+      config: { duration: 300, },
     },
   },
   cardStyleInterpolator: ({ current }: { current: { progress: number } }) => ({
-    cardStyle: {
-      opacity: current.progress,
-    }, // updates the opacity depending on the transition progress value of the current screen
+    cardStyle: { opacity: current.progress, }, // updates the opacity depending on the transition progress value of the current screen
   }),
 };
+const setScreen = [...Cart, ...Detail, ...Feed, ...Main, ...Profile, ...Store];
 function App() {
   return <Provider store={store}>
     <NavigationContainer>
@@ -104,6 +85,7 @@ function App() {
         // 'DealScreen'
         // 'StoreScreen'
       }>
+        {setScreen.map(({ component, name, options }, i) => <Stack.Screen component={component} key={i} name={name} options={options} />)}
         <Stack.Screen component={MainScreen} name='MainScreen'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
         <Stack.Screen component={FeedScreen} name='FeedScreen'
@@ -112,41 +94,7 @@ function App() {
           options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
         <Stack.Screen component={BellScreen} name='BellScreen'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={LoginScreen} name='LoginScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={ProfileScreen} name='ProfileScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={DetailScreen} name='DetailScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={StoreScreen} name='StoreScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={CartScreen} name='CartScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={RegisterScreen} name='RegisterScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Recommend_Brand} name='Recommend_Brand'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={FlashSaleScreen} name='FlashSaleScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={SettingScreen} name='SettingScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={HighlightScreen} name='HighlightScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Popular_productScreen} name='Popular_productScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Recommend_Store} name='Recommend_Store'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={ExclusiveScreen} name='ExclusiveScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Product_for_youScreen} name='Product_for_youScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={CategoryScreen} name='CategoryScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={FinMallScreen} name='FinMallScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={FINSupermarket} name='FINSupermarket'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Reviews_score} name='Reviews_score'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Profile_Topic} name='Profile_Topic'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
@@ -200,12 +148,6 @@ function App() {
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Detail_Campaign} name='Detail_Campaign'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Same_StoreScreen} name='Same_StoreScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={SecondScreen} name='SecondScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={SearchScreen} name='SearchScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Detail_Pro} name='Detail_Pro'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Post_Feed} name='Post_Feed'
@@ -216,7 +158,6 @@ function App() {
         <Stack.Screen component={BrowerScreen} name='BrowerScreen' options={{ ...opacityTransition }} />
       </Stack.Navigator>
     </NavigationContainer>
-  </Provider>
-}
-
+  </Provider>;
+};
 export default App

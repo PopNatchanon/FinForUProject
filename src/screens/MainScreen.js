@@ -35,6 +35,7 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../style/stylesFont';
+import stylesLayout from '../style/stylesLayout'
 import stylesMain, { appBarColor, color_up, mainColor, } from '../style/StylesMainScreen';
 import stylesStore from '../style/StylesStoreScreen';
 import stylesTopic from '../style/styleTopic';
@@ -52,13 +53,14 @@ const { contain, cover, stretch, } = FastImage.resizeMode;
 const {
     FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8,
 } = stylesFont;
+const { FRow, H75pW100p, HW100p, HxW75p, HxWfull, } = stylesLayout;
 const {
-    animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Banner_Bar_image, bigSlideImage, Botton_PopUp_Box, Botton_PopUp_Image,
-    Botton_PopUp_Text, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1Image, BoxProduct1ImagePrice, BoxProduct2, BoxProduct2Image,
-    BoxProduct2BoxProduct, BoxStore1Box, BoxStore1Box2, BoxStore1Box3, BoxStore1Image, BoxStore2Box2, BoxStore2Image2, Brand_image_Box,
+    animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Botton_PopUp_Box, Botton_PopUp_Image, Botton_PopUp_Text,
+    BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1ImagePrice, BoxProduct2, BoxProduct2BoxProduct, BoxProduct5Box,
+    BoxProduct5ImageofLines, BoxStore1Box, BoxStore1Box2, BoxStore1Box3, BoxStore2Box2, BoxStore2Image2, Brand_image_Box,
     Button_Bar_Box, Button_Bar_icon, Categorys, CategoryProductImageHead, CategoryProductStoreBox, category_A, Category_box, child,
-    exitTitleText, FinMall_Box, FlexRow, FrameBackgroundTextBox, FrameBackgroundTextEnd, FrameBackgroundTextStart, FrameBackground2,
-    ItemCenter, ItemCenterVertical, litleSlideImage, PopularText_A, Popular_Box_B, Popular_Box_D, SafeAreaViewNB, Second_StoreFin,
+    exitTitleText, FinMall_Box, FrameBackgroundTextBox, FrameBackgroundTextEnd, FrameBackgroundTextStart, FrameBackground2, ItemCenter,
+    ItemCenterVertical, litleSlideImage, PopularText_A, Popular_Box_B, Popular_Box_D, SafeAreaViewNB, Second_StoreFin,
     Second_StoreFin_BoxHead, Second_StoreFin_Image, Second_StoreFin_ImageA, Second_StoreFin_ImageB, Second_StoreFin_ImageB_T,
     Second_Storefooter, Supermarket_BrandBox, Supermarket_Brand_Image, Supermarket_Brand_Shop, Supermarket_Brand_Shop2, Supermarket_Image,
     Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText,
@@ -118,122 +120,76 @@ function MainScreen(props) {
     useEffect(() => {
         if (getFetchData['flash_timer'] == undefined || (getFetchData['flash_timer']?.isFetching)) { FetchDataFlash(); };
     }, [getFetchData['flash_timer']?.isFetching]);
-    const itemT = [
-        /////--------------------------------------------->>>Start
-        {
-            // แบรนเนอร์ใหญ่
-            nameComponent: 'Slide',
-            renderComponent: <Slide {...props} />
-        },
-        {
-            // รับประกัน
-            nameComponent: 'Guarantee',
-            renderComponent: <Guarantee  {...props} />
-        },
-        {
-            // หมวดหมู่
-            nameComponent: 'Category',
-            renderComponent: <Category {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // เทรนฮิต
-            nameComponent: 'Trend_Hit',
-            renderComponent: <Trend_Hit  {...props} />
-        },
-        {
-            // ปุ่มเข้าดีล โปรโมชั่น
-            nameComponent: 'Button_Bar',
-            renderComponent: <Button_Bar {...props} />
-        },
-        {
-            // สินค้าลดพิเศษ
-            nameComponent: 'FlashSale',
-            renderComponent: <FlashSale {...props} />
-        },
-        // {
-        //     nameComponent: 'Fin_Service',
-        //     renderComponent: <Fin_Service {...props} />
-        // },
-        {
-            // แบรน์แนะนำ
-            nameComponent: 'Recommend_Brand',
-            renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // แบรนด์เนอร์โฆษณา 2
-            nameComponent: 'BannerBar_TWO',
-            renderComponent: <BannerBar_TWO />
-        },
-        {
-            // ร้านนี้ห้ามพลาด
-            nameComponent: 'Fin_LuxuryShop',
-            // renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
-            renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // ฟินมอล กับ Exclusive
-            nameComponent: 'Fin_Mall',
-            renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // แบรนด์เนอร์โฆษณา 1
-            nameComponent: 'BannerBar_ONE',
-            renderComponent: <BannerBar_ONE />
-        },
-        {
-            // ไฮไลท์ประจำสัปดาห์
-            nameComponent: 'Highlight',
-            renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // ลายแทงร้านค้าแนะนำ
-            nameComponent: 'PromotionPopular',
-            renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // ร้านที่ใช่อยากให้ช๊อป
-            nameComponent: 'Popular_store',
-            renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // สินค้ายอดนิยม
-            nameComponent: 'Popular_product',
-            renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // ฟินคัดมาเพื่อคุณ
-            nameComponent: 'Product_for_you',
-            renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        // {
-        //     // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
-        //     nameComponent: 'CategoryProduct',
-        //     renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-        // },
-        {
-            // สินค้า และร้านค้า มือสอง
-            nameComponent: 'Second_product',
-            renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // แบรนด์เนอร์โฆษณา 3
-            nameComponent: 'BannerBar_THREE',
-            renderComponent: <BannerBar_THREE />
-        },
-        {
-            // ฟินซุปเปอร์มาเก็ต
-            nameComponent: 'FIN_Supermarket',
-            renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile']?.data} />
-        },
-        {
-            // สินค้าคัดสรรมาเพื่อคุณ
-            nameComponent: 'TodayProduct',
-            renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile']?.data?.for_you2} />
-        },
-        /////--------------------------------------------->>>End
-    ];
+    const itemT = [/*////--------------------------------------------->>>Start*/{ // แบรนเนอร์ใหญ่
+        nameComponent: 'Slide',
+        renderComponent: <Slide {...props} />
+    }, { // รับประกัน
+        nameComponent: 'Guarantee',
+        renderComponent: <Guarantee  {...props} />
+    }, { // หมวดหมู่
+        nameComponent: 'Category',
+        renderComponent: <Category {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // เทรนฮิต
+        nameComponent: 'Trend_Hit',
+        renderComponent: <Trend_Hit  {...props} />
+    }, { // ปุ่มเข้าดีล โปรโมชั่น
+        nameComponent: 'Button_Bar',
+        renderComponent: <Button_Bar {...props} />
+    }, { // สินค้าลดพิเศษ
+        nameComponent: 'FlashSale',
+        renderComponent: <FlashSale {...props} />
+    }, /*//{
+    //     nameComponent: 'Fin_Service',
+    //     renderComponent: <Fin_Service {...props} />
+    // },*/ { // แบรน์แนะนำ
+        nameComponent: 'Recommend_Brand',
+        renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // แบรนด์เนอร์โฆษณา 2
+        nameComponent: 'BannerBar_TWO',
+        renderComponent: <BannerBar_TWO />
+    }, { // ร้านนี้ห้ามพลาด
+        nameComponent: 'Fin_LuxuryShop',
+        // renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
+        renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // ฟินมอล กับ Exclusive
+        nameComponent: 'Fin_Mall',
+        renderComponent: <Fin_Mall {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // แบรนด์เนอร์โฆษณา 1
+        nameComponent: 'BannerBar_ONE',
+        renderComponent: <BannerBar_ONE />
+    }, { // ไฮไลท์ประจำสัปดาห์
+        nameComponent: 'Highlight',
+        renderComponent: <Highlight {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // ลายแทงร้านค้าแนะนำ
+        nameComponent: 'PromotionPopular',
+        renderComponent: <PromotionPopular  {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // ร้านที่ใช่อยากให้ช๊อป
+        nameComponent: 'Popular_store',
+        renderComponent: <Popular_store {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // สินค้ายอดนิยม
+        nameComponent: 'Popular_product',
+        renderComponent: <Popular_product {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // ฟินคัดมาเพื่อคุณ
+        nameComponent: 'Product_for_you',
+        renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+        nameComponent: 'CategoryProduct',
+        renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // สินค้า และร้านค้า มือสอง
+        nameComponent: 'Second_product',
+        renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // แบรนด์เนอร์โฆษณา 3
+        nameComponent: 'BannerBar_THREE',
+        renderComponent: <BannerBar_THREE />
+    }, { // ฟินซุปเปอร์มาเก็ต
+        nameComponent: 'FIN_Supermarket',
+        renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile']?.data} />
+    }, { // สินค้าคัดสรรมาเพื่อคุณ
+        nameComponent: 'TodayProduct',
+        renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile']?.data?.for_you2} />
+    } /*////--------------------------------------------->>>End*/];
     const colors = [AnimatedHeadbg, AnimatedHeadbg2];
-    return <SafeAreaView style={[BackgroundAreaView, SafeAreaViewNB,]}>
+    return <SafeAreaView style={[BackgroundAreaView, SafeAreaViewNB]}>
         <Animated.View style={
             { zIndex: 1, backgroundColor: 'transparent', elevation: 1, height: maxheight, marginTop: -(maxheight), top: maxheight, width, }}>
             <AAppBar {...props} borderBottomColor={AnimatedBorderBottom} cartBar chatBar colorSet={colors} enableAnimated={AnimatedHeadbg}
@@ -296,7 +252,7 @@ export const ExitAppModule = (props) => {
         const backHandler = BackHandler.addEventListener('hardwareBackPress', handleBackButton);
         return () => backHandler.remove();
     });
-    return <Animatable.View style={[animatedView, { opacity: springValue.current, transform: [{ translateY: transformValue.current }] }]}>
+    return <Animatable.View style={[animatedView, { opacity: springValue.current, transform: [{ translateY: transformValue.current, }], }]}>
         <View style={animatedViewSub}>
             <Text style={[exitTitleText, FontFamilyText]}>กดอีกครั้งเพื่อออก</Text>
         </View>
@@ -310,19 +266,19 @@ export const Slide = (props) => {
         // banner ?
         ImageSlide = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
         // : (dataMySQL = i % 2 == 0 ? `${ip}/mysql/uploads/Banner_Mobile/T-10.jpg` : `${ip}/mysql/uploads/Banner_Mobile/T-5.jpg`);
-        return <View style={[child]} key={i}>
-            <FastImage resizeMethod='resize' resizeMode={contain} source={ImageSlide} style={[BoxProduct1Image]} />
+        return <View key={i} style={[child]}>
+            <FastImage resizeMethod='resize' resizeMode={contain} source={ImageSlide} style={[HW100p]} />
         </View>;
     };
     return <View style={{ backgroundColor: '#fff' }}>
-        <View style={[child, ItemCenter, { position: 'absolute' }]}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+        <View style={[child, ItemCenter, { position: 'absolute', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
             <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ height: 10, width: 10, }} loop
                 pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             <View style={[child, ItemCenter]}>
-                {/* <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} /> */}
+                {/* <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} /> */}
             </View>}
     </View>;
 };
@@ -334,55 +290,53 @@ export const Guarantee = (props) => {
     const ImageGuaran3 = { uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, };
     const ImageGuaran4 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
     const item = [
-        { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png` } },
-        { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png` } },
-        { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png` } },
-        { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png` } }];
+        { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`, } },
+        { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png`, } },
+        { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png`, } },
+        { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png`, } }];
     const _renderItem = (v, i) => {
         const ImageGuaran = { uri: `${ip}/MySQL/uploads/Guarantee/02.png`, };
-        return <View key={i} style={[FlexRow, { justifyContent: 'space-around', width: width * 0.70, }]}>
-            <View style={FlexRow}>
+        return <View key={i} style={[FRow, { justifyContent: 'space-around', width: width * 0.70, }]}>
+            <View style={FRow}>
                 <View style={{ height: 30, marginRight: 10, width: 30, }}>
-                    <FastImage resizeMode={cover} source={v.image} style={BoxProduct1Image} />
+                    <FastImage resizeMode={cover} source={v.image} style={HW100p} />
                 </View>
-                <Text style={[FontFamilyBold, FontSize6, { marginTop: 5 }]}>{v.text}</Text>
+                <Text style={[FontFamilyBold, FontSize6, { marginTop: 5, }]}>{v.text}</Text>
             </View>
-            <View style={[ItemCenter, { height: 30, width: 30 }]}>
-                <FastImage resizeMode={cover} source={ImageGuaran} style={{ height: 20, width: 20 }} />
+            <View style={[ItemCenter, { height: 30, width: 30, }]}>
+                <FastImage resizeMode={cover} source={ImageGuaran} style={{ height: 20, width: 20, }} />
             </View>
         </View>
     };
     return <>
-        <View style={
-            { aspectRatio: 4.5, flexDirection: 'row', justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5, width: '100%', }}>
+        <View style={[FRow, { aspectRatio: 4.5, justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5, width: '100%', }]}>
             <View style={{ width: '54%', }}>
-                <FastImage resizeMode={cover} source={ImageGuaran1} style={[BoxProduct1Image, { borderRadius: 5 }]} />
+                <FastImage resizeMode={cover} source={ImageGuaran1} style={[HW100p, { borderRadius: 5, }]} />
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '44%', }}>
+            <View style={[FRow, { justifyContent: 'space-between', width: '44%', }]}>
                 <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FeedsScreen', })} style={TOStyles}>
-                    <View style={{ height: '60%', width: width * 0.13 }}>
-                        <FastImage resizeMode={cover} source={ImageGuaran2} style={BoxProduct1Image} />
+                    <View style={{ height: '60%', width: width * 0.13, }}>
+                        <FastImage resizeMode={cover} source={ImageGuaran2} style={HW100p} />
                     </View>
                     <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
-                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
+                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF', }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity style={TOStyles}>
                     <View style={{ height: '60%', width: width * 0.13 }}>
-                        <FastImage resizeMode={cover} source={ImageGuaran3} style={BoxProduct1Image} />
+                        <FastImage resizeMode={cover} source={ImageGuaran3} style={HW100p} />
                     </View>
                     <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
-                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
+                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF', }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
-        <View style={{
-            aspectRatio: 8.5, backgroundColor: '#FFFFFF', borderRadius: 5, flexDirection: 'row', height: 'auto', marginTop: 5,
-            paddingHorizontal: 5, width: '100%',
-        }}>
+        <View style={[FRow, {
+            aspectRatio: 8.5, backgroundColor: '#FFFFFF', borderRadius: 5, height: 'auto', marginTop: 5, paddingHorizontal: 5, width: '100%',
+        }]}>
             <View style={[ItemCenter, { borderColor: '#ffbf00', borderRadius: 5, borderWidth: 1, width: '30%', }]}>
-                <FastImage resizeMode={cover} source={ImageGuaran4} style={[BoxProduct1Image, { borderRadius: 4 }]} />
+                <FastImage resizeMode={cover} source={ImageGuaran4} style={[HW100p, { borderRadius: 4, }]} />
             </View>
             <View style={{ justifyContent: 'center', width: '30%', }}>
                 <Carousel autoplay autoplayInterval={5000} data={item} renderItem={_renderItem} />
@@ -394,22 +348,22 @@ export const Guarantee = (props) => {
 export const Category = (props) => {
     const { dataService, fetchData, getFetchData, } = props;
     const FetchDataCate = (id_type) => {
-        fetchData({ dataBody: { id_category: id_type }, name: `category_product|${id_type}`, uri: `${finip}/home/product_mobile`, })
+        fetchData({ dataBody: { id_category: id_type }, name: `category_product|${id_type}`, uri: `${finip}/home/product_mobile`, });
     };
-    const boxEmpty = GenArray(10).map((_, i) => {
+    const BoxEmpty = GenArray(10).map((_, i) => {
         const ViewStyle = {
             alignItems: 'center', backgroundColor: '#ECECEC', borderColor: '#ECECEC', borderRadius: 8, borderWidth: 1, height: 60,
             justifyContent: 'center', width: 60,
         };
         return <View key={i} style={{ alignItems: 'center', justifyContent: 'center', padding: 2, width: width * 0.199, }}>
             <View style={ViewStyle}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
-            <View style={{ height: 25 }} />
+            <View style={{ height: 25, }} />
         </View>
     });
-    const dataCategory = dataService?.category ? dataService?.category.map((v, i) => {
-        const { image_head, id_type, image_path, name } = v;
+    const DataCategory = dataService?.category ? dataService?.category.map((v, i) => {
+        const { image_head, id_type, image_path, name, } = v;
         if (i < dataService?.category.length) {
             useEffect(() => {
                 (getFetchData[`category_product|${id_type}`] == undefined || (getFetchData[`category_product|${id_type}`]?.isFetching)) &&
@@ -419,15 +373,15 @@ export const Category = (props) => {
             return <TouchableOpacity activeOpacity={1} key={i} style={Categorys} onPress={() =>
                 Navi({ ...props, goScreen: 'CategoryScreen', setData: { id_type: id_type }, })}>
                 <FastImage defaultSource={LOADING_ICON} source={ImageCate} style={Category_box} resizeMode={stretch} />
-                <View style={{ height: 25 }}>
+                <View style={{ height: 25, }}>
                     <Text numberOfLines={2} style={[FontFamilySemiBold, FontSize8, FontCenter]}>{name}</Text>
                 </View>
             </TouchableOpacity>;
         }
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View style={FrameBackground2}>
         <ScrollView horizontal>
-            <View style={category_A}>{dataCategory}</View>
+            <View style={category_A}>{DataCategory}</View>
         </ScrollView>
     </View>;
 };
@@ -448,39 +402,38 @@ export const Trend_Hit = (props) => {
     }, [dataBody]);
     const _renderItem = (v, i) => {
         const ImageShop = { uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`, };
-        return <View key={i} style={{ width: width * 0.48 }}>
+        return <View key={i} style={{ width: width * 0.48, }}>
             <View style={{ height: '88%', }}>
-                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={v.image} style={BoxProduct1Image} />
+                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={v.image} style={HW100p} />
             </View>
-            <View style={{ alignItems: 'center' }}>
+            <View style={{ alignItems: 'center', }}>
                 <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
-                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageShop} style={[BoxProduct1Image,
-                        { borderRadius: 8 }]} />
+                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageShop} style={[HW100p, { borderRadius: 8, }]} />
                 </TouchableOpacity>
             </View>
         </View>
     };
     const Trend_Box = () => dataService && dataService?.error == undefined && dataService?.map((v, i) => {
         const ImageTrend = { uri: `${ip}/mysql/${v.image_path}/${v.image}`, };
-        return <TouchableOpacity key={i} style={[ItemCenter,
-            { borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, flexDirection: 'row', width: width * 0.325, }]}>
+        return <TouchableOpacity key={i} style={[FRow, ItemCenter,
+            { borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, width: width * 0.325, }]}>
             <FastImage defaultSource={LOADING_ICON} resizeMode={contain} source={ImageTrend}
-                style={{ height: 50, width: 50, marginRight: 5, borderRadius: 5 }} />
+                style={{ height: 50, width: 50, marginRight: 5, borderRadius: 5, }} />
             <View>
                 <Text numberOfLines={1} style={[FontFamilyBold, FontSize7]}>{v.name}</Text>
-                <Text numberOfLines={1} style={[FontFamilyText, FontSize8, { color: '#CACACA' }]}>38K products</Text>
+                <Text numberOfLines={1} style={[FontFamilyText, FontSize8, { color: '#CACACA', }]}>38K products</Text>
             </View>
         </TouchableOpacity>;
     });
     return <>
-        <View style={[FlexRow, { aspectRatio: 5, justifyContent: 'space-between', marginTop: 3, paddingHorizontal: 5, width, }]}>
-            <View style={{ width: width * 0.48 }}>
-                <View style={{ height: '88%' }}>
-                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend1} style={BoxProduct1Image} />
+        <View style={[FRow, { aspectRatio: 5, justifyContent: 'space-between', marginTop: 3, paddingHorizontal: 5, width, }]}>
+            <View style={{ width: width * 0.48, }}>
+                <View style={{ height: '88%', }}>
+                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend1} style={HW100p} />
                 </View>
-                <View style={{ alignItems: 'center' }}>
+                <View style={{ alignItems: 'center', }}>
                     <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
-                        <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend2} style={BoxProduct1Image} />
+                        <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend2} style={HW100p} />
                     </TouchableOpacity>
                 </View>
             </View>
@@ -488,22 +441,22 @@ export const Trend_Hit = (props) => {
         </View>
         <View style={FrameBackground2}>
             <View style={[FrameBackgroundTextBox]}>
-                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>เทรนฮิต</Text>
+                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>เทรนฮิต</Text>
                 <TouchableOpacity>
-                    <Text style={[FontFamilyBold, FontSize7, FrameBackgroundTextEnd,]}>
+                    <Text style={[FontFamilyBold, FontSize7, FrameBackgroundTextEnd]}>
                         <IconMaterialCommunityIcons name='reload' size={20} />Reload</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ aspectRatio: 6, flexDirection: 'row', height: 'auto', justifyContent: 'space-around', paddingHorizontal: 2 }}>
+            <View style={[FRow, { aspectRatio: 6, height: 'auto', justifyContent: 'space-around', paddingHorizontal: 2, }]}>
                 {Trend_Box()}</View>
         </View>
     </>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export const Fin_Service = (props) => {
-    const ImageFinService = { uri: `${ip}/MySQL/uploads/Text/MB2.jpg` };
+    const ImageFinService = { uri: `${ip}/MySQL/uploads/Text/MB2.jpg`, };
     return <View style={[FrameBackground2, { aspectRatio: 4.5, height: 'auto', }]}>
-        <Image resizeMode='contain' resizeMethod='resize' source={ImageFinService} style={BoxProduct1Image} />
+        <Image resizeMode='contain' resizeMethod='resize' source={ImageFinService} style={HW100p} />
     </View>
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
@@ -515,29 +468,29 @@ export const Button_Bar = (props) => {
     const ImageDeal = require('../../icon/Icon_Deal/01.jpg');
     const ImageInstallment = require('../../icon/Icon_Deal/05.jpg');
     return <>
-        <View style={[FlexRow, ViewStyle]}>
+        <View style={[FRow, ViewStyle]}>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'DealScreen', })}>
-                <View style={[Button_Bar_Box, { elevation: 1 }]}>
+                <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageDeal} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'CoinScreen', })}>
-                <View style={[Button_Bar_Box, { elevation: 1 }]}>
+                <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageCoin} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'CampaignScreen', })}>
-                <View style={[Button_Bar_Box, { elevation: 1 }]}>
+                <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageCampaign} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'The_BestFinScreen', })}>
-                <View style={[Button_Bar_Box, { elevation: 1 }]}>
+                <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageBestFin} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Installment_payScreen', })}>
-                <View style={[Button_Bar_Box, { elevation: 1 }]}>
+                <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageInstallment} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
@@ -555,39 +508,39 @@ export const Recommend_Brand = (props) => {
             if (dataService.brand[n + 1]) { item_2.push(dataService.brand[n + 1]); };
         };
     };
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[Brand_image_Box, { backgroundColor: '#ECECEC' }]}>
-        <View style={[BoxProduct1Image, ItemCenterVertical]}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[Brand_image_Box, { backgroundColor: '#ECECEC', }]}>
+        <View style={[HW100p, ItemCenterVertical]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>);
-    const recommendBrand = dataService?.brand && item_1 ? item_1.map((v, i) => {
+    const RecommendBrand = dataService?.brand && item_1 ? item_1.map((v, i) => {
         const ImageReBrand = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Recommend_Brand', })}>
             <View style={Brand_image_Box}>
-                <FastImage resizeMode={contain} source={ImageReBrand} style={[BoxProduct1Image, ItemCenterVertical]} />
+                <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
-    const recommendBrand2 = dataService?.brand && item_2 ? item_2.map((v, i) => {
+    }) : BoxEmpty;
+    const RecommendBrand2 = dataService?.brand && item_2 ? item_2.map((v, i) => {
         // const ImageReBrand2 = { uri: `${ip}/MySQL/uploads/Brand_R/${v.image}`, };
         const ImageReBrand2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Recommend_Brand', })}>
             <View style={Brand_image_Box}>
-                <FastImage resizeMode={contain} source={ImageReBrand2} style={[BoxProduct1Image, ItemCenterVertical]} />
+                <FastImage resizeMode={contain} source={ImageReBrand2} style={[HW100p, ItemCenterVertical]} />
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View style={[FrameBackground2, { paddingBottom: 0, }]}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>แบรนด์แนะนำ</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>แบรนด์แนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Recommend_Brand', })}>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         <ScrollView horizontal>
             <View>
-                <View style={FlexRow}>{recommendBrand}</View>
-                <View style={[FlexRow, { marginBottom: 2 }]}>{recommendBrand2}</View>
+                <View style={FRow}>{RecommendBrand}</View>
+                <View style={[FRow, { marginBottom: 2, }]}>{RecommendBrand2}</View>
             </View>
         </ScrollView>
     </View>;
@@ -595,91 +548,91 @@ export const Recommend_Brand = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Popular_store
 export const Popular_store = (props) => {
     const { dataService, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={BoxStore1Box}>
-        <View style={[BoxStore1Image, { backgroundColor: '#ECECEC' }]}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={BoxStore1Box}>
+        <View style={[HW100p, { backgroundColor: '#ECECEC', borderColor: '#ECECEC', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>);
-    const PopularStoreItem = dataService?.store_good ? dataService.store_good.map((v, i) => {
+    const PopularStore = dataService?.store_good ? dataService.store_good.map((v, i) => {
         const ImagePopStore = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Recommend_Store', })}>
-            <View style={[BoxStore1Box, { marginLeft: 0 }]}>
-                <FastImage resizeMode={contain} source={ImagePopStore} style={BoxStore1Image} />
+            <View style={[BoxStore1Box, { marginLeft: 0, }]}>
+                <FastImage resizeMode={contain} source={ImagePopStore} style={[HW100p, { borderColor: '#ECECEC', }]} />
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ร้านที่ใช่อยากให้ช้อป</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ร้านที่ใช่อยากให้ช้อป</Text>
         </View>
-        <View style={[FlexRow, { aspectRatio: 4, height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5 }]}>
-            {PopularStoreItem}</View>
+        <View style={[FRow, { aspectRatio: 4, height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5, }]}>
+            {PopularStore}</View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Popular_product
 export const Popular_product = (props) => {
     const { dataService, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={{ width: width * 0.22 }}>
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={{ width: width * 0.22, }}>
         <View style={[Popular_Box_D, { backgroundColor: '#ECECEC', borderRadius: 5, }]}>
-            <View style={BoxProduct1Image}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+            <View style={HW100p}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
     </View>);
     const productCate = (type) => type ? type.map((v, i) => {
         const ImageProCate = { uri: `${finip}/${v.image_path}/${v.image}`, };
-        return i < 2 && <View style={{ width: width * 0.22 }} key={i}>
-            <View style={[Popular_Box_D, { backgroundColor: '#FFFFFF', borderRadius: 5 }]}>
-                <FastImage style={BoxProduct1Image} source={ImageProCate} resizeMode={contain} />
+        return i < 2 && <View style={{ width: width * 0.22, }} key={i}>
+            <View style={[Popular_Box_D, { backgroundColor: '#FFFFFF', borderRadius: 5, }]}>
+                <FastImage style={HW100p} source={ImageProCate} resizeMode={contain} />
             </View>
             <View style={[ItemCenter, { width: width * 0.20, }]}>
                 <Text numberOfLines={1} style={[FontSize8, FontFamilyText]}>{v.name}</Text>
                 <NumberFormat value={v.full_price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={v2 =>
-                    <Text style={[FontFamilyBold, FontSize8, BoxProduct1ImagePrice,]}>{v2}</Text>} />
+                    <Text style={[FontFamilyBold, FontSize8, BoxProduct1ImagePrice]}>{v2}</Text>} />
             </View>
         </View>;
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View>
         <View style={[FrameBackground2]}>
             <View style={[FrameBackgroundTextBox]}>
-                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>สินค้ายอดนิยม</Text>
+                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้ายอดนิยม</Text>
             </View>
-            <View style={[FlexRow, { aspectRatio: 2.5, height: 'auto', }]}>
+            <View style={[FRow, { aspectRatio: 2.5, height: 'auto', }]}>
                 <ScrollView horizontal>
                     {<TouchableOpacity activeOpacity={1} onPress={() =>
                         Navi({ ...props, goScreen: 'Popular_productScreen', setData: { id_item: 0, }, })}>
-                        <View style={[Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
+                        <View style={[Popular_Box_B, { backgroundColor: '#F0F6FA', }]}>
                             <View style={PopularText_A}>
-                                <Text style={[FontFamilyText, FontSize6, { marginLeft: 8, color: '#fff', },]}>สินค้าสุดฮิต</Text>
+                                <Text style={[FontFamilyText, FontSize6, { color: '#fff', marginLeft: 8, }]}>สินค้าสุดฮิต</Text>
                             </View>
-                            <View style={FlexRow}>{productCate(dataService?.product_hit)}</View>
+                            <View style={FRow}>{productCate(dataService?.product_hit)}</View>
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity activeOpacity={1} onPress={() =>
                         Navi({ ...props, goScreen: 'Popular_productScreen', setData: { id_item: 1, }, })}>
-                        <View style={[Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
+                        <View style={[Popular_Box_B, { backgroundColor: '#EAEEF7', }]}>
                             <View style={PopularText_A}>
-                                <Text style={[FontFamilyText, FontSize6, { marginLeft: 8, color: '#fff', },]}>สินค้าราคาโดน</Text>
+                                <Text style={[FontFamilyText, FontSize6, { color: '#fff', marginLeft: 8, }]}>สินค้าราคาโดน</Text>
                             </View>
-                            <View style={stylesMain.FlexRow}>{productCate(dataService?.best_price)}</View>
+                            <View style={FRow}>{productCate(dataService?.best_price)}</View>
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity activeOpacity={1} onPress={() =>
                         Navi({ ...props, goScreen: 'Popular_productScreen', setData: { id_item: 2, }, })}>
-                        <View style={[Popular_Box_B, { backgroundColor: '#F0F6FA' }]}>
+                        <View style={[Popular_Box_B, { backgroundColor: '#F0F6FA', }]}>
                             <View style={PopularText_A}>
-                                <Text style={[FontFamilyText, FontSize6, { marginLeft: 8, color: '#fff', },]}>สินค้าขายดี</Text>
+                                <Text style={[FontFamilyText, FontSize6, { color: '#fff', marginLeft: 8, }]}>สินค้าขายดี</Text>
                             </View>
-                            <View style={stylesMain.FlexRow}>{productCate(dataService?.best_sale)}</View>
+                            <View style={FRow}>{productCate(dataService?.best_sale)}</View>
                         </View>
                     </TouchableOpacity>}
                     {<TouchableOpacity activeOpacity={1} onPress={() =>
                         Navi({ ...props, goScreen: 'Popular_productScreen', setData: { id_item: 3, }, })}>
-                        <View style={[Popular_Box_B, { backgroundColor: '#EAEEF7' }]}>
+                        <View style={[Popular_Box_B, { backgroundColor: '#EAEEF7', }]}>
                             <View style={PopularText_A}>
-                                <Text style={[FontFamilyText, FontSize6, { marginLeft: 8, color: '#fff', },]}>สินค้าสุดคูล</Text>
+                                <Text style={[FontFamilyText, FontSize6, { color: '#fff', marginLeft: 8, }]}>สินค้าสุดคูล</Text>
                             </View>
-                            <View style={FlexRow}>{productCate(dataService?.best_cool)}</View>
+                            <View style={FRow}>{productCate(dataService?.best_cool)}</View>
                         </View>
                     </TouchableOpacity>}
                 </ScrollView>
@@ -689,23 +642,23 @@ export const Popular_product = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_ONE
 export const BannerBar_ONE = (props) => {
-    const ImageiBanOne = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg` };
+    const ImageiBanOne = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 111.jpg`, };
     return <View style={Banner_Bar}>
-        <FastImage style={Banner_Bar_image} source={ImageiBanOne} resizeMode={stretch} />
+        <FastImage style={HxWfull} source={ImageiBanOne} resizeMode={stretch} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_TWO
 export const BannerBar_TWO = (props) => {
-    const ImageiBanTwo = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` };
+    const ImageiBanTwo = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`, };
     return <View style={Banner_Bar}>
-        <FastImage style={Banner_Bar_image} source={ImageiBanTwo} resizeMode={stretch} />
+        <FastImage style={HxWfull} source={ImageiBanTwo} resizeMode={stretch} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> BannerBar_THREE
 export const BannerBar_THREE = (props) => {
-    const ImageiBanThree = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg` };
+    const ImageiBanThree = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`, };
     return <View style={Banner_Bar}>
-        <FastImage style={Banner_Bar_image} source={ImageiBanThree} resizeMode={stretch} />
+        <FastImage style={HxWfull} source={ImageiBanThree} resizeMode={stretch} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> FlashSale
@@ -714,34 +667,34 @@ export const FlashSale = (props) => {
     const ImageGood = require('../../icon/goods.png');
     const dataService2 = [{
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000',
-        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local'
+        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '5250', price: '99000',
-        discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local'
+        discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '6250', price: '99000',
-        discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local'
+        discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '7250', price: '99000',
-        discount: '25', name_product: 'Honda X-ADV 2017', type: 'local'
+        discount: '25', name_product: 'Honda X-ADV 2017', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '850', price: '99000',
-        discount: '25', name_product: 'Miku Max', type: 'local'
+        discount: '25', name_product: 'Miku Max', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '9250', price: '99000',
-        discount: '25', name_product: 'Yamaha 04GEN', type: 'local'
+        discount: '25', name_product: 'Yamaha 04GEN', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '350', price: '99000',
-        discount: '25', name_product: 'AXM-4 Scooter', type: 'local'
+        discount: '25', name_product: 'AXM-4 Scooter', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '5550', price: '99000',
-        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local'
+        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '2250', price: '99000',
-        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local'
+        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '29550', price: '99000',
-        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local'
+        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local',
     }];
     const [curTime, setCurTime] = useState(new Date());
     const [endTime, setEndTime] = useState(undefined);
@@ -788,20 +741,20 @@ export const FlashSale = (props) => {
     return getFetchData['flash_timer']?.data ?
         <View style={FrameBackground2}>
             <View style={[FrameBackgroundTextBox]}>
-                <View style={[FlexRow, { flex: 70 }]}>
-                    <Text style={[FontFamilyBoldBold, FontSize4, FrameBackgroundTextStart, { color: '#dc3545', flex: 30 }]}>FLASH SALE</Text>
-                    <View style={[FlexRow, { alignContent: 'center', alignItems: 'center', flex: 66, }]}>
-                        <FastImage source={ImageGood} style={{ height: 20, width: 15 }} />
+                <View style={[FRow, { flex: 70, }]}>
+                    <Text style={[FontFamilyBoldBold, FontSize4, FrameBackgroundTextStart, { color: '#dc3545', flex: 30, }]}>FLASH SALE</Text>
+                    <View style={[FRow, { alignContent: 'center', alignItems: 'center', flex: 66, }]}>
+                        <FastImage source={ImageGood} style={{ height: 20, width: 15, }} />
                         {/* <IconFontAwesome name='clock-o' size={30} /> */}
-                        <View style={{ flex: 70, flexDirection: 'row', }}>
-                            <View style={[Time_FlashSale_TimeBox,]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>{hours}</Text>
+                        <View style={[FRow, { flex: 70, }]}>
+                            <View style={[Time_FlashSale_TimeBox]}>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>{hours}</Text>
                             </View>
                             <View style={[Time_FlashSale_TimeBox]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>{minutes}</Text>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>{minutes}</Text>
                             </View>
                             <View style={[Time_FlashSale_TimeBox]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>{seconds}</Text>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>{seconds}</Text>
                             </View>
                         </View>
                     </View>
@@ -816,35 +769,35 @@ export const FlashSale = (props) => {
         </View> :
         <View style={FrameBackground2}>
             <View style={[FrameBackgroundTextBox]}>
-                <View style={[FlexRow, { flex: 70 }]}>
+                <View style={[FRow, { flex: 70, }]}>
                     <Text style={[FontFamilyBoldBold, FontSize4, FrameBackgroundTextStart, { color: '#dc3545', flex: 30, }]}>FLASH SALE</Text>
-                    <View style={[FlexRow, { alignContent: 'center', alignItems: 'center', flex: 68, }]}>
+                    <View style={[FRow, { alignContent: 'center', alignItems: 'center', flex: 68, }]}>
                         <FastImage source={ImageGood} style={{ height: 18, width: 20 }} />
                         {/* <IconFontAwesome name='clock-o' size={30} /> */}
-                        <View style={{ flex: 70, flexDirection: 'row', }}>
-                            <View style={[ItemCenter, Time_FlashSale_TimeBox,]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>00</Text>
+                        <View style={[FRow, { flex: 70, }]}>
+                            <View style={[ItemCenter, Time_FlashSale_TimeBox]}>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>00</Text>
                             </View>
-                            <View style={[ItemCenter, Time_FlashSale_TimeBox,]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>00</Text>
+                            <View style={[ItemCenter, Time_FlashSale_TimeBox]}>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>00</Text>
                             </View>
-                            <View style={[ItemCenter, Time_FlashSale_TimeBox,]}>
-                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText,]}>00</Text>
+                            <View style={[ItemCenter, Time_FlashSale_TimeBox]}>
+                                <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>00</Text>
                             </View>
                         </View>
                     </View>
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'FlashSaleScreen', })}>
-                    <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd, { flex: 30 }]}>ดูทั้งหมด</Text>
+                    <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd, { flex: 30, }]}>ดูทั้งหมด</Text>
                 </TouchableOpacity>
             </View>
-            <View style={{ flexDirection: 'row' }}>
+            <View style={FRow}>
                 {dataService2 &&
                     <FlatProduct dataService={dataService2} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product' nameSize={14}
                         numberOfColumn={1} priceSize={15} />}
-                {/* {[0, 1, 2, 3, 4].map((_, i) => <View key={i} style={[stylesMain.ItemCenter, stylesMain.BoxProduct5Box]}>
-                    <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct5ImageofLines, { backgroundColor: '#ECECEC' }]}>
-                        <View style={[stylesMain.ItemCenter, stylesMain.BoxProduct2Image, { marginVertical: height * 0.015, }]}>
+                {/* {[0, 1, 2, 3, 4].map((_, i) => <View key={i} style={[ItemCenter, BoxProduct5Box]}>
+                    <View style={[ItemCenter, BoxProduct5ImageofLines, { backgroundColor: '#ECECEC' }]}>
+                        <View style={[ItemCenter, HxW75p, { marginVertical: height * 0.015, }]}>
                         </View>
                     </View>
                     <View style={{ height: 55, paddingHorizontal: 3 }} />
@@ -855,34 +808,34 @@ export const FlashSale = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> PromotionPopular
 export const PromotionPopular = (props) => {
     const { dataService, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore2Box2]}>
-        <View style={[BoxStore2Image2, { backgroundColor: '#ECECEC' }]}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore2Box2]}>
+        <View style={[BoxStore2Image2, { backgroundColor: '#ECECEC', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
         <View style={{ backgroundColor: mainColor, borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 1, }}>
-            <Text numberOfLines={1} style={[FontFamilyText, FontSize7, { color: mainColor, marginLeft: 2 }]}>NaN</Text>
+            <Text numberOfLines={1} style={[FontFamilyText, FontSize7, { color: mainColor, marginLeft: 2, }]}>NaN</Text>
         </View>
     </View>);
-    const dataPromotionPopular = dataService?.recommend_store ? dataService.recommend_store.map((v, i) => {
-        const ImageProPop = { uri: `${finip}/${v.image_path}/${v.image}` };
+    const PromotionPopulars = dataService?.recommend_store ? dataService.recommend_store.map((v, i) => {
+        const ImageProPop = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Recommend_Store', })}>
             <View style={[BoxStore2Box2]}>
                 <FastImage resizeMode={cover} source={ImageProPop} style={[BoxStore2Image2]} />
                 <View style={{ backgroundColor: mainColor, borderBottomLeftRadius: 8, borderBottomRightRadius: 8, padding: 1, }}>
-                    <Text numberOfLines={1} style={[FontFamilyText, FontSize8, { color: '#fff', marginLeft: 2 }]}>{v.detail}</Text>
+                    <Text numberOfLines={1} style={[FontFamilyText, FontSize8, { color: '#fff', marginLeft: 2, }]}>{v.detail}</Text>
                 </View>
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ลายแทงร้านค้าแนะนำ</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ลายแทงร้านค้าแนะนำ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Recommend_Store', })}>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         <View style={{ aspectRatio: 3.8, height: 'auto', }}>
-            <ScrollView horizontal>{dataPromotionPopular}</ScrollView>
+            <ScrollView horizontal>{PromotionPopulars}</ScrollView>
         </View>
     </View>;
 };
@@ -891,48 +844,48 @@ export const Product_for_you = (props) => {
     const { dataService, } = props;
     const dataService2 = [{
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B1.jpg', id_product: 0, last_price: '4250', price: '99000',
-        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local'
+        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B2.jpg', id_product: 1, last_price: '5250', price: '99000',
-        discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local'
+        discount: '25', name_product: 'HONDA INTEGRA 750 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B3.jpg', id_product: 2, last_price: '6250', price: '99000',
-        discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local'
+        discount: '25', name_product: 'X ADV | Red Vs Blu', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B4.jpg', id_product: 3, last_price: '7250', price: '99000',
-        discount: '25', name_product: 'Honda X-ADV 2017', type: 'local'
+        discount: '25', name_product: 'Honda X-ADV 2017', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B5.jpg', id_product: 4, last_price: '850', price: '99000',
-        discount: '25', name_product: 'Miku Max', type: 'local'
+        discount: '25', name_product: 'Miku Max', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B6.jpg', id_product: 5, last_price: '9250', price: '99000',
-        discount: '25', name_product: 'Yamaha 04GEN', type: 'local'
+        discount: '25', name_product: 'Yamaha 04GEN', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B7.jpg', id_product: 5, last_price: '350', price: '99000',
-        discount: '25', name_product: 'AXM-4 Scooter', type: 'local'
+        discount: '25', name_product: 'AXM-4 Scooter', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B8.jpg', id_product: 5, last_price: '5550', price: '99000',
-        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local'
+        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B9.jpg', id_product: 5, last_price: '2250', price: '99000',
-        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local'
+        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Bag', image: 'B10.jpg', id_product: 5, last_price: '29550', price: '99000',
-        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local'
+        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local',
     }]
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC' }]}>
-        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
-            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC', }]}>
+        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 119, }]}>
+            <View style={[HxW75p, ItemCenter, { marginVertical: height * 0.015, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
-        <View style={{ height: 55, paddingHorizontal: 3 }} />
+        <View style={{ height: 55, paddingHorizontal: 3, }} />
     </View>);
     return <View style={[FrameBackground2]}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>FIN คัดมาเพื่อคุณ</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>FIN คัดมาเพื่อคุณ</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Product_for_youScreen', })}>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         {/* dataService.for_you */}
@@ -940,8 +893,8 @@ export const Product_for_you = (props) => {
             <FlatProduct {...props} dataService={dataService?.for_you} dispriceSize={15} mode='row3_new2' nameFlatProduct='Product_for_you'
                 nameSize={14} numberOfColumn={2} priceSize={15} /> :
             <View>
-                <View style={FlexRow}>{boxEmpty}</View>
-                <View style={FlexRow}>{boxEmpty}</View>
+                <View style={FRow}>{BoxEmpty}</View>
+                <View style={FRow}>{BoxEmpty}</View>
             </View>}
     </View>;
 };
@@ -950,106 +903,105 @@ export const Highlight = (props) => {
     const { dataService, } = props;
     const dataService2 = [{
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '1.jpg', id_product: 0, last_price: '74250', price: '99000',
-        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local'
+        discount: '25', name_product: 'Yamaha T-max530 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '2.jpg', id_product: 1, last_price: '145000', price: '155000',
-        discount: '10', name_product: 'HONDA INTEGRA 750 ', type: 'local'
+        discount: '10', name_product: 'HONDA INTEGRA 750 ', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '3.jpg', id_product: 2, last_price: '129000', price: '139000',
-        discount: '10', name_product: 'X ADV | Red Vs Blu', type: 'local'
+        discount: '10', name_product: 'X ADV | Red Vs Blu', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '4.jpg', id_product: 3, last_price: '139000', price: '149000',
-        discount: '50', name_product: 'Honda X-ADV 2017', type: 'local'
+        discount: '50', name_product: 'Honda X-ADV 2017', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '5.jpg', id_product: 4, last_price: '119000', price: '129000',
-        discount: '10', name_product: 'Miku Max', type: 'local'
+        discount: '10', name_product: 'Miku Max', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '6.jpg', id_product: 5, last_price: '359000', price: '359000',
-        discount: '25', name_product: 'Yamaha 04GEN', type: 'local'
+        discount: '25', name_product: 'Yamaha 04GEN', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '7.jpg', id_product: 5, last_price: '359000', price: '359000',
-        discount: '25', name_product: 'AXM-4 Scooter', type: 'local'
+        discount: '25', name_product: 'AXM-4 Scooter', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '8.jpg', id_product: 5, last_price: '359000', price: '359000',
-        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local'
+        discount: '25', name_product: 'Classic luxury rickshaw', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '9.jpg', id_product: 5, last_price: '359000', price: '359000',
-        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local'
+        discount: '25', name_product: 'BMW C400X Resmi Dipasarkan', type: 'local',
     }, {
         image_path: 'MySQL/uploads/Test_Product/Highlight', image: '10.jpg', id_product: 5, last_price: '359000', price: '359000',
-        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local'
-    }]
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[ItemCenter, BoxProduct1Box2]}>
+        discount: '25', name_product: 'Serbi Yamaha X - Ride', type: 'local',
+    }];
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[ItemCenter, BoxProduct1Box2]}>
         <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 113 }]}>
-            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.010, }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+            <View style={[HxW75p, ItemCenter, { marginVertical: height * 0.010, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
-        <View style={{ height: 40, paddingHorizontal: 3 }} />
+        <View style={{ height: 40, paddingHorizontal: 3, }} />
     </View>);
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ไฮไลท์ประจำสัปดาห์</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ไฮไลท์ประจำสัปดาห์</Text>
             <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'HighlightScreen', })}>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}> ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}> ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         {/* dataService.hi_week */}
         {dataService ?
             <FlatProduct {...props} dataService={dataService?.hi_week} dispriceSize={15} mode='row3_new2' nameFlatProduct='Second_product'
                 nameSize={14} numberOfColumn={1} priceSize={15} /> :
-            <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>}
+            <View style={FRow}>{BoxEmpty}</View>}
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> NewStore
 export const NewStore = (props) => {
     const { dataService, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore1Box, { backgroundColor: '#ECECEC' }]}>
-        <View style={BoxStore1Image}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore1Box, { backgroundColor: '#ECECEC', }]}>
+        <View style={[HW100p, { borderColor: '#ECECEC', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>);
-    const dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((v, i) => {
-        const ImageRecom = { uri: `${finip}/${v.image_path}/${v.image}` };
+    const NewStores = dataService?.dont_miss ? dataService?.dont_miss.map((v, i) => {
+        const ImageRecom = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({
             ...props, goScreen: 'Recommend_Store',
             setData: { id_slide: v.id, name_path: 'store_total', uri_path: 'publish_store/store_total', },
         })}>
             <View style={[BoxStore1Box, { marginLeft: 0 }]}>
-                <FastImage resizeMode={contain} source={ImageRecom} style={BoxStore1Image} />
+                <FastImage resizeMode={contain} source={ImageRecom} style={[HW100p, { borderColor: '#ECECEC', }]} />
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
+    }) : BoxEmpty;
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ร้านค้าห้ามพลาด!!่</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ร้านค้าห้ามพลาด!!่</Text>
         </View>
-        <View style={[FlexRow, { aspectRatio: 4, height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5, }]}>
-            {dataNewStore}</View>
+        <View style={[FRow, { aspectRatio: 4, height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5, }]}>{NewStores}</View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Exclusive
 export const Exclusive = (props) => {
     const { loadData, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2, ItemCenter,]}>
-        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 115 }]}>
-            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2, ItemCenter]}>
+        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 115, }]}>
+            <View style={[HxW75p, ItemCenter, { marginVertical: height * 0.015, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3, }} />
     </View>);
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>สินค้าสุด Exclusive</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าสุด Exclusive</Text>
             <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ExclusiveScreen', })}>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         {loadData ?
             <FlatProduct {...props} dataService={loadData} dispriceSize={15} mode='row3' nameFlatProduct='ExclusiveProduct' nameSize={14}
                 numberOfColumn={1} priceSize={15} /> :
-            <View style={{ flexDirection: 'row' }}>{boxEmpty}</View>}
+            <View style={FRow}>{BoxEmpty}</View>}
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
@@ -1065,10 +1017,10 @@ export function CategoryProduct_new(props) {
     dataService.cate_promotions_2.map((v2) => v2.map((v3) => v3.id_type == id_type ? promo2Item.push(v3) : null));
     dataService.cate_shop.map((v2) => v2.map((v3) => v3.id_type == id_type ? shopItem.push(v3) : null));
     const mix_color = color_up(mobile_bg);
-    const ImageHead = { uri: `${finip}/${image_path}/${image_menu}` };
-    const dataCategory = <View style={[FrameBackground2, { backgroundColor: mobile_bg }]}>
+    const ImageHead = { uri: `${finip}/${image_path}/${image_menu}`, };
+    const DataCategory = <View style={[FrameBackground2, { backgroundColor: mobile_bg, }]}>
         <>
-            {<TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'CategoryScreen', setData: { id_type: id_type }, })}>
+            {<TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'CategoryScreen', setData: { id_type: id_type, }, })}>
                 <FastImage resizeMode={contain} source={ImageHead} style={[CategoryProductImageHead]} />
             </TouchableOpacity>}
             <CategoryProductSubProduct {...props} dataService={productItem} />
@@ -1084,12 +1036,12 @@ export function CategoryProduct_new(props) {
                 <CategoryProductSubPromotion {...props} mix_color={mix_color} promo_1={promo1Item} promo_2={promo2Item} shop={shopItem} />
             </View>}
     </View>;
-    return <View>{dataCategory}</View>;
+    return <View>{DataCategory}</View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProduct
 export function CategoryProduct(props) {
     const { dataService, getFetchData, NoStoreReCom, } = props;
-    const dataCategory = dataService?.category?.map((v, i) => {
+    const DataCategory = dataService?.category?.map((v, i) => {
         const { id_type, image_menu, image_path, mobile_bg, } = v;
         let productItem = [];
         let promo1Item = [];
@@ -1100,11 +1052,11 @@ export function CategoryProduct(props) {
         dataService.cate_promotions_2.map((v2) => v2.map((v3) => v3.id_type == id_type ? promo2Item.push(v3) : null));
         dataService.cate_shop.map((v2) => v2.map((v3) => v3.id_type == id_type ? shopItem.push(v3) : null));
         if (i < 20 /*getFetchData['category_mobile'].length*/) {
-            const ImageHead = { uri: `${finip}/${image_path}/head_mobile/${image_menu}${Platform.OS == 'android' ? '_.webp' : ''}` };
+            const ImageHead = { uri: `${finip}/${image_path}/head_mobile/${image_menu}${Platform.OS == 'android' ? '_.webp' : ''}`, };
             const mix_color = color_up(mobile_bg);
             return <View key={i} style={[FrameBackground2, { backgroundColor: mobile_bg, paddingBottom: 3, }]}>
                 <>
-                    {<TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'CategoryScreen', setData: { id_type: id_type }, })}>
+                    {<TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'CategoryScreen', setData: { id_type: id_type, }, })}>
                         <FastImage resizeMode={contain} source={ImageHead} style={[CategoryProductImageHead]} />
                     </TouchableOpacity>}
                     <CategoryProductSubProduct {...props} dataService={productItem} />
@@ -1123,26 +1075,26 @@ export function CategoryProduct(props) {
             </View>;
         };
     });
-    return <View>{dataCategory}</View>;
+    return <View>{DataCategory}</View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubProduct
 export const CategoryProductSubProduct = (props) => {
     const { dataService, } = props;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC' }]}>
-        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 119 }]}>
-            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC', }]}>
+        <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 119, }]}>
+            <View style={[HxW75p, ItemCenter, { marginVertical: height * 0.015, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
-        <View style={{ height: 55, paddingHorizontal: 3 }} />
+        <View style={{ height: 55, paddingHorizontal: 3, }} />
     </View>);
     return <>
         {dataService.length > 0 ?
             <FlatProduct {...props} dispriceSize={13} mode='row3_new2' nameFlatProduct='CategoryProduct' nameSize={14} noMarginTop
                 numberOfColumn={2} priceSize={15} /> :
             <View>
-                <View style={FlexRow}>{boxEmpty}</View>
-                <View style={FlexRow}>{boxEmpty}</View>
+                <View style={FRow}>{BoxEmpty}</View>
+                <View style={FRow}>{BoxEmpty}</View>
             </View>}
     </>;
 };
@@ -1151,7 +1103,7 @@ export const CategoryProductSubStore = (props) => {
     const { mix_color, shop, } = props;
     const _renderBanner = function (v) {
         const ImageSubStore = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}`, };
-        const SubStoreStyle = [BoxProduct1Image, { backgroundColor: mix_color, }];
+        const SubStoreStyle = [HW100p, { backgroundColor: mix_color, }];
         // const dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_S/${v.image}`;
         return <TouchableOpacity activeOpacity={1} key={v.id}>
             <View style={{ backgroundColor: mix_color, height: 57.8, marginLeft: 5, width: width * 0.56, }}>
@@ -1163,46 +1115,46 @@ export const CategoryProductSubStore = (props) => {
         {shop && shop.length > 0 ?
             <Carousel autoplay autoplayInterval={3000} data={shop} loop pagination={PaginationLight} renderItem={_renderBanner} /> :
             <View style={{ backgroundColor: mix_color, height: 57.8, marginLeft: 5, width: width * 0.56, }}>
-                <View style={BoxProduct1Image} />
+                <View style={HW100p} />
             </View>}
     </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export const CategoryProductSubPromotion = (props) => {
     const { mix_color, promo_1, promo_2, shop, } = props;
-    const boxEmptySmall = <View style={[BoxStore1Box3, { backgroundColor: mix_color, height: 66, marginTop: 3, width: '100%', }]}>
-        <View style={BoxProduct1Image}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmptySmall = <View style={[BoxStore1Box3, { backgroundColor: mix_color, height: 66, marginTop: 3, width: '100%', }]}>
+        <View style={HW100p}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>;
-    const dataCategoryProductSubPromotionSmall = promo_2 ? promo_2.map((v, i) => {
+    const CategoryProductSubPromotionSmall = promo_2 ? promo_2.map((v, i) => {
         // const dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_M/${v.image}`;
         const ImagePromoSmall = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
         return <View key={i} style={[BoxStore1Box3, { height: 66, marginTop: 3, width: '100%', }]}>
-            {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoSmall} style={BoxProduct1Image} />}
+            {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoSmall} style={HW100p} />}
         </View>;
-    }) : boxEmptySmall;
-    const boxEmptyBig = <View style={[BoxStore1Box2, { backgroundColor: mix_color, borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
-        <View style={BoxProduct1Image}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    }) : BoxEmptySmall;
+    const BoxEmptyBig = <View style={[BoxStore1Box2, { backgroundColor: mix_color, borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
+        <View style={HW100p}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>;
-    const dataCategoryProductSubPromotionBig = promo_1 ? promo_1.map((v, i) => {
+    const CategoryProductSubPromotionBig = promo_1 ? promo_1.map((v, i) => {
         // const dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_L/${v.image}`;
         const ImagePromoBig = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
         return <View key={i} style={[BoxStore1Box2, { borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
-            {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoBig} style={BoxProduct1Image} />}
+            {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoBig} style={HW100p} />}
         </View>;
-    }) : boxEmptyBig;
+    }) : BoxEmptyBig;
     return <>
-        <View style={[FlexRow, { marginTop: 3, width: '100%', }]}>
+        <View style={[FRow, { marginTop: 3, width: '100%', }]}>
             <View style={{ flexDirection: 'column', marginRight: 6, width: width * 0.56, }}>
-                {dataCategoryProductSubPromotionSmall}
+                {CategoryProductSubPromotionSmall}
                 <View style={{ marginTop: 6, width: width * 0.56, }}>
                     <CategoryProductSubStore {...props} mix_color={mix_color} shop={shop} />
                 </View>
             </View>
-            {dataCategoryProductSubPromotionBig}
+            {CategoryProductSubPromotionBig}
         </View>
     </>;
 };
@@ -1236,35 +1188,35 @@ export const Second_product = (props) => {
         id_product: 7, image: '8.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '1850',
         name_product: 'Lighting L116T SMART LED Video Light สินค้ามือสอง', type: 'local',
     }];
-    const renderItem1 = dataService?.list_store2_1 ? dataService.list_store2_1.map((v, i) => {
+    const RenderItem1 = dataService?.list_store2_1 ? dataService.list_store2_1.map((v, i) => {
         const ImageStore2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <View key={i} style={{ height: 196, width: width * 0.64, }}>
-            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageStore2} style={bigSlideImage} />
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageStore2} style={H75pW100p} />
         </View>;
     }) : <View style={{ height: 196, width: width * 0.64, }}>
-            <View style={[bigSlideImage, { backgroundColor: '#ECECEC', }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+            <View style={[H75pW100p, { backgroundColor: '#ECECEC', }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>;
-    const boxEmptyBody = GenArray(10).map((_, i) => <View key={i} style={Second_StoreFin_ImageB_T}>
+    const BoxEmptyBody = GenArray(10).map((_, i) => <View key={i} style={Second_StoreFin_ImageB_T}>
         <View style={{ height: 130, width: width * 0.32, }}>
             <View style={[litleSlideImage, { backgroundColor: '#ECECEC', }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
     </View>);
-    const renderItem2 = dataService?.list_store2_2 ? dataService.list_store2_2.map((v, i) => {
+    const RenderItem2 = dataService?.list_store2_2 ? dataService.list_store2_2.map((v, i) => {
         const ImageStore2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <View key={i} style={Second_StoreFin_ImageB_T}>
             <View style={{ height: 130, width: width * 0.32, }}>
                 <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageStore2} style={litleSlideImage} />
             </View>
         </View>;
-    }) : boxEmptyBody;
-    const boxEmptyHeader = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC', }]}>
+    }) : BoxEmptyBody;
+    const BoxEmptyHeader = GenArray(10).map((_, i) => <View key={i} style={[BoxProduct1Box2new, ItemCenter, { borderColor: '#DCDCDC', }]}>
         <View style={[ItemCenter, { backgroundColor: '#ECECEC', width: 119, }]}>
-            <View style={[BoxProduct2Image, ItemCenter, { marginVertical: height * 0.015, }]}>
-                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+            <View style={[HxW75p, ItemCenter, { marginVertical: height * 0.015, }]}>
+                <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
             </View>
         </View>
         <View style={{ height: 55, paddingHorizontal: 3, }} />
@@ -1277,7 +1229,7 @@ export const Second_product = (props) => {
         <View>
             {Header_Second ?
                 <View>
-                    <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>มือสองลดราคา</Text>
+                    <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>มือสองลดราคา</Text>
                 </View> :
                 dataService?.mobile_bar ?
                     <TouchableOpacity {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2'
@@ -1290,8 +1242,8 @@ export const Second_product = (props) => {
                 <FlatProduct {...props} dataService={dataService?.product_second} dispriceSize={15} mode='row3_new2'
                     nameFlatProduct='Second_product' nameSize={14} noMarginTop numberOfColumn={2} priceSize={15} /> :
                 <View>
-                    <View style={FlexRow}>{boxEmptyHeader}</View>
-                    <View style={FlexRow}>{boxEmptyHeader}</View>
+                    <View style={FRow}>{BoxEmptyHeader}</View>
+                    <View style={FRow}>{BoxEmptyHeader}</View>
                 </View>}
         </View>
     </View>;
@@ -1299,52 +1251,52 @@ export const Second_product = (props) => {
         <View style={[FrameBackgroundTextBox, Second_StoreFin_BoxHead]}>
             {Header_Second ?
                 <View>
-                    <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ร้านมือสองลดราคา</Text>
+                    <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ร้านมือสองลดราคา</Text>
                 </View> :
-                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ร้านค้ามือสองแนะนำโดย FIN</Text>}
+                <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ร้านค้ามือสองแนะนำโดย FIN</Text>}
             <View>
                 <TouchableOpacity activeOpacity={1} onPress={() =>
                     Navi({ ...props, goScreen: 'SecondScreen', setData: { selectedIndex: 1, }, })}>
-                    <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                    <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
                 </TouchableOpacity>
             </View>
         </View>
         <View style={Second_StoreFin_Image}>
             <View key={'list_store2_1'} style={Second_StoreFin_ImageA}>
-                <View>{renderItem1}</View>
+                <View>{RenderItem1}</View>
             </View>
             <View key={'list_store2_2'}>
-                <View style={Second_StoreFin_ImageB}>{renderItem2}</View>
+                <View style={Second_StoreFin_ImageB}>{RenderItem2}</View>
             </View>
         </View>
     </View>;
-    const boxEmptyFooter = GenArray(10).map((_, i) => <View key={i} style={[CategoryProductStoreBox]}>
-        <View style={[BoxProduct1Image, { backgroundColor: '#ECECEC', }]}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmptyFooter = GenArray(10).map((_, i) => <View key={i} style={[CategoryProductStoreBox]}>
+        <View style={[HW100p, { backgroundColor: '#ECECEC', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>);
     const _renderFooter = (v, i) => {
         const ImageFooter1 = { uri: `${finip}/${v.item.image_path}/${v.item.image}`, };
         const ImageFooter2 = v.item2 ? { uri: `${finip}/${v.item2.image_path}/${v.item2.image}`, } : undefined;
-        return <TouchableOpacity activeOpacity={1} key={i} style={FlexRow}>
+        return <TouchableOpacity activeOpacity={1} key={i} style={FRow}>
             <View style={[CategoryProductStoreBox]}>
-                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageFooter1} style={BoxProduct1Image} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageFooter1} style={HW100p} />
             </View>
             <View style={[CategoryProductStoreBox]}>
-                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageFooter2} style={BoxProduct1Image} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageFooter2} style={HW100p} />
             </View>
         </TouchableOpacity>;
     };
     let item = [];
     if (dataService?.mobile_slide) for (let n = 0; n < dataService.mobile_slide.length; n += 2) {
-        item.push({ item: dataService.mobile_slide[n], item2: dataService.mobile_slide[n + 1] });
+        item.push({ item: dataService.mobile_slide[n], item2: dataService.mobile_slide[n + 1], });
     };
     const Second_Storefooters = <View key={'mobile_slide'} style={Second_Storefooter}>
         <ScrollView horizontal>
-            <View style={FlexRow}>
+            <View style={FRow}>
                 {dataService?.mobile_slide ?
                     <Carousel autoplay autoplayInterval={3000} data={item} loop pagination={PaginationLight} renderItem={_renderFooter} /> :
-                    <View style={FlexRow}>{boxEmptyFooter}</View>}
+                    <View style={FRow}>{BoxEmptyFooter}</View>}
             </View>
         </ScrollView>
     </View>;
@@ -1356,8 +1308,8 @@ export const Second_product = (props) => {
 export const Fin_Mall = (props) => {
     const { dataService, } = props;
     const ViewStyle = { marginTop: 10, paddingLeft: 2.5, width: width * 0.225, };
-    const renText = (v, color) => <Text style={[BoxProduct1ImagePrice, FontFamilyBold, FontSize8, { color, }]}>{v}</Text>;
-    const productFinmall = (type, n) => type.map((v, i) => {
+    const RenText = (v, color) => <Text style={[BoxProduct1ImagePrice, FontFamilyBold, FontSize8, { color, }]}>{v}</Text>;
+    const ProductFinmall = (type, n) => type.map((v, i) => {
         const { full_price, image, image_path, name, } = v;
         if (i < 2) {
             const Image1 = { uri: `${finip}/${image_path}/${image}` };
@@ -1370,34 +1322,34 @@ export const Fin_Mall = (props) => {
             //         `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`;
             return <View key={i} style={{ marginTop: 5, paddingLeft: 2.5, width: width * 0.228, }}>
                 <View style={{ aspectRatio: 1, backgroundColor: '#FFFFFF', height: 'auto', width: width * 0.20, }}>
-                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={Image1} style={BoxProduct1Image} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain' source={Image1} style={HW100p} />
                 </View>
                 <View style={[ItemCenter, { width: width * 0.20, }]}>
                     <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF', }]}>{name}</Text>
-                    <NumberFormat displayType='text' prefix='฿' renderText={(v) => renText(v, '#FFFFFF')} thousandSeparator
+                    <NumberFormat displayType='text' prefix='฿' renderText={(v) => RenText(v, '#FFFFFF')} thousandSeparator
                         value={full_price} />
                 </View>
             </View>;
         };
     });
-    return <View style={[FlexRow, FinMall_Box]}>
+    return <View style={[FRow, FinMall_Box]}>
         <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485, }}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>Fin Mall</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>Fin Mall</Text>
             <View style={{ backgroundColor: '#691F50', borderRadius: 5, justifyContent: 'space-between', marginBottom: 3, padding: 3, }}>
                 {dataService ?
                     <TouchableOpacity key='product_hit' activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'FinMallScreen', })}>
-                        <View style={FlexRow}>{productFinmall(dataService.product_hit, 0)}</View>
+                        <View style={FRow}>{ProductFinmall(dataService.product_hit, 0)}</View>
                     </TouchableOpacity> :
-                    <View style={FlexRow}>
+                    <View style={FRow}>
                         {GenArray(10).map((_, i) => <View style={ViewStyle} key={i}>
                             <View style={{ backgroundColor: '#ECECEC', height: height * 0.115, padding: 5, width: width * 0.20, }}>
-                                <View style={BoxProduct1Image}>
-                                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+                                <View style={HW100p}>
+                                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
                                 </View>
                             </View>
                             <View style={[ItemCenter, { width: width * 0.20, }]}>
                                 <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#691F50', }]}>NaN</Text>
-                                <NumberFormat displayType='text' prefix='฿' renderText={(v) => renText(v, '#691F50')} thousandSeparator
+                                <NumberFormat displayType='text' prefix='฿' renderText={(v) => RenText(v, '#691F50')} thousandSeparator
                                     value={0} />
                             </View>
                         </View>)}
@@ -1405,22 +1357,22 @@ export const Fin_Mall = (props) => {
             </View>
         </View>
         <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485, }}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>สินค้าสุด Exclusive</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าสุด Exclusive</Text>
             <View style={{ backgroundColor: '#19508B', borderRadius: 5, justifyContent: 'space-between', padding: 3, }}>
                 {dataService ?
                     <TouchableOpacity activeOpacity={1} key='exclusive' onPress={() => Navi({ ...props, goScreen: 'ExclusiveScreen', })}>
-                        <View style={FlexRow}>{productFinmall(dataService.exclusive, 1)}</View>
+                        <View style={FRow}>{ProductFinmall(dataService.exclusive, 1)}</View>
                     </TouchableOpacity> :
-                    <View style={FlexRow}>
+                    <View style={FRow}>
                         {GenArray(10).map((_, i) => <View key={i} style={ViewStyle}>
                             <View style={{ backgroundColor: '#ECECEC', height: height * 0.115, padding: 5, width: width * 0.20, }}>
-                                <View style={BoxProduct1Image}>
-                                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+                                <View style={HW100p}>
+                                    <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
                                 </View>
                             </View>
                             <View style={[ItemCenter, { width: width * 0.20, }]}>
                                 <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#19508B', }]}>NaN</Text>
-                                <NumberFormat displayType='text' prefix='฿' renderText={(v) => renText(v, '#19508B')} thousandSeparator
+                                <NumberFormat displayType='text' prefix='฿' renderText={(v) => RenText(v, '#19508B')} thousandSeparator
                                     value={0} />
                             </View>
                         </View>)}
@@ -1433,7 +1385,7 @@ export const Fin_Mall = (props) => {
 export const FIN_Supermarket = (props) => {
     const { dataService, } = props;
     const NaviStyle = { marginRight: 5, width: width * 0.60, };
-    const ImageBannerBar = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg` };
+    const ImageBannerBar = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg`, };
     const ImageFood1 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`, };
     const ImageFood1_1 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food1.jpg`, };
     const ImageFood4 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food4.jpg`, };
@@ -1441,29 +1393,29 @@ export const FIN_Supermarket = (props) => {
     const LogoMaxvalu = { uri: `${ip}/MySQL/uploads/Image_FinMall/logo-maxvalu.png`, };
     // Banner ใหญ่ตรง Supermaket
     const item = [
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg` },
-        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg` }];
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg`, }];
     // สินค้าใน Supermaket
     const Supermarketitem = [{
         id_product: 0, image: 'A1.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '85',
-        name_product: 'อิควลสารให้ความหวานแทนน้ำตาลจากหญ้าหวาน 2กรัม แพค 40ซอง', type: 'local'
+        name_product: 'อิควลสารให้ความหวานแทนน้ำตาลจากหญ้าหวาน 2กรัม แพค 40ซอง', type: 'local',
     }, {
         id_product: 1, image: 'A2.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '149',
-        name_product: 'แสนดีข้าวขาวหอมคัดพิเศษ 5กก', type: 'local'
+        name_product: 'แสนดีข้าวขาวหอมคัดพิเศษ 5กก', type: 'local',
     }, {
         id_product: 2, image: 'A3.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '45',
-        name_product: 'ชิกเก้นออฟเดอะซีปลาทูน่ารสน้ำมันมะกอกและพริก 80กรัม', type: 'local'
+        name_product: 'ชิกเก้นออฟเดอะซีปลาทูน่ารสน้ำมันมะกอกและพริก 80กรัม', type: 'local',
     }, {
         id_product: 3, image: 'A4.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '21', name_product: 'ชาวเกาะกะทิยูเอชที 250มล',
-        type: 'local'
+        type: 'local',
     }, {
         id_product: 4, image: 'A5.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '23.50', name_product: 'มะลินมข้นหวาน 380กรัม',
-        type: 'local'
+        type: 'local',
     }, {
         id_product: 5, image: 'A6.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '7', name_product: 'ปรุงทิพย์เกลือป่น 500กรัม',
-        type: 'local'
+        type: 'local',
     }];
     // แบรนด์แนะนำอันแรก
     const Brand_Supermaket = [{
@@ -1483,7 +1435,7 @@ export const FIN_Supermarket = (props) => {
     const SupermaketBox = Brand_Supermaket.map((v, i) => {
         const ImageSuper = { uri: v.image, };
         return <View key={i} style={[ItemCenter, Supermarket_Brand_Shop]}>
-            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={ImageSuper} style={{ height: 50, width: 100 }} />
+            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={ImageSuper} style={{ height: 50, width: 100, }} />
             <View style={[ItemCenter]}>
                 <Text style={[FontFamilyBold, FontSize7]}>{v.name}</Text>
                 <Text numberOfLines={1} style={[FontFamilyText, FontSize7]}>{v.Detall}</Text>
@@ -1494,19 +1446,19 @@ export const FIN_Supermarket = (props) => {
     const SupermaketBox2 = Brand_Supermaket2.map((v, i) => {
         const ImageSuper = { uri: v.image, };
         return <View key={i} style={[ItemCenter, Supermarket_Brand_Shop2]}>
-            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={ImageSuper} style={BoxProduct1Image} />
+            <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={ImageSuper} style={HW100p} />
         </View>;
     });
     // --------------------------------------------------------------------------
     const _renderItem = (v, i) => {
         const ImageRender = { uri: v.image, };
         return <View key={i} style={{ aspectRatio: 2.5, height: 'auto', width, }}>
-            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageRender} style={BoxProduct1Image} />
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageRender} style={HW100p} />
         </View>;
     };
     // --------------------------------------------------------------------------
     return <View style={{ backgroundColor: '#FFFFFF', }}>
-        <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>FIN Supermarket</Text>
+        <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>FIN Supermarket</Text>
         <View>
             <Carousel autoplay autoplayInterval={4000} data={item} renderItem={_renderItem} pagination={PaginationLight} loop />
         </View>
@@ -1515,36 +1467,34 @@ export const FIN_Supermarket = (props) => {
             {dataService && <FlatProduct {...props} dataService={Supermarketitem} dispriceSize={15} mode='row3'
                 nameFlatProduct='FIN_Supermarket' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} />}
         </View>
-        <View style={[FlexRow, Supermarket_Store]}>
+        <View style={[FRow, Supermarket_Store]}>
             <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FINSupermarket', })} style={NaviStyle}>
-                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1} style={BoxProduct1Image} />
+                <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1} style={HW100p} />
             </TouchableOpacity>
             <View style={{ justifyContent: 'space-between', width: width * 0.36, }}>
                 <View style={Supermarket_Image}>
-                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1_1}
-                        style={BoxProduct1Image} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1_1} style={HW100p} />
                 </View>
                 <View style={Supermarket_Image}>
-                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood4}
-                        style={BoxProduct1Image} />
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood4} style={HW100p} />
                 </View>
             </View>
         </View>
         <View style={Supermarket_BrandBox}>
             <View style={Supermarket_Brand_Image}>
-                <FastImage resizeMode={stretch} source={LogoFoodland} style={BoxProduct1Image} />
+                <FastImage resizeMode={stretch} source={LogoFoodland} style={HW100p} />
             </View>
             <View style={Supermarket_Brand_Image}>
-                <FastImage resizeMode={stretch} source={LogoMaxvalu} style={BoxProduct1Image} />
+                <FastImage resizeMode={stretch} source={LogoMaxvalu} style={HW100p} />
             </View>
         </View>
         <View style={Banner_Bar}>
-            <FastImage resizeMode={stretch} source={ImageBannerBar} style={Banner_Bar_image} />
+            <FastImage resizeMode={stretch} source={ImageBannerBar} style={HxWfull} />
         </View>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>แบรนด์แนะนำ</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>แบรนด์แนะนำ</Text>
             <TouchableOpacity>
-                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd,]}>ดูทั้งหมด</Text>
+                <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>
         <ScrollView horizontal>{SupermaketBox}</ScrollView>
@@ -1611,7 +1561,7 @@ export const TodayProduct = (props) => {
     }];
     onShow && console.log(onShow);
     return <View style={[BoxProduct2, { backgroundColor: 'transparent', }]}>
-        {noTitle ? null : <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>สินค้าคัดสรรเพื่อคุณ</Text>}
+        {noTitle ? null : <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าคัดสรรเพื่อคุณ</Text>}
         <View style={BoxProduct2BoxProduct}>
             {loadData ? <ProductBox {...props} dataService={loadData} dispriceSize={15} mode='row3colall_new' nameSize={14}
                 pointerid_store={true} pointerUrl='DetailScreen' prepath={prepath ?? null} priceSize={15} /> :
@@ -1626,12 +1576,12 @@ export const Botton_PopUp_FIN = (props) => {
     const translationXRef = useRef(new Animated.Value(0));
     const translationYRef = useRef(new Animated.Value(0));
     const _lastOffset = { x: 0, y: 0 };
-    const ImageStyle = { backfaceVisibility: 'hidden', marginBottom: -50, right: 50 };
+    const ImageStyle = { backfaceVisibility: 'hidden', marginBottom: -50, right: 50, };
     const SlidingStyle = { backgroundColor: null, top: '50%', width: '100%', };
     const ImagePopUP = require('../../icon/PopUP.png');
     const ImagePopUP2 = require('../../images/0044-03.png');
     const _onGestureEvent = Animated.event(
-        [{ nativeEvent: { translationX: translationXRef.current, translationY: translationYRef.current, }, }], { useNativeDriver: false }
+        [{ nativeEvent: { translationX: translationXRef.current, translationY: translationYRef.current, }, }], { useNativeDriver: false, }
     );
     const _onHandlerStateChange = event => {
         if (event.nativeEvent.oldState === State.ACTIVE) {
@@ -1653,7 +1603,7 @@ export const Botton_PopUp_FIN = (props) => {
                     <FastImage resizeMode={cover} source={ImagePopUP} style={[Botton_PopUp_Image, ImageStyle]} />
                     <TouchableOpacity onPress={() => setActiveShow(!activeShow)} style={{ bottom: 28, height: 20, left: 30, width: 20, }}>
                         <View style={{ backgroundColor: 'transparent', borderWidth: 0, elevation: 0, }}>
-                            <IconAntDesign name='closecircle' size={20} style={BoxProduct1Image} />
+                            <IconAntDesign name='closecircle' size={20} style={HW100p} />
                         </View>
                     </TouchableOpacity>
                 </TouchableOpacity>
@@ -1662,7 +1612,7 @@ export const Botton_PopUp_FIN = (props) => {
         <SlidingView componentVisible={activeSliding} containerStyle={SlidingStyle} disableDrag position="right">
             <TouchableOpacity onPress={() => setActiveSliding(!activeSliding)}>
                 <View style={Botton_PopUp_Box}>
-                    <FastImage resizeMode={contain} source={ImagePopUP2} style={BoxProduct1Image}>
+                    <FastImage resizeMode={contain} source={ImagePopUP2} style={HW100p}>
                         <View style={Botton_PopUp_Text}>
                             <Text style={[FontFamilyBold, { color: '#FFFFFF', }]}>สวัสดีครับ</Text>
                             <Text style={[FontFamilyBold, { color: '#FFFFFF', }]}>ต้องการให้น้องฟินช่วยด้านใดดีครับ</Text>
@@ -1683,23 +1633,23 @@ export const Category_Image_Total = (props) => {
             {S.map((v, i) => {
                 const ImageS = { uri: `${ip}/MySQL/${v.image_path}/${v.image}`, };
                 return <View key={i}>
-                    <FastImage resizeMode={contain} source={ImageS} style={BoxProduct1Image} />
+                    <FastImage resizeMode={contain} source={ImageS} style={HW100p} />
                 </View>;
             })}
         </View>
-        <View style={[BoxStyle, FlexRow, { aspectRatio: 3, }]}>
+        <View style={[BoxStyle, FRow, { aspectRatio: 3, }]}>
             {M.map((v, i) => {
                 const ImageM = { uri: `${ip}/MySQL/${v.image_path}/${v.image}`, };
-                return <View key={i} style={{ width: width * 0.49 }}>
-                    <FastImage resizeMode={contain} source={ImageM} style={BoxProduct1Image} />
+                return <View key={i} style={{ width: width * 0.49, }}>
+                    <FastImage resizeMode={contain} source={ImageM} style={HW100p} />
                 </View>;
             })}
         </View>
-        <View style={[BoxStyle, FlexRow, { aspectRatio: 2.5, }]}>
+        <View style={[BoxStyle, FRow, { aspectRatio: 2.5, }]}>
             {L.map((v, i) => {
                 const ImageL = { uri: `${ip}/MySQL/${v.image_path}/${v.image}`, };
-                return <View key={i} style={{ width: width * 0.49 }}>
-                    <FastImage resizeMode={contain} source={ImageL} style={BoxProduct1Image} />
+                return <View key={i} style={{ width: width * 0.49, }}>
+                    <FastImage resizeMode={contain} source={ImageL} style={HW100p} />
                 </View>;
             })}
         </View>
@@ -1729,9 +1679,9 @@ export const Fin_LuxuryShop = (props) => {
     const ImageShop3 = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 222.jpg`, };
     const ViewStyle = { backgroundColor: '#691F50', borderRadius: 5, justifyContent: 'space-between', marginBottom: 3, padding: 3, };
     const renText = (v, color) => <Text style={[BoxProduct1ImagePrice, FontFamilyBold, FontSize8, { color, }]}>{v}</Text>;
-    const boxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore1Box, { backgroundColor: '#ECECEC', }]}>
-        <View style={BoxStore1Image}>
-            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={BoxProduct1Image} />
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={[BoxStore1Box, { backgroundColor: '#ECECEC', }]}>
+        <View style={[HW100p, { borderColor: '#ECECEC', }]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
     </View>);
     const dataNewStore = dataService?.dont_miss ? dataService?.dont_miss.map((v, i) => {
@@ -1741,24 +1691,24 @@ export const Fin_LuxuryShop = (props) => {
             setData: { id_slide: v.id, name_path: 'store_total', uri_path: 'publish_store/store_total', },
         })}>
             <View style={[BoxStore1Box, { marginLeft: 0, }]}>
-                <FastImage resizeMode={contain} source={ImageNewStore} style={BoxStore1Image} />
+                <FastImage resizeMode={contain} source={ImageNewStore} style={[HW100p, { borderColor: '#ECECEC', }]} />
             </View>
         </TouchableOpacity>;
-    }) : boxEmpty;
-    const productFinmall = (type, n) => type.map((v, i) => {
+    }) : BoxEmpty;
+    const ProductFinmall = (type, n) => type.map((v, i) => {
         const { full_price, name, } = v;
         if (i < 2) {
             // const dataMySQL = `${finip}/${v.image_path}/${v.image}`;
             const ImageFinmall = n == 0 ?
                 i == 0 ?
-                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg` } :
-                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg` } :
+                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_5206014401000.jpg`, } :
+                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200213_99368145334.jpg`, } :
                 i == 0 ?
-                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg` } :
-                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg` };
+                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200710_15010144107.jpg`, } :
+                    { uri: `${ip}/MySQL/uploads/Test_Product/Finmall/20200711_66232114742.jpg`, };
             return <View key={i} style={{ marginTop: 5, paddingLeft: 2.5, width: width * 0.228, }}>
                 <View style={{ aspectRatio: 1, backgroundColor: '#FFFFFF', height: 'auto', width: width * 0.20, }}>
-                    <FastImage resizeMode={contain} source={ImageFinmall} style={BoxProduct1Image} />
+                    <FastImage resizeMode={contain} source={ImageFinmall} style={HW100p} />
                 </View>
                 <View style={[ItemCenter, { width: width * 0.20, }]}>
                     <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#FFFFFF', }]}>{name}</Text>
@@ -1768,7 +1718,7 @@ export const Fin_LuxuryShop = (props) => {
             </View>;
         };
     });
-    return <View style={[FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', marginTop: 3, }]}>
+    return <View style={[FRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', marginTop: 3, }]}>
         <View style={{ padding: 3, width: '49.9%', }}>
             <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>FIN Luxury Shop!!</Text>
             <View>
@@ -1784,12 +1734,12 @@ export const Fin_LuxuryShop = (props) => {
                 <View style={ViewStyle}>
                     {dataService ?
                         <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'FinMallScreen', })}>
-                            <View style={FlexRow}>{productFinmall(dataService?.product_hit, 0)}</View>
+                            <View style={FRow}>{ProductFinmall(dataService?.product_hit, 0)}</View>
                         </TouchableOpacity> :
-                        <View style={FlexRow}>
+                        <View style={FRow}>
                             {GenArray(10).map((_, i) => <View key={i} style={{ marginTop: 10, paddingLeft: 2.5, width: width * 0.225, }}>
                                 <View style={{ backgroundColor: '#ECECEC', height: height * 0.115, padding: 5, width: width * 0.20, }}>
-                                    <View style={BoxProduct1Image} />
+                                    <View style={HW100p} />
                                 </View>
                                 <View style={[ItemCenter, { width: width * 0.20, }]}>
                                     <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#691F50', }]}>NaN</Text>
@@ -1813,12 +1763,12 @@ export const Fin_LuxuryShop = (props) => {
                 <View style={{ backgroundColor: '#19508B', borderRadius: 5, justifyContent: 'space-between', padding: 3, }}>
                     {dataService ?
                         <TouchableOpacity activeOpacity={1} key='exclusive' onPress={() => Navi({ ...props, goScreen: 'ExclusiveScreen', })}>
-                            <View style={FlexRow}>{productFinmall(dataService?.exclusive, 1)}</View>
+                            <View style={FRow}>{ProductFinmall(dataService?.exclusive, 1)}</View>
                         </TouchableOpacity> :
-                        <View style={FlexRow}>
+                        <View style={FRow}>
                             {GenArray(10).map((_, i) => <View key={i} style={{ marginTop: 10, paddingLeft: 2.5, width: width * 0.225, }}>
                                 <View style={{ backgroundColor: '#ECECEC', height: height * 0.115, padding: 5, width: width * 0.20, }}>
-                                    <View style={BoxProduct1Image} />
+                                    <View style={HW100p} />
                                 </View>
                                 <View style={[ItemCenter, { width: width * 0.20, }]}>
                                     <Text numberOfLines={1} style={[FontFamilyBold, FontSize8, { color: '#19508B', }]}>NaN</Text>

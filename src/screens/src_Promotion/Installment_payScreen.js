@@ -37,7 +37,7 @@ function Installment_payScreen(props) {
   useEffect(() => {
     activeGetServices && GetServices({ uriPointer: uri, getDataSource: value => getData(value), });
   }, [activeGetServices]);
-  return <SafeAreaView style={stylesMain.SafeAreaView}>
+  return <SafeAreaView style={stylesMain.SafeAreaViews}>
     <AppBar {...props} titleHead={'ผ่อน 0 % สูงสุด 10 เดือน'} backArrow searchBar chatBar />
     <ScrollView>
       <Slide {...props} dataService={dataService?.banner} />

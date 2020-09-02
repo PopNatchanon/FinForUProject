@@ -12,6 +12,6 @@ import NavigationNavigate from './otherComponents/NavigationNavigate';
 import StarReview from './otherComponents/StarReview';
 import Toolbar from './tabComponents/Toolbar';
 export {
-    AppBar, BorderBottomTab, BorderLRBar, ButtomTab, BrowerScreen, Feeds, GenArray, GetFetch, ImageGallery, ImageList, NavigationNavigate, StarReview,
-    Toolbar,
+    AppBar, BorderBottomTab, BorderLRBar, ButtomTab, BrowerScreen, Feeds, GenArray, GetFetch, ImageGallery, ImageList, NavigationNavigate,
+    StarReview, Toolbar,
 };

@@ -50,7 +50,7 @@ const LOADING_ICON = require('../../images/icon.png');
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
 const {
-    FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8,
+    FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8, FontSize9
 } = stylesFont;
 const {
     animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Banner_Bar_image, bigSlideImage, Botton_PopUp_Box, Botton_PopUp_Image,
@@ -358,7 +358,15 @@ export const Guarantee = (props) => {
             <View style={{ width: '54%', }}>
                 <FastImage resizeMode={cover} source={ImageGuaran1} style={[BoxProduct1Image, { borderRadius: 5 }]} />
             </View>
-            <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '44%', }}>
+            <View style={{ width: '45%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center' }}>
+                <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: width / 2 }}>
+                    <Text style={[FontFamilyBold, FontSize6, { color: '#FFFFFF' }]}>FIN Services</Text>
+                </View>
+                <View style={{ borderColor: mainColor, borderWidth: 2 }}>
+
+                </View>
+            </View>
+            {/* <View style={{ flexDirection: 'row', justifyContent: 'space-between', width: '44%', }}>
                 <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FeedsScreen', })} style={TOStyles}>
                     <View style={{ height: '60%', width: width * 0.13 }}>
                         <FastImage resizeMode={cover} source={ImageGuaran2} style={BoxProduct1Image} />
@@ -375,9 +383,9 @@ export const Guarantee = (props) => {
                         <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF' }]}>ช้อปเลย</Text>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
-        <View style={{
+        {/* <View style={{
             aspectRatio: 8.5, backgroundColor: '#FFFFFF', borderRadius: 5, flexDirection: 'row', height: 'auto', marginTop: 5,
             paddingHorizontal: 5, width: '100%',
         }}>
@@ -387,7 +395,7 @@ export const Guarantee = (props) => {
             <View style={{ justifyContent: 'center', width: '30%', }}>
                 <Carousel autoplay autoplayInterval={5000} data={item} renderItem={_renderItem} />
             </View>
-        </View>
+        </View> */}
     </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
@@ -435,9 +443,9 @@ export const Category = (props) => {
 export const Trend_Hit = (props) => {
     const [activeDataService, setActiveDataService] = useState(true);
     const [dataService, setDataService] = useState(undefined);
-    const item = [
-        { image: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`, } },
-        { image: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` } }];
+    // const item = [
+    //     { image: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-02.jpg`, } },
+    //     { image: { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-03.jpg` } }];
     const dataBody = { type: 'Trend_Hit', };
     const uri = `${ip}/mysql/DataServiceMain.php`;
     const ImageTrend1 = { uri: `${ip}/MySQL/uploads/Trend_Hit/1180x380_trend-01.jpg`, };
@@ -446,20 +454,20 @@ export const Trend_Hit = (props) => {
         activeDataService &&
             GetServices({ uriPointer: uri, dataBody, getDataSource: v => { setActiveDataService(false); setDataService(v); }, });
     }, [dataBody]);
-    const _renderItem = (v, i) => {
-        const ImageShop = { uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`, };
-        return <View key={i} style={{ width: width * 0.48 }}>
-            <View style={{ height: '88%', }}>
-                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={v.image} style={BoxProduct1Image} />
-            </View>
-            <View style={{ alignItems: 'center' }}>
-                <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
-                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageShop} style={[BoxProduct1Image,
-                        { borderRadius: 8 }]} />
-                </TouchableOpacity>
-            </View>
-        </View>
-    };
+    // const _renderItem = (v, i) => {
+    //     const ImageShop = { uri: `${ip}/MySQL/uploads/Home/Button_Gif/Shop2.png`, };
+    //     return <View key={i} style={{ width: width * 0.48 }}>
+    //         <View style={{ height: '88%', }}>
+    //             <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={v.image} style={BoxProduct1Image} />
+    //         </View>
+    //         <View style={{ alignItems: 'center' }}>
+    //             <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
+    //                 <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageShop} style={[BoxProduct1Image,
+    //                     { borderRadius: 8 }]} />
+    //             </TouchableOpacity>
+    //         </View>
+    //     </View>
+    // };
     const Trend_Box = () => dataService && dataService?.error == undefined && dataService?.map((v, i) => {
         const ImageTrend = { uri: `${ip}/mysql/${v.image_path}/${v.image}`, };
         return <TouchableOpacity key={i} style={[ItemCenter,
@@ -472,19 +480,39 @@ export const Trend_Hit = (props) => {
             </View>
         </TouchableOpacity>;
     });
+    const item = [
+        { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png` } },
+        { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png` } },
+        { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png` } },
+        { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png` } }];
+    const _renderItem = (v, i) => {
+        return <View key={i} style={[FlexRow, { width: width * 0.429, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
+            <FastImage resizeMode={cover} source={v.image} style={{ height: 20, width: 20, }} />
+            <Text style={[FontFamilyBold, FontSize8, { color: mainColor }]}>{v.text}</Text>
+            <IconAntDesign name='checkcircle' size={13} color='#009A16' />
+        </View>
+    };
     return <>
         <View style={[FlexRow, { aspectRatio: 5, justifyContent: 'space-between', marginTop: 3, paddingHorizontal: 5, width, }]}>
-            <View style={{ width: width * 0.48 }}>
-                <View style={{ height: '88%' }}>
-                    <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend1} style={BoxProduct1Image} />
-                </View>
+            <View style={{ width: width * 0.48, backgroundColor: '#FFFF' }}>
+                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend1} style={BoxProduct1Image} />
                 <View style={{ alignItems: 'center' }}>
-                    <TouchableOpacity style={{ height: 25, marginTop: -15, width: 90, }}>
+                    <TouchableOpacity style={{ height: 25, width: 90, bottom: 25 }}>
                         <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageTrend2} style={BoxProduct1Image} />
                     </TouchableOpacity>
                 </View>
             </View>
-            <Carousel autoplay autoplayInterval={4000} data={item} renderItem={_renderItem} />
+            <View style={{ backgroundColor: '#FFFF', padding: 5, width: width * 0.48 }}>
+                <View style={{ borderColor: mainColor, borderWidth: 2, height: '100%', borderRadius: 5, paddingHorizontal: 2 }}>
+                    <View style={[ItemCenter, { borderBottomColor: mainColor, borderBottomWidth: 2, }]}>
+                        <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 3 }}>
+                            <Text style={[FontSize5, FontFamilyBold, { color: '#FFFFFF' }]}>Fin</Text>
+                        </View>
+                    </View>
+                    <Carousel autoplay loop autoplayInterval={5000} data={item} renderItem={_renderItem} />
+                </View>
+            </View>
+            {/* <Carousel autoplay autoplayInterval={4000} data={item} renderItem={_renderItem} /> */}
         </View>
         <View style={FrameBackground2}>
             <View style={[FrameBackgroundTextBox]}>
@@ -1467,11 +1495,11 @@ export const FIN_Supermarket = (props) => {
     }];
     // แบรนด์แนะนำอันแรก
     const Brand_Supermaket = [{
-        Detall: 'สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, name: 'LOOKS',
-    }, { Detall: 'เบทาโกร', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, name: 'Betagro', },
-    { Detall: 'สินค้าคุณภาพ คุ้มค่า คุ้มราคา', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, name: 'Exclusive Brands', },
-    { Detall: 'หวานสดใสหอมติดผิว', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, name: 'Ole', },
-    { Detall: 'หวานสดใสหอมติดผิว', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, name: 'LOOKS', }];
+        detail: 'สุดยอดแห่งบิวตี้ไอเท็มและสินค้าเพื่อสุขภาพ', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand01.jpg`, name: 'LOOKS',
+    }, { detail: 'เบทาโกร', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, name: 'Betagro', },
+    { detail: 'สินค้าคุณภาพ คุ้มค่า คุ้มราคา', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand03.jpg`, name: 'Exclusive Brands', },
+    { detail: 'หวานสดใสหอมติดผิว', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand04.jpg`, name: 'Ole', },
+    { detail: 'หวานสดใสหอมติดผิว', image: `${ip}/MySQL/uploads/Image_FinMall/market_brand05.jpg`, name: 'LOOKS', }];
     // แบรนด์แนะนำอันที่สอง
     const Brand_Supermaket2 = [
         { image: `${ip}/MySQL/uploads/Image_FinMall/market_brand02.jpg`, },
@@ -1486,7 +1514,7 @@ export const FIN_Supermarket = (props) => {
             <Image defaultSource={LOADING_ICON} resizeMode='stretch' source={ImageSuper} style={{ height: 50, width: 100 }} />
             <View style={[ItemCenter]}>
                 <Text style={[FontFamilyBold, FontSize7]}>{v.name}</Text>
-                <Text numberOfLines={1} style={[FontFamilyText, FontSize7]}>{v.Detall}</Text>
+                <Text numberOfLines={1} style={[FontFamilyText, FontSize7]}>{v.detail}</Text>
             </View>
         </View>;
     });

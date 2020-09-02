@@ -32,6 +32,8 @@ import SecondScreen from '../screens/SecondScreen';
 import SearchScreen from '../screens/SearchScreen';
 import FinMallScreen from '../screens/FinMallScreen';
 import FINSupermarket from '../screens/FINSupermarket';
+import News_Detail from '../screens/์NewScreen/News_Detail';
+
 // src_Detail
 import Reviews_score from '../screens/src-Detail/Reviews_score';
 // src_Bell
@@ -211,6 +213,8 @@ function App() {
         <Stack.Screen component={Post_Feed} name='Post_Feed'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={FeedsScreen} name='FeedsScreen'
+          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
+        <Stack.Screen component={News_Detail} name='News_Detail'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={ImageZoom} name='ImageZoom' options={{ ...opacityTransition }} />
         <Stack.Screen component={BrowerScreen} name='BrowerScreen' options={{ ...opacityTransition }} />

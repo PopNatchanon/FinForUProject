@@ -110,11 +110,11 @@ export let Pro_for_U = (props) => {
 export let Update_buy = (props) => {
     const { navigation } = props;
     const Updateitem = [
-        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B1.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', Detall: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },
-        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B2.jpg`, name: 'ยินดีต้อนรับร้านค้าใหม่', Detall: 'ยินดีด้วยกับร้านใหม่ นี่คือวิธีการใช้บริการส่งฟรี และ 5 ขั้นตอนแสนง่าย สำหรับการค้าขายใน FinshoppingMall คลิกอ่านเพิ่มเติมเลย' },
-        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B3.jpg`, name: 'ให้คะแนนสินค้า', Detall: 'ได้ให้คะแนนคุณจากคำสั่งซื้อ 20062817WD5TNY กรุณาให้คะแนนผู้ขายภายใน 18-07-2020' },
-        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B4.jpg`, name: 'สินค้าถูกจัดส่งแล้ว', Detall: 'พัสดุหมายเลข ะ้206409951024B ของคำสั่งซื้อ 200519ด4ไ0ก87ี จัดส่งสำเร็จแล้ว' },
-        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B5.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', Detall: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },]
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B1.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', detail: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B2.jpg`, name: 'ยินดีต้อนรับร้านค้าใหม่', detail: 'ยินดีด้วยกับร้านใหม่ นี่คือวิธีการใช้บริการส่งฟรี และ 5 ขั้นตอนแสนง่าย สำหรับการค้าขายใน FinshoppingMall คลิกอ่านเพิ่มเติมเลย' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B3.jpg`, name: 'ให้คะแนนสินค้า', detail: 'ได้ให้คะแนนคุณจากคำสั่งซื้อ 20062817WD5TNY กรุณาให้คะแนนผู้ขายภายใน 18-07-2020' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B4.jpg`, name: 'สินค้าถูกจัดส่งแล้ว', detail: 'พัสดุหมายเลข ะ้206409951024B ของคำสั่งซื้อ 200519ด4ไ0ก87ี จัดส่งสำเร็จแล้ว' },
+        { image: `${ip}/MySQL/uploads/Test_Product/Bag/B5.jpg`, name: 'ได้รับสินค้าแล้วหรือยัง', detail: 'กรุณาตรวจสอบทั้งหมดที่คุณได้รับของคำสั่งซื้อ 200819G066EA2UG กดรับสินค้า เพื่อ FinShoppingMall จะดำเนินการโอนเงินค่าสินค้าไปยังผู้ขาย' },]
     let Updatebuy = (
         Updateitem.map((value, index) => {
             return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
@@ -124,7 +124,7 @@ export let Update_buy = (props) => {
                         source={{ uri: value.image, }} />
                     <View style={{ marginLeft: 5, }}>
                         <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>{value.name}</Text>
-                        <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.65, color: '#B9B9B9' }]}>{value.Detall}</Text>
+                        <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: width * 0.65, color: '#B9B9B9' }]}>{value.detail}</Text>
                     </View>
                 </View>
             </TouchableOpacity>

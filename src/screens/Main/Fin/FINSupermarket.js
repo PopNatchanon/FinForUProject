@@ -22,7 +22,7 @@ import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../../Main/MainS
 import { Slide, } from '../../src_Promotion/DealScreen';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/ExclusiveScreen';
-import { Might_like_Store } from '../../src_profile/Profile_Topic';
+import { Might_like_Store } from '../../Profile/ProfileTopic/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
 import { NavigationNavigate, AppBar } from '../../../customComponents';

@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import { Address_Customar } from '../../../src_profile/src_Setting/Setting_Topic';
+import { Address_Customar } from '../../../Profile/Setting/SettingTopic/Setting_Topic';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'

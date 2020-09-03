@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
 export const { width, height } = Dimensions.get('window');
@@ -15,14 +15,14 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
+import { AppBar } from '../../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

@@ -4,7 +4,7 @@ import {
     Dimensions, ImageBackground, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import { CheckBox } from 'react-native-elements';
 export const { width, height } = Dimensions.get('window');
@@ -19,17 +19,17 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconIonicons from 'react-native-vector-icons/Ionicons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from '../../style/StylesDetailScreen'
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesDetail from '../../../style/StylesDetailScreen'
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, GetFetch, NavigationNavigate, StarReview, } from '../../customComponents';
-import { ExitAppModule, TodayProduct } from '../Main/MainScreen';
-import { GetData, LoadingScreen, } from '../../customComponents/Tools';
-import { PopularProduct } from '../Store/StoreScreen';
+import { AppBar, GetFetch, NavigationNavigate, StarReview, } from '../../../customComponents';
+import { ExitAppModule, TodayProduct } from '../../Main/MainScreen';
+import { GetData, LoadingScreen, } from '../../../customComponents/Tools';
+import { PopularProduct } from '../../Store/StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -531,7 +531,7 @@ export let Help_meScreen = (props) => <View>
 export let Help_me = (props) => {
     const [text, setText] = useState(undefined);
     return <View>
-        <ImageBackground source={require('../../../icon/bgprofile.jpg')} style={stylesProfileTopic.Help_me_ImageBackground}>
+        <ImageBackground source={require('../../../../icon/bgprofile.jpg')} style={stylesProfileTopic.Help_me_ImageBackground}>
             <View style={stylesProfileTopic.Help_me_Box_text}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>สวัสดีค่ะ คุณ xxxxxxxxx</Text>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>

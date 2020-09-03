@@ -25,7 +25,7 @@ import { Button_Bar, PricesSlide, SlideTab, } from '../../Main/Exclusive/Exclusi
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
-import { Might_like_Store } from '../../src_profile/Profile_Topic';
+import { Might_like_Store } from '../../Profile/ProfileTopic/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

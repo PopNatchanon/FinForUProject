@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -13,16 +13,16 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, GetFetch } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
-import { From_Order_Box } from './Total_Order';
-import { GetData, LoadingScreen, } from '../../customComponents/Tools';
+import { AppBar, GetFetch } from '../../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
+import { From_Order_Box } from '../TotalOrder/Total_Order';
+import { GetData, LoadingScreen, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

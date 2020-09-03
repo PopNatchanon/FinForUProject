@@ -4,7 +4,7 @@ import {
   Dimensions, Picker, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
@@ -18,17 +18,17 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../../style/stylesFont';
-import stylesLogin from '../../../style/stylesLoginScreen';
-import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesFont from '../../../../style/stylesFont';
+import stylesLogin from '../../../../style/stylesLoginScreen';
+import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, NavigationNavigate, GetFetch, } from '../../../customComponents';
-import { ExitAppModule, } from '../../Main/MainScreen';
-import { GetData, GetServicesBlob } from '../../../customComponents/Tools';
-import { Seller_SettingImage } from '../../Seller/SellerProfileEdit/Seller_Profile_Edit';
+import { AppBar, NavigationNavigate, GetFetch, } from '../../../../customComponents';
+import { ExitAppModule, } from '../../../Main/MainScreen';
+import { GetData, GetServicesBlob } from '../../../../customComponents/Tools';
+import { Seller_SettingImage } from '../../../Seller/SellerProfileEdit/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../../navigator/IpConfig';
+import { finip, ip, } from '../../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

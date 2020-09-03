@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -14,15 +14,15 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconFeather from 'react-native-vector-icons/Feather';
 import Icons from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, GetFetch, NavigationNavigate, } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
-import { GetData, LoadingScreen, TabBar, } from '../../customComponents/Tools';
+import { AppBar, GetFetch, NavigationNavigate, } from '../../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
+import { GetData, LoadingScreen, TabBar, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../navigator/IpConfig';
+import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

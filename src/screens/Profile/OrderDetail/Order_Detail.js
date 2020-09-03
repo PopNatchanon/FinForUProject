@@ -4,21 +4,21 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, View,
 } from 'react-native';
 import { connect, } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain from '../../../style/StylesMainScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, GetFetch } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
-import { GetData, LoadingScreen, } from '../../customComponents/Tools';
+import { AppBar, GetFetch } from '../../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
+import { GetData, LoadingScreen, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip } from '../../navigator/IpConfig';
+import { finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

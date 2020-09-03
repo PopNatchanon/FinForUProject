@@ -9,7 +9,8 @@ import { createStore, applyMiddleware } from "redux";
 import { Provider, useStore } from 'react-redux';
 import { fetchData } from '../actions'
 ///----------------------------------------------------------------------------------------------->>>> Main
-import Bell from '../screens/Bell'
+import Bell from '../screens/Bell';
+import Business from '../screens/Business';
 import Cart from '../screens/Cart';
 import Detail from '../screens/Detail';
 import Feed from '../screens/Feed';
@@ -19,15 +20,6 @@ import Profile from '../screens/Profile';
 import Seller from '../screens/Seller';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>>
-// src_profile
-import Profile_Topic from '../screens/src_profile/Profile_Topic';
-import SettingScreen from '../screens/src_profile/SettingScreen';
-import CancelScreen from '../screens/src_profile/CancelScreen';
-import Return_products from '../screens/src_profile/Return_products';
-import Total_Order from '../screens/src_profile/Total_Order';
-import Order_Detail from '../screens/src_profile/Order_Detail';
-import Setting_Topic from '../screens/src_profile/src_Setting/Setting_Topic';
-import Business from '../screens/src_profile/Business';
 // src_Promotion
 import Deal_Topic from '../screens/src_Promotion/src_DealTopic/Deal_Topic';
 import DealScreen from '../screens/src_Promotion/DealScreen';
@@ -59,7 +51,7 @@ const opacityTransition: object = {
     cardStyle: { opacity: current.progress, }, // updates the opacity depending on the transition progress value of the current screen
   }),
 };
-const setScreen = [...Bell, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Seller, ...Store];
+const setScreen = [...Bell, ...Business, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Seller, ...Store];
 function App() {
   return <Provider store={store}>
     <NavigationContainer>
@@ -69,22 +61,6 @@ function App() {
         // 'StoreScreen'
       }>
         {setScreen.map(({ component, name, options }, i) => <Stack.Screen component={component} key={i} name={name} options={options} />)}
-        <Stack.Screen component={SettingScreen} name='SettingScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Profile_Topic} name='Profile_Topic'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid, }} />
-        <Stack.Screen component={CancelScreen} name='CancelScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Return_products} name='Return_products'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Total_Order} name='Total_Order'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Order_Detail} name='Order_Detail'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Setting_Topic} name='Setting_Topic'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Business} name='Business'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Deal_Topic} name='Deal_Topic'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={DealScreen} name='DealScreen'

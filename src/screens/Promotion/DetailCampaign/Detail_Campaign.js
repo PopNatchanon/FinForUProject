@@ -4,26 +4,26 @@ import {
     Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import StylesMainScreen from '../../style/StylesMainScreen';
+import stylesDeal from '../../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import StylesMainScreen from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../Main/MainScreen';
-import { Button_Bar } from '../Main/Highlight/HighlightScreen';
-import { Store_Sale } from './The_BestFinScreen';
-import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
-import { GenArray, AppBar } from '../../customComponents';
-import { Slide } from '../src_Promotion/DealScreen'
+import { TodayProduct, ExitAppModule, } from '../../Main/MainScreen';
+import { Button_Bar } from '../../Main/Highlight/HighlightScreen';
+import { Store_Sale } from '../The_BestFinScreen';
+import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../../customComponents/Tools';
+import { GenArray, AppBar } from '../../../customComponents';
+import { Slide } from '../DealScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, ip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

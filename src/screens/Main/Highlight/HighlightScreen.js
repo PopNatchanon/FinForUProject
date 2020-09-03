@@ -18,7 +18,7 @@ import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../MainScreen';
 import { FlashSale_Product } from '../FlashSale/FlashSaleScreen';
-import { Slide } from '../../src_Promotion/DealScreen';
+import { Slide } from '../../Promotion/DealScreen';
 import { GetServices, TabBar } from '../../../customComponents/Tools';
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

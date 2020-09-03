@@ -88,7 +88,7 @@ export let CategoryProduct_pay = (props) => {
       var mobile_head = `${finip}/${value.mobile_head}`;
       return <View key={index} style={stylesMain.FrameBackground}>
         <FastImage source={{ uri: mobile_head, }} style={[stylesMain.CategoryProductImageHead]} resizeMode={FastImage.resizeMode.cover} />
-        {value && value.product && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={value.product}
+        {value && value.product && <FlatProduct {...props} dataService={value.product}
           numberOfColumn={2} mode='row3_new' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
         <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontSize3, stylesFont.FontFamilyBold]}>ร้านนี้ผ่อนได้</Text>
         <ScrollView horizontal>

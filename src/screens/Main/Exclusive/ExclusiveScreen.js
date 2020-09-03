@@ -17,7 +17,7 @@ import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { TodayProduct, ExitAppModule, } from '../MainScreen';
 import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
-import { Slide, } from '../../src_Promotion/DealScreen';
+import { Slide, } from '../../Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 import { AppBar, BorderLRBar } from '../../../customComponents';

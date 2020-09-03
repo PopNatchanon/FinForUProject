@@ -69,7 +69,7 @@ export let Fin_sale = (props) => {
         </LinearGradient>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
       </View>
-      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={1}
+      {dataService && <FlatProduct {...props} dataService={dataService} numberOfColumn={1}
         mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
@@ -127,7 +127,7 @@ export let Product_Cool = (props) => {
         </LinearGradient>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
       </View>
-      {dataService && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService} numberOfColumn={2}
+      {dataService && <FlatProduct {...props} dataService={dataService} numberOfColumn={2}
         mode='row3' nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
     </View>
   </>;
@@ -176,7 +176,7 @@ export let Second_Store = (props) => {
       </LinearGradient>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor, margin: 5 }]}>ดูทั้งหมด</Text>
     </View>
-    {dataService?.product_sec && <FlatProduct {...props} custumNavigation='CategoryProduct_pay' dataService={dataService.product_sec}
+    {dataService?.product_sec && <FlatProduct {...props} dataService={dataService.product_sec}
       mode='row3_new' numberOfColumn={2} nameFlatProduct='CategoryProduct_pay' nameSize={14} priceSize={15} dispriceSize={15} />}
   </View>;
 };

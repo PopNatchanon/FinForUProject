@@ -19,7 +19,7 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
 import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
-import { Slide, } from '../../src_Promotion/DealScreen';
+import { Slide, } from '../../Promotion/DealScreen';
 import { Store_Detail, } from '../RecommendStore/Recommend_Store';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

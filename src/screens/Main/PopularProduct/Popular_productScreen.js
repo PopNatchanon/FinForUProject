@@ -13,7 +13,7 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {  ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
-import { Slide } from '../../src_Promotion/DealScreen';
+import { Slide } from '../../Promotion/DealScreen';
 import { TabBar, GetServices } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../../../navigator/IpConfig';

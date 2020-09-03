@@ -15,7 +15,7 @@ import stylesFont from '../../../style/stylesFont';
 import { TodayProduct, ExitAppModule } from '../../Main/MainScreen';
 import { Button_Bar } from '../../Main/Highlight/HighlightScreen';
 import { GetServices } from '../../../customComponents/Tools';
-import { Slide } from '../../src_Promotion/DealScreen';
+import { Slide } from '../../Promotion/DealScreen';
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';

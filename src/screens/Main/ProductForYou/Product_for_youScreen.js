@@ -14,7 +14,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 import { TodayProduct, ExitAppModule, } from '../../Main/MainScreen';
 import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
 import { GetData, GetServices, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
-import { Slide } from '../../src_Promotion/DealScreen';
+import { Slide } from '../../Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
 import { AppBar } from '../../../customComponents';

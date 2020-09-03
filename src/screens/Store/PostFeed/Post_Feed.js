@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart,
-} from '../../actions';
+} from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import BottomSheet from 'react-native-raw-bottom-sheet';
@@ -32,23 +32,23 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from '../../style/StylesDetailScreen';
-import stylesMain, { mainColor, appBarColor } from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesTopic from '../../style/styleTopic';
-import stylesProfile from '../../style/StylesProfileScreen';
+import stylesDetail from '../../../style/StylesDetailScreen';
+import stylesMain, { mainColor, appBarColor } from '../../../style/StylesMainScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesTopic from '../../../style/styleTopic';
+import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
-} from '../../customComponents/Tools';
-import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../customComponents';
-import { TodayProduct, Slide, ExitAppModule } from '../Main/MainScreen';
-import { Store_Detail } from '../Main/RecommendStore/Recommend_Store';
+} from '../../../customComponents/Tools';
+import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../../customComponents';
+import { TodayProduct, Slide, ExitAppModule } from '../../Main/MainScreen';
+import { Store_Detail } from '../../Main/RecommendStore/Recommend_Store';
 import Dash from 'react-native-dash';
-import { ProductBox, FeedBox, } from '../../customComponents/Tools';
+import { ProductBox, FeedBox, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, ip } from '../../../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({

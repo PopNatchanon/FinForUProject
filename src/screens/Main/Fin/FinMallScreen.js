@@ -19,7 +19,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../MainScreen';
-import { Slide, } from '../../src_Promotion/DealScreen';
+import { Slide, } from '../../Promotion/DealScreen';
 import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../../Main/Exclusive/ExclusiveScreen';
 import { AppBar } from '../../../customComponents';

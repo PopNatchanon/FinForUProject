@@ -4,10 +4,10 @@ import {
     Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView, Image,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import { Address_Customar } from '../../src_profile/src_Setting/Setting_Topic';
+import { Address_Customar } from '../../../src_profile/src_Setting/Setting_Topic';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
@@ -20,17 +20,17 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesFont, { normalize } from '../../../style/stylesFont';
-import stylesLogin from '../../../style/stylesLoginScreen';
-import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
-import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
+import stylesFont, { normalize } from '../../../../style/stylesFont';
+import stylesLogin from '../../../../style/stylesLoginScreen';
+import stylesSeller from '../../../../style/styleSeller-src/styleSellerScreen';
+import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices } from '../../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../../customComponents';
+import { GetServices } from '../../../../customComponents/Tools';
+import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { finip } from '../../../navigator/IpConfig';
-import { ExitAppModule } from '../../Main/MainScreen';
+import { finip } from '../../../../navigator/IpConfig';
+import { ExitAppModule } from '../../../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

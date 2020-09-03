@@ -1261,8 +1261,8 @@ export const Second_product = (props) => {
                     <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>มือสองลดราคา</Text>
                 </View> :
                 dataService?.mobile_bar ?
-                    <TouchableOpacity {...props} dataService={dataService2} dispriceSize={15} mode='row3_new2'
-                        nameFlatProduct='Second_product' nameSize={14} noMarginTop numberOfColumn={2} priceSize={15}>
+                    <TouchableOpacity {...props} onPress={() =>
+                        Navi({ ...props, goScreen: 'SecondScreen', setData: { selectedIndex: 0, }, })}>
                         <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageHead}
                             style={[CategoryProductImageHead, VStyle]} />
                     </TouchableOpacity> :

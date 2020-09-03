@@ -7,7 +7,7 @@ import {
     TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 import BottomSheet from "react-native-raw-bottom-sheet";
@@ -25,15 +25,15 @@ import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesCustomerOrder from '../../style/styleCart-src/styleCustomer_Order';
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesCustomerOrder from '../../../style/styleCart-src/styleCustomer_Order';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../Main/MainScreen';
-import { GetServices, LoadingScreen, GetData } from '../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
+import { GetServices, LoadingScreen, GetData } from '../../../customComponents/Tools';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -526,7 +526,7 @@ export class OmiseBox extends Component {
                             <View style={{ flexDirection: 'row', margin: 8 }}>
                                 <View style={{ width: 50, height: 50 }}>
                                     <FastImage style={[stylesMain.BoxProduct2Image, { flex: 1 }]}
-                                        source={require('../../../images/payment.png')} resizeMode={FastImage.resizeMode.contain} />
+                                        source={require('../../../../images/payment.png')} resizeMode={FastImage.resizeMode.contain} />
                                 </View>
                                 <View style={{ marginLeft: 16 }}>
                                     <Label style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>http://mmnie.live/</Label>

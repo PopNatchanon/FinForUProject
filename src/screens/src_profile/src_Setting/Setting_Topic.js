@@ -10,7 +10,7 @@ import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
 export const { width, height } = Dimensions.get('window');
-import RNFetchBlob from 'rn-fetch-blob'
+import RNFetchBlob from 'rn-fetch-blob';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconEvilIcons from 'react-native-vector-icons/EvilIcons';
@@ -26,7 +26,7 @@ import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_T
 import { AppBar, NavigationNavigate, GetFetch, } from '../../../customComponents';
 import { ExitAppModule, } from '../../Main/MainScreen';
 import { GetData, GetServicesBlob } from '../../../customComponents/Tools';
-import { Seller_SettingImage } from '../../src_Seller/Seller_Profile_Edit';
+import { Seller_SettingImage } from '../../Seller/SellerProfileEdit/Seller_Profile_Edit';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

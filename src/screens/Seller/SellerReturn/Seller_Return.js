@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import { CheckBox } from 'react-native-elements';
@@ -14,15 +14,15 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Order_Me_Box } from './Seller_Totel_Order';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import { Order_Me_Box } from '../SellerTotelOrder/Seller_Totel_Order';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip } from '../../navigator/IpConfig';
+import { ip } from '../../../navigator/IpConfig';
 import { Value } from 'react-native-reanimated';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({

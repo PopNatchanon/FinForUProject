@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
 export const { width, height } = Dimensions.get('window');
@@ -24,16 +24,16 @@ import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesProfile from '../../style/StylesProfileScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesProfile from '../../../style/StylesProfileScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TabBar, GetData, GetServices } from '../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import { TabBar, GetData, GetServices } from '../../../customComponents/Tools';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -192,7 +192,7 @@ export let PIN_Code = (props) => {
     return <ScrollView>
         <View style={{ alignItems: 'center', }}>
             <View style={{ padding: 10, width: width * 0.60, height: height * 0.30 }}>
-                <FastImage style={stylesMain.BoxProduct1Image} source={require('../../../icon/001.png')} />
+                <FastImage style={stylesMain.BoxProduct1Image} source={require('../../../../icon/001.png')} />
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>ระบุ PIN</Text>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { marginBottom: 10 }]}>ใส่รหัส PIN 6 หลัก</Text>
@@ -243,7 +243,7 @@ export let PIN_Code_Mail = (props) => {
     return <ScrollView>
         <View style={{ alignItems: 'center', }}>
             <View style={{ padding: 10, width: width * 0.60, height: height * 0.30 }}>
-                <FastImage style={stylesMain.BoxProduct1Image} source={require('../../../icon/security-Icon.png')} />
+                <FastImage style={stylesMain.BoxProduct1Image} source={require('../../../../icon/security-Icon.png')} />
             </View>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginBottom: 10, color: '#D54000' }]}>
                 กรุณายืนยันที่อีเมลอีกครั้งภายในเวลา 30 นาที</Text>

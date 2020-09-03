@@ -1,7 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
-///----------------------------------------------------------------------------------------------->>>> Screen
+///----------------------------------------------------------------------------------------------->>>> Main Screen
 import CategoryScreen from './Category/CategoryScreen';
+///----------------------------------------------------------------------------------------------->>>> Sub Screen
 import ExclusiveScreen from './Exclusive/ExclusiveScreen';
 import FinMallScreen from './Fin/FinMallScreen';
 import FINSupermarket from './Fin/FINSupermarket';

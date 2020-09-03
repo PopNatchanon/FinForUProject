@@ -289,6 +289,7 @@ export const Guarantee = (props) => {
     const ImageGuaran2 = { uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, };
     const ImageGuaran3 = { uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, };
     const ImageGuaran4 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
+    const ImageGuaran5 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
     const item = [
         { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`, } },
         { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png`, } },
@@ -318,7 +319,7 @@ export const Guarantee = (props) => {
                     <Text style={[FontFamilyBold, FontSize6, { color: '#FFFFFF' }]}>FIN Services</Text>
                 </View>
                 <View style={{ borderColor: mainColor, borderWidth: 2 }}>
-
+                    <FastImage resizeMode={cover} source={ImageGuaran5} style={{ height: 30, width: 100, }} />
                 </View>
             </View>
             {/* <View style={[FRow, { justifyContent: 'space-between', width: '44%', }]}>
@@ -439,7 +440,7 @@ export const Trend_Hit = (props) => {
         { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png` } },
         { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png` } }];
     const _renderItem = (v, i) => {
-        return <View key={i} style={[FRow, { width: width * 0.429, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
+        return <View key={i} style={[FRow, { width: width * 0.430, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
             <FastImage resizeMode={cover} source={v.image} style={{ height: 20, width: 20, }} />
             <Text style={[FontFamilyBold, FontSize8, { color: mainColor }]}>{v.text}</Text>
             <IconAntDesign name='checkcircle' size={13} color='#009A16' />
@@ -455,7 +456,7 @@ export const Trend_Hit = (props) => {
                     </TouchableOpacity>
                 </View>
             </View>
-            <View style={{ backgroundColor: '#FFFF', padding: 5, width: width * 0.48 }}>
+            <View style={{ backgroundColor: '#FFFF', width: width * 0.48 }}>
                 <View style={{ borderColor: mainColor, borderWidth: 2, height: '100%', borderRadius: 5, paddingHorizontal: 2 }}>
                     <View style={[ItemCenter, { borderBottomColor: mainColor, borderBottomWidth: 2, }]}>
                         <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 3 }}>

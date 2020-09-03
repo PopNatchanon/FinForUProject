@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage'
 export const { width, height } = Dimensions.get('window');
@@ -13,14 +13,14 @@ import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesFont from '../../style/stylesFont';
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, TodayProduct, } from '../Main/MainScreen';
-import { GetServices } from '../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import {  ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
+import { GetServices } from '../../../customComponents/Tools';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
@@ -17,14 +17,14 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesFont, { normalize } from '../../style/stylesFont';
-import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesFont, { normalize } from '../../../style/stylesFont';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices, } from '../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../customComponents';
+import { GetServices, } from '../../../customComponents/Tools';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 import { set } from 'react-native-reanimated';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({

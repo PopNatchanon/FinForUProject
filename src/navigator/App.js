@@ -18,7 +18,6 @@ import News from '../screens/News';
 import Profile from '../screens/Profile';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>>
-import News_Detail from '../screens/์NewScreen/News_Detail';
 // src_Bell
 import Detail_Pro from '../screens/src_Bell/Detail_Pro';
 // src_profile
@@ -30,20 +29,6 @@ import Total_Order from '../screens/src_profile/Total_Order';
 import Order_Detail from '../screens/src_profile/Order_Detail';
 import Setting_Topic from '../screens/src_profile/src_Setting/Setting_Topic';
 import Business from '../screens/src_profile/Business';
-// src_Seller
-import SellerScreen from '../screens/src_Seller/SellerScreen';
-import Seller_Topic from '../screens/src_Seller/Seller_Topic';
-import Seller_Totel_Order from '../screens/src_Seller/Seller_Totel_Order';
-import Seller_Setting from '../screens/src_Seller/Seller_Setting';
-import Seller_Profile_Edit from '../screens/src_Seller/Seller_Profile_Edit';
-import Seller_Up_Product from '../screens/src_Seller/Seller_Up_Product';
-import Seller_Return from '../screens/src_Seller/Seller_Return';
-import Seller_Detail_Order from '../screens/src_Seller/Seller_Detail_Order';
-import Setting_TopicStore from '../screens/src_Seller/src_SettingStore/Setting_TopicStore';
-// src-Cart
-import Customer_account from '../screens/src-Cart/Customer_account';
-import Customer_Order from '../screens/src-Cart/Customer_Order';
-import Customer_Complete_Order from '../screens/src-Cart/Customer_Complete_Order';
 // src_Promotion
 import Deal_Topic from '../screens/src_Promotion/src_DealTopic/Deal_Topic';
 import DealScreen from '../screens/src_Promotion/DealScreen';
@@ -101,30 +86,6 @@ function App() {
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Business} name='Business'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={SellerScreen} name='SellerScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Totel_Order} name='Seller_Totel_Order'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Topic} name='Seller_Topic'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Setting} name='Seller_Setting'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Profile_Edit} name='Seller_Profile_Edit'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Up_Product} name='Seller_Up_Product'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Return} name='Seller_Return'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Setting_TopicStore} name='Setting_TopicStore'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Seller_Detail_Order} name='Seller_Detail_Order'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Customer_account} name='Customer_account'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Customer_Order} name='Customer_Order'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Customer_Complete_Order} name='Customer_Complete_Order'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Deal_Topic} name='Deal_Topic'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={DealScreen} name='DealScreen'
@@ -144,8 +105,6 @@ function App() {
         <Stack.Screen component={Post_Feed} name='Post_Feed'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={FeedsScreen} name='FeedsScreen'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={News_Detail} name='News_Detail'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={ImageZoom} name='ImageZoom' options={{ ...opacityTransition }} />
         <Stack.Screen component={BrowerScreen} name='BrowerScreen' options={{ ...opacityTransition }} />

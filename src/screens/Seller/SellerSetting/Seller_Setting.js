@@ -3,7 +3,7 @@ import {
     Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 export const { width, height } = Dimensions.get('window');
@@ -13,13 +13,13 @@ import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain, { mainColor } from '../../style/StylesMainScreen';
-import stylesFont from '../../style/stylesFont';
-import stylesSeller from '../../style/styleSeller-src/styleSellerScreen';
-import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { NavigationNavigate, AppBar } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
+import { ExitAppModule } from '../../Main/MainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({

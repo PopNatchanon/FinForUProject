@@ -18,12 +18,13 @@ import Seller from '../screens/Seller';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>> Customs Screen
 import CustomsScreen from '../customComponents/indexScreen';
-///----------------------------------------------------------------------------------------------->>>>
+///----------------------------------------------------------------------------------------------->>>> Setup App
 const Stack = createStackNavigator();
 const store = configureStore();
 const setScreen = [
   ...Bell, ...Business, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Promotion, ...Seller, ...Store, ...CustomsScreen
 ];
+///----------------------------------------------------------------------------------------------->>>> s
 function App() {
   return <Provider store={store}>
     <NavigationContainer>

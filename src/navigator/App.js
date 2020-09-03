@@ -16,10 +16,9 @@ import Feed from '../screens/Feed';
 import Main from '../screens/Main';
 import News from '../screens/News';
 import Profile from '../screens/Profile';
+import Seller from '../screens/Seller';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>>
-// src_Bell
-import Detail_Pro from '../screens/src_Bell/Detail_Pro';
 // src_profile
 import Profile_Topic from '../screens/src_profile/Profile_Topic';
 import SettingScreen from '../screens/src_profile/SettingScreen';
@@ -60,7 +59,7 @@ const opacityTransition: object = {
     cardStyle: { opacity: current.progress, }, // updates the opacity depending on the transition progress value of the current screen
   }),
 };
-const setScreen = [...Bell, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Store];
+const setScreen = [...Bell, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Seller, ...Store];
 function App() {
   return <Provider store={store}>
     <NavigationContainer>
@@ -99,8 +98,6 @@ function App() {
         <Stack.Screen component={Installment_payScreen} name='Installment_payScreen'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Detail_Campaign} name='Detail_Campaign'
-          options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
-        <Stack.Screen component={Detail_Pro} name='Detail_Pro'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />
         <Stack.Screen component={Post_Feed} name='Post_Feed'
           options={{ cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS, }} />

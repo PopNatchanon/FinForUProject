@@ -1,6 +1,6 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
-///----------------------------------------------------------------------------------------------->>>> Screen
+///----------------------------------------------------------------------------------------------->>>> Main Screen
 import LoginScreen from './LoginScreen';
 import ProfileScreen from './ProfileScreen';
 import RegisterScreen from './RegisterScreen';

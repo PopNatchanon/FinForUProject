@@ -1,6 +1,6 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
-///----------------------------------------------------------------------------------------------->>>> Screen Main
+///----------------------------------------------------------------------------------------------->>>> Main Screen
 import SellerScreen from './SellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
 import Seller_Detail_Order from './SellerDetailOrder/Seller_Detail_Order';
@@ -10,7 +10,7 @@ import Seller_Setting from './SellerSetting/Seller_Setting';
 import Seller_Topic from './SellerTopic/Seller_Topic';
 import Seller_Totel_Order from './SellerTotelOrder/Seller_Totel_Order';
 import Seller_Up_Product from './SellerUpProduct/Seller_Up_Product';
-///----------------------------------------------------------------------------------------------->>>> Sub Seller Setting
+///----------------------------------------------------------------------------------------------->>>> Sub SellerSetting
 import Setting_TopicStore from './SellerSetting/SettingTopicStore/Setting_TopicStore';
 ///----------------------------------------------------------------------------------------------->>>>
 export default [

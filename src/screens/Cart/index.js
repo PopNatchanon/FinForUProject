@@ -1,7 +1,8 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
-///----------------------------------------------------------------------------------------------->>>> Screen
+///----------------------------------------------------------------------------------------------->>>> Main Screen
 import CartScreen from './CartScreen';
+///----------------------------------------------------------------------------------------------->>>> Sub Screen
 import Customer_account from './CustomerAccount/Customer_account';
 import Customer_Complete_Order from './CustomerCompleteOrder/Customer_Complete_Order';
 import Customer_Order from './CustomerOrder/Customer_Order';

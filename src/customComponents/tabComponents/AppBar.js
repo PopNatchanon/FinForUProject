@@ -101,23 +101,23 @@ class AppSearchBar extends React.Component {
                     </View>
                 </TouchableOpacity>}
             {<View key={'storebar'} style={[stylesMain.FlexRow, stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
-                {filterBar && <TouchableOpacity key='filterBar' onPress={null/*() => navigation.push('CartScreen')*/}
+                {filterBar && <TouchableOpacity key='filterBar' onPress={null/*() => navigation.push('Cart')*/}
                     style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconFeather name="filter" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
-                {otherBar && <TouchableOpacity key='otherBar' onPress={null/*() => navigation.push('CartScreen')*/}
+                {otherBar && <TouchableOpacity key='otherBar' onPress={null/*() => navigation.push('Cart')*/}
                     style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconFontAwesome5 name="ellipsis-h" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
                 {chatBar && <TouchableOpacity key='chatBar' onPress={() => currentUser ?
-                    NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation }) :
-                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation }) :
+                    NavigationNavigate({ goScreen: 'Customer_Login', navigation, passHome: true })} style={[stylesMain.ItemCenter,
                     stylesMain.ItemCenterVertical, { width: 30, }]}>
                     <AIconAntDesign name="message1" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>}
                 {cartBar && <TouchableOpacity key='cartBar' onPress={() => currentUser ?
-                    NavigationNavigate({ goScreen: 'CartScreen', navigation }) :
-                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    NavigationNavigate({ goScreen: 'Cart', navigation }) :
+                    NavigationNavigate({ goScreen: 'Customer_Login', navigation, passHome: true })} style={[stylesMain.ItemCenter,
                     stylesMain.ItemCenterVertical, { width: 30, }]}>
                     {((cartData?.isError) || cartDataCount <= 0) ?
                         <></> : <Animatable.Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, {
@@ -195,14 +195,14 @@ class AppNoSearchBar extends React.Component {
                     stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
                 </TouchableOpacity>}
                 {chatBar && <TouchableOpacity key={'chatBar'} onPress={() => currentUser ?
-                    NavigationNavigate({ goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 1 }, }) :
-                    NavigationNavigate({ goScreen: 'LoginScreen', navigation, passHome: true })} style={[stylesMain.ItemCenter,
+                    NavigationNavigate({ goScreen: 'Customer_Topic', navigation, setData: { selectedIndex: 1 }, }) :
+                    NavigationNavigate({ goScreen: 'Customer_Login', navigation, passHome: true })} style={[stylesMain.ItemCenter,
                     { width: 40 }]}>
                     <IconAntDesign name="message1" RightItem size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />
                 </TouchableOpacity>}
                 {storeBar && <TouchableOpacity key={'storeBar'} onPress={() => NavigationNavigate({
-                    goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 3 },
+                    goScreen: 'Customer_Topic', navigation, setData: { selectedIndex: 3 },
                 })} style={[stylesMain.ItemCenter, { width: 40 }]}>
                     <IconFontAwesome5 name="store" RightItem size={20} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />
@@ -217,12 +217,12 @@ class AppNoSearchBar extends React.Component {
                     { marginRight: 8, width: 60, }]}>บันทึก</Text>
                 </TouchableOpacity>}
                 {UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Setting_TopicStore', navigation, setData: { selectedIndex: 1 }, })}>
+                    NavigationNavigate({ goScreen: 'Seller_Setting_Topic', navigation, setData: { selectedIndex: 1 }, })}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8, width: 80, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}
                 {helpkBar && <TouchableOpacity key={'helpkBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Profile_Topic', navigation, setData: { selectedIndex: 8 }, })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic', navigation, setData: { selectedIndex: 8 }, })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8, width: 80, }]}>ช่วยเหลือ</Text>
                 </TouchableOpacity>}

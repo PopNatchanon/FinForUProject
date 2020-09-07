@@ -25,7 +25,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../customComponents';
-import { ExitAppModule } from '../Main/MainScreen';
+import { ExitAppModule } from '../Main/Main';
 import { Product_income } from '../Seller/SellerTopic/Seller_Topic';
 import { TabBar } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip

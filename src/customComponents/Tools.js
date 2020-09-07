@@ -649,7 +649,7 @@ export function RenderProduct(props) {
     onShow && console.log(uriImage)
     discount && (discounts = discount.replace("%", ""));
     return <TouchableOpacity activeOpacity={1} onPress={() => noNavigation ? getDataService({ id_product, name }) :
-        Navi({ goScreen: custumNavigation ?? 'DetailScreen', navigation, setData: { id_product: id_product } })}>
+        Navi({ goScreen: custumNavigation ?? 'Detail', navigation, setData: { id_product: id_product } })}>
         <View style={[ItemCenter, mode == 'row4' ? BoxProduct5Box : mode == 'row3' ?
             BoxProduct1Box2 : mode == 'row3_new' || mode == 'row3_new2' ? BoxProduct1Box2new : mode == 'row3_2' ?
                 BoxProduct4Box : mode == 'row3_all' ? BoxProduct2Box : mode == 'row2_all' ? BoxProduct3Box : mode == '5item' ?
@@ -728,7 +728,7 @@ export class FeedBox extends React.Component {
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props;
         userOwner && selected == 0 && Navi({
-            goScreen: 'Post_Feed', navigation,
+            goScreen: 'Store_PostFeed', navigation,
             setData: { selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this) },
         });
     };
@@ -783,7 +783,7 @@ export class FeedBox extends React.Component {
                 <View style={{ width: '95%' }}>
                     <View>
                         <TouchableOpacity onPress={() => {
-                            Navi({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 24, }, });
+                            Navi({ goScreen: 'Store_PostFeed', navigation, setData: { selectedIndex: 24, }, });
                             this.share_Feed.close();
                         }} style={[FlexRow, { alignItems: 'center' }]}>
                             <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogo} />
@@ -815,7 +815,7 @@ export class FeedBox extends React.Component {
             <View style={BoxProduct4Box}>
                 {Header && <View style={BoxProduct4PlusHeader}>
                     <TouchableOpacity onPress={() => atStore ? undefined :
-                        Navi({ goScreen: 'StoreScreen', navigation, setData: { id_store: id_store ?? p_id_store }, })}>
+                        Navi({ goScreen: 'Store', navigation, setData: { id_store: id_store ?? p_id_store }, })}>
                         <View style={FlexRow}>
                             <View style={[{ backgroundColor: store_image ? '#FFF' : '#ECECEC' }, BoxProduct4PlusImage]}>
                                 <FastImage source={store_image ? uriStore : LOADING_ICON}
@@ -863,7 +863,7 @@ export class FeedBox extends React.Component {
                             </IconFontAwesome>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={1} onPress={() => /*this.props.activeModalize(true)*/
-                            Navi({ goScreen: 'Post_Feed', navigation, setData: { selectedIndex: 3 }, })}>
+                            Navi({ goScreen: 'Store_PostFeed', navigation, setData: { selectedIndex: 3 }, })}>
                             <View style={BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />
                                 <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>แสดงความคิดเห็น</Text>

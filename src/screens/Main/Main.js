@@ -207,7 +207,7 @@ export const ExitAppModule = (props) => {
     const { navigation, route } = props;
     const routeProps = route.name;
     const [backClickCount, setBackClickCount] = useState(0);
-    const pathMain = ['Main', 'FeedScreen', 'NewsScreen', 'BellScreen', 'LoginScreen', 'ProfileScreen'];
+    const pathMain = ['Main', 'Feed', 'News', 'Bell', 'Customer_Login', 'Customer_Profile'];
     const springValue = useRef(new Animated.Value(0));
     const transformValue = useRef(new Animated.Value(100));
     YellowBox.ignoreWarnings(["Require cycle:", "VirtualizedList:", "VirtualizedLists should never", "*"]);
@@ -498,27 +498,27 @@ export const Button_Bar = (props) => {
     const ImageInstallment = require('../../../icon/Icon_Deal/05.jpg');
     return <>
         <View style={[FRow, ViewStyle]}>
-            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'DealScreen', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Promotion_Deal', })}>
                 <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageDeal} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'CoinScreen', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Promotion_Coin', })}>
                 <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageCoin} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'CampaignScreen', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Promotion_Campaign', })}>
                 <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageCampaign} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'The_BestFinScreen', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Promotion_TheBestFin', })}>
                 <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageBestFin} style={Button_Bar_icon} />
                 </View>
             </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Installment_payScreen', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Promotion_InstallmentPay', })}>
                 <View style={[Button_Bar_Box, { elevation: 1, }]}>
                     <FastImage resizeMode={contain} source={ImageInstallment} style={Button_Bar_icon} />
                 </View>
@@ -1366,7 +1366,7 @@ export const Fin_Mall = (props) => {
             <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>Fin Mall</Text>
             <View style={{ backgroundColor: '#691F50', borderRadius: 5, justifyContent: 'space-between', marginBottom: 3, padding: 3, }}>
                 {dataService ?
-                    <TouchableOpacity key='product_hit' activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Main_Fin_FinMall', })}>
+                    <TouchableOpacity key='product_hit' activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Main_Fin_Mall', })}>
                         <View style={FRow}>{ProductFinmall(dataService.product_hit, 0)}</View>
                     </TouchableOpacity> :
                     <View style={FRow}>
@@ -1497,7 +1497,7 @@ export const FIN_Supermarket = (props) => {
                 nameFlatProduct='FIN_Supermarket' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} />}
         </View>
         <View style={[FRow, Supermarket_Store]}>
-            <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Main_Fin_FINSupermarket', })} style={NaviStyle}>
+            <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Main_Fin_Supermarket', })} style={NaviStyle}>
                 <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1} style={HW100p} />
             </TouchableOpacity>
             <View style={{ justifyContent: 'space-between', width: width * 0.36, }}>
@@ -1593,7 +1593,7 @@ export const TodayProduct = (props) => {
         {noTitle ? null : <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าคัดสรรเพื่อคุณ</Text>}
         <View style={BoxProduct2BoxProduct}>
             {loadData ? <ProductBox {...props} dataService={loadData} dispriceSize={15} mode='row3colall_new' nameSize={14}
-                pointerid_store={true} pointerUrl='DetailScreen' prepath={prepath ?? null} priceSize={15} /> :
+                pointerid_store={true} pointerUrl='Detail' prepath={prepath ?? null} priceSize={15} /> :
                 <ProductBox dataService={GenArray(3)} mode='row3colall_new' nodata />}
         </View>
     </View>;
@@ -1762,7 +1762,7 @@ export const Fin_LuxuryShop = (props) => {
                 <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>Fin Mall</Text>
                 <View style={ViewStyle}>
                     {dataService ?
-                        <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Main_Fin_FinMall', })}>
+                        <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Main_Fin_Mall', })}>
                             <View style={FRow}>{ProductFinmall(dataService?.product_hit, 0)}</View>
                         </TouchableOpacity> :
                         <View style={FRow}>

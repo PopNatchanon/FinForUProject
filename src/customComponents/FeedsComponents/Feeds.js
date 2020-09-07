@@ -33,7 +33,7 @@ function FeedScreen(props) {
         <View style={BoxProduct4PlusHeader}>
             <TouchableOpacity onPress={() => /*atStore ?*/ undefined /*
             NavigationNavigate({
-                goScreen: 'StoreScreen', setData: { id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store },
+                goScreen: 'Store', setData: { id_store: dataService.id_store ? dataService.id_store : dataService.p_id_store },
                 navigation
             })*/}>
                 <View style={FlexRow}>
@@ -63,7 +63,7 @@ function FeedScreen(props) {
                     <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>ถูกใจ</Text>
                 </TouchableOpacity>
                 <TouchableOpacity activeOpacity={1} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Deal_Topic', navigation, setData: { selectedIndex: 9 }, })}>
+                    NavigationNavigate({ goScreen: 'Promotion_Sub_DealTopic', navigation, setData: { selectedIndex: 9 }, })}>
                     <View style={BoxProduct4ComBoxIcon}>
                         <IconFontAwesome5 name='comment-dots' size={20} />
                         <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>แสดงความคิดเห็น</Text>

@@ -232,14 +232,14 @@ export let FlashSale_Product = (props) => {
     return <View style={stylesTopic.FlashSale_Product}>
         <View style={[stylesTopic.FlashSale_ProductBox, { flex: 1 }]}>
             <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
+                NavigationNavigate({ goScreen: 'Detail', setData: { id_item: dataService.id_product }, navigation })}>
                 <View style={stylesTopic.FlashSale_ProductBox_Image}>
                     <FastImage style={stylesTopic.Image} source={{ uri: image_product }} resizeMode={FastImage.resizeMode.contain} />
                 </View>
             </TouchableOpacity>
             <View style={{ flexDirection: 'row', flex: 1, }}>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigate({ goScreen: 'DetailScreen', setData: { id_item: dataService.id_product }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Detail', setData: { id_item: dataService.id_product }, navigation })}>
                     <View style={{ width: width * 0.52 }}>
                         <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10 }]}>
                             {dataService.name}</Text>
@@ -249,7 +249,7 @@ export let FlashSale_Product = (props) => {
                     </View>
                 </TouchableOpacity>
                 <View style={{ width: 40, justifyContent: 'flex-end' }}>
-                    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'CartScreen', navigation })}>
+                    <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Cart', navigation })}>
                         <View style={[stylesTopic.FlashSale_ProductBox_Icon]}>
                             <IconAntDesign RightItem name="shoppingcart" size={30} color='#FFFFFF' />
                         </View>

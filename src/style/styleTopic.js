@@ -142,7 +142,7 @@ export default StyleSheet.create({
         width: width * 0.3, height: 40,
         borderWidth: 1, borderRadius: 4
     },
-    ///--------------------------------Recommend_Store-----------------------------------------///
+    ///--------------------------------RecommendStore-----------------------------------------///
     Header: {
         height: 'auto',
         width,

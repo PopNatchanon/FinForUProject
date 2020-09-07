@@ -87,7 +87,7 @@ function Category(props) {
         <AppBar {...props} backArrow cartBar enableSearch />
         <ScrollView stickyHeaderIndices={[5]}>
             <Slide {...props} dataService={dataService2?.banner} />
-            <Recommend_Store {...props} recommend={dataService2?.recommend} />
+            <RecommendStore {...props} recommend={dataService2?.recommend} />
             <Product_Brand {...props} loadData={dataService2?.product_popular_brand} />
             <BannerBar_TWO />
             <View style={{ marginBottom: 2 }}></View>
@@ -99,13 +99,13 @@ function Category(props) {
             setStateSliderVisible={value => setSliderVisible(value)} />
     </SafeAreaView>;
 };
-///----------------------------------------------------------------------------------------------->>>> Recommend_Store
+///----------------------------------------------------------------------------------------------->>>> RecommendStore
 const { FontFamilyBold, FontSize4 } = stylesFont;
 const {
     BoxProduct1Box2new, BoxProduct2Image, BoxStore1Box, BoxStore1Image, FrameBackground, FrameBackgroundTextBox, FrameBackgroundTextStart,
     ItemCenter,
 } = stylesMain;
-export let Recommend_Store = (props) => {
+export let RecommendStore = (props) => {
     const { navigation, recommend } = props;
     const [activeScroll, setActiveScroll] = useState(false);
     let boxEmpty = [0, 1, 2].map((_, i) => <View key={i} style={[BoxStore1Box, ItemCenter,
@@ -151,7 +151,7 @@ export let Product_Brand = (props) => {
             <Text style={[FontFamilyBold, FontSize4, FrameBackgroundTextStart,]}>สินค้าแบรนด์ดัง</Text>
         </View>
         {loadData?.length > 0 ?
-            <FlatProduct {...props} custumNavigation='DetailScreen' dataService={loadData} dispriceSize={15} mode='row3_new'
+            <FlatProduct {...props} custumNavigation='Detail' dataService={loadData} dispriceSize={15} mode='row3_new'
                 nameFlatProduct='Product_Brand' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} /> :
             <ScrollView horizontal scrollEnabled={false}>{boxEmpty}</ScrollView>}
     </View>;

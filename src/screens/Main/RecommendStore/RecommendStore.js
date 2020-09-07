@@ -130,7 +130,7 @@ export let Store_Detail = (props) => {
             <FastImage style={stylesTopic.Store_Image} source={{ uri: image_header }} resizeMode={FastImage.resizeMode.cover} />
             <View style={stylesTopic.Store_Box}>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Store', setData: { id_item: dataService.id_store }, navigation })}>
                     <View style={[stylesTopic.Store_Pro, stylesMain.ItemCenter]}>
                         <FastImage style={{ height: 70, width: 70, borderRadius: 70 / 2, borderWidth: 1 }} source={{ uri: image_store }}
                             resizeMode={FastImage.resizeMode.cover} />
@@ -138,7 +138,7 @@ export let Store_Detail = (props) => {
                 </TouchableOpacity>
                 <View style={{ margin: 10, }}>
                     <TouchableOpacity onPress={() =>
-                        NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Store', setData: { id_item: dataService.id_store }, navigation })}>
                         <View style={stylesTopic.Store_Name}>
                             <Text style={[stylesTopic.Store_NameText, stylesFont.FontFamilyBold, stylesFont.FontSize6]}>
                                 {dataService.store_name}</Text>
@@ -161,7 +161,7 @@ export let Store_Detail = (props) => {
                             </TouchableOpacity>
                         </View>
                         <TouchableOpacity onPress={() =>
-                            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: dataService.id_store }, navigation })}
+                            NavigationNavigate({ goScreen: 'Store', setData: { id_item: dataService.id_store }, navigation })}
                             style={[stylesTopic.Store_Button, { backgroundColor: '#0A55A6', marginLeft: 8, }]}>
                             <Text style={[stylesFont.FontFamilyText, { textAlign: 'center', color: '#FFFFFF' }]}>เข้าดูร้านค้า</Text>
                         </TouchableOpacity>

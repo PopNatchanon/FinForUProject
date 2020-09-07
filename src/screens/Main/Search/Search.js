@@ -191,7 +191,7 @@ export let StoreCard = (props) => {
     }, [activeGetServices]);
     return <View style={stylesMain.BoxStore5Box}>
         <TouchableOpacity style={stylesMain.FlexRow} onPress={() =>
-            NavigationNavigate({ goScreen: 'StoreScreen', setData: { id_item: 24 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Store', setData: { id_item: 24 }, navigation })}>
             <View style={[stylesMain.BoxStore5Image, stylesMain.ItemCenterVertical, { width: 45, height: 45, marginRight: 10, }]}>
                 <FastImage source={{ uri: dataMySQL, }} style={[stylesMain.BoxStore5Image]} />
             </View>
@@ -214,7 +214,7 @@ export let StoreCard = (props) => {
                 </View>
                 <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() =>
-                        NavigationNavigate({ goScreen: 'Profile_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>พูดคุย</Text>
                     </TouchableOpacity>
                 </View>

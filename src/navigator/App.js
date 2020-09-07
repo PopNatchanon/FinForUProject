@@ -30,8 +30,8 @@ function App() {
     <NavigationContainer>
       <Stack.Navigator headerMode="none" initialRouteName={
         'Main'
-        // 'DealScreen'
-        // 'StoreScreen'
+        // 'Promotion_Deal'
+        // 'Store'
       }>
         {setScreen.map(({ component, name, options }, i) => <Stack.Screen component={component} key={i} name={name} options={options} />)}
       </Stack.Navigator>

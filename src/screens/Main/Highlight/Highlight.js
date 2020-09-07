@@ -16,8 +16,8 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../MainScreen';
-import { FlashSale_Product } from '../FlashSale/FlashSaleScreen';
+import { ExitAppModule } from '../Main';
+import { FlashSale_Product } from '../FlashSale/FlashSale';
 import { Slide } from '../../Promotion/DealScreen';
 import { GetServices, TabBar } from '../../../customComponents/Tools';
 import { AppBar } from '../../../customComponents';
@@ -28,8 +28,8 @@ const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(HighlightScreen);
-function HighlightScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Highlight);
+function Highlight(props) {
   const { getFetchData } = props;
   const [selectedIndex, setSelectedIndex] = useState(0);
   let getUpdateIndex = (value) => setSelectedIndex(value.selectedIndex);

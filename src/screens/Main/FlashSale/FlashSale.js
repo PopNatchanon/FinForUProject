@@ -18,7 +18,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, Slide } from '../MainScreen';
+import {  ExitAppModule, Slide } from '../Main';
 import { GetServices, TabBar, LoadingScreen, } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -28,8 +28,8 @@ const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(FlashSaleScreen);
-function FlashSaleScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(FlashSale);
+function FlashSale(props) {
     const [activeFlashStart, setActiveFlashStart] = useState(true)
     const [activeReData, setActiveReData] = useState(true)
     const [curTime, setCurTime] = useState(undefined)

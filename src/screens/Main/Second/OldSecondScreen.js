@@ -102,13 +102,13 @@ export let Second_Store = (props) => {
     </View>
     <View style={stylesMain.FlexRow}>
       <View style={[stylesMain.BoxStoreSecond]}>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })}>
           <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, }}
             resizeMode={FastImage.resizeMode.stretch} />
         </TouchableOpacity>
       </View>
       <View style={[stylesMain.BoxStoreSecond]}>
-        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
+        <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })}>
           <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, }}
             resizeMode={FastImage.resizeMode.stretch} />
         </TouchableOpacity>

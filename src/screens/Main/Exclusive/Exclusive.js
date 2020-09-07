@@ -15,7 +15,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../MainScreen';
+import { TodayProduct, ExitAppModule, } from '../Main';
 import { GetData, GetServices, TabBar, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Slide, } from '../../Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -26,8 +26,8 @@ const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(ExclusiveScreen)
-function ExclusiveScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Exclusive)
+function Exclusive(props) {
   const [activeGetServices, setActiveGetServices] = useState(true);
   const [activeGetSource, setActiveGetSource] = useState(true);
   const [cokie, setCokie] = useState(undefined);

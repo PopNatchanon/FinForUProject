@@ -41,11 +41,11 @@ function Toolbar(props) {
     </LinearTextGradient>;
     var routeSelcet = route.name;
     return <View style={stylesMain.Toolbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'MainScreen' ?
-            NavigationNavigate({ goScreen: 'MainScreen', navigation, noPush: true }) : null}>
+        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Main' ?
+            NavigationNavigate({ goScreen: 'Main', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                {genText(routeSelcet, 'MainScreen', <IconAntDesign name="home" size={25} />)}
-                {genText(routeSelcet, 'MainScreen', <Text>Home</Text>)}
+                {genText(routeSelcet, 'Main', <IconAntDesign name="home" size={25} />)}
+                {genText(routeSelcet, 'Main', <Text>Home</Text>)}
             </View>
         </TouchableOpacity>
         <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'FeedScreen' ?

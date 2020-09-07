@@ -16,11 +16,11 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../MainScreen';
-import { Button_Bar, } from '../../Exclusive/ExclusiveScreen';
+import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../Main';
+import { Button_Bar, } from '../../Exclusive/Exclusive';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../../../../customComponents/Tools';
 import { Slide, } from '../../../Promotion/DealScreen';
-import { Store_Detail, } from '../../RecommendStore/Recommend_Store';
+import { Store_Detail, } from '../../RecommendStore/RecommendStore';
 import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../../navigator/IpConfig';
@@ -38,8 +38,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(SecondScreen);
-function SecondScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Product);
+function Product(props) {
     const [activeDataService, setActiveDataService] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const [sliderVisible, setSliderVisible] = useState(false);
@@ -82,13 +82,13 @@ export let Second_Store = (props) => {
         </View>
         <View style={stylesMain.FlexRow}>
             <View style={[stylesMain.BoxStoreSecond]}>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })}>
                     <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop2.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </TouchableOpacity>
             </View>
             <View style={[stylesMain.BoxStoreSecond]}>
-                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
+                <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })}>
                     <FastImage style={[stylesMain.BoxStore1Image]} source={{ uri: `${ip}/mysql/uploads/slide/NewStore/luxury_shop3.jpg`, }}
                         resizeMode={FastImage.resizeMode.stretch} />
                 </TouchableOpacity>

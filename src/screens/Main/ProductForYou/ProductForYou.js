@@ -11,8 +11,8 @@ export const { width, height } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../../Main/MainScreen';
-import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
+import { TodayProduct, ExitAppModule, } from '../Main';
+import { Button_Bar, } from '../Exclusive/Exclusive';
 import { GetData, GetServices, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Slide } from '../../Promotion/DealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -23,8 +23,8 @@ const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Product_for_youScreen);
-function Product_for_youScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(ProductForYou);
+function ProductForYou(props) {
   const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
   const [activeGetServices, setActiveGetServices] = useState(true);
   const [cokie, setCokie] = useState(undefined);

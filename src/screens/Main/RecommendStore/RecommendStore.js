@@ -19,7 +19,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> tools
-import { ExitAppModule, } from '../../Main/MainScreen';
+import { ExitAppModule, } from '../Main';
 import { GetData, GetServices, ProductBox, LoadingScreen, FlatProduct } from '../../../customComponents/Tools';
 import { StarReview, NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> ip
@@ -40,8 +40,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Store);
-function Recommend_Store(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendStore);
+function RecommendStore(props) {
     const { navigation, route } = props;
     const id_slide = route.params?.id_slide;
     const name_path = route.params?.name_path;

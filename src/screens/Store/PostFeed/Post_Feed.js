@@ -43,8 +43,8 @@ import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
 } from '../../../customComponents/Tools';
 import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../../customComponents';
-import { TodayProduct, Slide, ExitAppModule } from '../../Main/MainScreen';
-import { Store_Detail } from '../../Main/RecommendStore/Recommend_Store';
+import { TodayProduct, Slide, ExitAppModule } from '../../Main/Main';
+import { Store_Detail } from '../../Main/RecommendStore/RecommendStore';
 import Dash from 'react-native-dash';
 import { ProductBox, FeedBox, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -264,7 +264,7 @@ export let AppBar_Group = (props) => {
     const [text, setText] = useState(undefined);
     const setSubmit = () => {
         text != undefined && text != ' ' &&
-            NavigationNavigate({ goScreen: 'SearchScreen', setData: { SearchText: text }, navigation });
+            NavigationNavigate({ goScreen: 'Main_Search', setData: { SearchText: text }, navigation });
     };
     const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
     const AIconFeather = Animatable.createAnimatableComponent(IconFeather);

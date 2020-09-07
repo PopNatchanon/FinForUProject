@@ -18,10 +18,10 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../../Main/MainScreen';
+import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
 import { Slide, } from '../../Promotion/DealScreen';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
-import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/ExclusiveScreen';
+import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
 import { Might_like_Store } from '../../Profile/ProfileTopic/Profile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
@@ -68,7 +68,7 @@ export let FinMall_Product = (props) => {
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Fin Mall</Text>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigate({ goScreen: 'FinMallScreen', setData: { selectedIndex: 1 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Main_Fin_FinMall', setData: { selectedIndex: 1 }, navigation })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>

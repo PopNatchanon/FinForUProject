@@ -50,7 +50,7 @@ class AppSearchBar extends React.Component {
         } = this.props;
         const { cokie, currentUser, text, } = this.state;
         let setSubmit = () => text != undefined && text != ' ' &&
-            NavigationNavigate({ goScreen: 'SearchScreen', navigation, setData: { SearchText: text }, });
+            NavigationNavigate({ goScreen: 'Main_Search', navigation, setData: { SearchText: text }, });
         const AIconAntDesign = Animatable.createAnimatableComponent(IconAntDesign);
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
@@ -89,7 +89,7 @@ class AppSearchBar extends React.Component {
                     </View>
                 </TouchableOpacity> :
                 <TouchableOpacity activeOpacity={1} key={'searchBar'} onPress={() => NavigationNavigate({
-                    goScreen: SearchText ? 'goBack' : 'SearchScreen', navigation, setData: { modeStore: false },
+                    goScreen: SearchText ? 'goBack' : 'Main_Search', navigation, setData: { modeStore: false },
                 })} style={{ marginRight: 3 }}>
                     <View style={[stylesMain.AppbarBody, stylesMain.FlexRow, stylesMain.ItemCenterVertical,
                     { borderColor: '#ffbf00', borderWidth: 1, height: 30, }]}>
@@ -183,7 +183,7 @@ class AppNoSearchBar extends React.Component {
             </View>
             <View style={stylesMain.FlexRow}>
                 {searchBar && <TouchableOpacity key={'searchBar'} onPress={() => NavigationNavigate({
-                    goScreen: 'SearchScreen', navigation, setData: { modeStore: false },
+                    goScreen: 'Main_Search', navigation, setData: { modeStore: false },
                 })} style={[stylesMain.ItemCenter, { width: 40 }]}>
                     <IconAntDesign name="search1" RightItem size={25} style={[stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8 }]} />

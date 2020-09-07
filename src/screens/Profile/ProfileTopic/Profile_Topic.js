@@ -25,7 +25,7 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, GetFetch, NavigationNavigate, StarReview, } from '../../../customComponents';
-import { ExitAppModule, TodayProduct } from '../../Main/MainScreen';
+import { ExitAppModule, TodayProduct } from '../../Main/Main';
 import { GetData, LoadingScreen, } from '../../../customComponents/Tools';
 import { PopularProduct } from '../../Store/StoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Ip

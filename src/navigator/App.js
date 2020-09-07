@@ -29,7 +29,7 @@ function App() {
   return <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator headerMode="none" initialRouteName={
-        'MainScreen'
+        'Main'
         // 'DealScreen'
         // 'StoreScreen'
       }>

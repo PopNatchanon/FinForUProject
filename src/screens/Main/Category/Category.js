@@ -17,9 +17,9 @@ import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_TWO, ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
-import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
-import { Slide } from '../../../screens/Promotion/DealScreen'
+import { BannerBar_TWO, ExitAppModule, TodayProduct, } from '../Main';
+import { Button_Bar, } from '../Exclusive/Exclusive';
+import { Slide } from '../../Promotion/DealScreen'
 import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar, GenArray } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -43,8 +43,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(CategoryScreen);
-function CategoryScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Category);
+function Category(props) {
     const { route } = props;
     const id_type = route.params?.id_type;
     const [activeGetServices, setActiveGetServices] = useState(true);
@@ -116,7 +116,7 @@ export let Recommend_Store = (props) => {
         recommend.map((item, index) => {
             const uriRecomStore = { uri: `${finip}/${item.image_path}/${item.image}` };
             !activeScroll && setActiveScroll(true);
-            return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })} key={index}>
+            return <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })} key={index}>
                 <View style={[BoxStore1Box, { width: width * 0.40, }]}>
                     <FastImage source={uriRecomStore} style={[BoxStore1Image, { borderRadius: 5 }]} resizeMode={cover} />
                 </View>
@@ -125,7 +125,7 @@ export let Recommend_Store = (props) => {
     return <View style={stylesMain.FrameBackground}>
         <View style={stylesMain.FrameBackgroundTextBox}>
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ร้านค้าที่แนะนำ</Text>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Recommend_Store', navigation })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Main_RecommendStore', navigation })}>
                 <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
             </TouchableOpacity>
         </View>

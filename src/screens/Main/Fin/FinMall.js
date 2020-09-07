@@ -18,10 +18,10 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../MainScreen';
+import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
 import { Slide, } from '../../Promotion/DealScreen';
 import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
-import { Button_Bar, PricesSlide, SlideTab, } from '../../Main/Exclusive/ExclusiveScreen';
+import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
@@ -31,8 +31,8 @@ const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(FinMallScreen)
-function FinMallScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(FinMall)
+function FinMall(props) {
   return <SafeAreaView style={stylesMain.SafeAreaView}>
     <AppBar {...props} backArrow titleHead='FIN Mall' />
     <FIN_Mall {...props} />

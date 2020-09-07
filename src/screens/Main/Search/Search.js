@@ -17,8 +17,8 @@ import IconEntypo from 'react-native-vector-icons/Entypo';
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_THREE, ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
-import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
+import { BannerBar_THREE, ExitAppModule, TodayProduct, } from '../Main';
+import { Button_Bar, } from '../Exclusive/Exclusive';
 import { GetData, GetServices, SlideTab2, } from '../../../customComponents/Tools'
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -39,8 +39,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(SearchScreen);
-function SearchScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Search);
+function Search(props) {
     const { navigation, route } = props;
     const id_types = route.params?.id_type;
     const modeStore = route.params?.modeStore;
@@ -161,7 +161,7 @@ export let HeadBox = (props) => {
             <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyText, stylesFont.FontSize5]}>
                 ร้านค้าที่เกี่ยวข้องกับ <Text>"{SearchText}"</Text></Text>
             {otherOption && <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'SearchScreen', setData: { modeStore: true, SearchText, id_type }, navigation })}>
+                NavigationNavigate({ goScreen: 'Main_Search', setData: { modeStore: true, SearchText, id_type }, navigation })}>
                 <View style={[stylesMain.FlexRow, { marginRight: 4, marginTop: 8 }]}>
                     <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontFamilyText, stylesFont.FontSize7,
                     stylesMain.ItemCenterVertical, { marginRight: 0, }]}>ร้านค้าอื่นๆ</Text>

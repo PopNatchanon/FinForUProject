@@ -16,12 +16,12 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { Second_Store, Second_Product_Brand } from '../SecondProduct/SecondProduct';
-import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../MainScreen';
-import { Button_Bar, } from '../../Exclusive/ExclusiveScreen';
+import { Second_Store, Second_Product_Brand } from '../Product/Product';
+import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../Main';
+import { Button_Bar, } from '../../Exclusive/Exclusive';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../../../../customComponents/Tools';
 import { Slide, } from '../../../Promotion/DealScreen';
-import { Store_Detail, } from '../../RecommendStore/Recommend_Store';
+import { Store_Detail, } from '../../RecommendStore/RecommendStore';
 import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../../navigator/IpConfig';
@@ -39,8 +39,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(SecondStore);
-function SecondStore(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Store);
+function Store(props) {
     const [activeDataService, setActiveDataService] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const [sliderVisible, setSliderVisible] = useState(false);

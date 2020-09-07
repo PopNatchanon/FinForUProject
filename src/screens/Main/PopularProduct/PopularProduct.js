@@ -12,7 +12,7 @@ export const { width, height } = Dimensions.get('window');
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
+import {  ExitAppModule, TodayProduct, } from '../Main';
 import { Slide } from '../../Promotion/DealScreen';
 import { TabBar, GetServices } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -23,8 +23,8 @@ const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Popular_productScreen);
-function Popular_productScreen(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(PopularProduct);
+function PopularProduct(props) {
     const { getFetchData, route, } = props;
     const id_item = route.params?.id_item + '';
     const [activeDataService, setActiveDataService] = useState(true);

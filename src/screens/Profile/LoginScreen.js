@@ -91,7 +91,7 @@ export let Login = (props) => {
       if (responseJson.data != null) {
         var userser = { email: user.email, password: user.password };
         storeLogin(userser);
-        NavigationNavigate({ goScreen: 'MainScreen', navigation });
+        NavigationNavigate({ goScreen: 'Main', navigation });
       } else {
         setErrorMessage(responseJson);
         setShowErrorMessage(true);

@@ -14,7 +14,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, } from '../MainScreen';
+import { ExitAppModule, } from '../Main';
 import { ProductBox, LoadingScreen, GetData, GetServices, FlatProduct, } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -24,8 +24,8 @@ const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Recommend_Brand);
-function Recommend_Brand(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(RecommendBrand);
+function RecommendBrand(props) {
     const [activeDataService, setActiveDataService] = useState(true);
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [currentUser, setCurrentUser] = useState(undefined);

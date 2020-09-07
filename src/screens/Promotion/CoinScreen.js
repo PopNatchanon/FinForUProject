@@ -89,7 +89,8 @@ export const CoinCollect = (props) => {
     const dataBody = {
         id_customer: currentUser?.id_customer ?? '',
         device: "mobile_device",
-        id_promotion_voucher: id_promotion ?? ''
+        id_promotion_voucher: id_promotion ?? '',
+        type_voucher: '',
     };
     const getData = (v) => { setActiveGetServices(false); setDataService(v); };
     const getPathlist = (v) => setPathlist(v.selectedIndex);

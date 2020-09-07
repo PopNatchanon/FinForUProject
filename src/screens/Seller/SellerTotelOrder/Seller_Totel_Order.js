@@ -156,7 +156,7 @@ export let Order_Me_Box = (props) => {
                 </View>
                 <View style={[stylesProfileTopic.Order_Box_priceText, { marginTop: 5, }]}>
                     <TouchableOpacity onPress={() =>
-                        NavigationNavigate({ goScreen: 'Seller_Detail_Order', setData: { selectedIndex: 0 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'SellerDetailOrder', navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ดูรายละเอียด</Text>
                         </View>

@@ -254,13 +254,13 @@ export let From_Order_Box = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'} onPress={() =>
-                        NavigationNavigate({ goScreen: 'CancelScreen', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'CancelFrom', setData: { selectedIndex: 1 }, navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'return_order'} onPress={() =>
-                        NavigationNavigate({ goScreen: 'Return_products', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'ReturnProductsFrom', navigation })}>
                         <View style={{ borderBottomColor: mainColor, borderBottomWidth: 1, height: 20, }}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>ส่งคำร้องคืนสินค้า</Text>
                         </View>

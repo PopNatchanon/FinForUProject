@@ -169,7 +169,7 @@ export let MenubarSub = (props) => {
         </View>
         <View style={[stylesProfile.MenubarSubLine2, stylesMain.FlexRow]}>
             <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'Return_products', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'ReturnProductsPro', navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                     <FastImage source={require('../../../icon/repeat.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>
@@ -177,7 +177,7 @@ export let MenubarSub = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'CancelScreen', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'CancelProduct', navigation })}>
                 <View style={[stylesProfile.MenubarSubLine2Box, stylesMain.ItemCenter, stylesMain.FlexRow]}>
                     <FastImage source={require('../../../icon/box.png')} style={stylesProfile.MenubarSubLine2BoxImage} />
                     <Text style={[stylesProfile.MenubarSubLine2BoxName, stylesFont.FontFamilyText, stylesFont.FontSize6]}>

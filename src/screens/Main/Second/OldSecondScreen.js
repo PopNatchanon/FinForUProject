@@ -16,7 +16,7 @@ import FastImage from 'react-native-fast-image';
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../Main/MainScreen';
+import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../MainScreen';
 import { Button_Bar, } from '../Exclusive/ExclusiveScreen';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
 import { Slide, } from '../../Promotion/DealScreen';

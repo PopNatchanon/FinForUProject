@@ -128,7 +128,7 @@ export let News = (props) => {
         { uri: 'https://www.ryt9.com/s/iq35/3136360', image: `${ip}/MySQL/uploads/News/7.jpg`, TitleBlog: 'ราคาน้ำมัน WTI ดิ่งกว่า 4% กังวลสต็อกน้ำมันสหรัฐพุ่ง,โควิด-19 ระบาด', detail: 'สำนักงานสารสนเทศด้านการพลังงานของรัฐบาลสหรัฐ (EIA) เปิดเผยว่า สต็อกน้ำมันดิบสหรัฐเพิ่มขึ้นเป็นสัปดาห์ที่ 3 ติดต่อกัน โดยปรับตัวขึ้น 1.4 ล้านบาร์เรลในสัปดาห์ที่แล้ว สวนทางนักวิเคราะห์ที่คาดการณ์ว่าลดลง 100,000 บาร์เรล', }]
     let BlogItem = (
         item_Blog.map((value, index) => {
-            return <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0, }, navigation })} key={index}
+            return <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'DetailPromotion', navigation })} key={index}
                 style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, paddingHorizontal: 10, paddingVertical: 10 }]}>
                 {/* <TouchableOpacity onPress={() => value.uri ? NavigationNavigate({ goScreen: 'BrowerScreen', navigation, setData: { uri: value.uri } }) : null} key={index} */}
                 {/* style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', marginTop: 5, paddingHorizontal: 10, paddingVertical: 10 }]} > */}

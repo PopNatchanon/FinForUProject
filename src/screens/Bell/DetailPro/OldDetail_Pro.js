@@ -148,7 +148,7 @@ export let Detail_Product_Check = (props) => <View style={stylesMain.FrameBackgr
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Detail_Button
 export let Detail_Button = (props) => <TouchableOpacity activeOpacity={1} onPress={() =>
-    NavigationNavigate({ goScreen: 'Detail_Pro', navigation: props.navigation, setData: { selectedIndex: 2 }, })}>
+    NavigationNavigate({ goScreen: 'DetailProductCheck', navigation: props.navigation, })}>
     <View style={{
         alignItems: 'center', backgroundColor: mainColor, height: 50, justifyContent: 'center', marginTop: 10, width: '100%',
     }}>

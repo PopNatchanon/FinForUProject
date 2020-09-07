@@ -91,7 +91,7 @@ export let Pro_for_U = (props) => {
     let for_U_Item = (
         for_U_Store.map((value, index) => {
             return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 0, }, navigation })}>
+                NavigationNavigate({ goScreen: 'DetailPromotion', navigation })}>
                 <View style={[stylesMain.FlexRow, { marginTop: 3, marginHorizontal: 3, borderColor: '#ECECEC', borderWidth: 1, }]}>
                     <FastImage style={{ height: 80, width: '30%', }} source={{ uri: value.image }} />
                     <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { marginLeft: 5, width: '68%' }]}>
@@ -118,7 +118,7 @@ export let Update_buy = (props) => {
     let Updatebuy = (
         Updateitem.map((value, index) => {
             return <TouchableOpacity key={index} activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Detail_Pro', setData: { selectedIndex: 1, }, navigation })}>
+                NavigationNavigate({ goScreen: 'DetailOrder', navigation })}>
                 <View style={[stylesMain.FlexRow, { marginHorizontal: 3, borderColor: '#ECECEC', borderWidth: 1, marginVertical: 2.5 }]}>
                     <FastImage style={{ width: width * 0.30, height: 80 }}
                         source={{ uri: value.image, }} />

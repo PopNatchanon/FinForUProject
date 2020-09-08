@@ -17,7 +17,7 @@ import stylesMain from '../../style/StylesMainScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, CategoryProduct } from '../Main/Main';
-import { Button_Bar, Slide, } from './Deal';
+import { Button_Bar, Slide, } from './Deal/Deal';
 import { GetServices, ProductBox, FlatProduct } from '../../customComponents/Tools';
 import { AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

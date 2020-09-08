@@ -26,7 +26,7 @@ import stylesSeller from '../../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetServices } from '../../../../customComponents/Tools';
-import { Address_Customar } from '../../../Customer/Setting/Topic/Topic';
+import { Address_Customar } from '../../../Customer/Setting/Edit/Address/Address';
 import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { finip } from '../../../../navigator/IpConfig';

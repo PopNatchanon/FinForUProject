@@ -122,7 +122,7 @@ export let Order_Me_Box = (props) => {
                         <IconFeather name='edit' size={15} />รอการรีวิว</Text>
                 </TouchableOpacity>}
                 {dataService.purchase == 'reviewed' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Review_Froms', navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>สำเร็จแล้ว</Text>
                 </TouchableOpacity>}

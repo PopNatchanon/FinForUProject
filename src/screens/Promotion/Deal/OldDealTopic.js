@@ -29,7 +29,7 @@ import { Button_Bar } from '../../Main/Highlight/Highlight';
 import { ExitAppModule, TodayProduct, } from '../../Main/Main';
 import { GetCoupon, GetServices, GetData, TabBar, LoadingScreen } from '../../../customComponents/Tools';
 import { ProductBox } from '../../../customComponents/Tools';
-import { Slide } from '../Deal';
+import { Slide } from './Deal';
 import { Store_Detail, } from '../../Main/RecommendStore/RecommendStore';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
@@ -75,7 +75,7 @@ function DealTopic(props) {
     }, [selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2]);
     let PathList = () => {
         switch (selectedIndex) {
-            case 0:
+            case 0: // Promotion_Deal_Worthy
                 return <View style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='ดีลสุดคุ้ม' />
                     <ScrollView>
@@ -88,7 +88,7 @@ function DealTopic(props) {
                         })}
                     </ScrollView>
                 </View>;
-            case 1:
+            case 1: // Promotion_Deal_Exclusive
                 return <View>
                     <AppBar {...props} backArrow titleHead='ดีลสุด Exclusive' />
                     <ScrollView stickyHeaderIndices={[2]}>
@@ -99,7 +99,7 @@ function DealTopic(props) {
                         {dataService2 && <TodayProduct {...props} key='TodayProduct' loadData={dataService2.product} noTitle />}
                     </ScrollView>
                 </View>;
-            case 2:
+            case 2: // Promotion_Deal_StoreSale
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
@@ -109,7 +109,7 @@ function DealTopic(props) {
                         {/* <Store_Detail /> */}
                     </ScrollView>
                 </View>;
-            case 3:
+            case 3: // Promotion_Deal_ProductSale
                 return <View>
                     <AppBar {...props} backArrow titleHead='สินค้ามือสองลดราคา' />
                     <ScrollView stickyHeaderIndices={[2]}>
@@ -119,7 +119,7 @@ function DealTopic(props) {
                         {dataService ? <TodayProduct {...props} loadData={dataService} noTitle prepath='mysql' typeip /> : null}
                     </ScrollView>
                 </View>;
-            case 4:
+            case 4: // Promotion_Deal_Store
                 return <View>
                     <AppBar {...props} backArrow titleHead='ร้านค้าที่มีดีล' />
                     <ScrollView stickyHeaderIndices={[2]}>
@@ -128,10 +128,6 @@ function DealTopic(props) {
                         <Button_Bar />
                         {/* <Store_Detail /> */}
                     </ScrollView>
-                </View>;
-            case 5:
-                return <View style={[stylesMain.SafeAreaView, stylesMain.ItemCenter]}>
-                    <Not_Internet {...props} />
                 </View>;
         };
     };

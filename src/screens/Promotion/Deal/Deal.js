@@ -4,7 +4,7 @@ import {
   Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Image,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { width, height } = Dimensions.get('window');
@@ -18,19 +18,19 @@ import IconFeather from 'react-native-vector-icons/Feather';
 import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
-import stylesFont from '../../style/stylesFont';
-import stylesMain from '../../style/StylesMainScreen';
+import stylesDeal from '../../../style/stylePromotion-src/styleDealScreen';
+import stylesFont from '../../../style/stylesFont';
+import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, Second_product, TodayProduct, } from '../Main/Main';
+import { ExitAppModule, Second_product, TodayProduct, } from '../../Main/Main';
 import {
   GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
-} from '../../customComponents/Tools';
-import { GenArray, NavigationNavigate, AppBar } from '../../customComponents';
+} from '../../../customComponents/Tools';
+import { GenArray, NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../navigator/IpConfig';
+import { ip, finip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
-const LOADING_ICON = require('../../../images/icon.png');
+const LOADING_ICON = require('../../../../images/icon.png');
 const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
@@ -108,11 +108,11 @@ export const Slide = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Button_Bar
 export const Button_Bar = (props) => {
-  const IconDeal01 = require('../../../icon/Icon_Deal/01.jpg');
-  const IconDeal02 = require('../../../icon/Icon_Deal/02.jpg');
-  const IconDeal03 = require('../../../icon/Icon_Deal/03.jpg');
-  const IconDeal04 = require('../../../icon/Icon_Deal/04.jpg');
-  const IconDeal05 = require('../../../icon/Icon_Deal/05.jpg');
+  const IconDeal01 = require('../../../../icon/Icon_Deal/01.jpg');
+  const IconDeal02 = require('../../../../icon/Icon_Deal/02.jpg');
+  const IconDeal03 = require('../../../../icon/Icon_Deal/03.jpg');
+  const IconDeal04 = require('../../../../icon/Icon_Deal/04.jpg');
+  const IconDeal05 = require('../../../../icon/Icon_Deal/05.jpg');
   return <View style={[Button_Bars, /*{ bottom: '7%', }*/]}>
     <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal', noPush: true, })}>
       <View style={[Button_Bar_Box]}>
@@ -228,7 +228,7 @@ export const Deal_Today = (props) => {
   return <View style={[FrameBackground, { paddingBottom: 0, }/*{ backgroundColor: '#AF5F92', }*/]}>
     <View style={BoxText_Row}>
       <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ดีลเด็ดประจำวัน</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Sub_DealTopic', setData: { selectedIndex: 0, }, })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal_Worthy', })}>
         <Text style={[FontFamilyBold, FontSize7, { marginRight: 10, marginTop: 4, }]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -293,7 +293,7 @@ export const Deal_Exclusive = (props) => {
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#8E1006', width: '100%' }]}> */}
     <View style={BoxText_Row}>
       <Text style={[FrameBackgroundTextStart, FontFamilyBold, FontSize5, { color: '#FFFFFF', marginTop: 5, }]}>ดีลสุด Exclusive</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Sub_DealTopic', setData: { selectedIndex: 1, }, })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal_Exclusive', })}>
         <Text style={[FontFamilyBold, FontSize7, Text_EndW]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -342,14 +342,14 @@ export const Second_Store = (props) => {
   return <View style={[FrameBackground, { width: '100%', }]}>
     <View style={BoxText_Row}>
       <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>ร้านมือสองลดราคา</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Sub_DealTopic', setData: { selectedIndex: 2 }, })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal_StoreSale', })}>
         <Text style={[FontFamilyBold, FontSize7, Text_EndB]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
     {sildeView()}
     <View style={BoxText_Row}>
       <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart,]}>มือสองลดราคา</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Sub_DealTopic', setData: { selectedIndex: 3 }, })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal_ProductSale', })}>
         <Text style={[FontFamilyBold, FontSize7, Text_EndB]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>
@@ -377,7 +377,7 @@ export const ProDed_Stores = (props) => {
     {/* <View style={[stylesMain.FrameBackground, { backgroundColor: '#691f50', width: '100%' }]}> */}
     <View style={BoxText_Row}>
       <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart, { color: '#FFFFFF', marginTop: 10, }]}>ร้านนี้มีดีล</Text>
-      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Sub_DealTopic', setData: { selectedIndex: 4, }, })}>
+      <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal_Store', })}>
         <Text style={[FontFamilyBold, FontSize7, Text_EndW]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>

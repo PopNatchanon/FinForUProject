@@ -47,30 +47,23 @@ function Topic(props) {
   }, [activeGetSource]);
   let pathList = () => {
     switch (selectedIndex) {
-      case 0:
+      case 0: // แก้ไขโปรไฟล์ เข้าจาก หน้า Setting ของ Profile // Customer_Setting_Edit_Profile
         return <Edit_Profile {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
-      // แก้ไขโปรไฟล์ เข้าจาก หน้า Setting ของ Profile
-      case 1:
+      case 1: // แก้ไขที่อยู่ เข้าจาก หน้า Setting ของ Profile // Customer_Setting_Edit_Address
         return <Edit_Address {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
-      // แก้ไขที่อยู่ เข้าจาก หน้า Setting ของ Profile
-      case 2:
+      case 2: // แก้ไขแชท เข้าจาก หน้า Setting ของ Profile // Customer_Setting_Edit_Chat
         return <Edit_Chat {...props} />;
-      // แก้ไขแชท เข้าจาก หน้า Setting ของ Profile
-      case 3:
+      case 3: // แก้ไขแการแจ้งเตือน เข้าจากหน้า Setting ของ Profile // Customer_Setting_Edit_Notification
         return <Edit_Bell {...props} />;
-      // แก้ไขแการแจ้งเตือน เข้าจากหน้า Setting ของ Profile
-      case 4:
+      case 4: // แก้ไขภาษา เข้าจากหน้า Setting ของ Profile // Customer_Setting_Edit_Language
         return <Language_Screen {...props} />;
-      // แก้ไขภาษา เข้าจากหน้า Setting ของ Profile
-      case 5:
+      case 5: // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือน // Customer_Setting_Edit_Notification_Alert
         return <Edit_Setting_Bell {...props} />;
-      // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือน
-      case 6:
+      case 6: // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือนทาง E-mail // Customer_Setting_Edit_Notification_Email
         return <Edit_Setting_Email {...props} />;
-      // แก้ไขแการแจ้งเตือน เข้าจากหน้า แก้ไขแการแจ้งเตือนทาง E-mail
-      case 7:
+      case 7: // แก้ไขรหัสผ่าน เข้าจากหน้า Setting ของ Profile // Customer_Setting_Edit_Pass
         return <Edit_Pass {...props} activeGetSource={activeGetSource} cokie={cokie} currentUser={currentUser} />;
-      // แก้ไขรหัสผ่าน เข้าจากหน้า Setting ของ Profile
+
     };
   };
   return <SafeAreaView style={[stylesMain.SafeAreaView]}>
@@ -344,7 +337,7 @@ export let Edit_Profile = (props) => {
             <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfileTopic.SettingIcon} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 7 }, })}>
+        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Pass', navigation, })}>
           <View style={stylesProfileTopic.BoxTopic}>
             <View style={stylesMain.FlexRow}>
               <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>เปลี่ยนรหัสผ่าน</Text>
@@ -532,7 +525,7 @@ export let Edit_Chat = (props) => {
 export let Edit_Bell = (props) => <SafeAreaView>
   <AppBar {...props} backArrow titleHead='ตั้งค่าการแจ้งเตือน' />
   <TouchableOpacity onPress={() =>
-    NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation: props.navigation, setData: { selectedIndex: 5 }, })}>
+    NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Notification_Alert', navigation: props.navigation, })}>
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={stylesMain.FlexRow}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือน</Text>
@@ -541,7 +534,7 @@ export let Edit_Bell = (props) => <SafeAreaView>
     </View>
   </TouchableOpacity>
   <TouchableOpacity onPress={() =>
-    NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation: props.navigation, setData: { selectedIndex: 6 }, })}>
+    NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Notification_Email', navigation: props.navigation, })}>
     <View style={stylesProfileTopic.BoxTopic}>
       <View style={stylesMain.FlexRow}>
         <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>การแจ้งเตือนทาง E-mail</Text>

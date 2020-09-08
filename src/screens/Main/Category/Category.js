@@ -19,7 +19,7 @@ import stylesFont from '../../../style/stylesFont';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { BannerBar_TWO, ExitAppModule, TodayProduct, } from '../Main';
 import { Button_Bar, } from '../Exclusive/Exclusive';
-import { Slide } from '../../Promotion/Deal'
+import { Slide } from '../../Promotion/Deal/Deal'
 import { GetServices, ProductBox, SlideTab2, LoadingScreen, FlatProduct, } from '../../../customComponents/Tools';
 import { NavigationNavigate, AppBar, GenArray } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

@@ -214,7 +214,7 @@ export let StoreCard = (props) => {
                 </View>
                 <View style={[{ width: 70, height: 25, backgroundColor: mainColor, borderRadius: 6, marginHorizontal: 2 }]}>
                     <TouchableOpacity style={[stylesMain.ItemCenter, { width: '100%', height: '100%' }]} onPress={() =>
-                        NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
                         <Text style={[stylesMain.ItemCenterVertical, stylesFont.FontSize7, { color: '#fff' }]}>พูดคุย</Text>
                     </TouchableOpacity>
                 </View>

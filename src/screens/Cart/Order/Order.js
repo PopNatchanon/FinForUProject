@@ -113,8 +113,8 @@ export let Account = (props) => {
                 </View>
             </View>
             <TouchableOpacity onPress={() => NavigationNavigate({
-                goScreen: 'Customer_Setting_Topic', setData: {
-                    selectedIndex: 1, type: 'select', updateData: value => getData(value), no_invoice: data.no_invoice
+                goScreen: 'Customer_Setting_Edit_Address', setData: {
+                    type: 'select', updateData: value => getData(value), no_invoice: data.no_invoice
                 }, navigation
             })}>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} style={stylesMain.ItemCenterVertical} />
@@ -381,9 +381,8 @@ export let Option_payment = (props) => {
                     </View>
                 </View>
                 <TouchableOpacity onPress={() => NavigationNavigate({
-                    goScreen: 'Customer_Setting_Topic', setData: {
-                        selectedIndex: 1, type: 'select', type_special: 'tax', updateData: value => getDatas(value),
-                        no_invoice: data.no_invoice
+                    goScreen: 'Customer_Setting_Edit_Address', setData: {
+                        type: 'select', type_special: 'tax', updateData: value => getDatas(value), no_invoice: data.no_invoice
                     }, navigation
                 })}>
                     <IconEntypo name='chevron-right' size={35} style={stylesMain.ItemCenterVertical} />

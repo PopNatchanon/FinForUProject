@@ -228,7 +228,7 @@ export let StoreHead = (props) => {
                             <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ติดตาม</Text>
                         </View>
                         <TouchableOpacity onPress={() =>
-                            NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                            NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
                             <View style={stylesStore.StoreHeadButtom}>
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>แชท</Text>
                             </View>
@@ -302,7 +302,7 @@ export let StoreHeadDetails = (props) => {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                         colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#ffbf00', borderWidth: 1 }]}>

@@ -16,7 +16,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule } from '../Main/MainScreen';
+import { ExitAppModule } from '../Main/Main';
 import { TabBar } from '../../customComponents/Tools';
 import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

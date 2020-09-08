@@ -16,7 +16,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from '../Main/Main';
-import { Button_Bar, Slide } from './Deal';
+import { Button_Bar, Slide } from './Deal/Deal';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

@@ -236,7 +236,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 5 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Customer_Topic_Help', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />

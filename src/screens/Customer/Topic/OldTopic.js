@@ -64,42 +64,42 @@ function Topic(props) {
     }, [activeGetServices && !activeGetSource && cokie && currentUser && selectedIndex]);
     let PathList = () => {
         switch (selectedIndex) {
-            case 0:
+            case 0: // Customer_Topic_Latest
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='ดูล่าสุด' />
                     <LatestScreen {...props} />
                 </SafeAreaView>;
-            case 1:
+            case 1: // Customer_Topic_Chat
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='แชท' />
                     <ChatScreen {...props} />
                 </SafeAreaView>;
-            case 2:
+            case 2: // Customer_Topic_Interested
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='สิ่งที่สนใจ' />
                     {dataSevice && <InterestedScreen {...props} dataSevice={dataSevice.product} />}
                 </SafeAreaView>;
-            case 3:
+            case 3: // Customer_Topic_FollowStore
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='ร้านที่ติดตาม' />
                     {dataSevice && <Follow_storeScreen {...props} cokie={cokie} currentUser={currentUser} dataSevice={dataSevice} />}
                 </SafeAreaView>;
-            case 4:
+            case 4: // Customer_Topic_Review
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='รีวิวของฉัน' />
                     {dataSevice && <Review_meScreen {...props} dataSevice={dataSevice.my_review} />}
                 </SafeAreaView>;
-            case 5:
+            case 5: // Customer_Topic_Help
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <Help_meScreen {...props} />
                 </SafeAreaView>;
-            case 6:
+            case 6: // Customer_Topic_Chat_Cutomer
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppbarChat {...props} Title='Supreme Store' />
                     <Chat_Cutomer />
                 </SafeAreaView>;
-            case 7:
+            case 7: // Customer_Topic_Review_Froms
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='รีวิวของฉัน' />
                     <ScrollView>
@@ -107,14 +107,14 @@ function Topic(props) {
                             dataSevice={value} key={index} />)}
                     </ScrollView>
                 </SafeAreaView>;
-            case 8:
+            case 8: // Customer_Topic_Help_Account
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <ScrollView>
                         <Account_Help {...props} />
                     </ScrollView>
                 </SafeAreaView>;
-            case 9:
+            case 9: // Customer_Topic_Help_Detail
                 return <SafeAreaView style={stylesMain.SafeAreaView}>
                     <AppBar {...props} backArrow titleHead='Fin Helpcenter' />
                     <Topic_DetailHelp {...props} />
@@ -160,7 +160,7 @@ export let ChatScreen = (props) => {
     ]
     let ChatBox = ChatData.map((value, index) =>
         <TouchableOpacity key={index} onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Topic', navigation: props.navigation, setData: { selectedIndex: 6 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Topic_Chat_Cutomer', navigation: props.navigation, })}>
             <View style={stylesProfileTopic.Chat_Tag}>
                 <View style={stylesMain.FlexRow}>
                     <View style={stylesMain.ItemCenterVertical}>
@@ -495,7 +495,7 @@ export let Review_me = (props) => {
                     {StarReview(dataSevice.rating, 20)}
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { id_cartdetail: dataSevice.id_cartdetail, selectedIndex: 7, },
+                    goScreen: 'Customer_Topic_Review_Froms', navigation, setData: { id_cartdetail: dataSevice.id_cartdetail, },
                 })}>
                     <View style={stylesProfileTopic.Review_me_Box_head}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>
@@ -573,45 +573,45 @@ export let Topic_Help = (props) => {
         <View style={{ alignItems: 'center', justifyContent: 'center', paddingBottom: 10, }}>
             <TouchableOpacity onPress={() => HeadTitle_Help ? HeadTitle_Help == 'บัญชีของฉัน' ?
                 null : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, noPush: true, setData: { HeadTitle_Help: 'บัญชีของฉัน', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, noPush: true, setData: { HeadTitle_Help: 'บัญชีของฉัน', },
                 }) : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: 'บัญชีของฉัน', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, setData: { HeadTitle_Help: 'บัญชีของฉัน', },
                 })} style={stylesProfileTopic.Topic_Box}>
                 <IconAntDesign name="user" RightItem size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>บัญชีของฉัน</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การคืนสินค้า' ?
                 null : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, noPush: true, setData: { HeadTitle_Help: 'การคืนสินค้า', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, noPush: true, setData: { HeadTitle_Help: 'การคืนสินค้า', },
                 }) : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: 'การคืนสินค้า', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, setData: { HeadTitle_Help: 'การคืนสินค้า', },
                 })} style={stylesProfileTopic.Topic_Box}>
                 <IconAntDesign name="retweet" RightItem size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การคืนสินค้า</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การชำระเงิน' ?
                 null : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, noPush: true, setData: { HeadTitle_Help: 'การชำระเงิน', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, noPush: true, setData: { HeadTitle_Help: 'การชำระเงิน', },
                 }) : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: 'การชำระเงิน', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, setData: { HeadTitle_Help: 'การชำระเงิน', },
                 })} style={stylesProfileTopic.Topic_Box}>
                 <IconEntypo name="credit-card" RightItem size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การชำระเงิน</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => HeadTitle_Help ? HeadTitle_Help == 'การสั่งซื้อ' ?
                 null : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, noPush: true, setData: { HeadTitle_Help: 'การสั่งซื้อ', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, noPush: true, setData: { HeadTitle_Help: 'การสั่งซื้อ', },
                 }) : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: 'การสั่งซื้อ', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, setData: { HeadTitle_Help: 'การสั่งซื้อ', },
                 })} style={stylesProfileTopic.Topic_Box}>
                 <IconAntDesign name="shoppingcart" RightItem size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>การสั่งซื้อ</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => HeadTitle_Help ? HeadTitle_Help == 'หัวข้ออื่นๆ' ?
                 null : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, noPush: true, setData: { HeadTitle_Help: 'หัวข้ออื่นๆ', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, noPush: true, setData: { HeadTitle_Help: 'หัวข้ออื่นๆ', },
                 }) : NavigationNavigate({
-                    goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: 'หัวข้ออื่นๆ', selectedIndex: 8, },
+                    goScreen: 'Customer_Topic_Help_Account', navigation, setData: { HeadTitle_Help: 'หัวข้ออื่นๆ', },
                 })} style={stylesProfileTopic.Topic_Box}>
                 <IconAntDesign name="ellipsis1" RightItem size={30} style={stylesProfileTopic.Topic_Box_icon} />
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หัวข้ออื่นๆ</Text>
@@ -636,7 +636,7 @@ export let Account_Help = (props) => {
         </View>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { margin: 10 }]}>{HeadTitle_Help}</Text>
         <TouchableOpacity onPress={() => NavigationNavigate({
-            goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: HeadTitle_Help, selectedIndex: 9, },
+            goScreen: 'Customer_Topic_Help_Detail', navigation, setData: { HeadTitle_Help: HeadTitle_Help, },
         })}>
             <View style={stylesProfileTopic.Question_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>
@@ -644,7 +644,7 @@ export let Account_Help = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => NavigationNavigate({
-            goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: HeadTitle_Help, selectedIndex: 9, },
+            goScreen: 'Customer_Topic_Help_Detail', navigation, setData: { HeadTitle_Help: HeadTitle_Help, },
         })}>
             <View style={stylesProfileTopic.Question_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>
@@ -652,7 +652,7 @@ export let Account_Help = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => NavigationNavigate({
-            goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: HeadTitle_Help, selectedIndex: 9, },
+            goScreen: 'Customer_Topic_Help_Detail', navigation, setData: { HeadTitle_Help: HeadTitle_Help, },
         })}>
             <View style={stylesProfileTopic.Question_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>
@@ -660,7 +660,7 @@ export let Account_Help = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() => NavigationNavigate({
-            goScreen: 'Customer_Topic', navigation, setData: { HeadTitle_Help: HeadTitle_Help, selectedIndex: 9, },
+            goScreen: 'Customer_Topic_Help_Detail', navigation, setData: { HeadTitle_Help: HeadTitle_Help, },
         })}>
             <View style={stylesProfileTopic.Question_Box}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { marginLeft: 5 }]}>ทำไมฉันถึงลงชื่อเข้าใช้งานไม่ได้?</Text>

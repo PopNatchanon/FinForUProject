@@ -21,7 +21,7 @@ import { Button_Bar } from '../../Main/Highlight/Highlight';
 import { Store_Sale } from '../TheBestFin';
 import { GetCoupon, GetData, GetServices, ProductBox, FlatProduct } from '../../../customComponents/Tools';
 import { GenArray, AppBar } from '../../../customComponents';
-import { Slide } from '../Deal'
+import { Slide } from '../Deal/Deal'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main

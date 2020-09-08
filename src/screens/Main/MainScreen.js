@@ -135,10 +135,10 @@ function MainScreen(props) {
     }, { // ปุ่มเข้าดีล โปรโมชั่น
         nameComponent: 'Button_Bar',
         renderComponent: <Button_Bar {...props} />
-    }, { // สินค้าลดพิเศษ
+    },/* { // สินค้าลดพิเศษ
         nameComponent: 'FlashSale',
         renderComponent: <FlashSale {...props} />
-    }, /*//{
+    }, //{
     //     nameComponent: 'Fin_Service',
     //     renderComponent: <Fin_Service {...props} />
     // },*/ { // แบรน์แนะนำ
@@ -172,10 +172,10 @@ function MainScreen(props) {
     }, { // ฟินคัดมาเพื่อคุณ
         nameComponent: 'Product_for_you',
         renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
-    }, { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+    },/* { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-    }, { // สินค้า และร้านค้า มือสอง
+    }, */{ // สินค้า และร้านค้า มือสอง
         nameComponent: 'Second_product',
         renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 3
@@ -289,7 +289,7 @@ export const Guarantee = (props) => {
     const ImageGuaran2 = { uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, };
     const ImageGuaran3 = { uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, };
     const ImageGuaran4 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
-    const ImageGuaran5 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
+    const ImageGuaran5 = { uri: `${ip}/MySQL/uploads/Guarantee/258412.jpg`, };
     const item = [
         { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`, } },
         { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png`, } },
@@ -309,49 +309,18 @@ export const Guarantee = (props) => {
             </View>
         </View>
     };
-    return <>
-        <View style={[FRow, { aspectRatio: 4.5, justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5, width: '100%', }]}>
-            <View style={{ width: '54%', }}>
-                <FastImage resizeMode={cover} source={ImageGuaran1} style={[HW100p, { borderRadius: 5, }]} />
-            </View>
-            <View style={{ width: '45%', backgroundColor: '#FFFFFF', borderRadius: 5, alignItems: 'center' }}>
-                <View style={{ backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: width / 2 }}>
-                    <Text style={[FontFamilyBold, FontSize6, { color: '#FFFFFF' }]}>FIN Services</Text>
-                </View>
-                <View style={{ borderColor: mainColor, borderWidth: 2 }}>
-                    <FastImage resizeMode={cover} source={ImageGuaran5} style={{ height: 30, width: 100, }} />
-                </View>
-            </View>
-            {/* <View style={[FRow, { justifyContent: 'space-between', width: '44%', }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FeedsScreen', })} style={TOStyles}>
-                    <View style={{ height: '60%', width: width * 0.13, }}>
-                        <FastImage resizeMode={cover} source={ImageGuaran2} style={HW100p} />
-                    </View>
-                    <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
-                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF', }]}>ช้อปเลย</Text>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity style={TOStyles}>
-                    <View style={{ height: '60%', width: width * 0.13 }}>
-                        <FastImage resizeMode={cover} source={ImageGuaran3} style={HW100p} />
-                    </View>
-                    <View style={{ backgroundColor: mainColor, borderRadius: 8, marginTop: 10, paddingHorizontal: 10, }}>
-                        <Text style={[FontSize7, FontFamilyBold, { color: '#FFFFFF', }]}>ช้อปเลย</Text>
-                    </View>
-                </TouchableOpacity>
-            </View> */}
+    return <View style={[FRow, { aspectRatio: 4.5, justifyContent: 'space-between', paddingHorizontal: 5, marginTop: 5, width: '100%', }]}>
+        <View style={{ width: '54%', }}>
+            <FastImage resizeMode={cover} source={ImageGuaran1} style={[HW100p, { borderRadius: 5, }]} />
         </View>
-        {/* <View style={[FRow, {
-            aspectRatio: 8.5, backgroundColor: '#FFFFFF', borderRadius: 5, height: 'auto', marginTop: 5, paddingHorizontal: 5, width: '100%',
-        }]}>
-            <View style={[ItemCenter, { borderColor: '#ffbf00', borderRadius: 5, borderWidth: 1, width: '30%', }]}>
-                <FastImage resizeMode={cover} source={ImageGuaran4} style={[HW100p, { borderRadius: 4, }]} />
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService', })}
+            style={{ width: '45%', backgroundColor: '#FFFFFF', borderRadius: 5, }}>
+            <View style={[ItemCenter, { backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: width / 2 }]}>
+                <Text style={[FontFamilyBold, FontSize6, { color: '#FFFFFF' }]}>FIN Services</Text>
             </View>
-            <View style={{ justifyContent: 'center', width: '30%', }}>
-                <Carousel autoplay autoplayInterval={5000} data={item} renderItem={_renderItem} />
-            </View>
-        </View> */}
-    </>;
+            <FastImage resizeMode={cover} source={ImageGuaran5} style={{ height: 60, }} />
+        </TouchableOpacity>
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Category // Loading
 export const Category = (props) => {
@@ -440,10 +409,10 @@ export const Trend_Hit = (props) => {
         { text: 'มีบริการรับประกันการจัดส่ง', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-003.png` } },
         { text: 'ใบจดทะเบียนเครื่องหมายการค้า', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-005.png` } }];
     const _renderItem = (v, i) => {
-        return <View key={i} style={[FRow, { width: width * 0.430, justifyContent: 'space-around', alignItems: 'center', height: 27 }]}>
+        return <View key={i} style={[FRow, { width: width * 0.47, justifyContent: 'space-around' }]}>
             <FastImage resizeMode={cover} source={v.image} style={{ height: 20, width: 20, }} />
-            <Text style={[FontFamilyBold, FontSize8, { color: mainColor }]}>{v.text}</Text>
-            <IconAntDesign name='checkcircle' size={13} color='#009A16' />
+            <Text style={[FontFamilyText, FontSize7, { color: mainColor }]}>{v.text}</Text>
+            <IconAntDesign name='checkcircle' size={13} color='#009A16' style={{ top: 3 }} />
         </View>
     };
     return <>
@@ -463,7 +432,9 @@ export const Trend_Hit = (props) => {
                             <Text style={[FontSize5, FontFamilyBold, { color: '#FFFFFF' }]}>Fin</Text>
                         </View>
                     </View>
-                    <Carousel autoplay loop autoplayInterval={5000} data={item} renderItem={_renderItem} />
+                    <View style={{ height: 40, justifyContent: 'center' }}>
+                        <Carousel autoplay loop autoplayInterval={5000} data={item} renderItem={_renderItem} />
+                    </View>
                 </View>
             </View>
             {/* <Carousel autoplay autoplayInterval={4000} data={item} renderItem={_renderItem} /> */}

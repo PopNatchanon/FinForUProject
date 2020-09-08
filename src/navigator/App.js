@@ -15,6 +15,7 @@ import News from '../screens/News';
 import Profile from '../screens/Profile';
 import Promotion from '../screens/Promotion';
 import Seller from '../screens/Seller';
+import Services from '../screens/Services';
 import Store from '../screens/Store';
 ///----------------------------------------------------------------------------------------------->>>> Customs Screen
 import CustomsScreen from '../customComponents/indexScreen';
@@ -22,7 +23,7 @@ import CustomsScreen from '../customComponents/indexScreen';
 const Stack = createStackNavigator();
 const store = configureStore();
 const setScreen = [
-  ...Bell, ...Business, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Promotion, ...Seller, ...Store, ...CustomsScreen
+  ...Bell, ...Business, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Promotion, ...Seller, ...Services, ...Store, ...CustomsScreen
 ];
 ///----------------------------------------------------------------------------------------------->>>> s
 function App() {

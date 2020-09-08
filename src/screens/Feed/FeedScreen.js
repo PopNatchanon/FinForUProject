@@ -80,7 +80,7 @@ export function MenuBar(props) {
   const { sendText, } = props;
   const item = [
     { icon: <IconFontAwesome5 name='grin-hearts' size={20} />, name: <Text style={FontSize6}>กำลังติดตาม</Text>, },
-    { icon: <IconFontAwesome5 name='hotjar' size={20} />, name: <Text style={FontSize6}>ฮไลท์</Text>, }];
+    { icon: <IconFontAwesome5 name='hotjar' size={20} />, name: <Text style={FontSize6}>ไฮไลท์</Text>, }];
   const rigthItem = <IconFontAwesome name='navicon' size={25} style={{ color: '#FFFF', }} />;
   return <View>
     <BorderBottomTab data={item} fontStyle={[FontFamilySemiBold, FontSize6]} sendDataOut={(v) => sendText(v)} rightIcon={rigthItem} />

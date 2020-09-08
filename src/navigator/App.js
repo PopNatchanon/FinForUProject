@@ -23,7 +23,7 @@ import CustomsScreen from '../customComponents/indexScreen';
 const Stack = createStackNavigator();
 const store = configureStore();
 const setScreen = [
-  ...Bell, ...Business, ...Cart, ...Customer, ...Detail, ...Feed, ...Main, ...News, ...Promotion, ...Seller, ...Store, ...CustomsScreen
+  ...Bell, ...Business, ...Cart, ...Customer, ...Detail, ...Feed, ...Main, ...News, ...Promotion, ...Seller, ...Store, ...CustomsScreen, ...Services
 ];
 ///----------------------------------------------------------------------------------------------->>>> s
 function App() {

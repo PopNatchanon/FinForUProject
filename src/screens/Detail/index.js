@@ -2,12 +2,18 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import DetailScreen from './DetailScreen';
+import Detail from './Detail';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import Reviews_score from './Reviews/Reviews_score';
-import Same_StoreScreen from './SameStore/Same_StoreScreen';
+import Detail_Reviews from './Reviews/Reviews';
+import Detail_SameStore from './SameStore/SameStore';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: DetailScreen, name: 'DetailScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Reviews_score, name: 'Reviews_score', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Same_StoreScreen, name: 'Same_StoreScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
+    component: Detail, name: 'Detail',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: Detail_Reviews, name: 'Detail_Reviews',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Detail_SameStore, name: 'Detail_SameStore',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

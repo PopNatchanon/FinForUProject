@@ -1,22 +1,34 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import CampaignScreen from './CampaignScreen';
-import CoinScreen from './CoinScreen';
-import DealScreen from './DealScreen';
-import Installment_payScreen from './Installment_payScreen';
-import The_BestFinScreen from './The_BestFinScreen';
+import Promotion_Campaign from './Campaign';
+import Promotion_Coin from './Coin';
+import Promotion_Deal from './Deal';
+import Promotion_InstallmentPay from './InstallmentPay';
+import Promotion_TheBestFin from './TheBestFin';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import Deal_Topic from './DealTopic/Deal_Topic';
-import Detail_Campaign from './DetailCampaign/Detail_Campaign';
+import Promotion_Sub_DealTopic from './DealTopic/DealTopic';
+import Promotion_Sub_DetailCampaign from './DetailCampaign/DetailCampaign';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: CampaignScreen, name: 'CampaignScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: CoinScreen, name: 'CoinScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: DealScreen, name: 'DealScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }, {
-        component: Installment_payScreen, name: 'Installment_payScreen',
-        options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, {
-        component: The_BestFinScreen, name: 'The_BestFinScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, { component: Deal_Topic, name: 'Deal_Topic', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Detail_Campaign, name: 'Detail_Campaign', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///----------------------------------------------------------------------------------->>>> Main Screen
+    component: Promotion_Campaign, name: 'Promotion_Campaign',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Promotion_Coin, name: 'Promotion_Coin',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Promotion_Deal, name: 'Promotion_Deal',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Promotion_InstallmentPay, name: 'Promotion_InstallmentPay',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Promotion_TheBestFin, name: 'Promotion_TheBestFin',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: Promotion_Sub_DealTopic, name: 'Promotion_Sub_DealTopic',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Promotion_Sub_DetailCampaign, name: 'Promotion_Sub_DetailCampaign',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

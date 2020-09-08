@@ -1,10 +1,22 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import BellScreen from './BellScreen';
-///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import Detail_Pro from './DetailPro/Detail_Pro';
+import Bell from './Bell';
+///----------------------------------------------------------------------------------------------->>>> Sub DetailPro
+import Bell_Detail_Order from './Detail/Order/Order';
+import Bell_Detail_ProductCheck from './Detail/ProductCheck/ProductCheck';
+import Bell_Detail_Promotion from './Detail/Promotion/Promotion';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: BellScreen, name: 'BellScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } },
-    { component: Detail_Pro, name: 'Detail_Pro', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
+    component: Bell, name: 'Bell',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub DetailPro
+    component: Bell_Detail_Order, name: 'Bell_Detail_Order',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Bell_Detail_ProductCheck, name: 'Bell_Detail_ProductCheck',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Bell_Detail_Promotion, name: 'Bell_Detail_Promotion',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

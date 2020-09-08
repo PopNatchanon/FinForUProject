@@ -1,10 +1,14 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import News_Detail from './NewsDetail/News_Detail';
+import News from './News';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import NewsScreen from './NewsScreen';
+import News_Detail from './Detail/Detail';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: NewsScreen, name: 'NewsScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } },
-    { component: News_Detail, name: 'News_Detail', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
+    component: News, name: 'News',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: News_Detail, name: 'News_Detail',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

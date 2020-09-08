@@ -1,34 +1,64 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import CategoryScreen from './Category/CategoryScreen';
+import Main from './Main';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import ExclusiveScreen from './Exclusive/ExclusiveScreen';
-import FinMallScreen from './Fin/FinMallScreen';
-import FINSupermarket from './Fin/FINSupermarket';
-import FlashSaleScreen from './FlashSale/FlashSaleScreen';
-import HighlightScreen from './Highlight/HighlightScreen';
-import MainScreen from './MainScreen';
-import Popular_productScreen from './PopularProduct/Popular_productScreen';
-import Product_for_youScreen from './ProductForYou/Product_for_youScreen';
-import Recommend_Brand from './RecommendBrand/Recommend_Brand';
-import Recommend_Store from './RecommendStore/Recommend_Store';
-import SearchScreen from './Search/SearchScreen';
-import SecondScreen from './Second/SecondScreen';
+import Main_Category from './Category/Category';
+import Main_Exclusive from './Exclusive/Exclusive';
+import Main_FlashSale from './FlashSale/FlashSale';
+import Main_Highlight from './Highlight/Highlight';
+import Main_PopularProduct from './PopularProduct/PopularProduct';
+import Main_ProductForYou from './ProductForYou/ProductForYou';
+import Main_RecommendBrand from './RecommendBrand/RecommendBrand';
+import Main_RecommendStore from './RecommendStore/RecommendStore';
+import Main_Search from './Search/Search';
+///----------------------------------------------------------------------------------------------->>>> Sub Fin
+import Main_Fin_Mall from './Fin/Mall';
+import Main_Fin_Supermarket from './Fin/Supermarket';
+///----------------------------------------------------------------------------------------------->>>> Sub Second
+import Main_Second_Product from './Second/Product/Product';
+import Main_Second_Store from './Second/Store/Store';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: CategoryScreen, name: 'CategoryScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: ExclusiveScreen, name: 'ExclusiveScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: FinMallScreen, name: 'FinMallScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: FINSupermarket, name: 'FINSupermarket', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: FlashSaleScreen, name: 'FlashSaleScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: HighlightScreen, name: 'HighlightScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }, {
-        component: Popular_productScreen, name: 'Popular_productScreen',
-        options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, { component: MainScreen, name: 'MainScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid } }, {
-        component: Product_for_youScreen, name: 'Product_for_youScreen',
-        options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, { component: Recommend_Brand, name: 'Recommend_Brand', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Recommend_Store, name: 'Recommend_Store', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: SearchScreen, name: 'SearchScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: SecondScreen, name: 'SecondScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///----------------------------------------------------------------------------------------------->>>> Main Screen
+    component: Main, name: 'Main',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forFadeFromBottomAndroid }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: Main_Category, name: 'Main_Category',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_Exclusive, name: 'Main_Exclusive',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_FlashSale, name: 'Main_FlashSale',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_Highlight, name: 'Main_Highlight',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_PopularProduct, name: 'Main_PopularProduct',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_ProductForYou, name: 'Main_ProductForYou',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_RecommendBrand, name: 'Main_RecommendBrand',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_RecommendStore, name: 'Main_RecommendStore',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_Search, name: 'Main_Search',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Fin
+    component: Main_Fin_Mall, name: 'Main_Fin_Mall',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_Fin_Supermarket, name: 'Main_Fin_Supermarket',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Second
+    component: Main_Second_Product, name: 'Main_Second_Product',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Main_Second_Store, name: 'Main_Second_Store',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

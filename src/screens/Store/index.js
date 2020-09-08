@@ -1,10 +1,14 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import StoreScreen from './StoreScreen';
+import Store from './Store';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import Post_Feed from './PostFeed/Post_Feed';
+import Store_PostFeed from './PostFeed/PostFeed';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: StoreScreen, name: 'StoreScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Post_Feed, name: 'Post_Feed', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
+    component: Store, name: 'Store',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: Store_PostFeed, name: 'Store_PostFeed',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

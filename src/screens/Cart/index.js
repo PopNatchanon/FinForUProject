@@ -1,15 +1,22 @@
 ///----------------------------------------------------------------------------------------------->>>> 
 import { CardStyleInterpolators, } from '@react-navigation/stack';
 ///----------------------------------------------------------------------------------------------->>>> Main Screen
-import CartScreen from './CartScreen';
+import Cart from './Cart';
 ///----------------------------------------------------------------------------------------------->>>> Sub Screen
-import Customer_account from './CustomerAccount/Customer_account';
-import Customer_Complete_Order from './CustomerCompleteOrder/Customer_Complete_Order';
-import Customer_Order from './CustomerOrder/Customer_Order';
+import Cart_Account from './Account/Account';
+import Cart_CompleteOrder from './CompleteOrder/CompleteOrder';
+import Cart_Order from './Order/Order';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [
-    { component: CartScreen, name: 'CartScreen', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
-    { component: Customer_account, name: 'Customer_account', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }, {
-        component: Customer_Complete_Order, name: 'Customer_Complete_Order',
-        options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-    }, { component: Customer_Order, name: 'Customer_Order', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } }];
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
+    component: Cart, name: 'Cart',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
+    component: Cart_Account, name: 'Cart_Account',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Cart_CompleteOrder, name: 'Cart_CompleteOrder',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}, {
+    component: Cart_Order, name: 'Cart_Order',
+    options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
+}];

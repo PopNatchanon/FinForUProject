@@ -41,47 +41,47 @@ function Toolbar(props) {
     </LinearTextGradient>;
     var routeSelcet = route.name;
     return <View style={stylesMain.Toolbar}>
-        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'MainScreen' ?
-            NavigationNavigate({ goScreen: 'MainScreen', navigation, noPush: true }) : null}>
+        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Main' ?
+            NavigationNavigate({ goScreen: 'Main', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                {genText(routeSelcet, 'MainScreen', <IconAntDesign name="home" size={25} />)}
-                {genText(routeSelcet, 'MainScreen', <Text>Home</Text>)}
+                {genText(routeSelcet, 'Main', <IconAntDesign name="home" size={25} />)}
+                {genText(routeSelcet, 'Main', <Text>Home</Text>)}
             </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'FeedScreen' ?
-            NavigationNavigate({ goScreen: 'FeedScreen', navigation, noPush: true }) : null}>
+        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Feed' ?
+            NavigationNavigate({ goScreen: 'Feed', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                {genText(routeSelcet, 'FeedScreen', <IconAntDesign name="tagso" size={25} />)}
-                {genText(routeSelcet, 'FeedScreen', <Text>Feed</Text>)}
+                {genText(routeSelcet, 'Feed', <IconAntDesign name="tagso" size={25} />)}
+                {genText(routeSelcet, 'Feed', <Text>Feed</Text>)}
             </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'NewsScreen' ?
-            NavigationNavigate({ goScreen: 'NewsScreen', navigation, noPush: true }) : null}>
+        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'News' ?
+            NavigationNavigate({ goScreen: 'News', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                {genText(routeSelcet, 'NewsScreen', <IconAntDesign name="notification" size={25} />)}
-                {genText(routeSelcet, 'NewsScreen', <Text>News</Text>)}
+                {genText(routeSelcet, 'News', <IconAntDesign name="notification" size={25} />)}
+                {genText(routeSelcet, 'News', <Text>News</Text>)}
             </View>
         </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'BellScreen' ?
-            NavigationNavigate({ goScreen: 'BellScreen', navigation, noPush: true }) : null}>
+        <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Bell' ?
+            NavigationNavigate({ goScreen: 'Bell', navigation, noPush: true }) : null}>
             <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                {genText(routeSelcet, 'BellScreen', <IconAntDesign name="bells" size={25} />)}
-                {genText(routeSelcet, 'BellScreen', <Text>เตือน</Text>)}
+                {genText(routeSelcet, 'Bell', <IconAntDesign name="bells" size={25} />)}
+                {genText(routeSelcet, 'Bell', <Text>เตือน</Text>)}
             </View>
         </TouchableOpacity>
         {currentUser == null ?
-            <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'LoginScreen' ?
-                NavigationNavigate({ goScreen: 'LoginScreen', navigation, noPush: true }) : null}>
+            <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Customer_Login' ?
+                NavigationNavigate({ goScreen: 'Customer_Login', navigation, noPush: true }) : null}>
                 <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                    {genText(routeSelcet, 'LoginScreen', <IconAntDesign name="user" size={25} />)}
-                    {genText(routeSelcet, 'LoginScreen', <Text>ฉัน</Text>)}
+                    {genText(routeSelcet, 'Customer_Login', <IconAntDesign name="user" size={25} />)}
+                    {genText(routeSelcet, 'Customer_Login', <Text>ฉัน</Text>)}
                 </View>
             </TouchableOpacity> :
-            <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'ProfileScreen' ?
-                NavigationNavigate({ goScreen: 'ProfileScreen', navigation, noPush: true }) : null}>
+            <TouchableOpacity activeOpacity={1} onPress={() => routeSelcet != 'Customer_Profile' ?
+                NavigationNavigate({ goScreen: 'Customer_Profile', navigation, noPush: true }) : null}>
                 <View style={{ alignItems: 'center', width: width * (1 / 5) }}>
-                    {genText(routeSelcet, 'ProfileScreen', <IconAntDesign name="user" size={25} />)}
-                    {genText(routeSelcet, 'ProfileScreen', <Text>ฉัน</Text>)}
+                    {genText(routeSelcet, 'Customer_Profile', <IconAntDesign name="user" size={25} />)}
+                    {genText(routeSelcet, 'Customer_Profile', <Text>ฉัน</Text>)}
                 </View>
             </TouchableOpacity>}
     </View>;

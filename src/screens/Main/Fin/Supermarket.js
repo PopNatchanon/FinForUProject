@@ -18,11 +18,11 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
-import { Slide, } from '../../Promotion/DealScreen';
+import { TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
+import { Slide, } from '../../Promotion/Deal';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
-import { Might_like_Store } from '../../Profile/ProfileTopic/Profile_Topic';
+import { Might_like_Store } from '../../Customer/Topic/Topic';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
 import { NavigationNavigate, AppBar } from '../../../customComponents';

@@ -86,7 +86,7 @@ function Order(props) {
         <AppBar {...props} backArrow titleHead='สั่งซื้อสินค้า' />
         <ScrollView>
             <Account {...props} dataService={dataService ?? undefined} getData={value => getData2(value)} />
-            {dataService?.list_cart?.map((value, index) => <Order dataService={value} key={index} />)}
+            {dataService?.list_cart?.map((value, index) => <Orders dataService={value} key={index} />)}
             <Option_payment {...props} dataService={dataService ?? undefined} />
         </ScrollView>
         <Bar_payment {...props} currentUser={currentUser} dataService={dataService ?? undefined} no_invoice={no_invoice} />
@@ -123,7 +123,7 @@ export let Account = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Main
-export let Order = (props) => {
+export let Orders = (props) => {
     const { dataService } = props;
     const dataMySQL = `${finip}/${dataService.image_path}/${dataService.image_product}`;
     return <View>

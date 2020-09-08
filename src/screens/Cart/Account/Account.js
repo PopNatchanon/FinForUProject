@@ -95,7 +95,7 @@ function Account(props) {
     return <SafeAreaView style={{ backgroundColor: '#E9E9E9', flex: 1, }}>
         <Appbar {...props} type={type} />
         <ScrollView>
-            <Account currentUser={this.state.currentUser} dataService={dataService3?.list_address} getData={value => getData(value)}
+            <Accounts currentUser={this.state.currentUser} dataService={dataService3?.list_address} getData={value => getData(value)}
                 key='Accountlist_address' type_special={type_special} />
             <Account_main dataService={dataService3?.list_address} getData={value => getData(value)} key='Account_main' />
         </ScrollView>
@@ -122,7 +122,7 @@ export let Appbar = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Account
-export let Account = (props) => {
+export let Accounts = (props) => {
     const { currentUser, dataService, getData, type_special } = props;
     const [activeData, setActiveData] = useState(true);
     const [activeServices, setActiveServices] = useState(true);

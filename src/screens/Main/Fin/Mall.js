@@ -19,13 +19,13 @@ import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
-import { Slide, } from '../../Promotion/DealScreen';
+import { Slide, } from '../../Promotion/Deal';
 import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
-import { Might_like_Store } from '../../Profile/ProfileTopic/Profile_Topic';
+import { Might_like_Store } from '../../Customer/Topic/Topic';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
   customerData: state.customerData, getFetchData: state.singleFetchDataFromService,

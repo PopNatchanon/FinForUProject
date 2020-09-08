@@ -20,7 +20,7 @@ import { Second_Store, Second_Product_Brand } from '../Product/Product';
 import { BannerBar_ONE, ExitAppModule, TodayProduct, } from '../../Main';
 import { Button_Bar, } from '../../Exclusive/Exclusive';
 import { GetServices, ProductBox, SlideTab2, FlatProduct, } from '../../../../customComponents/Tools';
-import { Slide, } from '../../../Promotion/DealScreen';
+import { Slide, } from '../../../Promotion/Deal';
 import { Store_Detail, } from '../../RecommendStore/RecommendStore';
 import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip

@@ -7,7 +7,6 @@ import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import { Address_Customar } from '../../../Profile/Setting/SettingTopic/Setting_Topic';
 import ImagePicker from 'react-native-image-crop-picker';
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
@@ -27,6 +26,7 @@ import stylesSeller from '../../../../style/styleSeller-src/styleSellerScreen';
 import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { GetServices } from '../../../../customComponents/Tools';
+import { Address_Customar } from '../../../Customer/Setting/Topic/Topic';
 import { NavigationNavigate, AppBar } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
 import { finip } from '../../../../navigator/IpConfig';

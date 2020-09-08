@@ -8,11 +8,11 @@ import { Provider, } from 'react-redux';
 import Bell from '../screens/Bell';
 import Business from '../screens/Business';
 import Cart from '../screens/Cart';
+import Customer from '../screens/Customer';
 import Detail from '../screens/Detail';
 import Feed from '../screens/Feed';
 import Main from '../screens/Main';
 import News from '../screens/News';
-import Profile from '../screens/Profile';
 import Promotion from '../screens/Promotion';
 import Seller from '../screens/Seller';
 import Store from '../screens/Store';
@@ -22,7 +22,7 @@ import CustomsScreen from '../customComponents/indexScreen';
 const Stack = createStackNavigator();
 const store = configureStore();
 const setScreen = [
-  ...Bell, ...Business, ...Cart, ...Detail, ...Feed, ...Main, ...News, ...Profile, ...Promotion, ...Seller, ...Store, ...CustomsScreen
+  ...Bell, ...Business, ...Cart, ...Customer, ...Detail, ...Feed, ...Main, ...News, ...Promotion, ...Seller, ...Store, ...CustomsScreen
 ];
 ///----------------------------------------------------------------------------------------------->>>> s
 function App() {

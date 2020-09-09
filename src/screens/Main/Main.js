@@ -138,10 +138,10 @@ function Main(props) {
     },/* { // สินค้าลดพิเศษ
         nameComponent: 'FlashSale',
         renderComponent: <FlashSale {...props} />
-    }, //{
-    //     nameComponent: 'Fin_Service',
-    //     renderComponent: <Fin_Service {...props} />
-    // },*/ { // แบรน์แนะนำ
+    }, {
+        nameComponent: 'Fin_Service',
+        renderComponent: <Fin_Service {...props} />
+    },*/ { // แบรน์แนะนำ
         nameComponent: 'Main_RecommendBrand',
         renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 2
@@ -175,7 +175,7 @@ function Main(props) {
     },/* { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-    }, */{ // สินค้า และร้านค้า มือสอง
+    },*/{ // สินค้า และร้านค้า มือสอง
         nameComponent: 'Second_product',
         renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 3

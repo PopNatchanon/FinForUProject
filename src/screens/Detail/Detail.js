@@ -841,7 +841,7 @@ export let Buy_bar = (props) => {
   let dataServicesTab = dataService?.product_data?.map((item, index) => <View style={stylesDetail.Buy_bar} key={index}>
     <View style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical]}>
       <TouchableOpacity activeOpacity={1} onPress={() => currentUser ?
-        NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation }) :
+        NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation }) :
         NavigationNavigate({ goScreen: 'Customer_Login', navigation, passHome: true })}>
         <IconAntDesign name='message1' size={22} style={[stylesMain.ItemCenterVertical]} />
         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, stylesFont.FontCenter, stylesMain.ItemCenterVertical]}>แชท</Text>

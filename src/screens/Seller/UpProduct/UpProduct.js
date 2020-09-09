@@ -468,8 +468,8 @@ export let Seller_Up_ProductDetail = (props) => {
       <TouchableOpacity activeOpacity={1} onPress={() => {
         SelectSheetRef.current.close();
         NavigationNavigate({
-          goScreen: 'Seller_Topic', setData: {
-            selectedIndex: 14, optionName: valueName, optionValue: valueNumber, optionName2: valueName2, optionValue2: valueNumber2
+          goScreen: 'Seller_UpProduct_Forms', setData: {
+            optionName: valueName, optionValue: valueNumber, optionName2: valueName2, optionValue2: valueNumber2
           }, navigation
         });
       }}>

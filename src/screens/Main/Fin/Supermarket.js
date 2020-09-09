@@ -19,10 +19,10 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
-import { Slide, } from '../../Promotion/Deal';
+import { Slide, } from '../../Promotion/Deal/Deal';
 import { GetServices, TabBar, ProductBox, SlideTab2, FlatProduct, } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
-import { Might_like_Store } from '../../Customer/Topic/Topic';
+import { Might_like_Store } from '../../Customer/Topic/FollowStore/FollowStore';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
 import { NavigationNavigate, AppBar } from '../../../customComponents';
@@ -68,7 +68,7 @@ export let FinMall_Product = (props) => {
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Fin Mall</Text>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigate({ goScreen: 'Main_Fin_Mall', setData: { selectedIndex: 1 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Main_Fin_Mall', navigation })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>

@@ -194,8 +194,8 @@ function Store(props) {
         </ScrollView>
         {selectedIndex == 2 && <>
             <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigate({
-                goScreen: 'Store_PostFeed', setData: {
-                    selectedIndex: 1, id_store, store_data: dataService.store_data, getDataSource: (value) => setActiveRef(value)
+                goScreen: 'Feed_Create', setData: {
+                    id_store, store_data: dataService.store_data, getDataSource: (value) => setActiveRef(value)
                 }, navigation
             })}></ActionButton>
         </>}
@@ -228,7 +228,7 @@ export let StoreHead = (props) => {
                             <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>ติดตาม</Text>
                         </View>
                         <TouchableOpacity onPress={() =>
-                            NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                            NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
                             <View style={stylesStore.StoreHeadButtom}>
                                 <Text style={[stylesStore.StoreHeadButtomText, stylesFont.FontFamilyText, stylesFont.FontSize7]}>แชท</Text>
                             </View>
@@ -260,20 +260,12 @@ export let StoreHeadDetails = (props) => {
                     { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
                 {!activeGetServices ?
                     <View style={stylesMain.FlexRow}>
-                        <TouchableOpacity onPress={() => NavigationNavigate({
-                            goScreen: 'Store_PostFeed', setData: {
-                                selectedIndex: 26,
-                            }, navigation
-                        })}>
+                        <TouchableOpacity onPress={() => NavigationNavigate({ goScreen: 'Store_Followers', navigation })}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#10162d' }]}>
                                 ผู้ติดตาม {dataService && dataService[0]?.who_follow} </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
-                            onPress={() => NavigationNavigate({
-                                goScreen: 'Store_PostFeed', setData: {
-                                    selectedIndex: 27,
-                                }, navigation
-                            })}>
+                            onPress={() => NavigationNavigate({ goScreen: 'Store_Following', navigation })}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#10162d', marginLeft: 5 }]}>
                                 กำลังติดตาม {dataService && dataService[0]?.follow_number}</Text>
                         </TouchableOpacity>
@@ -302,7 +294,7 @@ export let StoreHeadDetails = (props) => {
                     </View>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }}
                         colors={['#10162d', '#284d8f']} style={[stylesStore.StoreHeadButtom, { borderColor: '#ffbf00', borderWidth: 1 }]}>
@@ -350,7 +342,7 @@ export let StoreHeadDetails = (props) => {
                         {dataService && dataService[0]?.chat_performance}</Text> : <></>}
             </View>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Store_PostFeed', setData: { selectedIndex: 0, id_store }, navigation })}>
+                NavigationNavigate({ goScreen: 'Store_Scores', navigation })}>
                 <IconEntypo name='chevron-right' size={25} color={mainColor} />
             </TouchableOpacity>
         </View>
@@ -447,11 +439,7 @@ export let TicketLine = (props) => {
     }, [activeGetServices && cokie]);
     let getTicketLine = <View key='getTicketLine' style={[stylesMain.FrameBackground, { marginTop: 0 }]}>
         <ScrollView horizontal>
-            {/* <TouchableOpacity onPress={() => NavigationNavigate({
-                goScreen: 'Store_PostFeed', setData: {
-                    selectedIndex: 28,
-                }, navigation
-            })}
+            {/* <TouchableOpacity
                 style={[stylesMain.ItemCenter, { height: 80, width: 80, backgroundColor: '#1A3263', borderRadius: 10 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>คูปอง</Text>
             </TouchableOpacity> */}

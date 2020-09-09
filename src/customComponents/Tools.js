@@ -728,8 +728,8 @@ export class FeedBox extends React.Component {
     actionOption = (selected, id_store, id_feed) => {
         const { navigation, userOwner } = this.props;
         userOwner && selected == 0 && Navi({
-            goScreen: 'Store_PostFeed', navigation,
-            setData: { selectedIndex: 1, id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this) },
+            goScreen: 'Feed_Create', navigation,
+            setData: { id_store, id_feed, actionPost: 'edit', getDataSource: this.getDataSource.bind(this) },
         });
     };
     getDataSource = (activeRef) => { const { getDataSource } = this.props; getDataSource(activeRef); };
@@ -783,7 +783,7 @@ export class FeedBox extends React.Component {
                 <View style={{ width: '95%' }}>
                     <View>
                         <TouchableOpacity onPress={() => {
-                            Navi({ goScreen: 'Store_PostFeed', navigation, setData: { selectedIndex: 24, }, });
+                            Navi({ goScreen: 'Feed_Share', navigation, });
                             this.share_Feed.close();
                         }} style={[FlexRow, { alignItems: 'center' }]}>
                             <FastImage resizeMode={cover} style={LOGO_ICON} source={uriLogo} />
@@ -863,7 +863,7 @@ export class FeedBox extends React.Component {
                             </IconFontAwesome>
                         </TouchableOpacity>
                         <TouchableOpacity activeOpacity={1} onPress={() => /*this.props.activeModalize(true)*/
-                            Navi({ goScreen: 'Store_PostFeed', navigation, setData: { selectedIndex: 3 }, })}>
+                            Navi({ goScreen: 'Feed_Comment', navigation, })}>
                             <View style={BoxProduct4ComBoxIcon}>
                                 <IconFontAwesome5 name='comment-dots' size={20} />
                                 <Text style={[FontFamilyText, FontSize6, BoxProduct4ComBoxIconText,]}>แสดงความคิดเห็น</Text>

@@ -53,7 +53,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 0 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Profile', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>หน้าของฉัน</Text>
@@ -62,7 +62,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 1 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Address', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ที่อยู่ของฉัน</Text>
@@ -76,7 +76,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 2 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Chat', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแชท</Text>
@@ -85,7 +85,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 3 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Notification', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ตั้งค่าการแจ้งเตือน</Text>
@@ -94,7 +94,7 @@ export let ListMenu = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Setting_Topic', navigation, setData: { selectedIndex: 4 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Setting_Edit_Language', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ภาษา</Text>
                 <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfileTopic.SettingIcon} />
@@ -106,7 +106,7 @@ export let ListMenu = (props) => {
             </View>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Customer_Topic', navigation, setData: { selectedIndex: 5 }, })}>
+            NavigationNavigate({ goScreen: 'Customer_Topic_Help', navigation, })}>
             <View style={stylesProfileTopic.BoxTopic}>
                 <View style={stylesProfile.ListMenuListSub}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { margin: 10, }]}>ศูนย์ช่วยเหลือ</Text>

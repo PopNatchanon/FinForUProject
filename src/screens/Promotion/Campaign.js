@@ -16,7 +16,7 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylePromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule, } from '../Main/Main';
-import { Button_Bar, Slide } from './Deal';
+import { Button_Bar, Slide } from './Deal/Deal';
 import { TabBar, GetData, GetServices, LoadingScreen, } from '../../customComponents/Tools';
 import { NavigationNavigate, AppBar } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -93,7 +93,7 @@ export let CampaignBody = (props) => {
           <IconEntypo name='share' size={20} color='#FFFFFF' />
         </View>
         <TouchableOpacity onPress={() => NavigationNavigate({
-          goScreen: 'Promotion_Sub_DetailCampaign', setData: { selectedIndex: 0, id_campaign: dataService?.id_campaign }, navigation
+          goScreen: 'Promotion_Sub_DetailCampaign', setData: { id_campaign: dataService?.id_campaign }, navigation
         })}>
           <View style={[stylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
             <Text style={[stylesFont.FontFamilyBold, stylePromotionDeal.CampaignBody_ButtonText,

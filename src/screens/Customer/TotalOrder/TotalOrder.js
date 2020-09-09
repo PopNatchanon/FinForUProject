@@ -199,7 +199,7 @@ export let From_Order_Box = (props) => {
                     </View>
                 </View>
                 {dataService.status_purchase == 'wait' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Review_Froms', navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', color: '#20BDA1' }]}>รอชำระ</Text>
                 </TouchableOpacity>}
@@ -210,12 +210,12 @@ export let From_Order_Box = (props) => {
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>
                         {'กำลังจัดส่ง\n'}<Text style={{ color: '#111' }}>[{dataService.tracking_number}]</Text></Text>)}
                 {dataService.status_purchase == 'accepted' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Review_Froms', navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#20BDA1', width: width * 0.3, textAlign: 'center', }]}><IconFeather name='edit' size={15} />เขียนรีวิว</Text>
                 </TouchableOpacity>}
                 {dataService.status_purchase == 'cancel' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Customer_Topic', setData: { selectedIndex: 7 }, navigation })}>
+                    NavigationNavigate({ goScreen: 'Customer_Topic_Review_Froms',  navigation })}>
                     <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, stylesMain.ItemCenterVertical,
                     { color: '#111', width: width * 0.3, textAlign: 'center', }]}>ยกเลิก</Text>
                 </TouchableOpacity>}
@@ -254,7 +254,7 @@ export let From_Order_Box = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'} onPress={() =>
-                        NavigationNavigate({ goScreen: 'Customer_Cancel_From', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Customer_Cancel_From', navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                         </View>

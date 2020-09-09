@@ -136,7 +136,7 @@ export function Button_Bar(props) {
             nodata />)}
         </View>}
     {selectedIndex == 0 && <ActionButton buttonColor={mainColor} size={50} onPress={() =>
-      Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 1, }, })} />}
+      Navi({ ...props, goScreen: 'Feed_Create', })} />}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Highlights
@@ -270,7 +270,7 @@ export function Feed_About(props) {
   });
   const GroupItem = item_Group.map((v, i) => {
     const ImageGroup = { uri: v.image, };
-    return <TouchableOpacity key={i} onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 12, }, })}
+    return <TouchableOpacity key={i} onPress={() => Navi({ ...props, goScreen: 'Group', })}
       style={[FlexRow, { marginTop: 2, padding: 5, }]}>
       <View style={FlexRow}>
         <FastImage resizeMode={cover} source={ImageGroup} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
@@ -280,28 +280,28 @@ export function Feed_About(props) {
   });
   return <ScrollView>
     <View style={{ backgroundColor: '#FFFFFF', flex: 1, padding: 10, }}>
-      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 22, }, })} style={[FlexRow,
+      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Profile_Customer', })} style={[FlexRow,
         { backgroundColor: '#E0EFFF', borderRadius: 5, padding: 10, }]}>
         <FastImage resizeMode={cover} source={Image1} style={{ borderRadius: 25, borderWidth: 1, height: 50, width: 50, }} />
         <Text style={[stylesFont.FontSize3, stylesFont.FontFamilyBold, { margin: 10 }]}>Myn</Text>
       </TouchableOpacity>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 16, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Save_Activity', })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>บันทึกกิจกรรมของฉัน</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 17, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Save_Post', })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>รายการที่บันทึกไว้</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 18, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Total', })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>กลุ่มทั้งหมด</Text>
         </TouchableOpacity>
       </View>
       <View style={{ borderColor: '#C4C4C4', borderBottomWidth: 3, paddingVertical: 5, }}>
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 19, }, })}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Notification', })}>
           <Text style={[FontFamilyText, FontSize6, { marginLeft: 30 }]}>การแจ้งเตือน</Text>
         </TouchableOpacity>
       </View>
@@ -321,7 +321,7 @@ export function Feed_About(props) {
         <IconEntypo name='chevron-down' size={25} />
       </TouchableOpacity>
       <Text style={[FontFamilyBold, FontSize4, { margin: 5 }]}>กลุ่มของคุณ</Text>
-      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_PostFeed', setData: { selectedIndex: 11, }, })}>
+      <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Group_Create', })}>
         <View style={[FlexRow, { borderRadius: 5, marginBottom: 15, padding: 5, }]}>
           <View style={[ItemCenter, { borderRadius: 25, borderWidth: 1, height: 50, width: 50, }]}>
             <IconAntDesign name='plus' size={30} />

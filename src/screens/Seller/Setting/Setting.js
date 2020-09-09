@@ -60,14 +60,14 @@ export let Seller_Setting_Topic = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 0 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_Document', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>เอกสารการจดแจ้ง</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 9 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Address', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ที่อยู่ร้านค้าของฉัน</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />

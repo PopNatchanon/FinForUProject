@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart,
-} from '../../../actions';
+} from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import BottomSheet from 'react-native-raw-bottom-sheet';
@@ -32,23 +32,23 @@ import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommun
 import IconFontisto from 'react-native-vector-icons/Fontisto';
 import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from '../../../style/StylesDetailScreen';
-import stylesMain, { mainColor, appBarColor } from '../../../style/StylesMainScreen';
-import stylesFont from '../../../style/stylesFont';
-import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesTopic from '../../../style/styleTopic';
-import stylesProfile from '../../../style/StylesProfileScreen';
+import stylesDetail from '../../style/StylesDetailScreen';
+import stylesMain, { mainColor, appBarColor } from '../../style/StylesMainScreen';
+import stylesFont from '../../style/stylesFont';
+import stylesProfileTopic from '../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesTopic from '../../style/styleTopic';
+import stylesProfile from '../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
-} from '../../../customComponents/Tools';
-import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../../customComponents';
-import { TodayProduct, Slide, ExitAppModule } from '../../Main/Main';
-import { Store_Detail } from '../../Main/RecommendStore/RecommendStore';
+} from '../../customComponents/Tools';
+import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../customComponents';
+import { TodayProduct, Slide, ExitAppModule } from '../Main/Main';
+import { Store_Detail } from '../Main/RecommendStore/RecommendStore';
 import Dash from 'react-native-dash';
-import { ProductBox, FeedBox, } from '../../../customComponents/Tools';
+import { ProductBox, FeedBox, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../../navigator/IpConfig';
+import { finip, ip } from '../../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
@@ -89,44 +89,34 @@ function PostFeed(props) {
             useNativeDriver: true,
         });
         switch (selectedIndex) {
-            case 0:
+            case 0: // หน้า คะแนนร้านค้า เข้าจากหน้า Store // Store_Scores
                 return <>
-                    {/* หน้า คะแนนร้านค้า เข้าจากหน้า Store  */}
                     <AppBar {...props} backArrow titleHead='คะแนนประจำร้าน' />
                     <Score_store {...props} cokie={cokie} />
                 </>
-            case 1:
+            case 1: // หน้าสร้างโพสต์ เข้าจากปุ่มบวกหน้า Feed // Feed_Create
                 return <>
-                    {/* หน้าสร้างโพสต์ เข้าจากปุ่มบวกหน้า Feed*/}
                     <AppBar {...props} backArrow postBar getActivePost={(value) => getActivePost(value)}
                         titleHead={actionPost == 'edit' ? 'แก้ไขโพสต์' : 'สร้างโพสต์'} />
                     <Post_New {...props} activePost={activePost} cokie={cokie} getActivePost={(value) => getActivePost(value)} />
                 </>
-            case 2:
+            case 2: // หน้า แท็กสินค้า เข้าจากหน้า Feed // Feed_Create_Tag
                 return <>
-                    {/* หน้า แท็กสินค้า เข้าจากหน้า Feed */}
                     <AppBar {...props} backArrow titleHead='เลือกสินค้า' />
                     <Select_TagProduct {...props} cokie={cokie} />
                 </>
-            case 3:
+            case 3: // หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น // Feed_Comment
                 return <>
-                    {/* หน้า คอมเมนท์ เข้าจากหน้า Feed ปุ่มแสดงความคิดเห็น */}
                     <AppBar {...props} backArrow titleHead='คอมเมนท์' chatBar />
                     <Feed_Comment />
                 </>
-            case 10:
+            case 11: // หน้าสร้าง กลุ่มเข้าจาก หน้า Feed_About // Group_Create
                 return <>
-                    <AppBar {...props} backArrow titleHead='สินค้า' />
-                </>
-            case 11:
-                return <>
-                    {/* หน้าสร้าง กลุ่มเข้าจาก หน้า Feed_About */}
                     <AppBar {...props} backArrow titleHead='สร้างกลุ่ม' />
                     <New_Group {...props} />
                 </>
-            case 12:
+            case 12: // หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About // Group
                 return <>
-                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้าสร้างกลุ่มเสร็จ กับ ดูกลุ่ม หน้า Feed_About */}
                     <Animated.View style={{
                         zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
                         marginTop: -(maxheight),
@@ -138,45 +128,38 @@ function PostFeed(props) {
                         nativeEvent: { contentOffset: { y: scrollY } }
                     }], { useNativeDriver: false, })} />
                 </>
-            case 13:
+            case 13: // หน้าเกี่ยวกับ กลุ่ม เข้าจาก หน้า โปรไฟล์กลุ่ม ปุ่มเกี่ยวกับกลุ่ม // Group_About
                 return <>
-                    {/* หน้าเกี่ยวกับ กลุ่ม เข้าจาก หน้า โปรไฟล์กลุ่ม ปุ่มเกี่ยวกับกลุ่ม */}
                     <AppBar {...props} backArrow titleHead='เกี่ยวกับกลุ่ม' />
                     <Group_About />
                 </>
-            case 14:
+            case 14: // หน้ารูปภาพ กลุ่ม เข้าจาก หน้าโปรไฟล์กลุ่ม ปุ่มรูปภาพกลุ่ม // Group_Image
                 return <>
-                    {/* หน้ารูปภาพ กลุ่ม เข้าจาก หน้าโปรไฟล์กลุ่ม ปุ่มรูปภาพกลุ่ม */}
                     <AppBar {...props} backArrow titleHead='รูปภาพ' />
                     <Group_Image />
                 </>
-            case 16:
+            case 16: // หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About // Group_Save_Activity
                 return <>
-                    {/* หน้า บันทึกกิจกรรม เข้าจาก หน้า Feed_About */}
                     <AppBar {...props} backArrow titleHead='บันทึกกิจกรรม' />
                     <Save_Activity />
                 </>
-            case 17:
+            case 17: // หน้า รายการที่บันทึกไว้ เข้าจาก หน้า Feed_About // Group_Save_Post
                 return <>
-                    {/* หน้า รายการที่บันทึกไว้ เข้าจาก หน้า Feed_About */}
                     <AppBar {...props} backArrow titleHead='โพสต์ที่บันทึก' />
                     <Save_Post />
                 </>
-            case 18:
+            case 18: // หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About // Group_Total
                 return <>
-                    {/* หน้า กลุ่มทั้งหมด เข้าจาก หน้า Feed_About */}
                     <AppBar {...props} backArrow titleHead='กลุ่มทั้งหมด' />
                     <Group_Total {...props} />
                 </>
-            case 19:
+            case 19: // หน้า การแจ้งเตือน เข้าจาก หน้า Feed_About // Group_Notification
                 return <>
-                    {/* หน้า การแจ้งเตือน เข้าจาก หน้า Feed_About */}
                     <AppBar {...props} backArrow titleHead='การแจ้งเตือน' />
                     <Feed_Notification />
                 </>
-            case 20:
+            case 20: // หน้า ค้นหา เข้าจากหน้า Profile กลุ่ม // Group_Search
                 return <>
-                    {/* หน้า ค้นหา เข้าจากหน้า Profile กลุ่ม */}
                     <Animated.View style={{
                         zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
                         marginTop: -(maxheight),
@@ -187,9 +170,8 @@ function PostFeed(props) {
                         }], { useNativeDriver: false, })} />
                     </Animated.View>
                 </>
-            case 21:
+            case 21: // หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน // Group_Profile_Store 
                 return <>
-                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <Animated.View style={{
                         zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
                         marginTop: -(maxheight),
@@ -200,9 +182,8 @@ function PostFeed(props) {
                         }], { useNativeDriver: false, })} />
                     </Animated.View>
                 </>
-            case 22:
+            case 22: // หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน // Group_Profile_Customer
                 return <>
-                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <Animated.View style={{
                         zIndex: 1, height: maxheight, width, top: maxheight, backgroundColor: 'transparent', elevation: 1,
                         marginTop: -(maxheight),
@@ -213,39 +194,33 @@ function PostFeed(props) {
                         nativeEvent: { contentOffset: { y: scrollY } }
                     }], { useNativeDriver: false, })} />
                 </>
-            case 23:
+            case 23: // หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน // Group_Profile_Edit
                 return <>
-                    {/* หน้า โปรไฟล์กลุ่ม เข้าจากหน้า โปรร้านค้า-แท๊บโพสต์ร้าน  */}
                     <AppBar {...props} backArrow saveBar />
                     <Profile_Edit />
                 </>
-            case 24:
+            case 24: // หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin // Feed_Share
                 return <>
-                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar {...props} backArrow selectshare postBar />
                     <Post_New {...props} activePost={activePost} cokie={cokie} getActivePost={(value) => getActivePost(value)} />
                 </>
-            case 25:
+            case 25: // หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin // Group_Popular
                 return <>
-                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar {...props} backArrow titleHead='กลุ่มยอดนิยม' />
                     <Group_Popular />
                 </>
-            case 26:
+            case 26: // หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin // Store_Followers
                 return <>
-                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar {...props} backArrow titleHead='ผู้ติดตาม' />
                     <Followers />
                 </>
-            case 27:
+            case 27: // หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin // Store_Following
                 return <>
-                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar {...props} backArrow titleHead='กำลังติดตาม' />
                     <Following />
                 </>
-            case 28:
+            case 28: // หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin // 
                 return <>
-                    {/* หน้า แชร์โพสต์ Feed เข้าจาก Box Feed ปุ่มแชร์ เลือก Fin */}
                     <AppBar {...props} backArrow titleHead='คูปอง' />
                     <Test_Coupon />
                 </>

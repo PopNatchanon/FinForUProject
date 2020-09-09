@@ -26,7 +26,7 @@ import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../customComponents';
 import { ExitAppModule } from '../Main/Main';
-import { Product_income } from '../Seller/Topic/Topic';
+import { Product_income } from '../Seller/Income/Income';
 import { TabBar } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -158,7 +158,7 @@ export let Menu_Affiliate = (props) => <View style={[stylesMain.FrameBackground,
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 20 }]}>
         <View style={{ alignItems: 'flex-end', width: '48%', }}>
           <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
-            goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 10, Withdraw: 'Bank' },
+            goScreen: 'Seller_Money_PIN', navigation: props.navigation, setData: { Withdraw: 'Bank' },
           })}>
             <View style={{ borderColor: mainColor, borderRadius: 5, borderWidth: 2, height: 100, padding: 10, width: 100, }}>
               <FastImage source={{ uri: ip + '/MySQL/uploads/Affiliate/passbook-512.png' }} style={stylesMain.BoxProduct1Image} />
@@ -409,14 +409,14 @@ export let Finance = (props) => <View>
     </View>
   </View>
   <TouchableOpacity activeOpacity={1} onPress={() =>
-    NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 13 }, })}>
+    NavigationNavigate({ goScreen: 'Seller_Money_History', navigation: props.navigation, })}>
     <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', }]}>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
       <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfile.ListMenuListIcon} />
     </View>
   </TouchableOpacity>
   <TouchableOpacity activeOpacity={1} onPress={() =>
-    NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, })}>
+    NavigationNavigate({ goScreen: 'Seller_Money_PIN', navigation: props.navigation, setData: { Withdraw: 'Withdraw' }, })}>
     <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', }]}>
       <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
       <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfile.ListMenuListIcon} />
@@ -512,7 +512,7 @@ export let Register_Affiliate_From = (props) => {
       </TouchableOpacity>
       <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
       <TouchableOpacity onPress={() =>
-        NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 17 }, })}>
+        NavigationNavigate({ goScreen: 'Seller_Money_Bank', navigation: props.navigation, })}>
         <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
           <View style={{ width: '95%' }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>

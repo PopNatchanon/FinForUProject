@@ -21,7 +21,7 @@ import Customer_Setting_Edit_Language from './Setting/Edit/Language/Language';
 import Customer_Setting_Edit_Notification from './Setting/Edit/Notification/Notification';
 import Customer_Setting_Edit_Pass from './Setting/Edit/Pass/Pass';
 import Customer_Setting_Edit_Profile from './Setting/Edit/Profile/Profile';
-///-------------------------------------------------------------------------->>>> Sub Setting ---->>>> Sub Notification
+///--------------------------------------------------------------------->>>> Sub Setting --------->>>> Sub Notification
 import Customer_Setting_Edit_Notification_Alert from './Setting/Edit/Notification/Alert/Alert';
 import Customer_Setting_Edit_Notification_Email from './Setting/Edit/Notification/Email/Email';
 ///----------------------------------------------------------------------------------------------->>>> Sub Topic
@@ -31,12 +31,12 @@ import Customer_Topic_Help from './Topic/Help/Help';
 import Customer_Topic_Interested from './Topic/Interested/Interested';
 import Customer_Topic_Latest from './Topic/Latest/Latest';
 import Customer_Topic_Review from './Topic/Review/Review';
-///-------------------------------------------------------------------------->>>> Sub Topic ----->>>> Sub Chat
+///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Chat
 import Customer_Topic_Chat_Cutomer from './Topic/Chat/Cutomer/Cutomer';
-///-------------------------------------------------------------------------->>>> Sub Topic ----->>>> Sub Help
+///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Help
 import Customer_Topic_Help_Account from './Topic/Help/Account/Account';
 import Customer_Topic_Help_Detail from './Topic/Help/Detail/Detail';
-///-------------------------------------------------------------------------->>>> Sub Topic ----->>>> Sub Review
+///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Review
 import Customer_Topic_Review_Froms from './Topic/Review/Froms/Froms';
 ///---------------------------------------------------------------------------------------------->>>>
 export default [{  ///--------------------------------------------------------------------------------->>>> Main Screen
@@ -87,7 +87,7 @@ export default [{  ///----------------------------------------------------------
 }, {
     component: Customer_Setting_Edit_Profile, name: 'Customer_Setting_Edit_Profile',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-}, { ///-------------------------------------------------------------------------->>>> Sub Setting ---->>>> Sub Notification
+}, { ///--------------------------------------------------------------------->>>> Sub Setting --------->>>> Sub Notification
     component: Customer_Setting_Edit_Notification_Alert, name: 'Customer_Setting_Edit_Notification_Alert',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
 }, {
@@ -111,16 +111,16 @@ export default [{  ///----------------------------------------------------------
 }, {
     component: Customer_Topic_Review, name: 'Customer_Topic_Review',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-}, { ///-------------------------------------------------------------------------->>>> Sub Topic ----->>>> Sub Chat
+}, { ///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Chat
     component: Customer_Topic_Chat_Cutomer, name: 'Customer_Topic_Chat_Cutomer',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-}, { ///-------------------------------------------------------------------------->>>> Sub Topic ------->>>> Sub Help
+}, { ///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Help
     component: Customer_Topic_Help_Account, name: 'Customer_Topic_Help_Account',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
 }, {
     component: Customer_Topic_Help_Detail, name: 'Customer_Topic_Help_Detail',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-}, { ///-------------------------------------------------------------------------->>>> Sub Topic ----->>>> Sub Review
+}, { ///--------------------------------------------------------------------->>>> Sub Topic ----------->>>> Sub Review
     component: Customer_Topic_Review_Froms, name: 'Customer_Topic_Review_Froms',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
 }];

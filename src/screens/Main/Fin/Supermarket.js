@@ -68,7 +68,7 @@ export let FinMall_Product = (props) => {
     <View style={stylesMain.FrameBackgroundTextBox}>
       <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize3]}>Fin Mall</Text>
       <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigate({ goScreen: 'Main_Fin_Mall', setData: { selectedIndex: 1 }, navigation })}>
+        NavigationNavigate({ goScreen: 'Main_Fin_Mall', navigation })}>
         <Text style={[stylesMain.FrameBackgroundTextEnd, stylesFont.FontSize7, stylesFont.FontFamilyText]}>ดูทั้งหมด</Text>
       </TouchableOpacity>
     </View>

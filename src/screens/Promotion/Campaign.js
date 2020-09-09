@@ -93,7 +93,7 @@ export let CampaignBody = (props) => {
           <IconEntypo name='share' size={20} color='#FFFFFF' />
         </View>
         <TouchableOpacity onPress={() => NavigationNavigate({
-          goScreen: 'Promotion_Sub_DetailCampaign', setData: { selectedIndex: 0, id_campaign: dataService?.id_campaign }, navigation
+          goScreen: 'Promotion_Sub_DetailCampaign', setData: { id_campaign: dataService?.id_campaign }, navigation
         })}>
           <View style={[stylePromotionDeal.CampaignBody_Button, stylesMain.ItemCenterVertical]}>
             <Text style={[stylesFont.FontFamilyBold, stylePromotionDeal.CampaignBody_ButtonText,

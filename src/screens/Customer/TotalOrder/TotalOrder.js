@@ -254,7 +254,7 @@ export let From_Order_Box = (props) => {
                         </View>
                     </TouchableOpacity>}
                     {dataService.status_purchase == 'wait' && <TouchableOpacity key={'cancel_order'} onPress={() =>
-                        NavigationNavigate({ goScreen: 'Customer_Cancel_From', setData: { selectedIndex: 1 }, navigation })}>
+                        NavigationNavigate({ goScreen: 'Customer_Cancel_From', navigation })}>
                         <View style={[stylesProfileTopic.Order_Button, { borderWidth: 1, }]}>
                             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>ยกเลิกสินค้า</Text>
                         </View>

@@ -26,7 +26,7 @@ import stylesProfile from '../../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../../customComponents';
 import { ExitAppModule } from '../../Main/Main';
-import { Product_income } from '../../Seller/Topic/Topic';
+import { Product_income } from '../../Seller/Income/Income';
 import { TabBar } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
@@ -60,14 +60,14 @@ export let Finance = (props) => <View>
         </View>
     </View>
     <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 13 }, })}>
+        NavigationNavigate({ goScreen: 'Seller_Money_History', navigation: props.navigation, })}>
         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
             <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfile.ListMenuListIcon} />
         </View>
     </TouchableOpacity>
     <TouchableOpacity activeOpacity={1} onPress={() =>
-        NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 10, Withdraw: 'Withdraw' }, })}>
+        NavigationNavigate({ goScreen: 'Seller_Money_PIN', navigation: props.navigation, setData: { Withdraw: 'Withdraw' }, })}>
         <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', }]}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
             <IconEntypo color={mainColor} name='chevron-right' size={35} style={stylesProfile.ListMenuListIcon} />

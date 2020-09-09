@@ -26,7 +26,7 @@ import stylesProfile from '../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../customComponents';
 import { ExitAppModule } from '../Main/Main';
-import { Product_income } from '../Seller/Topic/Topic';
+import { Product_income } from '../Seller/Income/Income';
 import { TabBar } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../navigator/IpConfig';
@@ -76,7 +76,7 @@ export let Menu_Affiliate = (props) => <View style={[stylesMain.FrameBackground,
       <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', marginTop: 20 }]}>
         <View style={{ alignItems: 'flex-end', width: '48%', }}>
           <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
-            goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 10, Withdraw: 'Bank' },
+            goScreen: 'Seller_Money_PIN', navigation: props.navigation, setData: { Withdraw: 'Bank' },
           })}>
             <View style={{ borderColor: mainColor, borderRadius: 5, borderWidth: 2, height: 100, padding: 10, width: 100, }}>
               <FastImage source={{ uri: ip + '/MySQL/uploads/Affiliate/passbook-512.png' }} style={stylesMain.BoxProduct1Image} />

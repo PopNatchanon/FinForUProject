@@ -11,10 +11,10 @@ import Business_Product from './Product/Product';
 import Business_Profile from './Profile/Profile';
 import Business_Register from './Register/Register';
 ///----------------------------------------------------------------------------------------------->>>>
-export default [{ ///----------------------------------------------------------------------------------------------->>>> Main Screen
+export default [{ ///---------------------------------------------------------------------------------->>>> Main Screen
     component: Business, name: 'Business',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
-}, { ///----------------------------------------------------------------------------------------------->>>> Main Screen
+}, { ///----------------------------------------------------------------------------------------------->>>> Sub Screen
     component: Business_Finance, name: 'Business_Finance',
     options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS }
 }, {

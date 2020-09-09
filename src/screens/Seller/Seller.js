@@ -168,7 +168,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 8 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Income', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconsFontAwesome RightItem name="bank" size={30} color='#5CCFA8' style={stylesProfile.ListMenuListSubIcon} />
@@ -179,7 +179,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 9 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Money', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconsFontAwesome5 RightItem name="money-bill" size={30} color='#154FC6'
@@ -190,7 +190,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 0 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Advertisement', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconEntypo RightItem name="megaphone" size={35} color='#FC6B00' style={stylesProfile.ListMenuListSubIcon} />
@@ -201,7 +201,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 1 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Statistics', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconEntypo RightItem name="bar-graph" size={30} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
@@ -212,7 +212,7 @@ export let ListMenu = (props) => {
                 </View>
             </TouchableOpacity>
             <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', setData: { selectedIndex: 2 }, navigation })}>
+                NavigationNavigate({ goScreen: 'Seller_Scores', navigation })}>
                 <View style={stylesProfile.ListMenuList}>
                     <View style={stylesProfile.ListMenuListSub}>
                         <IconsFontAwesome RightItem name="star" size={35} color='#FFAC33'

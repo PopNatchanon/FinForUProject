@@ -217,7 +217,7 @@ class AppNoSearchBar extends React.Component {
                     { marginRight: 8, width: 60, }]}>บันทึก</Text>
                 </TouchableOpacity>}
                 {UpBankBar && <TouchableOpacity key={'UpBankBar'} style={[stylesMain.ItemCenter, { width: 80 }]} onPress={() =>
-                    NavigationNavigate({ goScreen: 'Seller_Setting_Topic', navigation, setData: { selectedIndex: 1 }, })}>
+                    NavigationNavigate({ goScreen: 'Seller_Setting_Edit_Bank', navigation, })}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, stylesStore.Icon_appbar, stylesMain.ItemCenterVertical,
                     { marginRight: 8, width: 80, }]}>เพิ่มบัญชี</Text>
                 </TouchableOpacity>}

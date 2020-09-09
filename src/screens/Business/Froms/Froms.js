@@ -26,7 +26,7 @@ import stylesProfile from '../../../style/StylesProfileScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, NavigationNavigate, } from '../../../customComponents';
 import { ExitAppModule } from '../../Main/Main';
-import { Product_income } from '../../Seller/Topic/Topic';
+import { Product_income } from '../../Seller/Income/Income';
 import { TabBar } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { ip, finip } from '../../../navigator/IpConfig';
@@ -132,7 +132,7 @@ export let Register_Affiliate_From = (props) => {
             </TouchableOpacity>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { textAlign: 'center' }]}>ตัวอย่าง</Text>
             <TouchableOpacity onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Topic', navigation: props.navigation, setData: { selectedIndex: 17 }, })}>
+                NavigationNavigate({ goScreen: 'Seller_Money_Bank', navigation: props.navigation, })}>
                 <View style={[stylesMain.FlexRow, stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
                     <View style={{ width: '95%' }}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>บัญชีธนาคาร</Text>

@@ -4,7 +4,7 @@ import {
     Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, Picker, ScrollView, Image,
 } from 'react-native';
 import { connect, useStore } from 'react-redux';
-import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
+import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
 import ImagePicker from 'react-native-image-crop-picker';
@@ -19,18 +19,18 @@ import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
-import stylesFont, { normalize } from '../../../../style/stylesFont';
-import stylesLogin from '../../../../style/stylesLoginScreen';
-import stylesSeller from '../../../../style/styleSeller-src/styleSellerScreen';
-import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
+import stylesFont, { normalize } from '../../../style/stylesFont';
+import stylesLogin from '../../../style/stylesLoginScreen';
+import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { GetServices } from '../../../../customComponents/Tools';
-import { Address_Customar } from '../../../Customer/Setting/Edit/Address/Address';
-import { NavigationNavigate, AppBar } from '../../../../customComponents';
+import { GetServices } from '../../../customComponents/Tools';
+import { Address_Customar } from '../../Customer/Setting/Edit/Address/Address';
+import { NavigationNavigate, AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { finip } from '../../../../navigator/IpConfig';
-import { ExitAppModule } from '../../../Main/Main';
+import { finip } from '../../../navigator/IpConfig';
+import { ExitAppModule } from '../../Main/Main';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -42,65 +42,62 @@ function Topic(props) {
     const selectedIndex = route.params?.selectedIndex;
     let PathList = () => {
         switch (selectedIndex) {
-            case 0:
+            case 0: // แก้ไขเอกสารการจดแจ้ง // Seller_Setting_Edit_Document
                 return <>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification {...props} />
-                    {/* แก้ไขเอกสารการจดแจ้ง */}
+                    <Document {...props} />
                 </>;
-            case 1:
+            case 1: // แก้ไขบัญชีธนาคาร // Seller_Setting_Edit_Bank
                 return <View>
                     <AppBar {...props} backArrow titleHead='เพิ่มบัญชีธนาคาร' saveBar />
                     <Edit_Bank {...props} />
-                    {/* แก้ไขบัญชีธนาคาร */}
                 </View>;
-            case 2:
+            case 2: // หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า // Seller_Setting_Edit_DocumentCompany
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} />
-                    {/* หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า */}
+                    <Document_From {...props} />
                 </View>;
-            case 3:
+            case 3: // Seller_Setting_Edit_DocumentIdCard
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
+                    <Document_From {...props} DetailHead='สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม' />
                 </View>;
-            case 4:
+            case 4: // Seller_Setting_Edit_DocumentVat
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
+                    <Document_From {...props} DetailHead='ใบทะเบียนภาษีมูลค่าเพิ่ม' />
                 </View>;
-            case 5:
+            case 5: // Seller_Setting_Edit_DocumentTrademark
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
+                    <Document_From {...props} DetailHead='ใบจดทะเบียนเครื่องหมายการค้า' />
                 </View>;
-            case 6:
+            case 6: // Seller_Setting_Edit_DocumentCertificate
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
+                    <Document_From {...props} DetailHead='หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)' />
                 </View>;
-            case 7:
+            case 7: // Seller_Setting_Edit_DocumentBank
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                    <Document_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                 </View>;
-            case 8:
+            case 8: // Seller_Setting_Edit_DocumentBank
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเอกสารการจดแจ้ง' saveBar />
-                    <Notification_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
+                    <Document_From {...props} DetailHead='สำเนาบัญชีธนาคารของผู้ขาย' />
                 </View>;
-            case 9:
+            case 9: // Seller_Setting_Address
                 return <View>
                     <AppBar {...props} backArrow titleHead='ที่อยู่ร้านค้าของฉัน' />
                     <Setting_Address_Store {...props} />
                 </View>;
-            case 10:
+            case 10: // Seller_Setting_UpCodeNumber
                 return <View>
                     <AppBar {...props} backArrow titleHead='เพิ่มเลขพัสดุ' />
                     <Up_Code_Number />
                 </View>;
-            case 11:
+            case 11: // Seller_Setting_Edit_UpCodeNumber
                 return <View>
                     <AppBar {...props} backArrow titleHead='แก้ไขเลขพัสดุ' />
                     <Up_Code_Number />
@@ -113,14 +110,14 @@ function Topic(props) {
     </SafeAreaView>;
 };
 ///----------------------------------------แก้ไขเอกสารการจดแจ้ง--------------------------------------///
-export let Notification = (props) => {
+export let Document = (props) => {
     const { navigation } = props;
     return <View>
         <View style={[stylesSeller.Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขบัญชีธนาคาร</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 1 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_Bank', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>บัญชีธนาคาร</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -130,7 +127,7 @@ export let Notification = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { margin: 5 }]}>แก้ไขเอกสารจดแจ้ง</Text>
         </View>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 2 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentCompany', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     หนังสือจดทะเบียนบริษัท จากกรมพัฒนาธุรกิจการค้า</Text>
@@ -138,7 +135,7 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 3 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentIdCard', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     สำเนาบัตรประชาชน/พาสปอร์ตของกรรมการผู้มีอำนาจลงนาม</Text>
@@ -146,21 +143,21 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 4 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentVat', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบทะเบียนภาษีมูลค่าเพิ่ม</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 5 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentTrademark', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>ใบจดทะเบียนเครื่องหมายการค้า</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 6 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentCertificate', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>
                     หนังสือรับรองการเป็นตัวแทนจำหน่าย (ไม่จำเป็นต้องระบุ)</Text>
@@ -168,7 +165,7 @@ export let Notification = (props) => {
             </View>
         </TouchableOpacity>
         <TouchableOpacity onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Setting_Topic', setData: { selectedIndex: 7 }, navigation })}>
+            NavigationNavigate({ goScreen: 'Seller_Setting_Edit_DocumentBank', navigation })}>
             <View style={stylesSeller.Seller_Setting_BoxTopic}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 5 }]}>สำเนาบัญชีธนาคารของผู้ขาย</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
@@ -268,7 +265,7 @@ export let Edit_Bank = (props) => {
     </View>;
 };
 ///----------------------------------------แก้ไขเอกสารการจดแจ้ง --------------------------------------///
-export let Notification_From = (props) => {
+export let Document_From = (props) => {
     const { DetailHead } = props;
     const [activeNow, setActiveNow] = useState(0);
     const [activeAvatarSource, setActiveAvatarSource] = useState(false);

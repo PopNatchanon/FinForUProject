@@ -85,7 +85,7 @@ export let Review_me = (props) => {
                     {StarReview(dataSevice.rating, 20)}
                 </View>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({
-                    goScreen: 'Customer_Topic_Review_Froms', navigation, setData: { id_cartdetail: dataSevice.id_cartdetail, selectedIndex: 7, },
+                    goScreen: 'Customer_Topic_Review_Froms', navigation, setData: { id_cartdetail: dataSevice.id_cartdetail, },
                 })}>
                     <View style={stylesProfileTopic.Review_me_Box_head}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>

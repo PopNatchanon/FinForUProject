@@ -31,8 +31,6 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 ///----------------------------------------------------------------------------------------------->>>>
 export default connect(mapStateToProps, mapDispatchToProps)(CancelFrom);
 function CancelFrom(props) {
-    const { route } = props;
-    const selectedIndex = route.params?.selectedIndex;
     const [activeDataCustomer, setActiveDataCustomer] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);

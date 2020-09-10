@@ -50,10 +50,11 @@ const {
 const {
     BoxProduct1Box, BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1ImageofLines, BoxProduct1ImageofLines2, BoxProduct1ImagePrice,
     BoxProduct1ImagePriceThrough, BoxProduct1NameofLines, BoxProduct1PriceofLines, BoxProduct2Box, BoxProduct2Image, BoxProduct2ImageofLines,
-    BoxProduct3Box, BoxProduct3ImageofLines, BoxProduct4Box, BoxProduct4ComBox, BoxProduct4ComBoxIcon, BoxProduct4ComBoxIconText,
-    BoxProduct4ComBox2, BoxProduct4Image, BoxProduct4PlusButtonBox, BoxProduct4PlusButtonFollow, BoxProduct4PlusButtonFollowText,
-    BoxProduct4PlusImage, BoxProduct4PlusImageText, BoxProduct4PlusHeader, BoxProduct5Box, BoxProduct5ImageofLines, Box_On_sale,
-    CategoryProductStoreBox, CategoryProductStoreImage, FlexRow, ItemCenter, ItemCenterVertical, SafeAreaViewNB,
+    BoxProduct3Box, BoxProduct3BoxRow2, BoxProduct3ImageofLines, BoxProduct4Box, BoxProduct4ComBox, BoxProduct4ComBoxIcon,
+    BoxProduct4ComBoxIconText, BoxProduct4ComBox2, BoxProduct4Image, BoxProduct4PlusButtonBox, BoxProduct4PlusButtonFollow,
+    BoxProduct4PlusButtonFollowText, BoxProduct4PlusImage, BoxProduct4PlusImageText, BoxProduct4PlusHeader, BoxProduct5Box,
+    BoxProduct5ImageofLines, Box_On_sale, CategoryProductStoreBox, CategoryProductStoreImage, FlexRow, ItemCenter, ItemCenterVertical,
+    SafeAreaViewNB,
 } = stylesMain;
 const { BackgroundLeft, BackgroundRight, BoxReset, maxMinValue, } = stylesTopic;
 const Navi = (naviProps) => NavigationNavigate(naviProps);
@@ -556,23 +557,25 @@ export function ProductBox(props) {
                 <View style={[ItemCenter, mode == 'row4col1' ? BoxProduct5Box : mode == 'row3col2' ?
                     BoxProduct1Box2 : mode == 'row3col2_2' ? BoxProduct4Box : mode == 'row3colall' ?
                         BoxProduct2Box : mode == 'row2colall' ? BoxProduct3Box : mode == '5item' ?
-                            Deal_Exclusive_Box : mode == 'row3colall_new' ? {
-                                backgroundColor: '#FFFFFF', borderColor: nodata ? '#C4C4C4' : '#ECECEC', borderWidth: 0.5,
-                                width: width * 0.327,
-                            } : BoxProduct1Box, { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
+                            Deal_Exclusive_Box : mode == 'row2colall_new' ? BoxProduct3BoxRow2 : mode == 'row3colall_new' ? {
+                                backgroundColor: '#FFFFFF', borderColor: nodata ? '#9C9C9C' : '#ECECEC', borderWidth: 0.5,
+                                overflow: nodata ? 'hidden' : 'visible', width: width * 0.327,
+                            } : BoxProduct1Box,
+                    { borderRadius: radiusBox ?? 0, marginBottom: mode == 'row3col2_2' ? 4 : null, }]}>
                     <View style={[ItemCenter, mode == 'row4col1' ? BoxProduct5ImageofLines : mode == 'row3colall' ?
                         BoxProduct2ImageofLines : mode == 'row2colall' ? BoxProduct3ImageofLines : mode == '5item' ?
-                            BoxProduct1ImageofLines2 : mode == 'row3colall_new' ? { aspectRatio: 1, flex: 1, width: '100%', } :
+                            BoxProduct1ImageofLines2 : mode == 'row3colall_new' || mode == 'row2colall_new' ?
+                                { aspectRatio: 1, flex: 1, width: '100%', } :
                                 BoxProduct1ImageofLines]}>
                         <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='contain'
                             source={nodata ? LOADING_ICON : uriImage} style={[BoxProduct2Image, {
                                 backgroundColor: nodata ? '#ECECEC' : '#FFFFFF', borderTopLeftRadius: radiusBox ?? 0,
-                                borderTopRightRadius: radiusBox ?? 0, marginVertical: mode == 'row3colall_new' ? 0 : height * 0.015,
-                                width: mode == 'row3colall_new' ? '100%' : '75%',
+                                borderTopRightRadius: radiusBox ?? 0, marginVertical: mode == 'row3colall_new' || mode == 'row2colall_new' ?
+                                    0 : height * 0.015, width: mode == 'row3colall_new' || mode == 'row2colall_new' ? '100%' : '75%',
                             }]} />
                     </View>
                     <View style={{
-                        borderTopColor: nodata ? '#C4C4C4' : null, borderTopWidth: nodata ? 1 : 0,
+                        borderTopColor: nodata ? '#9C9C9C' : null, borderTopWidth: nodata ? 1 : 0,
                         height: mode == 'row4col1' ? 55 : 60, paddingHorizontal: 3, width: '100%',
                     }}>
                         <View style={[BoxProduct1NameofLines]}>

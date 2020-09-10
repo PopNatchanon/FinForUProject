@@ -1,7 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
 import {
-    ActivityIndicator, Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View, FlatList,
+    Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View,
 } from 'react-native';
 import { connect } from 'react-redux';
 import {
@@ -9,28 +9,25 @@ import {
     setDataRefresh, setDataStart, setFetchToStart
 } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
+import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
-import FastImage from 'react-native-fast-image';
 import Carousel, { PaginationLight, } from 'react-native-x-carousel';
 export const { width, height, } = Dimensions.get('window');
-import ActionButton from 'react-native-action-button';
+import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
+import stylesDetail from '../../style/StylesDetailScreen'
 import stylesFont from '../../style/stylesFont';
 import stylesLayout from '../../style/stylesLayout';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
-import stylesDetail from '../../style/StylesDetailScreen'
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, Not_Internet, } from '../Main/Main';
-import {
-    FeedBox, GetCoupon, GetData, GetServices, ProductBox, TabBar, LoadingScreen, FlatProduct, FlatComponent,
-} from '../../customComponents/Tools';
-import { StarReview, NavigationNavigate, AppBar, IconLoading, EmptyProduct, GenArray } from '../../customComponents';
-import { ButtomTab } from '../../customComponents';
+import { AppBar, ButtomTab, EmptyProduct, GenArray, IconLoading, NavigationNavigate, StarReview, } from '../../customComponents';
+import { ExitAppModule, } from '../Main/Main';
+import { FeedBox, FlatComponent, FlatProduct, GetCoupon, GetData, GetServices, ProductBox, TabBar, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup Value
@@ -38,7 +35,7 @@ const { constain, cover, stretch, } = FastImage.resizeMode;
 const { Detail_Text_A, } = stylesDetail;
 const { FontFamilyBold, FontFamilyBoldBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
 const { FRow } = stylesLayout;
-const { BackgroundAreaView, BoxProductWarp, FlexRow, FrameBackground, FrameBackgroundTextStart, ItemCenter, ItemCenterVertical, } = stylesMain;
+const { BackgroundAreaView, BoxProductWarp, FrameBackground, FrameBackgroundTextStart, ItemCenter, ItemCenterVertical, } = stylesMain;
 const {
     Banner, BannerBox, BannerSlide, HeadButtom, Menubars, StoreHeads, StoreHeadBox, StoreHeadButtom, StoreHeadButtomText, StoreHeadDetailss,
     StoreHeadDetailsText1, StoreHeadDetailsText2_2, StoreHeadDetailsText2_3, StoreHeadFace, StoreHeadImage, StoreHeadText, StoreHeadTextOther,
@@ -241,7 +238,7 @@ export let StoreHead = (props) => {
             var dataMySQL = `${finip}/${v.image_path}/${v.image}`
             return <View key={i} style={[StoreHeads]}>
                 <View style={StoreHeadBox}>
-                    <View style={FlexRow}>
+                    <View style={FRow}>
                         <View>
                             <FastImage resizeMode={cover} source={{ uri: dataMySQL, }} style={[StoreHeadFace, { backgroundColor: '#fff' }]} />
                         </View>
@@ -274,7 +271,7 @@ export let StoreHeadDetails = (props) => {
     } = dataService[0];
     const ImageHead = { uri: `${finip}/${image_path}/${image}`, };
     return <View style={{ backgroundColor: '#fff', height: 'auto', width, }}>
-        <View style={[StoreHeads, FlexRow, { justifyContent: 'space-around', width: '100%' }]}>
+        <View style={[StoreHeads, FRow, { justifyContent: 'space-around', width: '100%' }]}>
             <View style={[ItemCenterVertical, { marginLeft: 10, width: '27%', }]}>
                 {!activeGetServices ?
                     <Text style={[FontFamilyBoldBold, FontSize4, { color: '#10162d' }]}>{name}</Text> :
@@ -283,7 +280,7 @@ export let StoreHeadDetails = (props) => {
                     <Text style={[FontFamilyText, FontSize8, { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text> :
                     <Text style={[FontFamilyText, FontSize8, { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
                 {!activeGetServices ?
-                    <View style={FlexRow}>
+                    <View style={FRow}>
                         <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Store_Followers', })}>
                             <Text style={[FontFamilyText, FontSize7, { color: '#10162d' }]}>ผู้ติดตาม {who_follow} </Text>
                         </TouchableOpacity>
@@ -291,7 +288,7 @@ export let StoreHeadDetails = (props) => {
                             <Text style={[FontFamilyText, FontSize7, { color: '#10162d', marginLeft: 5 }]}>กำลังติดตาม {follow_number}</Text>
                         </TouchableOpacity>
                     </View> :
-                    <View style={FlexRow}>
+                    <View style={FRow}>
                         <Text style={[FontFamilyText, FontSize7,]}>ผู้ติดตาม</Text>
                         <Text style={[FontFamilyText, FontSize7,]}>กำลังติดตาม</Text>
                     </View>}
@@ -330,9 +327,9 @@ export let StoreHeadDetails = (props) => {
             </View>
             <View>
                 {!activeGetServices ?
-                    <View style={[FlexRow]}>
+                    <View style={[FRow]}>
                         {rating != 'ยังไม่มีการรีวิว' ?
-                            <View style={[FlexRow, { marginBottom: -6, marginLeft: 28, marginTop: 3, }]}>
+                            <View style={[FRow, { marginBottom: -6, marginLeft: 28, marginTop: 3, }]}>
                                 {StarReview(rating, 12)}
                             </View> : undefined}
                         {!activeGetServices ?
@@ -398,7 +395,7 @@ export const Banners = (props) => {
                         จาก CARHARTT WIP อัพเดทของใหม่เข้าร้านกับ PRONTO ของลง! รายการใหม่แกะกล่องจากร้าน PRONTO** ที่จะมาอัปเดต ⭐HIGHLIGHT⭐
                             ของเข้าใหม่ประจำสัปดาห์ พร้อมแนะนำรายละเอียดสินค้า ควบคู่ไปกับความสนุกสนาน</Text>
                     <TouchableOpacity onPress={() => setActiveText(!activeText)}>
-                        <View style={[FlexRow, ItemCenter]}>
+                        <View style={[FRow, ItemCenter]}>
                             <Text style={[Detail_Text_A, FontFamilyText, FontSize7]}>{activeText ? 'ย่อ' : 'ดูเพิ่มเติม'}</Text>
                             <IconEntypo name={activeText ? 'chevron-up' : 'chevron-down'} size={20} color={mainColor} />
                         </View>
@@ -472,7 +469,7 @@ export const DealTop = (props) => {
             }}>
             </View>}
         {/* <LinearGradient colors={bgcolor ?? ['#fff', '#fff']} start={{ x: 0, y: 0 }} end={{ x: 1, y: 0 }}>
-            <View style={[stylesMain.FlexRow, { paddingVertical: 5 }]}>
+            <View style={[stylesMain.FRow, { paddingVertical: 5 }]}>
                 <Text style={[stylesMain.FrameBackgroundTextStart, stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{titlename}</Text>
             </View>
         </LinearGradient> */}

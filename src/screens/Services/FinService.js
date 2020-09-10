@@ -22,7 +22,7 @@ import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from 
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
-
+const Navi = (naviProps) => NavigationNavigate(naviProps);
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
 });
@@ -34,14 +34,14 @@ function FinService(props) {
             <AppBar {...props} backArrow titleHead='FIN SERVICE' />
             <ScrollView>
                 <Banner_Service />
-                <Button_Bar />
-                <Menu_Bar />
-                <Service_About />
-                <Content_Service />
-                <Customer_Service />
-                <Reviews_Service />
-                <FAQs />
-                <Contact_Us />
+                <Button_Bar {...props} />
+                <Menu_Bar {...props} />
+                <Service_About  {...props} />
+                <Content_Service  {...props} />
+                <Customer_Service  {...props} />
+                <Reviews_Service  {...props} />
+                <FAQs {...props} />
+                <Contact_Us {...props} />
             </ScrollView>
         </SafeAreaView>
     );
@@ -74,8 +74,10 @@ export let Menu_Bar = (props) => {
         </View>
         <View style={{ width: '98%', }}>
             <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ContentMarketing', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1,
-                 borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ContentMarketing', })} style={[stylesMain.FlexRow, {
+                    borderColor: mainColor, borderWidth: 1,
+                    borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF'
+                }]}>
                     <FastImage resizeMode={cover} source={CONTENT} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
@@ -211,7 +213,7 @@ export let Reviews_Service = (props) => {
         const ImageReviews = { uri: v.image, };
         return <View key={i} style={{
             width: 180, backgroundColor: '#FFFFFF', padding: 5,
-            margin: 3, borderRadius: 5, borderColor: '#C9C9C9', borderWidth: 1
+            margin: 3, borderRadius: 10, borderColor: '#C9C9C9', borderWidth: 1
         }} >
             <View style={{ borderBottomWidth: 1, padding: 5, height: height * 0.10 }}>
                 <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{v.Detall}</Text>

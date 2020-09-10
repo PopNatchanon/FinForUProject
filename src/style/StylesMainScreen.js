@@ -209,6 +209,12 @@ export default StyleSheet.create({
     marginTop: 3,
     marginLeft: 3,
   },
+  BoxProduct3BoxRow2: {
+    width: width * 0.4985,
+    backgroundColor: '#FFFFFF',
+    borderColor: '#ECECEC',
+    borderWidth: 1,
+  },
   BoxProduct3Image: {
     padding: 4,
   },

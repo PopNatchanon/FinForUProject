@@ -5,7 +5,7 @@ export const { width, height } = Dimensions.get('window');
 
 export default StyleSheet.create({
   ///--------------------------------------------------------------------///
-  StoreHead: {
+  StoreHeads: {
     width: width,
     // height: 132,
     // aspectRatio: 2.0850,
@@ -62,7 +62,7 @@ export default StyleSheet.create({
     marginTop: 'auto',
     marginBottom: 'auto',
   },
-  StoreHeadDetails: {
+  StoreHeadDetailss: {
     width,
     flex: 1,
     paddingTop: 10,
@@ -91,7 +91,7 @@ export default StyleSheet.create({
     marginTop: 3,
   },
   ///-------------------------------------------------------///
-  Menubar: {
+  Menubars: {
     width,
     padding: 4,
     backgroundColor: '#FFFFFF',

@@ -47,6 +47,7 @@ import { TodayProduct, Slide, ExitAppModule } from '../../../Main/Main';
 import { Store_Detail } from '../../../Main/RecommendStore/RecommendStore';
 import Dash from 'react-native-dash';
 import { ProductBox, FeedBox, } from '../../../../customComponents/Tools';
+import { AppBar_Group } from '../../Group';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../../navigator/IpConfig';
 import LinearGradient from 'react-native-linear-gradient';

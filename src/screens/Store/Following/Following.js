@@ -36,12 +36,12 @@ export default connect(mapStateToProps, mapDispatchToProps)(Following);
 function Following(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='กำลังติดตาม' />
-        <Following />
+        <Followings />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export let Following = (props) => {
+export let Followings = (props) => {
     const Followingitem = [
         { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของอร่อยราชบุรีบอกด้วย.jpg`, name: `ของอร่อยราชบุรีบอกด้วย`, },
         { image: `${ip}/MySQL/uploads/Icon_shareBox/Group/ของกินมุมอร่อยราชบุรี.jpg`, name: `ของกินมุมอร่อยราชบุรี`, },

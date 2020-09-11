@@ -16,7 +16,7 @@ import stylesLayout from '../../../style/stylesLayout';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ExitApp, StarReview, } from '../../../customComponents';
+import { AppBar, ExitApp, StarReview, IconLoading, GenArray, } from '../../../customComponents';
 import { GetData, GetServices, TabBar, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
@@ -92,7 +92,7 @@ export let Score_store = (props) => {
             Authorization: cokie, dataBody, getDataSource: (v) => getData2(v), showConsole: 'score_data_start', uriPointer: uri,
         });
     }, [activeGetServices2 && cokie && id_store]);
-    return <ScrollView>
+    return <ScrollView scrollEnabled={!activeGetServices2}>
         <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
             <Text style={[FontFamilyBold, FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
             <View style={ItemCenter}>
@@ -111,12 +111,33 @@ export let Score_store = (props) => {
             <TabBar inactiveBoxColor='#fff' item={item} noLimit numberofBox={3} radiusBox={4} sendData={(v) => updateIndex(v)} setVertical={6}
                 type='box' />
         </View>
-        {dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
-            dataService2?.data_score?.length > 0 ?
-            dataService2.data_score.map((v, i) => <Box_Rating dataService={v} key={i} />) :
-            <View style={[FrameBackground, ItemCenter, { height: '100%', width, }]}>
-                <Text style={[FontFamilyBold, FontSize4,]}>ไม่มีรีวิว</Text>
-            </View>}
+        {!activeGetServices2 ?
+            dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
+                dataService2?.data_score?.length > 0 ?
+                dataService2.data_score.map((v, i) => <Box_Rating dataService={v} key={i} />) :
+                <View style={[FrameBackground, ItemCenter, { height: height * 0.478, width, }]}>
+                    <Text style={[FontFamilyBold, FontSize4,]}>ไม่มีรีวิว</Text>
+                </View> :
+            GenArray(3).map((_, i) => <View key={i} style={FrameBackground}>
+                <View style={[FRow, { borderColor: '#ECECEC', borderBottomWidth: 1 }]}>
+                    <View style={[Order_StorePro, { backgroundColor: '#ECECEC' }]}>
+                        <IconLoading />
+                    </View>
+                    <Text style={[FontFamilyBold, FontSize4, { marginLeft: 4, marginTop: 10, }]}> </Text>
+                </View>
+                <View style={{ padding: 10 }}>
+                    <View style={FRow}>
+                        {StarReview(0, 20)}
+                    </View>
+                    <View>
+                        <Text style={[FontFamilyText, FontSize5, { color: '#111', }]}>  </Text>
+                    </View>
+                </View>
+                <View style={[FRow, { marginLeft: 10 }]}>
+                    {/* <Text style={[FontFamilyText, FontSize6]}>25-03-2020 09:40</Text>  */}
+                    <Text style={[FontFamilyText, FontSize6]}>สินค้า :   </Text>
+                </View>
+            </View>)}
     </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>

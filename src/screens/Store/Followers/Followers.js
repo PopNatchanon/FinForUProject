@@ -13,8 +13,9 @@ import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
+import stylesLayout from '../../../style/stylesLayout';
+import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitApp, } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -33,8 +34,8 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(PostFeed);
-function PostFeed(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Follower);
+function Follower(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='ผู้ติดตาม' />
         <Followers />

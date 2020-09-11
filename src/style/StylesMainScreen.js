@@ -814,7 +814,7 @@ export default StyleSheet.create({
   },
   Supermarket_Store: {
     height: 'auto',
-    aspectRatio: 2.8,
+    aspectRatio: 2.2,
     justifyContent: 'space-between',
     paddingHorizontal: 5,
     marginTop: 5

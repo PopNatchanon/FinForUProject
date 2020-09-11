@@ -144,7 +144,7 @@ function Main(props) {
     },*/ { // แบรน์แนะนำ
         nameComponent: 'Main_RecommendBrand',
         renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
-    }, { // แบรนด์เนอร์โฆษณา 2
+    },/* { // แบรนด์เนอร์โฆษณา 2
         nameComponent: 'BannerBar_TWO',
         renderComponent: <BannerBar_TWO />
     }, { // ร้านนี้ห้ามพลาด
@@ -183,7 +183,7 @@ function Main(props) {
         renderComponent: <BannerBar_THREE />
     }, { // ฟินซุปเปอร์มาเก็ต
         nameComponent: 'FIN_Supermarket',
-        renderComponent: <FIN_Supermarket {...props} dataService={getFetchData['publish_mobile']?.data} />
+        renderComponent: <FIN_Supermarket_edit {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // สินค้าคัดสรรมาเพื่อคุณ
         nameComponent: 'TodayProduct',
         renderComponent: <TodayProduct {...props} loadData={getFetchData['publish_mobile']?.data?.for_you2} />
@@ -1501,64 +1501,122 @@ export const FIN_Supermarket = (props) => {
         <ScrollView horizontal>{SupermaketBox2}</ScrollView>
     </View>;
 };
+///----------------------------------------------------------------------------------------------->>>> FIN_Supermarket
+export const FIN_Supermarket_edit = (props) => {
+    const { dataService, } = props;
+    let item_1 = [];
+    let item_2 = [];
+    const NaviStyle = { width: width * 0.60, marginLeft: 5 };
+    const ImageBannerBar = { uri: `${ip}/MySQL/uploads/Resize/BannerTap/banner 333.jpg`, };
+    const ImageFood1 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_L/775-325_food1.jpg`, };
+    const ImageFood1_1 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food1.jpg`, };
+    const ImageFood4 = { uri: `${ip}/MySQL/uploads/Banner_Super/Banner_M/430-180_food4.jpg`, };
+    if (dataService?.brand.length > 0) {
+        for (let n = 0; n < dataService.brand.length; n += 2) {
+            if (dataService.brand[n]) { item_1.push(dataService.brand[n]); };
+            if (dataService.brand[n + 1]) { item_2.push(dataService.brand[n + 1]); };
+        };
+    };
+    const BoxEmpty = GenArray(10).map((_, i) => <View key={i} style={{ backgroundColor: '#ECECEC', height: height * 0.064, width: 100, borderColor: '#C9C9C9', borderWidth: 1, margin: 3 }}>
+        <View style={[HW100p, ItemCenterVertical]}>
+            <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
+        </View>
+    </View>);
+    const RecommendBrand = dataService?.brand && item_1 ? item_1.map((v, i) => {
+        const ImageReBrand = { uri: `${ip}/MySQL/uploads/Brand_R/${v.image}`, };
+        // const ImageReBrand = { uri: `${finip}/${v.image_path}/${v.image}`, };
+        return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
+            <View style={{ height: height * 0.064, width: 100, borderColor: '#C9C9C9', borderWidth: 1, margin: 2 }}>
+                <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
+            </View>
+        </TouchableOpacity>;
+    }) : BoxEmpty;
+    const RecommendBrand2 = dataService?.brand && item_2 ? item_2.map((v, i) => {
+        const ImageReBrand2 = { uri: `${ip}/MySQL/uploads/Brand_R/${v.image}`, };
+        // const ImageReBrand2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
+        return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
+            <View style={{ height: height * 0.064, width: 100, borderColor: '#C9C9C9', borderWidth: 1, margin: 2 }}>
+                <FastImage resizeMode={contain} source={ImageReBrand2} style={[HW100p, ItemCenterVertical]} />
+            </View>
+        </TouchableOpacity>;
+    }) : BoxEmpty;
+    // Banner ใหญ่ตรง Supermaket
+    const item = [
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food1.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food2.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food3.jpg`, },
+        { image: `${ip}/MySQL/uploads/Banner_Super/600-225_food4.jpg`, }];
+    // สินค้าใน Supermaket
+    const Supermarketitem = [{
+        id_product: 0, image: 'A1.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '85',
+        name_product: 'อิควลสารให้ความหวานแทนน้ำตาลจากหญ้าหวาน 2กรัม แพค 40ซอง', type: 'local',
+    }, {
+        id_product: 1, image: 'A2.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '149',
+        name_product: 'แสนดีข้าวขาวหอมคัดพิเศษ 5กก', type: 'local',
+    }, {
+        id_product: 2, image: 'A3.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '45',
+        name_product: 'ชิกเก้นออฟเดอะซีปลาทูน่ารสน้ำมันมะกอกและพริก 80กรัม', type: 'local',
+    }, {
+        id_product: 3, image: 'A4.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '21',
+        name_product: 'ชาวเกาะกะทิยูเอชที 250มล', type: 'local',
+    }, {
+        id_product: 4, image: 'A5.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '23.50',
+        name_product: 'มะลินมข้นหวาน 380กรัม', type: 'local',
+    }, {
+        id_product: 5, image: 'A6.jpg', image_path: 'MySQL/uploads/Supermarket', last_price: '7',
+        name_product: 'ปรุงทิพย์เกลือป่น 500กรัม', type: 'local',
+    }];
+    // --------------------------------------------------------------------------
+    const _renderItem = (v, i) => {
+        const ImageRender = { uri: v.image, };
+        return <View key={i} style={{ aspectRatio: 2.5, height: 'auto', width, }}>
+            <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='cover' source={ImageRender} style={HW100p} />
+        </View>;
+    };
+    // --------------------------------------------------------------------------
+    return <View style={{ backgroundColor: '#FFFFFF', }}>
+        <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>FIN Supermarket</Text>
+        <View>
+            <Carousel autoplay autoplayInterval={4000} data={item} renderItem={_renderItem} pagination={PaginationLight} loop />
+        </View>
+        <View style={[FRow, Supermarket_Store]}>
+            <View style={{ justifyContent: 'space-between', width: width * 0.36, }}>
+                <View style={Supermarket_Image}>
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood1_1} style={HW100p} />
+                </View>
+                <View style={Supermarket_Image}>
+                    <Image defaultSource={LOADING_ICON} resizeMethod='resize' resizeMode='stretch' source={ImageFood4} style={HW100p} />
+                </View>
+            </View>
+            <View style={NaviStyle}>
+                <FastImage defaultSource={LOADING_ICON} resizeMode={stretch} source={ImageBannerBar} style={{ height: height * 0.06, width: '100%' }} />
+                <View style={[FrameBackgroundTextBox]}>
+                    <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>แบรนด์แนะนำ</Text>
+                    <TouchableOpacity>
+                        <Text style={[FontFamilyText, FontSize7, FrameBackgroundTextEnd]}>ดูทั้งหมด</Text>
+                    </TouchableOpacity>
+                </View>
+                <ScrollView horizontal>
+                    <View>
+                        <View style={FRow}>{RecommendBrand}</View>
+                        <View style={[FRow, { marginBottom: 2, }]}>{RecommendBrand2}</View>
+                    </View>
+                </ScrollView>
+            </View>
+        </View>
+        <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าแนะนำ</Text>
+        <View style={Supermarket_Product}>
+            {dataService && <FlatProduct {...props} dataService={dataService.product_hit} dispriceSize={15} mode='row3'
+                nameFlatProduct='FIN_Supermarket' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} />}
+        </View>
+        <View style={Banner_Bar}>
+            <FastImage resizeMode={stretch} source={ImageBannerBar} style={HxWfull} />
+        </View>
+    </View>;
+};
 ///----------------------------------------------------------------------------------------------->>>> TodayProduct
 export const TodayProduct = (props) => {
     const { loadData, noTitle, onShow, prepath, } = props;
-    const dataService2 = [{
-        id_product: 0, image: '1.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '4250',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 1, image: '2.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '145000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 2, image: '3.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '129000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 3, image: '4.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '139000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 4, image: '5.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '119000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 5, image: '6.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 6, image: '7.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 7, image: '8.jpg', image_path: 'MySQL/uploads/Test_Product', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 8, image: '9.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 9, image: '10.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 10, image: '11.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 11, image: '12.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 12, image: '13.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 13, image: '14.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 14, image: '15.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 15, image: '16.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 16, image: '17.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }, {
-        id_product: 17, image: '18.jpg', image_path: 'MySQL/uploads/Test_Product/Deal', last_price: '359000',
-        name_product: 'Hydrating Hand Sanitizer', type: 'local',
-    }];
     onShow && console.log(onShow);
     return <View style={[BoxProduct2, { backgroundColor: 'transparent', }]}>
         {noTitle ? null : <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าคัดสรรเพื่อคุณ</Text>}

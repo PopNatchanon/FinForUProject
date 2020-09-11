@@ -85,7 +85,7 @@ export let Menu_Bar = (props) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Admin', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
                     <FastImage resizeMode={cover} source={ADMIN} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>

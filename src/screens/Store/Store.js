@@ -1,8 +1,6 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect } from 'react';
-import {
-    Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View,
-} from 'react-native';
+import { Animated, Dimensions, Image, ScrollView, Text, TouchableOpacity, View, } from 'react-native';
 import { connect } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
@@ -25,8 +23,7 @@ import stylesLayout from '../../style/stylesLayout';
 import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesStore from '../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, ButtomTab, EmptyProduct, GenArray, IconLoading, NavigationNavigate, StarReview, } from '../../customComponents';
-import { ExitAppModule, } from '../Main/Main';
+import { AppBar, ButtomTab, EmptyProduct, ExitApp, GenArray, IconLoading, NavigationNavigate, StarReview, } from '../../customComponents';
 import { FeedBox, FlatComponent, FlatProduct, GetCoupon, GetData, GetServices, ProductBox, TabBar, } from '../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -40,6 +37,7 @@ const {
     Banner, BannerBox, BannerSlide, HeadButtom, Menubars, StoreHeads, StoreHeadBox, StoreHeadButtom, StoreHeadButtomText, StoreHeadDetailss,
     StoreHeadDetailsText1, StoreHeadDetailsText2_2, StoreHeadDetailsText2_3, StoreHeadFace, StoreHeadImage, StoreHeadText, StoreHeadTextOther,
     StoreHeadTextOther2, } = stylesStore;
+const Navi = (naviProps) => NavigationNavigate(naviProps);
 const EmptyValue = [{}];
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
@@ -97,7 +95,7 @@ function Store(props) {
         extrapolate: 'clamp',
         useNativeDriver: true,
     });
-    var dataBody = {
+    const dataBody = {
         id_store: id_store,
         popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
         lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -106,7 +104,7 @@ function Store(props) {
         min_price: '',
         max_price: ''
     };
-    var dataBody2 = {
+    const dataBody2 = {
         id_store: id_store,
         popular: filterValue?.popular ?? '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
         lastest: filterValue.lastest ?? '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
@@ -115,14 +113,14 @@ function Store(props) {
         min_price: '',
         max_price: ''
     };
-    var image_header;
-    var uri = `${finip}/brand/store_home`;
-    let getSelectedIndex = (v) => {
+    let image_header;
+    const uri = `${finip}/brand/store_home`;
+    const getSelectedIndex = (v) => {
         setActiveGetServices2((v * 1) == 1 ? true : false);
         setActiveRef((v * 1) == 2 ? true : false);
         setSelectedIndex(v * 1);
     };
-    let getSelectedIndex2 = (v) => {
+    const getSelectedIndex2 = (v) => {
         filterValue.popular = (v.selectedIndex * 1) == 0 ? 'popular' : '';
         filterValue.best_sale = (v.selectedIndex * 1) == 1 ? 'best_sale' : '';
         filterValue.lastest = (v.selectedIndex * 1) == 2 ? 'lastest' : '';
@@ -131,12 +129,11 @@ function Store(props) {
         setFilterValue(filterValue);
         setSelectedIndex2((v.selectedIndex * 1));
     };
-    let getData = (v) => { setActiveGetServices(false); setDataService(v); };
-    let getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
-    let getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+    const getData = (v) => { setActiveGetServices(false); setDataService(v); };
+    const getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
+    const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
     useEffect(() => {
-        activeGetServices && id_store !== undefined &&
-            GetServices({ uriPointer: uri, dataBody, getDataSource: (v) => getData(v), });
+        activeGetServices && id_store !== undefined && GetServices({ uriPointer: uri, dataBody, getDataSource: (v) => getData(v), });
     }, [activeGetServices && id_store !== undefined]);
     useEffect(() => {
         selectedIndex == 1 && activeGetServices2 && id_store !== undefined &&
@@ -146,10 +143,11 @@ function Store(props) {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true });
     }, [activeGetCurrentUser]);
     dataService?.store_data?.map((v) => { image_header = `${finip}/${v.image_head_path}/${v.image_head}`; });
-    let H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
-    let H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
-    let H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
-    let ViewSide = () => {
+    const H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
+    const H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
+    const H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
+    const MainProps = { ...props, activeGetServices, id_store };
+    const ViewSide = () => {
         switch (selectedIndex) {
             case 0:
                 return [{
@@ -193,7 +191,7 @@ function Store(props) {
     }, {
         nameComponent: 'StoreHeadDetails',
         renderComponent: <Animatable.View style={{ marginBottom: 3, }}>
-            <StoreHeadDetails {...props} activeGetServices={activeGetServices} dataService={dataService?.store_data ?? EmptyValue} />
+            <StoreHeadDetails {...MainProps} dataService={dataService?.store_data ?? EmptyValue} />
         </Animatable.View>
     }, {
         nameComponent: 'Menubar',
@@ -222,25 +220,25 @@ function Store(props) {
         <FlatComponent component={itemT} key='Main' scrollEventThrottle={8} stickyHeaderIndices={[2, selectedIndex == 1 ? 4 : 0]}
             onScroll={Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false, })} />
         {selectedIndex == 2 && <>
-            <ActionButton buttonColor={mainColor} size={50} onPress={() => NavigationNavigate({
+            <ActionButton buttonColor={mainColor} size={50} onPress={() => Navi({
                 ...props, goScreen: 'Feed_Create',
                 setData: { id_store, store_data: dataService.store_data, getDataSource: (v) => setActiveRef(v) },
             })} />
         </>}
-        <ExitAppModule {...props} />
+        <ExitApp {...props} />
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> StoreHead
-export let StoreHead = (props) => {
+export const StoreHead = (props) => {
     const { dataService, } = props;
     return dataService ?
         dataService.map((v, i) => {
-            var dataMySQL = `${finip}/${v.image_path}/${v.image}`
+            const ImageHead = { uri: `${finip}/${v.image_path}/${v.image}`, };
             return <View key={i} style={[StoreHeads]}>
                 <View style={StoreHeadBox}>
                     <View style={FRow}>
                         <View>
-                            <FastImage resizeMode={cover} source={{ uri: dataMySQL, }} style={[StoreHeadFace, { backgroundColor: '#fff' }]} />
+                            <FastImage resizeMode={cover} source={ImageHead} style={[StoreHeadFace, { backgroundColor: '#fff' }]} />
                         </View>
                         <View>
                             <Text style={[StoreHeadText, FontFamilyBold, FontSize5]}>{v.name}</Text>
@@ -253,7 +251,7 @@ export let StoreHead = (props) => {
                         <View style={StoreHeadButtom}>
                             <Text style={[StoreHeadButtomText, FontFamilyText, FontSize7]}>ติดตาม</Text>
                         </View>
-                        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Customer_Topic_Chat', })}>
+                        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Customer_Topic_Chat', })}>
                             <View style={StoreHeadButtom}>
                                 <Text style={[StoreHeadButtomText, FontFamilyText, FontSize7]}>แชท</Text>
                             </View>
@@ -264,8 +262,8 @@ export let StoreHead = (props) => {
         }) : <></>;
 };
 ///----------------------------------------------------------------------------------------------->>>> StoreHeadDetails
-export let StoreHeadDetails = (props) => {
-    const { activeGetServices, dataService, } = props;
+export const StoreHeadDetails = (props) => {
+    const { activeGetServices, dataService, id_store, } = props;
     const {
         chat_performance, follow_number, image, image_path, name, product_amount, rating, rating_number, time_send, who_follow,
     } = dataService[0];
@@ -281,10 +279,10 @@ export let StoreHeadDetails = (props) => {
                     <Text style={[FontFamilyText, FontSize8, { color: '#64696F' }]}>Active เมื่อ 1 ชั่วโมง</Text>}
                 {!activeGetServices ?
                     <View style={FRow}>
-                        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Store_Followers', })}>
+                        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_Followers', })}>
                             <Text style={[FontFamilyText, FontSize7, { color: '#10162d' }]}>ผู้ติดตาม {who_follow} </Text>
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Store_Following', })}>
+                        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_Following', })}>
                             <Text style={[FontFamilyText, FontSize7, { color: '#10162d', marginLeft: 5 }]}>กำลังติดตาม {follow_number}</Text>
                         </TouchableOpacity>
                     </View> :
@@ -307,8 +305,8 @@ export let StoreHeadDetails = (props) => {
                         <Text style={[StoreHeadButtomText, FontFamilyBold, FontSize6, { color: '#10162d' }]}>กำลังติดตาม</Text>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Customer_Topic_Chat', })}>
-                    <LinearGradient start={{ x: 0.0, y: 0.25 }} end={{ x: 0.5, y: 1.0 }} colors={['#10162d', '#284d8f']}
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Customer_Topic_Chat', })}>
+                    <LinearGradient colors={['#10162d', '#284d8f']} end={{ x: 0.5, y: 1.0 }} start={{ x: 0.0, y: 0.25 }}
                         style={[StoreHeadButtom, { borderColor: '#ffbf00', borderWidth: 1 }]}>
                         <Text style={[StoreHeadButtomText, FontFamilyBold, FontSize6, { color: '#fff' }]}>แชท</Text>
                     </LinearGradient>
@@ -343,14 +341,14 @@ export let StoreHeadDetails = (props) => {
                 {!activeGetServices ? <Text style={[StoreHeadDetailsText2_2, FontFamilyText, FontSize7]}>
                     {chat_performance}</Text> : <></>}
             </View>
-            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Store_Scores', })}>
+            <TouchableOpacity activeOpacity={1} onPress={() => Navi({ ...props, goScreen: 'Store_Scores', setData: { id_store } })}>
                 <IconEntypo name='chevron-right' size={25} color={mainColor} />
             </TouchableOpacity>
         </View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Menubar
-export let Menubar = (props) => {
+export const Menubar = (props) => {
     const { getSelectedIndex } = props;
     const item = [{ name: 'หน้าหลัก' }, { name: 'สินค้าทั้งหมด' }, { name: 'ฟีด' }];
     return <View>
@@ -438,8 +436,7 @@ export const TicketLine = (props) => {
     const getCoupon = (v) => { setActiveGetCoupon(true); setActiveGetServices(true); setId_promotion(v.id_promotion); };
     const getServices = (v) => { setActiveGetCoupon(false); setActiveGetServices(false); setDataService(v); };
     useEffect(() => {
-        activeGetServices && cokie &&
-            GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getServices(v), uriPointer: uri, });
+        activeGetServices && cokie && GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getServices(v), uriPointer: uri, });
     }, [activeGetServices && cokie]);
     return <View key='getTicketLine' style={[FrameBackground, { marginTop: 0 }]}>
         <ScrollView horizontal>
@@ -448,11 +445,10 @@ export const TicketLine = (props) => {
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF' }]}>คูปอง</Text>
         </TouchableOpacity> */}
             {coupon?.length > 0 ?
-                coupon?.map((v, i) => <GetCoupon flexRow codeList={v.my_coupon == 'no' ? 'available' : ''} getCoupon={v2 => getCoupon(v2)}
-                    key={i} saveCoupon setDataService={{ list: 'shop', id_promotion: v.id_promotion }} timeOut={v.end_period}
-                    couponText={v.name} textDetail={v.detail} />) :
-                activeGetServices ?
-                    <></> : <></>}
+                coupon?.map(({ detail, end_period, id_promotion, my_coupon, name, }, i) => <GetCoupon
+                    codeList={my_coupon == 'no' ? 'available' : ''} couponText={name} flexRow getCoupon={v2 => getCoupon(v2)}
+                    key={i} saveCoupon setDataService={{ list: 'shop', id_promotion }} textDetail={detail} timeOut={end_period} />) :
+                activeGetServices ? <></> : <></>}
         </ScrollView>
     </View>;
 };
@@ -546,12 +542,12 @@ export const BoxProduct4 = (props) => {
         <View style={[BoxProductWarp, { marginTop: 0, }]}>
             {!activeRef ?
                 feed_news != 'ยังไม่มีข่าวใหม่' ?
-                    feed_news?.map((v, i) => v.id_feed && <FeedBox {...props} atStore dataService={v} Follow={true} Header key={i} />) :
+                    feed_news?.map((v, i) => v.id_feed && <FeedBox {...props} atStore dataService={v} Follow Header key={i} />) :
                     <View style={[ItemCenter, { backgroundColor: '#fff', height: 50, width, }]}>
                         <Text style={[FontFamilyText, FontSize4, ItemCenterVertical]}>{feed_news}</Text>
                     </View> :
                 <View style={{ height: height * 0.8, width, }}>
-                    {GenArray(2).map((_, i) => <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow={true} Header key={i}
+                    {GenArray(2).map((_, i) => <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow Header key={i}
                         nodata />)}
                 </View>}
         </View>

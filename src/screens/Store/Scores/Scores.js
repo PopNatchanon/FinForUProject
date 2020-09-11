@@ -1,55 +1,30 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect, useRef } from 'react';
-import {
-    Animated, Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image, ListView,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useState, useEffect, } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, Text, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import {
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart,
 } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
-import BottomSheet from 'react-native-raw-bottom-sheet';
-import { Button } from 'native-base';
 import FastImage from 'react-native-fast-image';
-import ImagePicker from 'react-native-image-crop-picker';
-import { TextInput } from 'react-native-gesture-handler';
-import RNFetchBlob from 'rn-fetch-blob'
-import ModalDropdown from 'react-native-modal-dropdown';
-import ActionButton from 'react-native-action-button';
-import * as Animatable from 'react-native-animatable';
-import { CheckBox } from 'react-native-elements';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import { Icon } from 'react-native-elements';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconFontisto from 'react-native-vector-icons/Fontisto';
-import IconFeather from 'react-native-vector-icons/Feather';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDetail from '../../../style/StylesDetailScreen';
-import stylesMain, { mainColor, appBarColor } from '../../../style/StylesMainScreen';
 import stylesFont from '../../../style/stylesFont';
+import stylesLayout from '../../../style/stylesLayout';
+import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesTopic from '../../../style/styleTopic';
-import stylesProfile from '../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {
-    GetServices, GetCoupon, TabBar, LoadingScreen, GetData, GetServicesBlob,
-} from '../../../customComponents/Tools';
-import { ImageGallery, GenArray, StarReview, NavigationNavigate, AppBar, } from '../../../customComponents';
-import { TodayProduct, Slide, ExitAppModule } from '../../Main/Main';
-import { Store_Detail } from '../../Main/RecommendStore/RecommendStore';
-import Dash from 'react-native-dash';
-import { ProductBox, FeedBox, } from '../../../customComponents/Tools';
+import { AppBar, ExitApp, StarReview, } from '../../../customComponents';
+import { GetData, GetServices, TabBar, } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip } from '../../../navigator/IpConfig';
-import LinearGradient from 'react-native-linear-gradient';
+///----------------------------------------------------------------------------------------------->>>> setup Value
+const { FontFamilyBold, FontFamilyText, FontSize2, FontSize3, FontSize4, FontSize5, FontSize6, } = stylesFont;
+const { FRow, } = stylesLayout;
+const { FrameBackground, ItemCenter, SafeAreaViews } = stylesMain;
+const { Order_StorePro, } = stylesProfileTopic;
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     cartData: state.cartData, customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -59,19 +34,20 @@ const mapDispatchToProps = ({
     activeCartList, cartListChecked, cartListCheckedAll, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd,
     setDataRefresh, setDataStart, setFetchToStart
 });
-export default connect(mapStateToProps, mapDispatchToProps)(PostFeed);
-function PostFeed(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Scores);
+function Scores(props) {
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
-    let getSource = (value) => { setActiveGetCurrentUser(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
+    let getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
     useEffect(() => {
-        activeGetCurrentUser && GetData({ getCokie: true, getSource: value => getSource(value), getUse: true, })
-    }, [activeGetCurrentUser])
-    return <SafeAreaView>
+        activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUse: true, })
+    }, [activeGetCurrentUser]);
+    return <SafeAreaView style={[SafeAreaViews]}>
         <AppBar {...props} backArrow titleHead='คะแนนประจำร้าน' />
         <Score_store {...props} cokie={cokie} />
-    </SafeAreaView>
+        <ExitApp {...props} />
+    </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>
 export let Score_store = (props) => {
@@ -88,70 +64,89 @@ export let Score_store = (props) => {
         nameline2: `(${(dataService ? (dataService.rate_1 + dataService.rate_2 + dataService.rate_3 + dataService.rate_4 +
             dataService.rate_5) : '0')})`,
     }, {
-        name: '5 ดาว',
-        nameline2: `(${dataService?.rate_5 ?? '0'})`,
+        name: '5 ดาว', nameline2: `(${dataService?.rate_5 ?? '0'})`,
     }, {
-        name: '4 ดาว',
-        nameline2: `(${dataService?.rate_4 ?? '0'})`,
+        name: '4 ดาว', nameline2: `(${dataService?.rate_4 ?? '0'})`,
     }, {
-        name: '3 ดาว',
-        nameline2: `(${dataService?.rate_3 ?? '0'})`,
+        name: '3 ดาว', nameline2: `(${dataService?.rate_3 ?? '0'})`,
     }, {
-        name: '2 ดาว',
-        nameline2: `(${dataService?.rate_2 ?? '0'})`,
+        name: '2 ดาว', nameline2: `(${dataService?.rate_2 ?? '0'})`,
     }, {
-        name: '1 ดาว',
-        nameline2: `(${dataService?.rate_1 ?? '0'})`,
+        name: '1 ดาว', nameline2: `(${dataService?.rate_1 ?? '0'})`,
     }];
     var uri = `${finip}/store/score_data`;
-    let updateIndex = (value) => {
-        var score = value.selectedIndex == 0 ? '' :
-            value.selectedIndex == 1 ? '5' :
-                value.selectedIndex == 2 ? '4' :
-                    value.selectedIndex == 3 ? '3' :
-                        value.selectedIndex == 4 ? '2' :
-                            value.selectedIndex == 5 ? '1' : '';
+    let updateIndex = (v) => {
+        var score = v.selectedIndex == 0 ? '' : v.selectedIndex == 1 ? '5' : v.selectedIndex == 2 ? '4' : v.selectedIndex == 3 ? '3' :
+            v.selectedIndex == 4 ? '2' : v.selectedIndex == 5 ? '1' : '';
         setActiveGetServices2(true); setScore(score);
     };
-    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
-    let getData2 = (value) => { setActiveGetServices2(false); setDataService2(value); };
+    let getData = (v) => { setActiveGetServices(false); setDataService(v); };
+    let getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
     useEffect(() => {
-        activeGetServices && id_store && cokie && dataBody?.id_store &&
-            GetServices({
-                Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data', getDataSource: value => getData(value),
-            });
-    }, [activeGetServices && id_store && cokie && dataBody?.id_store]);
+        activeGetServices && cokie && id_store && dataBody?.id_store && GetServices({
+            Authorization: cokie, dataBody, getDataSource: (v) => getData(v), showConsole: 'score_data', uriPointer: uri,
+        });
+    }, [activeGetServices && cokie && id_store && dataBody?.id_store]);
     useEffect(() => {
-        activeGetServices2 && id_store && cokie &&
-            GetServices({
-                Authorization: cokie, uriPointer: uri, dataBody, showConsole: 'score_data_start', getDataSource: value => getData2(value),
-            });
-    }, [activeGetServices2 && id_store && cokie]);
+        activeGetServices2 && cokie && id_store && GetServices({
+            Authorization: cokie, dataBody, getDataSource: (v) => getData2(v), showConsole: 'score_data_start', uriPointer: uri,
+        });
+    }, [activeGetServices2 && cokie && id_store]);
     return <ScrollView>
         <View style={{ backgroundColor: '#4C9AE2', width: '100%', }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
-            <View style={stylesMain.ItemCenter}>
-                <View style={[stylesMain.ItemCenter, {
-                    borderWidth: 1, backgroundColor: '#FFFFFF', height: 130, width: 130, borderRadius: 80, marginBottom: 10
-                }]}>
+            <Text style={[FontFamilyBold, FontSize3, { color: '#FFFFFF', margin: 10 }]}> เรตติ้งร้าน </Text>
+            <View style={ItemCenter}>
+                <View style={[ItemCenter,
+                    { backgroundColor: '#FFFFFF', borderRadius: 80, borderWidth: 1, height: 130, marginBottom: 10, width: 130, }]}>
                     {dataService?.rating_store == 'ยังไม่มีการรีวิว' ?
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3]}>ยังไม่มีการรีวิว</Text> :
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2]}>
-                            {dataService?.rating_store} คะแนน</Text>}
-                    <View style={stylesMain.FlexRow}>
+                        <Text style={[FontFamilyBold, FontSize3]}>ยังไม่มีการรีวิว</Text> :
+                        <Text style={[FontFamilyBold, FontSize2]}>{dataService?.rating_store} คะแนน</Text>}
+                    <View style={FRow}>
                         {StarReview(dataService?.rating_store, 20)}
                     </View>
                 </View>
             </View>
         </View>
-        <View style={{ height: 120, width: '100%', flexDirection: 'row', flexWrap: 'wrap', marginBottom: 10 }}>
-            <TabBar sendData={value => updateIndex(value)} setVertical={6} item={item} type='box' noLimit numberofBox={3} radiusBox={4} />
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', height: 120, marginBottom: 10, width: '100%', }}>
+            <TabBar inactiveBoxColor='#fff' item={item} noLimit numberofBox={3} radiusBox={4} sendData={(v) => updateIndex(v)} setVertical={6}
+                type='box' />
         </View>
         {dataService2?.error != '[SyntaxError: JSON Parse error: Unrecognized token ' < ']' &&
             dataService2?.data_score?.length > 0 ?
-            dataService2.data_score.map((value, index) => <Box_Rating dataService={value} key={index} />)
-            : <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { width, height: '100%' }]}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>ไม่มีรีวิว</Text>
+            dataService2.data_score.map((v, i) => <Box_Rating dataService={v} key={i} />) :
+            <View style={[FrameBackground, ItemCenter, { height: '100%', width, }]}>
+                <Text style={[FontFamilyBold, FontSize4,]}>ไม่มีรีวิว</Text>
             </View>}
     </ScrollView>;
+};
+///----------------------------------------------------------------------------------------------->>>
+export let Box_Rating = (props) => {
+    const { comment_box, dataService } = props;
+    const ImageCustomer = {
+        uri: dataService?.user_type == 'fin' ?
+            `${finip}/${dataService.path_customer}/${dataService.img_customer}` : dataService?.img_customer
+    };
+    return <View style={FrameBackground}>
+        <View style={[FRow, { borderColor: '#ECECEC', borderBottomWidth: 1 }]}>
+            <View style={Order_StorePro}>
+                <FastImage source={ImageCustomer} style={{ borderRadius: 20, height: '100%', width: '100%', }} />
+            </View>
+            <Text style={[FontFamilyBold, FontSize4, { marginLeft: 4, marginTop: 10, }]}>{dataService?.name}</Text>
+        </View>
+        <View style={{ padding: 10 }}>
+            <View style={FRow}>
+                {StarReview(dataService?.rating, 20)}
+            </View>
+            {comment_box && <View style={{ backgroundColor: mainColor, margin: 10, width: 110, }}>
+                <Text style={[FontFamilyText, FontSize6, { color: '#FFFFFF', textAlign: 'center' }]}>คุ้มค้าและจัดส่งเร็วดี</Text>
+            </View>}
+            <View>
+                <Text style={[FontFamilyText, FontSize5, { color: '#111', }]}>{dataService?.comment}</Text>
+            </View>
+        </View>
+        <View style={[FRow, { marginLeft: 10 }]}>
+            {/* <Text style={[FontFamilyText, FontSize6]}>25-03-2020 09:40</Text>  */}
+            <Text style={[FontFamilyText, FontSize6]}>สินค้า : {dataService?.product} {dataService?.detail}</Text>
+        </View>
+    </View>;
 };

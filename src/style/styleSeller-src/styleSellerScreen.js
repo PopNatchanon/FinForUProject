@@ -37,7 +37,7 @@ export default StyleSheet.create({
         borderColor: mainColor,
         borderWidth: 1,
     },
-    Seller_Up_ProductDetail: {
+    Seller_Up_ProductDetails: {
         flexDirection: 'row',
         justifyContent: 'space-between',
         width: '100%',
@@ -46,7 +46,7 @@ export default StyleSheet.create({
         paddingLeft: 10,
         alignItems: 'center',
     },
-    BottomSheet: {
+    BottomSheest: {
         justifyContent: 'center',
         alignItems: 'center',
     },
@@ -318,7 +318,7 @@ export default StyleSheet.create({
         borderRadius: 5, borderWidth: 1,
     },
     //   ------------------>
-    Seller_Statistics: {
+    Seller_Statistic: {
         borderBottomColor: '#000000',
         borderBottomWidth: 1,
         height: 20,

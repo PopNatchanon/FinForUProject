@@ -54,11 +54,9 @@ function Profile(props) {
     }, [activeGetSource]);
     return <SafeAreaView style={[stylesMain.SafeAreaViewNB, stylesMain.BackgroundAreaView]}>
         <ScrollView>
-            <View>
-                <Headbar {...props} currentUser={currentUser} dataSevice={dataSevice} getDataSources={() => setActiveGetServices(true)} />
-                <Menubar {...props} />
-                <Listbar {...props} currentUser={currentUser} cokie={cokie} />
-            </View>
+            <Headbar {...props} currentUser={currentUser} dataSevice={dataSevice} getDataSources={() => setActiveGetServices(true)} />
+            <Menubar {...props} />
+            <Listbar {...props} currentUser={currentUser} cokie={cokie} />
         </ScrollView>
         <Toolbar {...props} />
         <ExitAppModule {...props} />

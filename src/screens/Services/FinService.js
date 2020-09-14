@@ -43,23 +43,25 @@ function FinService(props) {
                 <FAQs {...props} />
                 <Contact_Us {...props} />
             </ScrollView>
+            <ExitAppModule {...props} />
         </SafeAreaView>
     );
 }
 ///----------------------------------------------------------------------------------------------->>>>banner
 export let Banner_Service = (props) => {
     const Service_image = { uri: `${ip}/MySQL/uploads/Service/Fin_Service.jpg`, };
-    return <View style={{ paddingHorizontal: 5 }}>
-        <FastImage resizeMode={cover} source={Service_image} style={{ height: 150, }} />
+    return <View style={[stylesMain.ItemCenter, { height: 150, width, }]}>
+        <FastImage resizeMode={cover} source={Service_image} style={{ height: '100%', width: '100%' }} />
     </View>
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Button_Bar = (props) => {
-    const item = [{ name: 'HOME' }, { name: 'ABOUT' }, { name: 'BLOG' }, { name: 'CONTACT' }];
-    return <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', paddingVertical: 3 }]}>
+    const { getSelectedIndex } = props;
+    const item = [{ name: 'HOME' }, { name: 'ABOUT' }, { name: 'BLOG' }, { name: 'CONTACT' }, { name: 'REVIEW' }];
+    return <ScrollView horizontal style={{ backgroundColor: '#FFFFFF', paddingVertical: 3 }}>
         <ButtomTab colors={['#10162d', '#284d8f']} data={item} setWidthBox={width * 0.234} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
-        stylesFont.FontFamilyBold]} linearGradient={true} notSelectFontColors='#10162d' />
-    </View>
+        stylesFont.FontFamilyBold]} linearGradient={true} notSelectFontColors='#10162d' sendDataOut={(v) => getSelectedIndex(v)} />
+    </ScrollView>
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Menu_Bar = (props) => {
@@ -74,7 +76,7 @@ export let Menu_Bar = (props) => {
         </View>
         <View style={{ width: '98%', }}>
             <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ContentMarketing', })} style={[stylesMain.FlexRow, {
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Blog', })} style={[stylesMain.FlexRow, {
                     borderColor: mainColor, borderWidth: 1,
                     borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF'
                 }]}>
@@ -85,7 +87,7 @@ export let Menu_Bar = (props) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Admin', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Admin', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
                     <FastImage resizeMode={cover} source={ADMIN} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
@@ -95,7 +97,7 @@ export let Menu_Bar = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
-                <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Photograph', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
                     <FastImage resizeMode={cover} source={PHOTOGRAPH} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
@@ -103,7 +105,7 @@ export let Menu_Bar = (props) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_VideoContent', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
                     <FastImage resizeMode={cover} source={VIDEO} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
@@ -113,7 +115,7 @@ export let Menu_Bar = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={[stylesMain.FlexRow, { marginTop: 5, justifyContent: 'center' }]}>
-                <TouchableOpacity style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
+                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_GraphicDesign', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
                     <FastImage resizeMode={cover} source={GRAPHIC} style={{ height: '100%', width: '50%', }} />
                     <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
                         <View style={{ backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }}>
@@ -127,6 +129,7 @@ export let Menu_Bar = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Service_About = (props) => {
+    const Video = { uri: `${ip}/MySQL/uploads/Service/VideoPortfolio/0.jpg`, };
     return <View style={{ padding: 10, backgroundColor: '#FFFF', borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5, marginTop: 10, marginHorizontal: 5, marginBottom: 5 }}>
         <View style={stylesMain.ItemCenter}>
             <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, marginTop: -20 }}>
@@ -150,8 +153,8 @@ export let Service_About = (props) => {
             </TouchableOpacity>
         </View>
         <View style={[stylesMain.ItemCenter, { marginTop: 10 }]}>
-            <View style={[stylesMain.ItemCenter, { width: '80%', height: 150, backgroundColor: '#C9C9C9', borderWidth: 2 }]}>
-                <Text>วีดีโอ</Text>
+            <View style={[stylesMain.ItemCenter, { width: '90%', height: 150, borderColor: '#C9C9C9', borderWidth: 2 }]}>
+                <FastImage resizeMode={cover} source={Video} style={{ height: '100%', width: '100%', }} />
             </View>
         </View>
     </View>
@@ -276,6 +279,11 @@ export let Contact_Us = (props) => {
             <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>เรื่องที่ติดต่อ</Text>
             <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
+        </View>
+        <View style={stylesMain.ItemCenter}>
+            <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: 80, height: 40, marginTop: 10, borderRadius: 10 }]}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>Submit</Text>
+            </TouchableOpacity>
         </View>
     </View>
 }

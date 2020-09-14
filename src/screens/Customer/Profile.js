@@ -28,6 +28,7 @@ import { GetCoupon, GetData, TabBar, GetServices, LoadingScreen } from '../../cu
 import { Toolbar, NavigationNavigate } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
+import { ListMenu } from '../Seller/Seller';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
@@ -191,7 +192,7 @@ export let Listbar = (props) => {
     const [pathlist, setPathlist] = useState(0);
     let PathList = () => {
         switch (pathlist) {
-            case 0: return <ListMenu {...props} />;
+            case 0: return <SetList {...props} />;
             case 2: return <ViewCode {...props} currentUser={currentUser} cokie={cokie} />;
         };
     };
@@ -241,92 +242,38 @@ export let Listbar = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> ListMenu
-export let ListMenu = (props) => {
-    const { navigation } = props;
-    return <View>
-        <View style={stylesProfile.ListMenu}>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_Latest', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconMaterialIcons RightItem name="access-time" color='#D0B216' size={35}
-                            style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>ดูล่าสุด</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Business_Register', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconFontAwesome RightItem name="users" size={30} color='#7CB4F0' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>สมาชิกAffiliate</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_Chat', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconAntDesign RightItem name="wechat" size={35} color={mainColor} style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>แชท</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_Interested', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconAntDesign RightItem name="heart" size={35} color='#D74024' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>สิ่งที่สนใจ</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_FollowStore', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconFontisto RightItem name="shopping-store" size={30} color={mainColor}
-                            style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>ร้านค้าที่ติดตาม</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_Review', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconFontAwesome RightItem name="star" size={35} color='#EAD295'
-                            style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>รีวิวของฉัน</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Customer_Topic_Help', navigation })}>
-                <View style={stylesProfile.ListMenuList}>
-                    <View style={stylesProfile.ListMenuListSub}>
-                        <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' style={stylesProfile.ListMenuListSubIcon} />
-                        <Text style={[stylesProfile.ListMenuListSubName, stylesFont.FontFamilyText, stylesFont.FontSize6,
-                        stylesFont.FontCenter]}>ช่วยเหลือ</Text>
-                    </View>
-                    <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-                </View>
-            </TouchableOpacity>
-        </View>
-    </View>;
+export let SetList = (props) => {
+    const ListMenuItem = [{
+        name: 'ดูล่าสุด',
+        setNavi: { goScreen: 'Customer_Topic_Latest', },
+        icon: <IconMaterialIcons color='#D0B216' name="access-time" RightItem size={35} />
+    }, {
+        name: 'สมาชิกAffiliate',
+        setNavi: { goScreen: 'Business_Register', },
+        icon: <IconFontAwesome color='#7CB4F0' name="users" RightItem size={30} />,
+    }, {
+        name: 'แชท',
+        setNavi: { goScreen: 'Customer_Topic_Chat', },
+        icon: <IconAntDesign RightItem name="wechat" size={35} color={mainColor} />,
+    }, {
+        name: 'สิ่งที่สนใจ',
+        setNavi: { goScreen: 'Customer_Topic_Interested', },
+        icon: <IconAntDesign RightItem name="heart" size={35} color='#D74024' />,
+    }, {
+        name: 'ร้านค้าที่ติดตาม',
+        setNavi: { goScreen: 'Customer_Topic_FollowStore', },
+        icon: <IconFontisto RightItem name="shopping-store" size={30} color={mainColor} />,
+    }, {
+        name: 'รีวิวของฉัน',
+        setNavi: { goScreen: 'Customer_Topic_Review', },
+        icon: <IconFontAwesome RightItem name="star" size={35} color='#EAD295' />,
+    }, {
+        name: 'ช่วยเหลือ',
+        setNavi: { goScreen: 'Customer_Topic_Help', },
+        icon: <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' />,
+    }];
+    const SetListProps = { ...props, ListMenuItem, };
+    return <ListMenu {...SetListProps} />;
 };
 ///----------------------------------------------------------------------------------------------->>>> ViewCode
 export let ViewCode = (props) => {

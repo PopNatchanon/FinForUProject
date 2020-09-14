@@ -1,9 +1,7 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useRef, useState } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useRef, useState, } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { width, height } = Dimensions.get('window');
@@ -15,25 +13,27 @@ import ImagePicker from 'react-native-image-crop-picker';
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 import IconEntypo from 'react-native-vector-icons/Entypo';
 import IconFeather from 'react-native-vector-icons/Feather';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 ///----------------------------------------------------------------------------------------------->>>> stylesSeller
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesProfile from '../../../style/StylesProfileScreen';
+import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip } from '../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { FontFamilyBold, FontFamilyText, FontSize4, FontSize5, FontSize6, } = stylesFont;
+const { FlexRow, FrameBackground, ItemCenter, ItemCenterVertical, SafeAreaViews } = stylesMain;
+const { HeadbarImage, } = stylesProfile;
+const { Edit_Profile, } = stylesProfileTopic;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit);
 function ProfileEdit(props) {
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
         <ScrollView>
             <Seller_SettingImage />
@@ -41,6 +41,7 @@ function ProfileEdit(props) {
             <Seller_Detail />
             <Seller_SettingButton />
         </ScrollView>
+        <ExitApp {...props} />
     </SafeAreaView>;
 };
 ///------------------------------------------------------------------------------///
@@ -70,8 +71,8 @@ export let Seller_SettingImage = (props) => {
             </View>
             <View style={stylesSeller.Seller_SettingImageEdit_BG}>
                 <TouchableOpacity onPress={() => UploadImageBackground()}>
-                    <View style={stylesMain.FlexRow}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>
+                    <View style={FlexRow}>
+                        <Text style={[FontFamilyBold, FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>
                             แตะเพื่อเปลี่ยน</Text>
                         <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginHorizontal: 10, }} />
                     </View>
@@ -79,9 +80,9 @@ export let Seller_SettingImage = (props) => {
             </View>
         </View>
         <View style={{ paddingLeft: 20, }}>
-            <View style={[stylesSeller.Seller_SettingImage, stylesMain.ItemCenter]}>
-                <FastImage source={{ uri: avatarSource3?.path ?? image_User ?? '' }} style={[stylesMain.ItemCenterVertical,
-                { height: '100%', width: '100%', borderRadius: 50, }]} />
+            <View style={[stylesSeller.Seller_SettingImage, ItemCenter]}>
+                <FastImage source={{ uri: avatarSource3?.path ?? image_User ?? '' }} style={[ItemCenterVertical,
+                    { height: '100%', width: '100%', borderRadius: 50, }]} />
             </View>
             <View style={stylesSeller.Seller_SettingImageIconBox}>
                 <TouchableOpacity onPress={() => UploadImageProfile()}>
@@ -129,43 +130,43 @@ export let Seller_Up_Image = (props) => {
             })
         );
     };
-    return <View style={stylesMain.FrameBackground}>
-        <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
-            <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, stylesSeller.Seller_Detail_TextInput, { height: 50 }]}
+    return <View style={FrameBackground}>
+        <View style={[FrameBackground, ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
+            <TextInput style={[FontFamilyText, FontSize5, stylesSeller.Seller_Detail_TextInput, { height: 50 }]}
                 placeholder=" ชื่อร้าน" maxLength={40} value={name} onChangeText={(value) => setName(value)}>
             </TextInput>
         </View>
-        <View style={stylesMain.FrameBackground}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4]}>  คำอธิบายรูปภาพ</Text>
+        <View style={FrameBackground}>
+            <Text style={[FontFamilyText, FontSize4]}>  คำอธิบายรูปภาพ</Text>
             <ScrollView horizontal>
                 {avatarSource ?
                     <>
                         {avatarSource.map((item, index) => {
                             return <TouchableOpacity onPress={() => UploadImageSingle(index)} key={index}>
-                                <View style={[stylesMain.ItemCenter,
-                                { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                                <View style={[ItemCenter,
+                                    { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
                                     <FastImage source={{ uri: item.path }}
-                                        style={[stylesMain.ItemCenterVertical, { height: '100%', width: '100%' }]} />
+                                        style={[ItemCenterVertical, { height: '100%', width: '100%' }]} />
                                 </View>
                             </TouchableOpacity>;
                         })}
                         {avatarSource.length < 7 && <TouchableOpacity onPress={() => UploadImageMultiple()} key={'upload'}>
-                            <View style={[stylesMain.ItemCenter,
-                            { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
-                                <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                            <View style={[ItemCenter,
+                                { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                                <View style={[ItemCenterVertical, ItemCenter]}>
                                     <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
+                                    <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>
                                         +เพิ่มรูปภาพ/วีดีโอ</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>}
                     </> :
                     <TouchableOpacity onPress={() => UploadImageMultiple()}>
-                        <View style={[stylesMain.ItemCenter,
-                        { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
-                            <View style={[stylesMain.ItemCenterVertical, stylesMain.ItemCenter]}>
+                        <View style={[ItemCenter,
+                            { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                            <View style={[ItemCenterVertical, ItemCenter]}>
                                 <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>
+                                <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>
                                     +เพิ่มรูปภาพ/วีดีโอ</Text>
                             </View>
                         </View>
@@ -178,17 +179,17 @@ export let Seller_Up_Image = (props) => {
 export let Seller_Detail = (props) => {
     const [detail, setDetail] = useState(undefined);
     return <View>
-        {/* <View style={[stylesMain.FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
+        {/* <View style={[FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
                     <TouchableOpacity>
                         <View style={stylesSeller.Seller_Detail_BoxUp_Image}>
                             <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ</Text>
+                            <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ</Text>
                         </View>
                     </TouchableOpacity>
                 </View> */}
-        <View style={[stylesMain.FrameBackground, stylesMain.ItemCenter, { paddingVertical: 5, marginTop: 5 }]}>
+        <View style={[FrameBackground, ItemCenter, { paddingVertical: 5, marginTop: 5 }]}>
             <View style={[stylesSeller.Seller_Detail_TextInput, { height: 130 }]}>
-                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5]} placeholder="รายละเอียด" multiline editable
+                <TextInput style={[FontFamilyText, FontSize5]} placeholder="รายละเอียด" multiline editable
                     value={detail} onChangeText={(value) => setDetail(value)}></TextInput>
             </View>
         </View>
@@ -200,16 +201,16 @@ export let Seller_SettingButton = (props) => {
     const [release, setRelease] = useState(false);
     const Phone_numberSheet = useRef(null);
     let Phone_numberSheetBody = <>
-        <View style={stylesProfileTopic.Edit_Profile}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>เบอร์โทรศัพท์</Text>
-            <View style={stylesProfileTopic.Edit_Profile_Box}>
+        <View style={Edit_Profile}>
+            <Text style={[FontFamilyBold, FontSize5]}>เบอร์โทรศัพท์</Text>
+            <View style={Edit_Profile_Box}>
                 <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={phone} onChangeText={(value) =>
                     setPhone(value)} />
             </View>
         </View>
         <TouchableOpacity>
-            <View style={stylesProfileTopic.Edit_Profile_Button_Save}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
+            <View style={Edit_Profile_Button_Save}>
+                <Text style={[FontFamilyText, FontSize4, { color: '#FFFFFF' }]}>บันทึก</Text>
             </View>
         </TouchableOpacity>
     </>;
@@ -220,16 +221,16 @@ export let Seller_SettingButton = (props) => {
         </BottomSheet>
         <TouchableOpacity onPress={() => Phone_numberSheet.current.open()}>
             <View style={stylesSeller.Seller_Up_ProductDetail}>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>โทรศัพท์</Text>
+                <Text style={[FontFamilyText, FontSize5]}>โทรศัพท์</Text>
                 <IconEntypo name='chevron-right' size={35} color={mainColor} />
             </View>
         </TouchableOpacity>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เพจ Facebook</Text>
+            <Text style={[FontFamilyText, FontSize5]}>เพจ Facebook</Text>
             <IconEntypo name='chevron-right' size={35} color={mainColor} />
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>เผยแพร่สินค้า</Text>
+            <Text style={[FontFamilyText, FontSize5]}>เผยแพร่สินค้า</Text>
             <CheckBox size={30} containerStyle={{ marginTop: -5 }} checkedIcon='toggle-on' checkedColor='#95F29F'
                 uncheckedIcon='toggle-off' checked={release} onPress={() => setRelease(!release)} />
         </View>

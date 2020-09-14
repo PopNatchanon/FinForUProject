@@ -24,7 +24,7 @@ import { TodayProduct } from '../Main/Main';
 import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup Value
 const { FontFamilyBold, FontFamilyText, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
-const { BoxProduct2Image, FlexRow, FrameBackground, SafeAreaViews, } = stylesMain;
+const { BoxProduct2Image, FlexRow, FrameBackground, ItemCenter, SafeAreaViews, } = stylesMain;
 const { HeadbarA, HeadbarBox1, HeadbarBoxImage, HeadbarImage, ListMenus, ListMenuList, ListMenuListIcon, ListMenuListSub, ListMenuListSubIcon,
     ListMenuListSubName, Menu, Menubars, MenubarSubs, MenubarSubLine1, MenubarSubLine1Image, MenubarSubLine1Name, } = stylesProfile;
 const Navi = (naviProps) => NavigationNavigate(naviProps);
@@ -123,43 +123,43 @@ const SetList = (props) => {
     const ListMenuItem = [{
         name: 'เพิ่มสินค้า',
         setNavi: { goScreen: 'Seller_UpProduct', },
-        icon: <IconAntDesign color={mainColor} name="plussquareo" RightItem size={35} style={ListMenuListSubIcon} />,
+        icon: <IconAntDesign color={mainColor} name="plussquareo" RightItem size={35} />,
     }, {
         name: 'ออเดอร์ล่าสุด',
         setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 0, }, },
-        icon: <IconMaterialIcons color='#D0B216' name="access-time" RightItem size={35} style={ListMenuListSubIcon} />,
+        icon: <IconMaterialIcons color='#D0B216' name="access-time" RightItem size={35} />,
     }, {
         name: 'การจัดส่งของฉัน',
         setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 2, }, },
-        icon: <IconsFontAwesome5 color='#9E9E9E' name="car-side" RightItem size={30} style={ListMenuListSubIcon} />,
+        icon: <IconsFontAwesome5 color='#9E9E9E' name="car-side" RightItem size={30} />,
     }, {
         name: 'รายได้ของฉัน',
         setNavi: { goScreen: 'Seller_Income', },
-        icon: <IconsFontAwesome color='#5CCFA8' name="bank" RightItem size={30} style={ListMenuListSubIcon} />,
+        icon: <IconsFontAwesome color='#5CCFA8' name="bank" RightItem size={30} />,
     }, {
         name: 'ถอนเงิน',
         setNavi: { goScreen: 'Seller_Money', },
-        icon: <IconsFontAwesome5 color='#154FC6' name="money-bill" RightItem size={30} style={ListMenuListSubIcon} />,
+        icon: <IconsFontAwesome5 color='#154FC6' name="money-bill" RightItem size={30} />,
     }, {
         name: 'จัดการโฆษณา',
         setNavi: { goScreen: 'Seller_Advertisement', },
-        icon: <IconEntypo color='#FC6B00' name="megaphone" RightItem size={35} style={ListMenuListSubIcon} />,
+        icon: <IconEntypo color='#FC6B00' name="megaphone" RightItem size={35} />,
     }, {
         name: 'สถิติร้านค้าของฉัน',
         setNavi: { goScreen: 'Seller_Statistics', },
-        icon: <IconEntypo color={mainColor} name="bar-graph" RightItem size={30} style={ListMenuListSubIcon} />,
+        icon: <IconEntypo color={mainColor} name="bar-graph" RightItem size={30} />,
     }, {
         name: 'คะแนนของฉัน',
         setNavi: { goScreen: 'Seller_Scores', },
-        icon: <IconsFontAwesome color='#FFAC33' name="star" RightItem size={35} style={ListMenuListSubIcon} />,
+        icon: <IconsFontAwesome color='#FFAC33' name="star" RightItem size={35} />,
     }, {
         name: 'คลังสินค้าของฉัน',
         setNavi: { goScreen: 'Seller_StoreProduct', },
-        icon: <IconsFontAwesome5 color='#06BBBB' name="store-alt" RightItem size={30} style={ListMenuListSubIcon} />,
+        icon: <IconsFontAwesome5 color='#06BBBB' name="store-alt" RightItem size={30} />,
     }, {
         name: 'ช่วยเหลือ',
         setNavi: { goScreen: 'Customer_Topic_Help', },
-        icon: <IconFeather color='#00A3FF' name="help-circle" RightItem size={35} style={ListMenuListSubIcon} />,
+        icon: <IconFeather color='#00A3FF' name="help-circle" RightItem size={35} />,
     }];
     const SetListProps = { ...props, ListMenuItem, };
     return <ListMenu {...SetListProps} />;
@@ -169,10 +169,12 @@ export const ListMenu = (props) => {
     return <View>
         <View style={ListMenus}>
             {props.ListMenuItem.map((v, i) => <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, ...v.setNavi, })}>
-                <View style={ListMenuList}>
-                    <View style={ListMenuListSub}>
-                        {v.icon}
-                        <Text style={[FontFamilyText, FontSize6, ListMenuListSubName]}>{v.name}</Text>
+                <View style={[ItemCenter, ListMenuList]}>
+                    <View style={[ItemCenter, ListMenuListSub]}>
+                        <View style={[ItemCenter, { width: 65 }]}>
+                            {v.icon}
+                        </View>
+                        <Text style={[FontFamilyText, FontSize6]}>{v.name}</Text>
                     </View>
                     <IconEntypo color={mainColor} name='chevron-right' style={ListMenuListIcon} size={35} />
                 </View>

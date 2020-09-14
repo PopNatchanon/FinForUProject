@@ -33,19 +33,20 @@ function ContentMarketing(props) {
     <SafeAreaView style={stylesMain.SafeAreaViews}>
       <AppBar {...props} backArrow titleHead='Content Marketing' />
       <ScrollView>
-        <Content />
+        <Content_About />
         <Portfolio_owner {...props} />
         <Portfolio_Image />
       </ScrollView>
+      <ExitAppModule {...props} />
     </SafeAreaView>
   )
 }
 ///----------------------------------------------------------------------------------------------->>>>
-export let Content = (props) => {
+export let Content_About = (props) => {
   const Content_image = { uri: `${ip}/MySQL/uploads/Service/Content.jpg`, };
   return <View style={stylesMain.FrameBackground}>
     <View style={[stylesMain.ItemCenter, { borderBottomColor: '#ECD295', borderBottomWidth: 5 }]}>
-      <View style={{ backgroundColor: mainColor, borderRadius: width / 2, margin: 10, paddingHorizontal: 20 }}>
+      <View style={{ alignItems: 'center', backgroundColor: mainColor, borderRadius: width / 2, margin: 10, paddingHorizontal: 20, width: width * 0.5 }}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>Content Marketing</Text>
       </View>
     </View>
@@ -107,7 +108,7 @@ export let Portfolio_owner = (props) => {
       </View>
       <View style={[stylesMain.ItemCenter, { width: width * 0.25 }]}>
         <FastImage resizeMode={contain} source={ImagePortfolio} style={{ height: 80, width: 80, borderRadius: 5, borderColor: mainColor, borderWidth: 1 }} />
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Workpiece', })} style={{ backgroundColor: mainColor, marginTop: 10, borderRadius: 5 }}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ContentMarketing_Workpiece', })} style={{ backgroundColor: mainColor, marginTop: 10, borderRadius: 5 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF', paddingHorizontal: 15, }]}>ดูผลงาน</Text>
         </TouchableOpacity>
       </View>

@@ -43,7 +43,7 @@ import stylesTopic from '../../style/styleTopic';
 import {
     FlatComponent, FlatProduct, GetData, GetServices, ProductBox,
 } from '../../customComponents/Tools';
-import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, } from '../../customComponents';
+import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, IconLoading, EmptyProduct, } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
@@ -1606,8 +1606,9 @@ export const FIN_Supermarket_edit = (props) => {
         </View>
         <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าแนะนำ</Text>
         <View style={Supermarket_Product}>
-            {dataService && <FlatProduct {...props} dataService={dataService.product_hit} dispriceSize={15} mode='row3'
-                nameFlatProduct='FIN_Supermarket' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} />}
+            {dataService ? <FlatProduct {...props} dataService={dataService.product_hit} dispriceSize={15} mode='row3'
+                nameFlatProduct='FIN_Supermarket' nameSize={14} numberOfColumn={1} priceSize={15} radiusBox={5} /> :
+                <EmptyProduct />}
         </View>
         <View style={Banner_Bar}>
             <FastImage resizeMode={stretch} source={ImageBannerBar} style={HxWfull} />

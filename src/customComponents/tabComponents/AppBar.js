@@ -191,7 +191,7 @@ class AppNoSearchBar extends React.Component {
                 {settingBar && <TouchableOpacity key={'settingBar'} onPress={() => NavigationNavigate({
                     goScreen: 'Seller_Setting', navigation
                 })} style={[stylesMain.ItemCenter, { width: 40 }]}>
-                    <IconMaterialCommunityIcons name="settings-outline" size={25} style={[stylesStore.Icon_appbar,
+                    <IconFeather name="settings" size={25} style={[stylesStore.Icon_appbar,
                     stylesMain.ItemCenterVertical, { marginRight: 8 }]} />
                 </TouchableOpacity>}
                 {chatBar && <TouchableOpacity key={'chatBar'} onPress={() => currentUser ?

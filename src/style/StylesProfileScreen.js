@@ -88,7 +88,7 @@ export default StyleSheet.create({
         backgroundColor: '#fff',
         marginTop: 25,
     },
-    Menubar: {
+    Menubars: {
         padding: 4,
         height: 40,
         flexDirection: 'row',
@@ -100,7 +100,7 @@ export default StyleSheet.create({
         color: mainColor,
     },
     ///---------------------------------------------------------------------------///
-    MenubarSub: {
+    MenubarSubs: {
         borderBottomWidth: 1,
         borderBottomColor: '#EAEAEA',
         marginTop: 6,
@@ -131,7 +131,7 @@ export default StyleSheet.create({
         marginLeft: 8,
     },
     ///--------------------------------------------------------------------///
-    ListMenu: {
+    ListMenus: {
         width,
         marginTop: 3,
         borderColor: '#EAEAEA',

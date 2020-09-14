@@ -180,7 +180,7 @@ export default StyleSheet.create({
     resizeMode: 'stretch',
   },
   ///------------------------------------------------------------------///
-  SubMenu: {
+  SubMenus: {
     width,
     height: 50,
     backgroundColor: '#FFFFFF',

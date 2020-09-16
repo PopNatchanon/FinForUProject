@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useRef, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
@@ -10,6 +10,7 @@ export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 const { contain, cover, stretch, } = FastImage.resizeMode;
 import Video from 'react-native-video';
+import YoutubePlayer from "react-native-youtube-iframe";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import AntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -18,7 +19,7 @@ import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesStore from '../../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../../Main/Main';
-import { TabBar } from '../../../customComponents/Tools';
+import { GetData, GetServices, TabBar } from '../../../customComponents/Tools';
 import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab, IconLoading } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
@@ -103,23 +104,31 @@ export let Video_production = (props) => {
 export let Video_Portfolio = (props) => {
     const VideoPlayer = useRef(null);
     const Videos = [
-        { vdo: `${ip}/MySQL/uploads/VDO/001.mp4`, },
-        { vdo: `${ip}/MySQL/uploads/VDO/002.mp4`, },
-        { vdo: `${ip}/MySQL/uploads/VDO/003.mp4`, },
+        { type: 'youtube', video: `N_meAH3IxeU`, },
+        { type: 'youtube', video: `MVvpBRA8waM`, },
+        { type: 'youtube', video: `b727640BbXc`, },
     ]
     const VideoPortfolio = Videos.map((v, i) => {
-        //https://youtu.be/MVvpBRA8waM
-        const Video_image = { uri: v.vdo, };
-        console.log(Video_image)
-        return <View key={i} style={{ height: 150, margin: 5 }}>
-            <Video controls paused source={Video_image}   // Can be a URL or a local file.
-                poster={"https://baconmockup.com/300/200/"}
+        const [playing, setPlaying] = useState(false);
+        const Video_image = { uri: v.video, };
+        const onStateChange = useCallback((state) => {
+            if (state === "ended") {
+                setPlaying(false);
+                Alert.alert("video has finished playing!");
+            }
+        }, []);
+        return <View key={i} style={{ height: 195, margin: 5 }}>
+            {v.type != 'youtube' ? <Video controls paused source={Video_image}   // Can be a URL or a local file.
                 ref={VideoPlayer}                                      // Store reference
                 onPlaybackRateChange={event => { console.log('event'); console.log(event); }}
                 style={{
                     height: '100%', width: '100%'
-                }}
-            />
+                }} /> :
+                <YoutubePlayer
+                    height={300}
+                    play={playing}
+                    videoId={v.video}
+                    onChangeState={onStateChange} />}
         </View>
     });
     return <View>

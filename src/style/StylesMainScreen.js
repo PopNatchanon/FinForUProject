@@ -602,7 +602,7 @@ export default StyleSheet.create({
   },
   Brand_image_Box: {
     height: 60,
-    width: width * 0.40,
+    width: width * 0.25,
     borderColor: '#E7B841',
     borderWidth: 1,
     marginLeft: 2,

@@ -108,7 +108,7 @@ export let Portfolio_owner = (props) => {
       </View>
       <View style={[stylesMain.ItemCenter, { width: width * 0.25 }]}>
         <FastImage resizeMode={contain} source={ImagePortfolio} style={{ height: 80, width: 80, borderRadius: 5, borderColor: mainColor, borderWidth: 1 }} />
-        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'ContentMarketing_Workpiece', })} style={{ backgroundColor: mainColor, marginTop: 10, borderRadius: 5 }}>
+        <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_ContentMarketing_Workpiece', })} style={{ backgroundColor: mainColor, marginTop: 10, borderRadius: 5 }}>
           <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF', paddingHorizontal: 15, }]}>ดูผลงาน</Text>
         </TouchableOpacity>
       </View>

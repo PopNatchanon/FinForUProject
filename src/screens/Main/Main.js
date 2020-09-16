@@ -135,16 +135,16 @@ function Main(props) {
     }, { // ปุ่มเข้าดีล โปรโมชั่น
         nameComponent: 'Button_Bar',
         renderComponent: <Button_Bar {...props} />
-    },/* { // สินค้าลดพิเศษ
+    }, { // สินค้าลดพิเศษ
         nameComponent: 'FlashSale',
         renderComponent: <FlashSale {...props} />
-    }, {
+    },/* {
         nameComponent: 'Fin_Service',
         renderComponent: <Fin_Service {...props} />
-    },*/ { // แบรน์แนะนำ
+    },*/{ // แบรน์แนะนำ
         nameComponent: 'Main_RecommendBrand',
         renderComponent: <Recommend_Brand {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },/* { // แบรนด์เนอร์โฆษณา 2
+    }, { // แบรนด์เนอร์โฆษณา 2
         nameComponent: 'BannerBar_TWO',
         renderComponent: <BannerBar_TWO />
     }, { // ร้านนี้ห้ามพลาด
@@ -172,7 +172,7 @@ function Main(props) {
     }, { // ฟินคัดมาเพื่อคุณ
         nameComponent: 'Product_for_you',
         renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },/* { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+    },/*{ // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
     },*/{ // สินค้า และร้านค้า มือสอง

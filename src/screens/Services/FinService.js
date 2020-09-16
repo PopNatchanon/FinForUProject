@@ -29,12 +29,13 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(FinService);
 function FinService(props) {
+    const { route } = props;
     return (
         <SafeAreaView style={stylesMain.SafeAreaViews}>
             <AppBar {...props} backArrow titleHead='FIN SERVICE' />
             <ScrollView>
                 <Banner_Service />
-                <Button_Bar {...props} />
+                <Button_Bar {...props} selectedIndex={0} />
                 <Menu_Bar {...props} />
                 <Service_About  {...props} />
                 <Content_Service  {...props} />
@@ -56,15 +57,32 @@ export let Banner_Service = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Button_Bar = (props) => {
-    const { getSelectedIndex } = props;
+    const { selectedIndex } = props;
+    const getSelectedIndex = (v) => {
+        switch (v) {
+            case 0: NavigationNavigate({ ...props, goScreen: 'FinService', noPush: true, }); break;
+            case 1: NavigationNavigate({ ...props, goScreen: 'FinService_About', noPush: true, }); break;
+            case 2: NavigationNavigate({ ...props, goScreen: 'FinService_Blog', noPush: true, }); break;
+            case 3: NavigationNavigate({ ...props, goScreen: 'FinService_Content', }); break;
+            case 4: NavigationNavigate({ ...props, goScreen: 'FinService_Review', }); break;
+        }
+    };
     const item = [{ name: 'HOME' }, { name: 'ABOUT' }, { name: 'BLOG' }, { name: 'CONTACT' }, { name: 'REVIEW' }];
     return <ScrollView horizontal style={{ backgroundColor: '#FFFFFF', paddingVertical: 3 }}>
-        <ButtomTab colors={['#10162d', '#284d8f']} data={item} setWidthBox={width * 0.234} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
+        <ButtomTab colors={['#10162d', '#284d8f']} data={item} selectedIndex={selectedIndex} setWidthBox={width * 0.234} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
         stylesFont.FontFamilyBold]} linearGradient={true} notSelectFontColors='#10162d' sendDataOut={(v) => getSelectedIndex(v)} />
     </ScrollView>
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Menu_Bar = (props) => {
+    const  MenuBar = [
+        { image: `${ip}/MySQL/uploads/Service/1.png`, Title: 'CONTENT MARKETING', Navi:'FinService_ContentMarketing' },
+        { image: `${ip}/MySQL/uploads/Service/2.png`, Title: 'CONTENT MARKETING', Navi:'FinService_Admin' },
+        { image: `${ip}/MySQL/uploads/Service/3.png`, Title: 'CONTENT MARKETING', Navi:'FinService_Photograph' },
+        { image: `${ip}/MySQL/uploads/Service/4.png`, Title: 'CONTENT MARKETING', Navi:'FinService_VideoContent' },
+        { image: `${ip}/MySQL/uploads/Service/5.png`, Title: 'CONTENT MARKETING', Navi:'FinService_GraphicDesign ' },
+
+    ]
     const CONTENT = { uri: `${ip}/MySQL/uploads/Service/1.png`, };
     const ADMIN = { uri: `${ip}/MySQL/uploads/Service/2.png`, };
     const PHOTOGRAPH = { uri: `${ip}/MySQL/uploads/Service/3.png`, };

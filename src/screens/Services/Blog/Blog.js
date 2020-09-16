@@ -22,6 +22,7 @@ import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from 
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 import { Portfolio_owner } from '../ContentMarketing/ContentMarketing';
+import { Button_Bar } from '../FinService';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 const mapStateToProps = (state) => ({
@@ -33,9 +34,11 @@ function Blog(props) {
     return <SafeAreaView style={stylesMain.SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='Blog' />
         <ScrollView>
+            <Button_Bar {...props} selectedIndex={2} />
             <Blog_About />
-            <Blog_ImageTab />
+            <Blog_ImageTab {...props} />
         </ScrollView>
+        <ExitAppModule {...props} />
     </SafeAreaView>
 }
 ///----------------------------------------------------------------------------------------------->>>>
@@ -48,25 +51,29 @@ export let Blog_ImageTab = (props) => {
     const TabPortfolio = Blog_Tab.map((v, i) => {
         const About_image = { uri: v.image, };
         return <View key={i} style={[stylesMain.FlexRow, stylesMain.ItemCenter,
-        { height: 120, borderColor: '#C9C9C9', borderWidth: 1, backgroundColor: '#FFFFFF', marginHorizontal: 5, marginVertical: 2.5, borderRadius: 5 }]}>
+        { height: 'auto', aspectRatio: 3, width: width * 0.97, borderColor: '#C9C9C9', borderWidth: 1, backgroundColor: '#FFFFFF', borderRadius: 8, marginVertical: 2.5 }]}>
             <FastImage resizeMode={cover} source={About_image} style={{ height: 100, width: '35%', borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5 }} />
-            <View style={{ width: '60%', marginLeft: 5, justifyContent: 'space-between', height: 90 }}>
+            <View style={{ width: '60%', marginLeft: 5, justifyContent: 'space-between', height: '85%' }}>
                 <View>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize6]}>{v.Title}</Text>
                     <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>{v.detall}</Text>
                 </View>
                 <View style={[stylesMain.FlexRow, { justifyContent: 'space-between', }]}>
                     <Text numberOfLines={1} style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C9C9C9' }]}>{v.date}</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Blog_BlogPortfolio', })}>
                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#C9C9C9' }]}>อ่านเพิ่มเติม</Text>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
     });
-    return <View><View style={{ backgroundColor: mainColor, width: width * 0.40, marginVertical: 5, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginLeft: 5 }]}>ตัวอย่างผลงาน</Text></View>
-        {TabPortfolio}
+    return <View>
+        <View style={{ backgroundColor: mainColor, width: width * 0.40, marginVertical: 5, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
+            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginLeft: 5 }]}>ตัวอย่างผลงาน</Text>
+        </View>
+        <View style={stylesMain.ItemCenter}>
+            {TabPortfolio}
+        </View>
     </View>
 }
 ///----------------------------------------------------------------------------------------------->>>>

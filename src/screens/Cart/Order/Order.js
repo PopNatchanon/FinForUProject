@@ -82,7 +82,7 @@ function Order(props) {
             uriPointer: uri, dataBody: dataBody, Authorization: cokie, getDataSource: value => getData(value),
         });
     }, [!activeGetSource && activeReset && cokie && currentUser]);
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={stylesMain.SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='สั่งซื้อสินค้า' />
         <ScrollView>
             <Account {...props} dataService={dataService ?? undefined} getData={value => getData2(value)} />

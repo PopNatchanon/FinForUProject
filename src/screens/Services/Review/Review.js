@@ -36,6 +36,7 @@ function Review(props) {
         <ScrollView>
             <Review_Us />
         </ScrollView>
+        <ExitAppModule {...props} />
     </SafeAreaView>
 }
 ///----------------------------------------------------------------------------------------------->>>>

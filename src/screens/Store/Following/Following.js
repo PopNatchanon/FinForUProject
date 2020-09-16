@@ -7,7 +7,7 @@ import {
     setDataRefresh, setDataStart, setFetchToStart,
 } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height, } = Dimensions.get('window');
+export const { height, width, } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -17,7 +17,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitApp, } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../../navigator/IpConfig';
+import { ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup Value
 const { cover, } = FastImage.resizeMode;
 const { FontFamilyText, FontSize5, } = stylesFont;
@@ -36,7 +36,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Following);
 function Following(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='กำลังติดตาม' />
-        <Followings />
+        <Followings {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
@@ -73,7 +73,5 @@ export const Followings = (props) => {
             </View>
         </View>;
     });
-    return <ScrollView>
-        {FollowingBox}
-    </ScrollView>;
+    return <ScrollView>{FollowingBox}</ScrollView>;
 };

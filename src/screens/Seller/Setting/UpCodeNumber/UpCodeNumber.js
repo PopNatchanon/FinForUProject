@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, } fr
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -27,7 +27,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(UpCodeNumber);
 function UpCodeNumber(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='เพิ่มเลขพัสดุ' />
-        <Up_Code_Number />
+        <Up_Code_Number {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };

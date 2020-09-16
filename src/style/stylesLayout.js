@@ -1,5 +1,5 @@
 import { Dimensions, StyleSheet, } from 'react-native';
-const { width, height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
     FColumn: { flexDirection: 'column', },
     FRow: { flexDirection: 'row', },

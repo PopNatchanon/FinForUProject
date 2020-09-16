@@ -5,7 +5,7 @@ import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
@@ -82,9 +82,7 @@ export const Button_bars = (props) => {
                     activeColor={'#fff'} activeFontColor={mainColor} type='tag' />
             </ScrollView>
         </View>
-        <ScrollView>
-            {PathList}
-        </ScrollView>
+        <ScrollView>{PathList}</ScrollView>
     </View>;
 };
 ///------------------------------------------------------------------------------///

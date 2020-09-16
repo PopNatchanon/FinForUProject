@@ -6,7 +6,7 @@ import {
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -254,23 +254,23 @@ export let SetList = (props) => {
     }, {
         name: 'แชท',
         setNavi: { goScreen: 'Customer_Topic_Chat', },
-        icon: <IconAntDesign RightItem name="wechat" size={35} color={mainColor} />,
+        icon: <IconAntDesign color={mainColor} name="wechat" RightItem size={35} />,
     }, {
         name: 'สิ่งที่สนใจ',
         setNavi: { goScreen: 'Customer_Topic_Interested', },
-        icon: <IconAntDesign RightItem name="heart" size={35} color='#D74024' />,
+        icon: <IconAntDesign color='#D74024' name="heart" RightItem size={35} />,
     }, {
         name: 'ร้านค้าที่ติดตาม',
         setNavi: { goScreen: 'Customer_Topic_FollowStore', },
-        icon: <IconFontisto RightItem name="shopping-store" size={30} color={mainColor} />,
+        icon: <IconFontisto color={mainColor} name="shopping-store"  RightItemsize={30} />,
     }, {
         name: 'รีวิวของฉัน',
         setNavi: { goScreen: 'Customer_Topic_Review', },
-        icon: <IconFontAwesome RightItem name="star" size={35} color='#EAD295' />,
+        icon: <IconFontAwesome color='#EAD295' name="star" RightItem size={35} />,
     }, {
         name: 'ช่วยเหลือ',
         setNavi: { goScreen: 'Customer_Topic_Help', },
-        icon: <IconFeather RightItem name="help-circle" size={35} color='#00A3FF' />,
+        icon: <IconFeather color='#00A3FF' name="help-circle" RightItem size={35} />,
     }];
     const SetListProps = { ...props, ListMenuItem, };
     return <ListMenu {...SetListProps} />;

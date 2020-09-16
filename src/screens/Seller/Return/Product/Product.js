@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, Text, ScrollView, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../style/stylesFont';
@@ -24,14 +24,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(Product);
 function Product(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='คืนสินค้า/คืนเงิน' />
-        <ScrollView>
-            <Text style={[FontFamilyText, FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
-            <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
-            <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
-            <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
-            <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
-            <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
-        </ScrollView>
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Text style={[FontFamilyText, FontSize5, { margin: 10 }]}>คืนสินค้า/คืนเงิน</Text>
+        <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
+        <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
+        <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
+        <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
+        <Order_Me_Box {...props} Cause_cancel Contact_buyer detail_order_cancel />
+    </ScrollView>;
 };

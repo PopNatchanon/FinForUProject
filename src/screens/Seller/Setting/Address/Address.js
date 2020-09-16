@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, Text, TouchableOpacity, View, } from 'react-n
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../style/stylesFont';

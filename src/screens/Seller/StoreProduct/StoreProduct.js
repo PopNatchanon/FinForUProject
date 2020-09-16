@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, Text, TouchableOpacity, View, ScrollView, } f
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert'
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -29,23 +29,27 @@ export default connect(mapStateToProps, mapDispatchToProps)(StoreProduct);
 function StoreProduct(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='คลังสินค้า' />
-        <ScrollView>
-            <Text style={[FontFamilyBold, FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
-            <Treasury_store_Product {...props} />
-            <Treasury_store_Product {...props} />
-            <Treasury_store_Product {...props} />
-            <Treasury_store_Product {...props} />
-            <Treasury_store_Product {...props} />
-            <Treasury_store_Product {...props} />
-        </ScrollView>
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Text style={[FontFamilyBold, FontSize3, { margin: 5, }]}>รายการสินค้า</Text>
+        <Treasury_store_Product {...props} />
+        <Treasury_store_Product {...props} />
+        <Treasury_store_Product {...props} />
+        <Treasury_store_Product {...props} />
+        <Treasury_store_Product {...props} />
+        <Treasury_store_Product {...props} />
+    </ScrollView>;
 };
 ///--------------------------------------------------------------------------/// คลัง
 export const Treasury_store_Product = (props) => {
     const [show, setShow] = useState(false);
     const handle = (value) => setShow(value);
-    const _renderHeader = <IconFontAwesome color='white' name='trash-o' size={50} />
+    const _renderHeader = <IconFontAwesome color='white' name='trash-o' size={50} />;
     return <View style={SafeAreaViews}>
         <View style={FrameBackground}>
             <View style={[FlexRow, { justifyContent: 'space-between', paddingHorizontal: 10 }]}>

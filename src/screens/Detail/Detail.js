@@ -13,7 +13,7 @@ import AsyncStorage from '@react-native-community/async-storage'
 import * as Animatable from 'react-native-animatable';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';

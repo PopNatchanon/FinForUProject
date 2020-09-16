@@ -4,7 +4,7 @@ import { Dimensions, Image, SafeAreaView, Text, TextInput, TouchableOpacity, Vie
 import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import ModalDropdown from 'react-native-modal-dropdown';
 import DocumentPicker from 'react-native-document-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon

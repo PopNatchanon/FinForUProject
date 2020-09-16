@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TouchableO
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -25,8 +25,8 @@ import { ip } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup Value
 const { FontFamilyBold, FontFamilyText, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
 const { BoxProduct2Image, FlexRow, FrameBackground, ItemCenter, SafeAreaViews, } = stylesMain;
-const { HeadbarA, HeadbarBox1, HeadbarBoxImage, HeadbarImage, ListMenus, ListMenuList, ListMenuListIcon, ListMenuListSub, ListMenuListSubIcon,
-    ListMenuListSubName, Menu, Menubars, MenubarSubs, MenubarSubLine1, MenubarSubLine1Image, MenubarSubLine1Name, } = stylesProfile;
+const { HeadbarA, HeadbarBox1, HeadbarBoxImage, HeadbarImage, ListMenus, ListMenuList, ListMenuListIcon, ListMenuListSub, Menu, Menubars,
+    MenubarSubs, MenubarSubLine1, MenubarSubLine1Image, MenubarSubLine1Name, } = stylesProfile;
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
@@ -35,14 +35,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(Seller);
 function Seller(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow chatBar settingBar titleHead='ร้านของฉัน' />
-        <ScrollView>
-            <Headbar {...props} />
-            <Menubar {...props} />
-            <SetList {...props} />
-            <Seller_Product {...props} />
-        </ScrollView>
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Headbar {...props} />
+        <Menubar {...props} />
+        <SetList {...props} />
+        <Seller_Product {...props} />
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export const Headbar = (props) => {
@@ -54,15 +58,12 @@ export const Headbar = (props) => {
             <View style={HeadbarA}>
                 <View style={HeadbarBox1}>
                     <View style={[FlexRow, { marginVertical: 15, }]}>
-                        <View>
-                            <FastImage source={Image2} style={HeadbarBoxImage} />
-                        </View>
+                        <View><FastImage source={Image2} style={HeadbarBoxImage} /></View>
                         <View style={{ marginLeft: 15, marginTop: '10%', }}>
                             <Text style={[FontFamilyText, FontSize6, { color: '#FFFFFF', }]}>ppooo</Text>
                             <Text style={[FontFamilyText, FontSize7, { color: '#FFFFFF', }]}>ผู้ติดตาม 20.2 พัน | กำลังติดตาม 2</Text>
                         </View>
                     </View>
-
                 </View>
             </View>
         </TouchableOpacity>
@@ -91,20 +92,16 @@ export const MenubarSub = (props) => {
     const Image2 = require('../../../icon/box.png');
     const Image3 = require('../../../icon/repeat.png');
     const ListMenuItem = [{
-        name: 'ที่ต้องจัดส่ง',
-        setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 1, }, },
+        name: 'ที่ต้องจัดส่ง', setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 1, }, },
         icon: <FastImage source={Image1} style={MenubarSubLine1Image} />,
     }, {
-        name: 'ยกเลิก',
-        setNavi: { goScreen: 'Seller_Cencel', },
+        name: 'ยกเลิก', setNavi: { goScreen: 'Seller_Cencel', },
         icon: <FastImage source={Image2} style={MenubarSubLine1Image} />,
     }, {
-        name: 'คืนสินค้า/คืนเงิน',
-        setNavi: { goScreen: 'Seller_Return_Product', },
+        name: 'คืนสินค้า/คืนเงิน', setNavi: { goScreen: 'Seller_Return_Product', },
         icon: <FastImage source={Image3} style={MenubarSubLine1Image} />,
     }, {
-        name: 'คลัง',
-        setNavi: { goScreen: 'Seller_StoreProduct', },
+        name: 'คลัง', setNavi: { goScreen: 'Seller_StoreProduct', },
         icon: <IconFeather name='more-horizontal' size={50} />,
     }];
     return <View style={MenubarSubs}>
@@ -121,44 +118,34 @@ export const MenubarSub = (props) => {
 ///----------------------------------------------------------------------------------------------->>>>
 const SetList = (props) => {
     const ListMenuItem = [{
-        name: 'เพิ่มสินค้า',
-        setNavi: { goScreen: 'Seller_UpProduct', },
+        name: 'เพิ่มสินค้า', setNavi: { goScreen: 'Seller_UpProduct', },
         icon: <IconAntDesign color={mainColor} name="plussquareo" RightItem size={35} />,
     }, {
-        name: 'ออเดอร์ล่าสุด',
-        setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 0, }, },
+        name: 'ออเดอร์ล่าสุด', setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 0, }, },
         icon: <IconMaterialIcons color='#D0B216' name="access-time" RightItem size={35} />,
     }, {
-        name: 'การจัดส่งของฉัน',
-        setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 2, }, },
+        name: 'การจัดส่งของฉัน', setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 2, }, },
         icon: <IconsFontAwesome5 color='#9E9E9E' name="car-side" RightItem size={30} />,
     }, {
-        name: 'รายได้ของฉัน',
-        setNavi: { goScreen: 'Seller_Income', },
+        name: 'รายได้ของฉัน', setNavi: { goScreen: 'Seller_Income', },
         icon: <IconsFontAwesome color='#5CCFA8' name="bank" RightItem size={30} />,
     }, {
-        name: 'ถอนเงิน',
-        setNavi: { goScreen: 'Seller_Money', },
+        name: 'ถอนเงิน', setNavi: { goScreen: 'Seller_Money', },
         icon: <IconsFontAwesome5 color='#154FC6' name="money-bill" RightItem size={30} />,
     }, {
-        name: 'จัดการโฆษณา',
-        setNavi: { goScreen: 'Seller_Advertisement', },
+        name: 'จัดการโฆษณา', setNavi: { goScreen: 'Seller_Advertisement', },
         icon: <IconEntypo color='#FC6B00' name="megaphone" RightItem size={35} />,
     }, {
-        name: 'สถิติร้านค้าของฉัน',
-        setNavi: { goScreen: 'Seller_Statistics', },
+        name: 'สถิติร้านค้าของฉัน', setNavi: { goScreen: 'Seller_Statistics', },
         icon: <IconEntypo color={mainColor} name="bar-graph" RightItem size={30} />,
     }, {
-        name: 'คะแนนของฉัน',
-        setNavi: { goScreen: 'Seller_Scores', },
+        name: 'คะแนนของฉัน', setNavi: { goScreen: 'Seller_Scores', },
         icon: <IconsFontAwesome color='#FFAC33' name="star" RightItem size={35} />,
     }, {
-        name: 'คลังสินค้าของฉัน',
-        setNavi: { goScreen: 'Seller_StoreProduct', },
+        name: 'คลังสินค้าของฉัน', setNavi: { goScreen: 'Seller_StoreProduct', },
         icon: <IconsFontAwesome5 color='#06BBBB' name="store-alt" RightItem size={30} />,
     }, {
-        name: 'ช่วยเหลือ',
-        setNavi: { goScreen: 'Customer_Topic_Help', },
+        name: 'ช่วยเหลือ', setNavi: { goScreen: 'Customer_Topic_Help', },
         icon: <IconFeather color='#00A3FF' name="help-circle" RightItem size={35} />,
     }];
     const SetListProps = { ...props, ListMenuItem, };
@@ -171,12 +158,10 @@ export const ListMenu = (props) => {
             {props.ListMenuItem.map((v, i) => <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, ...v.setNavi, })}>
                 <View style={[ItemCenter, ListMenuList]}>
                     <View style={[ItemCenter, ListMenuListSub]}>
-                        <View style={[ItemCenter, { width: 65 }]}>
-                            {v.icon}
-                        </View>
+                        <View style={[ItemCenter, { width: 65 }]}>{v.icon}</View>
                         <Text style={[FontFamilyText, FontSize6]}>{v.name}</Text>
                     </View>
-                    <IconEntypo color={mainColor} name='chevron-right' style={ListMenuListIcon} size={35} />
+                    <IconEntypo color={mainColor} name='chevron-right' size={35} style={ListMenuListIcon} />
                 </View>
             </TouchableOpacity>)}
         </View>
@@ -212,6 +197,6 @@ export const Seller_Product_Box = (props) => {
                 <Text style={[FontFamilyText, FontSize8, { color: '#949494', }]}>0</Text>
             </View>
         </View>
-    </TouchableOpacity>
+    </TouchableOpacity>;
 };
 

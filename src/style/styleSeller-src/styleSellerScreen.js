@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { mainColor } from '../StylesMainScreen';
 
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 
 export default StyleSheet.create({
 
@@ -9,7 +9,6 @@ export default StyleSheet.create({
 
     Seller_Setting_BoxTopic: {
         backgroundColor: '#FFFFFF',
-        marginTop: 5,
         padding: 5,
         flexDirection: 'row',
         justifyContent: 'space-between'

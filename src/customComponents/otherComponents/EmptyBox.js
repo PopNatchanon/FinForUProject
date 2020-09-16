@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Dimensions, View, } from 'react-native';
-export const { width, height, } = Dimensions.get('window');
+export const { height, width, } = Dimensions.get('window');
 import stylesLayout from '../../style/stylesLayout';
 import stylesMain from '../../style/StylesMainScreen';
 import { IconLoading, GenArray } from "..";

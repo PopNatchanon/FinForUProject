@@ -7,7 +7,7 @@ import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-export const { width, height, } = Dimensions.get('window');
+export const { height, width, } = Dimensions.get('window');
 import CookieManager from '@react-native-community/cookies';
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator, } from 'react-native-validator-form';

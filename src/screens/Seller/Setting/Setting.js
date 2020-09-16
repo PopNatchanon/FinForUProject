@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import RNRestart from 'react-native-restart';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -31,9 +31,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Setting);
 function Setting(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='ตั้งค่าร้านค้า' />
-        <ScrollView>
-            <Seller_Setting_Topic {...props} />
-        </ScrollView>
+        <Seller_Setting_Topic {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
@@ -87,7 +85,7 @@ export const Seller_Setting_Topic = (props) => {
         } catch (e) { };
     };
     const _renderHeader = <IconMaterialIcons name='exit-to-app' size={50} color='white' />;
-    return <View>
+    return <ScrollView>
         <SettingList {...ListProps} />
         <TouchableOpacity onPress={() => handle(true)} style={{ marginTop: 10 }}>
             <View style={Button_Logout}>
@@ -108,18 +106,18 @@ export const Seller_Setting_Topic = (props) => {
                     textStyle={FontFamilyText} theme="danger">ใช่</SCLAlertButton>
             </View>
         </SCLAlert>
-    </View>;
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export const SettingList = (props) => {
     const { ListItem } = props;
     return <View>
         {ListItem.map((v, i) => <View key={i}>
-            <View style={[Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
+            {v.name && <View style={[Seller_Setting_BoxTopic, { backgroundColor: '#E9E9E9' }]}>
                 <Text style={[FontFamilyBold, FontSize5, { margin: 5 }]}>{v.name}</Text>
-            </View>
-            {v.subItem.map((v2, i2) => <TouchableOpacity key={i2} onPress={() => Navi({ ...props, ...v2.setNavi })}>
-                <View style={[ItemCenter, Seller_Setting_BoxTopic]}>
+            </View>}
+            {v.subItem?.map((v2, i2) => <TouchableOpacity key={i2} onPress={() => Navi({ ...props, ...v2.setNavi })}>
+                <View style={[ItemCenter, Seller_Setting_BoxTopic, { borderColor: '#EAEAEA', borderWidth: 1 }]}>
                     <View style={{ width: width * 0.85 }}>
                         <Text style={[FontFamilyText, FontSize5, { margin: 5 }]}>{v2.name}</Text>
                     </View>

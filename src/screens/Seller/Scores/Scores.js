@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, ScrollView, Text, View, } from 'react-native'
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
@@ -25,11 +25,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(Topic);
 function Topic(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='คะแนนของฉัน' />
-        <ScrollView>
-            <Seller_Score {...props} />
-        </ScrollView>
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Seller_Score {...props} />
+    </ScrollView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Seller_Score = (props) => {

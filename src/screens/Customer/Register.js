@@ -8,7 +8,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
 import { CheckBox } from 'react-native-elements';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { Form, TextValidator } from 'react-native-validator-form';
 import ModalDropdown from 'react-native-modal-dropdown';

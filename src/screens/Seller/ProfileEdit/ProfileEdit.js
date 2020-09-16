@@ -4,10 +4,10 @@ import { Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
 import BottomSheet from "react-native-raw-bottom-sheet";
-import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
+export const { height, width } = Dimensions.get('window');
+import FastImage from 'react-native-fast-image';
 import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
@@ -27,66 +27,71 @@ import { finip } from '../../../navigator/IpConfig';
 const { FontFamilyBold, FontFamilyText, FontSize4, FontSize5, FontSize6, } = stylesFont;
 const { FlexRow, FrameBackground, ItemCenter, ItemCenterVertical, SafeAreaViews } = stylesMain;
 const { HeadbarImage, } = stylesProfile;
-const { Edit_Profile, } = stylesProfileTopic;
+const { Edit_Profile, Edit_Profile_Box, Edit_Profile_Button_Save, } = stylesProfileTopic;
+const { Seller_Detail_TextInput, Seller_SettingImage, Seller_SettingImageEdit_BG, Seller_SettingImageIconBox,
+    Seller_SettingImageIconBox_Camara, Seller_Up_ProductDetail, } = stylesSeller;
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(ProfileEdit);
 function ProfileEdit(props) {
     return <SafeAreaView style={SafeAreaViews}>
-        <AppBar {...props} backArrow titleHead='แก้ไขรายละเอียดร้านค้า' saveBar />
-        <ScrollView>
-            <Seller_SettingImage />
-            <Seller_Up_Image />
-            <Seller_Detail />
-            <Seller_SettingButton />
-        </ScrollView>
+        <AppBar {...props} backArrow saveBar titleHead='แก้ไขรายละเอียดร้านค้า' />
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Seller_SettingImages />
+        <Seller_Up_Image />
+        <Seller_Detail />
+        <Seller_SettingButton />
+    </ScrollView>;
+};
 ///------------------------------------------------------------------------------///
-export let Seller_SettingImage = (props) => {
+export const Seller_SettingImages = (props) => {
     const { image, image_path, sendImageBackground, sendImageProfile } = props;
     const [activeAvatarSource, setActiveAvatarSource] = useState(false);
     const [avatarSource2, setAvatarSource2] = useState([]);
     const [avatarSource3, setAvatarSource3] = useState([]);
-    const image_User = `${finip}/${image_path}/${image}`;
+    const Image1 = { uri: avatarSource2.path };
+    const ImageUser = { uri: avatarSource3?.path ?? `${finip}/${image_path}/${image}` ?? '' };
     activeAvatarSource && setActiveAvatarSource(false);
-    let UploadImageBackground = () => {
+    const UploadImageBackground = () => {
         const options = { includeBase64: true };
         ImagePicker.openPicker(options).then(response => {
-            setActiveAvatarSource(true); setAvatarSource2(response); sendImageBackground(response);
+            sendImageBackground(response); setActiveAvatarSource(true); setAvatarSource2(response);
         });
     };
-    let UploadImageProfile = () => {
-        const options = { width: 200, height: 200, includeBase64: true, cropping: true, };
+    const UploadImageProfile = () => {
+        const options = { cropping: true, height: 200, includeBase64: true, width: 200, };
         ImagePicker.openPicker(options).then(response => {
-            setActiveAvatarSource(true); setAvatarSource3(response); sendImageProfile(response);
+            sendImageProfile(response); setActiveAvatarSource(true); setAvatarSource3(response);
         });
     };
     return <View>
         <View>
-            <View style={stylesProfile.HeadbarImage}>
-                {avatarSource2 ? <FastImage source={{ uri: avatarSource2.path }} style={stylesProfile.HeadbarImage} /> : null}
+            <View style={HeadbarImage}>
+                {avatarSource2 ? <FastImage source={Image1} style={HeadbarImage} /> : null}
             </View>
-            <View style={stylesSeller.Seller_SettingImageEdit_BG}>
+            <View style={Seller_SettingImageEdit_BG}>
                 <TouchableOpacity onPress={() => UploadImageBackground()}>
                     <View style={FlexRow}>
-                        <Text style={[FontFamilyBold, FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>
-                            แตะเพื่อเปลี่ยน</Text>
+                        <Text style={[FontFamilyBold, FontSize5, { textAlign: 'right', color: '#FFFFFF' }]}>แตะเพื่อเปลี่ยน</Text>
                         <IconFeather name='camera' size={20} color='#FFFFFF' style={{ marginHorizontal: 10, }} />
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
         <View style={{ paddingLeft: 20, }}>
-            <View style={[stylesSeller.Seller_SettingImage, ItemCenter]}>
-                <FastImage source={{ uri: avatarSource3?.path ?? image_User ?? '' }} style={[ItemCenterVertical,
-                    { height: '100%', width: '100%', borderRadius: 50, }]} />
+            <View style={[ItemCenter, Seller_SettingImage]}>
+                <FastImage source={ImageUser} style={[ItemCenterVertical, { height: '100%', width: '100%', borderRadius: 50, }]} />
             </View>
-            <View style={stylesSeller.Seller_SettingImageIconBox}>
+            <View style={Seller_SettingImageIconBox}>
                 <TouchableOpacity onPress={() => UploadImageProfile()}>
-                    <View style={stylesSeller.Seller_SettingImageIconBox_Camara}>
+                    <View style={Seller_SettingImageIconBox_Camara}>
                         <IconFeather name='camera' size={17} />
                     </View>
                 </TouchableOpacity>
@@ -95,29 +100,27 @@ export let Seller_SettingImage = (props) => {
     </View>;
 };
 ///------------------------------------------------------------------------------///
-export let Seller_Up_Image = (props) => {
+export const Seller_Up_Image = (props) => {
     const [activeAvatarSource, setActiveAvatarSource] = useState([]);
     const [avatarSource, setAvatarSource] = useState([]);
     const [name, setName] = useState(undefined);
     activeAvatarSource && setActiveAvatarSource(false);
-    let UploadImageSingle = (index) => {
-        const { avatarSource } = this.state;
+    const UploadImageSingle = (index) => {
         const options = { includeBase64: true };
         ImagePicker.openPicker(options).then(response => {
-            avatarSource[index] = response; setActiveAvatarSource(true); setAvatarSource(avatarSource);
+            avatarSource[index] = response; setActiveAvatarSource(true);
+            setAvatarSource(avatarSource);
         });
     };
-    let UploadImageMultiple = () => {
-        const { avatarSource } = this.state
+    const UploadImageMultiple = () => {
         const options = { multiple: true, includeBase64: true };
         ImagePicker.openPicker(options).then(response => {
             response.map((item, index) => index + avatarSource.length <= 7 && avatarSource.push(item));
             setActiveAvatarSource(true); setAvatarSource(avatarSource);
         });
     };
-    let UploadImageData = () => {
-        const { avatarSource } = this.state;
-        var uri = `${ip}/sql/uploadimage/updateimage.php`;
+    const UploadImageData = () => {
+        const uri = `${ip}/sql/uploadimage/updateimage.php`;
         avatarSource && (
             fetch(uri, {
                 method: "POST",
@@ -132,42 +135,40 @@ export let Seller_Up_Image = (props) => {
     };
     return <View style={FrameBackground}>
         <View style={[FrameBackground, ItemCenter, { paddingVertical: 5, marginTop: 15 }]}>
-            <TextInput style={[FontFamilyText, FontSize5, stylesSeller.Seller_Detail_TextInput, { height: 50 }]}
-                placeholder=" ชื่อร้าน" maxLength={40} value={name} onChangeText={(value) => setName(value)}>
+            <TextInput maxLength={40} style={[FontFamilyText, FontSize5, Seller_Detail_TextInput, { height: 50 }]}
+                placeholder=" ชื่อร้าน" value={name} onChangeText={(value) => setName(value)}>
             </TextInput>
         </View>
         <View style={FrameBackground}>
-            <Text style={[FontFamilyText, FontSize4]}>  คำอธิบายรูปภาพ</Text>
+            <Text style={[FontFamilyText, FontSize4]}>คำอธิบายรูปภาพ</Text>
             <ScrollView horizontal>
                 {avatarSource ?
                     <>
-                        {avatarSource.map((item, index) => {
-                            return <TouchableOpacity onPress={() => UploadImageSingle(index)} key={index}>
+                        {avatarSource.map((v, i) => {
+                            const Image1 = { uri: v.path };
+                            return <TouchableOpacity key={i} onPress={() => UploadImageSingle(i)}>
                                 <View style={[ItemCenter,
-                                    { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
-                                    <FastImage source={{ uri: item.path }}
-                                        style={[ItemCenterVertical, { height: '100%', width: '100%' }]} />
+                                    { borderColor: mainColor, borderWidth: 1, height: 150, marginLeft: 10, marginTop: 10, width: 150, }]}>
+                                    <FastImage source={Image1} style={[ItemCenterVertical, { height: '100%', width: '100%' }]} />
                                 </View>
-                            </TouchableOpacity>;
+                            </TouchableOpacity>
                         })}
-                        {avatarSource.length < 7 && <TouchableOpacity onPress={() => UploadImageMultiple()} key={'upload'}>
+                        {avatarSource.length < 7 && <TouchableOpacity key={'upload'} onPress={() => UploadImageMultiple()}>
                             <View style={[ItemCenter,
-                                { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                                { borderColor: mainColor, borderWidth: 1, height: 150, marginLeft: 10, marginTop: 10, width: 150, }]}>
                                 <View style={[ItemCenterVertical, ItemCenter]}>
-                                    <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                    <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>
-                                        +เพิ่มรูปภาพ/วีดีโอ</Text>
+                                    <IconAntDesign color={mainColor} name='camerao' RightItem size={35} />
+                                    <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                                 </View>
                             </View>
                         </TouchableOpacity>}
                     </> :
                     <TouchableOpacity onPress={() => UploadImageMultiple()}>
                         <View style={[ItemCenter,
-                            { marginTop: 10, marginLeft: 10, height: 150, width: 150, borderColor: mainColor, borderWidth: 1, }]}>
+                            { borderColor: mainColor, borderWidth: 1, height: 150, marginLeft: 10, marginTop: 10, width: 150, }]}>
                             <View style={[ItemCenterVertical, ItemCenter]}>
-                                <IconAntDesign RightItem name='camerao' size={35} color={mainColor} />
-                                <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>
-                                    +เพิ่มรูปภาพ/วีดีโอ</Text>
+                                <IconAntDesign color={mainColor} name='camerao' RightItem size={35} />
+                                <Text style={[FontFamilyText, FontSize6, { color: mainColor }]}>+เพิ่มรูปภาพ/วีดีโอ</Text>
                             </View>
                         </View>
                     </TouchableOpacity>}
@@ -176,7 +177,7 @@ export let Seller_Up_Image = (props) => {
     </View>;
 };
 ///------------------------------------------------------------------------------///
-export let Seller_Detail = (props) => {
+export const Seller_Detail = (props) => {
     const [detail, setDetail] = useState(undefined);
     return <View>
         {/* <View style={[FrameBackground, { paddingVertical: 5, marginTop: 5 }]}>
@@ -187,25 +188,24 @@ export let Seller_Detail = (props) => {
                         </View>
                     </TouchableOpacity>
                 </View> */}
-        <View style={[FrameBackground, ItemCenter, { paddingVertical: 5, marginTop: 5 }]}>
-            <View style={[stylesSeller.Seller_Detail_TextInput, { height: 130 }]}>
-                <TextInput style={[FontFamilyText, FontSize5]} placeholder="รายละเอียด" multiline editable
-                    value={detail} onChangeText={(value) => setDetail(value)}></TextInput>
+        <View style={[FrameBackground, ItemCenter, { marginTop: 5, paddingVertical: 5, }]}>
+            <View style={[Seller_Detail_TextInput, { height: 130 }]}>
+                <TextInput editable multiline onChangeText={(v) => setDetail(v)} placeholder="รายละเอียด" style={[FontFamilyText, FontSize5]}
+                    value={detail} />
             </View>
         </View>
     </View>;
 };
 ///------------------------------------------------------------------------------///
-export let Seller_SettingButton = (props) => {
+export const Seller_SettingButton = (props) => {
     const [phone, setPhone] = useState(undefined);
     const [release, setRelease] = useState(false);
     const Phone_numberSheet = useRef(null);
-    let Phone_numberSheetBody = <>
+    const Phone_numberSheetBody = <>
         <View style={Edit_Profile}>
             <Text style={[FontFamilyBold, FontSize5]}>เบอร์โทรศัพท์</Text>
             <View style={Edit_Profile_Box}>
-                <TextInput fontSize={15} placeholder="เบอร์โทรศัพท์" maxLength={10} value={phone} onChangeText={(value) =>
-                    setPhone(value)} />
+                <TextInput fontSize={15} maxLength={10} onChangeText={(v) => setPhone(v)} placeholder="เบอร์โทรศัพท์" value={phone} />
             </View>
         </View>
         <TouchableOpacity>
@@ -215,24 +215,22 @@ export let Seller_SettingButton = (props) => {
         </TouchableOpacity>
     </>;
     return <View>
-        <BottomSheet ref={Phone_numberSheet} height={200} duration={250}
-            customStyles={{ container: { paddingTop: 20, alignItems: "center", } }}>
-            {Phone_numberSheetBody}
-        </BottomSheet>
+        <BottomSheet customStyles={{ container: { alignItems: "center", paddingTop: 20, } }} duration={250} height={200}
+            ref={Phone_numberSheet}>{Phone_numberSheetBody}</BottomSheet>
         <TouchableOpacity onPress={() => Phone_numberSheet.current.open()}>
-            <View style={stylesSeller.Seller_Up_ProductDetail}>
+            <View style={Seller_Up_ProductDetail}>
                 <Text style={[FontFamilyText, FontSize5]}>โทรศัพท์</Text>
-                <IconEntypo name='chevron-right' size={35} color={mainColor} />
+                <IconEntypo color={mainColor} name='chevron-right' size={35} />
             </View>
         </TouchableOpacity>
-        <View style={stylesSeller.Seller_Up_ProductDetail}>
+        <View style={Seller_Up_ProductDetail}>
             <Text style={[FontFamilyText, FontSize5]}>เพจ Facebook</Text>
-            <IconEntypo name='chevron-right' size={35} color={mainColor} />
+            <IconEntypo color={mainColor} name='chevron-right' size={35} />
         </View>
-        <View style={stylesSeller.Seller_Up_ProductDetail}>
+        <View style={Seller_Up_ProductDetail}>
             <Text style={[FontFamilyText, FontSize5]}>เผยแพร่สินค้า</Text>
-            <CheckBox size={30} containerStyle={{ marginTop: -5 }} checkedIcon='toggle-on' checkedColor='#95F29F'
-                uncheckedIcon='toggle-off' checked={release} onPress={() => setRelease(!release)} />
+            <CheckBox size={30} checked={release} checkedColor='#95F29F' checkedIcon='toggle-on' containerStyle={{ marginTop: -5 }}
+                onPress={() => setRelease(!release)} uncheckedIcon='toggle-off' />
         </View>
     </View>;
 };

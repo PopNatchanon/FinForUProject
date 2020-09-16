@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import DatePicker from 'react-native-datepicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import FastImage from 'react-native-fast-image';
@@ -46,9 +46,9 @@ function Topic(props) {
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
-    let getSource = (value) => { setActiveGetSource(false); setCokie(value.keycokie); setCurrentUser(value.currentUser); };
+    let getSource = (v) => { setActiveGetSource(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
     useEffect(() => {
-        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
+        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: (v) => getSource(v) });
     }, [activeGetSource]);
     let PathList = () => {
         switch (selectedIndex) {
@@ -164,17 +164,17 @@ export let PIN_Code = (props) => {
     const [checkFail, setCheckFail] = useState(0);
     const [code, setCode] = useState('');
     const pinInput = useRef(null);
-    let resetInput = (value, value2) => { setActiveInput(value); setCode(value2); };
-    let _checkCode = (code) => {
+    let resetInput = (v, v2) => { setActiveInput(v); setCode(v2); };
+    let _checkCode = (c) => {
         var dataBody = {
             id_customer: currentUser?.id_customer,
-            pin: code
+            pin: c
         };
         var uri = `${finip}/store_transfer/login_pin`;
         GetServices({
-            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => {
-                if (!value.status) {
-                    alert(value.message);
+            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: (v) => {
+                if (!v.status) {
+                    alert(v.message);
                     setActiveInput(false);
                     setCheckFail(checkFail + 1);
                     pinInput.current.shake().then(() => resetInput(true, ''));
@@ -201,8 +201,8 @@ export let PIN_Code = (props) => {
                     <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#EBB34D', }}></View>}
                 value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }}
                 textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
-                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) =>
-                    _checkCode(value)}
+                codeLength={6} keyboardType={'numeric'} onTextChange={(c) => resetInput(true, c)} onFulfill={(v) =>
+                    _checkCode(v)}
                 onBackspace={() => console.log('No more back.')} />
         </View>
     </ScrollView>;
@@ -215,9 +215,9 @@ export let PIN_Code_Mail = (props) => {
     const [checkFail, setCheckFail] = useState(0);
     const [code, setCode] = useState('');
     const pinInput = useRef(null);
-    let resetInput = (value, value2) => {
-        setActiveInput(value);
-        setCode(value2);
+    let resetInput = (v, v2) => {
+        setActiveInput(v);
+        setCode(v2);
     };
     let _checkCode = (code) => {
         var dataBody = {
@@ -226,9 +226,9 @@ export let PIN_Code_Mail = (props) => {
         };
         var uri = `${finip}/store_transfer/login_pin`;
         GetServices({
-            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => {
-                if (!value.status) {
-                    alert(value.message);
+            Authorization: cokie, dataBody, uriPointer: uri, getDataSource: (v) => {
+                if (!v.status) {
+                    alert(v.message);
                     setActiveInput(false);
                     setCheckFail(checkFail + 1);
                     pinInput.current.shake().then(() => resetInput(true, ''));
@@ -252,8 +252,8 @@ export let PIN_Code_Mail = (props) => {
                     <View style={{ width: 15, height: 15, borderRadius: 25, backgroundColor: '#1ED37B', }}></View>}
                 value={code} cellStyle={{ borderWidth: 2, borderColor: !activeInput ? 'red' : '#111', borderRadius: 5, }}
                 textStyle={{ fontSize: 24, color: !activeInput ? 'red' : '#111', }}
-                codeLength={6} keyboardType={'numeric'} onTextChange={(code) => resetInput(true, code)} onFulfill={(value) =>
-                    _checkCode(value)}
+                codeLength={6} keyboardType={'numeric'} onTextChange={(c) => resetInput(true, c)} onFulfill={(v) =>
+                    _checkCode(v)}
                 onBackspace={() => console.log('No more back.')} />
         </View>
     </ScrollView>;
@@ -437,7 +437,7 @@ export let Seller_Comment_Reply = (props) => {
             <View style={stylesMain.ItemCenter}>
                 <View style={{ width: '80%', height: 120, padding: 5, backgroundColor: '#E3E3E3', margin: 5, }}>
                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '100%' }]} placeholder="" multiline
-                        editable maxLength={5000} value={detail} onChangeText={(value) => serDetail(value)}></TextInput>
+                        editable maxLength={5000} value={detail} onChangeText={(v) => serDetail(v)}></TextInput>
                 </View>
             </View>
             <View style={{ alignItems: 'flex-end' }}>
@@ -491,7 +491,7 @@ export let Seller_Advertisement_PacketBuy = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>ชื่อผู้ติดต่อ*</Text>
                 <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={name} onChangeText={(value) => setName(value)}>
+                        value={name} onChangeText={(v) => setName(v)}>
                     </TextInput>
                 </View>
             </View>
@@ -499,7 +499,7 @@ export let Seller_Advertisement_PacketBuy = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>หมายเลขโทรศัพท์*</Text>
                 <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={tel} onChangeText={(value) => setTel(value)}>
+                        value={tel} onChangeText={(v) => setTel(v)}>
                     </TextInput>
                 </View>
             </View>
@@ -507,7 +507,7 @@ export let Seller_Advertisement_PacketBuy = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>อีเมล*</Text>
                 <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={mail} onChangeText={(value) => setMail(value)}>
+                        value={mail} onChangeText={(v) => setMail(v)}>
                     </TextInput>
                 </View>
             </View>
@@ -515,7 +515,7 @@ export let Seller_Advertisement_PacketBuy = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>LINE ID</Text>
                 <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
                     <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={line} onChangeText={(value) => setLine(value)}>
+                        value={line} onChangeText={(v) => setLine(v)}>
                     </TextInput>
                 </View>
             </View>
@@ -544,7 +544,7 @@ export let Seller_Fin_Campaign = (props) => {
     const item = [{ name: 'เร็วๆ นี้' }, { name: 'กำลังดำเนินการ' }, { name: 'หมดอายุแล้ว' }];
     return <View>
         <View style={{ backgroundColor: '#fff' }}>
-            <TabBar sendData={value => setSelectedIndex(value.selectedIndex)} setVertical={4} item={item} />
+            <TabBar sendData={(v) => setSelectedIndex(v.selectedIndex)} setVertical={4} item={item} />
         </View>
         <View style={{ flexDirection: 'row', backgroundColor: '#FFFFFF', padding: 10, marginTop: 10 }}>
             <View style={{ height: 90, width: '40%' }}>
@@ -601,7 +601,7 @@ export let Seller_ProductSelect = (props) => {
                         flexDirection: 'row', width: '65%', paddingLeft: 10, borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1,
                     }}>
                         <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { width: '90%' }]} placeholder='' value={text}
-                            onChangeText={(value) => setText(value)}>
+                            onChangeText={(v) => setText(v)}>
                         </TextInput>
                         <TouchableOpacity>
                             <IconAntDesign RightItem name="search1" size={20} style={{ marginVertical: 10 }} />
@@ -642,7 +642,7 @@ export let My_income = (props) => {
     const items1 = [{ name: 'ยังไม่สำเร็จ' }, { name: 'สำเร็จแล้ว' },];
     let dataItem = (items1) => {
         return <View style={[stylesMain.FlexRow, { width: '100%', justifyContent: 'center', backgroundColor: '#FFFFFF', height: 30 }]}>
-            <TabBar sendData={value => setSelectedIndex(value.selectedIndex)} item={items1} numberBox radiusBox={4} />
+            <TabBar sendData={(v) => setSelectedIndex(v.selectedIndex)} item={items1} numberBox radiusBox={4} />
         </View>;
     };
     return <>
@@ -695,10 +695,10 @@ export let Withdraw_money = (props) => {
     var dataBody = {
         id_customer: currentUser?.id_customer
     };
-    let getData = (value) => { setActiveDataService(false); setDataService(value); };
+    let getData = (v) => { setActiveDataService(false); setDataService(v); };
     useEffect(() => {
         activeDataService && currentUser &&
-            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: (v) => getData(v) });
     }, [activeDataService && currentUser]);
     return <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
         <TouchableOpacity activeOpacity={1} onPress={() =>
@@ -753,7 +753,7 @@ export let Confirm_Bank = (props) => {
                 alignItems: 'center'
             }}>
                 <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '90%' }]} placeholder="" maxLength={50}
-                    value={money} onChangeText={(value) => setMoney(value)}>
+                    value={money} onChangeText={(v) => setMoney(v)}>
                 </TextInput>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>THB</Text>
             </View>
@@ -778,10 +778,10 @@ export let Withdrawal_history = (props) => {
         id_customer: currentUser?.id_customer
     };
     var uri = `${finip}/store_transfer/transfer_history`;
-    let getData = (value) => { setActiveHistory(false); setDataService(value); };
+    let getData = (v) => { setActiveHistory(false); setDataService(v); };
     useEffect(() => {
         activeHistory && currentUser &&
-            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
+            GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: (v) => getData(v) });
     }, [activeHistory && currentUser]);
     return <>
         {dataService?.length > 0 ?
@@ -840,8 +840,8 @@ export let Up_Product_Select = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>ราคา</Text>
             </View>
             <View style={[stylesSeller.BottomSheet_Box, { width: 250 }]}>
-                <TextInput style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]} placeholder="0.00" editable onChangeText={(value) =>
-                    setPrice(value)}>{price}</TextInput>
+                <TextInput style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]} placeholder="0.00" editable onChangeText={(v) =>
+                    setPrice(v)}>{price}</TextInput>
             </View>
         </View>
         <View style={stylesMain.FlexRow}>
@@ -849,8 +849,8 @@ export let Up_Product_Select = (props) => {
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]}>คลัง</Text>
             </View>
             <View style={[stylesSeller.BottomSheet_Box, { width: 250 }]}>
-                <TextInput style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]} placeholder="0" editable onChangeText={(value) =>
-                    setTotal(value)}>{total}</TextInput>
+                <TextInput style={[stylesFont.FontFamilyBold, stylesFont.FontSize5,]} placeholder="0" editable onChangeText={(v) =>
+                    setTotal(v)}>{total}</TextInput>
             </View>
         </View>
         <View style={stylesSeller.BottomSheet_Botton}>
@@ -890,10 +890,10 @@ export let Up_Product_Select = (props) => {
         </View>
         <View style={{ marginVertical: 5 }}>
             <View style={{ flexDirection: 'row', width: '30%' }}>
-                {optionValue && optionValue.map((value, index) => {
-                    if (index == 0 && value.name) {
-                        return optionValue2 && optionValue2.map((value2, index2) => {
-                            if (index2 == 0 && value2.name) {
+                {optionValue && optionValue.map((v, i) => {
+                    if (i == 0 && v.name) {
+                        return optionValue2 && optionValue2.map((v2, i2) => {
+                            if (i2 == 0 && v2.name) {
                                 return <>
                                     <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName}</Text>
@@ -902,7 +902,7 @@ export let Up_Product_Select = (props) => {
                                         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName2}</Text>
                                     </View>
                                 </>;
-                            } else if (index2 == 0) {
+                            } else if (i2 == 0) {
                                 return <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{optionName}</Text>
                                 </View>;
@@ -912,18 +912,18 @@ export let Up_Product_Select = (props) => {
                 })}
             </View>
             <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 5 }}>
-                {optionValue && optionValue.map((value, index) => {
-                    if (value.name) {
-                        return optionValue2 && optionValue2.map((value2, index2) => {
-                            if (value2.name) {
-                                return <View key={`${index}:${index2}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                {optionValue && optionValue.map((v, i) => {
+                    if (v.name) {
+                        return optionValue2 && optionValue2.map((v2, i2) => {
+                            if (v2.name) {
+                                return <View key={`${i}:${i2}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                                     <View style={{ flexDirection: 'row', width: '30%' }}>
                                         <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
                                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                                {index2 == 0 && value.name}</Text>
+                                                {i2 == 0 && v.name}</Text>
                                         </View>
                                         <View style={[stylesMain.ItemCenter, { width: '50%' }]}>
-                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{value2.name}</Text>
+                                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>{v2.name}</Text>
                                         </View>
                                     </View>
                                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
@@ -933,12 +933,12 @@ export let Up_Product_Select = (props) => {
                                         <View style={stylesSeller.SizeSheet_Boxsize}></View>
                                     </View>
                                 </View>;
-                            } else if (index2 == 0) {
-                                return <View key={`${index}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
+                            } else if (i2 == 0) {
+                                return <View key={`${i}`} style={[stylesMain.FlexRow, stylesSeller.Up_product_Select]}>
                                     <View style={{ flexDirection: 'row', width: '30%' }}>
                                         <View style={[stylesMain.ItemCenter, { width: '100%' }]}>
                                             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>
-                                                {index2 == 0 && value.name}</Text>
+                                                {i2 == 0 && v.name}</Text>
                                         </View>
                                     </View>
                                     <View style={[stylesMain.ItemCenter, { width: '30%' }]}>
@@ -1043,7 +1043,7 @@ export let Code_Sale = (props) => {
     </View>;
     return <>
         <View style={stylesMain.FrameBackground}>
-            <TabBar sendData={value => setSelectedIndex(value.selectedIndex)} setVertical={4} item={item} />
+            <TabBar sendData={(v) => setSelectedIndex(v.selectedIndex)} setVertical={4} item={item} />
         </View>
         <ScrollView>
             {Code_BOX}
@@ -1075,12 +1075,12 @@ export let Form_Code_Sale = (props) => {
         setDate(currentDate);
     };
     let showMode = currentMode => { setShow(true); setMode(currentMode); };
-    let setStateChecked = (value, value2) => { setChecked(value); setChecked2(value2); };
+    let setStateChecked = (v, v2) => { setChecked(v); setChecked2(v2); };
     return <ScrollView>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ชื่อโค้ด</Text>
             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
-                placeholder="สูงสุด100ตัวอักษร" maxLength={100} value={name} onChangeText={(name) => this.setState({ name })}></TextInput>
+                placeholder="สูงสุด100ตัวอักษร" maxLength={100} value={name} onChangeText={(n) => this.setState({ name: n })}></TextInput>
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '30%' }]}>โค้ดส่วนลด</Text>
@@ -1088,7 +1088,7 @@ export let Form_Code_Sale = (props) => {
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5]}>Fin</Text>
             </View>
             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { textAlign: 'right' }]} placeholder="สูงสุด6ตัวอักษร"
-                maxLength={6} value={code} onChangeText={(value) => setCode(value)}></TextInput>
+                maxLength={6} value={code} onChangeText={(v) => setCode(v)}></TextInput>
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่เริ่มต้น</Text>
@@ -1102,7 +1102,7 @@ export let Form_Code_Sale = (props) => {
                     </View>
                 </TouchableOpacity>
                 {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
-                    onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
+                    onChange={(e, s) => onChange(e, s)} />}
             </View>
             {/* <DatePicker style={{ width: 300 }} date={MFG_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
                 minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
@@ -1112,7 +1112,7 @@ export let Form_Code_Sale = (props) => {
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาเริ่มต้น</Text>
             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]} placeholder="ระบุ"
-                maxLength={6} value={MFG_Time} onChangeText={(value) => setMFG_Time(value)}></TextInput>
+                maxLength={6} value={MFG_Time} onChangeText={(v) => setMFG_Time(v)}></TextInput>
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>วันที่สิ้นสุด</Text>
@@ -1126,7 +1126,7 @@ export let Form_Code_Sale = (props) => {
                     </View>
                 </TouchableOpacity>
                 {show && <DateTimePicker testID="dateTimePicker" value={date} mode={mode} is24Hour={true} display="spinner"
-                    onChange={(event, selectedDate) => onChange(event, selectedDate)} />}
+                    onChange={(e, s) => onChange(e, s)} />}
             </View>
             {/* <DatePicker style={{ width: 300 }} date={EXP_Day} mode="date" placeholder="select date" format="DD-MM-YYYY"
                 minDate="01-12-1920" maxDate="01-06-2020" confirmBtnText="Confirm" cancelBtnText="Cancel"
@@ -1136,7 +1136,7 @@ export let Form_Code_Sale = (props) => {
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>เวลาสิ้นสุด</Text>
             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]} placeholder="ระบุ"
-                maxLength={6} value={EXP_Time} onChangeText={(value) => setEXP_Time(value)}></TextInput>
+                maxLength={6} value={EXP_Time} onChangeText={(v) => setEXP_Time(v)}></TextInput>
         </View>
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ประเภทโค้ด</Text>
@@ -1150,8 +1150,7 @@ export let Form_Code_Sale = (props) => {
         <View style={stylesSeller.Seller_Up_ProductDetail}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '20%' }]}>ราคาขั้นต่ำ</Text>
             <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '80%', textAlign: 'right' }]}
-                placeholder="ระบุราคาขั้นต่ำในการใช้คูปอง" maxLength={10} value={min_Price} onChangeText={(value) =>
-                    setMin_Price(value)} />
+                placeholder="ระบุราคาขั้นต่ำในการใช้คูปอง" maxLength={10} value={min_Price} onChangeText={(v) => setMin_Price(v)} />
         </View>
         <TouchableOpacity onPress={() =>
             NavigationNavigate({ goScreen: 'Seller_Advertisement_Campaign_Product', navigation })}

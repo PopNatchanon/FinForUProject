@@ -7,7 +7,7 @@ import {
     setDataRefresh, setDataStart, setFetchToStart,
 } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height, } = Dimensions.get('window');
+export const { height, width, } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -19,7 +19,7 @@ import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { AppBar, ExitApp, } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../../navigator/IpConfig';
+import { ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 const { cover, } = FastImage.resizeMode;
 const { FontFamilyText, FontSize5, FontSize6, } = stylesFont;
@@ -38,7 +38,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Follower);
 function Follower(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='ผู้ติดตาม' />
-        <Followers />
+        <Followers {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
@@ -77,7 +77,5 @@ export const Followers = (props) => {
             </View>
         </View>;
     });
-    return <ScrollView>
-        {FollowersBox}
-    </ScrollView>;
+    return <ScrollView>{FollowersBox}</ScrollView>;
 };

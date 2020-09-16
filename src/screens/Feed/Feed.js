@@ -10,7 +10,7 @@ import {
 } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import ActionButton from 'react-native-action-button';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { Modalize } from 'react-native-modalize';
 ///----------------------------------------------------------------------------------------------->>>> Icon

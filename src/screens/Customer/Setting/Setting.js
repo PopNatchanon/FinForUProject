@@ -7,7 +7,7 @@ import { connect } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import AsyncStorage from '@react-native-community/async-storage';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import RNRestart from 'react-native-restart';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon

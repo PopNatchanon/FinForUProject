@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import FastImage from 'react-native-fast-image';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import ImagePicker from 'react-native-image-crop-picker';
 import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon

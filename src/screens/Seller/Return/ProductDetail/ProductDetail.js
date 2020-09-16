@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, ScrollView, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../style/stylesFont';
@@ -28,11 +28,15 @@ export default connect(mapStateToProps, mapDispatchToProps)(ProductDetail);
 function ProductDetail(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='รายละเอียด' />
-        <ScrollView>
-            <Seller_Return_Detail />
-        </ScrollView>
+        <ScrollList {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    return <ScrollView>
+        <Seller_Return_Detail />
+    </ScrollView>;
 };
 ///--------------------------------------------------------------------------/// รายละเอียดการยกเลิก
 export let Seller_Return_Detail = (props) => {

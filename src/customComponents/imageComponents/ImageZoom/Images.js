@@ -11,7 +11,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart } from '../..
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Animateds from 'react-native-reanimated';
 const { cond, eq, add, set, Value, event } = Animateds;
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -49,7 +49,7 @@ export default function Imageout(props) {
     const _photoComponent = useRef(null);
     var dataMySQL;
     dataMySQL = `${finip}/${dataValue.image_full_path ?? dataValue.image_path}/${dataValue.image}`;
-    Image.getSize(dataMySQL, (width, height) => { setImageHeight(height); setImageWidth(width); });
+    Image.getSize(dataMySQL, (height, width) => { setImageHeight(height); setImageWidth(width); });
     const heightV = (imageHeight * width) / imageWidth;
     const widthV = (imageWidth * height) / imageHeight;
     const hV = heightV < height ? heightV : height;

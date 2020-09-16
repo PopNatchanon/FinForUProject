@@ -6,7 +6,7 @@ import {
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import LinearGradient from 'react-native-linear-gradient';
 import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon

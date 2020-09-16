@@ -9,7 +9,7 @@ import {
     setDataRefresh, setDataStart, setFetchToStart,
 } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import BottomSheet from 'react-native-raw-bottom-sheet';
 import { Button } from 'native-base';
 import FastImage from 'react-native-fast-image';

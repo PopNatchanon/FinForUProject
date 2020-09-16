@@ -13,7 +13,8 @@ import FinService_Photograph from './Photograph/Photograph';
 import FinService_VideoContent from './VideoContent/VideoContent';
 import FinService_GraphicDesign from './GraphicDesign/GraphicDesign'
 ///----------------------------------------------------------------------------------------------->>>>
-import ContentMarketing_Workpiece from './ContentMarketing/Workpiece/Workpiece';
+import FinService_ContentMarketing_Workpiece from './ContentMarketing/Workpiece/Workpiece';
+import FinService_Blog_BlogPortfolio from './Blog/BlogPortfolio/BlogPortfolio';
 export default [
     { component: FinService, name: 'FinService', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
     { component: FinService_About, name: 'FinService_About', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
@@ -27,5 +28,6 @@ export default [
     { component: FinService_VideoContent, name: 'FinService_VideoContent', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
     { component: FinService_GraphicDesign, name: 'FinService_GraphicDesign', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
     ///----------------------------------------------------------------------------------------------->>>>
-    { component: ContentMarketing_Workpiece, name: 'ContentMarketing_Workpiece', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
+    { component: FinService_ContentMarketing_Workpiece, name: 'FinService_ContentMarketing_Workpiece', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
+    { component: FinService_Blog_BlogPortfolio, name: 'FinService_Blog_BlogPortfolio', options: { cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS } },
 ];

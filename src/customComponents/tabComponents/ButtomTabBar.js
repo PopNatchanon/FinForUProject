@@ -11,7 +11,7 @@ import styleMain from '../../style/StylesMainScreen'
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> ButtomTabBar
 function ButtomTabBar(props) {
-    const [selected, setSelected] = useState(0);
+    const [selected, setSelected] = useState(props.selectedIndex);
     return props.data.map((value, index) => <TouchableOpacity key={index} onPress={() => {
         props.changeSelect ? setSelected(index) : undefined; props.sendDataOut(index);
     }} style={[{
@@ -53,6 +53,7 @@ ButtomTabBar.propTypes = {
     notSelectColors: PropTypes.array,
     notSelectFontColors: PropTypes.string,
     start: PropTypes.object,
+    selectedIndex: PropTypes.number,
     sendDataOut: PropTypes.func,
     setHeightBox: PropTypes.number,
     setSelectedOut: PropTypes.number,
@@ -73,6 +74,7 @@ ButtomTabBar.defaultProps = {
     notSelectColors: ['#fff', '#fff'],
     notSelectFontColors: '#FFAC33',
     start: { x: 0, y: 0 },
+    selectedIndex: 0,
     setHeightBox: 40,
     setWidthBox: 100,
 };

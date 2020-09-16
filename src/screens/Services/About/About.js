@@ -22,6 +22,7 @@ import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from 
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 import { Portfolio_Image, Portfolio_owner } from '../ContentMarketing/ContentMarketing';
+import { Button_Bar } from '../FinService';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 const mapStateToProps = (state) => ({
@@ -33,9 +34,11 @@ function About(props) {
     return <SafeAreaView style={stylesMain.SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='About' />
         <ScrollView>
+            <Button_Bar {...props} selectedIndex={1} />
             <Services_About />
             <Portfolio_Image />
         </ScrollView>
+        <ExitAppModule {...props} />
     </SafeAreaView>
 }
 ///----------------------------------------------------------------------------------------------->>>>

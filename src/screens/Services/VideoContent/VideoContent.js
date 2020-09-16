@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
@@ -9,8 +9,9 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 export const { width, height } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 const { contain, cover, stretch, } = FastImage.resizeMode;
+import Video from 'react-native-video';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconEntypo from 'react-native-vector-icons/Entypo';
+import AntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
@@ -18,7 +19,7 @@ import stylesStore from '../../../style/StylesStoreScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import { ExitAppModule } from '../../Main/Main';
 import { TabBar } from '../../../customComponents/Tools';
-import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from '../../../customComponents';
+import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab, IconLoading } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
@@ -100,15 +101,25 @@ export let Video_production = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Video_Portfolio = (props) => {
-    const Video = [
-        { image: `${ip}/MySQL/uploads/Service/VideoPortfolio/0.jpg`, },
-        { image: `${ip}/MySQL/uploads/Service/VideoPortfolio/1.jpg`, },
-        { image: `${ip}/MySQL/uploads/Service/VideoPortfolio/2.jpg`, },
+    const VideoPlayer = useRef(null);
+    const Videos = [
+        { vdo: `${ip}/MySQL/uploads/VDO/001.mp4`, },
+        { vdo: `${ip}/MySQL/uploads/VDO/002.mp4`, },
+        { vdo: `${ip}/MySQL/uploads/VDO/003.mp4`, },
     ]
-    const VideoPortfolio = Video.map((v, i) => {
-        const Video_image = { uri: v.image, };
+    const VideoPortfolio = Videos.map((v, i) => {
+        //https://youtu.be/MVvpBRA8waM
+        const Video_image = { uri: v.vdo, };
+        console.log(Video_image)
         return <View key={i} style={{ height: 150, margin: 5 }}>
-            <FastImage resizeMode={cover} source={Video_image} style={stylesMain.BoxProduct1Image} />
+            <Video controls paused source={Video_image}   // Can be a URL or a local file.
+                poster={"https://baconmockup.com/300/200/"}
+                ref={VideoPlayer}                                      // Store reference
+                onPlaybackRateChange={event => { console.log('event'); console.log(event); }}
+                style={{
+                    height: '100%', width: '100%'
+                }}
+            />
         </View>
     });
     return <View>

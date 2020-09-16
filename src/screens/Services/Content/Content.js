@@ -23,6 +23,7 @@ import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from 
 import { finip, ip, } from '../../../navigator/IpConfig';
 import { Portfolio_Image, Portfolio_owner } from '../ContentMarketing/ContentMarketing';
 import { Contact_Us } from '../FinService';
+import { Button_Bar } from '../FinService';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 const mapStateToProps = (state) => ({
@@ -38,6 +39,7 @@ function Content(props) {
             <Address_About />
             <Location />
         </ScrollView>
+        <ExitAppModule {...props} />
     </SafeAreaView>
 }
 ///----------------------------------------------------------------------------------------------->>>>

@@ -80,7 +80,7 @@ export let Menu_Bar = (props) => {
         { image: `${ip}/MySQL/uploads/Service/2.png`, Title: 'ADMIN ', ThaiTitle: 'ผู้ดูแล', Navi: 'FinService_Admin' },
         { image: `${ip}/MySQL/uploads/Service/3.png`, Title: 'PHOTOGRAPH ', ThaiTitle: 'ช่างถ่ายภาพ', Navi: 'FinService_Photograph' },
         { image: `${ip}/MySQL/uploads/Service/4.png`, Title: 'VIDEO CONTENT ', ThaiTitle: 'วีดีโอโฆษณา', Navi: 'FinService_VideoContent' },
-        { image: `${ip}/MySQL/uploads/Service/5.png`, Title: 'GRAPHIC DESIGN ', ThaiTitle: 'การออกแบบโฆษณา', Navi: 'FinService_GraphicDesign ' },
+        { image: `${ip}/MySQL/uploads/Service/5.png`, Title: 'GRAPHIC DESIGN ', ThaiTitle: 'การออกแบบโฆษณา', Navi: 'FinService_GraphicDesign' },
     ]
     const MenuBox = MenuBar.map((v, i) => {
         const ImageMenu = { uri: v.image, };

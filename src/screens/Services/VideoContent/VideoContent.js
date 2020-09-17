@@ -103,7 +103,7 @@ export let Video_production = (props) => {
 export let Video_Portfolio = (props) => {
     const VideoPlayer = useRef(null);
     const Videos = [
-        { vdo: `${ip}/MySQL/uploads/VDO/001.mp4`, },
+        { vdo: `${ip}/MySQL/uploads/VDO/002.mp4`, },
         { vdo: `${ip}/MySQL/uploads/VDO/002.mp4`, },
         { vdo: `${ip}/MySQL/uploads/VDO/003.mp4`, },
     ]
@@ -111,22 +111,19 @@ export let Video_Portfolio = (props) => {
         //https://youtu.be/MVvpBRA8waM
         const Video_image = { uri: v.vdo, };
         console.log(Video_image)
-        return <View key={i} style={{ height: 150, margin: 5 }}>
+        return <View key={i} style={{ height: 180, margin: 5, width: 300 }}>
             <Video controls paused source={Video_image}   // Can be a URL or a local file.
                 poster={"https://baconmockup.com/300/200/"}
                 ref={VideoPlayer}                                      // Store reference
                 onPlaybackRateChange={event => { console.log('event'); console.log(event); }}
-                style={{
-                    height: '100%', width: '100%'
-                }}
-            />
+                style={{ height: '100%', width: '100%' }} />
         </View>
     });
     return <View>
         <View style={{ backgroundColor: mainColor, width: width * 0.40, marginVertical: 5, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginLeft: 5 }]}>ตัวอย่างผลงาน</Text>
         </View>
-        <View>
+        <View style={stylesMain.ItemCenter}>
             {VideoPortfolio}
         </View>
     </View>

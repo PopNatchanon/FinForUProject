@@ -72,7 +72,7 @@ class AppSearchBar extends React.Component {
         }]}>
             {backArrow && <View key={'backarrow'}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}
-                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 30, }]}>
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, }]}>
                     <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>
             </View>}

@@ -120,10 +120,10 @@ export let Video_Portfolio = (props) => {
         console.log(i)
         console.log(v)
         console.log(playing)
-        return <View key={i} style={{ backgroundColor: '#fff',height: 300, margin: 5 }}>
+        return <View key={i} style={{ marginHorizontal: 5, marginTop: 5, }}>
             {v.type != 'youtube' ? <Video controls onPlaybackRateChange={event => { console.log('event'); console.log(event); }} paused
                 ref={VideoPlayer} style={{ height: '100%', width: '100%' }} source={Video_image} /> :
-                <YoutubePlayer height={300} onChangeState={onStateChange} play={playing} videoId={v.video} />}
+                <YoutubePlayer height={225} onChangeState={onStateChange} play={playing} videoId={v.video} />}
         </View>
     });
     return <View>
@@ -131,7 +131,7 @@ export let Video_Portfolio = (props) => {
             { backgroundColor: mainColor, width: width * 0.40, marginVertical: 5, borderTopRightRadius: 10, borderBottomRightRadius: 10 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF', marginLeft: 5 }]}>ตัวอย่างผลงาน</Text>
         </View>
-        <View style={stylesMain.ItemCenter}>
+        <View>
             {VideoPortfolio}
         </View>
     </View>

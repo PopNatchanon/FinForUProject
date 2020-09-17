@@ -667,8 +667,7 @@ export function LookBody(props) {
       <Text style={[FontFamilyText, FontSize5]}>สภาพสินค้า</Text>
       <View style={FlexRow}>
         <Text style={[FontFamilyText, FontSize5, { marginTop: 5, }]}>
-          {saveLookIndex ? saveLookIndex == 1 ? 'ของใหม่' : 'ของมือสอง' :
-            <Text style={{ color: '#A3A3A3', }}>{'สภาพสินค้า'}</Text>}</Text>
+          {saveLookIndex ? saveLookIndex == 1 ? 'ของใหม่' : 'ของมือสอง' : <Text style={{ color: '#A3A3A3', }}>{'สภาพสินค้า'}</Text>}</Text>
         <IconEntypo color={mainColor} name='chevron-right' size={35} />
       </View>
     </View>
@@ -789,10 +788,8 @@ export function SizeBody(props) {
 export function SizeSheetBody(props) {
   const { sizeProduct, SizeSheetRef, setSaveSizeProduct, setSizeProduct } = props;
   const setStateSizeProduct = (i) => {
-    sizeProduct.index = i;
-    sizeProduct.name = i == 0 ? 'เล็ก' : i == 1 ? 'กลาง' : i == 2 ? 'ใหญ่' : 'เล็ก';
-    sizeProduct.value = i == 0 ? 'S' : i == 1 ? 'M' : i == 2 ? 'L' : 'S';
-    setSizeProduct(sizeProduct);
+    sizeProduct.index = i; sizeProduct.name = i == 0 ? 'เล็ก' : i == 1 ? 'กลาง' : i == 2 ? 'ใหญ่' : 'เล็ก';
+    sizeProduct.value = i == 0 ? 'S' : i == 1 ? 'M' : i == 2 ? 'L' : 'S'; setSizeProduct(sizeProduct);
   };
   const saveSizeSheet = () => { setSaveSizeProduct(sizeProduct); SizeSheetRef.current.close(); };
   return <View style={{ flex: 1, }}>

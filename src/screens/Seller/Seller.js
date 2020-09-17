@@ -94,16 +94,10 @@ export const MenubarSub = (props) => {
     const ListMenuItem = [{
         name: 'ที่ต้องจัดส่ง', setNavi: { goScreen: 'Seller_TotelOrder', setData: { selectedIndex: 1, }, },
         icon: <FastImage source={Image1} style={MenubarSubLine1Image} />,
-    }, {
-        name: 'ยกเลิก', setNavi: { goScreen: 'Seller_Cencel', },
-        icon: <FastImage source={Image2} style={MenubarSubLine1Image} />,
-    }, {
+    }, { name: 'ยกเลิก', setNavi: { goScreen: 'Seller_Cencel', }, icon: <FastImage source={Image2} style={MenubarSubLine1Image} />, }, {
         name: 'คืนสินค้า/คืนเงิน', setNavi: { goScreen: 'Seller_Return_Product', },
         icon: <FastImage source={Image3} style={MenubarSubLine1Image} />,
-    }, {
-        name: 'คลัง', setNavi: { goScreen: 'Seller_StoreProduct', },
-        icon: <IconFeather name='more-horizontal' size={50} />,
-    }];
+    }, { name: 'คลัง', setNavi: { goScreen: 'Seller_StoreProduct', }, icon: <IconFeather name='more-horizontal' size={50} />, }];
     return <View style={MenubarSubs}>
         <View style={MenubarSubLine1}>
             {ListMenuItem.map((v, i) => <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, ...v.setNavi, })}>

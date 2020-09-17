@@ -69,31 +69,42 @@ export let Button_Bar = (props) => {
     };
     const item = [{ name: 'HOME' }, { name: 'ABOUT' }, { name: 'BLOG' }, { name: 'CONTACT' }, { name: 'REVIEW' }];
     return <ScrollView horizontal style={{ backgroundColor: '#FFFFFF', paddingVertical: 3 }}>
-        <ButtomTab colors={['#10162d', '#284d8f']} data={item} selectedIndex={selectedIndex} setWidthBox={width * 0.234} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
+        <ButtomTab colors={['#10162d', '#284d8f']} data={item} selectedIndex={selectedIndex} setWidthBox={width * 0.233} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
         stylesFont.FontFamilyBold]} linearGradient={true} notSelectFontColors='#10162d' sendDataOut={(v) => getSelectedIndex(v)} />
     </ScrollView>
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Menu_Bar = (props) => {
-    const  MenuBar = [
-        { image: `${ip}/MySQL/uploads/Service/1.png`, Title: 'CONTENT MARKETING', Navi:'FinService_ContentMarketing' },
-        { image: `${ip}/MySQL/uploads/Service/2.png`, Title: 'CONTENT MARKETING', Navi:'FinService_Admin' },
-        { image: `${ip}/MySQL/uploads/Service/3.png`, Title: 'CONTENT MARKETING', Navi:'FinService_Photograph' },
-        { image: `${ip}/MySQL/uploads/Service/4.png`, Title: 'CONTENT MARKETING', Navi:'FinService_VideoContent' },
-        { image: `${ip}/MySQL/uploads/Service/5.png`, Title: 'CONTENT MARKETING', Navi:'FinService_GraphicDesign ' },
-
+    const MenuBar = [
+        { image: `${ip}/MySQL/uploads/Service/1.png`, Title: 'CONTENT MARKETING ', ThaiTitle: 'การตลาด', Navi: 'FinService_ContentMarketing' },
+        { image: `${ip}/MySQL/uploads/Service/2.png`, Title: 'ADMIN ', ThaiTitle: 'ผู้ดูแล', Navi: 'FinService_Admin' },
+        { image: `${ip}/MySQL/uploads/Service/3.png`, Title: 'PHOTOGRAPH ', ThaiTitle: 'ช่างถ่ายภาพ', Navi: 'FinService_Photograph' },
+        { image: `${ip}/MySQL/uploads/Service/4.png`, Title: 'VIDEO CONTENT ', ThaiTitle: 'วีดีโอโฆษณา', Navi: 'FinService_VideoContent' },
+        { image: `${ip}/MySQL/uploads/Service/5.png`, Title: 'GRAPHIC DESIGN ', ThaiTitle: 'การออกแบบโฆษณา', Navi: 'FinService_GraphicDesign' },
     ]
-    const CONTENT = { uri: `${ip}/MySQL/uploads/Service/1.png`, };
-    const ADMIN = { uri: `${ip}/MySQL/uploads/Service/2.png`, };
-    const PHOTOGRAPH = { uri: `${ip}/MySQL/uploads/Service/3.png`, };
-    const VIDEO = { uri: `${ip}/MySQL/uploads/Service/4.png`, };
-    const GRAPHIC = { uri: `${ip}/MySQL/uploads/Service/5.png`, };
+    const MenuBox = MenuBar.map((v, i) => {
+        const ImageMenu = { uri: v.image, };
+        return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: v.Navi, })}
+            style={[stylesMain.FlexRow, {
+                borderColor: mainColor, borderWidth: 1, marginVertical: 2.5,
+                borderRadius: 5, height: 100, justifyContent: 'space-between', backgroundColor: '#FFFFFF'
+            }]}>
+            <FastImage resizeMode={cover} source={ImageMenu} style={{ height: '100%', width: '50%', }} />
+            <View style={[stylesMain.ItemCenter, { width: '45%' }]}>
+                <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 60, width: '100%' }]}>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF', textAlign: 'center' }]}>{v.Title}</Text>
+                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#FFFFFF', textAlign: 'center' }]}>{v.ThaiTitle}</Text>
+                </View>
+            </View>
+        </TouchableOpacity>
+    });
     return <View style={{ height: 'auto', marginHorizontal: 5, alignItems: 'center', paddingBottom: 10, borderRadius: 5, }}>
-        <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 5 }}>
+        <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 5, paddingVertical: 5, marginVertical: 5, marginTop: 7 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>Digital Agency Services</Text>
         </View>
-        <View style={{ width: '98%', }}>
-            <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
+        <View style={{ width: '99%', }}>
+            {MenuBox}
+            {/* <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
                 <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Blog', })} style={[stylesMain.FlexRow, {
                     borderColor: mainColor, borderWidth: 1,
                     borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF'
@@ -141,7 +152,7 @@ export let Menu_Bar = (props) => {
                         </View>
                     </View>
                 </TouchableOpacity>
-            </View>
+            </View> */}
         </View>
     </View>
 }

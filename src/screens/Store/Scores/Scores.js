@@ -72,8 +72,7 @@ export const Score_store = (props) => {
     { name: '1 ดาว', nameline2: `(${dataService?.rate_1 ?? '0'})`, }];
     const updateIndex = (v) => {
         const score = v.selectedIndex == 0 ? '' : v.selectedIndex == 1 ? '5' : v.selectedIndex == 2 ? '4' : v.selectedIndex == 3 ? '3' :
-            v.selectedIndex == 4 ? '2' : v.selectedIndex == 5 ? '1' : '';
-        setActiveGetServices2(true); setScore(score);
+            v.selectedIndex == 4 ? '2' : v.selectedIndex == 5 ? '1' : ''; setActiveGetServices2(true); setScore(score);
     };
     const uri = `${finip}/store/score_data`;
     useEffect(() => {

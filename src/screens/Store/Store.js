@@ -62,30 +62,22 @@ function Store(props) {
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedIndex2, setSelectedIndex2] = useState(0);
     const dataBody = {
-        best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        id_store: id_store,
-        lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        min_price: '',
-        max_price: '',
-        popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        sort_price: '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+        best_sale: '',/*ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/ id_store: id_store,
+        lastest: '', /*ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/max_price: '', min_price: '',
+        popular: 'popular',/*ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/
+        sort_price: '',/*เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง*/
     };
     const dataBody2 = {
-        best_sale: filterValue.best_sale ?? '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        id_store: id_store,
-        lastest: filterValue.lastest ?? '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        max_price: '',
-        min_price: '',
-        popular: filterValue?.popular ?? '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        sort_price: filterValue.sort_price ?? '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+        best_sale: filterValue.best_sale ?? '',/*ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/id_store: id_store,
+        lastest: filterValue.lastest ?? '',/*ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/max_price: '', min_price: '',
+        popular: filterValue?.popular ?? '',/*ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา*/
+        sort_price: filterValue.sort_price ?? '',/*เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง*/
     };
     const getData = (v) => { setActiveGetServices(false); setDataService(v); };
     const getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
     const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
     const getSelectedIndex = (v) => {
-        setActiveGetServices2((v * 1) == 1 ? true : false);
-        setActiveRef((v * 1) == 2 ? true : false);
-        setSelectedIndex(v * 1);
+        setActiveGetServices2((v * 1) == 1 ? true : false); setActiveRef((v * 1) == 2 ? true : false); setSelectedIndex(v * 1);
     };
     const getSelectedIndex2 = (v) => {
         filterValue.popular = (v.selectedIndex * 1) == 0 ? 'popular' : '';
@@ -418,7 +410,7 @@ export const Banners = (props) => {
                 <View style={[BannerBox, { backgroundColor: '#ECECEC', borderColor: '#9C9C9C', borderWidth: 1, }]}>
                     <IconLoading />
                 </View>
-                <View style={{ padding: 5, height: 50, }}>
+                <View style={{ height: 50, padding: 5, }}>
                     <Text numberOfLines={4} style={[FontFamilyText, FontSize7]}>   </Text>
                 </View>
             </View>
@@ -537,11 +529,11 @@ export const ShowProduct = (props) => {
 export const BoxProduct4 = (props) => {
     const { activeRef, sendDataOut, route, } = props;
     const [dataService, setDataService] = useState(undefined);
-    const getData = (v) => { setDataService(v); sendDataOut(false); };
     const dataBody = { id_store, };
     const feed_news = dataService?.feed_news;
     const id_store = route.params?.id_store;
     const uri = `${finip}/brand/feed_news`;
+    const getData = (v) => { setDataService(v); sendDataOut(false); };
     useEffect(() => {
         activeRef && id_store && GetServices({ dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [activeRef && id_store]);
@@ -563,15 +555,7 @@ export const BoxProduct4 = (props) => {
 ///----------------------------------------------------------------------------------------------->>>>
 export const Test_Coupon = (props) => {
     return <View style={{
-        width: 0,
-        height: 0,
-        backgroundColor: 'transparent',
-        borderStyle: 'solid',
-        borderLeftWidth: 50,
-        borderRightWidth: 50,
-        borderBottomWidth: 100,
-        borderLeftColor: 'transparent',
-        borderRightColor: 'transparent',
-        borderBottomColor: 'red',
+        backgroundColor: 'transparent', borderBottomColor: 'red', borderBottomWidth: 100, borderLeftColor: 'transparent', borderLeftWidth: 50,
+        borderRightColor: 'transparent', borderRightWidth: 50, borderStyle: 'solid', height: 0, width: 0,
     }} />;
 };

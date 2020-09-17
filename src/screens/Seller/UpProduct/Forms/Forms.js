@@ -5,7 +5,7 @@ import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import BottomSheet from "react-native-raw-bottom-sheet";
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../style/stylesFont';
@@ -23,8 +23,8 @@ const { BottomSheet_Botton, BottomSheet_Botton_cancel, BottomSheet_Botton_OK, Bo
 ///----------------------------------------------------------------------------------------------->>>> Main
 const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
-function Topic(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Forms);
+function Forms(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow saveBar titleHead='เพิ่มสินค้า' />
         <Up_Product_Select {...props} />

@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, Text, View, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
@@ -25,7 +25,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(Statistics);
 function Statistics(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='สถิติร้านร้านค้า' />
-        <Seller_Statistics />
+        <Seller_Statistics {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
@@ -35,27 +35,21 @@ export const Seller_Statistics = (props) => {
         icon: <IconEntypo name='bar-graph' size={25} />,
         name: 'อัตราคำสั่งซื้อ',
         subItem: [{
-            name: 'อัตราคำสั่งซื้อที่สำเร็จ',
-            value: '0% ≥ 4.6',
+            name: 'อัตราคำสั่งซื้อที่สำเร็จ', value: '0% ≥ 4.6',
         }, {
-            name: 'อัตราการยกเลิกสินค้า',
-            value: '0% ≤ 10%',
+            name: 'อัตราการยกเลิกสินค้า', value: '0% ≤ 10%',
         }, {
-            name: 'อัตราการคืนสินค้า/คืนเงิน',
-            value: '0% ≤ 10%',
+            name: 'อัตราการคืนสินค้า/คืนเงิน', value: '0% ≤ 10%',
         }],
     }, {
         icon: <IconEntypo name='emoji-happy' size={25} />,
         name: 'ความพึงพอใจของลูกค้า',
         subItem: [{
-            name: 'อัตราความคิดเห็นโดยรวม',
-            value: '5 ≤ 10%',
+            name: 'อัตราความคิดเห็นโดยรวม', value: '5 ≤ 10%',
         }, {
-            name: 'อัตราการตอบกลับ',
-            value: '57.00 % ≥ 75%',
+            name: 'อัตราการตอบกลับ', value: '57.00 % ≥ 75%',
         }, {
-            name: 'เวลาในการตอบกลับ',
-            value: 'ภายใน 1 วัน ≤ 1วัน',
+            name: 'เวลาในการตอบกลับ', value: 'ภายใน 1 วัน ≤ 1วัน',
         }],
     }];
     return <View>

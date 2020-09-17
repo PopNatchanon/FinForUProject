@@ -6,7 +6,7 @@ import {
 import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import BottomSheet from "react-native-raw-bottom-sheet";

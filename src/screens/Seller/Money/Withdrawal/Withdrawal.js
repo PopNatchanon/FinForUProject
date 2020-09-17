@@ -1,86 +1,64 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect, useRef } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useState, } from 'react';
+import { Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import BottomSheet from "react-native-raw-bottom-sheet";
-export const { width, height } = Dimensions.get('window');
-import DatePicker from 'react-native-datepicker';
-import DateTimePicker from '@react-native-community/datetimepicker';
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import { CheckBox } from 'react-native-elements';
-import PINCode from '@haskkor/react-native-pincode';
-import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../../style/StylesMainScreen';
-import stylesProfile from '../../../../style/StylesProfileScreen';
-import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesSeller from '../../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TabBar, GetData, GetServices } from '../../../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../../../customComponents';
+import { AppBar, ExitApp, NavigationNavigate, } from '../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip, finip } from '../../../../navigator/IpConfig';
+import { ip, } from '../../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { FontFamilyBold, FontFamilyText, FontSize3, FontSize4, FontSize5, FontSize6, } = stylesFont;
+const { FlexRow, FrameBackground, ItemCenter, SafeAreaViews } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
-function Topic(props) {
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
+export default connect(mapStateToProps, mapDispatchToProps)(Withdrawal);
+function Withdrawal(props) {
+    return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='ถอนเงิน' />
         <Confirm_Bank {...props} />
+        <ExitApp {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export let Confirm_Bank = (props) => {
-    const { navigation } = props;
+export const Confirm_Bank = (props) => {
+    const Image1 = { uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, };
     const [money, setMoney] = useState(undefined);
     return <>
-        <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10, paddingBottom: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>ถอนเงินไปที่</Text>
-            <View style={stylesMain.FlexRow}>
-                <FastImage style={{ height: 100, width: 100, borderWidth: 3 }}
-                    source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} />
+        <View style={[FrameBackground, { paddingHorizontal: 10, paddingBottom: 10 }]}>
+            <Text style={[FontFamilyText, FontSize3, { margin: 5 }]}>ถอนเงินไปที่</Text>
+            <View style={FlexRow}>
+                <FastImage source={Image1} style={{ borderWidth: 3, height: 100, width: 100, }} />
                 <View style={{ margin: 10 }}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>ธนาคารกรุงเทพ</Text>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize4,]}>* *** *** *232</Text>
+                    <Text style={[FontFamilyText, FontSize4]}>ธนาคารกรุงเทพ</Text>
+                    <Text style={[FontFamilyText, FontSize4]}>* *** *** *232</Text>
                 </View>
             </View>
         </View>
-        <View style={[stylesMain.FrameBackground, { paddingHorizontal: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize3, , { margin: 5 }]}>จำนวนเงินที่ทำการถอน</Text>
+        <View style={[FrameBackground, { paddingHorizontal: 10 }]}>
+            <Text style={[FontFamilyText, FontSize3, { margin: 5 }]}>จำนวนเงินที่ทำการถอน</Text>
             <View style={{
-                width: '100%', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, height: 50, flexDirection: 'row',
-                alignItems: 'center'
+                alignItems: 'center', borderColor: '#EAEAEA', borderRadius: 5, borderWidth: 1, flexDirection: 'row', height: 50, width: '100%',
             }}>
-                <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { width: '90%' }]} placeholder="" maxLength={50}
-                    value={money} onChangeText={(value) => setMoney(value)}>
+                <TextInput maxLength={50} onChangeText={(v) => setMoney(v)} placeholder="" style={[FontFamilyText, FontSize5,
+                    { width: '90%' }]} value={money}>
                 </TextInput>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4,]}>THB</Text>
+                <Text style={[FontFamilyBold, FontSize4]}>THB</Text>
             </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
+            <Text style={[FontFamilyBold, FontSize6]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
         </View>
-        <View style={{ justifyContent: 'flex-end', flex: 1, alignItems: 'center' }}>
-            <TouchableOpacity activeOpacity={1} onPress={() =>
-                NavigationNavigate({ goScreen: 'Seller_Money_PIN_Mail', navigation })}
-                style={[stylesMain.ItemCenter,
-                { width: '80%', height: 50, backgroundColor: mainColor, borderRadius: 5, marginVertical: 10 }]}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
+        <View style={{ alignItems: 'center', flex: 1, justifyContent: 'flex-end', }}>
+            <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Seller_Money_PIN_Mail', })}
+                style={[ItemCenter, { backgroundColor: mainColor, borderRadius: 5, height: 50, marginVertical: 10, width: '80%', }]}>
+                <Text style={[FontFamilyBold, FontSize3, , { color: '#FFFFFF' }]}>ยืนยันการถอนเงิน</Text>
             </TouchableOpacity>
         </View>
     </>;

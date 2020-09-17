@@ -7,7 +7,7 @@ import { connect, useStore } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import { CheckBox } from 'react-native-elements';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 // import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
 import ImagePicker from 'react-native-image-crop-picker';

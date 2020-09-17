@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain from '../../../../../style/StylesMainScreen';
@@ -22,7 +22,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(UpCodeNumber);
 function UpCodeNumber(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='แก้ไขเลขพัสดุ' />
-        <Up_Code_Number />
+        <Up_Code_Number {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };

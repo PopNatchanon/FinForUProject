@@ -15,7 +15,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import CookieManager from '@react-native-community/cookies';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
 import { SwipeListView } from '@nvthai/react-native-swipe-list-view';

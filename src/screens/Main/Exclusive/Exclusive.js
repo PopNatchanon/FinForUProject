@@ -6,7 +6,7 @@ import {
 import { connect } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconFeather from 'react-native-vector-icons/Feather';
 import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';

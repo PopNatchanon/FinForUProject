@@ -3,7 +3,7 @@ import React, { useEffect, useState, useRef, } from 'react';
 import { Animated, BackHandler, Dimensions, Text, View, YellowBox, } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import * as Animatable from 'react-native-animatable';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../style/stylesFont';

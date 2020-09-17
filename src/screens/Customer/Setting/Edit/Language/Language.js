@@ -9,7 +9,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
 import DateTimePicker from '@react-native-community/datetimepicker';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import RNFetchBlob from 'rn-fetch-blob';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';

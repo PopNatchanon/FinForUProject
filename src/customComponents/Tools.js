@@ -8,7 +8,7 @@ import {
 import * as Animatable from 'react-native-animatable';
 import AsyncStorage from '@react-native-community/async-storage';
 import CookieManager from '@react-native-community/cookies';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import { WebView } from 'react-native-webview';
 import ModalDropdown from 'react-native-modal-dropdown';

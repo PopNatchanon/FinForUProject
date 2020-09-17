@@ -2,7 +2,7 @@
 import React from 'react';
 import { Dimensions, } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import { CommonActions, StackActions, } from '@react-navigation/native';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> Styles

@@ -16,7 +16,7 @@ import {
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Animateds from 'react-native-reanimated';
 const { cond, eq, add, set, Value, event } = Animateds;
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles

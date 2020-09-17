@@ -10,7 +10,7 @@ import {
 import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
 import Carousel, { PaginationLight, } from 'react-native-x-carousel';
-export const { width, height, } = Dimensions.get('window');
+export const { height, width, } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
@@ -50,7 +50,6 @@ const mapDispatchToProps = ({
 export default connect(mapStateToProps, mapDispatchToProps)(Store);
 function Store(props) {
     const { route, } = props;
-    const id_store = route.params?.id_store;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [activeGetServices2, setActiveGetServices2] = useState(false);
@@ -62,8 +61,50 @@ function Store(props) {
     const [filterValue, setFilterValue] = useState({ popular: 'popular' });
     const [selectedIndex, setSelectedIndex] = useState(0);
     const [selectedIndex2, setSelectedIndex2] = useState(0);
+    const dataBody = {
+        best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        id_store: id_store,
+        lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        min_price: '',
+        max_price: '',
+        popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        sort_price: '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+    };
+    const dataBody2 = {
+        best_sale: filterValue.best_sale ?? '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        id_store: id_store,
+        lastest: filterValue.lastest ?? '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        max_price: '',
+        min_price: '',
+        popular: filterValue?.popular ?? '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
+        sort_price: filterValue.sort_price ?? '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
+    };
+    const getData = (v) => { setActiveGetServices(false); setDataService(v); };
+    const getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
+    const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+    const getSelectedIndex = (v) => {
+        setActiveGetServices2((v * 1) == 1 ? true : false);
+        setActiveRef((v * 1) == 2 ? true : false);
+        setSelectedIndex(v * 1);
+    };
+    const getSelectedIndex2 = (v) => {
+        filterValue.popular = (v.selectedIndex * 1) == 0 ? 'popular' : '';
+        filterValue.best_sale = (v.selectedIndex * 1) == 1 ? 'best_sale' : '';
+        filterValue.lastest = (v.selectedIndex * 1) == 2 ? 'lastest' : '';
+        filterValue.sort_price = (v.selectedIndex * 1) == 3 ? v.actionReturn : '';
+        setActiveGetServices2(true);
+        setFilterValue(filterValue);
+        setSelectedIndex2((v.selectedIndex * 1));
+    };
+    const H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
+    const H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
+    const H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
+    const id_store = route.params?.id_store;
+    let ImageHeader;
     const maxheight = 80;
     const scrollY = new Animated.Value(0);
+    const uri = `${finip}/brand/store_home`;
+    dataService?.store_data?.map((v) => { ImageHeader = { uri: `${finip}/${v.image_head_path}/${v.image_head}`, }; });
     const AnimatedBorderBottom = scrollY.interpolate({
         inputRange: [0, maxheight / 2],
         outputRange: ['#ffffff00', '#ffbf00'],
@@ -94,43 +135,7 @@ function Store(props) {
         extrapolate: 'clamp',
         useNativeDriver: false,
     });
-    const dataBody = {
-        best_sale: '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        id_store: id_store,
-        lastest: '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        min_price: '',
-        max_price: '',
-        popular: 'popular', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        sort_price: '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
-    };
-    const dataBody2 = {
-        best_sale: filterValue.best_sale ?? '',  //<< ถ้าเลือกออันส่งค่า “best_sale” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        id_store: id_store,
-        lastest: filterValue.lastest ?? '', //<< ถ้าเลือกออันส่งค่า “lastest” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        max_price: '',
-        min_price: '',
-        popular: filterValue?.popular ?? '', //<< ถ้าเลือกออันส่งค่า “popular” มาด้วย ไม่ได้เลือกส่งค่าว่างมา
-        sort_price: filterValue.sort_price ?? '', //<< เลือกราคาต่ำสุดส่ง “min” สูงสุดส่ง “max” ถ้าไม่ได้เลือกเลยส่งค่าว่าง
-    };
-    let ImageHeader;
-    const uri = `${finip}/brand/store_home`;
-    const getSelectedIndex = (v) => {
-        setActiveGetServices2((v * 1) == 1 ? true : false);
-        setActiveRef((v * 1) == 2 ? true : false);
-        setSelectedIndex(v * 1);
-    };
-    const getSelectedIndex2 = (v) => {
-        filterValue.popular = (v.selectedIndex * 1) == 0 ? 'popular' : '';
-        filterValue.best_sale = (v.selectedIndex * 1) == 1 ? 'best_sale' : '';
-        filterValue.lastest = (v.selectedIndex * 1) == 2 ? 'lastest' : '';
-        filterValue.sort_price = (v.selectedIndex * 1) == 3 ? v.actionReturn : '';
-        setActiveGetServices2(true);
-        setFilterValue(filterValue);
-        setSelectedIndex2((v.selectedIndex * 1));
-    };
-    const getData = (v) => { setActiveGetServices(false); setDataService(v); };
-    const getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
-    const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+    const colors = [AnimatedHeadbg, AnimatedHeadbg2];
     useEffect(() => {
         activeGetServices && id_store !== undefined && GetServices({ dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [activeGetServices && id_store !== undefined]);
@@ -141,10 +146,6 @@ function Store(props) {
     useEffect(() => {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true, });
     }, [activeGetCurrentUser]);
-    dataService?.store_data?.map((v) => { ImageHeader = { uri: `${finip}/${v.image_head_path}/${v.image_head}`, }; });
-    const H_Banner1 = `${ip}/MySQL/uploads/Banner_Mobile/do44.jpg`;
-    const H_Banner2 = `${ip}/MySQL/uploads/Banner_Mobile/do45.jpg`;
-    const H_Banner3 = `${ip}/MySQL/uploads/Banner_Mobile/do46.jpg`;
     const MainProps = { ...props, activeGetServices, activeRef, cokie, currentUser, id_store, };
     const ViewSide = () => {
         switch (selectedIndex) {
@@ -199,20 +200,19 @@ function Store(props) {
     };
     const itemT = [{ /////--------------------------------------------->>>Start
         nameComponent: 'EmptyView',
-        renderComponent: <Animatable.View style={{ aspectRatio: 2.5, marginBottom: -55, width: (width), }}></Animatable.View>
+        renderComponent: <Animatable.View style={{ aspectRatio: 2.5, marginBottom: -55, width: (width), }} />,
     }, {
         nameComponent: 'StoreHeadDetails',
         renderComponent: <Animatable.View style={{ marginBottom: 3, }}>
             <StoreHeadDetails {...MainProps} dataService={dataService?.store_data ?? EmptyValue} />
-        </Animatable.View>
+        </Animatable.View>,
     }, {
         nameComponent: 'Menubar',
-        renderComponent: <Menubar {...MainProps} getSelectedIndex={(v) => getSelectedIndex(v)} />
+        renderComponent: <Menubar {...MainProps} getSelectedIndex={(v) => getSelectedIndex(v)} />,
     }, {
         nameComponent: 'Banners',
-        renderComponent: <Banners {...MainProps} dataService={dataService?.store_data} key={'Banner'} />
+        renderComponent: <Banners {...MainProps} dataService={dataService?.store_data} key={'Banner'} />,
     }, ...ViewSide()];
-    const colors = [AnimatedHeadbg, AnimatedHeadbg2];
     return <View style={[BackgroundAreaView, { height: '100%', }]}>
         <Animatable.View style={{ height: AnimatedHead, left: 0, opacity: AnimatedHeadopacity, position: 'absolute', right: 0, top: 0, }}>
             <View style={[StoreHeads]}>
@@ -292,7 +292,7 @@ export const StoreHeadDetails = (props) => {
                 {!activeGetServices ?
                     <View style={FRow}>
                         <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_Followers', })}>
-                            <Text style={[FontFamilyText, FontSize7, { color: '#10162d', }]}>ผู้ติดตาม {who_follow} </Text>
+                            <Text style={[FontFamilyText, FontSize7, { color: '#10162d', }]}>ผู้ติดตาม {who_follow}</Text>
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Store_Following', })}>
                             <Text style={[FontFamilyText, FontSize7, { color: '#10162d', marginLeft: 5, }]}>กำลังติดตาม {follow_number}</Text>
@@ -373,21 +373,21 @@ export const Menubar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Banner
 export const Banners = (props) => {
     const { activeGetServices, dataService, } = props;
-    const slideDelay = 3000;
     const [activeText, setActiveText] = useState(false);
+    const slideDelay = 3000;
     const renderItem = (v, i) => {
         const ImageSlide = { uri: `${ip}/${v.image_path}/${v.image}`, };
         return <View key={i} style={BannerBox}>
             <FastImage resizeMode={stretch} source={ImageSlide} style={[BannerSlide, { borderRadius: 5, }]} />
-        </View>
+        </View>;
     };
     const getDetail = !activeGetServices ? dataService?.map((v, i) => {
         // ส่วนทดสอบ banner
+        let image_banner_sub;
         const itemT = [
             { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'เพชร3.jpg' },
             { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: '656x311-2.jpg' },
             { image_path: 'MySQL/uploads/Banner_Mobile/Banner_test_Store', image: 'กระเป๋า1.jpg' }];
-        let image_banner_sub;
         image_banner_sub = itemT;
         // v.image_banner && (image_banner_sub = v.image_banner.split(';'));
         // v.image_banner && (image_banner_sub = image_banner_sub.map(
@@ -395,9 +395,8 @@ export const Banners = (props) => {
         return <View key={i}>
             <View style={[Banner, { borderLeftWidth: 0, paddingLeft: 0, }]}>
                 <View>
-                    {image_banner_sub &&
-                        <Carousel autoplay autoplayInterval={slideDelay} data={image_banner_sub} loop pagination={PaginationLight}
-                            renderItem={renderItem} />}
+                    {image_banner_sub && <Carousel autoplay autoplayInterval={slideDelay} data={image_banner_sub} loop
+                        pagination={PaginationLight} renderItem={renderItem} />}
                 </View>
                 <View style={{ padding: 5, }}>
                     <Text numberOfLines={4} style={[FontFamilyText, FontSize7]}>
@@ -425,9 +424,7 @@ export const Banners = (props) => {
             </View>
             {/* <View stD */}
         </View>;
-    return <View style={{ marginTop: 2, }}>
-        {getDetail}
-    </View>
+    return <View style={{ marginTop: 2, }}>{getDetail}</View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> TicketLine
 export const TicketLine = (props) => {
@@ -437,16 +434,13 @@ export const TicketLine = (props) => {
     const [dataService, setDataService] = useState(true);
     const [id_promotion, setId_promotion] = useState(true);
     const { coupon, } = dataService;
-    const id_store = route.params?.id_store;
     const dataBody = {
-        device: 'mobile_device',
-        id_customer: currentUser?.id_customer ?? '',
-        id_promotion_shop: activeGetCoupon ? id_promotion : '',
-        id_store,
+        device: 'mobile_device', id_customer: currentUser?.id_customer ?? '', id_promotion_shop: activeGetCoupon ? id_promotion : '', id_store,
     };
-    const uri = `${finip}/coupon/save_coupon_shop`;
     const getCoupon = (v) => { setActiveGetCoupon(true); setActiveGetServices(true); setId_promotion(v.id_promotion); };
     const getServices = (v) => { setActiveGetCoupon(false); setActiveGetServices(false); setDataService(v); };
+    const id_store = route.params?.id_store;
+    const uri = `${finip}/coupon/save_coupon_shop`;
     useEffect(() => {
         activeGetServices && cokie && GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getServices(v), uriPointer: uri, });
     }, [activeGetServices && cokie]);
@@ -543,11 +537,11 @@ export const ShowProduct = (props) => {
 export const BoxProduct4 = (props) => {
     const { activeRef, sendDataOut, route, } = props;
     const [dataService, setDataService] = useState(undefined);
+    const getData = (v) => { setDataService(v); sendDataOut(false); };
     const dataBody = { id_store, };
     const feed_news = dataService?.feed_news;
     const id_store = route.params?.id_store;
     const uri = `${finip}/brand/feed_news`;
-    const getData = (v) => { setDataService(v); sendDataOut(false); };
     useEffect(() => {
         activeRef && id_store && GetServices({ dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [activeRef && id_store]);
@@ -560,8 +554,8 @@ export const BoxProduct4 = (props) => {
                         <Text style={[FontFamilyText, FontSize4, ItemCenterVertical]}>{feed_news}</Text>
                     </View> :
                 <View style={{ height: height * 0.8, width, }}>
-                    {GenArray(2).map((_, i) => <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow Header key={i}
-                        nodata />)}
+                    {GenArray(2).map((_, i) =>
+                        <FeedBox {...props} activeModalize={(v) => null} dataService={{}} Follow Header key={i} nodata />)}
                 </View>}
         </View>
     </View>;
@@ -579,6 +573,5 @@ export const Test_Coupon = (props) => {
         borderLeftColor: 'transparent',
         borderRightColor: 'transparent',
         borderBottomColor: 'red',
-    }}>
-    </View>;
+    }} />;
 };

@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions } from 'react-native';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
     Appbar_New_account: {
         width: '100%',

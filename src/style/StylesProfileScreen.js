@@ -1,7 +1,7 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { normalize } from './stylesFont';
 import { mainColor } from './StylesMainScreen';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
     Appbar: {
         backgroundColor: mainColor,

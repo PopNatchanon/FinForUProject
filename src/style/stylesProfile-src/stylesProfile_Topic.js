@@ -1,6 +1,6 @@
 import { StyleSheet, Dimensions } from 'react-native';
 import { mainColor } from '../StylesMainScreen';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 export default StyleSheet.create({
     ///-----------------------------------ChatScreen-------------------------------------------///
     AppbarChat: {
@@ -294,7 +294,7 @@ export default StyleSheet.create({
         paddingVertical: 5,
     },
     Order_StorePro: {
-        marginTop: 8,
+        marginVertical: 4,
         marginLeft: 10,
         height: 40,
         width: 40,

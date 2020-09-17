@@ -4,7 +4,7 @@ import { Dimensions, SafeAreaView, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesMain from '../../../../../style/StylesMainScreen';
@@ -57,5 +57,5 @@ export const Documents = (props) => {
         }],
     }];
     const ListProps = { ...props, ListItem };
-    return <SettingList {...ListProps} />
+    return <SettingList {...ListProps} />;
 };

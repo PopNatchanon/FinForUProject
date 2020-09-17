@@ -1,92 +1,66 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect, useRef } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useEffect, useState, } from 'react';
+import { Dimensions, SafeAreaView, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import BottomSheet from "react-native-raw-bottom-sheet";
-export const { width, height } = Dimensions.get('window');
-import DatePicker from 'react-native-datepicker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import FastImage from 'react-native-fast-image';
-import { CheckBox } from 'react-native-elements';
-import PINCode from '@haskkor/react-native-pincode';
-import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
-import stylesFont from '../../../style/stylesFont';
-import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesProfile from '../../../style/StylesProfileScreen';
-import stylesProfileTopic from '../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesSeller from '../../../style/styleSeller-src/styleSellerScreen';
+import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TabBar, GetData, GetServices } from '../../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../../customComponents';
+import { AppBar, ExitApp } from '../../../customComponents';
+import { GetData, GetServices } from '../../../customComponents/Tools';
+import { SettingList } from '../Setting/Setting';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip, finip } from '../../../navigator/IpConfig';
+import { finip } from '../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { SafeAreaViews } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
-function Topic(props) {
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar {...props} backArrow titleHead='ถอนเงิน' />
-        <Withdraw_money {...props} cokie={cokie} currentUser={currentUser} />
+export default connect(mapStateToProps, mapDispatchToProps)(Money);
+function Money(props) {
+    const [activeGetSource, setActiveGetSource] = useState(true);
+    const [cokie, setCokie] = useState(undefined);
+    const [currentUser, setCurrentUser] = useState(undefined);
+    const getSource = (v) => { setActiveGetSource(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+    useEffect(() => {
+        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: (value) => getSource(value) });
+    }, [activeGetSource]);
+    const MainProps = { ...props, cokie, currentUser, };
+    return <SafeAreaView style={SafeAreaViews}>
+        <AppBar {...MainProps} backArrow titleHead='ถอนเงิน' />
+        <Withdraw_money {...MainProps} />
+        <ExitApp {...MainProps} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export let Withdraw_money = (props) => {
-    const { cokie, currentUser, navigation, } = props;
+    const { cokie, currentUser, } = props;
     const [activeDataService, setActiveDataService] = useState(true);
     const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/store_transfer/check_pin`;
-    var dataBody = {
-        id_customer: currentUser?.id_customer
-    };
-    let getData = (value) => { setActiveDataService(false); setDataService(value); };
+    const uri = `${finip}/store_transfer/check_pin`;
+    const dataBody = { id_customer: currentUser?.id_customer };
+    const getData = (value) => { setActiveDataService(false); setDataService(value); };
     useEffect(() => {
         activeDataService && currentUser &&
             GetServices({ Authorization: cokie, uriPointer: uri, dataBody, getDataSource: value => getData(value) });
     }, [activeDataService && currentUser]);
+    const ListItem = [{
+        subItem: [{
+            name: 'ประวัติการถอนเงิน',
+            setNavi: { goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'History' }, },
+        }, {
+            name: 'ถอนเงิน',
+            setNavi: { goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'Withdraw' }, },
+        }, {
+            name: 'บัญชีธนาคาร',
+            setNavi: { goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'Bank' }, },
+        }],
+    }];
+    const ListProps = { ...props, ListItem };
     return <View style={{ backgroundColor: '#FFFFFF', marginTop: 5 }}>
-        <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'History' }, navigation })}>
-            <View style={stylesProfile.ListMenuList}>
-                <View style={stylesProfile.ListMenuListSub}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ประวัติการถอนเงิน</Text>
-                </View>
-                <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'Withdraw' }, navigation })}>
-            <View style={stylesProfile.ListMenuList}>
-                <View style={stylesProfile.ListMenuListSub}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>ถอนเงิน</Text>
-                </View>
-                <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-            </View>
-        </TouchableOpacity>
-        <TouchableOpacity activeOpacity={1} onPress={() =>
-            NavigationNavigate({ goScreen: 'Seller_Money_PIN', setData: { Withdraw: 'Bank' }, navigation })}>
-            <View style={stylesProfile.ListMenuList}>
-                <View style={stylesProfile.ListMenuListSub}>
-                    <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { margin: 10 }]}>บัญชีธนาคาร</Text>
-                </View>
-                <IconEntypo name='chevron-right' style={stylesProfile.ListMenuListIcon} size={35} color={mainColor} />
-            </View>
-        </TouchableOpacity>
+        <SettingList {...ListProps} />
     </View>;
 };

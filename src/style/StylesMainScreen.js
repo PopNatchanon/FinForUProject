@@ -1,5 +1,5 @@
 import { StyleSheet, Dimensions, PixelRatio } from 'react-native';
-const { width, height } = Dimensions.get('window');
+const { height, width } = Dimensions.get('window');
 
 export const mainColor = '#001666'
 export const appBarColor = '#0A3350'
@@ -506,6 +506,9 @@ export default StyleSheet.create({
   ItemCenterVertical: {
     marginTop: 'auto',
     marginBottom: 'auto',
+  },
+  ItemCenterVertical2: {
+
   },
   BottomSpace: {
     paddingBottom: 8,

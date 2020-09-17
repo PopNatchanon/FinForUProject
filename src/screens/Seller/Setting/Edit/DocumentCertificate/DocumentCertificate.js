@@ -5,7 +5,7 @@ import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import DateTimePicker from '@react-native-community/datetimepicker';
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon

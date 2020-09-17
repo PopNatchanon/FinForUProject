@@ -4,7 +4,7 @@ import {
     Dimensions, TouchableOpacity, View, StyleSheet, Text
 } from 'react-native';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { width, height } = Dimensions.get('window');
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
 ///----------------------------------------------------------------------------------------------->>>> Styles

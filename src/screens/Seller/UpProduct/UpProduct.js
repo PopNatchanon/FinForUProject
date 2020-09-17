@@ -493,7 +493,7 @@ export function PriceSheetBody(props) {
 };
 ///----------------------------------------------------------------------------------------------->>>> TotalrBody
 export function TotalrBody(props) {
-  const { saveTotal, setTotal, setSaveTotal, TotalrSheetRef } = props;
+  const { saveTotal, setTotal, TotalrSheetRef } = props;
   const loadTotalrSheet = () => { setTotal(saveTotal > 0 ? saveTotal : 1); TotalrSheetRef.current.open(); };
   return <TouchableOpacity activeOpacity={1} onPress={() => loadTotalrSheet()}>
     <View style={Seller_Up_ProductDetails}>
@@ -504,7 +504,7 @@ export function TotalrBody(props) {
         <IconEntypo name='chevron-right' size={35} style={[ItemCenterVertical, { color: mainColor, }]} />
       </View>
     </View>
-  </TouchableOpacity>
+  </TouchableOpacity>;
 };
 ///----------------------------------------------------------------------------------------------->>>> TotalrSheetBody
 export function TotalrSheetBody(props) {

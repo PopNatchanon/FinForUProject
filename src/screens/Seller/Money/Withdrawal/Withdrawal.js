@@ -38,8 +38,8 @@ export const Confirm_Bank = (props) => {
             <View style={FlexRow}>
                 <FastImage source={Image1} style={{ borderWidth: 3, height: 100, width: 100, }} />
                 <View style={{ margin: 10 }}>
-                    <Text style={[FontFamilyText, FontSize4,]}>ธนาคารกรุงเทพ</Text>
-                    <Text style={[FontFamilyText, FontSize4,]}>* *** *** *232</Text>
+                    <Text style={[FontFamilyText, FontSize4]}>ธนาคารกรุงเทพ</Text>
+                    <Text style={[FontFamilyText, FontSize4]}>* *** *** *232</Text>
                 </View>
             </View>
         </View>
@@ -51,9 +51,9 @@ export const Confirm_Bank = (props) => {
                 <TextInput maxLength={50} onChangeText={(v) => setMoney(v)} placeholder="" style={[FontFamilyText, FontSize5,
                     { width: '90%' }]} value={money}>
                 </TextInput>
-                <Text style={[FontFamilyBold, FontSize4,]}>THB</Text>
+                <Text style={[FontFamilyBold, FontSize4]}>THB</Text>
             </View>
-            <Text style={[FontFamilyBold, FontSize6,]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
+            <Text style={[FontFamilyBold, FontSize6]}>ระยะเวลาดำเนินการ : 3-5 วันทำการ</Text>
         </View>
         <View style={{ alignItems: 'center', flex: 1, justifyContent: 'flex-end', }}>
             <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Seller_Money_PIN_Mail', })}

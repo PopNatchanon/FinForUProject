@@ -34,15 +34,15 @@ function Bank(props) {
 ///--------------------------------------------------------------------------///
 export let Bank_Totel = (props) => {
     const { Bank_True, Bank_False, Bank_Default, Bank_Edit } = props;
-    return <TouchableOpacity onPress={() =>
-        NavigationNavigate({ ...props, goScreen: 'Seller_Money_Bank_Detail', })}
+    const Image1 = { uri: `${ip}/MySQL/uploads/message/BBL-LOGO.jpg`, };
+    return <TouchableOpacity onPress={() => NavigationNavigate({ ...props, goScreen: 'Seller_Money_Bank_Detail', })}
         style={[FlexRow, {
             aspectRatio: 3, backgroundColor: '#FFFFFF', borderColor: '#C4C4C4', borderRadius: 5, borderWidth: 1, height: 'auto',
             justifyContent: 'space-between', marginTop: 10, padding: 10, width: '95%',
         }]}>
         <View style={[FlexRow, { width: '70%' }]}>
             <View style={{ height: 80, width: 80 }}>
-                <FastImage source={{ uri: `${ip}/MySQL/uploads/message/BBL-LOGO.jpg`, }} style={BoxProduct1Image} />
+                <FastImage source={Image1} style={BoxProduct1Image} />
             </View>
             <View style={{ marginLeft: 10 }}>
                 <Text style={[FontFamilyText, FontSize6]}>กรุงไทย (KTB)</Text>

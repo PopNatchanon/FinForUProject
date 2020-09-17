@@ -97,7 +97,7 @@ export const Order_Me_Box = (props) => {
         <View style={FrameBackground}>
             <View style={[Order_BoxStore]}>
                 <View style={FlexRow}>
-                    <FastImage resizeMode={contain} source={ImageCustomer} style={[Order_StorePro, ItemCenterVertical,]} />
+                    <FastImage resizeMode={contain} source={ImageCustomer} style={[Order_StorePro, ItemCenterVertical]} />
                     <Text style={[FontFamilyBold, FontSize5, ItemCenterVertical, { marginLeft: 5, }]}>{customer_name}</Text>
                 </View>
                 {purchase == 'wait' && <TouchableOpacity key={'Review_order'} activeOpacity={1}>
@@ -109,8 +109,7 @@ export const Order_Me_Box = (props) => {
                 {purchase == 'paid' && <Text key={'shipping'} style={[FontFamilyText, FontSize6, ItemCenterVertical]}>{tracking_number}</Text>}
                 {purchase == 'accepted' && <TouchableOpacity key={'Review'} activeOpacity={1}>
                     <Text style={[FontFamilyText, FontSize6, ItemCenterVertical,
-                        { color: '#20BDA1', textAlign: 'center', width: width * 0.3, }]}>
-                        <IconFeather name='edit' size={15} />รอการรีวิว</Text>
+                        { color: '#20BDA1', textAlign: 'center', width: width * 0.3, }]}><IconFeather name='edit' size={15} />รอการรีวิว</Text>
                 </TouchableOpacity>}
                 {purchase == 'reviewed' && <TouchableOpacity key={'Review_order'} activeOpacity={1} onPress={() =>
                     NavigationNavigate({ ...props, goScreen: 'Customer_Topic_Review_Froms', })}>
@@ -126,7 +125,7 @@ export const Order_Me_Box = (props) => {
                     <View style={{ marginTop: 10, width: width * 0.5, }}>
                         <Text numberOfLines={1} style={[FontFamilyText, FontSize6]}>{invoice_no}</Text>
                         <Text numberOfLines={1} style={[FontFamilyText, FontSize5]}>{product_name}</Text>
-                        <Text numberOfLines={2} style={[FontFamilyText, FontSize7,]}>{`${detail_1} ${detail_2}`}</Text>
+                        <Text numberOfLines={2} style={[FontFamilyText, FontSize7]}>{`${detail_1} ${detail_2}`}</Text>
                         <NumberFormat displayType={'text'} prefix={''} renderText={(v) => <Text>x {v}</Text>} thousandSeparator={true}
                             value={quantity} />
                     </View>

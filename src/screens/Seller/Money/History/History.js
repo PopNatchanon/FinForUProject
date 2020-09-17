@@ -57,16 +57,17 @@ export let Withdrawal_history = (props) => {
 ///----------------------------------------------------------------------------------------------->>>>
 export let Withdrawal_history_sub = (props) => {
     const [activeBox, setActiveBox] = useState(false);
+    const Image1 = { uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, };
     return <>
         <TouchableOpacity onPress={() => setActiveBox(!activeBox)}>
             <View style={{ backgroundColor: '#FFFFFF' }}>
                 <View style={[FlexRow, FrameBackground, { justifyContent: 'space-around' }]}>
                     <View>
                         <Text style={[FontFamilyText, FontSize6, { color: '#B7B7B7' }]}>ถอนเงิน</Text>
-                        <Text style={[FontFamilyText, FontSize5,]}>123124284349</Text>
+                        <Text style={[FontFamilyText, FontSize5]}>123124284349</Text>
                     </View>
                     <View>
-                        <Text style={[FontFamilyBold, FontSize2,]}>1,000,000 THB</Text>
+                        <Text style={[FontFamilyBold, FontSize2]}>1,000,000 THB</Text>
                         <Text style={[FontFamilyText, FontSize5, { color: '#B7B7B7', textAlign: 'right', }]}>
                             กรุงไทย<IconEntypo color={mainColor} name={activeBox ? 'chevron-up' : 'chevron-down'} size={20} /></Text>
                     </View>
@@ -75,7 +76,7 @@ export let Withdrawal_history_sub = (props) => {
         </TouchableOpacity>
         {activeBox && <View style={[ItemCenter, { backgroundColor: '#FFFFFF', padding: 10 }]}>
             <Text style={[FontFamilyText, FontSize4]}>20/02/2020</Text>
-            <FastImage source={{ uri: `${ip}/mysql/uploads/message/BBL-LOGO.jpg`, }} style={{ borderWidth: 3, height: 100, width: 100, }} />
+            <FastImage source={Image1} style={{ borderWidth: 3, height: 100, width: 100, }} />
             <Text style={[FontFamilyText, FontSize4]}>ธนาคารกรุงเทพ</Text>
             <Text style={[FontFamilyText, FontSize4]}>* *** *** *232</Text>
             <View style={[ItemCenter, { borderColor: '#C4C4C4', borderRadius: 5, borderWidth: 2, paddingHorizontal: 30 }]}>

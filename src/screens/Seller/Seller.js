@@ -74,7 +74,7 @@ export const Menubar = (props) => <View style={Menu}>
     <View style={[Menubars, { height: 35, }]}>
         <View style={FlexRow}>
             <IconsFontAwesome5 RightItem name="store" size={20} color={mainColor} />
-            <Text style={[FontFamilyBold, FontSize5,]}>การขายของฉัน</Text>
+            <Text style={[FontFamilyBold, FontSize5]}>การขายของฉัน</Text>
         </View>
         <View style={FlexRow}>
             <TouchableOpacity activeOpacity={1} onPress={() =>

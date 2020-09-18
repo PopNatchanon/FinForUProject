@@ -32,7 +32,7 @@ const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetch
 export default connect(mapStateToProps, mapDispatchToProps)(About);
 function About(props) {
     return <SafeAreaView style={stylesMain.SafeAreaViews}>
-        <AppBar {...props} backArrow titleHead='About' />
+        <AppBar {...props} titleHead='About' />
         <ScrollView>
             <Button_Bar {...props} selectedIndex={1} />
             <Services_About />

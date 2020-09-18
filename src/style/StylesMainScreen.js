@@ -603,8 +603,8 @@ export default StyleSheet.create({
   Brand_image_Box: {
     height: 60,
     width: width * 0.25,
-    borderColor: '#E7B841',
-    borderWidth: 1,
+    // borderColor: '#c9c9c9',
+    // borderWidth: 1,
     marginLeft: 2,
     marginTop: 2,
   },

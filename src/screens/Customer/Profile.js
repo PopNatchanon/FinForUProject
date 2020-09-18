@@ -262,7 +262,7 @@ export let SetList = (props) => {
     }, {
         name: 'ร้านค้าที่ติดตาม',
         setNavi: { goScreen: 'Customer_Topic_FollowStore', },
-        icon: <IconFontisto color={mainColor} name="shopping-store"  RightItemsize={30} />,
+        icon: <IconFontisto color={mainColor} name="shopping-store" RightItem size={30} />,
     }, {
         name: 'รีวิวของฉัน',
         setNavi: { goScreen: 'Customer_Topic_Review', },

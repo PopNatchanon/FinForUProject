@@ -1,18 +1,15 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect, useRef } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useEffect, useRef, useState } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { height, width } = Dimensions.get('window');
-import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 import BottomSheet from "react-native-raw-bottom-sheet";
+import FastImage from 'react-native-fast-image';
 import LinearGradient from 'react-native-linear-gradient';
+import NumberFormat from 'react-number-format';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
@@ -20,12 +17,12 @@ import stylesMain, { mainColor } from '../../style/StylesMainScreen';
 import stylesProfile from '../../style/StylesProfileScreen';
 import stylesPromotionDeal from '../../style/stylePromotion-src/styleDealScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TodayProduct, ExitAppModule, } from '../Main/Main';
+import { AppBar, ExitApp } from '../../customComponents';
 import { Button_Bar, Slide } from './Deal/Deal';
-import { GetData, GetServices, ProductBox, TabBar, LoadingScreen, } from '../../customComponents/Tools';
-import { AppBar } from '../../customComponents';
+import { GetData, GetServices, LoadingScreen, TabBar, } from '../../customComponents/Tools';
+import { TodayProduct, } from '../Main/Main';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../navigator/IpConfig';
+import { finip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
 const LOADING_ICON = require('../../../images/icon.png');
 const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
@@ -37,9 +34,7 @@ const { CampaignBody, CampaignBody_Box, CampaignBody_BoxImage, CampaignBody_BoxT
 const { FontFamilyBold, FontFamilyText, FontSize3, FontSize5, FontSize6, FontSize7, FontSize8, } = stylesFont;
 const { BoxProduct1Image, FlexRow, ItemCenter, ItemCenterVertical, SafeAreaViews, } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Coin);
 function Coin(props) {
@@ -48,9 +43,9 @@ function Coin(props) {
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
     const [dataService, setDataService] = useState(undefined);
-    var uri = `${finip}/coupon/fin_coin_mobile`
-    let getData = (v) => { setActiveDataService(false); setDataService(v); };
-    let getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+    const uri = `${finip}/coupon/fin_coin_mobile`
+    const getData = (v) => { setActiveDataService(false); setDataService(v); };
+    const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
     useEffect(() => {
         activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true, })
     }, [activeGetCurrentUser]);
@@ -58,23 +53,31 @@ function Coin(props) {
         !activeGetCurrentUser && activeDataService && cokie &&
             GetServices({ Authorization: cokie, getDataSource: v => getData(v), uriPointer: uri, });
     }, [!activeGetCurrentUser && activeDataService && cokie]);
+    const Props = { ...props, cokie, currentUser, dataService }
     return <SafeAreaView style={SafeAreaViews}>
         {(activeGetCurrentUser || activeDataService) && <LoadingScreen key='LoadingScreen' />}
-        <AppBar {...props} backArrow chatBar searchBar titleHead={'FIN COINS'} />
+        <AppBar {...Props} backArrow chatBar searchBar titleHead={'FIN COINS'} />
+        <ScrollList {...Props} />
+        <ExitApp {...Props} />
+    </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    const { cokie, currentUser, dataService } = props;
+    return <View>
         <ScrollView>
             <Slide dataService={dataService?.banner} />
-            <CoinCollect currentUser={currentUser} cokie={cokie} />
+            <CoinCollect cokie={cokie} currentUser={currentUser} />
             <LinearGradient colors={['#E21B1B', '#E65A5A']} style={
-                { marginVertical: 3, borderBottomRightRadius: 50, width: 180, borderColor: '#C4C4C4', borderWidth: 1 }}>
+                { borderBottomRightRadius: 50, borderColor: '#C4C4C4', borderWidth: 1, marginVertical: 3, width: 180, }}>
                 <Text style={[FontFamilyBold, FontSize5, Text_Head]}>FIN จัดหนักรับ COIN</Text>
             </LinearGradient>
-            <TodayProduct {...props} noTitle loadData={dataService?.product_pro_coin} />
+            <TodayProduct {...props} loadData={dataService?.product_pro_coin} noTitle />
         </ScrollView>
-        <View style={{ backgroundColor: '#ffffff', borderTopWidth: 1, borderColor: '#ECECEC' }}>
+        <View style={{ backgroundColor: '#ffffff', borderColor: '#ECECEC', borderTopWidth: 1, }}>
             <Button_Bar {...props} />
         </View>
-        <ExitAppModule {...props} />
-    </SafeAreaView>;
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export const CoinCollect = (props) => {
@@ -83,18 +86,15 @@ export const CoinCollect = (props) => {
     const [dataService, setDataService] = useState(undefined);
     const [id_promotion, setId_promotion] = useState(undefined);
     const [pathlist, setPathlist] = useState(0);
-    const IconCoin = require('../../../icon/bitcoin2.png');
-    const item = [{ name: 'คูปองทั้งหมด' }, { name: 'ท่องเที่ยว' }, { name: 'ส่วนลด' }, { name: 'อื่นๆ' }];
-    const uri = `${finip}/coupon/save_coupon_voucher`;
     const dataBody = {
-        id_customer: currentUser?.id_customer ?? '',
-        device: "mobile_device",
-        id_promotion_voucher: id_promotion ?? '',
-        type_voucher: '',
+        device: "mobile_device", id_customer: currentUser?.id_customer ?? '', id_promotion_voucher: id_promotion ?? '', type_voucher: '',
     };
     const getData = (v) => { setActiveGetServices(false); setDataService(v); };
     const getPathlist = (v) => setPathlist(v.selectedIndex);
     const getVoucher = (v) => { setActiveGetServices(true); setId_promotion(v); };
+    const IconCoin = require('../../../icon/bitcoin2.png');
+    const item = [{ name: 'คูปองทั้งหมด' }, { name: 'ท่องเที่ยว' }, { name: 'ส่วนลด' }, { name: 'อื่นๆ' }];
+    const uri = `${finip}/coupon/save_coupon_voucher`;
     useEffect(() => {
         activeGetServices && currentUser && cokie &&
             GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
@@ -104,10 +104,10 @@ export const CoinCollect = (props) => {
             <View style={[FlexRow, ItemCenter, ItemCenterVertical, { width, }]}>
                 <FastImage source={IconCoin} style={CoinCollectImage} />
                 <View style={CoinCollectBox}>
-                    <Text style={[FontFamilyText, FontSize6, { marginTop: 10, marginLeft: 20, }]}>FIN COIN</Text>
+                    <Text style={[FontFamilyText, FontSize6, { marginLeft: 20, marginTop: 10, }]}>FIN COIN</Text>
                     <View style={ItemCenter}>
-                        <NumberFormat displayType={'text'} thousandSeparator={true} renderText={(v) => <Text style={[FontFamilyBold,
-                            FontSize3]}>{v}</Text>} value={dataService?.coin} />
+                        <NumberFormat displayType={'text'} renderText={(v) => <Text style={[FontFamilyBold, FontSize3]}>{v}</Text>}
+                            thousandSeparator={true} value={dataService?.coin} />
                     </View>
                 </View>
             </View>
@@ -123,16 +123,14 @@ export const CoinCollect = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CoinPageBody
-export let CoinPageBody = (props) => {
+export const CoinPageBody = (props) => {
     const { cokie, currentUser, dataService, getVoucher } = props;
     const { coin_exchange, detail, end_period, id_promotion, image, image_path, my_coupon, } = dataService;
     const [activeGetServices, setActiveGetServices] = useState(false);
     const [dataService2, setDataService2] = useState(false);
     const DetailCoinSheet = useRef(null);
     const dataBody = {
-        id_customer: currentUser?.id_customer ?? '',
-        device: "mobile_device",
-        id_promotion_voucher: id_promotion ?? ''
+        device: "mobile_device", id_customer: currentUser?.id_customer ?? '', id_promotion_voucher: id_promotion ?? ''
     };
     const ImageVoucher = { uri: `${finip}/${image_path}/${image}`, };
     const uri = `${finip}/coupon/show_voucher`;
@@ -143,12 +141,13 @@ export let CoinPageBody = (props) => {
     }, [activeGetServices && cokie && currentUser]);
     const DetailCoin = () => {
         return <View style={{ height: '100%' }}>
-            <View style={{ width: '100%', height: 150, }}>
+            <View style={{ height: 150, width: '100%', }}>
                 <FastImage resizeMode={stretch} source={ImageVoucher} style={[BoxProduct1Image, { borderRadius: 5, }]} />
             </View>
             <ScrollView>
-                <Text style={[FontFamilyText, FontSize6]}>{detail} ใครกำลังมองหาที่เที่ยวใกล้กรุงเทพ ค้างคืนได้ มาอัพเดต ทริปเที่ยว 2 วัน 1 คืน จาก 3 จังหวัดใกล้กรุงเทพ ซึ่งเป็นทริปเที่ยวยอดนิยม
-                ที่จัดง่าย ไปน้อยหรือแก๊งใหญ่ก็ได้ และบางทีเวลาเราไปเที่ยวใกล้กรุงก็อยากจะยกขบวนทั้งครอบครัวหรือว่าเดอะแก๊งค์ขนาดใหญ่ไปเที่ยวแบบค้างคืน
+                <Text style={[FontFamilyText, FontSize6]}>{detail} ใครกำลังมองหาที่เที่ยวใกล้กรุงเทพ ค้างคืนได้ มาอัพเดต ทริปเที่ยว 2 วัน 1
+                คืน จาก 3 จังหวัดใกล้กรุงเทพ ซึ่งเป็นทริปเที่ยวยอดนิยม ที่จัดง่าย ไปน้อยหรือแก๊งใหญ่ก็ได้
+                และบางทีเวลาเราไปเที่ยวใกล้กรุงก็อยากจะยกขบวนทั้งครอบครัวหรือว่าเดอะแก๊งค์ขนาดใหญ่ไปเที่ยวแบบค้างคืน
                 รวมถึงมีที่พักไซส์บิ๊กที่จุคนได้เยอะแถมมีกิจกรรมให้ทำได้แบบสนุกเพลินลืมเบื่อ เศร้า เหงา เซ็ง ไปเลย</Text>
             </ScrollView>
             <View style={[FlexRow, { justifyContent: 'center', height: 40, paddingTop: 8, }]}>
@@ -171,10 +170,10 @@ export let CoinPageBody = (props) => {
             </View>
         </View>;
     };
-    return <View style={{ backgroundColor: '#FFFFFF', paddingVertical: 3, marginBottom: 3, }}>
+    return <View style={{ backgroundColor: '#FFFFFF', marginBottom: 3, paddingVertical: 3, }}>
         <View style={{ alignItems: 'center', }}>
             <View>
-                <BottomSheet customStyles={{ container: { padding: 10, borderTopLeftRadius: 10, borderTopRightRadius: 10, } }} duration={250}
+                <BottomSheet customStyles={{ container: { borderTopLeftRadius: 10, borderTopRightRadius: 10, padding: 10, } }} duration={250}
                     height={350} ref={DetailCoinSheet}>{DetailCoin()}</BottomSheet>
                 <View style={CampaignBody}>
                     <TouchableOpacity activeOpacity={1} onPress={() => DetailCoinSheet.current.open()}>

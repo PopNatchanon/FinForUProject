@@ -1,49 +1,32 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect, useRef } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, ImageBackground, Text, TextInput, TouchableOpacity, View, Alert,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useState, } from 'react';
+import { Dimensions, SafeAreaView, Text, TextInput, TouchableOpacity, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import BottomSheet from "react-native-raw-bottom-sheet";
-export const { height, width } = Dimensions.get('window');
-import DatePicker from 'react-native-datepicker';
-import DateTimePicker from '@react-native-community/datetimepicker';
-import FastImage from 'react-native-fast-image';
 import { CheckBox } from 'react-native-elements';
-import PINCode from '@haskkor/react-native-pincode';
-import SmoothPinCodeInput from 'react-native-smooth-pincode-input';
-import { SCLAlert, SCLAlertButton } from 'react-native-scl-alert';
+export const { height, width } = Dimensions.get('window');
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconsFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import IconMaterialIcons from 'react-native-vector-icons/MaterialIcons';
 ///----------------------------------------------------------------------------------------------->>>> styleSeller
 import stylesFont from '../../../../../style/stylesFont';
 import stylesMain, { mainColor } from '../../../../../style/StylesMainScreen';
-import stylesProfile from '../../../../../style/StylesProfileScreen';
-import stylesProfileTopic from '../../../../../style/stylesProfile-src/stylesProfile_Topic';
 import stylesSeller from '../../../../../style/styleSeller-src/styleSellerScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { TabBar, GetData, GetServices } from '../../../../../customComponents/Tools';
-import { NavigationNavigate, AppBar } from '../../../../../customComponents';
+import { AppBar, ExitApp } from '../../../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip.
-import { ip, finip } from '../../../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { FontFamilyBold, FontFamilyText, FontSize3, FontSize4, FontSize5, } = stylesFont;
+const { FlexRow, FrameBackground, ItemCenter, SafeAreaViews } = stylesMain;
+const { Seller_Advertisement_PacketTextInput, } = stylesSeller;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Topic);
-function Topic(props) {
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
+export default connect(mapStateToProps, mapDispatchToProps)(Buy);
+function Buy(props) {
+    return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='จัดการโฆษณา' />
         <Seller_Advertisement_PacketBuy {...props} />
+        <ExitApp {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
@@ -53,54 +36,53 @@ export let Seller_Advertisement_PacketBuy = (props) => {
     const [mail, setMail] = useState('');
     const [line, setLine] = useState('');
     const [checked, setChecked] = useState(true);
-    return <View style={stylesMain.FrameBackground}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize3, { borderBottomWidth: 1, }]}> รายละเอียดผู้ติดต่อ</Text>
+    return <View style={FrameBackground}>
+        <Text style={[FontFamilyBold, FontSize3, { borderBottomWidth: 1, }]}> รายละเอียดผู้ติดต่อ</Text>
         <View style={{ padding: 10 }}>
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>ชื่อผู้ติดต่อ*</Text>
-                <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
-                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={name} onChangeText={(value) => setName(value)}>
+                <Text style={[FontFamilyBold, FontSize5, { marginVertical: 5 }]}>ชื่อผู้ติดต่อ*</Text>
+                <View style={Seller_Advertisement_PacketTextInput}>
+                    <TextInput onChangeText={(v) => setName(v)} placeholder="" style={[FontFamilyText, FontSize4,
+                        { padding: 10, width: '100%', }]} value={name}>
                     </TextInput>
                 </View>
             </View>
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>หมายเลขโทรศัพท์*</Text>
-                <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
-                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={tel} onChangeText={(value) => setTel(value)}>
+                <Text style={[FontFamilyBold, FontSize5, { marginVertical: 5 }]}>หมายเลขโทรศัพท์*</Text>
+                <View style={Seller_Advertisement_PacketTextInput}>
+                    <TextInput onChangeText={(v) => setTel(v)} placeholder="" style={[FontFamilyText, FontSize4,
+                        { padding: 10, width: '100%', }]} value={tel}>
                     </TextInput>
                 </View>
             </View>
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>อีเมล*</Text>
-                <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
-                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={mail} onChangeText={(value) => setMail(value)}>
+                <Text style={[FontFamilyBold, FontSize5, { marginVertical: 5 }]}>อีเมล*</Text>
+                <View style={Seller_Advertisement_PacketTextInput}>
+                    <TextInput onChangeText={(v) => setMail(v)} placeholder="" style={[FontFamilyText, FontSize4,
+                        { padding: 10, width: '100%', }]} value={mail}>
                     </TextInput>
                 </View>
             </View>
             <View>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>LINE ID</Text>
-                <View style={stylesSeller.Seller_Advertisement_PacketTextInput}>
-                    <TextInput style={[stylesFont.FontFamilyText, stylesFont.FontSize4, { width: '100%', padding: 10 }]} placeholder=""
-                        value={line} onChangeText={(value) => setLine(value)}>
+                <Text style={[FontFamilyBold, FontSize5, { marginVertical: 5 }]}>LINE ID</Text>
+                <View style={Seller_Advertisement_PacketTextInput}>
+                    <TextInput onChangeText={(v) => setLine(v)} placeholder="" style={[FontFamilyText, FontSize4,
+                        { padding: 10, width: '100%', }]} value={line}>
                     </TextInput>
                 </View>
             </View>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { marginVertical: 5 }]}>เรื่องที่ติดต่อ</Text>
-            <View style={stylesMain.FlexRow}>
+            <Text style={[FontFamilyBold, FontSize5, { marginVertical: 5 }]}>เรื่องที่ติดต่อ</Text>
+            <View style={FlexRow}>
                 <CheckBox checked={checked} onPress={() => setChecked(!checked)} />
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5, { marginTop: 15 }]}>
-                    สนใจโฆษณาร้านกับ FIN (มีค่าใช้จ่าย)</Text>
+                <Text style={[FontFamilyText, FontSize5, { marginTop: 15 }]}>สนใจโฆษณาร้านกับ FIN (มีค่าใช้จ่าย)</Text>
             </View>
             <View style={{ alignItems: 'flex-end' }}>
                 <TouchableOpacity>
-                    <View style={[stylesMain.ItemCenter, {
-                        borderColor: mainColor, borderWidth: 1, backgroundColor: mainColor, padding: 5, marginLeft: 10, borderRadius: 5,
+                    <View style={[ItemCenter, {
+                        backgroundColor: mainColor, borderColor: mainColor, borderRadius: 5, borderWidth: 1, marginLeft: 10, padding: 5,
                         width: 100
                     }]}>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>ติดต่อแอดมิน</Text>
+                        <Text style={[FontFamilyBold, FontSize5, { color: '#FFFFFF' }]}>ติดต่อแอดมิน</Text>
                     </View>
                 </TouchableOpacity>
             </View>

@@ -1,85 +1,74 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View,
-} from 'react-native';
+import React from 'react';
+import { SafeAreaView, Text, View, } from 'react-native';
 import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-export const { height, width } = Dimensions.get('window');
-import FastImage from 'react-native-fast-image';
-// import { GiftedChat, Bubble, Send } from 'react-native-gifted-chat';
-import { CheckBox } from 'react-native-elements';
-import DatePicker from 'react-native-datepicker';
-import ModalDropdown from 'react-native-modal-dropdown';
-import DocumentPicker from 'react-native-document-picker';
-import DateTimePicker from '@react-native-community/datetimepicker';
 import { BarChart, Grid, XAxis, YAxis } from 'react-native-svg-charts';
+import ModalDropdown from 'react-native-modal-dropdown';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesFont from '../../../style/stylesFont';
-import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
-import stylesProfile from '../../../style/StylesProfileScreen'
+import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { AppBar, NavigationNavigate, } from '../../../customComponents';
-import { ExitAppModule } from '../../Main/Main';
-import { Product_income } from '../../Seller/Income/Income';
-import { TabBar } from '../../../customComponents/Tools';
+import { AppBar, ExitApp, } from '../../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { FontFamilyBold, FontFamilyText, FontSize5, FontSize6, FontSize7, } = stylesFont;
+const { FlexRow, ItemCenter, SafeAreaViews } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(Business);
-function Business(props) {
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
-        <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
-        <Growth />
-        {/* <ExitAppModule /> */}
-    </SafeAreaView>;
+export default connect(mapStateToProps, mapDispatchToProps)(Growth);
+function Growth(props) {
+  return <SafeAreaView style={SafeAreaViews}>
+    <AppBar {...props} backArrow titleHead='สมาชิกAffiliate' />
+    <Growths />
+    <ExitApp {...props} />
+  </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export let Growth = (props) => {
-    const arrayData1 = [50, 10, 40, 95, 4, 24, 50, 35, 53, 53, 24, 50,];
-    const arrayData2 = [10, 20, 40, 80, 1, 12, 10, 20, 30, 20, 10, 40,];
-    const data = arrayData1.concat(arrayData2);
-    const fill = 'rgb(134, 65, 244)';
-    const max = Math.max(...data);
-    const min = Math.min(...data);
-    const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    const percen = [min, max,];
-    const barData = [{
-        data: data1.map((value) => ({ value })), svg: { fill: 'rgb(29, 70, 204)', },
-    }, { data: data2.map((value) => ({ value })), },];
-    return <>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', marginTop: 5, padding: 10, }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize5,]}>กราฟ</Text>
-            <View style={[stylesMain.ItemCenter,
-            { borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, flexDirection: 'row', width: 100, }]}>
-                <ModalDropdown defaultValue={'ทั้งหมด'} dropdownStyle={{ borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, width: 100 }}
-                    dropdownTextStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6, { textAlign: 'center' }]}
-                    options={['ทั้งหมด', 'สัปดาห์', 'เดือน', 'ปี']} textStyle={[stylesFont.FontFamilyText, stylesFont.FontSize6]} />
-                <IconAntDesign name='caretdown' size={15} style={{ marginLeft: 5 }} />
-            </View>
-        </View>
-        <View style={{ backgroundColor: '#FFFFFF', flexDirection: 'row', height: 200, padding: 20, }}>
-            <YAxis contentInset={{ bottom: 30, top: 30, }} data={percen} formatLabel={(value) => `${value}%`} numberOfTicks={10}
-                svg={{ fill: 'grey', fontSize: 9, }} />
-            <View style={{ flex: 1, marginLeft: 5 }}>
-                <BarChart contentInset={{ bottom: 30, left: 10, right: 10, top: 30, }} data={barData} showGrid={true} style={{ height: 160 }}
-                    svg={{ fill }} yAccessor={({ item }) => item.value}>
-                    <Grid />
-                </BarChart>
-                <XAxis contentInset={{ left: 10, right: 10, }} data={data1} formatLabel={(value, index) => month[index]}
-                    style={{ marginHorizontal: 8 }} svg={{ fill: 'grey', fontSize: 9, }} />
-            </View>
-        </View>
-        {/* <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 20, flexDirection: 'row', height: 150 }}>
+export const Growths = (props) => {
+  const arrayData1 = [50, 10, 40, 95, 4, 24, 50, 35, 53, 53, 24, 50];
+  const arrayData2 = [10, 20, 40, 80, 1, 12, 10, 20, 30, 20, 10, 40];
+  const data = arrayData1.concat(arrayData2);
+  const fill = 'rgb(134, 65, 244)';
+  const max = Math.max(...data);
+  const min = Math.min(...data);
+  const month = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const percen = [min, max];
+  const barData = [
+    { data: arrayData1.map((value) => ({ value })), svg: { fill: 'rgb(29, 70, 204)', }, },
+    { data: arrayData2.map((value) => ({ value })), }];
+  const List = [
+    { name: 'รายได้ประจำเดือน', value: '+0.01%' },
+    { name: 'การเติบโต (ยอดขาย)', value: '+0.01%' },
+    { name: 'รายได้ต่อคลิก', value: '+0.01%' },
+    { name: 'จำนวนคลิก', value: '+0.01%' }];
+  return <>
+    <View style={[FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', marginTop: 5, padding: 10, }]}>
+      <Text style={[FontFamilyText, FontSize5]}>กราฟ</Text>
+      <View style={[ItemCenter, { borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, flexDirection: 'row', width: 100, }]}>
+        <ModalDropdown defaultValue={'ทั้งหมด'} dropdownStyle={{ borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, width: 100 }}
+          dropdownTextStyle={[FontFamilyText, FontSize6, { textAlign: 'center' }]} options={['ทั้งหมด', 'สัปดาห์', 'เดือน', 'ปี']}
+          textStyle={[FontFamilyText, FontSize6]} />
+        <IconAntDesign name='caretdown' size={15} style={{ marginLeft: 5 }} />
+      </View>
+    </View>
+    <View style={{ backgroundColor: '#FFFFFF', flexDirection: 'row', height: 200, padding: 20, }}>
+      <YAxis contentInset={{ bottom: 30, top: 30, }} data={percen} formatLabel={(v) => `${v}%`} numberOfTicks={10}
+        svg={{ fill: 'grey', fontSize: 9, }} />
+      <View style={{ flex: 1, marginLeft: 5 }}>
+        <BarChart contentInset={{ bottom: 30, left: 10, right: 10, top: 30, }} data={barData} showGrid={true} style={{ height: 160 }}
+          svg={{ fill }} yAccessor={({ item }) => item.value}>
+          <Grid />
+        </BarChart>
+        <XAxis contentInset={{ left: 10, right: 10, }} data={arrayData1} formatLabel={(v, i) => month[i]} style={{ marginHorizontal: 8 }}
+          svg={{ fill: 'grey', fontSize: 9, }} />
+      </View>
+    </View>
+    {/* <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 20, flexDirection: 'row', height: 150 }}>
           <YAxis
             data={data}
             contentInset={contentInset}
@@ -100,7 +89,7 @@ export let Growth = (props) => {
             svg={{ fontSize: 9, fill: 'grey' }}
           />
         </View> */}
-        {/* <View style={{ height: 200, padding: 20 }}>
+    {/* <View style={{ height: 200, padding: 20 }}>
           <LineChart
             style={{ flex: 1 }}
             data={data}
@@ -117,7 +106,7 @@ export let Growth = (props) => {
             svg={{ fontSize: 10, fill: 'black' }}
           />
         </View> */}
-        {/* <View style={{ backgroundColor: '#FFFFFF', padding: 10 }}>
+    {/* <View style={{ backgroundColor: '#FFFFFF', padding: 10 }}>
           <StackedBarChart
             style={{ height: 150, }}
             keys={keys}
@@ -135,33 +124,12 @@ export let Growth = (props) => {
             svg={{ fontSize: 10, fill: 'black' }}
           />
         </View> */}
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', padding: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>รายได้ประจำเดือน</Text>
-            <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
-            </View>
-        </View>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', padding: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>การเติบโต (ยอดขาย)</Text>
-            <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
-            </View>
-        </View>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', padding: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>รายได้ต่อคลิก</Text>
-            <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
-            </View>
-        </View>
-        <View style={[stylesMain.FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', padding: 10 }]}>
-            <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6,]}>จำนวนคลิก</Text>
-            <View style={stylesMain.FlexRow}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7,]}>เปอร์เซ็นการเติบโต</Text>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>+0.01%</Text>
-            </View>
-        </View>
-    </>;
+    {List.map((v, i) => <View key={i} style={[FlexRow, { backgroundColor: '#FFFFFF', justifyContent: 'space-between', padding: 10 }]}>
+      <Text style={[FontFamilyText, FontSize6]}>{v.name}</Text>
+      <View style={FlexRow}>
+        <Text style={[FontFamilyBold, FontSize7]}>เปอร์เซ็นการเติบโต</Text>
+        <Text style={[FontFamilyBold, FontSize7, { color: '#4DCD9A', marginLeft: 10 }]}>{v.value}</Text>
+      </View>
+    </View>)}
+  </>;
 };

@@ -42,38 +42,29 @@ export const Seller_Setting_Topic = (props) => {
     const ListItem = [{
         name: 'บัญชีร้านของฉัน',
         subItem: [{
-            name: 'หน้าร้านของฉัน',
-            setNavi: { goScreen: 'Seller_ProfileEdit', },
+            name: 'หน้าร้านของฉัน', setNavi: { goScreen: 'Seller_ProfileEdit', },
         }, {
-            name: 'เอกสารการจดแจ้ง',
-            setNavi: { goScreen: 'Seller_Setting_Edit_Document', },
+            name: 'เอกสารการจดแจ้ง', setNavi: { goScreen: 'Seller_Setting_Edit_Document', },
         }, {
-            name: 'ที่อยู่ร้านค้าของฉัน',
-            setNavi: { goScreen: 'Seller_Setting_Address', },
+            name: 'ที่อยู่ร้านค้าของฉัน', setNavi: { goScreen: 'Seller_Setting_Address', },
         }],
     }, {
         name: 'การตั้งค่า',
         subItem: [{
-            name: 'ตั้งค่าการแชท',
-            setNavi: { goScreen: 'Customer_Setting_Edit_Chat', },
+            name: 'ตั้งค่าการแชท', setNavi: { goScreen: 'Customer_Setting_Edit_Chat', },
         }, {
-            name: 'ตั้งค่าการแจ้งเตือน',
-            setNavi: { goScreen: 'Customer_Setting_Edit_Notification', },
+            name: 'ตั้งค่าการแจ้งเตือน', setNavi: { goScreen: 'Customer_Setting_Edit_Notification', },
         }, {
-            name: 'ภาษา',
-            setNavi: { goScreen: 'Customer_Setting_Edit_Language', },
+            name: 'ภาษา', setNavi: { goScreen: 'Customer_Setting_Edit_Language', },
         }],
     }, {
         name: 'ช่วยเหลือ',
         subItem: [{
-            name: 'ศูนย์ช่วยเหลือ',
-            setNavi: { goScreen: 'Customer_Topic_Help', },
+            name: 'ศูนย์ช่วยเหลือ', setNavi: { goScreen: 'Customer_Topic_Help', },
         }, {
-            name: 'กฎและข้อบังคับ',
-            setNavi: { goScreen: 'Seller_Setting', }, // ยังไม่มีเส้นทาง
+            name: 'กฎและข้อบังคับ', setNavi: { goScreen: 'Seller_Setting', }, // ยังไม่มีเส้นทาง
         }, {
-            name: 'ให้คะแนนเราสิ',
-            setNavi: { goScreen: 'Seller_Setting', }, // ยังไม่มีเส้นทาง
+            name: 'ให้คะแนนเราสิ', setNavi: { goScreen: 'Seller_Setting', }, // ยังไม่มีเส้นทาง
         }],
     }];
     const ListProps = { ...props, ListItem };

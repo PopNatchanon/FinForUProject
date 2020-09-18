@@ -1,20 +1,15 @@
 ///----------------------------------------------------------------------------------------------->>>> React
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    Animated, Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, TextInput,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import { Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, TextInput, } from 'react-native';
+import { connect, } from 'react-redux';
 import {
     activeCartList, cartListButtomDelete, cartListChecked, cartListCheckedAll, cartListCheckedStore, cartListDelete, cartListResult,
     cartListSelectCoupon, cartListUpdate, checkCustomer, fetchData, multiFetchData, setDataEnd, setDataRefresh, setDataStart,
     setFetchToStart,
 } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import * as Animatable from 'react-native-animatable';
-import AsyncStorage from '@react-native-community/async-storage';
 import BottomSheet from "react-native-raw-bottom-sheet";
 import { CheckBox } from 'react-native-elements';
-import CookieManager from '@react-native-community/cookies';
 export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 import NumberFormat from 'react-number-format';
@@ -34,7 +29,7 @@ import { GetServices, GetData, LoadingScreen } from '../../customComponents/Tool
 import { NavigationNavigate, AppBar } from '../../customComponents';
 import { PopularProduct } from '../Store/Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip, } from '../../navigator/IpConfig';
+import { finip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const getCartDataList = (cartData) => {
     const cartDataList = [];
@@ -52,9 +47,7 @@ const mapDispatchToProps = ({
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 function Cart(props) {
-    const {
-        activeCartList, cartData, cartDataList, cartListResult, fetchData, getFetchData, reduxDataBody, setDataEnd, setFetchToStart
-    } = props;
+    const { cartData, cartDataList, cartListResult, getFetchData, } = props;
     const [activeGetSource, setActiveGetSource] = useState(true);
     const [activeSave2, setActiveSave2] = useState(false);
     const [cokie, setCokie] = useState(undefined);

@@ -1,48 +1,33 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { Component, useState, useEffect } from 'react';
-import {
-    Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, FlatList, Image,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useEffect, useState, } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, Text, View, TouchableOpacity, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import BottomSheet from 'react-native-raw-bottom-sheet';
-import ActionButton from 'react-native-action-button';
-import ImagePicker from 'react-native-image-crop-picker';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { TextInput } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesMain, { mainColor } from '../../../../style/StylesMainScreen'
 import stylesFont from '../../../../style/stylesFont';
+import stylesMain, { mainColor } from '../../../../style/StylesMainScreen'
 import stylesPromotionDeal from '../../../../style/stylePromotion-src/styleDealScreen';
 import stylesProfileTopic from '../../../../style/stylesProfile-src/stylesProfile_Topic';
-import stylesTopic from '../../../../style/styleTopic';
-import stylesProfile from '../../../../style/StylesProfileScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
+import { AppBar, ExitApp } from '../../../../customComponents';
 import { Button_Bar } from '../../../Main/Highlight/Highlight';
-import { ExitAppModule, TodayProduct, } from '../../../Main/Main';
-import { GetCoupon, GetServices, GetData, TabBar, LoadingScreen } from '../../../../customComponents/Tools';
-import { ProductBox } from '../../../../customComponents/Tools';
+import { GetCoupon, GetServices, GetData, } from '../../../../customComponents/Tools';
 import { Slide } from '../Deal';
-import { Store_Detail, } from '../../../Main/RecommendStore/RecommendStore';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { finip, ip } from '../../../../navigator/IpConfig';
-import { AppBar } from '../../../../customComponents';
+import { finip, } from '../../../../navigator/IpConfig';
+///----------------------------------------------------------------------------------------------->>>> setup
+const { FontFamilyBold, FontFamilyText, FontSize2, FontSize5, FontSize6, } = stylesFont;
+const { BoxProduct1Image, FlexRow, FrameBackground, ItemCenter, SafeAreaViews } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-    customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
-export default connect(mapStateToProps, mapDispatchToProps)(DealTopic);
-function DealTopic(props) {
+export default connect(mapStateToProps, mapDispatchToProps)(Worthy);
+function Worthy(props) {
     const { route } = props;
-    const selectedIndex = route.params?.selectedIndex;
     const [activeGetCurrentUser, setActiveGetCurrentUser] = useState(true);
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [activeGetServices2, setActiveGetServices2] = useState(true);
@@ -51,110 +36,112 @@ function DealTopic(props) {
     const [dataService, setDataService] = useState(undefined);
     const [dataService2, setDataService2] = useState(undefined);
     const [id_category, setId_Category] = useState(undefined);
-    var dataBody2 = { device: 'mobile_device', id_category: id_category ?? '' };
-    var uri = `${finip}/coupon/coupon_day_mobile`;
-    var uri2 = `${finip}/highlight/exclusive_deal`;
-    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
-    let getData2 = (value) => { setActiveGetServices2(false); setDataService2(value); };
-    let getSource = (value) => { setActiveGetCurrentUser(false); setCurrentUser(value.currentUser); setCokie(value.keycokie); };
-    let getUpdateIndex = (value) => {
-        var id_category = dataService2.category[value - 1] == undefined ? '' : dataService2.category[value - 1].id_type;
+    const dataBody2 = { device: 'mobile_device', id_category: id_category ?? '' };
+    const getData = (v) => { setActiveGetServices(false); setDataService(v); };
+    const getData2 = (v) => { setActiveGetServices2(false); setDataService2(v); };
+    const getSource = (v) => { setActiveGetCurrentUser(false); setCurrentUser(v.currentUser); setCokie(v.keycokie); };
+    const Props = { ...props, currentUser, dataService };
+    const selectedIndex = route.params?.selectedIndex;
+    const uri = `${finip}/coupon/coupon_day_mobile`;
+    const uri2 = `${finip}/highlight/exclusive_deal`;
+    const getUpdateIndex = (v) => {
+        const id_category = dataService2.category[v - 1] == undefined ? '' : dataService2.category[v - 1].id_type;
         setActiveGetServices2(true); setId_Category(id_category);
     };
     useEffect(() => {
-        activeGetCurrentUser && GetData({ getCokie: true, getSource: (value) => getSource(value), getUser: true, })
+        activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true, })
     }, [activeGetCurrentUser]);
     useEffect(() => {
         !activeGetCurrentUser && activeGetServices &&
-            GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: (value) => getData(value), });
+            GetServices({ Authorization: cokie, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [!activeGetCurrentUser && activeGetServices]);
     useEffect(() => {
-        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 && GetServices({
-            dataBody: dataBody2, uriPointer: uri2, getDataSource: (value) => getData2(value), showConsole: 'exclusive_deal'
-        });
+        selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2 &&
+            GetServices({ dataBody: dataBody2, getDataSource: (v) => getData2(v), showConsole: 'exclusive_deal', uriPointer: uri2, });
     }, [selectedIndex == 1 && !activeGetCurrentUser && activeGetServices2]);
-    return <SafeAreaView style={stylesMain.SafeAreaView}>
+    return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='ดีลสุดคุ้ม' />
-        <ScrollView>
-            {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
-            {currentUser && <Deal_CuponToday {...props} currentUser={currentUser} cokie={cokie} />}
-            {<Button_Bar {...props} />}
-            {dataService && dataService.store.map((value, index) => {
-                const value2 = dataService.product_store.filter((value2) => value2.id_store == value.id_store);
-                return <Deal_ProductToday dataService={value} dataService2={value2} key={index} />;
-            })}
-        </ScrollView>
-        <ExitAppModule {...props} />
+        <ScrollList {...Props} />
+        <ExitApp {...props} />
     </SafeAreaView>;
 };
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    const { currentUser, dataService } = props;
+    return <ScrollView>
+        {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
+        {currentUser && <Deal_CuponToday {...props} />}
+        <Button_Bar {...props} />
+        {dataService && dataService.store.map((v, i) => {
+            const value = dataService.product_store.filter((v2) => v2.id_store == v.id_store);
+            return <Deal_ProductToday dataService={v} dataService2={value} key={i} />;
+        })}
+    </ScrollView>;
+};
 ///----------------------------------------------------------------------------------------------->>>> Main
-export let Deal_CuponToday = (props) => {
+export const Deal_CuponToday = (props) => {
     const { cokie, currentUser, } = props;
     const [activeGetServices, setActiveGetServices] = useState(true);
     const [dataService, setDataService] = useState(undefined);
     const [id_promotion, setId_Promotion] = useState('');
-    var dataBody = { id_customer: currentUser.id_customer, device: 'mobile_device', id_promotion, };
-    var uri = `${finip}/coupon/save_coupon_fin`;
-    let getCoupon = (value) => {
-        const id_promo = value.id_promotion;
-        value.list == 'fin' ? activeGetServices = true : value.list == 'shop' ? activeGetServices2 = true : null;
-        setActiveGetServices(true);
-        setId_Promotion(id_promo);
+    const dataBody = { device: 'mobile_device', id_customer: currentUser.id_customer, id_promotion, };
+    const uri = `${finip}/coupon/save_coupon_fin`;
+    const getCoupon = (v) => {
+        const id_promo = v.id_promotion; v.list == 'fin' ? activeGetServices = true : v.list == 'shop' ? activeGetServices2 = true : null;
+        setActiveGetServices(true); setId_Promotion(id_promo);
     };
-    let getData = (value) => { setActiveGetServices(false); setDataService(value); };
+    const getData = (v) => { setActiveGetServices(false); setDataService(v); };
     useEffect(() => {
         activeGetServices && currentUser && cokie &&
-            GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: value => getData(value), });
+            GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
     }, [activeGetServices && currentUser && cokie]);
     return <View>
         <View style={{ padding: 10, }}>
             <View style={stylesPromotionDeal.Deal_Today_Box}>
-                <Text style={stylesFont.FontFamilyText}>คูปองส่วนลดจาก FIN</Text>
+                <Text style={FontFamilyText}>คูปองส่วนลดจาก FIN</Text>
                 <ScrollView horizontal>
-                    {dataService && dataService.coupon.map((value, index) => {
-                        return <GetCoupon codeList={value.my_coupon == 'no' ? 'available' : ''} colorCoupon='#86CFFF'
-                            couponText={value.name} getCoupon={value => getCoupon(value)} key={index} saveCoupon
-                            setDataService={{ list: 'fin', id_promotion: value.id_promotion }} textDetail={value.detail}
-                            timeOut={value.end_period} />
-                    })}
+                    {dataService && dataService.coupon.map((v, i) => <GetCoupon codeList={v.my_coupon == 'no' ? 'available' : ''}
+                        colorCoupon='#86CFFF' couponText={v.name} getCoupon={v => getCoupon(v)} key={i} saveCoupon
+                        setDataService={{ id_promotion: v.id_promotion, list: 'fin', }} textDetail={v.detail}
+                        timeOut={v.end_period} />)}
                 </ScrollView>
             </View>
         </View>
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
-export let Deal_ProductToday = (props) => {
+export const Deal_ProductToday = (props) => {
     const { dataService, dataService2 } = props;
-    const image_store = `${finip}/${dataService.store_path}/${dataService.image_store}`;
-    return <View style={stylesMain.SafeAreaView}>
-        <View style={[stylesMain.FrameBackground, { borderColor: '#ECECEC', borderWidth: 1 }]}>
-            <View style={[stylesMain.FlexRow, { margin: 5 }]}>
-                <FastImage style={{ height: 40, width: 40, marginTop: 10, borderRadius: 20, }} source={{ uri: image_store, }} />
+    const ImageStore = { uri: `${finip}/${dataService.store_path}/${dataService.image_store}`, };
+    return <View>
+        <View style={[FrameBackground, { borderColor: '#ECECEC', borderWidth: 1 }]}>
+            <View style={[FlexRow, { margin: 5 }]}>
+                <FastImage source={ImageStore} style={{ borderRadius: 20, height: 40, marginTop: 10, width: 40, }} />
                 <View style={stylesProfileTopic.Follow_store_Box_text}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>{dataService.store_name}</Text>
+                    <Text style={[FontFamilyBold, FontSize5]}>{dataService.store_name}</Text>
                 </View>
             </View>
-            <View style={{ width: '100%', justifyContent: 'space-around', flexDirection: 'row', padding: 5 }}>
+            <View style={{ flexDirection: 'row', justifyContent: 'space-around', padding: 5, width: '100%', }}>
                 {dataService2 && dataService2.map((value, index) => {
                     const image_produxt = `${finip}/${value.path_image_product}/${value.image_product}`;
-                    if (index < 3) return <View key={index} style={[stylesMain.ItemCenter,
-                    { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5 }]}>
+                    if (index < 3) return <View key={index} style={[ItemCenter,
+                        { borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, width: '25%', }]}>
                         <View style={{ height: '80%', width: '100%' }}>
                             <FastImage resizeMode={FastImage.resizeMode.contain} source={{ uri: image_produxt }}
-                                style={stylesMain.BoxProduct1Image} />
+                                style={BoxProduct1Image} />
                         </View>
-                        <View style={{ borderColor: '#ECECEC', borderWidth: 1, borderRadius: 5, paddingHorizontal: 5 }}>
-                            {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}
+                        <View style={{ borderColor: '#ECECEC', borderRadius: 5, borderWidth: 1, paddingHorizontal: 5 }}>
+                            {/* <Text style={[FontFamilyBold, FontSize7, { color: mainColor }]}>฿3,xxx</Text> */}
                         </View>
                     </View>;
                 })}
-                <View style={[stylesMain.ItemCenter,
-                { width: '25%', borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, backgroundColor: mainColor }]}>
+                <View style={[ItemCenter,
+                    { backgroundColor: mainColor, borderColor: '#ECECEC', borderWidth: 0.5, height: 120, padding: 5, width: '25%', }]}>
                     <View>
-                        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize2, { color: '#FFFFFF' }]}>50%</Text>
+                        <Text style={[FontFamilyBold, FontSize2, { color: '#FFFFFF' }]}>50%</Text>
                         <TouchableOpacity>
-                            <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', paddingHorizontal: 5, borderRadius: 5 }]}>
-                                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor }]}>เก็บ</Text>
+                            <View style={[ItemCenter, { backgroundColor: '#FFFFFF', paddingHorizontal: 5, borderRadius: 5 }]}>
+                                <Text style={[FontFamilyBold, FontSize6, { color: mainColor }]}>เก็บ</Text>
                             </View>
                         </TouchableOpacity>
                     </View>

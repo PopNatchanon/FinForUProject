@@ -1,5 +1,5 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import {
     Dimensions, SafeAreaView, ScrollView, Text, View, Share, TouchableOpacity,
 } from 'react-native';
@@ -9,6 +9,7 @@ import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../.
 export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
 const { contain, cover, stretch, } = FastImage.resizeMode;
+import YoutubePlayer from "react-native-youtube-iframe";
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconEntypo from 'react-native-vector-icons/Entypo';
 ///----------------------------------------------------------------------------------------------->>>> Styles
@@ -32,7 +33,7 @@ function FinService(props) {
     const { route } = props;
     return (
         <SafeAreaView style={stylesMain.SafeAreaViews}>
-            <AppBar {...props} backArrow titleHead='FIN SERVICE' />
+            <AppBar {...props} backArrow titleHead='FIN Marketing' />
             <ScrollView>
                 <Banner_Service />
                 <Button_Bar {...props} selectedIndex={0} />
@@ -50,9 +51,13 @@ function FinService(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>banner
 export let Banner_Service = (props) => {
-    const Service_image = { uri: `${ip}/MySQL/uploads/Service/Fin_Service.jpg`, };
-    return <View style={[stylesMain.ItemCenter, { height: 150, width, }]}>
-        <FastImage resizeMode={cover} source={Service_image} style={{ height: '100%', width: '100%' }} />
+    const Service_image = { uri: `${ip}/MySQL/uploads/Service/videoservices.gif`, };
+    return <View style={{ backgroundColor: '#000000' }}>
+        <FastImage resizeMode={cover} source={Service_image} style={{ height: 180, width: width * 1, opacity: 0.6 }} />
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, {
+            color: '#FFFFFF', height: 180, position: 'absolute', textAlign: 'center',
+            textAlignVertical: 'center', width: width * 1,
+        }]}>FIN Digital Marketing</Text>
     </View>
 }
 ///----------------------------------------------------------------------------------------------->>>>
@@ -68,8 +73,8 @@ export let Button_Bar = (props) => {
         }
     };
     const item = [{ name: 'HOME' }, { name: 'ABOUT' }, { name: 'BLOG' }, { name: 'CONTACT' }, { name: 'REVIEW' }];
-    return <ScrollView horizontal style={{ backgroundColor: '#FFFFFF', paddingVertical: 3 }}>
-        <ButtomTab colors={['#10162d', '#284d8f']} data={item} selectedIndex={selectedIndex} setWidthBox={width * 0.233} setHeightBox={30} fontStyle={[stylesFont.FontSize6,
+    return <ScrollView horizontal style={{ backgroundColor: '#000000', paddingVertical: 5 }}>
+        <ButtomTab colors={['#10162d', '#284d8f']} data={item} selectedIndex={selectedIndex} setWidthBox={width * 0.234} setHeightBox={height * 0.05} fontStyle={[stylesFont.FontSize6,
         stylesFont.FontFamilyBold]} linearGradient={true} notSelectFontColors='#10162d' sendDataOut={(v) => getSelectedIndex(v)} />
     </ScrollView>
 }
@@ -86,23 +91,22 @@ export let Menu_Bar = (props) => {
         const ImageMenu = { uri: v.image, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: v.Navi, })}
             style={[stylesMain.FlexRow, {
-                borderWidth: 1, marginVertical: 2.5,
-                borderRadius: 5, height: 100, justifyContent: 'space-between', backgroundColor: '#FFFFFF'
+                borderWidth: 1, borderColor: '#C9C9C9', marginTop: 2.5,
+                borderRadius: 5, justifyContent: 'space-between', backgroundColor: '#FFFFFF'
             }]}>
-            <FastImage resizeMode={cover} source={ImageMenu} style={{ height: '100%', width: '50%', }} />
-            <View style={[stylesMain.ItemCenter, { width: '45%' }]}>
-                <View style={[stylesMain.ItemCenter, { borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 60, width: '100%' }]}>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.Title}</Text>
-                    <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.ThaiTitle}</Text>
-                </View>
+            <FastImage resizeMode={cover} source={ImageMenu} style={{ height: 100, width: '48%', borderBottomLeftRadius: 5, borderTopLeftRadius: 5 }} />
+            <View style={{ width: '50%', marginLeft: 5 }}>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.ThaiTitle}</Text>
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: mainColor, textAlign: 'center' }]}>{v.Title}</Text>
+                <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#919191', }]}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sodales nunc. Aenean rutrum tortor lacus, in ornare arcu accumsan tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ac velit purus. Nam ligula elit</Text>
             </View>
         </TouchableOpacity>
     });
-    return <View style={{ height: 'auto', marginHorizontal: 5, alignItems: 'center', paddingBottom: 10, borderRadius: 5, }}>
-        <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 5, paddingVertical: 5, marginVertical: 5, marginTop: 7 }}>
+    return <View style={{ borderRadius: 5, marginHorizontal: 5, marginTop: 5 }}>
+        {/* <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 5, paddingVertical: 5, marginVertical: 5, marginTop: 7 }}>
             <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>Digital Agency Services</Text>
-        </View>
-        <View style={{ width: '99%', }}>
+        </View> */}
+        <View>
             {MenuBox}
             {/* <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
                 <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Blog', })} style={[stylesMain.FlexRow, {
@@ -158,33 +162,42 @@ export let Menu_Bar = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Service_About = (props) => {
-    const Video = { uri: `${ip}/MySQL/uploads/Service/VideoPortfolio/0.jpg`, };
-    return <View style={{ padding: 10, backgroundColor: '#FFFF', borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5, marginTop: 10, marginHorizontal: 5, marginBottom: 5 }}>
-        <View style={stylesMain.ItemCenter}>
-            <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, marginTop: -20 }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>เกี่ยวกับเรา</Text>
-            </View>
-
-            <View style={{ width: '98%' }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5]}>FIN SHOPPING SERVICE</Text>
-                <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
-                    เราคือ FIN SHOPPING SERVICE รับทำการตลาดออนไลน์ ครบวงจร จบในที่เดียว
-                    ตั้งแต่เริ่มต้นการ ออกแบบดีไซน์ และพัฒนาระบบต่างๆ รับทำ SEO
-                    และปรับแต่งได้ตามความต้องการทุกระดับตั้งแต่องค์กรเล็กๆ จนถึงองค์กรใหญ่
-                    เราสามารถให้คำปรึกษาทุกด้านเริ่มตั้งแต่ การสร้างแบรนด์ การตลาดดิจิตอล
-                    การตลาด Social Media Management ต่างๆและ บริการ การทำโฆษณาต่างๆ เช่น
-                    รับทำโฆษณาเฟสบุ๊ค Facebook Ads</Text>
-            </View>
+    const Videos = [
+        { type: 'youtube', video: `N_meAH3IxeU`, },]
+    const VideoAbout = Videos.map((v, i) => {
+        const [playing, setPlaying] = useState(false);
+        const Video_image = { uri: v.video, };
+        const onStateChange = useCallback((state) => {
+            if (state === "ended") {
+                Alert.alert("video has finished playing!");
+                setPlaying(false);
+            }
+        }, []);
+        return <View key={i} style={{ marginHorizontal: 5, marginTop: 5, }}>
+            {v.type != 'youtube' ? <Video controls onPlaybackRateChange={event => { console.log('event'); console.log(event); }} paused
+                ref={VideoPlayer} style={{ height: '100%', width: '100%' }} source={Video_image} /> :
+                <YoutubePlayer height={height * 0.25} onChangeState={onStateChange} play={playing} videoId={v.video} />}
         </View>
-        <View style={{ alignItems: 'flex-end' }}>
+    });
+    return <View style={{
+        padding: 10, backgroundColor: '#FFFF', margin: 5,
+        borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5,
+    }}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#f0b912' }]}>FIN SHOPPING SERVICE</Text>
+        <Text numberOfLines={4} style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>
+            เราคือ FIN SHOPPING SERVICE รับทำการตลาดออนไลน์ ครบวงจร จบในที่เดียว
+            ตั้งแต่เริ่มต้นการ ออกแบบดีไซน์ และพัฒนาระบบต่างๆ รับทำ SEO
+            และปรับแต่งได้ตามความต้องการทุกระดับตั้งแต่องค์กรเล็กๆ จนถึงองค์กรใหญ่
+            เราสามารถให้คำปรึกษาทุกด้านเริ่มตั้งแต่ การสร้างแบรนด์ การตลาดดิจิตอล
+            การตลาด Social Media Management ต่างๆและ บริการ การทำโฆษณาต่างๆ เช่น
+                    รับทำโฆษณาเฟสบุ๊ค Facebook Ads</Text>
+        <View style={{ alignItems: 'flex-end', margin: 5 }}>
             <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: 100, borderRadius: 5 }]}>
                 <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: '#FFFFFF' }]}>read more</Text>
             </TouchableOpacity>
         </View>
-        <View style={[stylesMain.ItemCenter, { marginTop: 10 }]}>
-            <View style={[stylesMain.ItemCenter, { width: '90%', height: 150, borderColor: '#C9C9C9', borderWidth: 2 }]}>
-                <FastImage resizeMode={cover} source={Video} style={{ height: '100%', width: '100%', }} />
-            </View>
+        <View >
+            {VideoAbout}
         </View>
     </View>
 }
@@ -195,7 +208,7 @@ export let Content_Service = (props) => {
         { Title: 'Sell', color: '#EA6C12', Detall: 'คนทั่วไปไม่เพียงต้องการซื้อสินค้า หรือบริการที่ดีเท่านั้น พวกเค้าต้องการซื้อความสัมพันธ์ที่มีต่อแบรนด์ และสินค้าที่มีเรื่องราวต่างๆ เพราะฉะนั้นการสร้างเรื่องราวและตัวตนของแบรนด์ จึงมีส่วนสำคัญอย่างยิ่ง เราสามารถช่วยคิดและครีเอทีฟเพื่อสร้างมุมมองในการขายสินค้า หรือบริการรูปแบบใหม่' },
         { Title: 'Grow', color: '#EBBB10', Detall: 'ไม่รู้ว่าจะเพิ่มฐานลูกค้าอย่างไร ? มีการจัดการธุรกิจได้ดีพอหรือยัง ? สร้างผลกำไรที่แท้จริงแล้วหรือยัง ? ด้วยประสบการณ์และความชำนาญของเราในด้านการทำการตลาด Content Marketing , Marketing automation, Analytics ที่เจาะลงลึก จะช่วยให้คุณเติบโตและขยายธุรกิจของคุณได้อย่างยั่งยืน' },]
     const ContentBox = Contentitem.map((v, i) => {
-        return <TouchableOpacity key={i} style={{ padding: 10, backgroundColor: '#FFFF', borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5, marginTop: 20, marginHorizontal: 5, marginBottom: 5 }}>
+        return <TouchableOpacity key={i} activeOpacity={1} style={{ padding: 10, backgroundColor: '#FFFF', borderColor: '#C9C9C9', borderWidth: 1, borderRadius: 5, marginTop: 20, marginHorizontal: 5, marginBottom: 5 }}>
             <View style={[stylesMain.ItemCenter, stylesMain.FlexRow, { marginTop: -30, }]}>
                 <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: 100, borderRadius: width / 2, elevation: 1, left: 30 }]}>
                     <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize5, { color: '#FFFFFF' }]}>{v.Title}</Text>
@@ -212,20 +225,20 @@ export let Content_Service = (props) => {
 ///----------------------------------------------------------------------------------------------->>>>
 export let Customer_Service = (props) => {
     const Customeritem = [
-        { image: `${ip}/MySQL/uploads/Service/1.png` }, { image: `${ip}/MySQL/uploads/Service/1.png` },
-        { image: `${ip}/MySQL/uploads/Service/2.png` }, { image: `${ip}/MySQL/uploads/Service/2.png` },
-        { image: `${ip}/MySQL/uploads/Service/3.png` }, { image: `${ip}/MySQL/uploads/Service/3.png` },
-        { image: `${ip}/MySQL/uploads/Service/4.png` }, { image: `${ip}/MySQL/uploads/Service/4.png` },
-        { image: `${ip}/MySQL/uploads/Service/5.png` }, { image: `${ip}/MySQL/uploads/Service/5.png` },
+        { image: `${ip}/MySQL/uploads/icon_brand/brand1.png` }, { image: `${ip}/MySQL/uploads/icon_brand/brand5.png` },
+        { image: `${ip}/MySQL/uploads/icon_brand/brand2.png` }, { image: `${ip}/MySQL/uploads/icon_brand/brand4.png` },
+        { image: `${ip}/MySQL/uploads/icon_brand/brand3.png` }, { image: `${ip}/MySQL/uploads/icon_brand/brand3.png` },
+        { image: `${ip}/MySQL/uploads/icon_brand/brand4.png` }, { image: `${ip}/MySQL/uploads/icon_brand/brand2.png` },
+        { image: `${ip}/MySQL/uploads/icon_brand/brand5.png` }, { image: `${ip}/MySQL/uploads/icon_brand/brand1.png` },
     ]
     const CustomerBox = Customeritem.map((v, i) => {
         const ImageCustomer = { uri: v.image, };
         return <View key={i} style={{ height: 65, width: 65, margin: 2, }}>
-            <FastImage resizeMode={cover} source={ImageCustomer} style={[stylesMain.BoxProduct1Image, { borderRadius: width / 2, borderColor: mainColor, borderWidth: 2 }]} />
+            <FastImage resizeMode={cover} source={ImageCustomer} style={[stylesMain.BoxProduct1Image, { borderRadius: width / 2, borderColor: mainColor, borderWidth: 1 }]} />
         </View>;
     });
-    return <View style={[stylesMain.ItemCenter, { borderBottomWidth: 5, borderBottomColor: '#ECD295', marginHorizontal: 5, paddingBottom: 10 }]}>
-        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>ลูกค้าของเรา</Text>
+    return <View style={[stylesMain.ItemCenter, { borderBottomWidth: 5, borderBottomColor: '#ECD295', marginHorizontal: 5, paddingBottom: 10, backgroundColor: '#FFFFFF' }]}>
+        <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>Our clients ลูกค้าของเรา</Text>
         <View style={[stylesMain.FlexRow, stylesMain.ItemCenter, { flexWrap: 'wrap', width: 380 }]}>
             {CustomerBox}
         </View>

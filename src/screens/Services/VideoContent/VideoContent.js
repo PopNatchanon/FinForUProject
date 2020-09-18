@@ -117,9 +117,6 @@ export let Video_Portfolio = (props) => {
                 setPlaying(false);
             }
         }, []);
-        console.log(i)
-        console.log(v)
-        console.log(playing)
         return <View key={i} style={{ marginHorizontal: 5, marginTop: 5, }}>
             {v.type != 'youtube' ? <Video controls onPlaybackRateChange={event => { console.log('event'); console.log(event); }} paused
                 ref={VideoPlayer} style={{ height: '100%', width: '100%' }} source={Video_image} /> :

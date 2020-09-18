@@ -147,7 +147,7 @@ function Main(props) {
     }, { // แบรนด์เนอร์โฆษณา 2
         nameComponent: 'BannerBar_TWO',
         renderComponent: <BannerBar_TWO />
-    }, { // ร้านนี้ห้ามพลาด
+    },/* { // ร้านนี้ห้ามพลาด
         nameComponent: 'Fin_LuxuryShop',
         // renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
         renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -172,10 +172,10 @@ function Main(props) {
     }, { // ฟินคัดมาเพื่อคุณ
         nameComponent: 'Product_for_you',
         renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },/*{ // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+    }, { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },*/{ // สินค้า และร้านค้า มือสอง
+    },*/ { // สินค้า และร้านค้า มือสอง
         nameComponent: 'Second_product',
         renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 3
@@ -275,8 +275,9 @@ export const Slide = (props) => {
             <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} />
         </View>
         {(banner || !isOutData && getFetchData['home_mobile']?.data) ?
-            <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{ height: 10, width: 10, }} loop
-                pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
+            <ImageList {...props} autoplay data={banner ?? getFetchData['home_mobile']?.data} dotsStyle={{
+                activeBGColor: '#ffbf00', activeBorderColor: '#ffbf00', height: 10, inactiveBGColor: '#99999966', inactiveBorderColor: '#99999966', width: 10,
+            }} loop pagination paginationPosition='down' paginationType='dots' renderItem={_renderItem} /> :
             <View style={[child, ItemCenter]}>
                 {/* <FastImage cache={cacheOnly} resizeMode={contain} source={LOADING_ICON} style={HW100p} /> */}
             </View>}
@@ -289,7 +290,7 @@ export const Guarantee = (props) => {
     const ImageGuaran2 = { uri: `${ip}/MySQL/uploads/Guarantee/Samsung-logo.png`, };
     const ImageGuaran3 = { uri: `${ip}/MySQL/uploads/Guarantee/adidas.png`, };
     const ImageGuaran4 = { uri: `${ip}/MySQL/uploads/Guarantee/w4.png`, };
-    const ImageGuaran5 = { uri: `${ip}/MySQL/uploads/Guarantee/258412.jpg`, };
+    const ImageGuaran5 = { uri: `${ip}/MySQL/uploads/Service/Marketing.jpg`, };
     const item = [
         { text: 'ใบทะเบียนภาษีมูลค่าเพิ่ม', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-001.png`, } },
         { text: 'หนังสือจดทะเบียนบริษัท', image: { uri: `${ip}/MySQL/uploads/Guarantee/warranty_blue-002.png`, } },
@@ -315,10 +316,8 @@ export const Guarantee = (props) => {
         </View>
         <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService', })}
             style={{ width: '45%', backgroundColor: '#FFFFFF', borderRadius: 5, }}>
-            <View style={[ItemCenter, { backgroundColor: mainColor, paddingHorizontal: 10, borderRadius: width / 2 }]}>
-                <Text style={[FontFamilyBold, FontSize6, { color: '#FFFFFF' }]}>FIN Services</Text>
-            </View>
-            <FastImage resizeMode={cover} source={ImageGuaran5} style={{ height: 60, }} />
+            <FastImage resizeMode={cover} source={ImageGuaran5} style={{ height: '100%', borderWidth: 1, borderRadius: 5, borderColor: '#C9C9C9' }} />
+            {/* <Text style={[FontFamilyBold, FontSize6, { textAlign: 'center', }]}>FIN Marketing</Text> */}
         </TouchableOpacity>
     </View>;
 };
@@ -500,6 +499,7 @@ export const Button_Bar = (props) => {
 ///----------------------------------------------------------------------------------------------->>>> Brand_RCM
 export const Recommend_Brand = (props) => {
     const { dataService, } = props;
+    const Gborder = require('../../../icon/gold__border_0.png');
     let item_1 = [];
     let item_2 = [];
     if (dataService?.brand.length > 0) {
@@ -514,19 +514,22 @@ export const Recommend_Brand = (props) => {
         </View>
     </View>);
     const RecommendBrand = dataService?.brand && item_1 ? item_1.map((v, i) => {
+        // const ImageReBrand = { uri: `${ip}/MySQL/uploads/Brand_R/Beand/2019-10-18_15-14-31_icon.png`, };
         const ImageReBrand = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
             <View style={Brand_image_Box}>
                 <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
+                <FastImage resizeMode={stretch} source={Gborder} style={[HW100p, ItemCenterVertical, { position: 'absolute' }]} />
             </View>
         </TouchableOpacity>;
     }) : BoxEmpty;
     const RecommendBrand2 = dataService?.brand && item_2 ? item_2.map((v, i) => {
-        // const ImageReBrand2 = { uri: `${ip}/MySQL/uploads/Brand_R/${v.image}`, };
+        // const ImageReBrand2 = { uri: `${ip}/MySQL/uploads/Brand_R/Beand/2019-10-18_15-14-31_icon.png`, };
         const ImageReBrand2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
             <View style={Brand_image_Box}>
                 <FastImage resizeMode={contain} source={ImageReBrand2} style={[HW100p, ItemCenterVertical]} />
+                <FastImage resizeMode={stretch} source={Gborder} style={[HW100p, ItemCenterVertical, { position: 'absolute' }]} />
             </View>
         </TouchableOpacity>;
     }) : BoxEmpty;
@@ -744,8 +747,8 @@ export const FlashSale = (props) => {
                 <View style={[FRow, { flex: 70, }]}>
                     <Text style={[FontFamilyBoldBold, FontSize4, FrameBackgroundTextStart, { color: '#dc3545', flex: 30, }]}>FLASH SALE</Text>
                     <View style={[FRow, { alignContent: 'center', alignItems: 'center', flex: 66, }]}>
-                        <FastImage source={ImageGood} style={{ height: 20, width: 15, }} />
-                        {/* <IconFontAwesome name='clock-o' size={30} /> */}
+                        {/* <FastImage source={ImageGood} style={{ height: 30, width: 15, }} /> */}
+                        <IconFontAwesome name='clock-o' size={20} color='#919191' />
                         <View style={[FRow, { flex: 70, }]}>
                             <View style={[Time_FlashSale_TimeBox]}>
                                 <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>{hours}</Text>
@@ -769,11 +772,10 @@ export const FlashSale = (props) => {
         </View> :
         <View style={FrameBackground2}>
             <View style={[FrameBackgroundTextBox]}>
-                <View style={[FRow, { flex: 70, }]}>
+                <View style={[FRow, { flex: 70, paddingVertical: 5 }]}>
                     <Text style={[FontFamilyBoldBold, FontSize4, FrameBackgroundTextStart, { color: '#dc3545', flex: 30, }]}>FLASH SALE</Text>
                     <View style={[FRow, { alignContent: 'center', alignItems: 'center', flex: 68, }]}>
-                        <FastImage source={ImageGood} style={{ height: 18, width: 20 }} />
-                        {/* <IconFontAwesome name='clock-o' size={30} /> */}
+                        <IconFontAwesome name='clock-o' size={20} color='#919191' />
                         <View style={[FRow, { flex: 70, }]}>
                             <View style={[ItemCenter, Time_FlashSale_TimeBox]}>
                                 <Text style={[FontFamilyBold, FontSize6, Time_FlashSale_TimeText]}>00</Text>

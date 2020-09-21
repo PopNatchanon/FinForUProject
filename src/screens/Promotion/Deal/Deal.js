@@ -1,53 +1,37 @@
 ///----------------------------------------------------------------------------------------------->>>> React
-import React, { useState, useEffect } from 'react';
-import {
-  Dimensions, SafeAreaView, ScrollView, Text, TextInput, TouchableOpacity, View, Image,
-} from 'react-native';
-import { connect, useStore } from 'react-redux';
+import React, { useEffect, useState, } from 'react';
+import { Dimensions, SafeAreaView, ScrollView, Text, TouchableOpacity, View, } from 'react-native';
+import { connect, } from 'react-redux';
 import { checkCustomer, fetchData, multiFetchData, setFetchToStart, } from '../../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
 export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import NumberFormat from 'react-number-format';
 import LinearGradient from 'react-native-linear-gradient';
 ///----------------------------------------------------------------------------------------------->>>> Icon
-import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
-import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
 import stylesDeal from '../../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { ExitAppModule, Second_product, TodayProduct, } from '../../Main/Main';
-import {
-  GetCoupon, GetData, GetServices, ProductBox, LoadingScreen, FlatProduct,
-} from '../../../customComponents/Tools';
-import { GenArray, NavigationNavigate, AppBar } from '../../../customComponents';
+import { AppBar, ExitApp, GenArray, NavigationNavigate, } from '../../../customComponents';
+import { FlatProduct, GetCoupon, GetData, GetServices, } from '../../../customComponents/Tools';
+import { Second_product, TodayProduct, } from '../../Main/Main';
 ///----------------------------------------------------------------------------------------------->>>> Ip
-import { ip, finip } from '../../../navigator/IpConfig';
+import { finip, ip, } from '../../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> set value
 const LOADING_ICON = require('../../../../images/icon.png');
 const LOADING_ICON_STYLE = { height: '100%', width: '100%' };
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
-const {
-  BoxText_Row, Button_Bars, Button_Bar_Box, child, childSlide, Coupon_BOX, Coupon_BOX_A, Deal_Calendar_Box, Deal_Calendar_BoxN, Deal_Today_Box,
-  Deal_Today_BoxImage, ProDed_New_Store_Boximage, ProDed_New_Store_Button, ProDed_Store, Second_Store_Slide_BoxText, Second_Store_Slide_image,
-  Text_EndB, Text_EndW,
-} = stylesDeal;
+const { BoxText_Row, Button_Bars, Button_Bar_Box, child, childSlide, Coupon_BOX, Coupon_BOX_A, Deal_Calendar_Box, Deal_Calendar_BoxN,
+  Deal_Today_Box, Deal_Today_BoxImage, ProDed_New_Store_Boximage, ProDed_New_Store_Button, ProDed_Store, Second_Store_Slide_BoxText,
+  Second_Store_Slide_image, Text_EndB, Text_EndW, } = stylesDeal;
 const { FontFamilyBold, FontFamilyText, FontSize5, FontSize6, FontSize7, FontSize8, FontSize9, } = stylesFont;
-const {
-  BoxProduct1Box2, BoxProduct1Image, BoxProduct2Image, Button_Bar_icon, FlexRow, FrameBackground, FrameBackgroundTextStart, ItemCenter,
-  SafeAreaViews,
-} = stylesMain;
+const { BoxProduct1Box2, BoxProduct1Image, BoxProduct2Image, Button_Bar_icon, FlexRow, FrameBackground, FrameBackgroundTextStart, ItemCenter,
+  SafeAreaViews, } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const mapStateToProps = (state) => ({
-  customerData: state.customerData, getFetchData: state.singleFetchDataFromService,
-});
+const mapStateToProps = (state) => ({ customerData: state.customerData, getFetchData: state.singleFetchDataFromService, });
 const mapDispatchToProps = ({ checkCustomer, fetchData, multiFetchData, setFetchToStart, });
 export default connect(mapStateToProps, mapDispatchToProps)(Deal);
 function Deal(props) {
@@ -56,22 +40,31 @@ function Deal(props) {
   const [cokie, setCokie] = useState(undefined);
   const [currentUser, setCurrentUser] = useState(undefined);
   const [dataService, setDataService] = useState(undefined);
-  const uri = `${finip}/coupon/coupon_findeal_mobile`;
   const getData = (v) => { setActiveGetServices(false); setDataService(v); };
   const getSource = (v) => { setActiveGetCurrentUser(false); setCokie(v.keycokie); setCurrentUser(v.currentUser); };
+  const uri = `${finip}/coupon/coupon_findeal_mobile`;
   useEffect(() => {
     !activeGetCurrentUser && activeGetServices && cokie &&
-      GetServices({ Authorization: cokie, uriPointer: uri, getDataSource: (v) => getData(v), });
+      GetServices({ Authorization: cokie, getDataSource: (v) => getData(v), uriPointer: uri, });
   }, [!activeGetCurrentUser && activeGetServices && cokie]);
   useEffect(() => {
     activeGetCurrentUser && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true, });
   }, [activeGetCurrentUser]);
+  const Props = { ...props, cokie, currentUser, dataService };
   return <SafeAreaView style={SafeAreaViews}>
-    <AppBar {...props} titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar />
+    <AppBar {...Props} titleHead={'ดีลสุดคุ้ม'} backArrow searchBar chatBar />
+    <ScrollList {...Props} />
+    <ExitApp {...Props} />
+  </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+  const { dataService } = props;
+  return <View>
     <ScrollView>
       <Slide {...props} dataService={dataService?.banner} />
       <Deal_Calendar dataService={dataService?.carlendar_banner} />
-      <Deal_Today {...props} cokie={cokie ?? undefined} currentUser={currentUser ?? undefined} />
+      <Deal_Today {...props} />
       <Deal_Exclusive {...props} dataService={dataService?.exclusive} />
       <ProDed_Stores {...props} dataService={dataService?.store} />
       <ProDed_New_Store dataService={dataService?.store} />
@@ -84,8 +77,7 @@ function Deal(props) {
     <View style={{ backgroundColor: '#ffffff', borderColor: '#ECECEC', borderTopWidth: 1, }}>
       <Button_Bar {...props} />
     </View>
-    <ExitAppModule {...props} />
-  </SafeAreaView>;
+  </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Slide
 export const Slide = (props) => {
@@ -97,7 +89,7 @@ export const Slide = (props) => {
   </View>;
   const _renderItem = (v) => {
     const imageSlide = { uri: `${finip}/${v.image_path}/${v.image}`, };
-    return <View style={[child, { marginTop: 0 }]} key={v.id}>
+    return <View key={v.id} style={[child, { marginTop: 0 }]}>
       <FastImage resizeMode={stretch} source={imageSlide} style={childSlide} />
     </View>;
   };
@@ -113,32 +105,18 @@ export const Button_Bar = (props) => {
   const IconDeal03 = require('../../../../icon/Icon_Deal/03.jpg');
   const IconDeal04 = require('../../../../icon/Icon_Deal/04.jpg');
   const IconDeal05 = require('../../../../icon/Icon_Deal/05.jpg');
+  const List = [
+    { icon: IconDeal01, setNavi: { goScreen: 'Promotion_Deal', noPush: true }, },
+    { icon: IconDeal02, setNavi: { goScreen: 'Promotion_Coin', noPush: true }, },
+    { icon: IconDeal03, setNavi: { goScreen: 'Promotion_Campaign', noPush: true }, },
+    { icon: IconDeal04, setNavi: { goScreen: 'Promotion_TheBestFin', noPush: true }, },
+    { icon: IconDeal05, setNavi: { goScreen: 'Promotion_InstallmentPay', noPush: true }, }]
   return <View style={[Button_Bars, /*{ bottom: '7%', }*/]}>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Deal', noPush: true, })}>
+    {List.map((v, i) => <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, ...v.setNavi })}>
       <View style={[Button_Bar_Box]}>
-        <FastImage resizeMode={contain} source={IconDeal01} style={Button_Bar_icon} />
+        <FastImage resizeMode={contain} source={v.icon} style={Button_Bar_icon} />
       </View>
-    </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Coin', noPush: true, })}>
-      <View style={[Button_Bar_Box]}>
-        <FastImage resizeMode={contain} source={IconDeal02} style={Button_Bar_icon} />
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_Campaign', noPush: true, })}>
-      <View style={[Button_Bar_Box]}>
-        <FastImage resizeMode={contain} source={IconDeal03} style={Button_Bar_icon} />
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_TheBestFin', noPush: true, })}>
-      <View style={[Button_Bar_Box]}>
-        <FastImage resizeMode={contain} source={IconDeal04} style={Button_Bar_icon} />
-      </View>
-    </TouchableOpacity>
-    <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ ...props, goScreen: 'Promotion_InstallmentPay', noPush: true, })}>
-      <View style={[Button_Bar_Box]}>
-        <FastImage resizeMode={contain} source={IconDeal05} style={Button_Bar_icon} />
-      </View>
-    </TouchableOpacity>
+    </TouchableOpacity>)}
   </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Deal_Calendar
@@ -165,37 +143,28 @@ export const Deal_Calendar = (props) => {
 };
 ///----------------------------------------------------------------------------------------------->>>> Deal_Today
 export const Deal_Today = (props) => {
-  const { currentUser, cokie, navigation } = props;
+  const { cokie, currentUser, } = props;
   const [activeServices, setActiveServices] = useState({ activeGetServices: true, activeGetServices2: true });
   const [dataService, setDataService] = useState(undefined);
   const [dataService2, setDataService2] = useState(undefined);
   const [id_promotion, setId_promotion] = useState('');
-  const dataBody = {
-    id_customer: currentUser?.id_customer,
-    device: 'mobile_device',
-    id_promotion: id_promotion,
-  };
-  const dataBody2 = {
-    id_customer: currentUser?.id_customer,
-    device: 'mobile_device',
-    id_promotion_shop: id_promotion,
-  };
+  const dataBody = { device: 'mobile_device', id_customer: currentUser?.id_customer, id_promotion, };
+  const dataBody2 = { device: 'mobile_device', id_customer: currentUser?.id_customer, id_promotion_shop: id_promotion, };
   const uri = `${finip}/coupon/save_coupon_fin`;
   const uri2 = `${finip}/coupon/save_coupon_shop`;
   const getCoupon = (v) => {
     v.list == 'fin' ? activeServices.activeGetServices = true : v.list == 'shop' ? activeServices.activeGetServices2 = true : null;
-    setActiveServices(activeServices);
-    setId_promotion(v.id_promotion);
+    setActiveServices(activeServices); setId_promotion(v.id_promotion);
   };
   const getData = (v) => { activeServices.activeGetServices = false; setActiveServices(activeServices); setDataService(v); };
   const getData2 = (v) => { activeServices.activeGetServices2 = false; setActiveServices(activeServices); setDataService2(v); };
   useEffect(() => {
     activeServices.activeGetServices && currentUser && cokie &&
-      GetServices({ Authorization: cokie, dataBody, uriPointer: uri, getDataSource: (v) => getData(v) });
+      GetServices({ Authorization: cokie, dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
   }, [activeServices.activeGetServices && currentUser && cokie]);
   useEffect(() => {
     activeServices.activeGetServices2 && currentUser && cokie &&
-      GetServices({ Authorization: cokie, dataBody: dataBody2, uriPointer: uri2, getDataSource: (v) => getData2(v) });
+      GetServices({ Authorization: cokie, dataBody: dataBody2, getDataSource: (v) => getData2(v), uriPointer: uri2, });
   }, [activeServices.activeGetServices2 && currentUser && cokie]);
   const emptyBox = GenArray(2).map((_, i) => <View key={i} style={[Coupon_BOX, { marginLeft: 3, }]}>
     <View style={{ flexDirection: 'row', justifyContent: 'flex-end', }}>
@@ -241,7 +210,7 @@ export const Deal_Today = (props) => {
           {dataService?.coupon?.length > 0 ? dataService.coupon.map((v, i) => {
             const { detail, end_period, id_promotion, my_coupon, name, } = v;
             return <GetCoupon codeList={my_coupon == 'no' ? 'available' : ''} colorCoupon='#007bff' couponText={name} getCoupon={v =>
-              getCoupon(v)} key={i} marginL={3} saveCoupon setDataService={{ id_promotion: id_promotion, list: 'fin', }} textDetail={detail}
+              getCoupon(v)} key={i} marginL={3} saveCoupon setDataService={{ id_promotion, list: 'fin', }} textDetail={detail}
               timeOut={end_period} />
           }) : emptyBox}
         </View>
@@ -257,8 +226,8 @@ export const Deal_Today = (props) => {
             {dataService2?.coupon?.length > 0 ? dataService2.coupon.map((v, i) => {
               const { detail, end_period, id_promotion, my_coupon, name, } = v;
               return <GetCoupon codeList={my_coupon == 'no' ? 'available' : ''} colorCoupon='#E43333' couponText={name} getCoupon={v =>
-                getCoupon(v)} key={i} marginL={3} saveCoupon setDataService={{ id_promotion: id_promotion, list: 'shop', }}
-                textDetail={detail} timeOut={end_period} />
+                getCoupon(v)} key={i} marginL={3} saveCoupon setDataService={{ id_promotion, list: 'shop', }} textDetail={detail}
+                timeOut={end_period} />
             }) : emptyBox2}
           </View>
         </ScrollView>

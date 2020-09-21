@@ -441,7 +441,6 @@ const setStageCustomerDataFailure = () => ({ type: COSTOMER_DATA_FAILURE });
 const setStageCustomerDataSuccess = () => ({ type: COSTOMER_DATA_SUCCESS });
 const setStageCustomerNotLogin = () => ({ type: COSTOMER_NOT_LOGIN });
 export const checkCustomer = (props) => {
-  SplashScreen.hide();
   const { activeConsole } = props;
   let error, result, dataCokie, dataCustomer, dataProcessCustomer;
   return async dispatch => {

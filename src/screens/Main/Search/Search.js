@@ -147,7 +147,7 @@ function Search(props) {
                         setSliderVisible(value)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
                     {!activeGetServices && !actionStart && dataService?.product && <TodayProduct {...props} noTitle
                         loadData={dataService.product} />}
-                </ScrollView> : <View></View>}
+                </ScrollView> : <View />}
         <SlideTab2 data={data} filterValue={(value) => setStatefilterValue(value)} sliderVisible={sliderVisible}
             setStateSliderVisible={(value) => setSliderVisible(value)} />
         <ExitAppModule {...props} />

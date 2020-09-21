@@ -90,7 +90,7 @@ function Category(props) {
             <RecommendStore {...props} recommend={dataService2?.recommend} />
             <Product_Brand {...props} loadData={dataService2?.product_popular_brand} />
             <BannerBar_TWO />
-            <View style={{ marginBottom: 2 }}></View>
+            <View style={{ marginBottom: 2 }} />
             <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSliderVisible(value)} />
             <TodayProduct {...props} noTitle loadData={dataService?.product} />
         </ScrollView>

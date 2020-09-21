@@ -122,7 +122,7 @@ export default StyleSheet.create({
         height: 130,
         width: 120,
     },
-    Second_Store: {
+    Second_Stores: {
         width: '100%',
         alignItems: 'center',
     },
@@ -190,7 +190,7 @@ export default StyleSheet.create({
         alignItems: 'center',
     },
     ///--------------------------------CampaignScreen-----------------------------------------///
-    CampaignBody: {
+    CampaignBodys: {
         width: width * 0.97,
         backgroundColor: '#FFFFFF',
     },
@@ -250,7 +250,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         marginBottom: 10,
     },
-    Store_Sale: {
+    Store_Sales: {
         height: 170,
         width: '100%',
         marginTop: 3,
@@ -260,7 +260,7 @@ export default StyleSheet.create({
         width: '100%',
         height: '100%',
     },
-    Store_Sale_Box: {
+    Store_Sale_Boxs: {
         height: '100%',
         width: '95%',
         flexDirection: 'row',
@@ -294,7 +294,7 @@ export default StyleSheet.create({
         height: 120,
         marginTop: 3,
     },
-    Head_Image: {
+    Head_Images: {
         width: '100%',
         height: '100%',
     },

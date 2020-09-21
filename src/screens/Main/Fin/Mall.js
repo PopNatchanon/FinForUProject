@@ -18,7 +18,7 @@ import stylesFont from '../../../style/stylesFont';
 import stylesMain from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
+import { TodayProduct, ExitAppModule, Recommend_Brand, } from '../Main';
 import { Slide, } from '../../Promotion/Deal/Deal';
 import { GetData, GetServices, TabBar, ProductBox, SlideTab2, LoadingScreen } from '../../../customComponents/Tools';
 import { Button_Bar, PricesSlide, SlideTab, } from '../Exclusive/Exclusive';
@@ -91,7 +91,7 @@ export let FIN_Mall = (props) => {
     {(activeGetCurrentUser || activeGetServices) && <LoadingScreen key='LoadingScreen' />}
     <ScrollView stickyHeaderIndices={[2]}>
       <Slide dataService={dataService && dataService.banner} />
-      <View style={{ marginBottom: 10 }}></View>
+      <View style={{ marginBottom: 10 }} />
       <Button_Bar filterValue={value => setStateMainfilterValue(value)} setSliderVisible={value => setSlider(value)}
         getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
       {dataService && dataService.product && <TodayProduct {...props} noTitle loadData={dataService.product} />}

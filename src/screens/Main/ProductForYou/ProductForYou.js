@@ -81,7 +81,7 @@ function ProductForYou(props) {
     <AppBar {...props} backArrow titleHead='FIN คัดมาเพื่อคุณ' />
     <ScrollView stickyHeaderIndices={[2]}>
       <Slide dataService={dataService && dataService.banner} />
-      <View style={{ marginBottom: 10 }}></View>
+      <View style={{ marginBottom: 10 }} />
       <Button_Bar filterValue={(value) => setStateMainfilterValue(value)} setSliderVisible={(value) => setSlider(value)}
         getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
       {dataService && dataService.product && <TodayProduct {...props} noTitle loadData={dataService.product} />}

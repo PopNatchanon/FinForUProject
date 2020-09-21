@@ -174,7 +174,7 @@ export let Store_Detail = (props) => {
                     </View>
                 </View>
             </View>
-            <View style={{ backgroundColor: '#BABABA', bottom: 30, height: 3, width: '80%', marginLeft: 50, }}></View>
+            <View style={{ backgroundColor: '#BABABA', bottom: 30, height: 3, width: '80%', marginLeft: 50, }} />
             <View style={[stylesTopic.Store_Detail, { bottom: 30, marginBottom: -27, paddingBottom: 3, }]}>
                 <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize7]}>      รองเท้าสไตล์หวานแหววเอาใจคุณหนู
                 กับรองเท้าหุ้มส้นประดับมุก รองเท้าทรง sandle รัดส้นเตี้ยหัวแหลมเพิ่มลุคเฟมินีนสุดๆ ไหนจะรองเท้าส้นสูงพร้อมออกงานก็มีหมด

@@ -68,7 +68,7 @@ export let ChatScreen = (props) => {
                     <FastImage source={{ uri: value.image, }}
                         style={stylesProfileTopic.Chat_Tag_image} />
                     <View style={stylesProfileTopic.Chat_Tag_online}>
-                        <View style={stylesProfileTopic.Chat_Tag_online_point}></View>
+                        <View style={stylesProfileTopic.Chat_Tag_online_point} />
                     </View>
                 </View>
                 <View style={{ justifyContent: 'center', marginLeft: 10, width: '60%' }}>

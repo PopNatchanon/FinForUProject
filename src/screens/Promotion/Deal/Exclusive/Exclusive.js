@@ -67,7 +67,7 @@ export const ScrollList = (props) => {
     const { dataService, dataService2 } = props;
     return <ScrollView stickyHeaderIndices={[2]}>
         {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
-        <View style={{ marginBottom: 10 }}></View>
+        <View style={{ marginBottom: 10 }} />
         {dataService2 && <Button_Bar {...props} category={dataService2.category} key='Button_Bar'
             getUpdateIndex={(value) => getUpdateIndex(value)} />}
         {dataService2 && <TodayProduct {...props} key='TodayProduct' loadData={dataService2.product} noTitle />}

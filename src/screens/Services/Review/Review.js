@@ -45,15 +45,15 @@ export let Review_Us = (props) => {
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>Review</Text>
         <View style={{ backgroundColor: '#FFFFFF', width: '90%' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชื่อผู้ติดต่อ*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
+            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หมายเลขโทรศัพท์*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
+            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อีเมล*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
+            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>Link</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }}></View>
+            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>เขียนรีวิว</Text>
-            <View style={{ borderWidth: 1, height: 100, borderColor: '#C9C9C9' }}></View>
+            <View style={{ borderWidth: 1, height: 100, borderColor: '#C9C9C9' }} />
         </View>
         <View style={stylesMain.ItemCenter}>
             <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: 80, height: 40, marginTop: 10, borderRadius: 10 }]}>

@@ -40,9 +40,7 @@ import stylesMain, { appBarColor, color_up, mainColor, } from '../../style/Style
 import stylesStore from '../../style/StylesStoreScreen';
 import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {
-    FlatComponent, FlatProduct, GetData, GetServices, ProductBox,
-} from '../../customComponents/Tools';
+import { FlatComponent, FlatProduct, GetServices, ProductBox, } from '../../customComponents/Tools';
 import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, IconLoading, EmptyProduct, } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -50,12 +48,10 @@ import { finip, ip, } from '../../navigator/IpConfig';
 const LOADING_ICON = require('../../../images/icon.png');
 const { cacheOnly, } = FastImage.cacheControl;
 const { contain, cover, stretch, } = FastImage.resizeMode;
-const {
-    FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7, FontSize8, FontSize9
-} = stylesFont;
+const { FontCenter, FontFamilyBold, FontFamilyBoldBold, FontFamilySemiBold, FontFamilyText, FontSize4, FontSize5, FontSize6, FontSize7,
+    FontSize8, FontSize9 } = stylesFont;
 const { FRow, H75pW100p, HW100p, HxW75p, HxWfull, } = stylesLayout;
-const {
-    animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Botton_PopUp_Box, Botton_PopUp_Image, Botton_PopUp_Text,
+const { animatedView, animatedViewSub, BackgroundAreaView, Banner_Bar, Botton_PopUp_Box, Botton_PopUp_Image, Botton_PopUp_Text,
     BoxProduct1Box2, BoxProduct1Box2new, BoxProduct1ImagePrice, BoxProduct2, BoxProduct2BoxProduct, BoxProduct5Box,
     BoxProduct5ImageofLines, BoxStore1Box, BoxStore1Box2, BoxStore1Box3, BoxStore2Box2, BoxStore2Image2, Brand_image_Box,
     Button_Bar_Box, Button_Bar_icon, Categorys, CategoryProductImageHead, CategoryProductStoreBox, category_A, Category_box, child,
@@ -63,8 +59,7 @@ const {
     ItemCenterVertical, litleSlideImage, PopularText_A, Popular_Box_B, Popular_Box_D, SafeAreaViewNB, Second_StoreFin,
     Second_StoreFin_BoxHead, Second_StoreFin_Image, Second_StoreFin_ImageA, Second_StoreFin_ImageB, Second_StoreFin_ImageB_T,
     Second_Storefooter, Supermarket_BrandBox, Supermarket_Brand_Image, Supermarket_Brand_Shop, Supermarket_Brand_Shop2, Supermarket_Image,
-    Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText,
-} = stylesMain;
+    Supermarket_Product, Supermarket_Store, Time_FlashSale_TimeBox, Time_FlashSale_TimeText, } = stylesMain;
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 ///----------------------------------------------------------------------------------------------->>>> Main // complete_last_function
 const getCartDataCount = (cartData) => {
@@ -147,7 +142,7 @@ function Main(props) {
     }, { // แบรนด์เนอร์โฆษณา 2
         nameComponent: 'BannerBar_TWO',
         renderComponent: <BannerBar_TWO />
-    },/* { // ร้านนี้ห้ามพลาด
+    }, { // ร้านนี้ห้ามพลาด
         nameComponent: 'Fin_LuxuryShop',
         // renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
         renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -175,7 +170,7 @@ function Main(props) {
     }, { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },*/ { // สินค้า และร้านค้า มือสอง
+    }, { // สินค้า และร้านค้า มือสอง
         nameComponent: 'Second_product',
         renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 3
@@ -514,11 +509,13 @@ export const Recommend_Brand = (props) => {
         </View>
     </View>);
     const RecommendBrand = dataService?.brand && item_1 ? item_1.map((v, i) => {
+        const uriImage = `${finip}/${v.image_path}/${v.image}`;
         // const ImageReBrand = { uri: `${ip}/MySQL/uploads/Brand_R/Beand/2019-10-18_15-14-31_icon.png`, };
         const ImageReBrand = { uri: `${finip}/${v.image_path}/${v.image}`, };
-        return <TouchableOpacity activeOpacity={1} key={i} onPress={() => Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
-            <View style={Brand_image_Box}>
-                <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
+        return <TouchableOpacity activeOpacity={1} key={i} onPress={() =>
+            Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
+            <View style={[Brand_image_Box, { height: 60, width: width * 0.25, }]}>
+                <FastImage resizeMode={cover} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
                 <FastImage resizeMode={stretch} source={Gborder} style={[HW100p, ItemCenterVertical, { position: 'absolute' }]} />
             </View>
         </TouchableOpacity>;

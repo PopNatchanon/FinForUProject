@@ -12,7 +12,7 @@ export const { height, width } = Dimensions.get('window');
 import stylesMain, { mainColor } from '../../../style/StylesMainScreen';
 import stylesTopic from '../../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import {  ExitAppModule, TodayProduct, } from '../Main';
+import { ExitAppModule, TodayProduct, } from '../Main';
 import { Slide } from '../../Promotion/Deal/Deal';
 import { TabBar, GetServices } from '../../../customComponents/Tools';
 ///----------------------------------------------------------------------------------------------->>>> Ip
@@ -51,7 +51,7 @@ function PopularProduct(props) {
         {id_items != null ?
             <ScrollView stickyHeaderIndices={[2]} ref={ScrollViewRef}>
                 <Slide dataService={dataService} />
-                <View style={{ marginBottom: 10 }}></View>
+                <View style={{ marginBottom: 10 }} />
                 <Button_Bar id_item={id_items} getData={(value) => getButton_Bar(value)} />
                 <TodayProduct {...props} loadData={dataArray[id_items]} noTitle />
             </ScrollView> :

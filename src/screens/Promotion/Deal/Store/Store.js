@@ -66,7 +66,7 @@ export const ScrollList = (props) => {
     const { dataService } = props;
     return <ScrollView stickyHeaderIndices={[2]}>
         {dataService && dataService.banner && <Slide dataService={dataService?.banner} />}
-        <View style={{ marginBottom: 10 }}></View>
+        <View style={{ marginBottom: 10 }} />
         <Button_Bar />
         {/* <Store_Detail /> */}
     </ScrollView>;

@@ -62,7 +62,7 @@ export let Seller_Comment = (props) => {
             paddingHorizontal: 10, width: '100%',
         }}>
             <View style={FlexRow}>
-                <View style={{ backgroundColor: '#C4C4C4', borderRadius: 20, height: 40, margin: 5, width: 40, }}></View>
+                <View style={{ backgroundColor: '#C4C4C4', borderRadius: 20, height: 40, margin: 5, width: 40, }} />
                 <Text style={[FontFamilyBold, FontSize6, { margin: 10, }]}>PPoo</Text>
             </View>
         </View>

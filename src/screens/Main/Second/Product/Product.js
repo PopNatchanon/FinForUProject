@@ -63,9 +63,9 @@ function Product(props) {
             <Slide {...props} />
             <Second_Store {...props} />
             <Second_Product_Brand {...props} />
-            <View style={{ marginBottom: 2 }}></View>
+            <View style={{ marginBottom: 2 }} />
             <BannerBar_ONE />
-            <View style={{ marginBottom: 3 }}></View>
+            <View style={{ marginBottom: 3 }} />
             <Button_Bar setSliderVisible={(value) => setSlider(value)} getSliderVisible={{ getSlider: sliderVisible, count: 0 }} />
             {dataService && <TodayProduct {...props} noTitle loadData={dataService} typeip prepath='mysql' />}
         </ScrollView>

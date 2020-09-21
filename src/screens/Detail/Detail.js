@@ -399,7 +399,7 @@ export let Conpon = (props) => {
             </View>
           </TouchableOpacity>
         </View>
-      </View> : <View key={'ConponSheet'}></View>}
+      </View> : <View key={'ConponSheet'} />}
   </>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Selector

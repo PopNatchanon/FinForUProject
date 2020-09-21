@@ -278,7 +278,7 @@ function promiseProcessData(promise) {
 };
 ///----------------------------------------------------------------------------------------------->>>> GetData
 export async function GetData(props) {
-    SplashScreen.hide();
+    setTimeout(() => { SplashScreen.hide(); }, 5000);
     const { abortController, getCokie, getSource, getUser, } = props;
     var activeLogin;
     var value = {};
@@ -548,8 +548,7 @@ export function ProductBox(props) {
             var discounts;
             discount && (discounts = discount.replace("%", ""));
             const uriImage = {
-                uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${
-                    type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
+                uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
             };
             return <TouchableOpacity activeOpacity={1} key={index} onPress={() => noNavigation ?
                 getDataService({ id_product: id_product, name: name_product ?? name }) :
@@ -612,10 +611,8 @@ export function FlatComponent(props) {
     const { animatedView, component, componentPage, } = props;
     const AFlatList = Animatable.createAnimatableComponent(FlatList);
     return component && animatedView ?
-        <Animated.FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${
-            componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} /> :
-        <FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${
-            componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} />;
+        <Animated.FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} /> :
+        <FlatList {...props} data={component} keyExtractor={(value, index) => `Component:${componentPage ?? index}_${value.nameComponent}`} scrollEnabled renderItem={(value) => value.item.renderComponent} />;
 };
 ///----------------------------------------------------------------------------------------------->>>> FlatProduct
 export function FlatProduct(props) {
@@ -645,8 +642,7 @@ export function RenderProduct(props) {
         console.log(item)
     ];
     const uriImage = {
-        uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${
-            type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
+        uri: `${type == 'local' ? ip : finip}/${(path_image_product ?? image_path)}/${(image_product ?? image_main ?? image)}${type == 'local' ? '' : Platform.OS == 'android' ? '_.webp' : ''}`
     };
     var discounts;
     onShow && console.log(uriImage)
@@ -895,7 +891,7 @@ export class LoadingScreen extends React.Component {
         return <Modal animationType="fade" onRequestClose={this.setModalVisible.bind(this, !this.state.modalVisible)} transparent={true}
             visible={modalVisible}>
             <View style={[ItemCenter, { height, width }]}>
-                <View style={{ backgroundColor: '#555555', height, opacity: 0.5, position: 'absolute', width, }}></View>
+                <View style={{ backgroundColor: '#555555', height, opacity: 0.5, position: 'absolute', width, }} />
                 <View style={[ItemCenterVertical, { backgroundColor: '#ECECEC', borderRadius: 8, height: 80, width: 80, }]}>
                     <ActivityIndicator style={ItemCenterVertical} color='#1A3263' size='large' />
                 </View>

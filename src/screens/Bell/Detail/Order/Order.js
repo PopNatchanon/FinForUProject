@@ -24,16 +24,18 @@ function Order(props) {
     return <SafeAreaView style={SafeAreaViews}>
         <AppBar {...props} backArrow titleHead='รายละเอียดคำสั่งซื้อ' />
         <ScrollList {...props} />
-        <Detail_Button {...props} />
         <ExitApp {...props} />
     </SafeAreaView>;
 };
 ///----------------------------------------------------------------------------------------------->>>>
 export const ScrollList = (props) => {
-    return <ScrollView>
-        <Detail_Order />
-        <Detail_Product />
-    </ScrollView>;
+    return <View>
+        <ScrollView>
+            <Detail_Order />
+            <Detail_Product />
+        </ScrollView>
+        <Detail_Button {...props} />
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Detail_Order
 export const Detail_Order = (props) => {

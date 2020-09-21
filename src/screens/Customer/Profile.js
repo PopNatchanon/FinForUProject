@@ -97,7 +97,7 @@ export let Headbar = (props) => {
                         <Text style={[stylesFont.FontSize6, stylesFont.FontFamilyBold, { color: '#FFFFFF' }]}>
                             {dataSevice?.list_profile[0]?.name ?? ' '}</Text>
                         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: statusOnline ? '#BEBDBD' : '#43e855', }]}>
-                            <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }}></View>Active อยู่</Text>
+                            <View style={{ height: 8, width: 8, borderRadius: 4, backgroundColor: '#43e855' }} />Active อยู่</Text>
                         <Text style={[stylesFont.FontSize7, stylesFont.FontFamilyText, { color: '#FFFFFF' }]}>
                             ผู้ติดตาม {dataSevice?.who_follow_me ?? 0}</Text>
                     </View>

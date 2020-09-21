@@ -13,7 +13,7 @@ export default StyleSheet.create({
         backgroundColor: '#FFF',
         paddingTop: 10,
     },
-    Account: {
+    Accounts: {
         width: '100%',
         // height: 100,
         backgroundColor: '#FFF',
@@ -24,7 +24,7 @@ export default StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
     },
-    Order: {
+    Orders: {
         width: '100%',
         height: 'auto',
         backgroundColor: '#FFF',
@@ -70,7 +70,7 @@ export default StyleSheet.create({
         justifyContent: 'space-between',
         padding: 15,
     },
-    Option_payment: {
+    Option_payments: {
         width: '100%',
         backgroundColor: '#FFF',
         marginTop: 10,

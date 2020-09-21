@@ -11,34 +11,20 @@ import {
     setDataRefresh, setDataStart, setFetchToStart
 } from '../../actions';
 ///----------------------------------------------------------------------------------------------->>>> Import
-import ActionButton from 'react-native-action-button';
 import * as Animatable from 'react-native-animatable';
-import BottomSheet from "react-native-raw-bottom-sheet";
 import Carousel, { PaginationLight } from 'react-native-x-carousel';
-import Dash from 'react-native-dash';
 export const { height, width } = Dimensions.get('window');
 import FastImage from 'react-native-fast-image';
-import LinearGradient from 'react-native-linear-gradient';
-import ModalDropdown from 'react-native-modal-dropdown';
-import { Notifications } from 'react-native-notifications';
 import NumberFormat from 'react-number-format';
 import SlidingView from 'rn-sliding-view';
-import SplashScreen from 'react-native-splash-screen';
-import WebView from 'react-native-webview';
 ///----------------------------------------------------------------------------------------------->>>> Icon
 import IconAntDesign from 'react-native-vector-icons/AntDesign';
-import IconEntypo from 'react-native-vector-icons/Entypo';
-import IconFeather from 'react-native-vector-icons/Feather';
-import IconFontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import IconFontAwesome from 'react-native-vector-icons/FontAwesome';
 import IconMaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 ///----------------------------------------------------------------------------------------------->>>> Styles
-import stylesDeal from '../../style/stylePromotion-src/styleDealScreen';
 import stylesFont from '../../style/stylesFont';
-import stylesLayout from '../../style/stylesLayout'
+import stylesLayout from '../../style/stylesLayout';
 import stylesMain, { appBarColor, color_up, mainColor, } from '../../style/StylesMainScreen';
-import stylesStore from '../../style/StylesStoreScreen';
-import stylesTopic from '../../style/styleTopic';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
 import {
     FlatComponent, FlatProduct, GetData, GetServices, ProductBox,
@@ -147,7 +133,7 @@ function Main(props) {
     }, { // แบรนด์เนอร์โฆษณา 2
         nameComponent: 'BannerBar_TWO',
         renderComponent: <BannerBar_TWO />
-    },/* { // ร้านนี้ห้ามพลาด
+    }, { // ร้านนี้ห้ามพลาด
         nameComponent: 'Fin_LuxuryShop',
         // renderComponent: <Fin_LuxuryShop  {...props} dataService={getFetchData['publish_mobile']?.data} />
         renderComponent: <NewStore  {...props} dataService={getFetchData['publish_mobile']?.data} />
@@ -172,10 +158,10 @@ function Main(props) {
     }, { // ฟินคัดมาเพื่อคุณ
         nameComponent: 'Product_for_you',
         renderComponent: <Product_for_you {...props} dataService={getFetchData['publish_mobile']?.data} />
-    }, { // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
+    },{ // สินค้า และ โฆษณาร้านค้า ทั้ง 20 หมวดหมู่
         nameComponent: 'CategoryProduct',
         renderComponent: <CategoryProduct {...props} dataService={getFetchData['publish_mobile']?.data} />
-    },*/ { // สินค้า และร้านค้า มือสอง
+    },{ // สินค้า และร้านค้า มือสอง
         nameComponent: 'Second_product',
         renderComponent: <Second_product {...props} dataService={getFetchData['publish_mobile']?.data} />
     }, { // แบรนด์เนอร์โฆษณา 3
@@ -566,7 +552,7 @@ export const Popular_store = (props) => {
     }) : BoxEmpty;
     return <View style={FrameBackground2}>
         <View style={[FrameBackgroundTextBox]}>
-            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>ร้านที่ใช่อยากให้ช้อป</Text>
+            <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>Fin Luxury Shop</Text>
         </View>
         <View style={[FRow, { aspectRatio: 4, height: 'auto', justifyContent: 'space-between', paddingHorizontal: 5, }]}>
             {PopularStore}</View>
@@ -1335,7 +1321,7 @@ export const Fin_Mall = (props) => {
         };
     });
     return <View style={[FRow, FinMall_Box]}>
-        <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485, }}>
+        <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485,paddingVertical:5 }}>
             <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>Fin Mall</Text>
             <View style={{ backgroundColor: '#691F50', borderRadius: 5, justifyContent: 'space-between', marginBottom: 3, padding: 3, }}>
                 {dataService ?
@@ -1358,7 +1344,7 @@ export const Fin_Mall = (props) => {
                     </View>}
             </View>
         </View>
-        <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485, }}>
+        <View style={{ backgroundColor: '#FFFFFF', paddingHorizontal: 5, width: width * 0.485,paddingVertical:5  }}>
             <Text style={[FontFamilyBold, FontSize5, FrameBackgroundTextStart]}>สินค้าสุด Exclusive</Text>
             <View style={{ backgroundColor: '#19508B', borderRadius: 5, justifyContent: 'space-between', padding: 3, }}>
                 {dataService ?

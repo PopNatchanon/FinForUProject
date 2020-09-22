@@ -10,12 +10,8 @@ import { CommonActions, StackActions, } from '@react-navigation/native';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 ///----------------------------------------------------------------------------------------------->>>> NavigationNavigate
 function NavigationNavigate(props) {
-    const {
-        goScreen, navigation, noPush, passHome, setConsole, setData,
-    } = props;
-    const navigationActions = CommonActions.reset({
-        index: 0, actions: [StackActions.replace({ routeName: goScreen, params: setData })],
-    });
+    const { goScreen, navigation, noPush, passHome, setConsole, setData, } = props;
+    const navigationActions = CommonActions.reset({ index: 0, actions: [StackActions.replace({ routeName: goScreen, params: setData })], });
     console.log(goScreen);
     console.log(setData);
     setConsole && (console.log(setConsole.consolename), console.log(setConsole.consolelog));

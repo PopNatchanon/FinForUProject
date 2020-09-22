@@ -32,7 +32,7 @@ function App() {
   return <Provider store={store}>
     <NavigationContainer>
       <Stack.Navigator headerMode="none" initialRouteName={
-        'Main'
+        'Customer_Profile'
         // 'Promotion_Deal'
         // 'Store'
       }>

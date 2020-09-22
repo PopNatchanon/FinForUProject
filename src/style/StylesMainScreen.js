@@ -537,7 +537,7 @@ export default StyleSheet.create({
     width: 50,
     resizeMode: 'stretch',
   },
-  TextInput: {
+  TextInputs: {
     width: '80%',
     paddingVertical: 1,
   },

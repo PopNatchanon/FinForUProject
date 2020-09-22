@@ -26,7 +26,7 @@ import stylesFont from '../../style/stylesFont';
 import stylesLayout from '../../style/stylesLayout';
 import stylesMain, { appBarColor, color_up, mainColor, } from '../../style/StylesMainScreen';
 ///----------------------------------------------------------------------------------------------->>>> Inside/Tools
-import { FlatComponent, FlatProduct, GetServices, ProductBox, } from '../../customComponents/Tools';
+import { FlatComponent, FlatProduct, GetData, GetServices, ProductBox, } from '../../customComponents/Tools';
 import { AppBar as AAppBar, GenArray, ImageList, NavigationNavigate, Toolbar, IconLoading, EmptyProduct, } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
@@ -65,8 +65,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(Main)
 function Main(props) {
     const { fetchData, getFetchData, multiFetchData } = props;
     const [activeTime, setActiveTime] = useState(true);
-    const scrollY = new Animated.Value(0);
     const maxheight = 55;
+    const scrollY = new Animated.Value(0);
     const onScroll = Animated.event([{ nativeEvent: { contentOffset: { y: scrollY } } }], { useNativeDriver: false, });
     const AnimatedHeadbg = scrollY.interpolate({
         inputRange: [maxheight, maxheight * 2],
@@ -501,7 +501,7 @@ export const Recommend_Brand = (props) => {
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() =>
             Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
             <View style={[Brand_image_Box, { height: 60, width: width * 0.25, }]}>
-                <FastImage resizeMode={cover} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
+                <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
                 <FastImage resizeMode={stretch} source={Gborder} style={[HW100p, ItemCenterVertical, { position: 'absolute' }]} />
             </View>
         </TouchableOpacity>;

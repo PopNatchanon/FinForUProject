@@ -31,19 +31,13 @@ import { PopularProduct } from '../Store/Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup
-const { Bar, Bar_Buy, Bar_Buy_price, Bar_Code, Bar_Code_Box, Bar_Code_Box_Text, Bar_Code_Text, BOX_Buy, BOX_Buy_Text, Product_Cart
+const { Bar, Bar_Buy, Bar_Buy_price, Bar_Code, Bar_Code_Box, Bar_Code_Box_Text, Bar_Code_Text, BOX_Buy, BOX_Buy_Text, Product_Carts
 } = stylesCart;
 const { FontFamilyBold, FontFamilyText, FontSize2, FontSize4, FontSize5, FontSize6, FontSize7 } = stylesFont;
 const { animatedView, animatedViewSub, BackgroundAreaView, BoxProduct2Image, exitTitleText, ItemCenter, ItemCenterVertical, SafeAreaViewNB,
 } = stylesMain;
 ///----------------------------------------------------------------------------------------------->>>> Main
-const getCartDataList = (cartData) => {
-    const cartDataList = [];
-    cartData?.map((value) => value.product.map((value2) => { if (value2.checked) return cartDataList.push(value2.id_cartdetail); }));
-    return cartDataList;
-};
 const mapStateToProps = (state) => ({
-    cartData: state.cartData, cartDataList: getCartDataList(state.cartData.data), couponList: state.cartData.couponList,
     customerData: state.customerData, getFetchData: state.singleFetchDataFromService, reduxDataBody: state.activeFetchData
 });
 const mapDispatchToProps = ({
@@ -53,94 +47,125 @@ const mapDispatchToProps = ({
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);
 function Cart(props) {
-    const { cartData, cartDataList, cartListResult, getFetchData, } = props;
     const [activeGetSource, setActiveGetSource] = useState(true);
+    const [activeRefresh, setActiveRefresh] = useState(true);
     const [activeSave2, setActiveSave2] = useState(false);
     const [cokie, setCokie] = useState(undefined);
     const [currentUser, setCurrentUser] = useState(undefined);
-    let getSource = (value) => { setActiveGetSource(false); setCurrentUser(value.currentUser); setCokie(value.keycokie); };
+    const [dataService, setDataService] = useState(undefined);
+    const [dataList, setDataList] = useState({});
+    const dataBody = { id_customer: currentUser?.id_customer };
+    const getData = (v) => {
+        setActiveRefresh(false); setDataService(v); console.log('Fetch Complete');
+        v?.cart_list.map((v) => {
+            const OldList = dataList;
+            console.log('OldList');
+            console.log(OldList);
+            if ((dataList[v.id_store]?.id_store == v.id_store) == false) {
+                let product = {};
+                product[v.id_product] = {
+                    checked: false, detail_1: v.detail_1, detail_2: v.detail_2, id_cartdetail: v.id_cartdetail, id_product: v.id_product,
+                    id_promotion: v.id_promotion, id_store: v.id_store, image_product: v.image_product, insert_date: v.insert_date,
+                    invoice_no: v.invoice_no, max_remain: v.max_remain, path_product: v.path_product, price: v.price,
+                    price_total: v.price_total, product_name: v.product_name, quantity: v.quantity, real_price: v.real_price,
+                    status_purchase: v.status_purchase, tracking_number: v.tracking_number
+                };
+                dataList[v.id_store] = {
+                    id_store: v.id_store, name: v.name, store_image: v.store_image, store_path: v.store_path, product
+                };
+            } else {
+                const product = dataList[v.id_store].product;
+                product[v.id_product] = {
+                    ...product[v.id_product], detail_1: v.detail_1, detail_2: v.detail_2, id_cartdetail: v.id_cartdetail,
+                    id_product: v.id_product, id_promotion: v.id_promotion, id_store: v.id_store, image_product: v.image_product,
+                    insert_date: v.insert_date, invoice_no: v.invoice_no, max_remain: v.max_remain, path_product: v.path_product,
+                    price: v.price, price_total: v.price_total, product_name: v.product_name, quantity: v.quantity,
+                    real_price: v.real_price, status_purchase: v.status_purchase, tracking_number: v.tracking_number
+                };
+                dataList[v.id_store] = {
+                    ...dataList[v.id_store], id_store: v.id_store, name: v.name, store_image: v.store_image, store_path: v.store_path, product
+                };
+            };
+            setDataList({ ...OldList, ...dataList });
+        });
+    };
+    console.log('cart_list');
+    console.log(dataList);
+    const getSource = (v) => { setActiveGetSource(false); setCurrentUser(v.currentUser); setCokie(v.keycokie); };
     useEffect(() => {
-        activeGetSource && GetData({ getCokie: true, getUser: true, getSource: value => getSource(value) });
-    }, [activeGetSource]);
+        activeGetSource && GetData({ getCokie: true, getSource: (v) => getSource(v), getUser: true, });
+    }, [activeGetSource])
+    useEffect(() => {
+        currentUser && dataBody && activeRefresh && GetServices({ dataBody, getDataSource: (v) => getData(v), uriPointer: uri, });
+    }, [currentUser && dataBody && activeRefresh])
+    const Props = { ...props, activeRefresh, cokie, currentUser, dataList, dataService, setDataList }
+    const uri = `${finip}/cart/cart_mobile`;
     activeSave2 && setActiveSave2(false);
-    cartData && cartData.isActive && !cartData.isResult && currentUser?.id_customer &&
-        cartListResult({
-            cokie: cokie, id_customer: currentUser.id_customer, list_order: cartDataList.join(','),
-            id_coupon: !cartData?.isOtherCoupon && cartData?.coupon ? cartData.coupon.id_coupon : '',
-            text_coupon: cartData?.isOtherCoupon && cartData?.coupon ? cartData.coupon.id_coupon : '',
-        })
     return <SafeAreaView style={[BackgroundAreaView, SafeAreaViewNB]}>
         {/* {reduxDataBody?.isActive || reduxDataBody?.isRefresh && <LoadingScreen />} */}
-        <AppBar {...props} backArrow deleteBar titleHead='รถเข็น' />
+        <AppBar {...Props} backArrow deleteBar titleHead='รถเข็น' />
+        <ScrollList {...Props} />
+        <ExitAppModule {...Props} />
+    </SafeAreaView>;
+};
+///----------------------------------------------------------------------------------------------->>>>
+export const ScrollList = (props) => {
+    const { getFetchData, } = props;
+    return <View>
         <ScrollView>
-            <Product_Cart {...props} cokie={cokie} currentUser={currentUser} />
+            <Product_Cart {...props} />
             {/* <Product_Like /> */}
             <PopularProduct {...props} dataService={getFetchData['publish_mobile']?.data?.for_you2} headText={'คุณอาจชอบสิ่งนี้'} />
         </ScrollView>
-        <Buy_bar {...props} currentUser={currentUser} cokie={cokie} />
-        <ExitAppModule {...props} />
-    </SafeAreaView>;
+        {/* <Buy_bar {...props} /> */}
+    </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Cart
-export let Product_Cart = (props) => {
-    const {
-        activeCartList, activeRefresh, cartData, cartDataList, cartListChecked, cartListCheckedStore, cartListDelete, cartListUpdate,
-        cokie, currentUser, getFetchData, reduxDataBody, setDataRefresh, setDataStart,
-    } = props;
-    const [active, setActive] = useState(false);
-    const [activeReload, setActiveReload] = useState(false);
-    useEffect(() => {
-        setActiveReload(!activeReload)
-    }, [cartData])
-    let renderItem = (data) => <TouchableOpacity activeOpacity={1}
+export const Product_Cart = (props) => {
+    const { activeRefresh, dataList, setDataList, } = props;
+    const OldList = dataList;
+    let List = [];
+    for (const [key, value] of Object.entries(dataList)) { List.push(value); };
+    const renderItem = (value) => <TouchableOpacity activeOpacity={1}
         style={{ backgroundColor: '#fff', borderColor: '#ECECEC', borderRightWidth: 1, }}>
         <View style={{ flexDirection: 'row', }}>
             <CheckBox containerStyle={[ItemCenterVertical, { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
-                textStyle={14} fontFamily='ThaiSansNeue-ExtraBold' checked={data.item.checked} onPress={() => {
-                    cartListChecked(data.item.id_cartdetail, data.item.id_store, cartDataList); setActiveReload(!activeReload);
+                textStyle={14} fontFamily='ThaiSansNeue-ExtraBold' checked={value.item.checked} onPress={() => {
+                    const product = dataList[value.item.id_store].product;
+                    product[value.item.id_product] = { ...product[value.item.id_product], checked: !value.item.checked };
+                    dataList[value.item.id_store] = { ...dataList[value.item.id_store], };
+                    setDataList({ ...OldList, ...dataList, });
                 }} />
             <View style={{
                 aspectRatio: 1, backgroundColor: '#fffffe', borderColor: '#ECECEC', borderWidth: 1, height: 'auto', marginBottom: 2,
-                marginTop: data.index == 0 ? 2 : 0, overflow: 'hidden', width: normalize(88),
+                marginTop: value.index == 0 ? 2 : 0, overflow: 'hidden', width: normalize(88),
             }}>
                 <FastImage style={[BoxProduct2Image, { flex: 1 }]} resizeMode={FastImage.resizeMode.contain}
-                    source={{ uri: `${finip}/${data.item.path_product}/${data.item.image_product}`, }} />
+                    source={{ uri: `${finip}/${value.item.path_product}/${value.item.image_product}`, }} />
             </View>
             <View style={[ItemCenterVertical, { marginLeft: 12 }]}>
                 <Text numberOfLines={1} style={[FontFamilyText, FontSize5, { width: 62 * (width / 120) }]}>
-                    {data.item.product_name}</Text>
-                <Text style={[FontFamilyText, FontSize7]}>{`${data.item.detail_1} ${data.item.detail_2}`}</Text>
-                <NumberFormat value={data.item.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
+                    {value.item.product_name}</Text>
+                <Text style={[FontFamilyText, FontSize7]}>{`${value.item.detail_1} ${value.item.detail_2}`}</Text>
+                <NumberFormat value={value.item.price} displayType={'text'} thousandSeparator={true} prefix={'฿'} renderText={value =>
                     <Text style={[FontSize5, FontFamilyBold, { color: mainColor }]}>{value}</Text>} />
                 <View style={{ flexDirection: 'row' }}>
-                    <TouchableOpacity activeOpacity={1} onPress={() =>
-                        (data.item.quantity * 1) - 1 > 0 && (data.item.quantity * 1) - 1 < data.item.max_remain ?
-                            [cartListUpdate({
-                                amount: (data.item.quantity * 1) - 1, cokie, list_order: cartDataList.join(','),
-                                id_cartdetail: data.item.id_cartdetail, id_customer: currentUser.id_customer,
-                                id_store: data.item.id_store,
-                            })] : null}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => null}>
                         <View style={[ItemCenter,
                             { width: 30, height: 25, borderColor: '#ECECEC', borderRightWidth: 0, borderWidth: 1 }]}>
                             <Text style={[ItemCenterVertical, FontSize4,
-                                { color: data.item.quantity > 1 ? '#111' : '#CECECE' }]}>-</Text>
+                                { color: value.item.quantity > 1 ? '#111' : '#CECECE' }]}>-</Text>
                         </View>
                     </TouchableOpacity>
                     <View style={[ItemCenter, FontFamilyText,
                         { width: 50, height: 25, borderColor: '#ECECEC', borderWidth: 1 }]}>
-                        <Text style={[ItemCenterVertical]}>{data.item.quantity}</Text>
+                        <Text style={[ItemCenterVertical]}>{value.item.quantity}</Text>
                     </View>
-                    <TouchableOpacity activeOpacity={1} onPress={() =>
-                        (data.item.quantity * 1) + 1 > 0 && (data.item.quantity * 1) + 1 < data.item.max_remain ?
-                            [cartListUpdate({
-                                amount: (data.item.quantity * 1) + 1, cokie, list_order: cartDataList.join(','),
-                                id_cartdetail: data.item.id_cartdetail, id_customer: currentUser.id_customer,
-                                id_store: data.item.id_store,
-                            })] : null}>
+                    <TouchableOpacity activeOpacity={1} onPress={() => null}>
                         <View style={[ItemCenter,
                             { width: 30, height: 25, borderColor: '#ECECEC', borderLeftWidth: 0, borderWidth: 1 }]}>
                             <Text style={[ItemCenterVertical, FontSize4, {
-                                color: data.item.quantity < data.item.max_remain - 1 ? '#111' : '#CECECE'
+                                color: value.item.quantity < value.item.max_remain - 1 ? '#111' : '#CECECE'
                             }]}>+</Text>
                         </View>
                     </TouchableOpacity>
@@ -148,47 +173,55 @@ export let Product_Cart = (props) => {
             </View>
         </View>
     </TouchableOpacity>;
-    let renderHiddenItem = (data, rowMap,) => <View style={{
+    let renderHiddenItem = (value, rowMap,) => <View style={{
         alignItems: 'center', backgroundColor: '#DDD', flex: 1, flexDirection: 'row', justifyContent: 'space-between', paddingLeft: 15,
     }}>
         <TouchableOpacity style={[{
             alignItems: 'center', bottom: 0, justifyContent: 'center', position: 'absolute', top: 0, width: 75, backgroundColor: 'red',
             right: 0, borderColor: '#ECECEC', borderTopWidth: 1, borderBottomWidth: 1,
-        }]} onPress={() => [cartListDelete({
-            cokie, list_order: data.item.id_cartdetail, id_customer: currentUser.id_customer
-        }), setTimeout(() => { rowMap[data.item.key] && rowMap[data.item.key].closeRow() }, 450)]}>
+        }]} onPress={() => setTimeout(() => { rowMap[value.item.key] && rowMap[value.item.key].closeRow() }, 450)}>
             <IconFontAwesome name='trash-o' size={30} style={{ color: '#fff' }} />
         </TouchableOpacity>
-    </View>;
-    return <View>
-        {active && <LoadingScreen />}
-        {cartData && cartData.data.length > 0 ?
-            cartData.data.map((item_n, index_n) => {
-                var dataMySQL_n = `${finip}/${item_n.store_path}/${item_n.store_image}`;
-                return <View style={{ marginBottom: 3, backgroundColor: '#fff' }} key={index_n}>
-                    <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
-                        <View style={{ flexDirection: 'row', }}>
-                            <CheckBox containerStyle={[ItemCenterVertical,
-                                { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
-                                textStyle={14} fontFamily='ThaiSansNeue-ExtraBold' checked={item_n.checked} onPress={() => {
-                                    cartListCheckedStore(item_n.id_store, cartDataList); setActiveReload(!activeReload);
-                                }} />
-                            <View style={[ItemCenterVertical,
-                                { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
-                                <FastImage style={[BoxProduct2Image, { flex: 1, borderRadius: 20, }]}
-                                    source={{ uri: dataMySQL_n, }} resizeMode={FastImage.resizeMode.contain} />
-                            </View>
-                            <Text style={[ItemCenterVertical, FontFamilyText, FontSize5,
-                                { marginLeft: 14, }]}>{item_n.name}</Text>
+    </View>
+    const BodyBox = () => {
+        return List.map((value, index) => {
+            let SubList = [];
+            let SubNumber = [];
+            const ImageStore = { uri: `${finip}/${value.store_path}/${value.store_image}`, };
+            for (const [key, value2] of Object.entries(value.product)) { SubList.push(value2); SubNumber.push(value2.id_product); };
+            console.log('SubList')
+            console.log(SubList.every((value) => value.checked == true))
+            return <View key={index} style={{ marginBottom: 3, backgroundColor: '#fff' }}>
+                <View style={{ flexDirection: 'row', borderColor: '#ECECEC', borderWidth: 1, justifyContent: 'space-between' }}>
+                    <View style={{ flexDirection: 'row', }}>
+                        <CheckBox containerStyle={[ItemCenterVertical, { backgroundColor: null, borderWidth: null, paddingHorizontal: 4 }]}
+                            textStyle={14} fontFamily='ThaiSansNeue-ExtraBold' checked={SubList.every((value2) => value2.checked == true)}
+                            onPress={() => {
+                                const product = dataList[value.id_store].product;
+                                SubNumber.map((value2) =>
+                                    product[value2] = { ...product[value2], checked: !SubList.every((value3) => value3.checked == true) });
+                                dataList[value.id_store] = { ...dataList[value.id_store], product };
+                                setDataList({ ...OldList, ...dataList, });
+                            }} />
+                        <View style={[ItemCenterVertical,
+                            { width: 30, height: 30, borderRadius: 20, backgroundColor: '#cecece' }]}>
+                            <FastImage resizeMode={FastImage.resizeMode.contain} source={ImageStore} style={[BoxProduct2Image,
+                                { borderRadius: 20, flex: 1, }]} />
                         </View>
+                        <Text style={[ItemCenterVertical, FontFamilyText, FontSize5, { marginLeft: 14, }]}>{value.name}</Text>
                     </View>
-                    <View>
-                        <SwipeListView useFlatList data={item_n.product} renderItem={renderItem} renderHiddenItem={renderHiddenItem}
-                            disableRightSwipe rightOpenValue={-75} stopRightSwipe={-75} />
-                    </View>
-                </View>;
-            }) :
-            <View style={Product_Cart}>
+                </View>
+                <View>
+                    <SwipeListView useFlatList data={SubList} renderItem={renderItem} renderHiddenItem={renderHiddenItem}
+                        disableRightSwipe rightOpenValue={-75} stopRightSwipe={-75} />
+                </View>
+            </View>;
+        })
+    };
+    return <View>
+        {List.length > 0 ?
+            BodyBox() :
+            <View style={Product_Carts}>
                 <View style={[ItemCenter, { height: 200, width: '100%' }]}>
                     <View style={[ItemCenterVertical, ItemCenter]}>
                         <IconFeather name="shopping-cart" size={60} />
@@ -199,11 +232,11 @@ export let Product_Cart = (props) => {
     </View>;
 };
 ///----------------------------------------------------------------------------------------------->>>> Product_Like
-export let Product_Like = (props) => <View>
+export const Product_Like = (props) => <View>
     <Text>รายการที่คุณชอบ</Text>
 </View>;
 ///----------------------------------------------------------------------------------------------->>>> Buy_bar
-export let Buy_bar = (props) => {
+export const Buy_bar = (props) => {
     const {
         activeCheck, checkedAll, couponList, currentUser, dataService2, deleteAction, cokie, cartData, cartDataList, cartListCheckedAll,
         cartListSelectCoupon, cartListDelete, navigation, sendCheck,
@@ -212,16 +245,16 @@ export let Buy_bar = (props) => {
     const [errorService3, setErrorService3] = useState(false);
     const [text, setText] = useState(undefined);
     const ConponSheetRef = useRef(null);
-    let getData4 = (dataService6) => {
+    const getData4 = (dataService6) => {
         NavigationNavigate({ goScreen: 'Cart_Order', setData: { no_invoice: dataService6.no_invoice }, navigation });
     };
-    let setStateCancel = () => {
+    const setStateCancel = () => {
         cartListSelectCoupon({ coupon: [], other: false })
     };
-    let setStateCoupon = (value) => {
+    const setStateCoupon = (value) => {
         cartListSelectCoupon({ coupon: value, other: false });
     };
-    let ConponSheetBody = () => <View style={{ flex: 1, paddingHorizontal: 15 }}>
+    const ConponSheetBody = () => <View style={{ flex: 1, paddingHorizontal: 15 }}>
         <Text style={[FontFamilyBold, FontSize2, { textAlign: 'center' }]}>ส่วนลด</Text>
         <ScrollView>
             {couponList && couponList.length > 0 ?
@@ -229,14 +262,14 @@ export let Buy_bar = (props) => {
                     setStateCoupon(value)} />) : null}
         </ScrollView>
     </View>;
-    let ConponSheetButtom = () => ConponSheetRef.current.open();
-    let setStateBill = () => setCreateBill(true);
-    var uri = `${finip}/cart/check_coupon`;
-    var dataBody = {
+    const ConponSheetButtom = () => ConponSheetRef.current.open();
+    const setStateBill = () => setCreateBill(true);
+    const uri = `${finip}/cart/check_coupon`;
+    const dataBody = {
         id_customer: currentUser?.id_customer,
         list_order: cartDataList.join(',')
     };
-    var uri4 = `${finip}/bill/create_bill`;
+    const uri4 = `${finip}/bill/create_bill`;
     errorService3 && _spring();
     createBill && cokie && currentUser?.id_customer && GetServices({
         uriPointer: uri4, showConsole: 'create_bill', Authorization: cokie, dataBody: {
@@ -247,7 +280,7 @@ export let Buy_bar = (props) => {
             buy_now: "cart",
         }, getDataSource: (value) => getData4(value)
     });
-    var checkedMain = cartData.data.every((value) => { return value.checked == true });
+    const checkedMain = cartData.data.every((value) => { return value.checked == true });
     return <>
         {/* <Animatable.View style={[animatedView, { opacity: springValue, transform: [{ translateY: transformValue }] }]}>
             <View style={[animatedViewSub, { position: 'absolute' }]}>

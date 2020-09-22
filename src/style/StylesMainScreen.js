@@ -461,6 +461,7 @@ export default StyleSheet.create({
     alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    paddingVertical: 5,
   },
   FrameBackgroundTextStart: {
     marginLeft: 10,

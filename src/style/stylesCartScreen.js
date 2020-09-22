@@ -30,7 +30,7 @@ export default StyleSheet.create({
         fontSize: 15,
     },
     ///--------------------------------------------------------------------------///
-    Product_Cart: {
+    Product_Carts: {
         backgroundColor: '#FFFFFF',
         borderColor: '#ECECEC',
         borderWidth: 1,

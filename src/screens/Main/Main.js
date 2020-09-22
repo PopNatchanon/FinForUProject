@@ -501,7 +501,7 @@ export const Recommend_Brand = (props) => {
         return <TouchableOpacity activeOpacity={1} key={i} onPress={() =>
             Navi({ ...props, goScreen: 'Main_RecommendBrand', })}>
             <View style={[Brand_image_Box, { height: 60, width: width * 0.25, }]}>
-                <FastImage resizeMode={cover} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
+                <FastImage resizeMode={contain} source={ImageReBrand} style={[HW100p, ItemCenterVertical]} />
                 <FastImage resizeMode={stretch} source={Gborder} style={[HW100p, ItemCenterVertical, { position: 'absolute' }]} />
             </View>
         </TouchableOpacity>;
@@ -1036,7 +1036,7 @@ export function CategoryProduct(props) {
         dataService.cate_promotions_1.map((v2) => v2.map((v3) => v3.id_type == id_type ? promo1Item.push(v3) : null));
         dataService.cate_promotions_2.map((v2) => v2.map((v3) => v3.id_type == id_type ? promo2Item.push(v3) : null));
         dataService.cate_shop.map((v2) => v2.map((v3) => v3.id_type == id_type ? shopItem.push(v3) : null));
-        if (i < 20 /*getFetchData['category_mobile'].length*/) {
+        if (i < 1 /*getFetchData['category_mobile'].length*/) {
             const ImageHead = { uri: `${finip}/${image_path}/head_mobile/${image_menu}${Platform.OS == 'android' ? '_.webp' : ''}`, };
             const mix_color = color_up(mobile_bg);
             return <View key={i} style={[FrameBackground2, { backgroundColor: mobile_bg, paddingBottom: 3, }]}>
@@ -1096,13 +1096,13 @@ export const CategoryProductSubStore = (props) => {
             </View>
         </TouchableOpacity>;
     };
-    return <>
+    return <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Main_RecommendStore', })}>
         {shop && shop.length > 0 ?
             <Carousel autoplay autoplayInterval={3000} data={shop} loop pagination={PaginationLight} renderItem={_renderBanner} /> :
             <View style={{ backgroundColor: mix_color, height: 57.8, marginLeft: 5, width: width * 0.56, }}>
                 <View style={HW100p} />
             </View>}
-    </>;
+    </TouchableOpacity>;
 };
 ///----------------------------------------------------------------------------------------------->>>> CategoryProductSubPromotion
 export const CategoryProductSubPromotion = (props) => {
@@ -1115,9 +1115,9 @@ export const CategoryProductSubPromotion = (props) => {
     const CategoryProductSubPromotionSmall = promo_2 ? promo_2.map((v, i) => {
         // const dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_M/${v.image}`;
         const ImagePromoSmall = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
-        return <View key={i} style={[BoxStore1Box3, { height: 66, marginTop: 3, width: '100%', }]}>
+        return <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Main_RecommendStore', })} key={i} style={[BoxStore1Box3, { height: 66, marginTop: 3, width: '100%', }]}>
             {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoSmall} style={HW100p} />}
-        </View>;
+        </TouchableOpacity>;
     }) : BoxEmptySmall;
     const BoxEmptyBig = <View style={[BoxStore1Box2, { backgroundColor: mix_color, borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
         <View style={HW100p}>
@@ -1127,9 +1127,9 @@ export const CategoryProductSubPromotion = (props) => {
     const CategoryProductSubPromotionBig = promo_1 ? promo_1.map((v, i) => {
         // const dataMySQL = `${ip}/MySQL/uploads/Image Home/15.CategoryProduct/Category_L/${v.image}`;
         const ImagePromoBig = { uri: `${finip}/${v.image_path}/mobile/${v.image}${Platform.OS == 'android' ? '_.webp' : ''}` };
-        return <View key={i} style={[BoxStore1Box2, { borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
+        return <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'Main_RecommendStore', })} key={i} style={[BoxStore1Box2, { borderWidth: 0, marginBottom: 3, marginTop: 3, }]}>
             {v && <Image resizeMethod='resize' resizeMode='cover' source={ImagePromoBig} style={HW100p} />}
-        </View>;
+        </TouchableOpacity>;
     }) : BoxEmptyBig;
     return <>
         <View style={[FRow, { marginTop: 3, width: '100%', }]}>
@@ -1148,31 +1148,6 @@ export const Second_product = (props) => {
     const { dataService, Header_Second, } = props;
     const MobileBarStyle = { backgroundColor: '#ECECEC', borderBottomWidth: 0.5, borderColor: '#DCDCDC', borderWidth: 1, marginTop: 0, };
     const VStyle = { marginTop: 0 };
-    const dataService2 = [{
-        id_product: 0, image: '1.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '169000',
-        name_product: 'ขาย Ford Fiesta 1.6 5d ปี 11', type: 'local',
-    }, {
-        id_product: 1, image: '2.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '30',
-        name_product: 'สินค้ามือสองสภาพดีราคาไม่แพงราคาถูกๆ', type: 'local',
-    }, {
-        id_product: 2, image: '3.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '50',
-        name_product: 'สินค้ามือสอง [Second Hand] กล่องใส่ SD Card สภาพนางฟ้า 💥💥 ถ่ายจากของจริง', type: 'local',
-    }, {
-        id_product: 3, image: '4.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '780',
-        name_product: '(สินค้ามือสอง✌🏻) กระเป๋าสตางค์ Charles&Keith Classic Zipped Wallet', type: 'local',
-    }, {
-        id_product: 4, image: '5.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '3200',
-        name_product: 'Ipad2 WiFi 16 GB สินค้ามือสองคุณภาพดี ราคาแบ่งปัน', type: 'local',
-    }, {
-        id_product: 5, image: '6.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '4599',
-        name_product: '【HOT】Second hand ไอโพน6plus แท้100% อุปกรณ์ครบชุด สภาพใหม่ มือสอง[สินค้าที่มีอยู่ มือสอง]', type: 'local',
-    }, {
-        id_product: 6, image: '7.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '3999',
-        name_product: 'สินค้าที่มีอยู่ มือสอง】มือสอง Apple 6 plus iPhone 6 plus ในสภาพที่ดีอุปกรณ์ของแท้ ', type: 'local',
-    }, {
-        id_product: 7, image: '8.jpg', image_path: 'MySQL/uploads/Test_Product/Second_product', last_price: '1850',
-        name_product: 'Lighting L116T SMART LED Video Light สินค้ามือสอง', type: 'local',
-    }];
     const RenderItem1 = dataService?.list_store2_1 ? dataService.list_store2_1.map((v, i) => {
         const ImageStore2 = { uri: `${finip}/${v.image_path}/${v.image}`, };
         return <View key={i} style={{ height: 196, width: width * 0.64, }}>
@@ -1208,8 +1183,8 @@ export const Second_product = (props) => {
     </View>);
     let ImageHead;
     dataService?.mobile_bar?.map((v) =>
-        // header_url = `${finip}/${v.image_path}/${v.image}` });
-        ImageHead = { uri: `${ip}/MySQL/uploads/Category_Total/Second/header.jpg`, });
+        // ImageHead = { uri: `${finip}/${v.image_path}/${v.image}`, });
+    ImageHead = { uri: `${ip}/MySQL/uploads/Category_Total/Second/header.jpg`, });
     const Second_Storeheader = <View key={'mobile_bar'} style={[FrameBackground2, { borderBottomWidth: null, marginTop: 0, }]}>
         <View>
             {Header_Second ?
@@ -1280,7 +1255,7 @@ export const Second_product = (props) => {
         <ScrollView horizontal>
             <View style={FRow}>
                 {dataService?.mobile_slide ?
-                    <Carousel autoplay autoplayInterval={3000} data={item} loop pagination={PaginationLight} renderItem={_renderFooter} /> :
+                    <Carousel  data={item} loop pagination={PaginationLight} renderItem={_renderFooter} /> :
                     <View style={FRow}>{BoxEmptyFooter}</View>}
             </View>
         </ScrollView>

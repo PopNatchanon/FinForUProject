@@ -22,6 +22,7 @@ import { TabBar } from '../../customComponents/Tools';
 import { Toolbar, BorderBottomTab, AppBar, NavigationNavigate, ButtomTab } from '../../customComponents';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, ip, } from '../../navigator/IpConfig';
+import { TextInput } from 'react-native-gesture-handler';
 ///----------------------------------------------------------------------------------------------->>>> Main
 const Navi = (naviProps) => NavigationNavigate(naviProps);
 const mapStateToProps = (state) => ({
@@ -51,7 +52,7 @@ function FinService(props) {
 }
 ///----------------------------------------------------------------------------------------------->>>>banner
 export let Banner_Service = (props) => {
-    const Service_image = { uri: `${ip}/MySQL/uploads/Service/videoservices.gif`, };
+    const Service_image = { uri: `${ip}/MySQL/uploads/Service/Bg_service.jpg`, };
     return <View style={{ backgroundColor: '#000000' }}>
         <FastImage resizeMode={cover} source={Service_image} style={{ height: 180, width: width * 1, opacity: 0.6 }} />
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize1, {
@@ -96,67 +97,15 @@ export let Menu_Bar = (props) => {
             }]}>
             <FastImage resizeMode={cover} source={ImageMenu} style={{ height: 100, width: '48%', borderBottomLeftRadius: 5, borderTopLeftRadius: 5 }} />
             <View style={{ width: '50%', marginLeft: 5 }}>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.ThaiTitle}</Text>
-                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: mainColor, textAlign: 'center' }]}>{v.Title}</Text>
+                {/* <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.ThaiTitle}</Text> */}
+                <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize6, { color: mainColor, textAlign: 'center' }]}>{v.Title}</Text>
                 <Text numberOfLines={3} style={[stylesFont.FontFamilyText, stylesFont.FontSize7, { color: '#919191', }]}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce vitae sodales nunc. Aenean rutrum tortor lacus, in ornare arcu accumsan tincidunt. Interdum et malesuada fames ac ante ipsum primis in faucibus. Aenean ac velit purus. Nam ligula elit</Text>
             </View>
         </TouchableOpacity>
     });
     return <View style={{ borderRadius: 5, marginHorizontal: 5, marginTop: 5 }}>
-        {/* <View style={{ backgroundColor: mainColor, paddingHorizontal: 20, borderRadius: width / 2, margin: 5, paddingVertical: 5, marginVertical: 5, marginTop: 7 }}>
-            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4, { color: '#FFFFFF' }]}>Digital Agency Services</Text>
-        </View> */}
         <View>
             {MenuBox}
-            {/* <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Blog', })} style={[stylesMain.FlexRow, {
-                    borderColor: mainColor, borderWidth: 1,
-                    borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF'
-                }]}>
-                    <FastImage resizeMode={cover} source={CONTENT} style={{ height: '100%', width: '50%', }} />
-                    <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF', textAlign: 'center' }]}>CONTENT MARKETING</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Admin', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
-                    <FastImage resizeMode={cover} source={ADMIN} style={{ height: '100%', width: '50%', }} />
-                    <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF', textAlign: 'center' }]}>ADMIN</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={[stylesMain.FlexRow, { justifyContent: 'space-around', marginTop: 5 }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_Photograph', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
-                    <FastImage resizeMode={cover} source={PHOTOGRAPH} style={{ height: '100%', width: '50%', }} />
-                    <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF', textAlign: 'center' }]}>PHOTOGRAPH</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_VideoContent', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
-                    <FastImage resizeMode={cover} source={VIDEO} style={{ height: '100%', width: '50%', }} />
-                    <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
-                        <View style={[stylesMain.ItemCenter, { backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }]}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF', textAlign: 'center' }]}>VIDEO CONTENT</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View>
-            <View style={[stylesMain.FlexRow, { marginTop: 5, justifyContent: 'center' }]}>
-                <TouchableOpacity onPress={() => Navi({ ...props, goScreen: 'FinService_GraphicDesign', })} style={[stylesMain.FlexRow, { borderColor: mainColor, borderWidth: 1, borderRadius: 5, height: 90, width: '48.5%', justifyContent: 'space-between', backgroundColor: '#FFFFFF' }]}>
-                    <FastImage resizeMode={cover} source={GRAPHIC} style={{ height: '100%', width: '50%', }} />
-                    <View style={[stylesMain.ItemCenter, { width: '40%' }]}>
-                        <View style={{ backgroundColor: mainColor, borderTopLeftRadius: 5, borderBottomLeftRadius: 5, height: 40, width: '100%' }}>
-                            <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize8, { color: '#FFFFFF', textAlign: 'center' }]}>GRAPHIC DESIGN</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
-            </View> */}
         </View>
     </View>
 }
@@ -308,19 +257,31 @@ export let FAQs = (props) => {
 }
 ///----------------------------------------------------------------------------------------------->>>>
 export let Contact_Us = (props) => {
+    const [text, setText] = useState(undefined);
     return <View style={[stylesMain.ItemCenter, { backgroundColor: '#FFFFFF', borderColor: '#C9C9C9', borderWidth: 1, margin: 5, padding: 5 }]}>
         <Text style={[stylesFont.FontFamilyBold, stylesFont.FontSize4]}>Contact Us</Text>
         <View style={{ backgroundColor: '#FFFFFF', width: '90%' }}>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>ชื่อผู้ติดต่อ*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
+            <View style={{ borderWidth: 1, height: 45, borderColor: '#C9C9C9' }} >
+                <TextInput fontSize={15} onChangeText={(value) => setText(value)} placeholder='ชื่อผู้ติดต่อ' value={text} />
+            </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>หมายเลขโทรศัพท์*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
+            <View style={{ borderWidth: 1, height: 45, borderColor: '#C9C9C9' }} >
+                <TextInput fontSize={15} onChangeText={(value) => setText(value)} placeholder='หมายเลขโทรศัพท์' value={text} />
+            </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>อีเมล*</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
+            <View style={{ borderWidth: 1, height: 45, borderColor: '#C9C9C9' }} >
+                <TextInput fontSize={15} onChangeText={(value) => setText(value)} placeholder='อีเมล' value={text} />
+            </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>LINE ID</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
+            <View style={{ borderWidth: 1, height: 45, borderColor: '#C9C9C9' }} >
+                <TextInput fontSize={15} onChangeText={(value) => setText(value)} placeholder='LINE ID' value={text} />
+            </View>
             <Text style={[stylesFont.FontFamilyText, stylesFont.FontSize6]}>เรื่องที่ติดต่อ</Text>
-            <View style={{ borderWidth: 1, height: 30, borderColor: '#C9C9C9' }} />
+            <View style={{ borderWidth: 1,  borderColor: '#C9C9C9' }} >
+                <TextInput fontSize={15} onChangeText={(value) => setText(value)} placeholder='เรื่องที่ติดต่อ'
+                    multiline numberOfLines={4} value={text} style={{ height: 100 }} />
+            </View>
         </View>
         <View style={stylesMain.ItemCenter}>
             <TouchableOpacity style={[stylesMain.ItemCenter, { backgroundColor: mainColor, width: 80, height: 40, marginTop: 10, borderRadius: 10 }]}>

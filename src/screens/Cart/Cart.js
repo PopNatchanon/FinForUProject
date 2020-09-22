@@ -31,7 +31,7 @@ import { PopularProduct } from '../Store/Store';
 ///----------------------------------------------------------------------------------------------->>>> Ip
 import { finip, } from '../../navigator/IpConfig';
 ///----------------------------------------------------------------------------------------------->>>> setup
-const { Bar, Bar_Buy, Bar_Buy_price, Bar_Code, Bar_Code_Box, Bar_Code_Box_Text, Bar_Code_Text, BOX_Buy, BOX_Buy_Text, Product_Cart
+const { Bar, Bar_Buy, Bar_Buy_price, Bar_Code, Bar_Code_Box, Bar_Code_Box_Text, Bar_Code_Text, BOX_Buy, BOX_Buy_Text, Product_Carts
 } = stylesCart;
 const { FontFamilyBold, FontFamilyText, FontSize2, FontSize4, FontSize5, FontSize6, FontSize7 } = stylesFont;
 const { animatedView, animatedViewSub, BackgroundAreaView, BoxProduct2Image, exitTitleText, ItemCenter, ItemCenterVertical, SafeAreaViewNB,
@@ -188,7 +188,7 @@ export let Product_Cart = (props) => {
                     </View>
                 </View>;
             }) :
-            <View style={Product_Cart}>
+            <View style={Product_Carts}>
                 <View style={[ItemCenter, { height: 200, width: '100%' }]}>
                     <View style={[ItemCenterVertical, ItemCenter]}>
                         <IconFeather name="shopping-cart" size={60} />

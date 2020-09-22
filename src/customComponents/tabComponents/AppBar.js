@@ -55,12 +55,12 @@ class AppSearchBar extends React.Component {
         const AIconEntypo = Animatable.createAnimatableComponent(IconEntypo);
         const AIconFeather = Animatable.createAnimatableComponent(IconFeather);
         const AIconFontAwesome5 = Animatable.createAnimatableComponent(IconFontAwesome5);
-        var allWidth = width - 20;
+        var allWidth = width - 30;
         backArrow && (allWidth -= 30);
-        cartBar && (allWidth -= 30);
-        chatBar && (allWidth -= 30);
-        filterBar && (allWidth -= 30);
-        otherBar && (allWidth -= 30);
+        cartBar && (allWidth -= 25);
+        chatBar && (allWidth -= 25);
+        filterBar && (allWidth -= 25);
+        otherBar && (allWidth -= 25);
         const colors = [];
         if (colorSet) colorSet.map((value) => typeof value == 'object' ? colors.push(JSON.stringify(value)) : colors.push(value));
         !cartData?.isActive && !cartData?.isRefresh && cartData.data.length == 0 && cokie && currentUser?.id_customer &&
@@ -72,7 +72,7 @@ class AppSearchBar extends React.Component {
         }]}>
             {backArrow && <View key={'backarrow'}>
                 <TouchableOpacity activeOpacity={1} onPress={() => NavigationNavigate({ goScreen: 'goBack', navigation })}
-                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 40, }]}>
+                    style={[stylesMain.ItemCenter, stylesMain.ItemCenterVertical, { width: 35, }]}>
                     <AIconEntypo name="chevron-left" size={25} style={{ color: AIColor }} />
                 </TouchableOpacity>
             </View>}
